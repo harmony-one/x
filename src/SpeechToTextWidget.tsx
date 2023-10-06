@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {CheetahTranscript, Cheetah, CheetahModel} from '@picovoice/cheetah-web'
+import React, { useEffect, useState } from 'react'
+import { CheetahTranscript, Cheetah, CheetahModel } from '@picovoice/cheetah-web'
 import { WebVoiceProcessor } from '@picovoice/web-voice-processor'
 
 // Get your key here: https://console.picovoice.ai/
-const accessKey = ''
+const accessKey = String(process.env.REACT_APP_SECRET_PICOVOICE)
 
 const modelParams: CheetahModel = {
   publicPath: 'cheetah_params.pv',
@@ -15,18 +15,32 @@ const modelParams: CheetahModel = {
   version: 1,
 }
 
-export const SpeechToText = () => {
+export interface ISpeechToTextWidget {
+  onChangeOutput: (output: string) => void;
+}
+
+export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isInitialized, setInitialized] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
 
   const transcriptionCallback = (transcript: CheetahTranscript) => {
     // console.log('transcript', transcript)
     const text = transcript.transcript
-    if(text) {
-      console.log('Text: ', text)
-      setTranscriptions(transcriptions => [...transcriptions, text])
+    if (text) {
+      setTranscriptions(
+        transcriptions => transcriptions.some(text => text.includes('.')) ?
+          [text] :
+          [...transcriptions, text]
+      )
     }
   }
+
+  useEffect(() => {
+    if (transcriptions.some(text => text.includes('.'))) {
+      props.onChangeOutput(transcriptions.join(' '));
+      // setTranscriptions([]);
+    }
+  }, [transcriptions])
 
   const processErrorCallback = (error: string) => {
     console.error('Error callback:', error)
@@ -51,7 +65,7 @@ export const SpeechToText = () => {
         console.error('Cannot init cheetah:', e)
       }
     }
-    if(!isInitialized) {
+    if (!isInitialized) {
       initCheetah()
     }
   }, [isInitialized]);
@@ -75,8 +89,8 @@ export const SpeechToText = () => {
       {[...transcriptions]
         .reverse()
         .filter((_, index) => index > 0)
-        .map(item => {
-          return <div style={{ color: 'gray' }}>{item}</div>
+        .map((item, idx) => {
+          return <div key={String(idx)} style={{ color: 'gray' }}>{item}</div>
         })
       }
     </div>
