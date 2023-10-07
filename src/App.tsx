@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { SpeechToTextWidget } from "./SpeechToTextWidget";
-import { OpenAIWidget } from './OpenAiWidget';
+import { SpeechToTextWidget, OpenAIWidget } from "./widgets";
 
 function App() {
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
