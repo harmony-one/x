@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import './elevenlabs-ws-api';
+import { ElevenlabsApi } from './elevenlabs-ws-api';
 
 export interface IElevenlabsWidget {
     input?: string;
@@ -8,7 +8,9 @@ export interface IElevenlabsWidget {
 
 export const ElevenlabsWidget = (props: IElevenlabsWidget) => {
     const reqMessage = useCallback(async (content: string) => {
+        const api = new ElevenlabsApi();
 
+        api.textToSpeach(content);
     }, []);
 
     useEffect(() => {

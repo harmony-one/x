@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import OpenAI from 'openai';
+import { ElevenlabsApi } from './ElevenlabsWidget/elevenlabs-ws-api';
 
 const openai = new OpenAI({
     apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
@@ -21,13 +22,31 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             model: 'gpt-4',
             messages: [{ role: 'user', content }],
             stream: true,
+            max_tokens: 100,
+            temperature: 0.8
         });
 
+        const elevenlabsApi = new ElevenlabsApi();
+
+        await elevenlabsApi.startStream();
+
         for await (const part of stream) {
-            resMessage += (part.choices[0]?.delta?.content || '');
+            const text = (part.choices[0]?.delta?.content || '');
+
+            resMessage += text;
             setMessage(resMessage);
+
+            if (text) {
+                await elevenlabsApi.sendChunkToStream(text);
+            }
         }
+
+        await elevenlabsApi.stopStream();
     }, []);
+
+    useEffect(() => {
+        props.onChangeOutput(message);
+    }, [message]);
 
     useEffect(() => {
         if (props.input) {

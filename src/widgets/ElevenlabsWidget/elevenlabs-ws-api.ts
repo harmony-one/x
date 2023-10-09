@@ -1,72 +1,157 @@
-const voiceId = "voice_id_here"; // replace with your voice_id
+import { decode } from 'base64-arraybuffer';
+
+const voiceId = "21m00Tcm4TlvDq8ikWAM"; // replace with your voice_id
 const model = 'eleven_monolingual_v1';
 const wsUrl = `wss://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream-input?model_id=${model}`;
-const socket = new WebSocket(wsUrl);
 
-// 2. Initialize the connection by sending the BOS message
-socket.onopen = function (event) {
-    const bosMessage = {
-        "text": " ",
-        "voice_settings": {
-            "stability": 0.5,
-            "similarity_boost": true
-        },
-        "xi_api_key": "api_key_here", // replace with your API key
-    };
+let startTime = 0;
 
-    socket.send(JSON.stringify(bosMessage));
+const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-    // 3. Send the input text message ("Hello World")
-    const textMessage = {
-        "text": "Hello World ",
-        "try_trigger_generation": true,
-    };
+export class ElevenlabsApi {
+    socket: WebSocket;
 
-    socket.send(JSON.stringify(textMessage));
+    isSocketOpen = false;
+    audioContext: AudioContext | undefined;
 
-    // 4. Send the EOS message with an empty string
-    const eosMessage = {
-        "text": ""
-    };
+    initAudioContext = async () => {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
 
-    socket.send(JSON.stringify(eosMessage));
-};
+        this.audioContext = new AudioContext();
 
-// 5. Handle server responses
-socket.onmessage = function (event) {
-    const response = JSON.parse(event.data);
-
-    console.log("Server response:", response);
-
-    if (response.audio) {
-        // decode and handle the audio data (e.g., play it)
-        const audioChunk = atob(response.audio);  // decode base64
-        console.log("Received audio chunk");
-    } else {
-        console.log("No audio data in the response");
+        await this.audioContext.resume()
     }
 
-    if (response.isFinal) {
-        // the generation is complete
+    constructor() {
+        this.socket = new WebSocket(wsUrl);
+
+        // 5. Handle server responses
+        this.socket.onmessage = async (event) => {
+            const response = JSON.parse(event.data);
+
+            console.log("Server response:", response);
+
+            if (response.audio) {
+                // decode and handle the audio data (e.g., play it)
+                // const audioChunk = atob(response.audio);  // decode base64
+                console.log("Received audio chunk");
+
+                if (!this.audioContext) {
+                    await this.initAudioContext();
+                }
+
+                if (this.audioContext) {
+                    const audioContext = this.audioContext;
+
+                    audioContext.decodeAudioData(decode(response.audio), (buffer) => {
+                        var source = audioContext.createBufferSource();
+                        source.buffer = buffer;
+                        source.connect(audioContext.destination);
+
+                        console.log(111, startTime);
+
+                        source.start(startTime);
+                        startTime += buffer.duration;
+                    });
+                }
+            } else {
+                console.log("No audio data in the response");
+            }
+
+            if (response.isFinal) {
+                // the generation is complete
+            }
+
+            if (response.normalizedAlignment) {
+                // use the alignment info if needed
+            }
+        };
+
+        // Handle errors
+        this.socket.onerror = function (error) {
+            console.error(`WebSocket Error: ${error}`);
+        };
+
+        // Handle socket closing
+        this.socket.onclose = (event) => {
+            this.isSocketOpen = false;
+
+            if (event.wasClean) {
+                console.info(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.warn('Connection died');
+            }
+        };
+
+
+        this.socket.onopen = (event) => this.isSocketOpen = true;
     }
 
-    if (response.normalizedAlignment) {
-        // use the alignment info if needed
+    textToSpeach = async (text: string) => {
+        while (!this.isSocketOpen) {
+            await sleep(500);
+        }
+
+        const bosMessage = {
+            "text": " ",
+            "voice_settings": {
+                "stability": 0.5,
+                "similarity_boost": true
+            },
+            "xi_api_key": process.env.REACT_APP_SECRET_ELVENLABS, // replace with your API key
+        };
+
+        this.socket.send(JSON.stringify(bosMessage));
+
+        // 3. Send the input text message ("Hello World")
+        const textMessage = {
+            "text": text,
+            "try_trigger_generation": true,
+        };
+
+        this.socket.send(JSON.stringify(textMessage));
+
+        // 4. Send the EOS message with an empty string
+        const eosMessage = {
+            "text": ""
+        };
+
+        this.socket.send(JSON.stringify(eosMessage));
     }
-};
 
-// Handle errors
-socket.onerror = function (error) {
-    console.error(`WebSocket Error: ${error}`);
-};
+    startStream = async () => {
+        while (!this.isSocketOpen) {
+            await sleep(500);
+        }
 
-// Handle socket closing
-socket.onclose = function (event) {
-    if (event.wasClean) {
-        console.info(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
-    } else {
-        console.warn('Connection died');
+        const bosMessage = {
+            "text": " ",
+            "voice_settings": {
+                "stability": 0.5,
+                "similarity_boost": true
+            },
+            "xi_api_key": process.env.REACT_APP_SECRET_ELVENLABS, // replace with your API key
+        };
+
+        this.socket.send(JSON.stringify(bosMessage));
     }
-};
 
-export { socket };
+    sendChunkToStream = async (text: string) => {
+        // 3. Send the input text message ("Hello World")
+        const textMessage = {
+            "text": text,
+            "try_trigger_generation": true,
+        };
+
+        this.socket.send(JSON.stringify(textMessage));
+    }
+
+    stopStream = async () => {
+        // 4. Send the EOS message with an empty string
+        const eosMessage = {
+            "text": ""
+        };
+
+        this.socket.send(JSON.stringify(eosMessage));
+    }
+}
