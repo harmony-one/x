@@ -8,7 +8,7 @@ function App() {
   const [gpt4Output, setGpt4Output] = useState<string | undefined>();
 
   return (
-    <div className="App">
+    <div className="App" >
       <div>
         <h3>STT (Picovoice)</h3>
         <SpeechToTextWidget onChangeOutput={setSTTOutput} />
