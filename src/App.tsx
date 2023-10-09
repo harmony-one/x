@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { SpeechToTextWidget } from "./SpeechToTextWidget";
-import { OpenAIWidget } from './OpenAiWidget';
+import { SpeechToTextWidget, OpenAIWidget, ElevenlabsWidget } from "./widgets";
 
 function App() {
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
@@ -23,16 +22,14 @@ function App() {
         <OpenAIWidget input={sttOutput} onChangeOutput={setGpt4Output} />
       </div>
 
-      <div>
+      {/* <div>
         <h3>{'==>'}</h3>
       </div>
 
       <div>
-        <h3>TTS</h3>
-        <div style={{ fontSize: '36px', color: '#DFDFDF' }}>
-          In progress...
-        </div>
-      </div>
+        <h3>TTS (Elevenlabs)</h3>
+        <ElevenlabsWidget input={gpt4Output} onChangeOutput={() => { }} />
+      </div> */}
     </div>
   );
 }
