@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { CheetahTranscript, Cheetah, CheetahModel } from '@picovoice/cheetah-web'
 import { WebVoiceProcessor } from '@picovoice/web-voice-processor'
+import {Box, Text, Spinner, TextArea} from "grommet";
+import useDebounce from "../hooks/useDebounce";
 
 // Get your key here: https://console.picovoice.ai/
 const accessKey = String(process.env.REACT_APP_SECRET_PICOVOICE)
@@ -19,7 +21,13 @@ export interface ISpeechToTextWidget {
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isInitialized, setInitialized] = useState(false)
+  const [cheetahInstance, setCheetahInstance] = useState<Cheetah>()
+  const [isCheetahRunning, setCheetahRunning] = useState(false)
+  const [initInProgress, setInitInProgress] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
+  const [textValue, setTextValue] = useState('')
+
+  const debouncedNotional = useDebounce(textValue, 500)
 
   const transcriptionCallback = (transcript: CheetahTranscript) => {
     // console.log('transcript', transcript)
@@ -34,6 +42,10 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }
 
   useEffect(() => {
+    props.onChangeOutput(debouncedNotional)
+  }, [debouncedNotional]);
+
+  useEffect(() => {
     if (transcriptions.some(text => text.includes('.'))) {
       props.onChangeOutput(transcriptions.join(' '));
       // setTranscriptions([]);
@@ -44,49 +56,100 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     console.error('Error callback:', error)
   }
 
-  useEffect(() => {
-    const initCheetah = async () => {
-      try {
-        const cheetah = await Cheetah.create(
-          accessKey,
-          transcriptionCallback,
-          modelParams,
-          {
-            enableAutomaticPunctuation: true,
-            processErrorCallback
-          }
-        );
-        await WebVoiceProcessor.subscribe(cheetah);
-        setInitialized(true)
-        props.onReady()
-        console.log('Cheetah initialized')
-      } catch (e) {
-        console.error('Cannot init cheetah:', e)
+  const stopCheetah = async () => {
+    try {
+      setInitInProgress(true)
+      if(cheetahInstance) {
+        await WebVoiceProcessor.unsubscribe(cheetahInstance);
+        setTranscriptions([])
+        setCheetahRunning(false)
       }
+    } catch (e) {
+      console.error('Cannot unsubscribe Cheetah', e)
+    } finally {
+      setInitInProgress(false)
     }
+  }
+
+  const initCheetah = async () => {
+    try {
+      setInitInProgress(true)
+      const cheetah = await Cheetah.create(
+        accessKey,
+        transcriptionCallback,
+        modelParams,
+        {
+          enableAutomaticPunctuation: true,
+          processErrorCallback
+        }
+      );
+      setCheetahInstance(cheetah)
+      await WebVoiceProcessor.subscribe(cheetah);
+      setInitialized(true)
+      setCheetahRunning(true)
+      setTextValue('')
+      props.onReady()
+      console.log('Cheetah initialized')
+    } catch (e) {
+      console.error('Cannot init cheetah:', e)
+    } finally {
+      setInitInProgress(false)
+    }
+  }
+
+  useEffect(() => {
     if (!isInitialized) {
-      initCheetah()
+      // initCheetah()
     }
   }, [isInitialized]);
 
-  return <div style={{
-    marginTop: '16px',
-    width: '400px',
-    height: '300px',
-    border: '1px solid gray',
-    borderRadius: '6px',
-    padding: '8px',
-    overflowY: 'scroll'
-  }}>
-    <div style={{ fontSize: '36px', color: '#12486B' }}>
-      {transcriptions[transcriptions.length - 1]}
+  return <Box>
+    <div style={{
+      marginTop: '16px',
+      width: '400px',
+      height: '300px',
+      border: '1px solid gray',
+      borderRadius: '6px',
+      padding: '8px',
+      overflowY: 'scroll'
+    }}>
+      <div style={{ fontSize: '36px', color: '#12486B' }}>
+        {transcriptions[transcriptions.length - 1]}
+      </div>
+      <TextArea
+        disabled={isCheetahRunning}
+        value={textValue}
+        onChange={(e) => {
+          const text = e.target.value || ''
+          setTextValue(text)
+        }}
+        style={{
+          width: '100%',
+          height: '100%',
+          border: 'none',
+          resize: 'none',
+          outline: 'none',
+          boxShadow: 'none'
+      }}
+      />
+      {/*{[...transcriptions]*/}
+      {/*  .reverse()*/}
+      {/*  .filter((_, index) => index > 0)*/}
+      {/*  .map((item, idx) => {*/}
+      {/*    return <div key={String(idx)} style={{ color: 'gray' }}>{item}</div>*/}
+      {/*  })*/}
+      {/*}*/}
     </div>
-    {[...transcriptions]
-      .reverse()
-      .filter((_, index) => index > 0)
-      .map((item, idx) => {
-        return <div key={String(idx)} style={{ color: 'gray' }}>{item}</div>
-      })
-    }
-  </div>
+    <Box align={'center'} direction={'row'} margin={{ top: '16px' }} gap={'8px'} justify={'start'}>
+      {isCheetahRunning &&
+          <Text onClick={stopCheetah}>Stop Speech-to-Text</Text>
+      }
+      {!isCheetahRunning &&
+          <Text onClick={initCheetah}>Start Speech-to-Text</Text>
+      }
+      {initInProgress &&
+        <Spinner size={'xsmall'} />
+      }
+    </Box>
+  </Box>
 }

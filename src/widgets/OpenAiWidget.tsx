@@ -18,18 +18,16 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
 
     const reqMessage = useCallback(async (content: string) => {
         let resMessage = ''
-
         const stream = await openai.chat.completions.create({
             model: 'gpt-4',
             messages: [{ role: 'user', content }],
             stream: true,
-            max_tokens: 50,
+            max_tokens: 100,
             temperature: 0.8
         });
+        const elevenlabsApi = new ElevenlabsApi();
 
-        // const elevenlabsApi = new ElevenlabsApi();
-        //
-        // await elevenlabsApi.startStream();
+        await elevenlabsApi.startStream();
 
         for await (const part of stream) {
             const text = (part.choices[0]?.delta?.content || '');
@@ -37,12 +35,12 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             resMessage += text;
             setMessage(resMessage);
 
-            // if (text) {
-            //     await elevenlabsApi.sendChunkToStream(text);
-            // }
+            if (text) {
+                await elevenlabsApi.sendChunkToStream(text);
+            }
         }
 
-        // await elevenlabsApi.stopStream();
+        await elevenlabsApi.stopStream();
     }, []);
 
     useEffect(() => {
@@ -65,7 +63,7 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             padding: '8px',
             overflowY: 'scroll'
         }}>
-            <Text style={{ fontSize: '22px', color: '#12486B' }}>
+            <Text style={{ fontSize: '20px', color: '#12486B' }}>
                 {message}
             </Text>
         </div>
