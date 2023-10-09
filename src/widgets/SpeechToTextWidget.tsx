@@ -7,15 +7,13 @@ const accessKey = String(process.env.REACT_APP_SECRET_PICOVOICE)
 
 const modelParams: CheetahModel = {
   publicPath: 'cheetah_params.pv',
-  // or
-  // base64: '',
-  // Optionals
   customWritePath: "cheetah_model",
   forceWrite: false,
   version: 1,
 }
 
 export interface ISpeechToTextWidget {
+  onReady: () => void
   onChangeOutput: (output: string) => void;
 }
 
@@ -60,6 +58,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         );
         await WebVoiceProcessor.subscribe(cheetah);
         setInitialized(true)
+        props.onReady()
         console.log('Cheetah initialized')
       } catch (e) {
         console.error('Cannot init cheetah:', e)
@@ -70,29 +69,24 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
   }, [isInitialized]);
 
-  return <div style={{ marginTop: '32px', marginLeft: '32px', textAlign: 'left' }}>
-    <div style={{ fontSize: '20px' }}>
-      {!isInitialized ? 'Wait for model initialization...' : 'Say something...'}
+  return <div style={{
+    marginTop: '16px',
+    width: '400px',
+    height: '300px',
+    border: '1px solid gray',
+    borderRadius: '6px',
+    padding: '8px',
+    overflowY: 'scroll'
+  }}>
+    <div style={{ fontSize: '36px', color: '#12486B' }}>
+      {transcriptions[transcriptions.length - 1]}
     </div>
-    <div style={{
-      marginTop: '16px',
-      width: '400px',
-      height: '300px',
-      border: '1px solid gray',
-      borderRadius: '6px',
-      padding: '8px',
-      overflowY: 'scroll'
-    }}>
-      <div style={{ fontSize: '36px', color: '#12486B' }}>
-        {transcriptions[transcriptions.length - 1]}
-      </div>
-      {[...transcriptions]
-        .reverse()
-        .filter((_, index) => index > 0)
-        .map((item, idx) => {
-          return <div key={String(idx)} style={{ color: 'gray' }}>{item}</div>
-        })
-      }
-    </div>
+    {[...transcriptions]
+      .reverse()
+      .filter((_, index) => index > 0)
+      .map((item, idx) => {
+        return <div key={String(idx)} style={{ color: 'gray' }}>{item}</div>
+      })
+    }
   </div>
 }

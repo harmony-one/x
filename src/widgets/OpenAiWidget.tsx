@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { ElevenlabsApi } from './ElevenlabsWidget/elevenlabs-ws-api';
+import {Text, Box, TextArea} from 'grommet'
 
 const openai = new OpenAI({
     apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
@@ -22,13 +23,13 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             model: 'gpt-4',
             messages: [{ role: 'user', content }],
             stream: true,
-            max_tokens: 100,
+            max_tokens: 50,
             temperature: 0.8
         });
 
-        const elevenlabsApi = new ElevenlabsApi();
-
-        await elevenlabsApi.startStream();
+        // const elevenlabsApi = new ElevenlabsApi();
+        //
+        // await elevenlabsApi.startStream();
 
         for await (const part of stream) {
             const text = (part.choices[0]?.delta?.content || '');
@@ -36,12 +37,12 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             resMessage += text;
             setMessage(resMessage);
 
-            if (text) {
-                await elevenlabsApi.sendChunkToStream(text);
-            }
+            // if (text) {
+            //     await elevenlabsApi.sendChunkToStream(text);
+            // }
         }
 
-        await elevenlabsApi.stopStream();
+        // await elevenlabsApi.stopStream();
     }, []);
 
     useEffect(() => {
@@ -55,21 +56,18 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
     }, [props.input])
 
     return <div>
-        <div style={{ fontSize: '36px', color: '#DFDFDF' }}>
-            Input: {props.input}
-        </div>
         <div style={{
             marginTop: '16px',
             width: '400px',
-            height: 'auto',
+            height: '300px',
             border: '1px solid gray',
             borderRadius: '6px',
             padding: '8px',
             overflowY: 'scroll'
         }}>
-            <div style={{ fontSize: '36px', color: '#12486B' }}>
+            <Text style={{ fontSize: '22px', color: '#12486B' }}>
                 {message}
-            </div>
+            </Text>
         </div>
     </div>
 }
