@@ -3,6 +3,15 @@
 
 ## Week 41
 
+**10/10/23 (Tue)**
+- resolved access and permissions to supercomputing infrastructructure with GPUs
+  - installed some dependencies, currently some problems with SSL lib of python3
+  - [Snippet for testing Suno Bark on different platforms](https://gist.github.com/ivan-homoliak-sutd/4be715812314668603ac780c72f11f04)
+- getting familiar with the Harmony's current repository
+  - involving getting a bit more into React and TS (with the help of AI in VS code)
+- starting to play with Acapela API (python)
+
+
 **9/10/23 (Monday)**
 - Investigating how to use Apple Neural Engine (ANE). 
   
