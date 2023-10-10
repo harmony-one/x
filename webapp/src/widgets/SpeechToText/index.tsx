@@ -10,7 +10,6 @@ import {
 import { RealtimeSession, RealtimeRecognitionResult } from 'speechmatics';
 import MicSelect from "./MicSelect";
 
-const jwtTemp = ''
 // Get your key here: https://console.picovoice.ai/
 const SpeechmaticsApiKey = String(process.env.REACT_APP_SPEECHMATICS_API_KEY)
 
@@ -109,15 +108,13 @@ function TranscriptionButton({
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isInitialized, setInitialized] = useState(false)
 
-  const [jwtToken, setJwtToken] = useState('')
-  const [realTimeSession, setRealTimeSession] = useState()
+  const [rtSession, setRealTimeSession] = useState<RealtimeSession>()
   const [transcription, setTranscription] = useState<
     RealtimeRecognitionResult[]
   >([]);
+  const [transcriptionText, setTranscriptionText] = useState('')
   const [audioDeviceIdState, setAudioDeviceId] = useState<string>('');
   const [sessionState, setSessionState] = useState<SessionState>('configure');
-
-  const rtSessionRef = useRef<RealtimeSession>(new RealtimeSession(jwtTemp));
 
   // Get devices using our custom hook
   const devices = useAudioDevices();
@@ -132,36 +129,14 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
   // sendAudio is used as a wrapper for the websocket to check the socket is finished init-ing before sending data
   const sendAudio = (data: Blob) => {
-    if (
-      rtSessionRef.current.rtSocketHandler &&
-      rtSessionRef.current.isConnected()
-    ) {
-      rtSessionRef.current.sendAudio(data);
+    // console.log('Send audio start', rtSession && rtSession.rtSocketHandler)
+    if (rtSession && rtSession.rtSocketHandler && rtSession.isConnected()) {
+      rtSession.sendAudio(data);
     }
   };
 
   // Memoise AudioRecorder so it doesn't get recreated on re-render
-  const audioRecorder = useMemo(() => new AudioRecorder(sendAudio), []);
-
-  // Attach our event listeners to the realtime session
-  rtSessionRef.current.addListener('AddTranscript', (res: any) => {
-    setTranscription([...transcription, ...res.results]);
-  });
-
-  // start audio recording once the websocket is connected
-  rtSessionRef.current.addListener('RecognitionStarted', async () => {
-    setSessionState('running');
-  });
-
-  rtSessionRef.current.addListener('EndOfTranscript', async () => {
-    setSessionState('configure');
-    await audioRecorder.stopRecording();
-  });
-
-  rtSessionRef.current.addListener('Error', async () => {
-    setSessionState('error');
-    await audioRecorder.stopRecording();
-  });
+  const audioRecorder = useMemo(() => new AudioRecorder(sendAudio), [rtSession]);
 
   // Call the start method on click to start the websocket
   const startTranscription = async () => {
@@ -169,17 +144,20 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     try {
       await audioRecorder.startRecording(audioDeviceIdComputed);
       setTranscription([]);
+      setTranscriptionText('')
     } catch (err) {
       setSessionState('blocked');
       return;
     }
     try {
-      await rtSessionRef.current.start({
-        transcription_config: { max_delay: 2, language: 'en' },
-        audio_format: {
-          type: 'file',
-        },
-      });
+      if(rtSession) {
+        await rtSession.start({
+          transcription_config: { max_delay: 2, language: 'en' },
+          audio_format: {
+            type: 'file',
+          },
+        });
+      }
     } catch (err) {
       setSessionState('error');
     }
@@ -188,13 +166,49 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   // Stop the transcription on click to end the recording
   const stopTranscription = async () => {
     await audioRecorder.stopRecording();
-    await rtSessionRef.current.stop();
+    if(rtSession) {
+      await rtSession.stop();
+    }
   };
 
   const initSTT = async () => {
     try {
-      const jwt = await getJwt(SpeechmaticsApiKey)
-      console.log('jwt', jwt)
+      const jwtToken = await getJwt(SpeechmaticsApiKey)
+      console.log('JWT:', jwtToken)
+      const session = new RealtimeSession(jwtToken)
+      setRealTimeSession(session)
+
+      // Attach our event listeners to the realtime session
+      session.addListener('AddTranscript', (res: any) => {
+        const newTranscription = [...transcription, ...res.results]
+
+        const text = newTranscription.map(
+          (item, index) => {
+            const { alternatives = [] } = item
+            return (index && !['.', ','].includes(alternatives[0]?.content)
+              ? ' '
+              : '') + item?.alternatives?.[0]?.content
+          }).join(' ')
+
+        setTranscription(newTranscription);
+        setTranscriptionText(text)
+      });
+
+      // start audio recording once the websocket is connected
+      session.addListener('RecognitionStarted', async () => {
+        setSessionState('running');
+      });
+
+      session.addListener('EndOfTranscript', async () => {
+        setSessionState('configure');
+        await audioRecorder.stopRecording();
+      });
+
+      session.addListener('Error', async () => {
+        setSessionState('error');
+        await audioRecorder.stopRecording();
+      });
+
       props.onReady()
       console.log('Initialized')
       setInitialized(true)
@@ -204,6 +218,8 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
     }
   }
+
+  console.log('transcription', transcription)
 
   useEffect(() => {
     if (!isInitialized) {
@@ -222,7 +238,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       overflowY: 'scroll'
     }}>
       <div style={{ fontSize: '36px', color: '#12486B' }}>
-        {'123'}
+        {transcriptionText}
       </div>
     </div>
     <Box>
@@ -261,16 +277,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       {['starting', 'running', 'configure', 'blocked'].includes(
         sessionState,
       ) && <p>State: {sessionState}</p>}
-      <p>
-        {transcription.map(
-          (item, index) => {
-            const { alternatives = [] } = item
-            return (index && !['.', ','].includes(alternatives[0]?.content)
-              ? ' '
-              : '') + item?.alternatives?.[0]?.content
-          }
-        )}
-      </p>
     </Box>
   </Box>
 }
