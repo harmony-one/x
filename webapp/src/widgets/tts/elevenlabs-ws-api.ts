@@ -1,4 +1,5 @@
 import { decode } from 'base64-arraybuffer';
+import { ttsPlayer } from '../tts';
 
 const voiceId = "21m00Tcm4TlvDq8ikWAM"; // replace with your voice_id
 const model = 'eleven_monolingual_v1';
@@ -24,6 +25,7 @@ export class ElevenlabsApi {
 
     constructor() {
         this.socket = new WebSocket(wsUrl);
+        ttsPlayer.play();
 
         // 5. Handle server responses
         this.socket.onmessage = async (event) => {
@@ -36,24 +38,26 @@ export class ElevenlabsApi {
                 // const audioChunk = atob(response.audio);  // decode base64
                 console.log("Received audio chunk");
 
-                if (!this.audioContext) {
-                    await this.initAudioContext();
-                }
+                ttsPlayer.addArrayBuffer(decode(response.audio));
+                // if (!this.audioContext) {
+                //     await this.initAudioContext();
+                // }
 
-                if (this.audioContext) {
-                    const audioContext = this.audioContext;
 
-                    audioContext.decodeAudioData(decode(response.audio), (buffer) => {
-                        var source = audioContext.createBufferSource();
-                        source.buffer = buffer;
-                        source.connect(audioContext.destination);
+                // if (this.audioContext) {
+                //     const audioContext = this.audioContext;
 
-                        console.log(111, startTime);
+                //     audioContext.decodeAudioData(decode(response.audio), (buffer) => {
+                //         var source = audioContext.createBufferSource();
+                //         source.buffer = buffer;
+                //         source.connect(audioContext.destination);
 
-                        source.start(startTime);
-                        startTime += buffer.duration;
-                    });
-                }
+                //         console.log(111, startTime);
+
+                //         source.start(startTime);
+                //         startTime += buffer.duration;
+                //     });
+                // }
             } else {
                 console.log("No audio data in the response");
             }
