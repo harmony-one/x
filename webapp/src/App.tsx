@@ -20,12 +20,12 @@ function App() {
             {isInitialized ? 'App ready. Say something.' : 'Waiting for model initialization...'}
           </Text>
         </Box>
-        <Box direction={'row'} gap={'128px'} align={'center'}>
+        <Box direction={'row'} gap={'128px'}>
           <Box>
-            <Text>Speech-to-Text (Picovoice)</Text>
+            <Text>Speech-to-Text (Speechmatics)</Text>
             <SpeechToTextWidget onReady={onReady} onChangeOutput={setSTTOutput} />
           </Box>
-          <Box>
+          <Box justify={'center'} align={'center'} height={'200px'}>
             <Text size={'32px'}>→</Text>
           </Box>
           <Box>
