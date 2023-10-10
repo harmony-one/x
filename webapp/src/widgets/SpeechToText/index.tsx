@@ -1,5 +1,5 @@
-import React, {CSSProperties, useEffect, useMemo, useRef, useState} from 'react'
-import {Box, Text, Spinner, TextArea} from "grommet";
+import React, {CSSProperties, useEffect, useMemo, useState} from 'react'
+import {Box} from "grommet";
 import {getJwt} from "./utils/auth";
 import {
   AudioRecorder,
@@ -9,6 +9,7 @@ import {
 } from './utils/recorder';
 import { RealtimeSession, RealtimeRecognitionResult } from 'speechmatics';
 import MicSelect from "./MicSelect";
+import useDebounce from "../../hooks/useDebounce";
 
 // Get your key here: https://console.picovoice.ai/
 const SpeechmaticsApiKey = String(process.env.REACT_APP_SPEECHMATICS_API_KEY)
@@ -74,7 +75,7 @@ function TranscriptionButton({
                                sessionState,
                              }: TranscriptionButtonProps) {
   return (
-    <div className='bottom-button-status'>
+    <Box margin={{ top: '16px' }}>
       {['configure', 'stopped', 'starting', 'error', 'blocked'].includes(
         sessionState,
       ) && (
@@ -101,7 +102,7 @@ function TranscriptionButton({
           Stop Transcribing
         </button>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -115,6 +116,12 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [transcriptionText, setTranscriptionText] = useState('')
   const [audioDeviceIdState, setAudioDeviceId] = useState<string>('');
   const [sessionState, setSessionState] = useState<SessionState>('configure');
+
+  const debouncedText = useDebounce(transcriptionText, 2000)
+
+  useEffect(() => {
+    props.onChangeOutput(debouncedText)
+  }, [debouncedText]);
 
   // Get devices using our custom hook
   const devices = useAudioDevices();
@@ -191,7 +198,9 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           }).join(' ')
 
         setTranscription(newTranscription);
-        setTranscriptionText(text)
+        if(text) {
+          setTranscriptionText(text)
+        }
       });
 
       // start audio recording once the websocket is connected
@@ -242,12 +251,11 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       </div>
     </div>
     <Box>
-      <div className='flex-row'>
-        <p>Select Microphone</p>
+      <Box margin={{ top: '32px' }}>
         {(sessionState === 'blocked' || denied) && (
           <p className='warning-text'>Microphone permission is blocked</p>
         )}
-      </div>
+      </Box>
       <MicSelect
         disabled={!['configure', 'blocked'].includes(sessionState)}
         onClick={requestDevices}
