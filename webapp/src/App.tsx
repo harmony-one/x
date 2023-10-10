@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { SpeechToTextWidget, OpenAIWidget, ElevenlabsWidget } from "./widgets";
+import { SpeechToTextWidget, OpenAIWidget } from "./widgets";
 import {Box, Text} from "grommet";
 
 function App() {

@@ -1,7 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import OpenAI from 'openai';
-import { ElevenlabsApi } from './ElevenlabsWidget/elevenlabs-ws-api';
-import {Text, Box, TextArea} from 'grommet'
+import { Text, Box, TextArea } from 'grommet'
+import { ttsPlayer } from './tts';
+
+const isPhraseComplete = (text: string, isFirst = false) => {
+    const wordsAmount = text.split(' ').length;
+
+    const specSymbols = ['?', '.', '!'];
+
+    if (isFirst) {
+        return wordsAmount > 7 || [...specSymbols, ','].some(symbol => text.includes(symbol));
+    } else {
+        return wordsAmount > 14 || specSymbols.some(symbol => text.includes(symbol));
+    }
+}
 
 const openai = new OpenAI({
     apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
@@ -18,6 +30,10 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
 
     const reqMessage = useCallback(async (content: string) => {
         let resMessage = ''
+
+        ttsPlayer.clear();
+        ttsPlayer.play();
+
         const stream = await openai.chat.completions.create({
             model: 'gpt-4',
             messages: [{ role: 'user', content }],
@@ -25,22 +41,27 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             max_tokens: 100,
             temperature: 0.8
         });
-        const elevenlabsApi = new ElevenlabsApi();
 
-        await elevenlabsApi.startStream();
+        const lines: string[] = [];
+        let currentLineIdx = 0;
+        let text = '';
 
         for await (const part of stream) {
-            const text = (part.choices[0]?.delta?.content || '');
+            text = (part.choices[0]?.delta?.content || '');
 
             resMessage += text;
             setMessage(resMessage);
+            lines[currentLineIdx] = (lines[currentLineIdx] ?? '') + text;
 
-            if (text) {
-                await elevenlabsApi.sendChunkToStream(text);
+            if (isPhraseComplete(lines[currentLineIdx], !currentLineIdx)) {
+                ttsPlayer.setText(lines, false);
+                currentLineIdx++;
             }
         }
 
-        await elevenlabsApi.stopStream();
+        lines.push(text);
+
+        ttsPlayer.setText(lines, true);
     }, []);
 
     useEffect(() => {
@@ -54,6 +75,9 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
     }, [props.input])
 
     return <div>
+        <Text style={{ fontSize: '20px', color: '#DFDFDF' }}>
+            {props.input}
+        </Text>
         <div style={{
             marginTop: '16px',
             width: '400px',
