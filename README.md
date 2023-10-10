@@ -8,7 +8,7 @@ set .env file
 ```
 REACT_APP_SECRET_OPEN_AI=*** // key for openai api
 REACT_APP_SECRET_PICOVOICE=*** // key from https://console.picovoice.ai/
-REACT_APP_SECRET_ELVENLABS=*** // key for https://elevenlabs.io/
+REACT_APP_SECRET_ELEVENLABS=*** // key for https://elevenlabs.io/
 ```
 
 ```
