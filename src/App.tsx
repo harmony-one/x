@@ -13,7 +13,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" >
       <Box margin={{ top: '32px' }} gap={'32px'}>
         <Box>
           <Text>
