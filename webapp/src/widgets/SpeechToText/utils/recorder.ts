@@ -5,10 +5,10 @@ const SAMPLE_RATE_48K = 48000;
 // AudioRecorder is a class that wraps the MediaRecorder and device stream items
 // It also provides methods for starting and stopping recording
 export class AudioRecorder {
-  stream: MediaStream;
-  recorder: MediaRecorder;
-  audioContext: AudioContext;
-  mediaStreamSource: MediaStreamAudioSourceNode;
+  stream?: MediaStream | null;
+  recorder?: MediaRecorder;
+  audioContext?: AudioContext;
+  mediaStreamSource?: MediaStreamAudioSourceNode | null;
   dataHandlerCallback?: (data: Blob) => void;
 
   // The data handler callback is called when audio data is available
@@ -120,6 +120,7 @@ class AudioDevices extends EventTarget {
       this.denied = true;
     }
     this.updateDeviceList();
+    // @ts-ignore
     return stream;
   };
 

@@ -1,4 +1,4 @@
-import React, {CSSProperties, useEffect, useMemo, useState} from 'react'
+import React, {CSSProperties, useEffect, useMemo, useRef, useState} from 'react'
 import {Box, Text, Spinner, TextArea} from "grommet";
 import {getJwt} from "./utils/auth";
 import {
@@ -10,6 +10,7 @@ import {
 import { RealtimeSession, RealtimeRecognitionResult } from 'speechmatics';
 import MicSelect from "./MicSelect";
 
+const jwtTemp = ''
 // Get your key here: https://console.picovoice.ai/
 const SpeechmaticsApiKey = String(process.env.REACT_APP_SPEECHMATICS_API_KEY)
 
@@ -108,13 +109,15 @@ function TranscriptionButton({
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isInitialized, setInitialized] = useState(false)
 
+  const [jwtToken, setJwtToken] = useState('')
+  const [realTimeSession, setRealTimeSession] = useState()
   const [transcription, setTranscription] = useState<
     RealtimeRecognitionResult[]
   >([]);
   const [audioDeviceIdState, setAudioDeviceId] = useState<string>('');
   const [sessionState, setSessionState] = useState<SessionState>('configure');
 
-  const rtSessionRef = useRef<RealtimeSession>(new RealtimeSession(jwt));
+  const rtSessionRef = useRef<RealtimeSession>(new RealtimeSession(jwtTemp));
 
   // Get devices using our custom hook
   const devices = useAudioDevices();
@@ -260,10 +263,12 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       ) && <p>State: {sessionState}</p>}
       <p>
         {transcription.map(
-          (item, index) =>
-            (index && !['.', ','].includes(item?.alternatives?.[0]?.content)
+          (item, index) => {
+            const { alternatives = [] } = item
+            return (index && !['.', ','].includes(alternatives[0]?.content)
               ? ' '
-              : '') + item?.alternatives?.[0]?.content,
+              : '') + item?.alternatives?.[0]?.content
+          }
         )}
       </p>
     </Box>
