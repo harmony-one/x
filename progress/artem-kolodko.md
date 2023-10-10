@@ -1,33 +1,5 @@
-# Sample Markdown File
+### Oct 10 (Tue)
+Picovoice STT doesn't work very well with text recognition. Checked other models: Speechmatics, Google, RevAI, [added](https://github.com/harmony-one/x/pull/3) Speechmatics streaming STT and started testing.
 
-This is a sample markdown file. Markdown is a lightweight markup language that is used to format text.
-
-## Heading 2
-
-You can use different heading levels to structure your content.
-
-### Heading 3
-
-You can also include lists:
-
-- Item 1
-- Item 2
-- Item 3
-
-And format text:
-
-**Bold Text**
-
-*Italic Text*
-
-> Blockquote
-
-You can include code snippets:
-
-python
-def helloworld():
-    print("Hello, World!")
-
-helloworld()
-
-For more information on markdown syntax, you can refer to the [Markdown Guide](https://www.markdownguide.org/).
+### Oct 09 (Mon)
+[Worked](https://github.com/harmony-one/x/commit/a4fd48bbb15be869618a14c02d6f909f3c89d314) on improving X app UI. [Added](https://github.com/harmony-one/x/commit/8977ce4739d34df8fecf1a8d956654786a7023c5) start-stop STT.
