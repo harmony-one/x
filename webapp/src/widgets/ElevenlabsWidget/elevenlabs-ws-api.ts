@@ -130,7 +130,7 @@ export class ElevenlabsApi {
                 "stability": 0.5,
                 "similarity_boost": true
             },
-            "xi_api_key": process.env.REACT_APP_SECRET_ELVENLABS, // replace with your API key
+            "xi_api_key": process.env.REACT_APP_SECRET_ELEVENLABS, // replace with your API key
         };
 
         this.socket.send(JSON.stringify(bosMessage));
