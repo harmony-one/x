@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import OpenAI from 'openai';
 import { ElevenlabsApi } from './ElevenlabsWidget/elevenlabs-ws-api';
+import {Text, Box, TextArea} from 'grommet'
 
 const openai = new OpenAI({
     apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
@@ -17,7 +18,6 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
 
     const reqMessage = useCallback(async (content: string) => {
         let resMessage = ''
-
         const stream = await openai.chat.completions.create({
             model: 'gpt-4',
             messages: [{ role: 'user', content }],
@@ -25,7 +25,6 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
             max_tokens: 100,
             temperature: 0.8
         });
-
         const elevenlabsApi = new ElevenlabsApi();
 
         await elevenlabsApi.startStream();
@@ -55,21 +54,18 @@ export const OpenAIWidget = (props: IOpenAIWidget) => {
     }, [props.input])
 
     return <div>
-        <div style={{ fontSize: '36px', color: '#DFDFDF' }}>
-            Input: {props.input}
-        </div>
         <div style={{
             marginTop: '16px',
             width: '400px',
-            height: 'auto',
+            height: '300px',
             border: '1px solid gray',
             borderRadius: '6px',
             padding: '8px',
             overflowY: 'scroll'
         }}>
-            <div style={{ fontSize: '36px', color: '#12486B' }}>
+            <Text style={{ fontSize: '20px', color: '#12486B' }}>
                 {message}
-            </div>
+            </Text>
         </div>
     </div>
 }
