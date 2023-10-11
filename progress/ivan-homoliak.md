@@ -1,8 +1,10 @@
+2023-10-16 Mon: 
 
+---
 
+2023-10-13 Fri:
 
-## Week 41
-
+2023-10-12 Thu:
 
 **11/10/23 (Wed)** 
 - Installed Willow Inference Server (WIS) on PC with 6 CPU cores (12 hw threads). 
