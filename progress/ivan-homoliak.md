@@ -3,6 +3,14 @@
 
 ## Week 41
 
+
+**11/10/23 (Wed)** 
+- Installed Willow Inference Server on PC with 6 CPU cores (12 hw threads). 
+  - **S2T w. ASR** (Willow uses **6 workers/threads**) - ) **almost 2 x speed-up**
+    - Some measurements for EN  (speech time => infer time) 10820 ms => 7072.576 ms; 13240 ms => 7437.832 ms
+    - Measurements with ASR (SK to EN): 13760 ms => 6824 ms; 12840 ms => 7095.519 ms; 11360 ms => 6948 ms; 14780 ms => 7251.815 ms;
+- ... TBD - the rest after I finish.
+
 **10/10/23 (Tue)**
 - resolved access and permissions to supercomputing infrastructructure with GPUs
   - installed some dependencies, currently some problems with SSL lib of python3
