@@ -1,5 +1,5 @@
 import React, {CSSProperties, useEffect, useMemo, useState} from 'react'
-import {Box} from "grommet";
+import {Box, Button, Text} from "grommet";
 import {getJwt} from "./utils/auth";
 import {
   AudioRecorder,
@@ -7,7 +7,7 @@ import {
   useAudioDevices,
   useRequestDevices,
 } from './utils/recorder';
-import { RealtimeSession, RealtimeRecognitionResult } from 'speechmatics';
+import {RealtimeSession, RealtimeRecognitionResult, AddTranscript} from 'speechmatics';
 import MicSelect from "./MicSelect";
 import useDebounce from "../../hooks/useDebounce";
 
@@ -75,33 +75,27 @@ function TranscriptionButton({
                                sessionState,
                              }: TranscriptionButtonProps) {
   return (
-    <Box margin={{ top: '16px' }}>
+    <Box margin={{ top: '16px' }} width={'300px'}>
       {['configure', 'stopped', 'starting', 'error', 'blocked'].includes(
         sessionState,
       ) && (
-        <button
-          type='button'
-          className='bottom-button start-button'
-          disabled={sessionState === 'starting'}
-          onClick={async () => {
-            startTranscription();
-          }}
-        >
-          <CircleIcon style={{ marginRight: '0.25em', marginTop: '1px' }} />
-          Start Transcribing
-        </button>
+        <Button onClick={startTranscription} label={
+          <Box direction={'row'} justify={'center'} align={'center'} gap={'8px'}>
+            <CircleIcon />
+            Start Transcribing
+          </Box>
+        }
+        />
       )}
 
-      {sessionState === 'running' && (
-        <button
-          type='button'
-          className='bottom-button stop-button'
-          onClick={() => stopTranscription()}
-        >
-          <SquareIcon style={{ marginRight: '0.25em', marginBottom: '1px' }} />
-          Stop Transcribing
-        </button>
-      )}
+      {sessionState === 'running' &&
+        (<Button onClick={stopTranscription} label={
+          <Box direction={'row'} justify={'center'} align={'center'} gap={'8px'}>
+            <SquareIcon />
+            Stop Transcribing
+          </Box>
+        }
+        />)}
     </Box>
   );
 }
@@ -110,7 +104,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isInitialized, setInitialized] = useState(false)
 
   const [rtSession, setRealTimeSession] = useState<RealtimeSession>()
-  const [transcription, setTranscription] = useState<
+  const [transcriptions, setTranscriptions] = useState<
     RealtimeRecognitionResult[]
   >([]);
   const [transcriptionText, setTranscriptionText] = useState('')
@@ -119,9 +113,11 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
   const debouncedText = useDebounce(transcriptionText, 2000)
 
-  useEffect(() => {
-    props.onChangeOutput(debouncedText)
-  }, [debouncedText]);
+  console.log('transcriptions', transcriptions)
+
+  // useEffect(() => {
+  //   props.onChangeOutput(debouncedText)
+  // }, [debouncedText]);
 
   // Get devices using our custom hook
   const devices = useAudioDevices();
@@ -145,12 +141,11 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   // Memoise AudioRecorder so it doesn't get recreated on re-render
   const audioRecorder = useMemo(() => new AudioRecorder(sendAudio), [rtSession]);
 
-  // Call the start method on click to start the websocket
   const startTranscription = async () => {
     setSessionState('starting');
     try {
       await audioRecorder.startRecording(audioDeviceIdComputed);
-      setTranscription([]);
+      setTranscriptions([]);
       setTranscriptionText('')
     } catch (err) {
       setSessionState('blocked');
@@ -159,7 +154,12 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     try {
       if(rtSession) {
         await rtSession.start({
-          transcription_config: { max_delay: 2, language: 'en' },
+          transcription_config: {
+            language: 'en',
+            operating_point: 'enhanced',
+            max_delay: 2,
+            enable_partials: false
+          },
           audio_format: {
             type: 'file',
           },
@@ -186,20 +186,14 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       setRealTimeSession(session)
 
       // Attach our event listeners to the realtime session
-      session.addListener('AddTranscript', (res: any) => {
-        const newTranscription = [...transcription, ...res.results]
-
-        const text = newTranscription.map(
-          (item, index) => {
-            const { alternatives = [] } = item
-            return (index && !['.', ','].includes(alternatives[0]?.content)
-              ? ' '
-              : '') + item?.alternatives?.[0]?.content
-          }).join(' ')
-
-        setTranscription(newTranscription);
-        if(text) {
-          setTranscriptionText(text)
+      session.addListener('AddTranscript', (res: AddTranscript) => {
+        const { results } = res
+        if(results.length === 0) {
+          setTranscriptions([]);
+        } else {
+          setTranscriptions(transcriptions =>
+            [...transcriptions, ...results]
+          );
         }
       });
 
@@ -223,12 +217,8 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       setInitialized(true)
     } catch (e) {
       console.error('Cannot init STT:', e)
-    } finally {
-
     }
   }
-
-  console.log('transcription', transcription)
 
   useEffect(() => {
     if (!isInitialized) {
@@ -236,20 +226,54 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
   }, [isInitialized]);
 
+  useEffect(() => {
+    if(transcriptions.length) {
+      const text = transcriptions.map(
+        (item, index) => {
+          const { alternatives = [] } = item
+          return (index && !['.', ','].includes(alternatives[0]?.content)
+            ? ' '
+            : '') + item?.alternatives?.[0]?.content
+        }).join(' ')
+
+      if(text.length > 1) {
+        setTranscriptionText(text)
+      }
+    }
+  }, [transcriptions]);
+
+  const onSendToGPT = () => {
+    props.onChangeOutput(transcriptionText)
+    setTranscriptions([])
+    setTranscriptionText('')
+  }
+
+  const onClearText = () => {
+    setTranscriptions([])
+    setTranscriptionText('')
+  }
+
   return <Box>
-    <div style={{
-      marginTop: '16px',
-      width: '400px',
-      height: '300px',
-      border: '1px solid gray',
-      borderRadius: '6px',
-      padding: '8px',
-      overflowY: 'scroll'
-    }}>
-      <div style={{ fontSize: '36px', color: '#12486B' }}>
+    <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
+      <Box
+        width={'600px'}
+        height={'120px'}
+        round={'6px'}
+        pad={'8px'}
+        style={{
+          border: '1px solid gray',
+          overflowY: 'scroll',
+          fontSize: '20px',
+          color: '#12486B'
+        }}
+      >
         {transcriptionText}
-      </div>
-    </div>
+      </Box>
+      <Box height={'100%'} gap={'16px'}>
+        <Button primary label="Send to GPT4" onClick={onSendToGPT} />
+        <Button label="Clear text" onClick={onClearText} />
+      </Box>
+    </Box>
     <Box>
       <Box margin={{ top: '32px' }}>
         {(sessionState === 'blocked' || denied) && (
@@ -274,17 +298,21 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           }
         }}
       />
-      <TranscriptionButton
-        sessionState={sessionState}
-        stopTranscription={stopTranscription}
-        startTranscription={startTranscription}
-      />
-      {sessionState === 'error' && (
-        <p className='warning-text'>Session encountered an error</p>
-      )}
-      {['starting', 'running', 'configure', 'blocked'].includes(
-        sessionState,
-      ) && <p>State: {sessionState}</p>}
+      <Box direction={'row'} gap={'32px'} align={'center'} justify={'between'}>
+        <TranscriptionButton
+          sessionState={sessionState}
+          stopTranscription={stopTranscription}
+          startTranscription={startTranscription}
+        />
+        <Box pad={{ top: '8px' }}>
+          {sessionState === 'error' && (
+            <Box className='warning-text'>Session encountered an error</Box>
+          )}
+          {['starting', 'running', 'configure', 'blocked'].includes(
+            sessionState,
+          ) && <Box><Text color={'gray'}>State: {sessionState}</Text></Box>}
+        </Box>
+      </Box>
     </Box>
   </Box>
 }

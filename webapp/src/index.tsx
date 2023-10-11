@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import mobxStores, { StoresProvider } from './stores';
 import { Provider as MobxProvider } from 'mobx-react';
+import {Grommet} from "grommet";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StoresProvider stores={mobxStores}>
     <MobxProvider {...mobxStores}>
-      <App />
+      <Grommet full>
+        <App />
+      </Grommet>
     </MobxProvider>
   </StoresProvider>
 );
