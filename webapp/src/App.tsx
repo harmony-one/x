@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { SpeechToTextWidget, OpenAIWidget } from "./widgets";
-import {Box, Text} from "grommet";
+import { Box, Text } from "grommet";
 
 function App() {
   const [isInitialized, setInitialized] = useState(false)
@@ -13,37 +13,24 @@ function App() {
   }
 
   return (
-    <div className="App" >
-      <Box margin={{ top: '32px' }} gap={'32px'}>
-        <Box>
-          <Text>
-            {isInitialized ? 'App ready. Say something.' : 'Waiting for model initialization...'}
-          </Text>
+    <Box pad="32px" gap={'32px'} fill={true} style={{ height: '100vh' }}>
+      {/* <Box>
+        <Text>
+          {isInitialized ? 'App ready. Say something.' : 'Waiting for model initialization...'}
+        </Text>
+      </Box> */}
+      <Box direction="column" justify="between" align="center" fill={true}>
+        <Box width="800px">
+          <Text>GPT4</Text>
+          <OpenAIWidget input={sttOutput} onChangeOutput={setGpt4Output} />
         </Box>
-        <Box direction={'row'} gap={'128px'}>
-          <Box>
-            <Text>Speech-to-Text (Speechmatics)</Text>
-            <SpeechToTextWidget onReady={onReady} onChangeOutput={setSTTOutput} />
-          </Box>
-          <Box justify={'center'} align={'center'} height={'200px'}>
-            <Text size={'32px'}>→</Text>
-          </Box>
-          <Box>
-            <Text>GPT4</Text>
-            <OpenAIWidget input={sttOutput} onChangeOutput={setGpt4Output} />
-          </Box>
+        
+        <Box basis="250px" width="800px">
+          <Text>Speech-to-Text (Speechmatics)</Text>
+          <SpeechToTextWidget onReady={onReady} onChangeOutput={setSTTOutput} />
+        </Box>
       </Box>
-      </Box>
-
-      {/* <div>
-        <h3>{'==>'}</h3>
-      </div>
-
-      <div>
-        <h3>TTS (Elevenlabs)</h3>
-        <ElevenlabsWidget input={gpt4Output} onChangeOutput={() => { }} />
-      </div> */}
-    </div>
+    </Box>
   );
 }
 
