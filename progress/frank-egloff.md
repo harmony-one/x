@@ -1,33 +1,6 @@
-# Frank's progress
+## Week 10-14 October
+**10/10/23 (Tue)**
+Added gpt-3.5-turbo to llama-index collection handling. Also, added PDF invalid handling and improved completion error handling. Fixed the flyio deployment issue that keeps restarting the server [in review](https://github.com/harmony-one/harmony-llm-api/pull/10). 
 
-This is a sample markdown file. Markdown is a lightweight markup language that is used to format text.
-
-## Heading 2
-
-You can use different heading levels to structure your content.
-
-### Heading 3
-
-You can also include lists:
-
-- Item 1
-- Item 2
-- Item 3
-
-And format text:
-
-**Bold Text**
-
-*Italic Text*
-
-> Blockquote
-
-You can include code snippets:
-
-python
-def helloworld():
-    print("Hello, World!")
-
-helloworld()
-
-For more information on markdown syntax, you can refer to the [Markdown Guide](https://www.markdownguide.org/).
+**10/09/23 (Mon)**
+Added completion message length error handling [complete](https://github.com/harmony-one/HarmonyOneBot/pull/337). Added 5 min processing time to PDF and URL collection processing to avoid unlimited requests to the backend [in review](https://github.com/harmony-one/HarmonyOneBot/pull/338).
