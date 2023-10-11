@@ -33,7 +33,7 @@ function App() {
           <OpenAIWidget />
         </Box>
 
-        <Box basis="250px" width="800px">
+        <Box width="800px" margin={{ bottom: '32px' }}>
           <Text>Speech-to-Text (Speechmatics)</Text>
           <SpeechToTextWidget onReady={onReady} onChangeOutput={setSTTOutput} />
         </Box>
