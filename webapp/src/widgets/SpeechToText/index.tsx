@@ -113,7 +113,31 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
   const debouncedText = useDebounce(transcriptionText, 2000)
 
-  console.log('transcriptions', transcriptions)
+  const onSendToGPT = () => {
+    console.log('Send to GPT4:', transcriptionText)
+    props.onChangeOutput(transcriptionText)
+    setTranscriptions([])
+    setTranscriptionText('')
+  }
+
+  const onClearText = () => {
+    console.log('Clear text')
+    setTranscriptions([])
+    setTranscriptionText('')
+  }
+
+  // const handleKeyPress = (event: any) => {
+  //   if(event.which === 13) {
+  //     onSendToGPT()
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('keypress', handleKeyPress.bind(this))
+  //   return () => {
+  //     window.removeEventListener('keypress', handleKeyPress)
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   props.onChangeOutput(debouncedText)
@@ -241,17 +265,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       }
     }
   }, [transcriptions]);
-
-  const onSendToGPT = () => {
-    props.onChangeOutput(transcriptionText)
-    setTranscriptions([])
-    setTranscriptionText('')
-  }
-
-  const onClearText = () => {
-    setTranscriptions([])
-    setTranscriptionText('')
-  }
 
   return <Box>
     <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
