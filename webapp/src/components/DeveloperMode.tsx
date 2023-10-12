@@ -18,7 +18,7 @@ export const DeveloperMode = ({onReady, onChangeOutput}: Props) => {
         </Box>
 
         <Box width="800px" margin={{ bottom: '32px' }}>
-          <Text>Speech-to-Text (Speechmatics)</Text>
+          <Text>Speech-to-Text (Deepgram)</Text>
           <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
         </Box>
         <Box>
