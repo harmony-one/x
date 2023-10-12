@@ -4,19 +4,35 @@
 
 2023-10-13 Fri:
 
-2023-10-12 Thu:
+
+**2023-10-12 Thu:**
+  - Tested **S2T** WIS (w. Whisper) performance on cloud machine with GPU Tesla T4 (~16x speed-up). Results were put to previous day. 
+    - For English, very precise S2T (no conversion issues); Slovak language was worse (~10% error rate)
+  - Tested **T2S** of WIS 
+    - a couple of issues (30-minutes => 30 skipped; ChatGPT/GPT not-spelled; some words skipped; 600 chars limit of text lenght).
+    - I filed a few GitHub [issues](https://github.com/toverainc/willow-inference-server/issues/created_by/ivan-homoliak-sutd) at the WIS repo
+  - Testing cloud T2S API of Acapela
+    - It achieved 10x-20x speed-up
+      - Details at [Notion](https://www.notion.so/Acapela-S2T-26e27193c8534b6cb7af7db37bf925a8?pvs=4)
+      - Acapela replied with offer: 5 euro/hour of generated speech (tax excl).
+    - https://gist.github.com/ivan-homoliak-sutd/fa21eb07be9f8a9595b85ad7a39e45c7
+>>>>>>> updated work log
 
 **11/10/23 (Wed)** 
 - Installed Willow Inference Server (WIS) on PC with 6 CPU cores (12 hw threads). 
-  - **S2T w. ASR** (Willow uses **6 workers/threads**) - ) **almost 2 x speed-up**
+  - **S2T w. ASR** (Willow w. Whisper / **6 workers/threads**) -  **almost 2x speed-up**
     - Some measurements for EN  (speech time => infer time) 10820 ms => 7072.576 ms; 13240 ms => 7437.832 ms
-    - Measurements with ASR (SK to EN): 13760 ms => 6824 ms; 12840 ms => 7095.519 ms; 11360 ms => 6948 ms; 14780 ms => 7251.815 ms;
-  - Describing our use case + competitor prices to Acapela with regard to custom pricing. 
-  - Installing WIS on our cloud machine 
-    - to install WIS: 
-      (1) Docker needs to be [removed](https://g.co/bard/share/73fa269c3f23)
-      (2) removed double-signed repos:  *sudo mv /etc/apt/sources.list.d/nvidia-docker.list /tmp/nvidia-docker.list*
-    - we put the service on **54.186.221.210:19000** (should work soon)
+    - Measurements with ASR (SK to EN): 13760 ms => 6824 ms; 12840 ms => 7095.519 ms; 11360 ms => 6948 ms; 14780 ms => 7251.815 ms; 
+  - **S2T w. ASR** (Willow w. Whisper **NVIDIA Tesla T4**) - **15-20x speed-up**
+    - Some measurements for EN  (speech time => infer time): 13560 ms => 813ms; 5500 ms => 339 ms; 19140 ms => 869 ms
+    - Measurements with ASR (SK to EN): 9920 ms => 648.18 ms; 17660 ms => 1048 ms; 22160 ms => 1581 ms
+
+- Describing our use case + competitor prices to Acapela with regard to custom pricing. 
+- Installing WIS on our cloud machine 
+  - to install WIS: 
+    (1) Docker needs to be [removed](https://g.co/bard/share/73fa269c3f23)
+    (2) removed double-signed repos:  *sudo mv /etc/apt/sources.list.d/nvidia-docker.list /tmp/nvidia-docker.list*
+  - we put the service on **54.186.221.210:19000** (should work soon)
 
 **10/10/23 (Tue)**
 - resolved access and permissions to supercomputing infrastructructure with GPUs
