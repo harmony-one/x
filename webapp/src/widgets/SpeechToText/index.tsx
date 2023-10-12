@@ -18,7 +18,6 @@ type SessionState = 'configure' | 'starting' | 'blocked' | 'error' | 'running';
 
 export interface ISpeechToTextWidget {
   onReady: () => void
-  minimal?: boolean
   onChangeOutput: (output: string) => void;
 }
 
@@ -173,7 +172,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       setTranscriptions([]);
       setTranscriptionText('')
     } catch (err) {
-      console.log('### err', err);
       setSessionState('blocked');
       return;
     }
@@ -192,7 +190,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         });
       }
     } catch (err) {
-      console.log('### err', err);
       setSessionState('error');
     }
   };
@@ -208,14 +205,13 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const initSTT = async () => {
     try {
       const jwtToken = await getJwt(SpeechmaticsApiKey)
+      console.log('JWT:', jwtToken)
       const session = new RealtimeSession(jwtToken)
       setRealTimeSession(session)
 
       // Attach our event listeners to the realtime session
       session.addListener('AddTranscript', (res: AddTranscript) => {
         const { results } = res
-
-        console.log('### results', results);
         if(results.length === 0) {
           setTranscriptions([]);
         } else {
@@ -235,8 +231,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         await audioRecorder.stopRecording();
       });
 
-      session.addListener('Error', async (message) => {
-        console.log('### error', message);
+      session.addListener('Error', async () => {
         setSessionState('error');
         await audioRecorder.stopRecording();
       });
@@ -272,28 +267,26 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }, [transcriptions]);
 
   return <Box>
-    {props.minimal ? null : (
-      <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
-        <Box
-          width={'600px'}
-          height={'120px'}
-          round={'6px'}
-          pad={'8px'}
-          style={{
-            border: '1px solid gray',
-            overflowY: 'scroll',
-            fontSize: '20px',
-            color: '#12486B'
-          }}
-        >
-          {transcriptionText}
-        </Box>
-        <Box height={'100%'} gap={'16px'}>
-          <Button primary label="Send to GPT4" onClick={onSendToGPT} />
-          <Button label="Clear text" onClick={onClearText} />
-        </Box>
+    <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
+      <Box
+        width={'600px'}
+        height={'120px'}
+        round={'6px'}
+        pad={'8px'}
+        style={{
+          border: '1px solid gray',
+          overflowY: 'scroll',
+          fontSize: '20px',
+          color: '#12486B'
+        }}
+      >
+        {transcriptionText}
       </Box>
-    )}
+      <Box height={'100%'} gap={'16px'}>
+        <Button primary label="Send to GPT4" onClick={onSendToGPT} />
+        <Button label="Clear text" onClick={onClearText} />
+      </Box>
+    </Box>
     <Box>
       <Box margin={{ top: '32px' }}>
         {(sessionState === 'blocked' || denied) && (
@@ -326,7 +319,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         />
         <Box pad={{ top: '8px' }}>
           {sessionState === 'error' && (
-            <Box><Text color={'red'}>Session encountered an error</Text></Box>
+            <Box className='warning-text'>Session encountered an error</Box>
           )}
           {['starting', 'running', 'configure', 'blocked'].includes(
             sessionState,
