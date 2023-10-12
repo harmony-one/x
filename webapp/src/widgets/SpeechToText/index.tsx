@@ -130,7 +130,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
-      const socket = new WebSocket('wss://api.deepgram.com/v1/listen', [ 'token', DeepgramApiKey ])
+      const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
       socket.onopen = () => {
         mediaRecorder.addEventListener('dataavailable', event => {
           socket.send(event.data)
