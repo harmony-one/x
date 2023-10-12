@@ -4,7 +4,7 @@
 
 2023-10-13 Fri:
 
-2023-10-12 Thu:
+2023-10-12 Thu: I worked on launching a [demonstration](https://github.com/harmony-one/x/pull/11) of the interview bot from Vocode. They used their own API which is currently not functioning. I also worked on the [application modes](https://github.com/harmony-one/x/pull/12) (black screen). I separated the code into parts and encountered some problems with speech recognition. 
 
 2023-10-11 Wed: I worked on [yak benchmark](https://github.com/harmony-one/yakGPT/commit/8e078135f420fd51a1d4b4e021102b13e8e352c8), ыince the code is nonlinear, I have added metrics to the console log for now and I am continuing to work on the metrics in order to display them on the page.  
 
