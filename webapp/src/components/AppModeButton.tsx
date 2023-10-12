@@ -18,5 +18,5 @@ export const AppModeButton = observer(() => {
     }
   }
 
-  return (<Button onClick={handleSwitchMode} primary label="Switch App Mode" />)
+  return (<Button onClick={handleSwitchMode} color ="blue" style={{ borderRadius: '50%', width: '10px', height: '10px', padding: '0' }}/> )
 })

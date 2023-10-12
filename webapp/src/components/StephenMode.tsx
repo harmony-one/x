@@ -10,11 +10,11 @@ interface Props {
 
 export const StephenMode = ({onReady, onChangeOutput}: Props) => {
   return (
-    <Box pad="32px" gap={'32px'} fill={true} align="center" style={{ height: '100vh', backgroundColor: '#010101' }}>
-      <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
+    <Box pad="32px" gap={'32px'} fill={true} style={{ height: '100vh', backgroundColor: '#010101' }}>
       <Box>
         <AppModeButton />
       </Box>
+        {/* <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} /> */}
     </Box>
   );
 }
