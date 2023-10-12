@@ -9,6 +9,9 @@ function App() {
   const [isInitialized, setInitialized] = useState(false)
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
 
+  // инициализация записи микрофона
+  //
+
   const onReady = () => {
     setInitialized(true)
   }
@@ -28,10 +31,10 @@ function App() {
         </Text>
       </Box> */}
       <Box direction="column" justify="between" align="center" fill={true}>
-        <Box width="800px">
-          <Text>GPT4</Text>
-          <OpenAIWidget />
-        </Box>
+        {/*<Box width="800px">*/}
+        {/*  <Text>GPT4</Text>*/}
+        {/*  <OpenAIWidget />*/}
+        {/*</Box>*/}
 
         <Box width="800px" margin={{ bottom: '32px' }}>
           <Text>Speech-to-Text (Speechmatics)</Text>

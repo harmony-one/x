@@ -212,6 +212,8 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       // Attach our event listeners to the realtime session
       session.addListener('AddTranscript', (res: AddTranscript) => {
         const { results } = res
+
+        console.log('### results', results);
         if(results.length === 0) {
           setTranscriptions([]);
         } else {
@@ -268,49 +270,49 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
   return <Box>
     <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
-      <Box
-        width={'600px'}
-        height={'120px'}
-        round={'6px'}
-        pad={'8px'}
-        style={{
-          border: '1px solid gray',
-          overflowY: 'scroll',
-          fontSize: '20px',
-          color: '#12486B'
-        }}
-      >
-        {transcriptionText}
-      </Box>
-      <Box height={'100%'} gap={'16px'}>
-        <Button primary label="Send to GPT4" onClick={onSendToGPT} />
-        <Button label="Clear text" onClick={onClearText} />
-      </Box>
+      {/*<Box*/}
+      {/*  width={'600px'}*/}
+      {/*  height={'120px'}*/}
+      {/*  round={'6px'}*/}
+      {/*  pad={'8px'}*/}
+      {/*  style={{*/}
+      {/*    border: '1px solid gray',*/}
+      {/*    overflowY: 'scroll',*/}
+      {/*    fontSize: '20px',*/}
+      {/*    color: '#12486B'*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  {transcriptionText}*/}
+      {/*</Box>*/}
+      {/*<Box height={'100%'} gap={'16px'}>*/}
+      {/*  <Button primary label="Send to GPT4" onClick={onSendToGPT} />*/}
+      {/*  <Button label="Clear text" onClick={onClearText} />*/}
+      {/*</Box>*/}
     </Box>
     <Box>
-      <Box margin={{ top: '32px' }}>
-        {(sessionState === 'blocked' || denied) && (
-          <p className='warning-text'>Microphone permission is blocked</p>
-        )}
-      </Box>
-      <MicSelect
-        disabled={!['configure', 'blocked'].includes(sessionState)}
-        onClick={requestDevices}
-        value={audioDeviceIdComputed}
-        options={devices.map((item) => {
-          return { value: item.deviceId, label: item.label };
-        })}
-        onChange={(e) => {
-          if (sessionState === 'configure') {
-            setAudioDeviceId(e.target.value);
-          } else if (sessionState === 'blocked') {
-            setSessionState('configure');
-            setAudioDeviceId(e.target.value);
-          } else {
-            console.warn('Unexpected mic change during state:', sessionState);
-          }
-        }}
-      />
+      {/*<Box margin={{ top: '32px' }}>*/}
+      {/*  {(sessionState === 'blocked' || denied) && (*/}
+      {/*    <p className='warning-text'>Microphone permission is blocked</p>*/}
+      {/*  )}*/}
+      {/*</Box>*/}
+      {/*<MicSelect*/}
+      {/*  disabled={!['configure', 'blocked'].includes(sessionState)}*/}
+      {/*  onClick={requestDevices}*/}
+      {/*  value={audioDeviceIdComputed}*/}
+      {/*  options={devices.map((item) => {*/}
+      {/*    return { value: item.deviceId, label: item.label };*/}
+      {/*  })}*/}
+      {/*  onChange={(e) => {*/}
+      {/*    if (sessionState === 'configure') {*/}
+      {/*      setAudioDeviceId(e.target.value);*/}
+      {/*    } else if (sessionState === 'blocked') {*/}
+      {/*      setSessionState('configure');*/}
+      {/*      setAudioDeviceId(e.target.value);*/}
+      {/*    } else {*/}
+      {/*      console.warn('Unexpected mic change during state:', sessionState);*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*/>*/}
       <Box direction={'row'} gap={'32px'} align={'center'} justify={'between'}>
         <TranscriptionButton
           sessionState={sessionState}
