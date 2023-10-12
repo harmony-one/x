@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { SpeechToTextWidget, OpenAIWidget } from "./widgets";
-import { Box, Text } from "grommet";
 import { useStores } from './stores';
+import {DeveloperMode} from "./components/DeveloperMode";
+import {StephenMode} from "./components/StephenMode";
+import {observer} from "mobx-react";
 
-function App() {
-  const { chatGpt } = useStores();
+const App = observer(() => {
+  const { chatGpt, app } = useStores();
   const [isInitialized, setInitialized] = useState(false)
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
 
@@ -21,25 +22,11 @@ function App() {
   }, [sttOutput]);
 
   return (
-    <Box pad="32px" gap={'32px'} fill={true} style={{ height: '100vh' }}>
-      {/* <Box>
-        <Text>
-          {isInitialized ? 'App ready. Say something.' : 'Waiting for model initialization...'}
-        </Text>
-      </Box> */}
-      <Box direction="column" justify="between" align="center" fill={true}>
-        <Box width="800px">
-          <Text>GPT4</Text>
-          <OpenAIWidget />
-        </Box>
-
-        <Box width="800px" margin={{ bottom: '32px' }}>
-          <Text>Speech-to-Text (Speechmatics)</Text>
-          <SpeechToTextWidget onReady={onReady} onChangeOutput={setSTTOutput} />
-        </Box>
-      </Box>
-    </Box>
+    <>
+      {app.appMode === 'developer' ? (<DeveloperMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
+      {app.appMode === 'stephen' ? (<StephenMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
+    </>
   );
-}
+})
 
 export default App;
