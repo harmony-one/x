@@ -2,7 +2,7 @@
 
 ---
 
-2023-10-13 Fri:
+2023-10-13 Fri: I have set up a demo for vocoding (server and [client](https://github.com/harmony-one/x/commit/4f44ca2c80ec96b7388ffc065c4c2733c8e5ff6d)), also worked on speech interruption and added a [voice detection module](https://github.com/harmony-one/x/commit/0a483ce00e14223f8ba95dc95936494f8a3cc7bf)
 
 2023-10-12 Thu: I worked on launching a [demonstration](https://github.com/harmony-one/x/pull/11) of the interview bot from Vocode. They used their own API which is currently not functioning. I also worked on the [application modes](https://github.com/harmony-one/x/pull/12) (black screen). I separated the code into parts and encountered some problems with speech recognition. 
 
