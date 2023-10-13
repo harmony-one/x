@@ -7,10 +7,8 @@ Let’s build the future of 10 billion humans and bots in harmony – full of ra
 set .env file
 ```
 REACT_APP_SECRET_OPEN_AI=*** // key for openai api
-REACT_APP_SECRET_PICOVOICE=*** // key from https://console.picovoice.ai/
 REACT_APP_SECRET_ELEVENLABS=*** // key for https://elevenlabs.io/
-REACT_APP_SECRET_DEEPGRAM=*** // key for https://deepgram.com/
-REACT_APP_SPEECHMATICS_API_KEY=*** // key for https://speechmatics.com/
+REACT_APP_DEEPGRAM_API_KEY=*** // key for https://deepgram.com/
 ```
 
 ```

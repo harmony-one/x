@@ -1,8 +1,7 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 
-// Get your key here: https://console.picovoice.ai/
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
 
 export interface ISpeechToTextWidget {
