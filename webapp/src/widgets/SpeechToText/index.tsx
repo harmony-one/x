@@ -4,7 +4,7 @@ import useDebounce from "../../hooks/useDebounce";
 import {DeepgramResponse} from "./types";
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
-const SpeechWaitTimeout = 1500
+const SpeechWaitTimeout = 2500
 
 export interface ISpeechToTextWidget {
   onReady: () => void
@@ -12,18 +12,19 @@ export interface ISpeechToTextWidget {
 }
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
+  const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
 
   useEffect(() => {
-    if(transcriptions.length > 0) {
+    if(transcriptions.length > 0 && isSpeechEnded) {
       const text = transcriptions.join(' ')
       props.onChangeOutput(text)
       setTranscriptions([])
       console.log('Send to GPT: ', text)
     }
-  }, [debouncedTranscriptions]);
+  }, [debouncedTranscriptions, isSpeechEnded]);
 
   useEffect(() => {
     if(DeepgramApiKey) {
@@ -53,8 +54,12 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
             console.log(durationMs)
           }
 
+          console.log('Is speech ended:', transcript.length === 0)
           if(transcript.length > 0) {
+            setSpeechEnded(false)
             setTranscriptions(transcriptions => [...transcriptions, transcript])
+          } else {
+            setSpeechEnded(true)
           }
         }
       })
