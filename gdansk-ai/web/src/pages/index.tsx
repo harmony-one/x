@@ -28,7 +28,16 @@ const AudioProvider = ({ children, bibsAmount, setBibsAmount, systemMessage, mes
     }
 
     formData.append('messages', JSON.stringify([systemMessageWithFilteringUnwantedKeywordsAndTopics, ...messages]));
-    await axios.post('/api/question', formData, { responseType: 'arraybuffer', headers: { "chatbot-api-key": process.env.CHATBOT_API_KEY } })
+    await axios.post('https://gdansk-ai-api-demo.fly.dev/question', formData, {
+      responseType: 'arraybuffer',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Credentials': 'true'
+      },
+      // headers: { "chatbot-api-key": process.env.CHATBOT_API_KEY },
+      withCredentials: false,
+    })
       // TODO maybe remove chatbot-api-key header from here - it should be passed to api in question.js and it is already done
       .then((response) => {
         audioChunksRef.current = [];
@@ -43,13 +52,13 @@ const AudioProvider = ({ children, bibsAmount, setBibsAmount, systemMessage, mes
 
         const audio = new Audio(audioUrl);
         audio.play();
-        axios.get('/api/my-tokens')
-          .then((response) => {
-            setBibsAmount(response.data.tokens);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // axios.get('/api/my-tokens')
+        //   .then((response) => {
+        //     setBibsAmount(response.data.tokens);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
         // TODO - make api call to retrieve current amount of tokens
       })
       .catch((error) => {
@@ -91,7 +100,21 @@ const Page = ({ bibsAmount, setBibsAmount, audioChunksRef, setUnwantedTopics, se
   const [recording, setRecording] = useState(false);
   const [playing, setPlaying] = useState(false);
   const mediaRecorderRef = useRef(null);
-  const { user, isLoading } = useUser();
+
+  const user = {
+    "given_name": "P",
+    "family_name": "V",
+    "nickname": "p",
+    "name": "P V",
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocddIS84dCXFDSe5KV3YaYhpZJQ4eouYRo5puX4mURGejL=s96-c",
+    "locale": "en",
+    "updated_at": "2023-10-12T16:27:49.444Z",
+    "email": "p@gmail.com",
+    "email_verified": true,
+    "sub": "google-oauth2|1ww074f465165532889135708",
+    "sid": "-5GPvDGHXGuqkZpZxe1x351Wa32eEMRUQOE"
+}
+
   const isAuthenticated = isUserAuthenticated(user);
 
   const uploadAudio = useContext(AudioContext);
@@ -142,12 +165,13 @@ const Page = ({ bibsAmount, setBibsAmount, audioChunksRef, setUnwantedTopics, se
 
   useEffect(() => {
     axios.get('/api/my-tokens')
-      .then((response) => {
-        setBibsAmount(response.data.tokens);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setBibsAmount(100000000);
+    // .then((response) => {
+    //   setBibsAmount(response.data.tokens);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   }, [setBibsAmount]);
 
   const redirectToSignUp = () => {

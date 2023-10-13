@@ -7,6 +7,7 @@ from google.cloud import texttospeech
 from typing import Union, Annotated
 from fastapi.responses import FileResponse
 from fastapi import FastAPI, Form, UploadFile, Header, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 import tempfile
 import logging
 import httpx
@@ -15,6 +16,14 @@ from pydantic import BaseModel
 from typing import List
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:3000', '*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 limits = httpx.Limits(max_keepalive_connections=5, max_connections=10)
 timeout = httpx.Timeout(timeout=5.0, read=15.0)
@@ -30,8 +39,9 @@ load_dotenv()
 openai.api_key = os.environ['OPEN_AI_API_KEY']
 private_chatbot_api_key = os.environ['CHATBOT_API_KEY']
 
-app = FastAPI()
+# app = FastAPI()
 
+print("/FastAPI")
 
 @app.on_event("startup")
 async def startup_event():
@@ -63,9 +73,9 @@ class ItemList(BaseModel):
 @app.post("/question")
 async def create_upload_file(response: Response, audio: UploadFile, messages: str = Form(...), chatbot_api_key: Annotated[Union[str, None], Header()] = None):
     print("/question")
-    if chatbot_api_key != private_chatbot_api_key:
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return 'Unauthorized'
+    # if chatbot_api_key != private_chatbot_api_key:
+    #     response.status_code = status.HTTP_401_UNAUTHORIZED
+    #     return 'Unauthorized'
     try:
         with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as temp_file:
             temp_file.write(await audio.read())

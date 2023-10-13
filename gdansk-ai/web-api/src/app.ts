@@ -16,14 +16,14 @@ export const managementAPI = new ManagementClient({
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
 });
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2022-11-15',
-    appInfo: {
-        name: "gdansk-ai",
-        version: "0.0.1",
-        url: "https://your-page-url"
-    }
-});
+// export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+//     apiVersion: '2022-11-15',
+//     appInfo: {
+//         name: "gdansk-ai",
+//         version: "0.0.1",
+//         url: "https://your-page-url"
+//     }
+// });
 
 const app = express()
 app.use(helmet());
@@ -112,16 +112,16 @@ app.post('/webhook', async (req, res) => {
     const { type, data } = req.body;
     if (type === 'checkout.session.completed') {
         const sessionId = data.object.id;
-        const session = await stripe.checkout.sessions.retrieve(sessionId);
+        // const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-        const session_completed = {
-            email: session.customer_email,
-            payment_status: session.payment_status,
-            session_status: session.status
-        };
+        // const session_completed = {
+        //     email: session.customer_email,
+        //     payment_status: session.payment_status,
+        //     session_status: session.status
+        // };
 
         let users = await managementAPI
-            .getUsersByEmail(session_completed.email);
+            .getUsersByEmail('p@gmail.com');
 
         if (users.length === 1) {
             try {
@@ -209,21 +209,21 @@ app.post('/buy-tokens', authorize, async (req, res) => {
         console.error('err', err)
     }
 
-    const session = await stripe.checkout.sessions.create({
-        billing_address_collection: 'auto',
-        line_items: [
-            {
-                price: process.env.TOKENS_PRICE_ID,
-                quantity: 1,
-            },
-        ],
-        customer_email: user.email,
-        mode: 'payment',
-        success_url: process.env.CLIENT_URL,
-        cancel_url: process.env.CLIENT_URL,
-    });
+    // const session = await stripe.checkout.sessions.create({
+    //     billing_address_collection: 'auto',
+    //     line_items: [
+    //         {
+    //             price: process.env.TOKENS_PRICE_ID,
+    //             quantity: 1,
+    //         },
+    //     ],
+    //     customer_email: user.email,
+    //     mode: 'payment',
+    //     success_url: process.env.CLIENT_URL,
+    //     cancel_url: process.env.CLIENT_URL,
+    // });
 
-    res.status(200).json({ 'redirectUrl': session.url });
+    res.status(200).json({ 'redirectUrl': '' });
 });
 
 app.use(function (req, res, next) {
