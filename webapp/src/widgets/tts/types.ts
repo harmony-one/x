@@ -26,7 +26,7 @@ export abstract class AbstractTTSPlayer extends EventEmitter {
     timerId: NodeJS.Timeout | undefined;
 
     public setText(lines: string[], complete: boolean) {
-        console.log(111, lines);
+        // console.log(111, lines);
         this.lines = lines;
         this.complete = complete;
         this.updateSentences();

@@ -106,7 +106,7 @@ export default class ExternalTTSAudioFilePlayer extends AbstractTTSPlayer {
         const files = await Promise.all(sentencesToDownload.map(async sentenceIndex => {
             try {
                 const text = sentences[sentenceIndex];
-                console.log('getAudioFile', text);
+                // console.log('getAudioFile', text);
 
                 return await getAudioFile(this.plugin, text);
             } catch (e) {
@@ -114,9 +114,9 @@ export default class ExternalTTSAudioFilePlayer extends AbstractTTSPlayer {
             }
         }));
 
-        if(files.length) {
-            console.log(files);
-        }
+        // if(files.length) {
+        //     console.log(files);
+        // }
 
         for (let i = 0; i < sentencesToDownload.length; i++) {
             const sentenceIndex = sentencesToDownload[i];
@@ -181,7 +181,7 @@ export default class ExternalTTSAudioFilePlayer extends AbstractTTSPlayer {
                         time = this.startTime;
                     }
 
-                    console.log('play', this.sentences[i]);
+                    // console.log('play', this.sentences[i]);
 
                     sourceNode.start(time);
                     this.duration = time + this.durations[i] - this.startTime;
