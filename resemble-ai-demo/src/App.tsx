@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { observer } from "mobx-react";
-import { Box, Button, Text, TextArea, TextInput } from 'grommet';
+import { Box, Button, Select, Text, TextArea, TextInput } from 'grommet';
 
 import { Resemble } from '@resemble/node';
+import { voices } from './voices';
 
 Resemble.setApiKey(String(process.env.REACT_APP_RESEMBLE_API_KEY));
 
@@ -21,7 +22,7 @@ const createProject = async () => {
 
 // createProject();
 
-const textToSpeach = async (text: string, voiceUuid: string) => {
+const textToSpeach = async (text: string, voiceUuid: string = 'd3e61caf') => {
   const projectUuid = '4a7baea9';
   // const voiceUuid = 'd3e61caf';
 
@@ -42,7 +43,7 @@ const App = observer(() => {
   const [audioLinks, setAudioLinks] = useState<Array<{ link: string, time: number }>>([]);
   const [text, setText] = useState('');
   const [error, setError] = useState('');
-  const [voice, setVoice] = useState('d3e61caf');
+  const [voice, setVoice] = useState<string>('Olivia');
   const [isLoading, setIsLoading] = useState(false);
 
   const addAudioLink = (link: string, time: number) => {
@@ -55,15 +56,25 @@ const App = observer(() => {
         <Box width="800px">
           <h2>Resemble AI text to speach playground</h2>
 
-          <Box margin={{ vertical: '12px' }}>
+          <Box
+            margin={{ vertical: '12px' }}
+            style={{
+              maxWidth: 200
+            }}
+          >
             <Text>Voice:</Text>
-            <TextInput
+            <Select
+              options={
+                voices.items
+                  .filter(v => !v.name.includes('Legacy'))
+                  .map(v => v.name)
+              }
               style={{
                 maxWidth: 200
               }}
               disabled={isLoading}
               value={voice}
-              onChange={o => setVoice(o.target.value)}
+              onChange={({ option }) => setVoice(option)}
             />
           </Box>
 
@@ -89,7 +100,10 @@ const App = observer(() => {
                 setError('');
                 try {
                   const startDate = Date.now();
-                  const link = await textToSpeach(text, voice);
+                  const link = await textToSpeach(
+                    text,
+                    voices.items.find(v => v.name === voice)?.uuid
+                  );
                   addAudioLink(link, Date.now() - startDate);
                 } catch (e) {
                   //@ts-ignore
