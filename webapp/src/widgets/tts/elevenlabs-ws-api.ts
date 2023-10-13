@@ -9,6 +9,8 @@ let startTime = 0;
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
+const API_KEY = process.env.REACT_APP_SECRET_ELEVENLABS;
+
 export class ElevenlabsApi {
     socket: WebSocket;
 
@@ -102,7 +104,7 @@ export class ElevenlabsApi {
                 "stability": 0.5,
                 "similarity_boost": true
             },
-            "xi_api_key": process.env.REACT_APP_SECRET_ELEVENLABS, // replace with your API key
+            "xi_api_key": API_KEY, // replace with your API key
         };
 
         this.socket.send(JSON.stringify(bosMessage));
@@ -134,7 +136,7 @@ export class ElevenlabsApi {
                 "stability": 0.5,
                 "similarity_boost": true
             },
-            "xi_api_key": process.env.REACT_APP_SECRET_ELEVENLABS, // replace with your API key
+            "xi_api_key": API_KEY, // replace with your API key
         };
 
         this.socket.send(JSON.stringify(bosMessage));
