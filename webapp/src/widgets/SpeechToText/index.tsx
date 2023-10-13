@@ -53,16 +53,18 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         socket.onmessage = (message) => {
           const received: DeepgramResponse = JSON.parse(message.data)
           const transcript = received.channel.alternatives[0].transcript
-          const startTimeStamp = received.start
-          const latency = received.duration
-          const latencyFormatted = `${latency * 1000}ms`
 
-          // if(received.channel.alternatives[0].words.length) {
-          //   console.log('received: ', received)
-          //   console.log('start: ', startTimeStamp)
-          //   console.log('latency: ', latency)
-          //   console.log('end: ', startTimeStamp + latency)
-          // }
+          const startMs = Math.round(received.start * 1000);
+          const durationMs = Math.round(received.duration * 1000);
+          const endMs = Math.round((received.start + received.duration) * 1000);
+
+
+          if(transcript.length > 0) {
+            console.log(received)
+            console.log(startMs, durationMs, endMs)
+          } else {
+            console.log(durationMs)
+          }
 
           if(transcript.length > 0) {
             setTranscriptions(transcriptions => [...transcriptions, transcript])
