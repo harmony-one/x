@@ -20,7 +20,7 @@ export const DeveloperMode = ({onReady, onChangeOutput}: Props) => {
           <OpenAIWidget />
         </Box>
         <Box width="800px" margin={{ bottom: '32px' }}>
-          <Text>Speech-to-Text (Deepgram)</Text>
+          <Text>Speech-to-Text (Deepgram Nova 2)</Text>
           <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
         </Box>
       </Box>
