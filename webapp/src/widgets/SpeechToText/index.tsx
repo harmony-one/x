@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {Box} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {DeepgramResponse} from "./types";
+import {watchMicAmplitude} from './micAmplidute'
+import {ttsPlayer} from "../tts";
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
 const SpeechWaitTimeout = 800
@@ -14,6 +16,8 @@ export interface ISpeechToTextWidget {
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
+
+  const [speaking, setSpeaking] = useState(false);
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
 
@@ -30,6 +34,15 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     if(DeepgramApiKey) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+
+        watchMicAmplitude({stream, callback: (voiceDetected) => {
+          console.log('### voice detected', voiceDetected);
+          setSpeaking(voiceDetected)
+           if (voiceDetected) {
+             ttsPlayer.clear()
+           }
+        }})
+
         const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
@@ -74,7 +87,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         round={'6px'}
         pad={'8px'}
         style={{
-          border: '1px solid gray',
+          border: ` ${speaking ? '3px solid green' : '1px solid gray' }`,
           overflowY: 'scroll',
           fontSize: '20px',
           color: '#12486B'
