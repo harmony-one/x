@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {Box} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {DeepgramResponse} from "./types";
+import { useStores } from '../../stores';
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
-const SpeechWaitTimeout = 1500
+const SpeechWaitTimeout = 1000
 
 export interface ISpeechToTextWidget {
   onReady: () => void
@@ -12,6 +13,10 @@ export interface ISpeechToTextWidget {
 }
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
+
+  const { app } = useStores();
+  const muted = app.muted
+
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
 
@@ -22,7 +27,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       const text = transcriptions.join(' ')
       props.onChangeOutput(text)
       setTranscriptions([])
-      console.log('Send to GPT: ', text)
+      // console.log('Send to GPT: ', text)
     }
   }, [debouncedTranscriptions, isSpeechEnded]);
 
@@ -31,6 +36,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
         const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
+        
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
             socket.send(event.data)
@@ -38,35 +44,38 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           mediaRecorder.start(250)
         }
 
-        socket.onmessage = (message) => {
-          const received: DeepgramResponse = JSON.parse(message.data)
-          const transcript = received.channel.alternatives[0].transcript
-
-          const startMs = Math.round(received.start * 1000);
-          const durationMs = Math.round(received.duration * 1000);
-          const endMs = Math.round((received.start + received.duration) * 1000);
-
-
-          if(transcript.length > 0) {
-            console.log(received)
-            console.log(startMs, durationMs, endMs)
-          } else {
-            console.log(durationMs)
-          }
-
-          console.log('Is speech ended:', transcript.length === 0)
-          if(transcript.length > 0) {
-            setSpeechEnded(false)
-            setTranscriptions(transcriptions => [...transcriptions, transcript])
-          } else {
-            setSpeechEnded(true)
+        if(!muted) {
+          socket.onmessage = (message) => {
+            const received: DeepgramResponse = JSON.parse(message.data)
+            const transcript = received.channel.alternatives[0].transcript
+  
+            const startMs = Math.round(received.start * 1000);
+            const durationMs = Math.round(received.duration * 1000);
+            const endMs = Math.round((received.start + received.duration) * 1000);
+  
+  
+            // if(transcript.length > 0) {
+            //   console.log(received)
+            //   console.log(startMs, durationMs, endMs)
+            // } else {
+            //   console.log(durationMs)
+            // }
+  
+            // console.log('Is speech ended:', transcript.length === 0)
+            if(transcript.length > 0) {
+              setSpeechEnded(false)
+              setTranscriptions(transcriptions => [...transcriptions, transcript])
+            } else {
+              setSpeechEnded(true)
+            }
           }
         }
       })
     }
-  }, [DeepgramApiKey]);
+  }, [DeepgramApiKey, muted]);
 
-  return <Box>
+  return app.appMode == 'stephen' ? null : (
+  <Box>
     <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
       <Box
         width={'100%'}
@@ -83,5 +92,5 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         {transcriptions.join(' ')}
       </Box>
     </Box>
-  </Box>
+  </Box>)
 }

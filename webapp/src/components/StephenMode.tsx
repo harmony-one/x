@@ -1,7 +1,7 @@
 import React from 'react';
 import { SpeechToTextWidget } from "../widgets";
 import { Box } from "grommet";
-import {AppModeButton} from "./AppModeButton";
+import { AppModeButton } from './buttons/AppModeButton';
 
 interface Props {
   onReady: () => void
@@ -14,7 +14,7 @@ export const StephenMode = ({onReady, onChangeOutput}: Props) => {
       <Box>
         <AppModeButton />
       </Box>
-        {/* <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} /> */}
+        <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
     </Box>
   );
 }

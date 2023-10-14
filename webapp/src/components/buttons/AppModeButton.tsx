@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Button, Text} from "grommet";
-import {useStores} from "../stores";
+import {useStores} from "../../stores";
 import {observer} from "mobx-react";
 
 export const AppModeButton = observer(() => {
