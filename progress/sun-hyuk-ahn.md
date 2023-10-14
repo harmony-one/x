@@ -1,4 +1,4 @@
-2023-10-13 Fri:
+2023-10-13 Fri: Deployed voice-webapp on sun.x.country; working on integrating with Ivan's Acapela; started looking into optimazation in various levels
 
 2023-10-12 Thu: Studying and going over Hugging Face [Quantization](https://huggingface.co/docs/transformers/main_classes/quantization); Wrestling [GPTQ](https://arxiv.org/pdf/2210.17323.pdf) paper (still need time to fully digest the material); Building demo 8-bit GTPQ (referenced from this [repo](https://github.com/IST-DASLab/gptq)); will continue working on this tomorrow
 
