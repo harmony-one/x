@@ -2,10 +2,14 @@
 
 ---
 
-## Week 42
+## Week 41
 
 **2023-10-13 Fri:**
-
+- Tested Acapela with Neural voices processing (including HTTP overhead) achieved ~3x speed up. Updated [Notion page](https://hill-baron-ebd.notion.site/Acapela-STT-26e27193c8534b6cb7af7db37bf925a8?pvs=4).
+- Configured CORS for WIS. Tested within our GitHub repo ./willow-js-demo/
+- Onboarding stuff (setup email ivan@harmony.one + Notion with it; Lastpass)
+- Code review of X repo
+- Briefly passed report SoTA report form [Air Street Capital](https://docs.google.com/presentation/d/156WpBF_rGvf4Ecg19oM1fyR51g4FAmHV3Zs0WLukrLQ/edit#slide=id.g24daeb7f4f0_0_3373)
 
 **2023-10-12 Thu:**
   - Tested **STT** WIS (w. Whisper) performance on cloud machine with GPU Tesla T4 (~16x speed-up). Results were put to previous day. 

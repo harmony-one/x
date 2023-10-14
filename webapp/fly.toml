@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for audio-stream on 2023-10-13T17:38:49-07:00
+# fly.toml app configuration file generated for voice-webapp on 2023-10-13T15:44:07-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "audio-stream"
-primary_region = "sjc"
+app = "voice-webapp"
+primary_region = "lax"
 
 [build]
 

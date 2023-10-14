@@ -3,7 +3,7 @@
 
 ---
 
-2023-10-13 Fri:
+2023-10-13 Fri: Spoke with ios engs, tested new demos, deployed them, will map them to x.country domains tomorrow. Will continue to research resemble, play.ht, and other projects over the weekend and push the development of all demos.
 
 2023-10-12 Thu: Helped test and deploy https://x.country/gdansk fork for Yuriy and another unhosted demo using vocode with Sergey. Helped reformat main demo, and will have call with our new ios eng tomorrow at 9:30am
 
