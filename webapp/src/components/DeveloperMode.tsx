@@ -19,7 +19,7 @@ export const DeveloperMode = ({onReady, onChangeOutput}: Props) => {
           <Text>GPT4</Text>
           <OpenAIWidget />
         </Box>
-        <Box width="800px" margin={{ bottom: '32px' }}>
+        <Box width="800px" margin={{ bottom: '16px' }}>
           <SpeechToTextWidget
             onReady={onReady}
             onChangeOutput={onChangeOutput}

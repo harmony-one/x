@@ -19,7 +19,6 @@ export class ChatGptStore {
   messages: IMessage[] = [];
 
   activeGptOutput: string = '';
-  activeUserInput: string = '';
 
   isLoading: boolean = false;
 
@@ -28,12 +27,12 @@ export class ChatGptStore {
       isLoading: observable,
       messages: observable,
       activeGptOutput: observable,
-      activeUserInput: observable,
       setUserInput: action,
       setGptOutput: action,
       loadGptAnswer: action,
       clearMessages: action,
-      loadMessages: action
+      loadMessages: action,
+      activeUserInput: computed
     })
 
     this.openai = new OpenAI({
@@ -44,9 +43,21 @@ export class ChatGptStore {
     this.loadMessages();
   }
 
-  setUserInput = (text: string) => {
-    this.activeUserInput = text;
+  get activeUserInput () {
+    const messagesList = [...this.messages]
+      .reverse()
+      .filter((_, index) => index <= 5)
+      .reverse()
+    console.log('messagesList', [...messagesList].map(item => item.text))
+    return messagesList
+      .reduce((acc, nextItem) => {
+        acc += ` ${nextItem.text}`
+        return acc
+      }, '')
+    // return this.messages[this.messages.length - 1].text || ''
+  }
 
+  setUserInput = (text: string) => {
     this.messages.push({
       author: AUTHOR.USER,
       text
@@ -62,6 +73,7 @@ export class ChatGptStore {
 
     try {
       const content = this.activeUserInput;
+      console.log('content', content)
       let resMessage = ''
 
       ttsPlayer.clear();
@@ -107,7 +119,6 @@ export class ChatGptStore {
     }
 
     this.activeGptOutput = '';
-    this.activeUserInput = '';
     this.isLoading = false;
   }
 
