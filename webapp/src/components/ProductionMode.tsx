@@ -8,7 +8,7 @@ interface Props {
   onChangeOutput: (p: string) => void
 }
 
-export const StephenMode = ({onReady, onChangeOutput}: Props) => {
+export const ProductionMode = ({onReady, onChangeOutput}: Props) => {
   return (
     <Box pad="32px" gap={'32px'} fill={true} style={{ height: '100vh', backgroundColor: '#010101' }}>
       <Box>

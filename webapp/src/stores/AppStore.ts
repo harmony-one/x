@@ -1,7 +1,7 @@
 import {action, makeObservable, observable,} from "mobx";
 
 
-type AppMode = 'stephen' | 'developer' | 'grandma'
+type AppMode = 'production' | 'developer' | 'grandma'
 
 export class AppStore {
 

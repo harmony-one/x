@@ -7,13 +7,13 @@ export const AppModeButton = observer(() => {
   const {app} = useStores()
 
   const handleSwitchMode = () => {
-    if (app.appMode === 'stephen') {
+    if (app.appMode === 'production') {
       app.changeMode('developer')
       return;
     }
 
     if (app.appMode === 'developer') {
-      app.changeMode('stephen')
+      app.changeMode('production')
       return;
     }
   }
