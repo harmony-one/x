@@ -19,15 +19,12 @@ export class AppStore {
 
   changeMode(mode: AppMode) {
     this.appMode = mode
-    this.toggleMute(this.appMode)
+    if(this.appMode === 'stephen') {
+      this.muted = false
+    }
   }
 
   toggleMute(mode?: AppMode) {
-    /// in Stephen Mode, always unmuted
-    if(mode === 'stephen') {
-      this.muted = false
-    } else {
       this.muted = !this.muted;
-    }
   }
 }

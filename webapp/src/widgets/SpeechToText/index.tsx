@@ -32,6 +32,10 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }, [debouncedTranscriptions, isSpeechEnded]);
 
   useEffect(() => {
+    console.log(muted)
+  }, [muted])
+
+  useEffect(() => {
     if(DeepgramApiKey) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
@@ -39,12 +43,11 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
-            socket.send(event.data)
+              socket.send(event.data)
           })
           mediaRecorder.start(250)
         }
 
-        if(!muted) {
           socket.onmessage = (message) => {
             const received: DeepgramResponse = JSON.parse(message.data)
             const transcript = received.channel.alternatives[0].transcript
@@ -68,11 +71,10 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
             } else {
               setSpeechEnded(true)
             }
-          }
         }
       })
     }
-  }, [DeepgramApiKey, muted]);
+  }, [DeepgramApiKey]);
 
   return app.appMode == 'stephen' ? null : (
   <Box>
