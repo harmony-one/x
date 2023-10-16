@@ -1,10 +1,10 @@
 2023-10-16 Mon: 
-Working on full end-to-end gui for Willow based on Willow (rest api)[https://54.186.221.210:19000/api/docs#/]
+Working on full end-to-end gui for Willow based on Willow [rest api](https://54.186.221.210:19000/api/docs#/)
 
 ---
 
 2023-10-13 Fri:
-[Willow demo draft](https://github.com/harmony-one/x/pull/17) Added willow demo draft. webrtc stt working, continue working on other functions (tts, sts, speaker change). Resemble AI demo https://github.com/harmony-one/x/pull/19 
+[Willow demo draft](https://github.com/harmony-one/x/pull/17) Added willow demo draft. webrtc stt working, continue working on other functions (tts, sts, speaker change). [Resemble AI demo](https://github.com/harmony-one/x/pull/19)
 
 2023-10-12 Thu:
 [Added](https://github.com/harmony-one/x/pull/10) the gdansk-ai repository, worked on deployment and setting up the environment. Started diving into api/docs for Willow inference server - for the next creation of a webapp demo.
