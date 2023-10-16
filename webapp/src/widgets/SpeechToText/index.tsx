@@ -4,7 +4,7 @@ import useDebounce from "../../hooks/useDebounce";
 import {DeepgramResponse} from "./types";
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
-const SpeechWaitTimeout = 1500
+const SpeechWaitTimeout = 800
 
 export interface ISpeechToTextWidget {
   onReady: () => void
