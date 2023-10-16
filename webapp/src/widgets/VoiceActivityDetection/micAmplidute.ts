@@ -5,11 +5,12 @@ interface Options {
   intervalMs?: number
   durationMs?: number
   threshold?: number
-  callback: (flag: boolean) => void
+  onUpdate?: (value: number) => void
+  onDetect: (flag: boolean) => void
 }
 
-export function watchMicAmplitude(options: Options) {
-  const { stream, intervalMs = 100, durationMs = 1000, threshold = 3, callback } = options;
+export function watchMicAmplitude(options: Options): () => void {
+  const { stream, intervalMs = 50, durationMs = 500, threshold = 1, onDetect } = options;
 
   const audioContext = new window.AudioContext();
   const analyser = audioContext.createAnalyser();
@@ -19,39 +20,36 @@ export function watchMicAmplitude(options: Options) {
   const source = audioContext.createMediaStreamSource(stream);
   source.connect(analyser);
 
-  const limit = Math.round(durationMs / intervalMs)
-  const micData = new StackLimited(limit)
+  const stackLimit = Math.round(durationMs / intervalMs)
+  const micData = new StackLimited(stackLimit)
 
   let isThresholdReached = false;
 
-  function measureMicrophoneLevel() {
+  function measureMicrophoneLevel(): ReturnType<typeof setTimeout> {
     analyser.getByteFrequencyData(dataArray);
 
     const average = dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length;
 
     micData.push(average)
 
-    // console.log('### micData', micData.size());
     const avgByDuration = micData.stack.reduce((acc, value) => acc + value, 0) / micData.stack.length
 
+    options.onUpdate && options.onUpdate(avgByDuration)
 
-    if (micData.size() === limit && avgByDuration >= threshold && !isThresholdReached) {
+    if (micData.size() === stackLimit && avgByDuration >= threshold && !isThresholdReached) {
       isThresholdReached = true
-      callback(isThresholdReached)
+      onDetect(isThresholdReached)
     }
 
     if (avgByDuration < threshold && isThresholdReached) {
       isThresholdReached = false
-      callback(isThresholdReached)
+      setTimeout(() => onDetect(isThresholdReached), 0)
     }
 
-    setTimeout(measureMicrophoneLevel, intervalMs)
-
-    // requestAnimationFrame(measureMicrophoneLevel);
-
+    return setTimeout(measureMicrophoneLevel, intervalMs)
   }
 
-  measureMicrophoneLevel();
+  const timeout = measureMicrophoneLevel();
 
-  return;
+  return () => clearTimeout(timeout);
 }
