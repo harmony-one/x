@@ -10,6 +10,7 @@ import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDet
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
 const SpeechWaitTimeout = 800
 
+
 export interface ISpeechToTextWidget {
   onReady: () => void
   onChangeOutput: (output: string) => void;
@@ -21,6 +22,8 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
+
+  const { app } = useStores();
 
   useEffect(() => {
     if(transcriptions.length > 0 && isSpeechEnded) {
@@ -73,25 +76,26 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
   }, [DeepgramApiKey]);
 
-  return <Box>
-    <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
-      <Box
-        width={'100%'}
-        height={'120px'}
-        round={'6px'}
-        pad={'8px'}
-        style={{
-          border: '1px solid gray',
-          overflowY: 'scroll',
-          fontSize: '20px',
-          color: '#12486B'
-        }}
-      >
-        {transcriptions.join(' ')}
-      </Box>
-    </Box>
+  return app.appMode == 'stephen' ? null : (
     <Box>
-      <VoiceActivityDetection mediaStream={mediaStream} />
-    </Box>
-  </Box>
+      <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
+        <Box
+          width={'100%'}
+          height={'120px'}
+          round={'6px'}
+          pad={'8px'}
+          style={{
+            border: '1px solid gray',
+            overflowY: 'scroll',
+            fontSize: '20px',
+            color: '#12486B'
+          }}
+        >
+          {transcriptions.join(' ')}
+        </Box>
+      </Box>
+      <Box>
+        <VoiceActivityDetection mediaStream={mediaStream} />
+      </Box>
+    </Box>)
 }
