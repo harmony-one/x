@@ -1,5 +1,5 @@
 2023-10-16 Mon: 
-Working on full end-to-end gui for Willow based on Willow [rest api](https://54.186.221.210:19000/api/docs#/)
+[Working](https://github.com/harmony-one/x/pull/27) on full end-to-end gui for Willow based on Willow [rest api](https://54.186.221.210:19000/api/docs#/)
 
 ---
 
