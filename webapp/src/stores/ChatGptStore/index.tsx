@@ -46,7 +46,7 @@ export class ChatGptStore {
   get activeUserInput () {
     const messagesList = [...this.messages]
       .reverse()
-      .filter((_, index) => index <= 5)
+      .filter((_, index) => index <= 10)
       .reverse()
     console.log('messagesList', [...messagesList].map(item => item.text))
     return messagesList
