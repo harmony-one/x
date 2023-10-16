@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import AppDeepgram from './AppDeepgram';
 import reportWebVitals from './reportWebVitals';
 import mobxStores, { StoresProvider } from './stores';
 import { Provider as MobxProvider } from 'mobx-react';
@@ -14,7 +15,8 @@ root.render(
   <StoresProvider stores={mobxStores}>
     <MobxProvider {...mobxStores}>
       <Grommet full>
-        <App />
+        {/* <App /> */}
+        <AppDeepgram />
       </Grommet>
     </MobxProvider>
   </StoresProvider>
