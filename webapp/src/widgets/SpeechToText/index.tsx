@@ -5,7 +5,7 @@ import {DeepgramResponse} from "./types";
 import { useStores } from '../../stores';
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
-const SpeechWaitTimeout = 1000
+const SpeechWaitTimeout = 500
 
 export interface ISpeechToTextWidget {
   onReady: () => void
