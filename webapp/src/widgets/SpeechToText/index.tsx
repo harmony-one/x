@@ -12,6 +12,7 @@ export interface ISpeechToTextWidget {
 }
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
+  const [currentSocket, setCurrentSocket] = useState<WebSocket>()
   const [selectedModel, setSelectedModel] = useState(SpeechModel.nova2)
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
@@ -53,6 +54,9 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     if(DeepgramApiKey && selectedModel) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+        if(currentSocket) {
+          currentSocket.onmessage = () => {}
+        }
         const socket = new WebSocket(
           `wss://api.deepgram.com/v1/listen?model=${selectedModel}`,
           [ 'token', DeepgramApiKey ]
@@ -68,6 +72,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         socket.onmessage = (message) => {
           onTranscribeReceived(JSON.parse(message.data) as DeepgramResponse)
         }
+        setCurrentSocket(socket)
       })
     }
   }, [DeepgramApiKey, selectedModel]);
