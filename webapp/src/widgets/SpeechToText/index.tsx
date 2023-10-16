@@ -3,7 +3,7 @@ import {Box, Button} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {DeepgramResponse} from "./types";
 import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
-import vad from 'voice-activity-detection'
+// import vad from 'voice-activity-detection'
 import {useStores} from "../../stores";
 import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
 
