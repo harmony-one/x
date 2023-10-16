@@ -1,40 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useStores } from './stores';
-import {observer} from "mobx-react";
-import { Box, Text } from 'grommet';
+import { observer } from "mobx-react";
+import { Box, Text, TextInput } from 'grommet';
 import { OpenAIWidget } from './widgets';
-import { WillowClient } from '@tovera/willow-ts-client'
-
-const client = new WillowClient({ host: "http://localhost:19000/api/rtc/asr" })
-
-client.on('onOpen', () => {
-  console.log('Connection open. Recording for 30 seconds.')
-  client.start()
-  setTimeout(()=>client.stop(), 30*1000)
-})
-client.on('onLog', (log) => {
-  console.log('Verbose server log: ' + log)
-})
-client.on('onError', (err) => {
-  console.error('Willow WebRTC Error', err)
-})
-client.on('onInfer', (msg) => {
-  console.log(`Got result ${msg.text} in ${msg.time}ms`)
-})
-
-await client.init();
+import { ttsPlayer } from './widgets/tts';
 
 const App = observer(() => {
   const { chatGpt, app } = useStores();
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
 
-  useEffect(() => {
-    if (sttOutput) {
-      chatGpt.setUserInput(sttOutput);
-      chatGpt.loadGptAnswer();
-    }
-  }, [sttOutput]);
+  // const init = async () => {
+  //   ttsPlayer.clear();
+  //   ttsPlayer.play();
+
+  //   ttsPlayer.setText(['Hello - how are you?'], true);
+  // }
 
   return (
     <Box pad="32px" gap={'32px'} fill={true} style={{ height: '100vh' }}>
@@ -42,6 +23,22 @@ const App = observer(() => {
         <Box width="800px">
           <Text>GPT4</Text>
           <OpenAIWidget />
+        </Box>
+
+        <Box direction='column' gap="20px">
+          <TextInput
+            value={sttOutput}
+            onChange={e => setSTTOutput(e.target.value)}
+          />
+
+          <Box onClick={() => {
+            if (sttOutput) {
+              chatGpt.setUserInput(sttOutput);
+              chatGpt.loadGptAnswer();
+            }
+          }}>
+            Send text to GPT
+          </Box>
         </Box>
       </Box>
     </Box>
