@@ -8,7 +8,6 @@ export const MuteButton = observer(() => {
 
   const handleSwitchMode = () => {
       app.toggleMute()
-      console.log(app.muted)
       return;
   }
 
