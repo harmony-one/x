@@ -1,42 +1,33 @@
 import TTSPlugin from "./tts-plugin";
 import { Voice } from "./types";
-import { defaultElevenLabsVoiceID, defaultVoiceList } from "./elevenlabs-defaults";
+import QueryString from "qs";
 
 function isProxySupported() {
-    return false;
+    return true;
 }
 
 function shouldUseProxy(apiKey: string | undefined | null) {
     return !apiKey && isProxySupported();
 }
 
-function getEndpoint(proxied = false) {
-    return proxied ? '/chatapi/proxies/elevenlabs' : 'https://api.elevenlabs.io';
+function getEndpoint(proxied = true) {
+    return proxied ? 'http://localhost:8000' : process.env.REACT_APP_WILLOW_URL;
 }
 
-function getVoiceFromElevenlabsVoiceObject(v: any) {
-    return {
-        service: "elevenlabs",
-        id: v.voice_id,
-        name: v.name,
-        sampleAudioURL: v.preview_url,
-    };
-}
-
-export interface ElevenLabsPluginOptions {
+export interface WillowPluginOptions {
     apiKey: string | null;
     voice: string;
     customVoiceID: string | null;
 }
 
 /**
- * Plugin for integrating with ElevenLabs Text-to-Speech service.
+ * Plugin for integrating with Willow Text-to-Speech service.
  * 
  * If you want to add a plugin to support another cloud-based TTS service, this is a good example
  * to use as a reference.
  */
-export default class ElevenLabsPlugin extends TTSPlugin<ElevenLabsPluginOptions> {
-    static voices: Voice[] = defaultVoiceList.map(getVoiceFromElevenlabsVoiceObject);
+export default class WillowPlugin extends TTSPlugin<WillowPluginOptions> {
+    static voices: Voice[] = [];
 
     private proxied = shouldUseProxy(this.options?.apiKey);
     private endpoint = getEndpoint(this.proxied);
@@ -45,11 +36,11 @@ export default class ElevenLabsPlugin extends TTSPlugin<ElevenLabsPluginOptions>
      * Initializes the plugin by fetching available voices.
      */
     async initialize() {
-        await this.getVoices();
+        // await this.getVoices();
     }
 
     /**
-     * Fetches and returns the available voices from ElevenLabs API.
+     * Fetches and returns the available voices from Willow API.
      * This function stores the list of voices in a static variable, which is used elsewhere.
      * @returns {Promise<Voice[]>} A promise that resolves to an array of Voice objects.
      */
@@ -59,9 +50,9 @@ export default class ElevenLabsPlugin extends TTSPlugin<ElevenLabsPluginOptions>
         });
         const json = await response.json();
         if (json?.voices?.length) {
-            ElevenLabsPlugin.voices = json.voices.map(getVoiceFromElevenlabsVoiceObject);
+            WillowPlugin.voices = [];
         }
-        return ElevenLabsPlugin.voices;
+        return WillowPlugin.voices;
     }
 
     /**
@@ -71,26 +62,25 @@ export default class ElevenLabsPlugin extends TTSPlugin<ElevenLabsPluginOptions>
     async getCurrentVoice(): Promise<Voice> {
         let voiceID = this.options?.voice;
 
-        // If using a custom voice ID, construct a voice object with the provided voice ID
-        if (voiceID === 'custom' && this.options?.customVoiceID) {
+        if (!WillowPlugin.voices.length) {
             return {
-                service: 'elevenlabs',
-                id: this.options.customVoiceID,
+                service: 'willow',
+                id: '0',
                 name: 'Custom Voice',
             };
         }
 
         // Search for a matching voice object
-        const voice = ElevenLabsPlugin.voices.find(v => v.id === voiceID);
+        const voice = WillowPlugin.voices.find(v => v.id === voiceID);
         if (voice) {
             return voice;
         }
 
         // If no matching voice is found, return a default Voice object
-        // with the defaultElevenLabsVoiceID and 'elevenlabs' as the service
+        // with the defaultWillowVoiceID and 'Willow' as the service
         return {
-            service: 'elevenlabs',
-            id: defaultElevenLabsVoiceID,
+            service: 'Willow',
+            id: '0',
         };
     }
 
@@ -101,29 +91,29 @@ export default class ElevenLabsPlugin extends TTSPlugin<ElevenLabsPluginOptions>
      * @returns {Promise<ArrayBuffer | null>} A promise that resolves to an ArrayBuffer containing the audio data, or null if the conversion fails.
      */
     async speakToBuffer(text: string, voice?: Voice): Promise<ArrayBuffer | null> {
-        if (!voice) {
-            voice = await this.getCurrentVoice();
-        }
+        const queryString = QueryString.stringify({
+            text,
+            format: 'FLAC',
+            speaker: 'CLB'
+        })
 
-        const url = this.endpoint + '/v1/text-to-speech/' + voice.id;
-
-        const response = await fetch(url, {
-            headers: this.createHeaders(),
-            method: 'POST',
-            body: JSON.stringify({
-                text,
-            }),
-        });
-
-        if (response.ok) {
-            return await response.arrayBuffer();
-        } else {
-            return null;
-        }
+        return fetch(`${this.endpoint}/api/tts?${queryString}`, {
+            "headers": {
+                "accept": "application/json",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin"
+            },
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "omit"
+        }).then(res => res.arrayBuffer())
     }
 
     /**
-     * Creates and returns the headers required for ElevenLabs API requests.
+     * Creates and returns the headers required for Willow API requests.
      */
     private createHeaders(): Record<string, string> {
         const headers: Record<string, string> = {
