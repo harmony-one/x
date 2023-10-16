@@ -10,3 +10,6 @@ const ttsPlugin = new ElevenLabsPlugin({
 
 export const ttsPlayer = new ExternalTTSAudioFilePlayer(ttsPlugin);
 
+export function createPlayerTTS() {
+    return new ExternalTTSAudioFilePlayer(ttsPlugin);
+}

@@ -1,10 +1,10 @@
 import ExternalTTSAudioFilePlayer from "./audio-file-player";
-import ElevenLabsPlugin from "./elevenlabs";
+import WillowPlugin from "./willow";
 
-const ttsPlugin = new ElevenLabsPlugin({
+const ttsPlugin = new WillowPlugin({
     getOptions: () => ({
-        apiKey: String(process.env.REACT_APP_SECRET_ELEVENLABS),
-        voice: '21m00Tcm4TlvDq8ikWAM'
+        apiKey: String(''),
+        voice: '0'
     })
 });
 

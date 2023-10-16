@@ -14,7 +14,7 @@ export const StephenMode = ({onReady, onChangeOutput}: Props) => {
       <Box>
         <AppModeButton />
       </Box>
-        {/* <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} /> */}
+        <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
     </Box>
   );
 }
