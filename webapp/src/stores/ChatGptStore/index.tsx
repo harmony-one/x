@@ -1,7 +1,8 @@
 import { makeObservable, action, observable, computed } from "mobx";
 import OpenAI from 'openai';
-import { ttsPlayer } from '../../widgets/tts';
+import { createPlayerTTS } from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
+import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
 
 export enum AUTHOR {
   USER = 'user',
@@ -22,9 +23,11 @@ export class ChatGptStore {
   activeUserInput: string = '';
 
   isLoading: boolean = false;
+  ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
 
   constructor() {
     makeObservable(this, {
+      ttsPlayer: observable,
       isLoading: observable,
       messages: observable,
       activeGptOutput: observable,
@@ -57,8 +60,21 @@ export class ChatGptStore {
     this.activeGptOutput = text;
   }
 
+  interruptVoiceAI() {
+    if (this.ttsPlayer) {
+      this.ttsPlayer.clear()
+      this.ttsPlayer.destroy()
+      this.ttsPlayer = null
+    }
+  }
+
   loadGptAnswer = async () => {
     this.isLoading = true;
+
+    this.interruptVoiceAI();
+
+    const ttsPlayer = createPlayerTTS()
+    this.ttsPlayer = ttsPlayer; // ttsPlayer willbe user only once
 
     try {
       const content = this.activeUserInput;
@@ -103,6 +119,7 @@ export class ChatGptStore {
 
       this.saveMessages();
     } catch (e) {
+      ttsPlayer.destroy()
       console.error('loadGptAnswer', e);
     }
 
