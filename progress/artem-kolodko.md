@@ -1,5 +1,5 @@
 
-2023-10-16 Mon: 
+2023-10-16 Mon: Added STT model selector to test different models: Deepgram Nova 2 and Deepgram ConversationalAI. [Added](https://github.com/harmony-one/x/pull/25) previous messages to GPT4 request to keep the conversation context.
 
 ---
 
