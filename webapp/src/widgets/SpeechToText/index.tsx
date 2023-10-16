@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {Box} from "grommet";
+import {Box, Select, Text} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
-import {DeepgramResponse} from "./types";
+import {SpeechModel, SpeechModelAlias, DeepgramResponse} from "./types";
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
 const SpeechWaitTimeout = 1500
@@ -12,10 +12,33 @@ export interface ISpeechToTextWidget {
 }
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
+  const [selectedModel, setSelectedModel] = useState(SpeechModel.nova2)
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
+
+  const onTranscribeReceived = (data: DeepgramResponse) => {
+    const transcript = data.channel.alternatives[0].transcript
+
+    const startMs = Math.round(data.start * 1000);
+    const durationMs = Math.round(data.duration * 1000);
+    const endMs = Math.round((data.start + data.duration) * 1000);
+
+
+    if(transcript.length > 0) {
+      console.log('Deepgram response:', data)
+      console.log('startMs', startMs, 'durationMs', durationMs, 'endMs', endMs)
+    } else {
+      console.log('durationMs', durationMs)
+    }
+
+    if(transcript.length > 0) {
+      setTranscriptions(transcriptions => [...transcriptions, transcript])
+    }
+    setSpeechEnded(transcript.length === 0)
+    console.log('Is speech ended:', transcript.length === 0)
+  }
 
   useEffect(() => {
     if(transcriptions.length > 0 && isSpeechEnded) {
@@ -27,10 +50,14 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }, [debouncedTranscriptions, isSpeechEnded]);
 
   useEffect(() => {
-    if(DeepgramApiKey) {
+    if(DeepgramApiKey && selectedModel) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
-        const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
+        const socket = new WebSocket(
+          `wss://api.deepgram.com/v1/listen?model=${selectedModel}`,
+          [ 'token', DeepgramApiKey ]
+        )
+        console.log('\n\n\nInit Deepgram STT API model:', selectedModel, '\n\n\n')
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
             socket.send(event.data)
@@ -39,34 +66,34 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         }
 
         socket.onmessage = (message) => {
-          const received: DeepgramResponse = JSON.parse(message.data)
-          const transcript = received.channel.alternatives[0].transcript
-
-          const startMs = Math.round(received.start * 1000);
-          const durationMs = Math.round(received.duration * 1000);
-          const endMs = Math.round((received.start + received.duration) * 1000);
-
-
-          if(transcript.length > 0) {
-            console.log(received)
-            console.log(startMs, durationMs, endMs)
-          } else {
-            console.log(durationMs)
-          }
-
-          console.log('Is speech ended:', transcript.length === 0)
-          if(transcript.length > 0) {
-            setSpeechEnded(false)
-            setTranscriptions(transcriptions => [...transcriptions, transcript])
-          } else {
-            setSpeechEnded(true)
-          }
+          onTranscribeReceived(JSON.parse(message.data) as DeepgramResponse)
         }
       })
     }
-  }, [DeepgramApiKey]);
+  }, [DeepgramApiKey, selectedModel]);
+
+  const modelsOptions = Object.values(SpeechModel).map(value => {
+    return {
+      value,
+      alias: SpeechModelAlias[value]
+    }
+  })
 
   return <Box>
+    <Box direction={'row'} align={'baseline'} gap={'16px'}>
+      <Box>
+        <Text>Speech-to-Text</Text>
+      </Box>
+      <Box width={'260px'}>
+        <Select
+          size={'small'}
+          value={modelsOptions.find(option => option.value === selectedModel)}
+          options={modelsOptions}
+          labelKey={'alias'}
+          onChange={({ option }) => setSelectedModel(option.value)}
+        />
+      </Box>
+    </Box>
     <Box margin={{ top: '16px' }} direction={'row'} align={'center'} gap={'32px'}>
       <Box
         width={'100%'}
