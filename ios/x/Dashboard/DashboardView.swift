@@ -59,11 +59,12 @@ struct DashboardView: View {
                             }
                         }
                         Spacer()
+                        
                         Text(optimiseValue){ text in
                             text.font = .customFont()
                             text.foregroundColor = Color(hex: 0x479CCC)
-                            if let range = text.range(of: "+"){
-                                text[range].foregroundColor = Color.white
+                            for each in text.characters.ranges(of: "+"){
+                                text[each].foregroundColor = Color.white
                             }
                         }
                     }
@@ -79,6 +80,7 @@ struct DashboardView: View {
                     .padding(10)
             )
     }
+    
 }
 
 #Preview {
