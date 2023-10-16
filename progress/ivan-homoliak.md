@@ -125,5 +125,8 @@
 **2023-10-2 Mon**
 - Getting familiar with Harmony's CompoundV2 repository and in general how CompoundV2 works. 
 - Call with Theo F.
+---
 
+https://www.linkedin.com/in/ivan-homoliak-381117185/
+https://scholar.google.com/citations?user=5PQo5gQAAAAJ&hl=en&oi=ao
 
