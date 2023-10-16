@@ -2,14 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {Box, Select, Text} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {SpeechModel, SpeechModelAlias, DeepgramResponse} from "./types";
-import React, {useEffect, useRef, useState} from 'react'
-import {Box, Button} from "grommet";
-import useDebounce from "../../hooks/useDebounce";
-import {DeepgramResponse} from "./types";
-import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
+// import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
 // import vad from 'voice-activity-detection'
 import {useStores} from "../../stores";
-import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
+// import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
 
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
@@ -103,8 +99,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
   })
 
-  return app.appMode == 'stephen' ? null : ( 
-  <Box>
+  return <Box style={{ visibility: app.appMode == 'developer' ? 'visible' : 'hidden' }}>
     <Box direction={'row'} align={'baseline'} gap={'16px'}>
       <Box>
         <Text>Speech-to-Text</Text>
@@ -134,5 +129,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       >
         {transcriptions.join(' ')}
       </Box>
-    </Box>)
+    </Box>
+  </Box>
 }
