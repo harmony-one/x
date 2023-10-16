@@ -12,12 +12,12 @@ struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var latencyText = "256 ms"
-    @State private var topLeftText = "01:01:13.211"
-    @State private var topRightText = "42 / 64 dB"
-    @State private var bottomLeftText1 = "8.067 ONE"
-    @State private var bottomLeftText2 = "x.country/ai"
-    @State private var bottomRightText2 = "101 + 27 + 127"
-    @State private var bottomRightText1 = "1234-5678-90ab"
+    @State private var elapaedTime = "01:01:13.211"
+    @State private var voiceDecibel = "42 / 64 dB"
+    @State private var paymentsCredits = "8.067 ONE"
+    @State private var source = "x.country/ai"
+    @State private var optimiseValue = "101 + 27 + 127"
+    @State private var sessionIdentifier = "1234-5678-90ab"
     
     var body: some View {
         
@@ -25,13 +25,14 @@ struct DashboardView: View {
             .overlay(
                 VStack {
                     HStack {
-                        Text(topLeftText).font(.customFont())
+                        Text(elapaedTime).font(.customFont())
                             .foregroundColor(.white)
                         Spacer()
-                        Text(topRightText){ text in
-                            text.font = .custom("TimesSquare", size: 24)
+                        Text(voiceDecibel){ text in
+                            text.font = .customFont()
                             text.foregroundColor = Color.blue
-                            if let range = text.range(of: "/"), let dbRange = text.range(of: "dB") {
+                            if let range = text.range(of: "/"),
+                               let dbRange = text.range(of: "dB") {
                                 text[range].foregroundColor = Color.white
                                 text[dbRange].foregroundColor = Color.white
                             }
@@ -49,7 +50,7 @@ struct DashboardView: View {
                     }
                     Spacer()
                     HStack {
-                        Text(bottomLeftText1){ text in
+                        Text(paymentsCredits){ text in
                             text.font = .customFont()
                             text.foregroundColor = Color(hex: 0x479CCC)
                             
@@ -58,7 +59,7 @@ struct DashboardView: View {
                             }
                         }
                         Spacer()
-                        Text(bottomRightText2){ text in
+                        Text(optimiseValue){ text in
                             text.font = .customFont()
                             text.foregroundColor = Color(hex: 0x479CCC)
                             if let range = text.range(of: "+"){
@@ -67,10 +68,10 @@ struct DashboardView: View {
                         }
                     }
                     HStack {
-                        Text(bottomLeftText2).font(.customFont())
+                        Text(source).font(.customFont())
                             .foregroundColor(.white)
                         Spacer()
-                        Text(bottomRightText1).font(.customFont())
+                        Text(sessionIdentifier).font(.customFont())
                             .foregroundColor(.white)
                     }
                     .padding(.bottom, 30)
