@@ -11,6 +11,23 @@ export interface ISpeechToTextWidget {
   onChangeOutput: (output: string) => void;
 }
 
+const getMediaRecorder = (stream: MediaStream): MediaRecorder => {
+  const supported_types = ["audio/webm", "video/mp4"];
+
+  const findSupportedType = (types: string[]): string | undefined => {
+    return types.find((type) => MediaRecorder.isTypeSupported(type));
+  };
+
+  const supportedType = findSupportedType(supported_types);
+
+  if (!supportedType) {
+    throw new Error("No suitable mimetype found for this device");
+  }
+
+  const options = { mimeType: supportedType };
+  return new MediaRecorder(stream, options);
+};
+
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
@@ -29,7 +46,17 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   useEffect(() => {
     if(DeepgramApiKey) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+        var mediaRecorder: MediaRecorder
+        try {
+          mediaRecorder = getMediaRecorder(stream)
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error("An error occurred while creating MediaRecorder:", error.message);
+          } else {
+            console.error("An unexpected error occurred:", error);
+          }
+          return
+        }
         const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
