@@ -21,6 +21,7 @@ export class ChatGptStore {
   activeGptOutput: string = '';
 
   isLoading: boolean = false;
+  conversationContextLength = 20
 
   constructor() {
     makeObservable(this, {
@@ -46,14 +47,13 @@ export class ChatGptStore {
   get activeUserInput () {
     const messagesList = [...this.messages]
       .reverse()
-      .filter((_, index) => index <= 10)
+      .filter((_, index) => index < this.conversationContextLength)
       .reverse()
-    console.log('messagesList', [...messagesList].map(item => item.text))
-    return messagesList
       .reduce((acc, nextItem) => {
         acc += ` ${nextItem.text}`
         return acc
       }, '')
+    return messagesList
     // return this.messages[this.messages.length - 1].text || ''
   }
 
@@ -72,7 +72,7 @@ export class ChatGptStore {
     this.isLoading = true;
 
     try {
-      const content = this.activeUserInput;
+      const content = 'Continue this conversation with a one- or two-sentence response: ' + this.activeUserInput;
       console.log('content', content)
       let resMessage = ''
 
