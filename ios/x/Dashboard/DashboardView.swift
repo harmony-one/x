@@ -30,7 +30,7 @@ struct DashboardView: View {
                         Spacer()
                         Text(voiceDecibel){ text in
                             text.font = .customFont()
-                            text.foregroundColor = Color.blue
+                            text.foregroundColor = Color(hex: 0x479CCC)
                             if let range = text.range(of: "/"),
                                let dbRange = text.range(of: "dB") {
                                 text[range].foregroundColor = Color.white
