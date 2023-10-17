@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Select, Text} from "grommet";
+import { observer } from "mobx-react";
 import useDebounce from "../../hooks/useDebounce";
 import {SpeechModel, SpeechModelAlias, DeepgramResponse} from "./types";
 // import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
@@ -65,9 +66,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     console.log('Is speech ended:', transcript.length === 0)
   }
 
-  const { app } = useStores();
-
-
   useEffect(() => {
     if(transcriptions.length > 0 && isSpeechEnded) {
       const text = transcriptions.join(' ')
@@ -127,7 +125,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
   })
 
-  return <Box style={{ visibility: app.appMode == 'developer' ? 'visible' : 'hidden' }}>
+  return <Box>
     <Box direction={'row'} align={'baseline'} gap={'16px'}>
       <Box>
         <Text>Speech-to-Text</Text>
