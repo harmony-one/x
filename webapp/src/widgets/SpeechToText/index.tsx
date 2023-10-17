@@ -5,7 +5,7 @@ import {SpeechModel, SpeechModelAlias, DeepgramResponse} from "./types";
 // import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
 // import vad from 'voice-activity-detection'
 import {useStores} from "../../stores";
-// import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
+import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
 
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
@@ -67,6 +67,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         if(currentSocket) {
           currentSocket.onmessage = () => {}
         }
+        setMediaStream(stream)
         const socket = new WebSocket(
           `wss://api.deepgram.com/v1/listen?model=${selectedModel}`,
           [ 'token', DeepgramApiKey ]
@@ -74,7 +75,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         console.log('\n\n\nInit Deepgram STT API model:', selectedModel, '\n\n\n')
 
 
-//         setMediaStream(stream)
 //         const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
 
         socket.onopen = () => {
@@ -129,6 +129,9 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       >
         {transcriptions.join(' ')}
       </Box>
+    </Box>
+    <Box>
+      <VoiceActivityDetection mediaStream={mediaStream} />
     </Box>
   </Box>
 }

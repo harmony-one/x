@@ -23,7 +23,7 @@ export class ChatGptStore {
 
   isLoading: boolean = false;
   conversationContextLength = 20
-//   ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
+  ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
 
   constructor() {
     makeObservable(this, {
