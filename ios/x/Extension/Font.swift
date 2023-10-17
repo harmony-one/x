@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Font {
-    static func customFont(name: String = "TimesSquare-m105", size: CGFloat = 20) -> Font {
+    static func customFont(name: String = "TimesSquare", size: CGFloat = 24) -> Font {
         return Font.custom(name, size: size)
     }
 }
