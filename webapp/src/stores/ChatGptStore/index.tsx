@@ -85,7 +85,7 @@ export class ChatGptStore {
     this.interruptVoiceAI();
 
     const ttsPlayer = createPlayerTTS()
-    this.ttsPlayer = ttsPlayer; // ttsPlayer willbe user only once
+    this.ttsPlayer = ttsPlayer; // ttsPlayer will be used only once
 
     try {
       const content = 'Continue this conversation with a one- or two-sentence response: ' + this.activeUserInput;
