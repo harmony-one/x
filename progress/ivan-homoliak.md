@@ -127,6 +127,7 @@
 - Call with Theo F.
 ---
 
+1-month trial onboarding: 10/1 Sun - 10/31 Tue.
 https://www.linkedin.com/in/ivan-homoliak-381117185/
 https://scholar.google.com/citations?user=5PQo5gQAAAAJ&hl=en&oi=ao
 
