@@ -1,4 +1,4 @@
-2023-10-16 Mon: 
+2023-10-16 Mon: Working on ios speech recognizing feature, added [demo](https://github.com/harmony-one/x/tree/main/ios-demo-recognizing-speech), to publish the application through TestFlight, I am waiting for my account to be approved.
 
 ---
 

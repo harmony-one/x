@@ -31,3 +31,13 @@ export interface DeepgramResponse {
     }
   }
 }
+
+export enum SpeechModel {
+  nova2 = 'nova-2-ea',
+  conversationalai = 'conversationalai'
+}
+
+export const SpeechModelAlias = {
+  [SpeechModel.nova2]: 'Deepgram Nova 2',
+  [SpeechModel.conversationalai]: 'Deepgram ConversationalAI'
+}

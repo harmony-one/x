@@ -1,7 +1,8 @@
 import { makeObservable, action, observable, computed } from "mobx";
 import OpenAI from 'openai';
-import { ttsPlayer } from '../../widgets/tts';
+import { createPlayerTTS } from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
+import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
 
 export enum AUTHOR {
   USER = 'user',
@@ -19,21 +20,23 @@ export class ChatGptStore {
   messages: IMessage[] = [];
 
   activeGptOutput: string = '';
-  activeUserInput: string = '';
 
   isLoading: boolean = false;
+  conversationContextLength = 20
+  ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
 
   constructor() {
     makeObservable(this, {
+      ttsPlayer: observable,
       isLoading: observable,
       messages: observable,
       activeGptOutput: observable,
-      activeUserInput: observable,
       setUserInput: action,
       setGptOutput: action,
       loadGptAnswer: action,
       clearMessages: action,
-      loadMessages: action
+      loadMessages: action,
+      activeUserInput: computed
     })
 
     this.openai = new OpenAI({
@@ -44,9 +47,20 @@ export class ChatGptStore {
     this.loadMessages();
   }
 
-  setUserInput = (text: string) => {
-    this.activeUserInput = text;
+  get activeUserInput () {
+    const messagesList = [...this.messages]
+      .reverse()
+      .filter((_, index) => index < this.conversationContextLength)
+      .reverse()
+      .reduce((acc, nextItem) => {
+        acc += ` ${nextItem.text}`
+        return acc
+      }, '')
+    return messagesList
+    // return this.messages[this.messages.length - 1].text || ''
+  }
 
+  setUserInput = (text: string) => {
     this.messages.push({
       author: AUTHOR.USER,
       text
@@ -57,11 +71,25 @@ export class ChatGptStore {
     this.activeGptOutput = text;
   }
 
+  interruptVoiceAI() {
+    if (this.ttsPlayer) {
+      this.ttsPlayer.clear()
+      this.ttsPlayer.destroy()
+      this.ttsPlayer = null
+    }
+  }
+
   loadGptAnswer = async () => {
     this.isLoading = true;
 
+    this.interruptVoiceAI();
+
+    const ttsPlayer = createPlayerTTS()
+    this.ttsPlayer = ttsPlayer; // ttsPlayer willbe user only once
+
     try {
-      const content = this.activeUserInput;
+      const content = 'Continue this conversation with a one- or two-sentence response: ' + this.activeUserInput;
+      console.log('content', content)
       let resMessage = ''
 
       ttsPlayer.clear();
@@ -103,11 +131,11 @@ export class ChatGptStore {
 
       this.saveMessages();
     } catch (e) {
+      ttsPlayer.destroy()
       console.error('loadGptAnswer', e);
     }
 
     this.activeGptOutput = '';
-    this.activeUserInput = '';
     this.isLoading = false;
   }
 

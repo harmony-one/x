@@ -19,9 +19,11 @@ export const DeveloperMode = ({onReady, onChangeOutput}: Props) => {
           <Text>GPT4</Text>
           <OpenAIWidget />
         </Box>
-        <Box width="800px" margin={{ bottom: '32px' }}>
-          <Text>Speech-to-Text (Deepgram Nova 2)</Text>
-          <SpeechToTextWidget onReady={onReady} onChangeOutput={onChangeOutput} />
+        <Box width="800px" margin={{ bottom: '16px' }}>
+          <SpeechToTextWidget
+            onReady={onReady}
+            onChangeOutput={onChangeOutput}
+          />
         </Box>
       </Box>
     </Box>

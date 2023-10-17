@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useStores } from './stores';
 import {DeveloperMode} from "./components/DeveloperMode";
-import {StephenMode} from "./components/StephenMode";
+import { ProductionMode } from './components/ProductionMode';
 import {observer} from "mobx-react";
 
 const App = observer(() => {
@@ -24,7 +24,7 @@ const App = observer(() => {
   return (
     <>
       {app.appMode === 'developer' ? (<DeveloperMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
-      {app.appMode === 'stephen' ? (<StephenMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
+      {app.appMode === 'production' ? (<ProductionMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
     </>
   );
 })

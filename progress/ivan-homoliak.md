@@ -1,8 +1,9 @@
-2023-10-16 Mon: 
+**2023-10-16 Mon:**
+
+- Configuring chatbot of Willow Inference Server. It can load any chatbot model from HuggingFace and access through the REST API. Fixing some bugs.  
 
 ---
 
-## Week 41
 
 **2023-10-13 Fri:**
 - Tested Acapela with Neural voices processing (including HTTP overhead) achieved ~3x speed up. Updated [Notion page](https://hill-baron-ebd.notion.site/Acapela-STT-26e27193c8534b6cb7af7db37bf925a8?pvs=4).
@@ -124,5 +125,8 @@
 **2023-10-2 Mon**
 - Getting familiar with Harmony's CompoundV2 repository and in general how CompoundV2 works. 
 - Call with Theo F.
+---
 
+https://www.linkedin.com/in/ivan-homoliak-381117185/
+https://scholar.google.com/citations?user=5PQo5gQAAAAJ&hl=en&oi=ao
 
