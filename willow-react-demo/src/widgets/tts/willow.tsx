@@ -3,7 +3,7 @@ import { Voice } from "./types";
 import QueryString from "qs";
 
 function isProxySupported() {
-    return true;
+    return false;
 }
 
 function shouldUseProxy(apiKey: string | undefined | null) {
