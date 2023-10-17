@@ -1,6 +1,13 @@
+
+
+**2023-10-17 Tue:**
+
+  Testing the biggest model (5GB) of Whisper in WIS - the quality of STT was subjectivelly improved. Synced with Sun what to focus on - performance measurement of Artem's demo pipline (started to work on it). Studied code of WIS, and found that it uses Microsoft's [5T model](https://huggingface.co/microsoft/speecht5_tts) from Hugging Face as well as [vocoder](https://huggingface.co/microsoft/speecht5_hifigan). 
+  Can be replaced with any other TTS from [HF](https://huggingface.co/models?pipeline_tag=text-to-speech&library=pytorch&sort=likes) with a bit of coding.
+
 **2023-10-16 Mon:**
 
-- Configuring chatbot of Willow Inference Server. It can load any chatbot model from HuggingFace and access through the REST API. Fixing some bugs.  
+  Configuring chatbot of Willow Inference Server. It can load any chatbot model from HuggingFace and access through the REST API. Fixing some bugs.  
 
 ---
 
