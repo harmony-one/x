@@ -1,3 +1,6 @@
+2023-10-17 Mon: 
+Completed WIS end to end [demo](https://yuriy.x.country/) Working on streaming for WIS STT.
+
 2023-10-16 Mon: 
 [Working](https://github.com/harmony-one/x/pull/27) on full end-to-end gui for Willow based on Willow [rest api](https://54.186.221.210:19000/api/docs#/)
 
