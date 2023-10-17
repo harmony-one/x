@@ -1,4 +1,4 @@
-2023-10-16 Mon: 
+2023-10-16 Mon: Published [Q3 Engineering Report on Substack](https://blog.harmony.one/p/harmony-q3-engineering-report?r=1zilbf&utm_campaign=post&utm_medium=web) & [tweeted](https://x.com/harmonyprotocol/status/1714044695725371504?s=20) promoting the report. Synced with Frank on fixing /text, demo to be tweeted tomorrow & synced with Soph to publish another Substack post tmrw. Worked on cover graphic for article.
 
 ---
 
