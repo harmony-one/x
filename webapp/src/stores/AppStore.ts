@@ -1,11 +1,11 @@
 import {action, makeObservable, observable,} from "mobx";
 
 
-type AppMode = 'production' | 'developer' | 'grandma'
+export type AppMode = 'production' | 'developer' | 'grandma'
 
 export class AppStore {
 
-  appMode: AppMode = 'developer'
+  appMode: AppMode = 'production'
 
   constructor() {
     makeObservable(this, {

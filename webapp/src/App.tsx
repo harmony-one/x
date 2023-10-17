@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useStores } from './stores';
-import {DeveloperMode} from "./components/DeveloperMode";
-import { ProductionMode } from './components/ProductionMode';
-import {observer} from "mobx-react";
+import { MainScreen } from "./components/MainScreen";
+import { observer } from "mobx-react";
 
 const App = observer(() => {
-  const { chatGpt, app } = useStores();
+  const { chatGpt } = useStores();
   const [isInitialized, setInitialized] = useState(false)
   const [sttOutput, setSTTOutput] = useState<string | undefined>();
 
@@ -22,10 +21,7 @@ const App = observer(() => {
   }, [sttOutput]);
 
   return (
-    <>
-      {app.appMode === 'developer' ? (<DeveloperMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
-      {app.appMode === 'production' ? (<ProductionMode onReady={onReady} onChangeOutput={setSTTOutput} />) : null }
-    </>
+    <MainScreen onReady={onReady} onChangeOutput={setSTTOutput} />
   );
 })
 
