@@ -1,4 +1,4 @@
-2023-10-16 Mon: 
+2023-10-16 Mon: Downloaded the necessary simulators and application to build the iOS template. Beginning to study Swift/Obj-C (specifically focusing on audio classes that will be utillized). Through discussions with Frank, code refactoring for Discord bot will be done by tomorrow. 
 
 ---
 
