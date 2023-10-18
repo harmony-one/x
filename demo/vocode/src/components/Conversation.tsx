@@ -52,6 +52,8 @@ const Conversation = ({
       });
   });
 
+  const [showSettings, setShowSettings] = React.useState(false);
+
   return (
     <>
       {analyserNode && <AudioVisualization analyser={analyserNode} />}
@@ -80,7 +82,7 @@ const Conversation = ({
           <Spinner color="#FFFFFF" />
         </Box>
       )}
-      {!isMobile && (
+      {!isMobile && showSettings && (
         <HStack width="96%" position="absolute" top={"10%"} left="2%">
           {inputDevices.length > 0 && (
             <Select
