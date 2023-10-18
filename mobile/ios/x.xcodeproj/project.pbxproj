@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B930AAD32ADD4BAF009F9F8C /* TimesSquare-m105.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B930AAD02ADD4BAF009F9F8C /* TimesSquare-m105.ttf */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -20,6 +19,11 @@
 		B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
+		B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
+		B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
+		B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
+		B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
+		B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		CD0D13382ADA73B300031EDD /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		CD0D133C2ADA73B300031EDD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
@@ -51,7 +55,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B930AAD02ADD4BAF009F9F8C /* TimesSquare-m105.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TimesSquare-m105.ttf"; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -64,6 +67,11 @@
 		B9AD505D2ADFE9B7006F18A1 /* Usage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usage.swift; sourceTree = "<group>"; };
 		B9AD505E2ADFE9B7006F18A1 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
+		B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Regular.otf"; sourceTree = "<group>"; };
+		B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Condensed.otf"; sourceTree = "<group>"; };
+		B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Expanded.otf"; sourceTree = "<group>"; };
+		B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold.otf"; sourceTree = "<group>"; };
+		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = x.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -120,7 +128,11 @@
 		B930AACF2ADD4BAF009F9F8C /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				B930AAD02ADD4BAF009F9F8C /* TimesSquare-m105.ttf */,
+				B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */,
+				B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */,
+				B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */,
+				B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */,
+				B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -370,8 +382,12 @@
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
+				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
+				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
+				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
-				B930AAD32ADD4BAF009F9F8C /* TimesSquare-m105.ttf in Resources */,
+				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
+				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
