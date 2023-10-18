@@ -1,6 +1,6 @@
 2023-10-17 Tue: Currently, I am developing an end-to-end demo for iOS. As part of this project, I have successfully integrated a text-to-speech functionality leveraging Apple's native capabilities. Presently, I am focused on refining the speech-detection component of the project.
 
-2023-10-16 Mon:
+2023-10-16 Mon: Successfully utilized SwiftUI to create a dynamic dashboard design, ensuring seamless adaptation to both portrait and landscape orientations. The dashboard prominently displays a central text element and incorporates essential static information in all four corners.
 
 ---
 
