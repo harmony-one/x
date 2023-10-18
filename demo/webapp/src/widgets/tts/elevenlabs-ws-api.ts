@@ -1,5 +1,5 @@
 import { decode } from 'base64-arraybuffer';
-import { ttsPlayer } from '../tts';
+import { ttsPlayer } from '.';
 
 const voiceId = "21m00Tcm4TlvDq8ikWAM"; // replace with your voice_id
 const model = 'eleven_monolingual_v1';
