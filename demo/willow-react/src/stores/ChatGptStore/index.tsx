@@ -25,6 +25,10 @@ export class ChatGptStore {
 
   isLoading: boolean = false;
 
+  ttsTime: number = 0;
+  llmTime: number = 0;
+  sttTime: number = 0;
+
   constructor() {
     makeObservable(this, {
       isLoading: observable,
@@ -37,7 +41,15 @@ export class ChatGptStore {
       setGptOutput: action,
       loadGptAnswer: action,
       clearMessages: action,
-      loadMessages: action
+      loadMessages: action,
+
+      setTTSTime: action,
+      setLLMTime: action,
+      setSTTTime: action,
+
+      ttsTime: observable,
+      llmTime: observable,
+      sttTime: observable,
     })
 
     this.ttsPlayerKey = PLAYERS.ElevenLabs;
@@ -49,6 +61,10 @@ export class ChatGptStore {
 
     this.loadMessages();
   }
+
+  setTTSTime = (time: number) => this.ttsTime = time;
+  setLLMTime = (time: number) => this.llmTime = time;
+  setSTTTime = (time: number) => this.sttTime = time;
 
   setPlayer = (playerKey: PLAYERS) => {
     this.ttsPlayerKey = playerKey;
@@ -70,6 +86,9 @@ export class ChatGptStore {
   loadGptAnswer = async () => {
     this.isLoading = true;
 
+    this.setLLMTime(0);
+    this.setTTSTime(0);
+
     try {
       const ttsPlayer: ExternalTTSAudioFilePlayer = players[this.ttsPlayerKey];
 
@@ -78,6 +97,8 @@ export class ChatGptStore {
 
       ttsPlayer.clear();
       ttsPlayer.play();
+
+      const startTime = Date.now();
 
       const stream = await this.openai.chat.completions.create({
         model: 'gpt-4',
@@ -92,6 +113,10 @@ export class ChatGptStore {
       let text = '';
 
       for await (const part of stream) {
+        if (!currentLineIdx) {
+          this.setLLMTime(Date.now() - startTime);
+        }
+
         text = (part.choices[0]?.delta?.content || '');
 
         resMessage += text;

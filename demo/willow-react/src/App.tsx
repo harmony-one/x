@@ -32,6 +32,8 @@ const App = observer(() => {
       setLastResult(msg);
       console.log(msg);
 
+      chatGpt.setSTTTime(msg.time);
+
       chatGpt.setUserInput(msg.text);
       chatGpt.loadGptAnswer();
     })
@@ -59,11 +61,18 @@ const App = observer(() => {
 
         <Box direction='column' gap="20px">
           {lastResult && <Box>
-            <Text>
+            {/* <Text>
               Text: {lastResult.text}
             </Text>
+
             <Text>
               Req Time: <span style={{ color: 'green' }}>{lastResult.time} ms</span>
+            </Text> */}
+
+            <Text>
+              {chatGpt.sttTime} ms + {chatGpt.llmTime} ms + {chatGpt.ttsTime} ms = {
+                chatGpt.sttTime + chatGpt.llmTime + chatGpt.ttsTime
+              } ms
             </Text>
           </Box>}
 

@@ -3,6 +3,7 @@ import { cloneArrayBuffer, md5, sleep } from '../../utils';
 import { AsyncLoop } from "../../utils/async-loop";
 import * as idb from '../../utils/idb';
 import TTSPlugin from './tts-plugin';
+import stores from '../../stores';
 
 export let audioContext = new AudioContext();
 export let audioContextInUse = false;
@@ -34,7 +35,11 @@ async function getAudioFile(plugin: TTSPlugin, text: string) {
 
     if (!buffer) {
         try {
+            const startTime = Date.now();
+
             const result = await plugin.speakToBuffer(text);
+
+            stores.chatGpt.setTTSTime(Date.now() - startTime);
             if (result) {
                 buffer = result;
                 cache.set(cacheKey, cloneArrayBuffer(buffer));
