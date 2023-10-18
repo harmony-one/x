@@ -1,8 +1,16 @@
-2023-10-16 Mon: 
+
+
+**2023-10-17 Tue:**
+
+  Testing the biggest model (5GB) of Whisper in WIS - the quality of STT was subjectivelly improved. Synced with Sun what to focus on - performance measurement of Artem's demo pipline (started to work on it). Studied code of WIS, and found that it uses Microsoft's [5T model](https://huggingface.co/microsoft/speecht5_tts) from Hugging Face as well as [vocoder](https://huggingface.co/microsoft/speecht5_hifigan). 
+  Can be replaced with any other TTS from [HF](https://huggingface.co/models?pipeline_tag=text-to-speech&library=pytorch&sort=likes) with a bit of coding.
+
+**2023-10-16 Mon:**
+
+  Configuring chatbot of Willow Inference Server. It can load any chatbot model from HuggingFace and access through the REST API. Fixing some bugs.  
 
 ---
 
-## Week 41
 
 **2023-10-13 Fri:**
 - Tested Acapela with Neural voices processing (including HTTP overhead) achieved ~3x speed up. Updated [Notion page](https://hill-baron-ebd.notion.site/Acapela-STT-26e27193c8534b6cb7af7db37bf925a8?pvs=4).
@@ -124,5 +132,9 @@
 **2023-10-2 Mon**
 - Getting familiar with Harmony's CompoundV2 repository and in general how CompoundV2 works. 
 - Call with Theo F.
+---
 
+1-month trial onboarding: 10/1 Sun - 10/31 Tue.
+https://www.linkedin.com/in/ivan-homoliak-381117185/
+https://scholar.google.com/citations?user=5PQo5gQAAAAJ&hl=en&oi=ao
 

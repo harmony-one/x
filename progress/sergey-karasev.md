@@ -1,4 +1,6 @@
-2023-10-16 Mon: 
+2023-10-17 Tue: Worked on [voice interruption](https://github.com/harmony-one/x/pull/26), [fixed](https://github.com/harmony-one/x/pull/31) production version (black screen mode), also I have started working on setting up Google TTS for the main demo.
+
+2023-10-16 Mon: Working on ios speech recognizing feature, added [demo](https://github.com/harmony-one/x/tree/main/ios-demo-recognizing-speech), to publish the application through TestFlight, I am waiting for my account to be approved.
 
 ---
 
