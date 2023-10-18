@@ -11,7 +11,7 @@ import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDet
 
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
-const SpeechWaitTimeout = 800
+const SpeechWaitTimeout = 200
 
 
 export interface ISpeechToTextWidget {
@@ -46,25 +46,29 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
 
   const onTranscribeReceived = (data: DeepgramResponseResults) => {
-    const transcript = data.channel.alternatives[0].transcript
+    const { transcript, confidence } = data.channel.alternatives[0]
+    console.log('onTranscribeReceived:', transcript, 'confidence:', confidence)
 
     const startMs = Math.round(data.start * 1000);
     const durationMs = Math.round(data.duration * 1000);
     const endMs = Math.round((data.start + data.duration) * 1000);
 
-
     if(transcript.length > 0) {
       console.log('Deepgram response:', data)
-      console.log('startMs', startMs, 'durationMs', durationMs, 'endMs', endMs)
+      // console.log('startMs', startMs, 'durationMs', durationMs, 'endMs', endMs)
     } else {
-      console.log('durationMs', durationMs)
+      // console.log('durationMs', durationMs)
     }
 
     if(transcript.length > 0) {
-      setTranscriptions(transcriptions => [...transcriptions, transcript])
+      if(confidence >= 0.6) {
+        setTranscriptions(transcriptions => [...transcriptions, transcript])
+      } else {
+        console.warn('Transcription ignored, low confidence')
+      }
     }
     setSpeechEnded(transcript.length === 0)
-    console.log('Is speech ended:', transcript.length === 0)
+    // console.log('Is speech ended:', transcript.length === 0, transcript)
   }
 
   useEffect(() => {
@@ -72,7 +76,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       const text = transcriptions.join(' ')
       props.onChangeOutput(text)
       setTranscriptions([])
-      console.log('Send to GPT: ', text)
+      console.log('STT transcription: ', text)
     }
   }, [debouncedTranscriptions, isSpeechEnded]);
 

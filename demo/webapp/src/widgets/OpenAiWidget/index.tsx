@@ -10,12 +10,12 @@ export const OpenAIWidget = observer(() => {
     const containerEl = useRef(null);
 
     useEffect(() => {
-        if (containerEl && (chatGpt.activeGptOutput || chatGpt.activeUserInput)) {
+        if (containerEl && (chatGpt.activeGptOutput || chatGpt.conversationContext)) {
             //@ts-ignore
             const el: DOMElement = containerEl?.current;
             el.scrollTop = el.scrollHeight;
         }
-    }, [containerEl, chatGpt.activeGptOutput, chatGpt.activeUserInput]);
+    }, [containerEl, chatGpt.activeGptOutput, chatGpt.conversationContext]);
 
     return <>
         {/* <Text onClick={() => chatGpt.clearMessages()}>Clear Chat</Text> */}
@@ -41,7 +41,8 @@ export const OpenAIWidget = observer(() => {
                         <MessageBox
                             message={{
                                 author: AUTHOR.GPT,
-                                text: `${chatGpt.activeGptOutput} ...`
+                                text: `${chatGpt.activeGptOutput} ...`,
+                                inGptContext: false
                             }}
                         />
                     }

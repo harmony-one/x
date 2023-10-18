@@ -7,21 +7,21 @@ import { observer } from "mobx-react";
 const App = observer(() => {
   const { chatGpt } = useStores();
   const [isInitialized, setInitialized] = useState(false)
-  const [sttOutput, setSTTOutput] = useState<string | undefined>();
 
   const onReady = () => {
     setInitialized(true)
   }
 
-  useEffect(() => {
-    if (sttOutput) {
-      chatGpt.setUserInput(sttOutput);
+  const onChangeOutput = (text: string) => {
+    if(text) {
+      chatGpt.interruptOpenAiStream()
+      chatGpt.setUserInput(text);
       chatGpt.loadGptAnswer();
     }
-  }, [sttOutput]);
+  }
 
   return (
-    <MainScreen onReady={onReady} onChangeOutput={setSTTOutput} />
+    <MainScreen onReady={onReady} onChangeOutput={onChangeOutput} />
   );
 })
 
