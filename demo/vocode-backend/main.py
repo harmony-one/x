@@ -24,6 +24,7 @@ conversation_router = ConversationRouter(
         ChatGPTAgentConfig(
             initial_message=BaseMessage(text="Hello!"),
             prompt_preamble="Have a pleasant conversation about life",
+            model_name="gpt-4",
         )
     ),
     synthesizer_thunk=lambda output_audio_config: AzureSynthesizer(
