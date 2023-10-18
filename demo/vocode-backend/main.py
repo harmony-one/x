@@ -42,7 +42,7 @@ conversation_router = ConversationRouter(
     ),
     synthesizer_thunk=lambda output_audio_config: AzureSynthesizer(
         AzureSynthesizerConfig.from_output_audio_config(
-            output_audio_config, voice_name="en-US-SteffanNeural"
+            output_audio_config, voice_name="en-US-JessaNeural"
         )
     ),
     logger=logger,
