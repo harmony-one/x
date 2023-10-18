@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { useStores } from './stores';
 import { observer } from "mobx-react";
-import { Box, Button, Text } from 'grommet';
+import { Box, Button, Select, Text } from 'grommet';
 import { OpenAIWidget } from './widgets';
+import { PLAYERS } from './widgets/tts';
 
 //@ts-ignore
-const client: any = new WillowClient({ host: "https://54.186.221.210:19000/api/rtc/asr" })
+const client: any = new WillowClient({ host: `${process.env.REACT_APP_WILLOW_URL}/api/rtc/asr` })
 
 client.on('onLog', () => {
 })
@@ -42,6 +43,18 @@ const App = observer(() => {
         <Box width="800px">
           <Text>GPT4</Text>
           <OpenAIWidget />
+        </Box>
+
+        <Box direction='column' gap="20px">
+          <Text>Select TTS core</Text>
+          <Select
+            options={Object.keys(PLAYERS)}
+            style={{
+              maxWidth: 200
+            }}
+            value={chatGpt.ttsPlayerKey}
+            onChange={({ option }) => chatGpt.setPlayer(option)}
+          />
         </Box>
 
         <Box direction='column' gap="20px">

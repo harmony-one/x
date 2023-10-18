@@ -1,7 +1,8 @@
 import { makeObservable, action, observable, computed } from "mobx";
 import OpenAI from 'openai';
-import { ttsPlayer } from '../../widgets/tts';
+import { PLAYERS, players } from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
+import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
 
 export enum AUTHOR {
   USER = 'user',
@@ -15,6 +16,7 @@ export interface IMessage {
 
 export class ChatGptStore {
   openai: OpenAI;
+  ttsPlayerKey: PLAYERS;
 
   messages: IMessage[] = [];
 
@@ -29,6 +31,8 @@ export class ChatGptStore {
       messages: observable,
       activeGptOutput: observable,
       activeUserInput: observable,
+      ttsPlayerKey: observable,
+      setPlayer: action,
       setUserInput: action,
       setGptOutput: action,
       loadGptAnswer: action,
@@ -36,12 +40,18 @@ export class ChatGptStore {
       loadMessages: action
     })
 
+    this.ttsPlayerKey = PLAYERS.ElevenLabs;
+
     this.openai = new OpenAI({
       apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
       dangerouslyAllowBrowser: true
     });
 
     this.loadMessages();
+  }
+
+  setPlayer = (playerKey: PLAYERS) => {
+    this.ttsPlayerKey = playerKey;
   }
 
   setUserInput = (text: string) => {
@@ -61,6 +71,8 @@ export class ChatGptStore {
     this.isLoading = true;
 
     try {
+      const ttsPlayer: ExternalTTSAudioFilePlayer = players[this.ttsPlayerKey];
+
       const content = this.activeUserInput;
       let resMessage = ''
 
