@@ -1,14 +1,35 @@
 import SwiftUI
 import AVFoundation
 
+class SpeechDelegate: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+    @Published var startTime: Date?
+    @Published var endTime: Date?
+    @Published var duration: TimeInterval?
+
+    // AVSpeechSynthesizerDelegate method to handle speech starting
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        endTime = Date() // Record the end time
+        if let startTime = startTime, let endTime = endTime {
+            duration = endTime.timeIntervalSince(startTime) // Calculate the duration
+        }
+    }
+    
+    // Function to get available voices
+    func getAvailableVoices() -> [AVSpeechSynthesisVoice] {
+            return AVSpeechSynthesisVoice.speechVoices()
+    }
+}
+
 struct ContentView: View {
+    @ObservedObject var speechDelegate = SpeechDelegate()
     let synthesizer = AVSpeechSynthesizer()
     @State private var inputText = ""
+    @State private var selectedVoice: AVSpeechSynthesisVoice?
 
     func speakText() {
-        let speaking_name = "com.apple.ttsbundle.siri_female_en-AU_compact"
+        speechDelegate.startTime = Date() // Record the start time
         let utterance = AVSpeechUtterance(string: inputText)
-        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.voice.Alex")
+        utterance.voice = selectedVoice ?? AVSpeechSynthesisVoice(identifier: "com.apple.speech.voice.Alex")
         synthesizer.speak(utterance)
     }
 
@@ -26,12 +47,24 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-        }
-    }
-}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+            if let duration = speechDelegate.duration {
+                Text("Duration: \(String(format: "%.2f seconds", duration))")
+            }
+
+            // Display available voices with name and language
+            List(speechDelegate.getAvailableVoices(), id: \.identifier) { voice in
+                Button(action: {
+                    selectedVoice = voice
+                }) {
+                    VStack(alignment: .leading) {
+                        Text(voice.name)
+                            .font(.headline)
+                        Text("Language: \(voice.language)")
+                            .font(.subheadline)
+                    }
+                }
+            }
+        }
     }
 }
