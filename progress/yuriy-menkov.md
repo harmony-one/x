@@ -1,4 +1,7 @@
-2023-10-17 Mon: 
+2023-10-18 Wed: 
+[Added](https://github.com/harmony-one/x/pull/39) TTS Core select (Elevenlabs + Willow microsoft model) for WIS end to end [demo](https://yuriy.x.country/) [Added](https://github.com/harmony-one/x/pull/41) more metrics (stt + llm + tts)
+
+2023-10-17 Tue: 
 Completed WIS end to end [demo](https://yuriy.x.country/) Working on streaming for WIS STT.
 
 2023-10-16 Mon: 
