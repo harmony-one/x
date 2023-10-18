@@ -14,8 +14,7 @@ let ttsPlugin: TTSPlugin = new ElevenLabsPlugin({
 if (config.tts.plugin === 'google') {
   ttsPlugin = new GoogleCloudPlugin({
     getOptions: () => ({
-      projectId: config.gc.projectId,
-      token: config.gc.token
+      host: config.proxyHost,
     })
   })
 }
