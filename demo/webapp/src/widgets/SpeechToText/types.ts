@@ -11,7 +11,17 @@ export interface DeepgramTranscript {
   words: DeepgramWord[]
 }
 
-export interface DeepgramResponse {
+export interface DeepgramResponseMetadata {
+  type: 'Metadata'
+  transaction_key: string
+  request_id: string
+  sha256: string
+  created: string
+  duration: number
+  channels: number
+}
+
+export interface DeepgramResponseResults {
   type: 'Results'
   start: number
   speech_final: boolean

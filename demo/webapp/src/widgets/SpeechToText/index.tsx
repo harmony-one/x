@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Select, Text} from "grommet";
-import { observer } from "mobx-react";
 import useDebounce from "../../hooks/useDebounce";
-import {SpeechModel, SpeechModelAlias, DeepgramResponse} from "./types";
-// import {watchMicAmplitude} from '../VoiceActivityDetection/micAmplidute'
-// import vad from 'voice-activity-detection'
-import {useStores} from "../../stores";
+import {
+  SpeechModel,
+  SpeechModelAlias,
+  DeepgramResponseResults,
+  DeepgramResponseMetadata
+} from "./types";
 import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
 
 
@@ -44,7 +45,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
 
-  const onTranscribeReceived = (data: DeepgramResponse) => {
+  const onTranscribeReceived = (data: DeepgramResponseResults) => {
     const transcript = data.channel.alternatives[0].transcript
 
     const startMs = Math.round(data.start * 1000);
@@ -89,7 +90,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           }
           return
         }
-        
+
         if(currentSocket) {
           currentSocket.onmessage = () => {}
         }
@@ -100,9 +101,6 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         )
         console.log('\n\n\nInit Deepgram STT API model:', selectedModel, '\n\n\n')
 
-
-//         const socket = new WebSocket('wss://api.deepgram.com/v1/listen?model=nova-2-ea', [ 'token', DeepgramApiKey ])
-
         socket.onopen = () => {
           mediaRecorder.addEventListener('dataavailable', event => {
             socket.send(event.data)
@@ -111,7 +109,10 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
         }
 
         socket.onmessage = (message) => {
-          onTranscribeReceived(JSON.parse(message.data) as DeepgramResponse)
+          const data = JSON.parse(message.data) as (DeepgramResponseResults | DeepgramResponseMetadata)
+          if(data.type === 'Results') {
+            onTranscribeReceived(data)
+          }
         }
         setCurrentSocket(socket)
       })
