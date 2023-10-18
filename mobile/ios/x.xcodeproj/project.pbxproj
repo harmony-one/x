@@ -14,7 +14,6 @@
 		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
 		B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
-		B9AD505A2ADFE97E006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50592ADFE97E006F18A1 /* OpenAIService.swift */; };
 		B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
@@ -26,6 +25,7 @@
 		B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		B9AD50722ADFFE3B006F18A1 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50712ADFFE3B006F18A1 /* AppConfig.plist */; };
+		B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		CD0D13382ADA73B300031EDD /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		CD0D133C2ADA73B300031EDD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
@@ -64,7 +64,6 @@
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
 		B9AD50562ADFE91C006F18A1 /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
-		B9AD50592ADFE97E006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenAIService.swift; path = ../../../../../Documents/OpenAIService.swift; sourceTree = "<group>"; };
 		B9AD505C2ADFE9B7006F18A1 /* Choices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choices.swift; sourceTree = "<group>"; };
 		B9AD505D2ADFE9B7006F18A1 /* Usage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usage.swift; sourceTree = "<group>"; };
 		B9AD505E2ADFE9B7006F18A1 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		B9AD50712ADFFE3B006F18A1 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = x.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
-				B9AD50592ADFE97E006F18A1 /* OpenAIService.swift */,
+				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -428,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
+				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
@@ -436,7 +437,6 @@
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
-				B9AD505A2ADFE97E006F18A1 /* OpenAIService.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
