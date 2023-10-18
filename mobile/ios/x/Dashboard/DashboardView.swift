@@ -49,7 +49,7 @@ struct DashboardView: View {
                             }
                         }
                         Text("ms"){ text in
-                            text.font = .customFont(size: 54)
+                            text.font = .customFont(size: 50)
                             text.foregroundColor = Color.white
                         }.padding(.top, 10)
                     }
