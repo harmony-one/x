@@ -114,11 +114,13 @@ export class ChatGptStore {
     this.ttsPlayerType = type
     this.interruptVoiceAI()
     this.ttsPlayer = getTTSPlayer(type)
+    console.log('Set TTS', type)
   }
 
   interruptVoiceAI() {
     this.ttsPlayer.clear()
     this.ttsPlayer.destroy()
+    console.log('Interrupt TTS')
   }
 
   loadGptAnswer = async () => {
