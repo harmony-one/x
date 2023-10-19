@@ -14,6 +14,7 @@ export const VoiceActivityDetection = observer((props: Props) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const handleInterruptVoiceAi = () => {
+    console.log('Mic activity detected')
     chatGpt.interruptVoiceAI()
   }
 
@@ -24,7 +25,7 @@ export const VoiceActivityDetection = observer((props: Props) => {
 
     const stop = watchMicAmplitude({
       stream: props.mediaStream,
-      threshold: 2,
+      threshold: 3,
       onDetect: (voiceDetected) => {
         if (voiceDetected) {
           handleInterruptVoiceAi()
