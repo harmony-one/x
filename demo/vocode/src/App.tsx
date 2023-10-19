@@ -70,6 +70,7 @@ const App = () => {
       ) : (
         <Conversation
           config={{
+            backendUrl: process.env.REACT_APP_BACKEND_URL + '/conversation/common',
             transcriberConfig,
             agentConfig,
             synthesizerConfig,

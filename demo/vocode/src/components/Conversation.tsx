@@ -4,11 +4,12 @@ import { useConversation, AudioDeviceConfig, ConversationConfig } from "vocode";
 import MicrophoneIcon from "./MicrophoneIcon";
 import AudioVisualization from "./AudioVisualization";
 import { isMobile } from "react-device-detect";
+import {SelfHostedConversationConfig} from "vocode/src/types/conversation";
 
 const Conversation = ({
   config,
 }: {
-  config: Omit<ConversationConfig, "audioDeviceConfig">;
+  config: Omit<ConversationConfig, "audioDeviceConfig"> | Omit<SelfHostedConversationConfig, 'audioDeviceConfig'>;
 }) => {
   const [audioDeviceConfig, setAudioDeviceConfig] =
     React.useState<AudioDeviceConfig>({});
