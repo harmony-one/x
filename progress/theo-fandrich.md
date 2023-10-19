@@ -1,3 +1,5 @@
+2023-10-18 Wed: Developed executable steps for engineers. Researched more SST, worked with Sun on benchmarking. Helped set up email aliases. Connected with a few folks at AI voice event. Yuriy is implementing Play.ht's fast new TTS.
+
 2023-10-17 Tue: Read more, wrote more, and organized more. Continued to test sam.x.country and artem.x.country and spent 30 minutes playing with new openAI chat. Communicated to devs new builds and worked through determing how to execute new features and remove bugs.
 
 2023-10-16 Mon: Throughouly tested artem.x.country (currently a bug where there is no audio in production). Interruptions has been implemented and chatGPT4 context has been integrated. Next steps is to more seemlessly handle streaming and handle bugs. Tested yuriy.x.country (credentials need to be set up).
