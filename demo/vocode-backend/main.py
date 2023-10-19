@@ -25,11 +25,25 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-conversation_router = ConversationRouter(
+
+preambles = {
+    'common': """You’re ChatGPT. Your name is Sam. We are having a face-to-face voice conversation during my commute.
+NEVER apologize. NEVER end with questions. NEVER mention about your knowledge cutoff. Adhere to these guidelines strictly.
+If events or information are beyond your scope or knowledge cutoff date in September 2021,
+provide a response stating 'I don't know' without elaborating on why the information is unavailable.""",
+    'commute': 'Have a pleasant conversation about life',
+    'concise': 'Have a pleasant conversation about life',
+    'funny': 'Have a pleasant conversation about life',
+}
+
+
+def create_router(conversation_endpoint: str, prompt_preamble: str):
+    return ConversationRouter(
+    conversation_endpoint=conversation_endpoint,
     agent_thunk=lambda: ChatGPTAgent(
         ChatGPTAgentConfig(
             initial_message=BaseMessage(text="Hello!"),
-            prompt_preamble="Have a pleasant conversation about life",
+            prompt_preamble=prompt_preamble,
             model_name="gpt-4",
         )
     ),
@@ -42,10 +56,15 @@ conversation_router = ConversationRouter(
     ),
     synthesizer_thunk=lambda output_audio_config: AzureSynthesizer(
         AzureSynthesizerConfig.from_output_audio_config(
-            output_audio_config, voice_name="en-US-JessaNeural"
+            output_audio_config,
+            voice_name="en-US-JessaNeural"
         )
     ),
     logger=logger,
 )
 
-app.include_router(conversation_router.get_router())
+conversation_common = create_router(conversation_endpoint='/conversation/common', prompt_preamble=preambles['common'])
+conversation_commute = create_router(conversation_endpoint='/conversation/commute', prompt_preamble=preambles['commute'])
+
+app.include_router(conversation_common.get_router())
+app.include_router(conversation_commute.get_router())
