@@ -1,5 +1,7 @@
 2023-10-16 Mon: Published [Q3 Engineering Report on Substack](https://blog.harmony.one/p/harmony-q3-engineering-report?r=1zilbf&utm_campaign=post&utm_medium=web) & [tweeted](https://x.com/harmonyprotocol/status/1714044695725371504?s=20) promoting the report. Synced with Frank on fixing /text, demo to be tweeted tomorrow & synced with Soph to publish another Substack post tmrw. Worked on cover graphic for article.
+
 2023-10-17 Tues: Designed cover art for Soph's [substack article] (https://blog.harmony.one/publish/post/138051705) Awaiting copy/title finalization from Soph. Wrote [thread]( https://x.com/harmonyprotocol/status/1714423675687194845?s=20) on /text and /ask + /cxt. Synced with Fission on UX fixes x.country
+
 2023-10-18: Published [Harmony Services and Ops: Q3 Recap, Q4 Roadmap](https://blog.harmony.one/p/harmony-services-and-ops-q3-recap?r=1zilbf&utm_campaign=post&utm_medium=web) and shared to [twitter](https://x.com/harmonyprotocol/status/1714709009255854362?s=20). Used Dalle3 to design logos for x.country & began planning Harmony + Hummingbot giveaway.
 
 2023-10-13 Fri: Finalized [figma mockups]( https://www.figma.com/file/xMZ1u7KsvawpCeonzHBjKt/x.country-dashboard?type=design&node-id=0%3A1&mode=design&t=6V9h08OmVBgwzwoL-1) for x.country. Synced with Stephen on marketing campaigns through Twitter/Tiktok for One Bot & synced with Frank on the latest features to promote. Sent tweet [promoting Swap hitting $100k volume.](https://x.com/harmonyprotocol/status/1712898918114381938?s=20)
