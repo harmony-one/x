@@ -15,6 +15,8 @@ export interface IMessage {
   inGptContext: boolean
 }
 
+const defaultTTSPlayer = TTSPlayerType.google
+
 export class ChatGptStore {
   openai: OpenAI;
   openAiAbortController?: AbortController
@@ -25,8 +27,8 @@ export class ChatGptStore {
 
   isLoading: boolean = false;
   conversationContextLength = 20
-  public ttsPlayerType = TTSPlayerType.google
-  ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
+  public ttsPlayerType = defaultTTSPlayer
+  ttsPlayer: ExternalTTSAudioFilePlayer = getTTSPlayer(defaultTTSPlayer)
 
   constructor() {
     makeObservable(this, {
@@ -115,29 +117,23 @@ export class ChatGptStore {
   }
 
   interruptVoiceAI() {
-    if (this.ttsPlayer) {
-      this.ttsPlayer.clear()
-      this.ttsPlayer.destroy()
-      this.ttsPlayer = null
-    }
+    this.ttsPlayer.clear()
+    this.ttsPlayer.destroy()
   }
 
   loadGptAnswer = async () => {
     this.isLoading = true;
 
     this.interruptVoiceAI();
-
-    const ttsPlayer = getTTSPlayer(this.ttsPlayerType)
-    console.log('Init TTS player:', this.ttsPlayerType)
-    this.ttsPlayer = ttsPlayer; // ttsPlayer will be used only once
+    this.ttsPlayer = getTTSPlayer(this.ttsPlayerType)
 
     try {
       const content = 'Continue this conversation with a one- or two-sentence response: ' + this.conversationContext;
       console.log('Send full context to GPT4:', content)
       let resMessage = ''
 
-      ttsPlayer.clear();
-      ttsPlayer.play();
+      this.ttsPlayer.clear();
+      this.ttsPlayer.play();
 
       const abortController = new AbortController()
       const stream= await this.openai.chat.completions.create({
@@ -163,14 +159,14 @@ export class ChatGptStore {
         lines[currentLineIdx] = (lines[currentLineIdx] ?? '') + text;
 
         if (isPhraseComplete(lines[currentLineIdx], !currentLineIdx)) {
-          ttsPlayer.setText(lines, false);
+          this.ttsPlayer.setText(lines, false);
           currentLineIdx++;
         }
       }
 
       lines.push(text);
 
-      ttsPlayer.setText(lines, true);
+      this.ttsPlayer.setText(lines, true);
 
       if(this.activeGptOutput) {
         this.messages.push({
@@ -183,7 +179,7 @@ export class ChatGptStore {
       this.saveMessages();
     } catch (e) {
       console.error('GPT4 error', e);
-      ttsPlayer.destroy()
+      this.ttsPlayer.destroy()
     }
 
     this.openAiAbortController = undefined
