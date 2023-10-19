@@ -27,7 +27,6 @@ export const MainScreen = observer(({onReady, onChangeOutput}: Props) => {
       </Box>
       <Box direction="column" justify="between" align="center" fill={true} style={{visibility: app.appMode === 'developer' ? 'visible' : 'hidden' }}>
         <Box width="800px">
-          <Text>GPT4</Text>
           <OpenAIWidget />
         </Box>
         <Box width="800px" margin={{ bottom: '16px' }}>

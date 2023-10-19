@@ -1,5 +1,7 @@
-import { decode } from 'base64-arraybuffer';
-import { ttsPlayer } from '.';
+import {decode} from 'base64-arraybuffer';
+import {getTTSPlayer, TTSPlayerType} from '.';
+
+const ttsPlayer = getTTSPlayer(TTSPlayerType.elevenlabs)
 
 const voiceId = "21m00Tcm4TlvDq8ikWAM"; // replace with your voice_id
 const model = 'eleven_monolingual_v1';

@@ -61,10 +61,10 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     }
 
     if(transcript.length > 0) {
-      if(confidence >= 0.6) {
+      if(confidence >= 0.65) {
         setTranscriptions(transcriptions => [...transcriptions, transcript])
       } else {
-        console.warn('Transcription ignored, low confidence')
+        console.warn(`Transcription ignored, low confidence level (${confidence})`)
       }
     }
     setSpeechEnded(transcript.length === 0)

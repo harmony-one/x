@@ -1,6 +1,6 @@
 import { makeObservable, action, observable, computed } from "mobx";
 import OpenAI from 'openai';
-import { createPlayerTTS } from '../../widgets/tts';
+import {getTTSPlayer, TTSPlayerType} from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
 import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
 
@@ -25,10 +25,12 @@ export class ChatGptStore {
 
   isLoading: boolean = false;
   conversationContextLength = 20
+  public ttsPlayerType = TTSPlayerType.google
   ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
 
   constructor() {
     makeObservable(this, {
+      ttsPlayerType: observable,
       ttsPlayer: observable,
       isLoading: observable,
       messages: observable,
@@ -40,6 +42,7 @@ export class ChatGptStore {
       loadMessages: action,
       conversationContext: computed,
       interruptOpenAiStream: action,
+      setTTSPlayer: action,
     })
 
     this.openai = new OpenAI({
@@ -105,6 +108,12 @@ export class ChatGptStore {
     }
   }
 
+  setTTSPlayer(type: TTSPlayerType) {
+    this.ttsPlayerType = type
+    this.interruptVoiceAI()
+    this.ttsPlayer = getTTSPlayer(type)
+  }
+
   interruptVoiceAI() {
     if (this.ttsPlayer) {
       this.ttsPlayer.clear()
@@ -118,7 +127,8 @@ export class ChatGptStore {
 
     this.interruptVoiceAI();
 
-    const ttsPlayer = createPlayerTTS()
+    const ttsPlayer = getTTSPlayer(this.ttsPlayerType)
+    console.log('Init TTS player:', this.ttsPlayerType)
     this.ttsPlayer = ttsPlayer; // ttsPlayer will be used only once
 
     try {

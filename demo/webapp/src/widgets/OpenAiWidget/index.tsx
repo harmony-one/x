@@ -1,9 +1,11 @@
 import React, { DOMElement, useEffect, useRef, useState } from 'react';
-import { Text, Box, TextArea } from 'grommet'
+import {Text, Box, TextArea, Select} from 'grommet'
 import { observer } from 'mobx-react-lite';
 import { useStores } from '../../stores';
 import { AUTHOR } from '../../stores/ChatGptStore';
 import { MessageBox } from './Components';
+import {SpeechModel, SpeechModelAlias} from "../SpeechToText/types";
+import {getTTSPlayer, TTSPlayerType} from "../tts";
 
 export const OpenAIWidget = observer(() => {
     const { chatGpt } = useStores();
@@ -17,9 +19,35 @@ export const OpenAIWidget = observer(() => {
         }
     }, [containerEl, chatGpt.activeGptOutput, chatGpt.conversationContext]);
 
+    const ttsOptions = Object.values(TTSPlayerType).map(value => {
+        return {
+            value,
+            alias: value
+        }
+    })
+
+    const onTTSModelChange = (type: TTSPlayerType) => {
+        chatGpt.setTTSPlayer(type)
+    }
+
     return <>
         {/* <Text onClick={() => chatGpt.clearMessages()}>Clear Chat</Text> */}
+        <Box direction={'row'} align={'baseline'} gap={'16px'}>
+            <Box>
+                <Text>GPT4 + </Text>
+            </Box>
+            <Box width={'260px'}>
+                <Select
+                  size={'small'}
+                  value={ttsOptions.find(option => option.value === chatGpt.ttsPlayerType)}
+                  options={ttsOptions}
+                  labelKey={'alias'}
+                  onChange={({ option }) => onTTSModelChange(option.value)}
+                />
+            </Box>
+        </Box>
         <Box
+            margin={{ top: '16px' }}
             ref={containerEl}
             fill={true}
             direction="column"
