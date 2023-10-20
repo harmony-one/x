@@ -6,6 +6,7 @@ import {
   GcTextToSpeechClient,
   TextToSpeechParams,
 } from './gcTextToSpeechClient';
+import { textToSpeechAzure } from './azureTextToSpeechClient';
 
 @Injectable()
 export class TextToSpeechService {
@@ -22,5 +23,13 @@ export class TextToSpeechService {
   async googleSyntesize(params: TextToSpeechParams) {
     const result = await this.gcClient.textToSpeech(params);
     return result;
+  }
+
+  async azureSyntesize(params: TextToSpeechParams) {
+    return textToSpeechAzure(
+      this.configService.get('AZURE_SPEECH_KEY'),
+      this.configService.get('AZURE_SPEECH_REGION'),
+      params.text
+    )
   }
 }
