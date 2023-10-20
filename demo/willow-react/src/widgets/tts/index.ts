@@ -1,7 +1,7 @@
 import ExternalTTSAudioFilePlayer from "./audio-file-player";
 import WillowPlugin from "./willow";
 import ElevenlabsPlugin from "./elevenlabs";
-import { GoogleCloudPlugin } from "./googleCloudPlugin";
+import { ProxyPlugin } from "./proxyPlugin";
 
 const ttsPluginWillow = new WillowPlugin({
     getOptions: () => ({
@@ -21,22 +21,32 @@ const ttsPluginElevenlabs = new ElevenlabsPlugin({
 
 export const ttsPlayerElevenlabs = new ExternalTTSAudioFilePlayer(ttsPluginElevenlabs);
 
-const ttsPluginGoogleCloud = new GoogleCloudPlugin({
+const ttsPluginGoogleCloud = new ProxyPlugin({
     getOptions: () => ({
-        host: process.env.REACT_APP_PROXY_HOST || 'https://x-proxy.fly.dev',
+        proxyApi: 'https://x-proxy.fly.dev/text-to-speech/google',
     })
 })
 
 export const ttsPlayerGoogle = new ExternalTTSAudioFilePlayer(ttsPluginGoogleCloud);
 
+const ttsPluginAzure = new ProxyPlugin({
+    getOptions: () => ({
+        proxyApi: 'https://x-proxy.fly.dev/text-to-speech/azure',
+    })
+})
+
+export const ttsPlayerAzure = new ExternalTTSAudioFilePlayer(ttsPluginAzure);
+
 export enum PLAYERS {
     ElevenLabs = 'ElevenLabs',
     Willow = 'Willow',
     Google = 'Google',
+    Azure = 'Azure',
 }
 
 export const players: Record<PLAYERS, ExternalTTSAudioFilePlayer> = {
     ElevenLabs: ttsPlayerElevenlabs,
     Willow: ttsPlayerWillow,
-    Google: ttsPlayerGoogle
+    Google: ttsPlayerGoogle,
+    Azure: ttsPlayerAzure
 }
