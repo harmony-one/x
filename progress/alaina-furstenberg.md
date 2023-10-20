@@ -2,6 +2,8 @@
 
 2023-10-17 Tues: Designed cover art for Soph's [substack article] (https://blog.harmony.one/publish/post/138051705) Awaiting copy/title finalization from Soph. Wrote [thread]( https://x.com/harmonyprotocol/status/1714423675687194845?s=20) on /text and /ask + /cxt. Synced with Fission on UX fixes x.country
 
-2023-10-18: Published [Harmony Services and Ops: Q3 Recap, Q4 Roadmap](https://blog.harmony.one/p/harmony-services-and-ops-q3-recap?r=1zilbf&utm_campaign=post&utm_medium=web) and shared to [twitter](https://x.com/harmonyprotocol/status/1714709009255854362?s=20). Used Dalle3 to design logos for x.country & began planning Harmony + Hummingbot giveaway.
+2023-10-18 Weds: Published [Harmony Services and Ops: Q3 Recap, Q4 Roadmap](https://blog.harmony.one/p/harmony-services-and-ops-q3-recap?r=1zilbf&utm_campaign=post&utm_medium=web) and shared to [twitter](https://x.com/harmonyprotocol/status/1714709009255854362?s=20). Used Dalle3 to design logos for x.country & began planning Harmony + Hummingbot giveaway.
+
+2023-10-19 Thurs: Ideated designs for [v2](https://www.figma.com/file/srjgMd8na9ISMHA1ZJKB2I/xcountry-v2?type=design&node-id=0-1&mode=design&t=a9XdNoU5JgANPdQi-0) of x.country. Synced with Theo on the best placement for the buttons and dicussed UX flows. Put together global calendar for team.
 
 2023-10-13 Fri: Finalized [figma mockups]( https://www.figma.com/file/xMZ1u7KsvawpCeonzHBjKt/x.country-dashboard?type=design&node-id=0%3A1&mode=design&t=6V9h08OmVBgwzwoL-1) for x.country. Synced with Stephen on marketing campaigns through Twitter/Tiktok for One Bot & synced with Frank on the latest features to promote. Sent tweet [promoting Swap hitting $100k volume.](https://x.com/harmonyprotocol/status/1712898918114381938?s=20)
