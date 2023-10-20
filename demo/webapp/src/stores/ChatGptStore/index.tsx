@@ -141,7 +141,7 @@ export class ChatGptStore {
         model: 'gpt-4',
         messages: [{ role: 'user', content }],
         stream: true,
-        max_tokens: 200,
+        max_tokens: 100,
         temperature: 0.8
       }, {
         signal: abortController.signal
@@ -160,7 +160,6 @@ export class ChatGptStore {
         lines[currentLineIdx] = (lines[currentLineIdx] ?? '') + text;
 
         if (isPhraseComplete(lines[currentLineIdx], !currentLineIdx)) {
-          console.log('TTS player setText', lines)
           this.ttsPlayer.setText(lines, false);
           currentLineIdx++;
         }
@@ -168,7 +167,6 @@ export class ChatGptStore {
 
       lines.push(text);
 
-      console.log('TTS player setText', lines, '!!FINAL')
       this.ttsPlayer.setText(lines, true);
 
       if(this.activeGptOutput) {
