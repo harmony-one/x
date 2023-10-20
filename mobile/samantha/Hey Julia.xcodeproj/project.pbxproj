@@ -14,7 +14,6 @@
 		AC0F91482ADF4B5D00AD111A /* Testing_TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91472ADF4B5D00AD111A /* Testing_TTSTests.swift */; };
 		AC0F91522ADF4B5D00AD111A /* Testing_TTSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91512ADF4B5D00AD111A /* Testing_TTSUITests.swift */; };
 		AC0F91542ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */; };
-		CDED85482AE28E6900291049 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDED85472AE28E6900291049 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +75,6 @@
 		AC0F912A2ADF4B5C00AD111A = {
 			isa = PBXGroup;
 			children = (
-				CDED85472AE28E6900291049 /* Info.plist */,
 				AC0F91352ADF4B5C00AD111A /* Testing TTS */,
 				AC0F91462ADF4B5D00AD111A /* Testing TTSTests */,
 				AC0F91502ADF4B5D00AD111A /* Testing TTSUITests */,
@@ -97,6 +95,7 @@
 		AC0F91352ADF4B5C00AD111A /* Testing TTS */ = {
 			isa = PBXGroup;
 			children = (
+				CDED85472AE28E6900291049 /* Info.plist */,
 				AC0F91362ADF4B5C00AD111A /* Testing_TTSApp.swift */,
 				AC0F91382ADF4B5C00AD111A /* ContentView.swift */,
 				AC0F913A2ADF4B5D00AD111A /* Assets.xcassets */,
@@ -236,7 +235,6 @@
 			files = (
 				AC0F913E2ADF4B5D00AD111A /* Preview Assets.xcassets in Resources */,
 				AC0F913B2ADF4B5D00AD111A /* Assets.xcassets in Resources */,
-				CDED85482AE28E6900291049 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +427,8 @@
 				DEVELOPMENT_TEAM = D9AHA462DR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Hey Julia";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -458,6 +458,8 @@
 				DEVELOPMENT_TEAM = D9AHA462DR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Hey Julia";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,10 +485,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "testing-tts.Testing-TTSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.juliaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -502,10 +505,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "testing-tts.Testing-TTSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.juliaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -520,9 +524,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "testing-tts.Testing-TTSUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.juliaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -537,9 +542,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "testing-tts.Testing-TTSUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.juliaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
