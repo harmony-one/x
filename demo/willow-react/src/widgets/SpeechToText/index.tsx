@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {Box, Select, Text} from "grommet";
+import React, { useEffect, useState } from 'react'
+import { Box, Select, Text } from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {
   SpeechModel,
@@ -7,7 +7,7 @@ import {
   DeepgramResponseResults,
   DeepgramResponseMetadata
 } from "./types";
-import {VoiceActivityDetection} from "../VoiceActivityDetection/VoiceActivityDetection";
+import { VoiceActivityDetection } from "../VoiceActivityDetection/VoiceActivityDetection";
 
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
@@ -53,15 +53,15 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
     const durationMs = Math.round(data.duration * 1000);
     const endMs = Math.round((data.start + data.duration) * 1000);
 
-    if(transcript.length > 0) {
+    if (transcript.length > 0) {
       console.log('Deepgram response:', data)
       // console.log('startMs', startMs, 'durationMs', durationMs, 'endMs', endMs)
     } else {
       // console.log('durationMs', durationMs)
     }
 
-    if(transcript.length > 0) {
-      if(confidence >= 0.65) {
+    if (transcript.length > 0) {
+      if (confidence >= 0.65) {
         setTranscriptions(transcriptions => [...transcriptions, transcript])
       } else {
         console.warn(`Transcription ignored, low confidence level (${confidence})`)
@@ -72,7 +72,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }
 
   useEffect(() => {
-    if(transcriptions.length > 0 && isSpeechEnded) {
+    if (transcriptions.length > 0 && isSpeechEnded) {
       const text = transcriptions.join(' ')
       props.onChangeOutput(text)
       setTranscriptions([])
@@ -81,9 +81,9 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   }, [debouncedTranscriptions, isSpeechEnded]);
 
   useEffect(() => {
-    if(DeepgramApiKey && selectedModel) {
+    if (DeepgramApiKey && selectedModel) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-       var mediaRecorder: MediaRecorder
+        var mediaRecorder: MediaRecorder
         try {
           mediaRecorder = getMediaRecorder(stream)
         } catch (error) {
@@ -95,13 +95,13 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           return
         }
 
-        if(currentSocket) {
-          currentSocket.onmessage = () => {}
+        if (currentSocket) {
+          currentSocket.onmessage = () => { }
         }
         setMediaStream(stream)
         const socket = new WebSocket(
           `wss://api.deepgram.com/v1/listen?model=${selectedModel}`,
-          [ 'token', DeepgramApiKey ]
+          ['token', DeepgramApiKey]
         )
         console.log('\n\n\nInit Deepgram STT API model:', selectedModel, '\n\n\n')
 
@@ -114,7 +114,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
         socket.onmessage = (message) => {
           const data = JSON.parse(message.data) as (DeepgramResponseResults | DeepgramResponseMetadata)
-          if(data.type === 'Results') {
+          if (data.type === 'Results') {
             onTranscribeReceived(data)
           }
         }
@@ -129,6 +129,17 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
       alias: SpeechModelAlias[value]
     }
   })
+
+  return <Box
+    margin="24px"
+    pad="24px"
+    style={{
+      border: '1px solid #dedede',
+    }}
+  >
+    <Text>You can speak now</Text>
+    <VoiceActivityDetection mediaStream={mediaStream} />
+  </Box>
 
   return <Box>
     <Box direction={'row'} align={'baseline'} gap={'16px'}>
