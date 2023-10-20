@@ -18,7 +18,13 @@ client.on('onLog', () => {
 client.on('onError', () => {
 })
 
-client.init();
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    client.init().catch(console.error)
+  } catch (e) {
+    console.error(e);
+  }
+})
 
 const App = observer(() => {
   const [isInitialized, setInitialized] = useState(false);
