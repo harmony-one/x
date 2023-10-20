@@ -121,6 +121,7 @@ const AudioVisualization = ({ analyser }: { analyser: AnalyserNode }) => {
         //   sections: 3,
         // },
       ];
+      var rings = [];
 
       analyser.getByteFrequencyData(dataArray);
 
