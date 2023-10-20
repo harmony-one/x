@@ -9,6 +9,19 @@ export enum AUTHOR {
   GPT = 'gpt',
 }
 
+export enum STT_CORES {
+  Willow = 'Willow',
+  'Deepgram Nova 2' = 'Deepgram Nova 2',
+}
+
+export interface IReqTime {
+  stt: number;
+  llm: number;
+  tts: number;
+  sttCore: string;
+  ttsCore: string;
+}
+
 export interface IMessage {
   author: AUTHOR,
   text: string;
@@ -17,6 +30,7 @@ export interface IMessage {
 export class ChatGptStore {
   openai: OpenAI;
   ttsPlayerKey: PLAYERS;
+  sttKey: STT_CORES;
 
   messages: IMessage[] = [];
 
@@ -29,6 +43,8 @@ export class ChatGptStore {
   llmTime: number = 0;
   sttTime: number = 0;
 
+  reqTimes: IReqTime[] = [];
+
   constructor() {
     makeObservable(this, {
       isLoading: observable,
@@ -36,6 +52,10 @@ export class ChatGptStore {
       activeGptOutput: observable,
       activeUserInput: observable,
       ttsPlayerKey: observable,
+      reqTimes: observable,
+      sttKey: observable,
+
+      addReqTime: action,
       setPlayer: action,
       setUserInput: action,
       setGptOutput: action,
@@ -53,6 +73,7 @@ export class ChatGptStore {
     })
 
     this.ttsPlayerKey = PLAYERS.ElevenLabs;
+    this.sttKey = STT_CORES["Deepgram Nova 2"];
 
     this.openai = new OpenAI({
       apiKey: String(process.env.REACT_APP_SECRET_OPEN_AI),
@@ -68,6 +89,20 @@ export class ChatGptStore {
 
   setPlayer = (playerKey: PLAYERS) => {
     this.ttsPlayerKey = playerKey;
+  }
+
+  setSttKey = (sttKey: STT_CORES) => {
+    this.sttKey = sttKey;
+  }
+
+  addReqTime = (props: IReqTime) => this.reqTimes.push(props);
+
+  interruptVoiceAI() {
+    const ttsPlayer: ExternalTTSAudioFilePlayer = players[this.ttsPlayerKey];
+
+    // ttsPlayer.clear()
+    // ttsPlayer.destroy()
+    console.log('Interrupt TTS')
   }
 
   setUserInput = (text: string) => {
@@ -137,6 +172,15 @@ export class ChatGptStore {
         author: AUTHOR.GPT,
         text: this.activeGptOutput
       })
+
+      setTimeout(() =>
+      this.addReqTime({
+        stt: this.sttTime,
+        llm: this.llmTime,
+        tts: this.ttsTime,
+        ttsCore: this.ttsPlayerKey[0],
+        sttCore: this.sttKey[0],
+      }), 2000);
 
       this.saveMessages();
     } catch (e) {

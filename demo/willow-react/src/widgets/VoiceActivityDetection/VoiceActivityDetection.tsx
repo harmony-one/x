@@ -46,7 +46,7 @@ export const VoiceActivityDetection = observer((props: Props) => {
 
   return (
     <Box direction="row" onClick={handleInterruptVoiceAi}>
-      <div>mic:</div><div ref={ref}></div>
+      {/* <div>mic:</div><div ref={ref}></div> */}
     </Box>
   )
 })
