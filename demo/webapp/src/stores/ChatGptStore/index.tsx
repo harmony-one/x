@@ -1,6 +1,6 @@
 import { makeObservable, action, observable, computed } from "mobx";
 import OpenAI from 'openai';
-import { createPlayerTTS } from '../../widgets/tts';
+import {getTTSPlayer, TTSPlayerType} from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
 import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
 
@@ -15,6 +15,8 @@ export interface IMessage {
   inGptContext: boolean
 }
 
+const defaultTTSPlayer = TTSPlayerType.google
+
 export class ChatGptStore {
   openai: OpenAI;
   openAiAbortController?: AbortController
@@ -25,10 +27,12 @@ export class ChatGptStore {
 
   isLoading: boolean = false;
   conversationContextLength = 20
-  ttsPlayer: ExternalTTSAudioFilePlayer | null = null;
+  public ttsPlayerType = defaultTTSPlayer
+  ttsPlayer: ExternalTTSAudioFilePlayer = getTTSPlayer(defaultTTSPlayer)
 
   constructor() {
     makeObservable(this, {
+      ttsPlayerType: observable,
       ttsPlayer: observable,
       isLoading: observable,
       messages: observable,
@@ -40,6 +44,7 @@ export class ChatGptStore {
       loadMessages: action,
       conversationContext: computed,
       interruptOpenAiStream: action,
+      setTTSPlayer: action,
     })
 
     this.openai = new OpenAI({
@@ -105,29 +110,32 @@ export class ChatGptStore {
     }
   }
 
+  setTTSPlayer(type: TTSPlayerType) {
+    this.ttsPlayerType = type
+    this.interruptVoiceAI()
+    this.ttsPlayer = getTTSPlayer(type)
+    console.log('Set TTS', type)
+  }
+
   interruptVoiceAI() {
-    if (this.ttsPlayer) {
-      this.ttsPlayer.clear()
-      this.ttsPlayer.destroy()
-      this.ttsPlayer = null
-    }
+    this.ttsPlayer.clear()
+    this.ttsPlayer.destroy()
+    console.log('Interrupt TTS')
   }
 
   loadGptAnswer = async () => {
     this.isLoading = true;
 
     this.interruptVoiceAI();
-
-    const ttsPlayer = createPlayerTTS()
-    this.ttsPlayer = ttsPlayer; // ttsPlayer will be used only once
+    this.ttsPlayer = getTTSPlayer(this.ttsPlayerType)
 
     try {
       const content = 'Continue this conversation with a one- or two-sentence response: ' + this.conversationContext;
       console.log('Send full context to GPT4:', content)
       let resMessage = ''
 
-      ttsPlayer.clear();
-      ttsPlayer.play();
+      this.ttsPlayer.clear();
+      this.ttsPlayer.play();
 
       const abortController = new AbortController()
       const stream= await this.openai.chat.completions.create({
@@ -153,14 +161,14 @@ export class ChatGptStore {
         lines[currentLineIdx] = (lines[currentLineIdx] ?? '') + text;
 
         if (isPhraseComplete(lines[currentLineIdx], !currentLineIdx)) {
-          ttsPlayer.setText(lines, false);
+          this.ttsPlayer.setText(lines, false);
           currentLineIdx++;
         }
       }
 
       lines.push(text);
 
-      ttsPlayer.setText(lines, true);
+      this.ttsPlayer.setText(lines, true);
 
       if(this.activeGptOutput) {
         this.messages.push({
@@ -173,7 +181,7 @@ export class ChatGptStore {
       this.saveMessages();
     } catch (e) {
       console.error('GPT4 error', e);
-      ttsPlayer.destroy()
+      this.ttsPlayer.destroy()
     }
 
     this.openAiAbortController = undefined

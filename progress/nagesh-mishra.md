@@ -1,5 +1,8 @@
 
-2023-10-17 Wed: Upgraded speech detection, integrated ChatGPT4, added Apple's text-to-speech, and implemented Figma's design specifications.
+
+2023-10-19 Thu: Implemented buttons on a new screen for pause, reset, speak, cut, hide, and repeat, and currently working on their action functionalities.
+
+2023-10-18 Wed: Upgraded speech detection, integrated ChatGPT4, added Apple's text-to-speech, and implemented Figma's design specifications.
 
 2023-10-17 Tue: Currently, I am developing an end-to-end demo for iOS. As part of this project, I have successfully integrated a text-to-speech functionality leveraging Apple's native capabilities. Presently, I am focused on refining the speech-detection component of the project.
 
