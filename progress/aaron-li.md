@@ -1,16 +1,13 @@
-2023-10-17
-(1h) Testflight fine-grained access, profile, certificate setup; Build and publish new versions; Test latest demos and debug
+2023-10-17 Tue (1.0h): Testflight fine-grained access, profile, certificate setup; Build and publish new versions; Test latest demos and debug.
 (TODO)
 
-2023-10-16
-(1h) Review code update (#25, #28), all progress updates and results; Debugging Swift dashboard UI mockup bugs, Swift extensions;
-(1h) Review and test Swift UI mockup fixes; Review code updates (#26 willow e2e, #28 Safari support, #10 error handling, deployment fixes), recent demos
-(0.5h) Review, test, and compare Swift websocket libraries and code
-(2.5h) Code review #4 (audio player base, elevenlabs), #25 (gpt4 context and deepgram), #26 (voice detection), #27 (willow e2e) and related components; Test commercial TTS provider APIs
+2023-10-16 Mon (5.0h): Review code update (#25, #28), all progress updates and results; Debugging Swift dashboard UI mockup bugs, Swift extensions;
+Review and test Swift UI mockup fixes; Review code updates (#26 willow e2e, #28 Safari support, #10 error handling, deployment fixes), recent demos
+Review, test, and compare Swift websocket libraries and code
+Code review #4 (audio player base, elevenlabs), #25 (gpt4 context and deepgram), #26 (voice detection), #27 (willow e2e) and related components; Test commercial TTS provider APIs.
 
 2023-10-14
 (2h) TestFlight build, launch, bug fixes, and configurations; Review Deepgram benchmark and documentations
-
 
 2023-10-13
 (3.5h) Research and analysis on audio libraries and frameworks under react native and iOS native system (CoreAudio, AVFoundation), writeups, boilerplate app setup
