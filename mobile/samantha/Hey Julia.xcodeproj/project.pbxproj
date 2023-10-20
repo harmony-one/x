@@ -14,6 +14,7 @@
 		AC0F91482ADF4B5D00AD111A /* Testing_TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91472ADF4B5D00AD111A /* Testing_TTSTests.swift */; };
 		AC0F91522ADF4B5D00AD111A /* Testing_TTSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91512ADF4B5D00AD111A /* Testing_TTSUITests.swift */; };
 		AC0F91542ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */; };
+		CDED85482AE28E6900291049 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDED85472AE28E6900291049 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,16 +35,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AC0F91332ADF4B5C00AD111A /* Testing TTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Testing TTS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0F91332ADF4B5C00AD111A /* Hey Julia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Julia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0F91362ADF4B5C00AD111A /* Testing_TTSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSApp.swift; sourceTree = "<group>"; };
 		AC0F91382ADF4B5C00AD111A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC0F913A2ADF4B5D00AD111A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC0F913D2ADF4B5D00AD111A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AC0F91432ADF4B5D00AD111A /* Testing TTSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Testing TTSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0F91432ADF4B5D00AD111A /* Hey JuliaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey JuliaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0F91472ADF4B5D00AD111A /* Testing_TTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSTests.swift; sourceTree = "<group>"; };
-		AC0F914D2ADF4B5D00AD111A /* Testing TTSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Testing TTSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0F914D2ADF4B5D00AD111A /* Hey JuliaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey JuliaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0F91512ADF4B5D00AD111A /* Testing_TTSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSUITests.swift; sourceTree = "<group>"; };
 		AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CDED85472AE28E6900291049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		AC0F912A2ADF4B5C00AD111A = {
 			isa = PBXGroup;
 			children = (
+				CDED85472AE28E6900291049 /* Info.plist */,
 				AC0F91352ADF4B5C00AD111A /* Testing TTS */,
 				AC0F91462ADF4B5D00AD111A /* Testing TTSTests */,
 				AC0F91502ADF4B5D00AD111A /* Testing TTSUITests */,
@@ -84,9 +87,9 @@
 		AC0F91342ADF4B5C00AD111A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC0F91332ADF4B5C00AD111A /* Testing TTS.app */,
-				AC0F91432ADF4B5D00AD111A /* Testing TTSTests.xctest */,
-				AC0F914D2ADF4B5D00AD111A /* Testing TTSUITests.xctest */,
+				AC0F91332ADF4B5C00AD111A /* Hey Julia.app */,
+				AC0F91432ADF4B5D00AD111A /* Hey JuliaTests.xctest */,
+				AC0F914D2ADF4B5D00AD111A /* Hey JuliaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,9 +133,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AC0F91322ADF4B5C00AD111A /* Testing TTS */ = {
+		AC0F91322ADF4B5C00AD111A /* Hey Julia */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC0F91572ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTS" */;
+			buildConfigurationList = AC0F91572ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey Julia" */;
 			buildPhases = (
 				AC0F912F2ADF4B5C00AD111A /* Sources */,
 				AC0F91302ADF4B5C00AD111A /* Frameworks */,
@@ -142,14 +145,14 @@
 			);
 			dependencies = (
 			);
-			name = "Testing TTS";
+			name = "Hey Julia";
 			productName = "Testing TTS";
-			productReference = AC0F91332ADF4B5C00AD111A /* Testing TTS.app */;
+			productReference = AC0F91332ADF4B5C00AD111A /* Hey Julia.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AC0F91422ADF4B5D00AD111A /* Testing TTSTests */ = {
+		AC0F91422ADF4B5D00AD111A /* Hey JuliaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC0F915A2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTSTests" */;
+			buildConfigurationList = AC0F915A2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey JuliaTests" */;
 			buildPhases = (
 				AC0F913F2ADF4B5D00AD111A /* Sources */,
 				AC0F91402ADF4B5D00AD111A /* Frameworks */,
@@ -160,14 +163,14 @@
 			dependencies = (
 				AC0F91452ADF4B5D00AD111A /* PBXTargetDependency */,
 			);
-			name = "Testing TTSTests";
+			name = "Hey JuliaTests";
 			productName = "Testing TTSTests";
-			productReference = AC0F91432ADF4B5D00AD111A /* Testing TTSTests.xctest */;
+			productReference = AC0F91432ADF4B5D00AD111A /* Hey JuliaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AC0F914C2ADF4B5D00AD111A /* Testing TTSUITests */ = {
+		AC0F914C2ADF4B5D00AD111A /* Hey JuliaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC0F915D2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTSUITests" */;
+			buildConfigurationList = AC0F915D2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey JuliaUITests" */;
 			buildPhases = (
 				AC0F91492ADF4B5D00AD111A /* Sources */,
 				AC0F914A2ADF4B5D00AD111A /* Frameworks */,
@@ -178,9 +181,9 @@
 			dependencies = (
 				AC0F914F2ADF4B5D00AD111A /* PBXTargetDependency */,
 			);
-			name = "Testing TTSUITests";
+			name = "Hey JuliaUITests";
 			productName = "Testing TTSUITests";
-			productReference = AC0F914D2ADF4B5D00AD111A /* Testing TTSUITests.xctest */;
+			productReference = AC0F914D2ADF4B5D00AD111A /* Hey JuliaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -206,7 +209,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AC0F912E2ADF4B5C00AD111A /* Build configuration list for PBXProject "Testing TTS" */;
+			buildConfigurationList = AC0F912E2ADF4B5C00AD111A /* Build configuration list for PBXProject "Hey Julia" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -219,9 +222,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC0F91322ADF4B5C00AD111A /* Testing TTS */,
-				AC0F91422ADF4B5D00AD111A /* Testing TTSTests */,
-				AC0F914C2ADF4B5D00AD111A /* Testing TTSUITests */,
+				AC0F91322ADF4B5C00AD111A /* Hey Julia */,
+				AC0F91422ADF4B5D00AD111A /* Hey JuliaTests */,
+				AC0F914C2ADF4B5D00AD111A /* Hey JuliaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,6 +236,7 @@
 			files = (
 				AC0F913E2ADF4B5D00AD111A /* Preview Assets.xcassets in Resources */,
 				AC0F913B2ADF4B5D00AD111A /* Assets.xcassets in Resources */,
+				CDED85482AE28E6900291049 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,12 +288,12 @@
 /* Begin PBXTargetDependency section */
 		AC0F91452ADF4B5D00AD111A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC0F91322ADF4B5C00AD111A /* Testing TTS */;
+			target = AC0F91322ADF4B5C00AD111A /* Hey Julia */;
 			targetProxy = AC0F91442ADF4B5D00AD111A /* PBXContainerItemProxy */;
 		};
 		AC0F914F2ADF4B5D00AD111A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC0F91322ADF4B5C00AD111A /* Testing TTS */;
+			target = AC0F91322ADF4B5C00AD111A /* Hey Julia */;
 			targetProxy = AC0F914E2ADF4B5D00AD111A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -487,7 +491,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Testing TTS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Testing TTS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Julia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Julia";
 			};
 			name = Debug;
 		};
@@ -506,7 +510,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Testing TTS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Testing TTS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Julia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Julia";
 			};
 			name = Release;
 		};
@@ -547,7 +551,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AC0F912E2ADF4B5C00AD111A /* Build configuration list for PBXProject "Testing TTS" */ = {
+		AC0F912E2ADF4B5C00AD111A /* Build configuration list for PBXProject "Hey Julia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC0F91552ADF4B5D00AD111A /* Debug */,
@@ -556,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC0F91572ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTS" */ = {
+		AC0F91572ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey Julia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC0F91582ADF4B5D00AD111A /* Debug */,
@@ -565,7 +569,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC0F915A2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTSTests" */ = {
+		AC0F915A2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey JuliaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC0F915B2ADF4B5D00AD111A /* Debug */,
@@ -574,7 +578,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC0F915D2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Testing TTSUITests" */ = {
+		AC0F915D2ADF4B5D00AD111A /* Build configuration list for PBXNativeTarget "Hey JuliaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC0F915E2ADF4B5D00AD111A /* Debug */,
