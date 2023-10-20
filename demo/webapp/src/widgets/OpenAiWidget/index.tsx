@@ -6,8 +6,13 @@ import { AUTHOR } from '../../stores/ChatGptStore';
 import { MessageBox } from './Components';
 import {SpeechModel, SpeechModelAlias} from "../SpeechToText/types";
 import {getTTSPlayer, TTSPlayerType} from "../tts";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 export const OpenAIWidget = observer(() => {
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const ttsModel = (searchParams.get('ttsModel') || TTSPlayerType.google) as TTSPlayerType
+
     const { chatGpt } = useStores();
     const containerEl = useRef(null);
 
@@ -26,8 +31,17 @@ export const OpenAIWidget = observer(() => {
         }
     })
 
+    useEffect(() => {
+        chatGpt.setTTSPlayer(ttsModel)
+    }, [ttsModel]);
+
     const onTTSModelChange = (type: TTSPlayerType) => {
-        chatGpt.setTTSPlayer(type)
+        const sttModel = searchParams.get('sttModel')
+        let path = `/?ttsModel=${type}`
+        if(sttModel) {
+            path = `${path}&sttModel=${sttModel}`
+        }
+        navigate(path)
     }
 
     return <>
