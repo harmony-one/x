@@ -1,6 +1,9 @@
 2023-10-19 Tur (0.5h): Manage new app bundle ids, Test Flight configurations, corresponding provisioning profiles, and internal tester groups;
+
 2023-10-18 Wed (4.5h): Research on iOS audio, speech, networking (native websocket v. third-party libraries such as Starscream) capabilities across recent versions, market share, and optimal cutoff version; Experiment on native websocket and assess deficiencies; Research on Swift Package Manager v. Cocoapods for managing external dependencies; Review, build, and test new iOS code (#35); Manage and debug on iOS provisioning profiles, signing certificate requests, and distribution certificate; Debug and fix issues related to x.country redirects and email alias contract management
+
 2023-10-17 Tue (2.5h): Testflight fine-grained access, profile, certificate setup; Build and publish new versions; Test latest demos and debug; Voice provider API testing and debug
+
 2023-10-16 Mon (3.5h): Review code update (#25, #28), all progress updates and results; Debugging Swift dashboard UI mockup bugs, Swift extensions;
 Review and test Swift UI mockup fixes; Review code updates (#26 willow e2e, #28 Safari support, #10 error handling, deployment fixes), recent demos
 Review, test, and compare Swift websocket libraries and code; Code review #4 (audio player base, elevenlabs), #25 (gpt4 context and deepgram), #26 (voice detection), #27 (willow e2e) and related components; Test commercial TTS provider APIs.
