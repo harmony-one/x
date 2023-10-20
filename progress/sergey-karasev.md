@@ -1,3 +1,5 @@
+2023-10-19 Fri: [Added autorun and removed user interface](https://github.com/harmony-one/x/pull/51) (microphone button and status loader) from vocode demo, and [reviewed Yuriy's pull request](https://github.com/harmony-one/x/pull/51) with the Azure API 
+
 2023-10-19 Thu: Worked on custom [instructions for vocode demo](https://github.com/harmony-one/x/pull/43), and have started working on voice interruption for vocode demo
 
 2023-10-18 Wed: I have finish [google tts proxy](https://github.com/harmony-one/x/pull/36) and added it to main demo, switched vocode demo to [deepgram nova2 model](https://github.com/harmony-one/x/pull/40) and [openai gpt4 model](https://github.com/harmony-one/x/pull/37), and [hidden mic settings](https://github.com/harmony-one/x/pull/38) for vocode demo   
