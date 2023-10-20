@@ -19,8 +19,14 @@ struct DashboardView: View {
     @State private var optimiseValue = "101 + 27 + 127"
     @State private var sessionIdentifier = "1234-5678-90ab"
     
+    @State private var hideButtons = true
+    @State private var isButtonViewPresented = false
+    
     var body: some View {
         Color(hex:0x313131).ignoresSafeArea()
+            .onTapGesture {
+                self.isButtonViewPresented = true
+            }
             .overlay(
                 VStack {
                     HStack {
@@ -81,11 +87,20 @@ struct DashboardView: View {
                             .font(.customFont())
                             .foregroundColor(.white)
                     }
+                    
                     .padding(.bottom, 30)
-                }
-                    .padding(10)
+                }.padding(10)
+                    .fullScreenCover(isPresented: $isButtonViewPresented, content: {
+                        ActionsView(dismissAction: {
+                            self.isButtonViewPresented = false
+                        })
+                    })
+                    .onTapGesture {
+                        // Toggle hideButtons when screen is tapped
+                        self.hideButtons.toggle()
+                    }
             ).onAppear(
-                perform: SpeechRecognition().setup
+                perform: SpeechRecognition.shared.setup
             )
     }
 }

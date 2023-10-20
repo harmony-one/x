@@ -26,6 +26,7 @@
 		B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		B9AD50722ADFFE3B006F18A1 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50712ADFFE3B006F18A1 /* AppConfig.plist */; };
 		B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
+		B9AD50AF2AE262DF006F18A1 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50AE2AE262DF006F18A1 /* ActionsView.swift */; };
 		CD0D13382ADA73B300031EDD /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		CD0D133C2ADA73B300031EDD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
@@ -76,6 +77,7 @@
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		B9AD50712ADFFE3B006F18A1 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		B9AD50AE2AE262DF006F18A1 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = x.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,14 @@
 			path = AppConfigration;
 			sourceTree = "<group>";
 		};
+		B9AD50AD2AE262C1006F18A1 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				B9AD50AE2AE262DF006F18A1 /* ActionsView.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		CD0D132B2ADA73B300031EDD = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +252,7 @@
 				B9AD50522ADFE8A0006F18A1 /* SpeechRecognition */,
 				B9AD504F2ADFE888006F18A1 /* Converter */,
 				B930AADB2ADE2DA1009F9F8C /* Extension */,
+				B9AD50AD2AE262C1006F18A1 /* Actions */,
 				B930AAD12ADD4BAF009F9F8C /* Dashboard */,
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
@@ -427,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9AD50AF2AE262DF006F18A1 /* ActionsView.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,

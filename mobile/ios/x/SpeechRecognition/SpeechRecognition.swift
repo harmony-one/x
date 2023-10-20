@@ -20,8 +20,16 @@ class SpeechRecognition: NSObject {
     private var silenceTimer: Timer?
     let audioSession = AVAudioSession.sharedInstance()
     let textToSpeechConverter = TextToSpeechConverter()
+    static let shared = SpeechRecognition()
     
-
+    // Maximum size of the array
+    let maxArraySize = 5
+    
+    // Array to store AI responses
+    private var aiResponseArray: [String] = []
+    
+    private var isResetCalled = false
+        
     // MARK: - Initialization and Setup
     
     func setup() {
@@ -32,7 +40,7 @@ class SpeechRecognition: NSObject {
         textToSpeechConverter.synthesizer.delegate = self
           
         // Convert a default greeting text to speech
-        textToSpeechConverter.convertTextToSpeech(text: "Hey!!")
+        textToSpeechConverter.convertTextToSpeech(text: "Hey!! With its virtual research platform")
     }
     
     // MARK: - Audio Session Management
@@ -59,7 +67,7 @@ class SpeechRecognition: NSObject {
             recognitionTask = nil
         }
         
-         let inputNode = audioEngine.inputNode 
+         let inputNode = audioEngine.inputNode
         
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         recognitionRequest?.shouldReportPartialResults = true
@@ -123,13 +131,85 @@ class SpeechRecognition: NSObject {
             self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
         }
     }
+    
+    // Method to add a new response to the array, managing the size
+    func addObject(_ newObject: String) {
+        if aiResponseArray.count < maxArraySize {
+            aiResponseArray.append(newObject)
+        } else {
+            aiResponseArray.removeFirst()
+            aiResponseArray.append(newObject)
+        }
+    }
+    
+    func pause() {
+        // “Pause” means holding off Sam’s speaking or listening until Theo presses the button again.
+        self.textToSpeechConverter.pauseSpeech()
+    }
+    
+    func continueSpeech() {
+        self.textToSpeechConverter.continueSpeech()
+    }
+    
+    func cut() {
+        //  ”Cut” means to interrupt stop play audio rambling and stop any further response
+        self.textToSpeechConverter.stopSpeech()
+    }
+    
+    func reset() {
+        // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
+        
+        self.aiResponseArray.removeAll()
+        self.textToSpeechConverter.stopSpeech()
+        self.recognitionTask?.finish()
+        self.recognitionTask?.cancel()
+        self.recognitionTask = nil
+        
+        self.recognitionRequest?.endAudio()
+        self.audioEngine.stop()
+        //audioEngine.inputNode.removeTap(onBus: 0)
+        
+        self.isResetCalled = true
+        
+        if audioEngine.inputNode.numberOfInputs > 0 {
+            audioEngine.inputNode.removeTap(onBus: 0)
+        }
+        
+        do {
+            try audioEngine.start()
+        } catch {
+            print("Error starting audio engine: \(error.localizedDescription)")
+        }
+        self.textToSpeechConverter.convertTextToSpeech(text: "Hey!!")
+        
+    }
+    
+    func speak() {
+        // ”Speak” allows Theo to force Sam keep listening while holding down the button.
+        
+        self.textToSpeechConverter.stopSpeech()
+        self.recognitionTask?.finish()
+        self.recognitionTask?.cancel()
+        self.recognitionTask = nil
+        
+        self.recognitionRequest?.endAudio()
+        self.audioEngine.stop()
+    
+        self.setupAudioSession()
+        self.startSpeechRecognition()
+    }
+    
+    func repeate() {
+        self.setupAudioSession()
+        // “Repeat” allows Theo to hear Sam’s saying from 10 seconds ago.
+        self.textToSpeechConverter.convertTextToSpeech(text: aiResponseArray.last ?? "There are no prior conversions to repeat.")
+    }
 }
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        startSpeechRecognition()
+        self.startSpeechRecognition()
     }
 }
  
