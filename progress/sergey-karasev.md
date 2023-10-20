@@ -1,4 +1,4 @@
-2023-10-19 Fri: [Added autorun and removed user interface](https://github.com/harmony-one/x/pull/51) (microphone button and status loader) from vocode demo, and [reviewed Yuriy's pull request](https://github.com/harmony-one/x/pull/51) with the Azure API 
+2023-10-19 Fri: [Added autorun and removed user interface](https://github.com/harmony-one/x/pull/51) (microphone button and status loader) from vocode demo, and [reviewed Yuriy's pull request](https://github.com/harmony-one/x/pull/51) with the Azure API, And also started working on ios application /x/ios-annie (deepgram nova 2 and google)
 
 2023-10-19 Thu: Worked on custom [instructions for vocode demo](https://github.com/harmony-one/x/pull/43), and have started working on voice interruption for vocode demo
 
