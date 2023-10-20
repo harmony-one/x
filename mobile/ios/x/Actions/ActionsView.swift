@@ -12,7 +12,7 @@ struct ActionsView: View {
     var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
-
+    @State private var isPlaying = false
     @State private var isListening = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
@@ -38,6 +38,18 @@ struct ActionsView: View {
                     GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0),
                     GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
                 ], spacing: 0) {
+                    
+                    if isPlaying {
+                        Text("Playing")
+                            .font(.title)
+                            .foregroundColor(.green)
+                            .padding()
+                    } else {
+                        Text("Paused")
+                            .font(.title)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
                     ForEach(0..<buttonTitles.count, id: \.self) { index in
                         
                         if index == 0 {
@@ -57,10 +69,8 @@ struct ActionsView: View {
                             }
                             
                         }  else if index  == 1 {
-                
+                            
                             Button(action: {
-                               
-                                SpeechRecognition.shared.speak()
                                 
                             }) {
                                 VStack(spacing: imageTextSpacing) {
@@ -81,6 +91,7 @@ struct ActionsView: View {
                                         if !isListening {
                                             isListening = true
                                             print("Started Listening...")
+                                            SpeechRecognition.shared.speak()
                                             
                                             
                                         }
@@ -100,7 +111,13 @@ struct ActionsView: View {
                                 } else if index == 3 {
                                     SpeechRecognition.shared.repeate()
                                 }  else if index == 4 {
-                                    SpeechRecognition.shared.pause()
+                                    
+                                    if isPlaying {
+                                        SpeechRecognition.shared.continueSpeech()
+                                    } else {
+                                        SpeechRecognition.shared.pause()
+                                    }
+                                    self.isPlaying.toggle()
                                 } else if index == 5 {
                                     SpeechRecognition.shared.cut()
                                 }
@@ -163,7 +180,24 @@ struct ActionsView: View {
                                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 3)
                                 .background(getColor(index: index))
                                 .cornerRadius(0)
-                            }
+                            }.simultaneousGesture(
+                                DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                                    .onChanged { _ in
+                                        if !isListening {
+                                            isListening = true
+                                            print("Started Listening...")
+                                            SpeechRecognition.shared.speak()
+                                            
+                                            
+                                        }
+                                    }
+                                    .onEnded { _ in
+                                        if isListening {
+                                            isListening = false
+                                            print("Stopped Listening")
+                                        }
+                                    }
+                            )
                         } else {
                             Button(action: {
                                 if index == 2 {
@@ -171,7 +205,12 @@ struct ActionsView: View {
                                 } else if index == 3 {
                                     SpeechRecognition.shared.repeate()
                                 }  else if index == 4 {
-                                    SpeechRecognition.shared.pause()
+                                    if isPlaying {
+                                        SpeechRecognition.shared.continueSpeech()
+                                    } else {
+                                        SpeechRecognition.shared.pause()
+                                    }
+                                    self.isPlaying.toggle()
                                 } else if index == 5 {
                                     SpeechRecognition.shared.cut()
                                 }
