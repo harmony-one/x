@@ -1,8 +1,10 @@
-2023-10-19 Thurs: Ideated designs for [v2](https://www.figma.com/file/srjgMd8na9ISMHA1ZJKB2I/xcountry-v2?type=design&node-id=0-1&mode=design&t=a9XdNoU5JgANPdQi-0) of x.country. Synced with Theo on the best placement for the buttons and dicussed UX flows. Put together global calendar for team.
+2023-10-19 Fri:
 
-2023-10-18 Weds: Published [Harmony Services and Ops: Q3 Recap, Q4 Roadmap](https://blog.harmony.one/p/harmony-services-and-ops-q3-recap?r=1zilbf&utm_campaign=post&utm_medium=web) and shared to [twitter](https://x.com/harmonyprotocol/status/1714709009255854362?s=20). Used Dalle3 to design logos for x.country & began planning Harmony + Hummingbot giveaway.
+2023-10-19 Thu: Ideated designs for [v2](https://www.figma.com/file/srjgMd8na9ISMHA1ZJKB2I/xcountry-v2?type=design&node-id=0-1&mode=design&t=a9XdNoU5JgANPdQi-0) of x.country. Synced with Theo on the best placement for the buttons and dicussed UX flows. Put together global calendar for team.
 
-2023-10-17 Tues: Designed cover art for Soph's [substack article] (https://blog.harmony.one/publish/post/138051705) Awaiting copy/title finalization from Soph. Wrote [thread]( https://x.com/harmonyprotocol/status/1714423675687194845?s=20) on /text and /ask + /cxt. Synced with Fission on UX fixes x.country
+2023-10-18 Wed: Published [Harmony Services and Ops: Q3 Recap, Q4 Roadmap](https://blog.harmony.one/p/harmony-services-and-ops-q3-recap?r=1zilbf&utm_campaign=post&utm_medium=web) and shared to [twitter](https://x.com/harmonyprotocol/status/1714709009255854362?s=20). Used Dalle3 to design logos for x.country & began planning Harmony + Hummingbot giveaway.
+
+2023-10-17 Tue: Designed cover art for Soph's [substack article] (https://blog.harmony.one/publish/post/138051705) Awaiting copy/title finalization from Soph. Wrote [thread]( https://x.com/harmonyprotocol/status/1714423675687194845?s=20) on /text and /ask + /cxt. Synced with Fission on UX fixes x.country
 
 2023-10-16 Mon: Published [Q3 Engineering Report on Substack](https://blog.harmony.one/p/harmony-q3-engineering-report?r=1zilbf&utm_campaign=post&utm_medium=web) & [tweeted](https://x.com/harmonyprotocol/status/1714044695725371504?s=20) promoting the report. Synced with Frank on fixing /text, demo to be tweeted tomorrow & synced with Soph to publish another Substack post tmrw. Worked on cover graphic for article.
 
