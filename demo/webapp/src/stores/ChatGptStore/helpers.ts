@@ -4,8 +4,8 @@ export const isPhraseComplete = (text: string, isFirst = false) => {
     const specSymbols = ['?', '.', '!'];
 
     if (isFirst) {
-        return wordsAmount > 10 || [...specSymbols, ','].some(symbol => text.includes(symbol));
+        return wordsAmount > 30 || [...specSymbols, ','].some(symbol => text.includes(symbol));
     } else {
-        return wordsAmount > 20 || specSymbols.some(symbol => text.includes(symbol));
+        return wordsAmount > 40 || specSymbols.some(symbol => text.includes(symbol));
     }
 }
