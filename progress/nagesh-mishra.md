@@ -1,5 +1,4 @@
-
-2023-10-20 Thu: I implemented a fresh design for the button screen, featuring buttons for pause, reset, speak, cut, hide, and repeat. I also focused on refining their respective action functionalities. However, the reset action is encountering certain issues that require further attention. I addressed the font-related problem occurring in portrait mode and applied the necessary fixes. Subsequently, I have deployed the most recent changes to TestFlight for evaluation. 
+2023-10-20 Fri: I implemented a fresh design for the button screen, featuring buttons for pause, reset, speak, cut, hide, and repeat. I also focused on refining their respective action functionalities. However, the reset action is encountering certain issues that require further attention. I addressed the font-related problem occurring in portrait mode and applied the necessary fixes. Subsequently, I have deployed the most recent changes to TestFlight for evaluation. 
 
 2023-10-19 Thu: Implemented buttons on a new screen for pause, reset, speak, cut, hide, and repeat, and currently working on their action functionalities.
 
