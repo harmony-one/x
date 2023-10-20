@@ -10,6 +10,8 @@ import SwiftData
 
 struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     @State private var latencyText = "256"
     @State private var elapaedTime = "01:01:13.211"
@@ -23,6 +25,9 @@ struct DashboardView: View {
     @State private var isButtonViewPresented = false
     
     var body: some View {
+        
+        let isPortrait = verticalSizeClass == .regular && horizontalSizeClass == .compact
+        let customFontSize: CGFloat = isPortrait ? 18 : 22
         Color(hex:0x313131).ignoresSafeArea()
             .onTapGesture {
                 self.isButtonViewPresented = true
@@ -31,11 +36,11 @@ struct DashboardView: View {
                 VStack {
                     HStack {
                         Text(elapaedTime)
-                            .font(.customFont())
+                            .font(.customFont(size:customFontSize))
                             .foregroundColor(.white)
                         Spacer()
                         Text(voiceDecibel){ text in
-                            text.font = .customFont()
+                            text.font = .customFont(size:customFontSize)
                             text.foregroundColor = Color(hex: 0x00AEE9)
                             if let range = text.range(of: "/"),
                                let dbRange = text.range(of: "dB") {
@@ -50,19 +55,19 @@ struct DashboardView: View {
                     HStack {
                         VStack {
                             Text(latencyText){ text in
-                                text.font = .customFont(size: 84)
+                                text.font = .customFont(size: isPortrait ? 60 : 84)
                                 text.foregroundColor = Color(hex: 0x00AEE9)
                             }
                         }
                         Text("ms"){ text in
-                            text.font = .customFont(size: 50)
+                            text.font = .customFont(size: isPortrait ? 36 : 50)
                             text.foregroundColor = Color.white
                         }.padding(.top, 10)
                     }
                     Spacer()
                     HStack {
                         Text(paymentsCredits){ text in
-                            text.font = .customFont()
+                            text.font = .customFont(size:customFontSize)
                             text.foregroundColor = Color(hex: 0x00AEE9)
                             
                             if let range = text.range(of: "ONE"){
@@ -71,7 +76,7 @@ struct DashboardView: View {
                         }
                         Spacer()
                         Text(optimiseValue){ text in
-                            text.font = .customFont()
+                            text.font = .customFont(size:customFontSize)
                             text.foregroundColor = Color(hex: 0x00AEE9)
                             for each in text.characters.ranges(of: "+"){
                                 text[each].foregroundColor = Color.white
@@ -80,11 +85,11 @@ struct DashboardView: View {
                     }
                     HStack {
                         Text(source)
-                            .font(.customFont())
+                            .font(.customFont(size:customFontSize))
                             .foregroundColor(.white)
                         Spacer()
                         Text(sessionIdentifier)
-                            .font(.customFont())
+                            .font(.customFont(size:customFontSize))
                             .foregroundColor(.white)
                     }
                     
