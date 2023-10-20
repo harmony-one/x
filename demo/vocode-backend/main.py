@@ -39,29 +39,29 @@ provide a response stating 'I don't know' without elaborating on why the informa
 
 def create_router(conversation_endpoint: str, prompt_preamble: str):
     return ConversationRouter(
-    conversation_endpoint=conversation_endpoint,
-    agent_thunk=lambda: ChatGPTAgent(
-        ChatGPTAgentConfig(
-            initial_message=BaseMessage(text="Hello!"),
-            prompt_preamble=prompt_preamble,
-            model_name="gpt-4",
-        )
-    ),
-    transcriber_thunk = lambda input_audio_config: DeepgramTranscriber(
-        DeepgramTranscriberConfig.from_input_audio_config(
-            input_audio_config=input_audio_config,
-            endpointing_config=PunctuationEndpointingConfig(),
-            model="nova-2-ea",
-        )
-    ),
-    synthesizer_thunk=lambda output_audio_config: AzureSynthesizer(
-        AzureSynthesizerConfig.from_output_audio_config(
-            output_audio_config,
-            voice_name="en-US-JessaNeural"
-        )
-    ),
-    logger=logger,
-)
+        conversation_endpoint=conversation_endpoint,
+        agent_thunk=lambda: ChatGPTAgent(
+            ChatGPTAgentConfig(
+                initial_message=BaseMessage(text="Hello!"),
+                prompt_preamble=prompt_preamble,
+                model_name="gpt-4",
+            )
+        ),
+        transcriber_thunk = lambda input_audio_config: DeepgramTranscriber(
+            DeepgramTranscriberConfig.from_input_audio_config(
+                input_audio_config=input_audio_config,
+                endpointing_config=PunctuationEndpointingConfig(),
+                model="nova-2-ea",
+            )
+        ),
+        synthesizer_thunk=lambda output_audio_config: AzureSynthesizer(
+            AzureSynthesizerConfig.from_output_audio_config(
+                output_audio_config,
+                voice_name="en-US-JessaNeural"
+            )
+        ),
+        logger=logger,
+    )
 
 conversation_common = create_router(conversation_endpoint='/conversation/common', prompt_preamble=preambles['common'])
 conversation_commute = create_router(conversation_endpoint='/conversation/commute', prompt_preamble=preambles['commute'])
