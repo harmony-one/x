@@ -1,4 +1,4 @@
-2023-10-19 Tur (0.5h): Manage new app bundle ids, Test Flight configurations, corresponding provisioning profiles, and internal tester groups.
+2023-10-19 Thu (0.5h): Manage new app bundle ids, Test Flight configurations, corresponding provisioning profiles, and internal tester groups.
 
 2023-10-18 Wed (4.5h): Research on iOS audio, speech, networking (native websocket v. third-party libraries such as Starscream) capabilities across recent versions, market share, and optimal cutoff version; Experiment on native websocket and assess deficiencies; Research on Swift Package Manager v. Cocoapods for managing external dependencies; Review, build, and test new iOS code (#35); Manage and debug on iOS provisioning profiles, signing certificate requests, and distribution certificate; Debug and fix issues related to x.country redirects and email alias contract management.
 
