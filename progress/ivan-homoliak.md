@@ -1,3 +1,8 @@
+
+**2023-10-20 Fri:**
+Debugging vocode REACT app. Studied REACT documentation. Configured Let's encrypt certificate for development Willow inference server - however, not on our GPU server - waiting on Sun to assign domain name to it or give me access to cloud configuration. Testing Yuriy's demo.
+
+
 **2023-10-19 Thu:**
  Created Azure speech account to get API key. Deployed streaming conversation library of vocode python backend locally and bound to vocode-demo (the same we have in our X repo). This library was having errors when using their API.  Also, I had to switch to newer Ubuntu since node had some unresolvable conflicts. Continue in getting familiar with React + ts.
 
