@@ -57,6 +57,8 @@ const App = () => {
     baseUrl: process.env.REACT_APP_BACKEND_URL || "",
   };
 
+  console.log('### render App');
+
   return (
     <ChakraProvider>
       {(isMobile || !isChrome) && !isSafari ? (
