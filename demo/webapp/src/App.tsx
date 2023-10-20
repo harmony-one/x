@@ -3,6 +3,7 @@ import './App.css';
 import { useStores } from './stores';
 import { MainScreen } from "./components/MainScreen";
 import { observer } from "mobx-react";
+import {Route, Routes} from "react-router-dom";
 
 const App = observer(() => {
   const { chatGpt } = useStores();
@@ -21,7 +22,10 @@ const App = observer(() => {
   }
 
   return (
-    <MainScreen onReady={onReady} onChangeOutput={onChangeOutput} />
+    <Routes>
+      <Route path={'/'} element={<MainScreen onReady={onReady} onChangeOutput={onChangeOutput} />}>
+      </Route>
+    </Routes>
   );
 })
 

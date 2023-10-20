@@ -39,17 +39,6 @@ struct ActionsView: View {
                     GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
                 ], spacing: 0) {
                     
-                    if isPlaying {
-                        Text("Playing")
-                            .font(.title)
-                            .foregroundColor(.green)
-                            .padding()
-                    } else {
-                        Text("Paused")
-                            .font(.title)
-                            .foregroundColor(.red)
-                            .padding()
-                    }
                     ForEach(0..<buttonTitles.count, id: \.self) { index in
                         
                         if index == 0 {
