@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AC0F91372ADF4B5C00AD111A /* Testing_TTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91362ADF4B5C00AD111A /* Testing_TTSApp.swift */; };
-		AC0F91392ADF4B5C00AD111A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91382ADF4B5C00AD111A /* ContentView.swift */; };
-		AC0F913B2ADF4B5D00AD111A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC0F913A2ADF4B5D00AD111A /* Assets.xcassets */; };
-		AC0F913E2ADF4B5D00AD111A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC0F913D2ADF4B5D00AD111A /* Preview Assets.xcassets */; };
 		AC0F91482ADF4B5D00AD111A /* Testing_TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91472ADF4B5D00AD111A /* Testing_TTSTests.swift */; };
 		AC0F91522ADF4B5D00AD111A /* Testing_TTSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91512ADF4B5D00AD111A /* Testing_TTSUITests.swift */; };
 		AC0F91542ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */; };
+		CDEFF0A12AE290EC008F2129 /* Testing_TTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEFF09B2AE290EC008F2129 /* Testing_TTSApp.swift */; };
+		CDEFF0A22AE290EC008F2129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDEFF09C2AE290EC008F2129 /* Assets.xcassets */; };
+		CDEFF0A32AE290EC008F2129 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDEFF09E2AE290EC008F2129 /* Preview Assets.xcassets */; };
+		CDEFF0A42AE290EC008F2129 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEFF09F2AE290EC008F2129 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,16 +35,16 @@
 
 /* Begin PBXFileReference section */
 		AC0F91332ADF4B5C00AD111A /* Hey Julia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Julia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC0F91362ADF4B5C00AD111A /* Testing_TTSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSApp.swift; sourceTree = "<group>"; };
-		AC0F91382ADF4B5C00AD111A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		AC0F913A2ADF4B5D00AD111A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AC0F913D2ADF4B5D00AD111A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC0F91432ADF4B5D00AD111A /* Hey JuliaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey JuliaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0F91472ADF4B5D00AD111A /* Testing_TTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSTests.swift; sourceTree = "<group>"; };
 		AC0F914D2ADF4B5D00AD111A /* Hey JuliaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey JuliaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0F91512ADF4B5D00AD111A /* Testing_TTSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSUITests.swift; sourceTree = "<group>"; };
 		AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testing_TTSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		CDED85472AE28E6900291049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDEFF09B2AE290EC008F2129 /* Testing_TTSApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testing_TTSApp.swift; sourceTree = "<group>"; };
+		CDEFF09C2AE290EC008F2129 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDEFF09E2AE290EC008F2129 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CDEFF09F2AE290EC008F2129 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CDEFF0A62AE29183008F2129 /* Hey-Julia-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hey-Julia-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +75,8 @@
 		AC0F912A2ADF4B5C00AD111A = {
 			isa = PBXGroup;
 			children = (
-				AC0F91352ADF4B5C00AD111A /* Testing TTS */,
+				CDEFF0A62AE29183008F2129 /* Hey-Julia-Info.plist */,
+				CDEFF09A2AE290EC008F2129 /* Testing TTS */,
 				AC0F91462ADF4B5D00AD111A /* Testing TTSTests */,
 				AC0F91502ADF4B5D00AD111A /* Testing TTSUITests */,
 				AC0F91342ADF4B5C00AD111A /* Products */,
@@ -90,26 +91,6 @@
 				AC0F914D2ADF4B5D00AD111A /* Hey JuliaUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		AC0F91352ADF4B5C00AD111A /* Testing TTS */ = {
-			isa = PBXGroup;
-			children = (
-				CDED85472AE28E6900291049 /* Info.plist */,
-				AC0F91362ADF4B5C00AD111A /* Testing_TTSApp.swift */,
-				AC0F91382ADF4B5C00AD111A /* ContentView.swift */,
-				AC0F913A2ADF4B5D00AD111A /* Assets.xcassets */,
-				AC0F913C2ADF4B5D00AD111A /* Preview Content */,
-			);
-			path = "Testing TTS";
-			sourceTree = "<group>";
-		};
-		AC0F913C2ADF4B5D00AD111A /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				AC0F913D2ADF4B5D00AD111A /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		AC0F91462ADF4B5D00AD111A /* Testing TTSTests */ = {
@@ -127,6 +108,25 @@
 				AC0F91532ADF4B5D00AD111A /* Testing_TTSUITestsLaunchTests.swift */,
 			);
 			path = "Testing TTSUITests";
+			sourceTree = "<group>";
+		};
+		CDEFF09A2AE290EC008F2129 /* Testing TTS */ = {
+			isa = PBXGroup;
+			children = (
+				CDEFF09B2AE290EC008F2129 /* Testing_TTSApp.swift */,
+				CDEFF09C2AE290EC008F2129 /* Assets.xcassets */,
+				CDEFF09D2AE290EC008F2129 /* Preview Content */,
+				CDEFF09F2AE290EC008F2129 /* ContentView.swift */,
+			);
+			path = "Testing TTS";
+			sourceTree = "<group>";
+		};
+		CDEFF09D2AE290EC008F2129 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CDEFF09E2AE290EC008F2129 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +233,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC0F913E2ADF4B5D00AD111A /* Preview Assets.xcassets in Resources */,
-				AC0F913B2ADF4B5D00AD111A /* Assets.xcassets in Resources */,
+				CDEFF0A32AE290EC008F2129 /* Preview Assets.xcassets in Resources */,
+				CDEFF0A22AE290EC008F2129 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +259,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC0F91392ADF4B5C00AD111A /* ContentView.swift in Sources */,
-				AC0F91372ADF4B5C00AD111A /* Testing_TTSApp.swift in Sources */,
+				CDEFF0A42AE290EC008F2129 /* ContentView.swift in Sources */,
+				CDEFF0A12AE290EC008F2129 /* Testing_TTSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +427,7 @@
 				DEVELOPMENT_TEAM = D9AHA462DR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hey-Julia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hey Julia";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -458,6 +459,7 @@
 				DEVELOPMENT_TEAM = D9AHA462DR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hey-Julia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hey Julia";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
