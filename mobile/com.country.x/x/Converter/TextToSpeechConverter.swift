@@ -43,4 +43,21 @@ class TextToSpeechConverter {
             synthesizer.stopSpeaking(at: .immediate)
         }
     }
+    
+    // Function to pause ongoing speech
+    func pauseSpeech() {
+        // Check if the synthesizer is currently speaking and pause it immediately
+        if synthesizer.isSpeaking {
+            synthesizer.pauseSpeaking(at: .immediate)
+        }
+    }
+    
+    // Function to continue ongoing speech
+    func continueSpeech() {
+        // Check if the synthesizer is currently speaking and continue speaking
+        if synthesizer.isSpeaking {
+            synthesizer.continueSpeaking()
+        }
+    }
+    
 }
