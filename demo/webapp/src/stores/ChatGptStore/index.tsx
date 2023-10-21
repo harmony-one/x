@@ -68,7 +68,6 @@ export class ChatGptStore {
         return acc
       }, '')
     return messagesList
-    // return this.messages[this.messages.length - 1].text || ''
   }
 
   setUserInput = (text: string) => {
@@ -142,7 +141,7 @@ export class ChatGptStore {
         model: 'gpt-4',
         messages: [{ role: 'user', content }],
         stream: true,
-        max_tokens: 200,
+        max_tokens: 100,
         temperature: 0.8
       }, {
         signal: abortController.signal

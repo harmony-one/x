@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {Box, Select, Text} from "grommet";
 import useDebounce from "../../hooks/useDebounce";
 import {
@@ -37,8 +38,11 @@ const getMediaRecorder = (stream: MediaStream): MediaRecorder => {
 };
 
 export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
   const [currentSocket, setCurrentSocket] = useState<WebSocket>()
-  const [selectedModel, setSelectedModel] = useState(SpeechModel.nova2)
+  const [selectedModel, setSelectedModel] = useState(searchParams.get('sttModel') || SpeechModel.nova2)
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
@@ -141,7 +145,15 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
           value={modelsOptions.find(option => option.value === selectedModel)}
           options={modelsOptions}
           labelKey={'alias'}
-          onChange={({ option }) => setSelectedModel(option.value)}
+          onChange={({ option }) => {
+            const ttsModel = searchParams.get('ttsModel')
+            let path = `/?sttModel=${option.value}`
+            if(ttsModel) {
+              path = `${path}&ttsModel=${ttsModel}`
+            }
+            navigate(path)
+            setSelectedModel(option.value)
+          }}
         />
       </Box>
     </Box>

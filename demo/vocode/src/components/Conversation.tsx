@@ -1,5 +1,5 @@
 import { Box, Button, HStack, VStack, Select, Spinner } from "@chakra-ui/react";
-import React from "react";
+import React, {useEffect} from "react";
 import { useConversation, AudioDeviceConfig, ConversationConfig } from "vocode";
 import MicrophoneIcon from "./MicrophoneIcon";
 import AudioVisualization from "./AudioVisualization";
@@ -24,9 +24,39 @@ const Conversation = ({
   // "vocodeConfig",
   // @ts-ignore
   delete config.transcriberConfig;
-  const { status, start, stop, analyserNode } = useConversation(
+  const { status, start, stop, analyserNode, transcripts: transcriptsA, active } = useConversation(
     Object.assign(config, { audioDeviceConfig })
   );
+
+  const [started, setStarted] = React.useState(false)
+
+  React.useEffect(() => {
+    console.log('### updated status', status);
+  }, [status]);
+
+  React.useEffect(() => {
+    console.log('### updated active', active);
+  }, [active]);
+
+  React.useEffect(() => {
+    console.log('### updated transcripts', transcriptsA);
+  }, [transcriptsA]);
+
+  // React.useEffect(() => {
+  //   console.log('### updated start');
+  // }, [start])
+
+  React.useEffect(() => {
+    console.log('### updated analyserNode');
+  }, [analyserNode])
+
+  React.useEffect(() => {
+    if (status === 'idle' && analyserNode && !started) {
+      console.log('### start conversation');
+      setStarted(true)
+      start()
+    }
+  }, [status, start, started, analyserNode]);
   // const { status, start, stop, analyserNode, transcripts } = useConversation({
   //   backendUrl: "wss://56686e955e8c.ngrok.app/conversation",
   //   subscribeTranscript: false,
@@ -54,11 +84,12 @@ const Conversation = ({
   });
 
   const [showSettings, setShowSettings] = React.useState(false);
+  const [showUI, setShowUI] = React.useState(false);
 
   return (
     <>
       {analyserNode && <AudioVisualization analyser={analyserNode} />}
-      <Button
+      {showUI && <Button
         variant="link"
         disabled={["connecting", "error"].includes(status)}
         onClick={status === "connected" ? stop : start}
@@ -70,9 +101,9 @@ const Conversation = ({
         <Box boxSize={75}>
           <MicrophoneIcon color={"#ddfafa"} muted={status !== "connected"} />
         </Box>
-      </Button>
+      </Button>}
       <Box boxSize={50} />
-      {status === "connecting" && (
+      {showUI && status === "connecting" && (
         <Box
           position={"absolute"}
           top="57.5%"

@@ -1,3 +1,7 @@
+2023-10-19 Fri: Worked with Frank on group whitelist, tested, and will deploy Friday 7pm. Coordinated with Aaron and Julia to document how to deploy current fission labs fork to testflight app. Organized future tasks on [kanban](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91) for ios "streaming build" which artem & sergey, and edge build, which Nagesh from Fission labs is working on.
+
+2023-10-18 Thu: Will work with Sun/Yuriy tomorrow to help set up and benchmark Play.ht, Google, Azure tomorrow [here](https://yuriy.x.country/). Will work with Aaron, Julia, Nagesh, and Sergey to push out several IOS demos in the coming days. Will work with artem on his [demo](artem.x.country), to optimize stream handeling of chatGPT and both speech-to-text module and text-to-speech module.
+
 2023-10-18 Wed: Developed executable steps for engineers. Researched more SST, worked with Sun on benchmarking. Helped set up email aliases. Connected with a few folks at AI voice event. Yuriy is implementing Play.ht's fast new TTS.
 
 2023-10-17 Tue: Read more, wrote more, and organized more. Continued to test sam.x.country and artem.x.country and spent 30 minutes playing with new openAI chat. Communicated to devs new builds and worked through determing how to execute new features and remove bugs.

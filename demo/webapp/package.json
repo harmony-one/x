@@ -24,6 +24,7 @@
     "openai": "^4.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "sentence-splitter": "^4.2.1",
     "speechmatics": "^3.1.1",

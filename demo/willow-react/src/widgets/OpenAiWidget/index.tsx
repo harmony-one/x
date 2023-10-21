@@ -48,5 +48,19 @@ export const OpenAIWidget = observer(() => {
                 </Box>
             </div>
         </Box>
+        <Box
+            margin="24px"
+            pad="12px"
+            align='center'
+            style={{
+                border: '1px solid #dedede',
+                cursor: 'pointer',
+                maxWidth: 200,
+                borderRadius: 10,
+            }}
+            onClick={() => chatGpt.clearMessages()}
+        >
+            Clean chat
+        </Box>
     </>
 });
