@@ -1,4 +1,4 @@
-2023-10-20 Fri: Used Dalle3 to generate images for a collage for 'X'. Synced with theos/stephen on next iterations of buttons, implementing visual/haptic feedback. I researched outlined emoticons to replace current emojis. Implemented one token feature & fixed contrast issues.
+2023-10-20 Fri: Used Dalle3 to generate images for a collage for 'X'. Synced with theos/stephen on next iterations of buttons & implementing visual/haptic feedback. I researched outlined emoticons to replace current emojis. Implemented one token feature & fixed contrast issues.
 
 2023-10-19 Thu: Ideated designs for [v2](https://www.figma.com/file/srjgMd8na9ISMHA1ZJKB2I/xcountry-v2?type=design&node-id=0-1&mode=design&t=a9XdNoU5JgANPdQi-0) of x.country. Synced with Theo on the best placement for the buttons and dicussed UX flows. Put together global calendar for team.
 
