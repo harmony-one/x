@@ -49,9 +49,8 @@ export class GoogleCloudAPIPlugin extends TTSPlugin<GoogleCloudAPIPluginOptions>
     }
 
     const data = await axios.post(
-      `${GoogleCloudAPIUrl}/v1/text:synthesize?alt=json&key=AIzaSyCxowXkpEeE4nMOurj7KAzVOptfiSHfGr8`,
+      `${GoogleCloudAPIUrl}/v1/text:synthesize?alt=json&key=${this.options.apiKey}`,
       payload,
-      // {responseType: 'arraybuffer'}
     )
     const { audioContent } = data.data
     console.log('Gooole API data:',  data.data)
