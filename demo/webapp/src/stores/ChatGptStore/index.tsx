@@ -26,7 +26,7 @@ export class ChatGptStore {
   activeGptOutput: string = '';
 
   isLoading: boolean = false;
-  conversationContextLength = 20
+  conversationContextSize = 20
   public ttsPlayerType = defaultTTSPlayer
   ttsPlayer: ExternalTTSAudioFilePlayer = getTTSPlayer(defaultTTSPlayer)
 
@@ -59,7 +59,7 @@ export class ChatGptStore {
     const messagesList = [...this.messages]
       .reverse()
       .filter((message, index) =>
-        index < this.conversationContextLength &&
+        index < this.conversationContextSize &&
         message.inGptContext
       )
       .reverse()

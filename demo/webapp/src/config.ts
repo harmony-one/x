@@ -1,5 +1,5 @@
 const config = {
-  proxyHost: process.env.REACT_APP_PROXY_HOST || 'https://x-proxy.fly.dev'
+  googleCloudAPIKey: process.env.REACT_APP_GOOGLE_CLOUD_API_KEY || '',
 } as const;
 
 
