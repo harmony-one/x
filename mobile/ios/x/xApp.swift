@@ -24,7 +24,9 @@ struct xApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DashboardView()
+           // Currently we are displaying only buttons
+          //  DashboardView()
+            ActionsView()
         }
         .modelContainer(sharedModelContainer)
     }
