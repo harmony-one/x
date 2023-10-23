@@ -25,7 +25,7 @@ struct ActionsView: View {
 
     
     let buttonTitles = ["Reset All", "Press Speak", "Fast Forward", "Repeat", "Pause", "Random Facts"]
-    let oneValue = "211.01 ONE"
+    let oneValue = "2111.01 ONE"
     
     init() {
             // Disable idle timer when the view is created
