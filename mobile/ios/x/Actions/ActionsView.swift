@@ -70,19 +70,19 @@ struct ActionsView: View {
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
         if index == 1 {
-                 gridButton(index: index, geometry: geometry, foregroundColor: .black, action: {})
-                     .simultaneousGesture(
-                         LongPressGesture(minimumDuration: 0.2)
-                             .onChanged { value in
-                                 isPressing = true
-                                 handleListening()
-                             }
-                             .onEnded { value in
-                                 isPressing = false
-                                 handleListening()
-                             }
-                     )
-             } else {
+            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(index: index)
+            }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                        .onChanged { _ in
+                            // Start recording
+                            isRecording = true
+                            print("Recording started...")
+                        }
+                )
+
+        }  else {
             gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
                 handleOtherActions(index: index)
             }
@@ -92,18 +92,20 @@ struct ActionsView: View {
     @ViewBuilder
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
         if index == 1 {
-            let longPress = LongPressGesture(minimumDuration: 0.5)
-                .onChanged { value in
-                    if !isRecording {
-                        startRecording()
-                    }
-                }
-                .onEnded { value in
-                    stopRecording()
-                }
+    
+            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(index: index)
+            }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                        .onChanged { _ in
+                            // Start recording
+                            isRecording = true
+                            print("Recording started...")
+                            SpeechRecognition.shared.speak()
+                        }
+                )
 
-            gridButton(index: index, geometry: geometry, foregroundColor: .black, action: {})
-                .gesture(longPress)
         }  else {
             gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
                 handleOtherActions(index: index)
@@ -167,34 +169,20 @@ struct ActionsView: View {
             isRecording = false
             // Stop your recording logic here
             print("Stopped Recording")
+            SpeechRecognition.shared.stopSpeak()
+
         }
     }
     
-    func handleListening() {
-            if isPressing {
-                if !isListening {
-                    isListening = true
-                    if !hasStartedListening {
-                        print("Started Listening...")
-                        hasStartedListening = true
-                    }
-                }
-            } else {
-                if isListening {
-                    isListening = false
-                    if !hasStoppedListening {
-                        print("Stopped Listening")
-                        hasStoppedListening = true
-                    }
-                }
-            }
-        }
-
     func handleOtherActions(index: Int) {
         switch index {
         case 0:
             SpeechRecognition.shared.reset()
             dismissAction()
+            
+        case 1:
+            stopRecording()
+
         case 3:
             SpeechRecognition.shared.repeate()
         case 4:
@@ -205,7 +193,7 @@ struct ActionsView: View {
             }
             self.isPlaying.toggle()
         case 5:
-            SpeechRecognition.shared.cut()
+            SpeechRecognition.shared.randomFacts()
         default:
             break
         }
