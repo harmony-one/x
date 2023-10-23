@@ -1,3 +1,5 @@
+2023-10-20 Tue: Keep working on fiat payment for the Discord bot in a subscription model using stripe.
+
 2023-10-19 Tue: Keep working on fiat payment for the Discord bot. Added customer creation to the user/create endpoint. Added user/guild (server) logic on discord bot.
 
 2023-10-18 Tue: Added [group whitelist handling](https://github.com/harmony-one/HarmonyOneBot/pull/342) for HarmonyBot. When a user of the whitelist is the owner or an admin of a group, that group is whitelisted. Keep working on fiat payment for the discord bot, integrating the payment functionality to the existing stripe-payment-backend, and defining the architecture of the image subscribing model for discord users.  
