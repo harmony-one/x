@@ -36,7 +36,6 @@
 		CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */; };
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
-		E40B719C2AE6205E00F4317A /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E40B719B2AE6205E00F4317A /* AppConfig.plist */; };
 		E40B719E2AE6282000F4317A /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E40B719D2AE6282000F4317A /* logo.jpg */; };
 /* End PBXBuildFile section */
 
@@ -92,7 +91,6 @@
 		CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		E40B719B2AE6205E00F4317A /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		E40B719D2AE6282000F4317A /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logo.jpg; path = ../../../../../../../../var/folders/v7/vv24f7jd6qg0fvdkk7hq6_780000gn/T/ru.keepcoder.Telegram/logo.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				CD0D134C2ADA73B400031EDD /* xTests.swift */,
-				E40B719B2AE6205E00F4317A /* AppConfig.plist */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -405,7 +402,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E40B719C2AE6205E00F4317A /* AppConfig.plist in Resources */,
 				E40B719E2AE6282000F4317A /* logo.jpg in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
