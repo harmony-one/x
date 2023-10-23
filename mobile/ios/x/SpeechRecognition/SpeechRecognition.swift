@@ -169,7 +169,6 @@ class SpeechRecognition: NSObject {
     }
     
     func pause() {
-        
         print("pause -- method called")
         self.textToSpeechConverter.pauseSpeech()
     }
@@ -179,16 +178,17 @@ class SpeechRecognition: NSObject {
         
     }
     
-    func cut() {
-        print("cut -- method called")
+    func randomFacts() {
+        print("randomFacts -- method called")
+        handleEndOfSentence("random facts")
     }
     
     func reset() {
         // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
         print("reset -- method called")
+        textToSpeechConverter.stopSpeech()
         self.aiResponseArray.removeAll()
         stopListening()
-        textToSpeechConverter.stopSpeech()
         recognitionTask?.finish()
         recognitionTask = nil
         recognitionRequest = nil
@@ -198,7 +198,14 @@ class SpeechRecognition: NSObject {
     }
     
     func speak() {
-        print("speak -- method called")
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.pauseSpeech()
+            self.reset()
+        }
+    }
+    
+    func stopSpeak() {
+        recognitionTask?.finish()
     }
     
     func repeate() {
