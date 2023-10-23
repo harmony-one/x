@@ -24,6 +24,11 @@ struct DashboardView: View {
     @State private var hideButtons = true
     @State private var isButtonViewPresented = false
     
+    init() {
+            // Disable idle timer when the view is created
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+    
     var body: some View {
         
         let isPortrait = verticalSizeClass == .regular && horizontalSizeClass == .compact
@@ -107,6 +112,12 @@ struct DashboardView: View {
             ).onAppear(
                 perform: SpeechRecognition.shared.setup
             )
+        
+    
+    }
+    func onDisappear() {
+        // Re-enable idle timer when the view disappears
+        UIApplication.shared.isIdleTimerDisabled = false
     }
 }
 
