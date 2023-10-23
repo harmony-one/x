@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		17A10F7EDE746F1D40F7E4DF /* SpeechRecognitionDeepgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */; };
+		6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
+		6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
+		6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EE4A8EA2AE69F9300B98C84 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 6EE4A8E92AE69F9300B98C84 /* Starscream */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
@@ -60,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionDeepgram.swift; sourceTree = "<group>"; };
+		6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		E40B719D2AE6282000F4317A /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logo.jpg; path = logo.jpg; sourceTree = "<group>"; };
+		E40B719D2AE6282000F4317A /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +269,7 @@
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
+				6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 				E40B719E2AE6282000F4317A /* logo.jpg in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
@@ -428,6 +434,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +442,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
