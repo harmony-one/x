@@ -1,4 +1,9 @@
 
+**2023-10-23 Mon:**
+Deploying and configuring Mistral 7B locally on CPU and GPU machines (still in progress for today).
+
+---
+
 **2023-10-20 Fri:**
 Debugging vocode REACT app. Studied REACT documentation. Configured Let's encrypt certificate for development Willow inference server - however, not on our GPU server - waiting on Sun to assign domain name to it or give me access to cloud configuration. Testing Yuriy's demo.
 
