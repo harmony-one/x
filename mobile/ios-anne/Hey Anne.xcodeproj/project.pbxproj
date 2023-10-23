@@ -36,8 +36,7 @@
 		CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */; };
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
-		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
-		CDA4F5EB2AE29C5F006F4874 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDA4F5EA2AE29C5F006F4874 /* AppConfig.plist */; };
+		E40B719E2AE6282000F4317A /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E40B719D2AE6282000F4317A /* logo.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,7 @@
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
-		CD0D13342ADA73B300031EDD /* Hey Eve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Eve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13342ADA73B300031EDD /* Hey Anne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Anne.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CD0D133B2ADA73B300031EDD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -85,15 +84,14 @@
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey EveTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey AnneTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* xTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xTests.swift; sourceTree = "<group>"; };
-		CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey EveUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey AnneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13562ADA73B400031EDD /* xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITests.swift; sourceTree = "<group>"; };
 		CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
-		CDA4F5EA2AE29C5F006F4874 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		E40B719D2AE6282000F4317A /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logo.jpg; path = ../../../../../../../../var/folders/v7/vv24f7jd6qg0fvdkk7hq6_780000gn/T/ru.keepcoder.Telegram/logo.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,9 +234,9 @@
 		CD0D13352ADA73B300031EDD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD0D13342ADA73B300031EDD /* Hey Eve.app */,
-				CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */,
-				CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */,
+				CD0D13342ADA73B300031EDD /* Hey Anne.app */,
+				CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */,
+				CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,11 +256,10 @@
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
 				CD0D133B2ADA73B300031EDD /* Item.swift */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
-				CD0D136A2ADB28CE00031EDD /* logo.png */,
+				E40B719D2AE6282000F4317A /* logo.jpg */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
-				CDA4F5EA2AE29C5F006F4874 /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -304,9 +301,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CD0D13332ADA73B300031EDD /* Hey Eve */ = {
+		CD0D13332ADA73B300031EDD /* Hey Anne */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Eve" */;
+			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Anne" */;
 			buildPhases = (
 				CD0D13302ADA73B300031EDD /* Sources */,
 				CD0D13312ADA73B300031EDD /* Frameworks */,
@@ -316,14 +313,14 @@
 			);
 			dependencies = (
 			);
-			name = "Hey Eve";
+			name = "Hey Anne";
 			productName = x;
-			productReference = CD0D13342ADA73B300031EDD /* Hey Eve.app */;
+			productReference = CD0D13342ADA73B300031EDD /* Hey Anne.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CD0D13472ADA73B400031EDD /* Hey EveTests */ = {
+		CD0D13472ADA73B400031EDD /* Hey AnneTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveTests" */;
+			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneTests" */;
 			buildPhases = (
 				CD0D13442ADA73B400031EDD /* Sources */,
 				CD0D13452ADA73B400031EDD /* Frameworks */,
@@ -334,14 +331,14 @@
 			dependencies = (
 				CD0D134A2ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey EveTests";
+			name = "Hey AnneTests";
 			productName = xTests;
-			productReference = CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */;
+			productReference = CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CD0D13512ADA73B400031EDD /* Hey EveUITests */ = {
+		CD0D13512ADA73B400031EDD /* Hey AnneUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveUITests" */;
+			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneUITests" */;
 			buildPhases = (
 				CD0D134E2ADA73B400031EDD /* Sources */,
 				CD0D134F2ADA73B400031EDD /* Frameworks */,
@@ -352,9 +349,9 @@
 			dependencies = (
 				CD0D13542ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey EveUITests";
+			name = "Hey AnneUITests";
 			productName = xUITests;
-			productReference = CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */;
+			productReference = CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -380,7 +377,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Eve" */;
+			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Anne" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -393,9 +390,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CD0D13332ADA73B300031EDD /* Hey Eve */,
-				CD0D13472ADA73B400031EDD /* Hey EveTests */,
-				CD0D13512ADA73B400031EDD /* Hey EveUITests */,
+				CD0D13332ADA73B300031EDD /* Hey Anne */,
+				CD0D13472ADA73B400031EDD /* Hey AnneTests */,
+				CD0D13512ADA73B400031EDD /* Hey AnneUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -405,13 +402,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDA4F5EB2AE29C5F006F4874 /* AppConfig.plist in Resources */,
+				E40B719E2AE6282000F4317A /* logo.jpg in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
-				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
 			);
@@ -480,12 +476,12 @@
 /* Begin PBXTargetDependency section */
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Eve */;
+			target = CD0D13332ADA73B300031EDD /* Hey Anne */;
 			targetProxy = CD0D13492ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 		CD0D13542ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Eve */;
+			target = CD0D13332ADA73B300031EDD /* Hey Anne */;
 			targetProxy = CD0D13532ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -640,7 +636,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.eve;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.anne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -686,7 +682,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.eve;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.anne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -716,7 +712,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Eve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Eve";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Anne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Anne";
 			};
 			name = Debug;
 		};
@@ -739,7 +735,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Eve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Eve";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Anne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Anne";
 			};
 			name = Release;
 		};
@@ -790,7 +786,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Eve" */ = {
+		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Anne" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135A2ADA73B400031EDD /* Debug */,
@@ -799,7 +795,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Eve" */ = {
+		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Anne" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135D2ADA73B400031EDD /* Debug */,
@@ -808,7 +804,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveTests" */ = {
+		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13602ADA73B400031EDD /* Debug */,
@@ -817,7 +813,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveUITests" */ = {
+		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13632ADA73B400031EDD /* Debug */,

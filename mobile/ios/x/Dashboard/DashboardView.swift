@@ -16,7 +16,7 @@ struct DashboardView: View {
     @State private var latencyText = "256"
     @State private var elapaedTime = "01:01:13.211"
     @State private var voiceDecibel = "42 / 64 dB"
-    @State private var paymentsCredits = "8.067 ONE"
+    @State private var paymentsCredits = "2111.01 ONE"
     @State private var source = "x.country/ai"
     @State private var optimiseValue = "101 + 27 + 127"
     @State private var sessionIdentifier = "1234-5678-90ab"
