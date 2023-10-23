@@ -175,7 +175,7 @@ class SpeechRecognition: NSObject {
     
     func continueSpeech() {
         print("continueSpeech -- method called")
-        
+        self.textToSpeechConverter.continueSpeech()
     }
     
     func randomFacts() {

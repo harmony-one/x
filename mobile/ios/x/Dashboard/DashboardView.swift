@@ -101,9 +101,9 @@ struct DashboardView: View {
                     .padding(.bottom, 30)
                 }.padding(10)
                     .fullScreenCover(isPresented: $isButtonViewPresented, content: {
-                        ActionsView(dismissAction: {
-                            self.isButtonViewPresented = false
-                        })
+//                        ActionsView(dismissAction: {
+//                            self.isButtonViewPresented = false
+//                        })
                     })
                     .onTapGesture {
                         // Toggle hideButtons when screen is tapped
@@ -123,6 +123,7 @@ struct DashboardView: View {
 
 #Preview {
     NavigationView {
-        DashboardView()
+      //  DashboardView() Currently we are displaying only buttons 
+        ActionsView()
     }
 }

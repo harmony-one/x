@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct ActionsView: View {
-    var dismissAction: () -> Void
+   // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
     
@@ -26,6 +26,11 @@ struct ActionsView: View {
     
     let buttonTitles = ["Reset All", "Press Speak", "Fast Forward", "Repeat", "Pause", "Random Facts"]
     let oneValue = "211.01 ONE"
+    
+    init() {
+            // Disable idle timer when the view is created
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
 
     var body: some View {
         Group {
@@ -34,7 +39,9 @@ struct ActionsView: View {
             } else {
                 portraitView
             }
-        }
+        }.onAppear(
+            perform: SpeechRecognition.shared.setup
+        )
         .navigationBarTitle("Grid of Buttons")
         .edgesIgnoringSafeArea(.all)
     }
@@ -113,7 +120,6 @@ struct ActionsView: View {
         }
     }
     
-    
     @ViewBuilder
     func gridButton(index: Int, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
@@ -178,7 +184,7 @@ struct ActionsView: View {
         switch index {
         case 0:
             SpeechRecognition.shared.reset()
-            dismissAction()
+        //    dismissAction()
             
         case 1:
             stopRecording()
