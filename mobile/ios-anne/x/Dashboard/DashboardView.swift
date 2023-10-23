@@ -105,7 +105,7 @@ struct DashboardView: View {
                         self.hideButtons.toggle()
                     }
             ).onAppear(
-                perform: SpeechRecognition.shared.setup
+                perform: SpeechRecognitionDeepgram.shared.setup
             )
     }
 }
