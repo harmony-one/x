@@ -1,3 +1,5 @@
+2023-10-21 Sun: Deployed xCode build for Hey Anne and reconfigured so that all naming conventions matched. I uppdated the temporary logo, openAI API key, and documented how and where to create Appconfig folder [here](https://www.notion.so/harmonyone/Help-d3df4ffd40fc46a1abe77e598a8a195e).
+
 2023-10-20 Sat: Worked on debugging xCode build with Sergey, Nagesh, and Aaron to completed end to end build for Hey Eve. Communicated [/press-build](https://www.x.country/voice-ai-talk-to-chatgpt4-as-your-subject-professor-language-buddy-or-streaming-wikipedian-9525f3738a9f405f9238d1e79dab1dd2) to Nagesh who said he can have it complete by Monday.
 
 2023-10-19 Fri: Worked with Frank on group whitelist, tested, and will deploy Friday 7pm. Coordinated with Aaron and Julia to document how to deploy current fission labs fork to testflight app. Organized future tasks on [kanban](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91) for ios "streaming build" which artem & sergey, and edge build, which Nagesh from Fission labs is working on.
