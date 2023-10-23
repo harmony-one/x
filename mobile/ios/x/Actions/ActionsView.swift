@@ -147,7 +147,7 @@ struct ActionsView: View {
                             .foregroundColor(.black)
                             .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2))
                             .font(.customFont(size: 18))
-                            .padding(.vertical, 5)
+                            .padding(.vertical,(verticalSizeClass == .compact ? 5 : 10))
                             .background(Color(hex: 0xA7C9D8))
                     }
                 ) : AnyView(EmptyView())
