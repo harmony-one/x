@@ -1,3 +1,14 @@
+(Coming soon 10/22-10/24)
+Swift-based streaming Deepgram end-to-end integration
+Response-streaming OpenAI inegration
+Streaming Play.ht synthesis 
+
+2023-10-21 Sun (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing; Complete Deepgram integration;
+
+2023-10-21 Sat (2.5h): Implementing ASR websocket integration, functions for basic commands and controls; Revisiting documentation on Core Audio streaming methods and determine the best implementation approach; Review AudioToolBox and related alternatives and evaluate; Reviewing and implementing AVCaptureSession and AVCaptureAudioDataOutput
+
+2023-10-20 Fri (3h): Review Hey Julia code; Fix configuration issues, build, deploy on TestFlight and discuss minimal steps for continued development; Forking iOS development versions, reconfigure projects in each folder, and deploy Hey Eve
+
 2023-10-19 Thu (0.5h): Manage new app bundle ids, Test Flight configurations, corresponding provisioning profiles, and internal tester groups.
 
 2023-10-18 Wed (4.5h): Research on iOS audio, speech, networking (native websocket v. third-party libraries such as Starscream) capabilities across recent versions, market share, and optimal cutoff version; Experiment on native websocket and assess deficiencies; Research on Swift Package Manager v. Cocoapods for managing external dependencies; Review, build, and test new iOS code (#35); Manage and debug on iOS provisioning profiles, signing certificate requests, and distribution certificate; Debug and fix issues related to x.country redirects and email alias contract management.
