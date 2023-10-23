@@ -1,4 +1,4 @@
-2023-10-22 Sun: Measured latencies for Google. Can test out the latencies [here](https://yuriy.x.country/).
+2023-10-22 Sun: Measured latencies for Google. Can test out the latencies [here](https://yuriy.x.country/). Continued studying xcode to participate in iOS development and measure latencies.
 
 2023-10-19 Thu: Continued working on calculating individual latencies for the API to use. Tested Azure, Google, and began to a look at Play.ht.
 
