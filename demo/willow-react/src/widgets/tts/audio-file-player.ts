@@ -39,6 +39,7 @@ async function getAudioFile(plugin: TTSPlugin, text: string) {
 
             const result = await plugin.speakToBuffer(text);
 
+            console.log('TTS Time: ', Date.now() - startTime);
             stores.chatGpt.setTTSTime(Date.now() - startTime);
             
             if (result) {

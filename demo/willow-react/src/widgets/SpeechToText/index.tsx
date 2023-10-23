@@ -8,10 +8,14 @@ import {
   DeepgramResponseMetadata
 } from "./types";
 import { VoiceActivityDetection } from "../VoiceActivityDetection/VoiceActivityDetection";
+import { useStores } from '../../stores';
 
 
 const DeepgramApiKey = String(process.env.REACT_APP_DEEPGRAM_API_KEY)
 const SpeechWaitTimeout = 200
+
+let startTime = Date.now();
+let isSpeachStarted = false;
 
 
 export interface ISpeechToTextWidget {
@@ -42,6 +46,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   const [isSpeechEnded, setSpeechEnded] = useState(false)
   const [transcriptions, setTranscriptions] = useState<string[]>([])
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
+  const { chatGpt } = useStores();
 
   const debouncedTranscriptions = useDebounce(transcriptions, SpeechWaitTimeout)
 
@@ -62,6 +67,12 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
     if (transcript.length > 0) {
       if (confidence >= 0.65) {
+
+        if(!isSpeachStarted) {
+          isSpeachStarted = true;
+          startTime = Date.now();
+        }
+
         setTranscriptions(transcriptions => [...transcriptions, transcript])
       } else {
         console.warn(`Transcription ignored, low confidence level (${confidence})`)
@@ -74,6 +85,11 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
   useEffect(() => {
     if (transcriptions.length > 0 && isSpeechEnded) {
       const text = transcriptions.join(' ')
+
+      console.log('STT Time: ', Date.now() - startTime);
+      chatGpt.setSTTTime(Date.now() - startTime);
+      isSpeachStarted = false;
+
       props.onChangeOutput(text)
       setTranscriptions([])
       console.log('STT transcription: ', text)
@@ -114,6 +130,7 @@ export const SpeechToTextWidget = (props: ISpeechToTextWidget) => {
 
         socket.onmessage = (message) => {
           const data = JSON.parse(message.data) as (DeepgramResponseResults | DeepgramResponseMetadata)
+          
           if (data.type === 'Results') {
             onTranscribeReceived(data)
           }

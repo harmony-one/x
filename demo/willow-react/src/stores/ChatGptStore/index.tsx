@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import { PLAYERS, players } from '../../widgets/tts';
 import { isPhraseComplete } from "./helpers";
 import ExternalTTSAudioFilePlayer from "../../widgets/tts/audio-file-player";
+import { sleep } from "../../utils";
 
 export enum AUTHOR {
   USER = 'user',
@@ -20,6 +21,9 @@ export interface IReqTime {
   tts: number;
   sttCore: string;
   ttsCore: string;
+  input: string;
+  output: string;
+  date: number;
 }
 
 export interface IMessage {
@@ -173,14 +177,22 @@ export class ChatGptStore {
         text: this.activeGptOutput
       })
 
-      setTimeout(() =>
+      let maxCount = 70;
+
+      while (!this.ttsTime && maxCount-- > 0) {
+        await sleep(100);
+      }
+
       this.addReqTime({
         stt: this.sttTime,
         llm: this.llmTime,
         tts: this.ttsTime,
         ttsCore: this.ttsPlayerKey[0],
         sttCore: this.sttKey[0],
-      }), 2000);
+        input: this.activeUserInput,
+        output: this.activeGptOutput,
+        date: Date.now()
+      });
 
       this.saveMessages();
     } catch (e) {
