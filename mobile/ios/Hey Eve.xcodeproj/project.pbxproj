@@ -26,6 +26,8 @@
 		B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
+		B9BA337C2AE6830700D7756D /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B9BA337B2AE6830700D7756D /* beep.mp3 */; };
+		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		CD0D13382ADA73B300031EDD /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		CD0D133C2ADA73B300031EDD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
@@ -76,6 +78,8 @@
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
+		B9BA337B2AE6830700D7756D /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* Hey Eve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Eve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B9BA337B2AE6830700D7756D /* beep.mp3 */,
 				B930AACF2ADD4BAF009F9F8C /* Font */,
 			);
 			path = Resources;
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */,
+				B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -409,6 +415,7 @@
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
+				B9BA337C2AE6830700D7756D /* beep.mp3 in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -447,6 +454,7 @@
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
+				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,

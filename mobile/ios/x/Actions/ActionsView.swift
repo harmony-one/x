@@ -17,10 +17,16 @@ struct ActionsView: View {
     @State private var isListening = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    let buttonTitles = ["Reset All", "Press Speak", "Fast Forward", "Repeat", "Pause", "Random Facts"]
+    @State private var isPressing = false
+    @State private var hasStartedListening = false
+    @State private var hasStoppedListening = false
+
+    @State private var isRecording = false
 
     
+    let buttonTitles = ["Reset All", "Press Speak", "Fast Forward", "Repeat", "Pause", "Random Facts"]
+    let oneValue = "211.01 ONE"
+
     var body: some View {
         Group {
             if verticalSizeClass == .compact {
@@ -63,17 +69,21 @@ struct ActionsView: View {
     
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 0 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .white, action: dismissAction)
-        } else if index == 1 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black, action: {})
-                .simultaneousGesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        .onChanged { _ in handleListening() }
-                        .onEnded { _ in handleListening() }
-                )
-        } else {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+        if index == 1 {
+                 gridButton(index: index, geometry: geometry, foregroundColor: .black, action: {})
+                     .simultaneousGesture(
+                         LongPressGesture(minimumDuration: 0.2)
+                             .onChanged { value in
+                                 isPressing = true
+                                 handleListening()
+                             }
+                             .onEnded { value in
+                                 isPressing = false
+                                 handleListening()
+                             }
+                     )
+             } else {
+            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
                 handleOtherActions(index: index)
             }
         }
@@ -81,18 +91,21 @@ struct ActionsView: View {
     
     @ViewBuilder
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 0 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .white, action: dismissAction)
-        } else if index == 1 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
-                handleListening()
-            }.simultaneousGesture(
-                DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                    .onChanged { _ in handleListening() }
-                    .onEnded { _ in handleListening() }
-            )
-        } else {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+        if index == 1 {
+            let longPress = LongPressGesture(minimumDuration: 0.5)
+                .onChanged { value in
+                    if !isRecording {
+                        startRecording()
+                    }
+                }
+                .onEnded { value in
+                    stopRecording()
+                }
+
+            gridButton(index: index, geometry: geometry, foregroundColor: .black, action: {})
+                .gesture(longPress)
+        }  else {
+            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
                 handleOtherActions(index: index)
             }
         }
@@ -122,7 +135,7 @@ struct ActionsView: View {
                 AnyView(
                     VStack {
                         Spacer()
-                        Text("211.01 ONE")
+                        Text(oneValue)
                             .foregroundColor(.black)
                             .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2))
                             .font(.customFont(size: 18))
@@ -143,21 +156,45 @@ struct ActionsView: View {
         return colors[index]
     }
     
-    func handleListening() {
-        if !isListening {
-            isListening = true
-            print("Started Listening...")
-            SpeechRecognition.shared.speak()
-        } else {
-            isListening = false
-            print("Stopped Listening")
+    func startRecording() {
+        isRecording = true
+        // Start your recording logic here
+        print("Started Recording...")
+    }
+
+    func stopRecording() {
+        if isRecording {
+            isRecording = false
+            // Stop your recording logic here
+            print("Stopped Recording")
         }
     }
     
+    func handleListening() {
+            if isPressing {
+                if !isListening {
+                    isListening = true
+                    if !hasStartedListening {
+                        print("Started Listening...")
+                        hasStartedListening = true
+                    }
+                }
+            } else {
+                if isListening {
+                    isListening = false
+                    if !hasStoppedListening {
+                        print("Stopped Listening")
+                        hasStoppedListening = true
+                    }
+                }
+            }
+        }
+
     func handleOtherActions(index: Int) {
         switch index {
-        case 2:
+        case 0:
             SpeechRecognition.shared.reset()
+            dismissAction()
         case 3:
             SpeechRecognition.shared.repeate()
         case 4:
