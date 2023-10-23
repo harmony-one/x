@@ -1,6 +1,6 @@
 import ExternalTTSAudioFilePlayer from "./audio-file-player";
 import ElevenLabsPlugin from "./elevenlabs";
-import {GoogleCloudPlugin} from "./googleCloudPlugin";
+import {GoogleCloudAPIPlugin} from "./googleCloudAPIPlugin";
 import config from "../../config";
 import TTSPlugin from "./tts-plugin";
 
@@ -20,9 +20,9 @@ export function getTTSPlayer(type: TTSPlayerType) {
       })
     });
   } else {
-    plugin = new GoogleCloudPlugin({
+    plugin = new GoogleCloudAPIPlugin({
       getOptions: () => ({
-        host: config.proxyHost,
+        apiKey: config.googleCloudAPIKey,
       })
     })
   }
