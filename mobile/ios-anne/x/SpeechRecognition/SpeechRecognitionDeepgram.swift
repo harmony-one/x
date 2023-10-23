@@ -16,7 +16,7 @@ class SpeechRecognitionDeepgram: NSObject {
     }()
 
     private lazy var socket: WebSocket = {
-        let url = URL(string: "wss://api.deepgram.com/v1/listen?encoding=linear16&sample_rate=48000&channels=1")!
+        let url = URL(string: "wss://api.deepgram.com/v1/listen?model=conversationalai&encoding=linear16&sample_rate=48000&channels=1")!
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("Token \(apiKey)", forHTTPHeaderField: "Authorization")
         return WebSocket(request: urlRequest)
