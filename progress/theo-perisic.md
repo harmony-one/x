@@ -1,3 +1,5 @@
+2023-10-22 Sun: Product testing for Chatgpt, Hey Sam, and [Play.ht's new 2.0 launch](https://www.ycombinator.com/companies/playht).
+
 2023-10-21 Sat: Coordinated with Aaron for App Manager access for Hey Sam. Added character lengths for each section and useful links for the [application process](https://harmonyone.notion.site/App-Store-Project-Intro-Product-Details-Screen-Mocks-a3dcb50d30654c508779b123d278546f?pvs=4).
 
 2023-10-20 Fri: Started information compilation for [App Store application process here](https://harmonyone.notion.site/App-Store-Project-Intro-Product-Details-Screen-Mocks-a3dcb50d30654c508779b123d278546f?pvs=4). Wrote [first draft](https://harmonyone.notion.site/App-Store-Description-DRAFT-b56cd5582a134ba192de1fd09cc239c2?pvs=4) of App Store description for “Hey Sam”.  Deep dive with Labhesh on Replika and which knowledge models are best to use for getting past OpenAI guardrails. Mistral and Falcon 7b are potential starting points. Additional concerns with opening doors that we should not be opened was mentioned.
