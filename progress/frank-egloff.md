@@ -1,4 +1,4 @@
-2023-10-20 Fri: Keep working on fiat payment for the Discord bot in a subscription model using stripe.
+2023-10-20 Fri: Keep working on fiat payment for the Discord bot in a [subscription model using stripe](https://github.com/harmony-one/stripe-payments-backend/pull/4)
 
 2023-10-19 Thu: Keep working on fiat payment for the Discord bot. Added customer creation to the user/create endpoint. Added user/guild (server) logic on discord bot.
 
