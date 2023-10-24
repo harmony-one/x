@@ -77,21 +77,25 @@ class OpenAIService: NSObject, URLSessionDataDelegate {
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
 //        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
-//        do {
         let str = String(data: data, encoding: .utf8)
-        guard str != nil && str!.hasPrefix("data:") else {
-            let error = NSError(domain: "Malformed OpenAI Chunk", code: -2, userInfo: ["body": str ?? ""])
+        guard let str=str else {
+            let error = NSError(domain: "Unable to decode string", code: -2, userInfo: ["body": str ?? ""])
             self.completion(nil, error)
             return
         }
-        let dataBody = str!.suffix(str!.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
-        let res = JSON(parseJSON: dataBody)
-//        print(res)
-        let delta = res["choices"][0]["delta"]["content"].string
-        self.completion(delta, nil)
-//        } catch {
-//            self.completion(nil, error)
-//        }
+//        print("OpenAI: raw response: ", str)
+        let chunks = str.components(separatedBy: "\n\n").filter{chunk in chunk.hasPrefix("data:")}
+//        print("OpenAI: chunks", chunks)
+        for chunk in chunks {
+            let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
+            if dataBody == "[DONE]" {
+                continue
+            }
+            let res = JSON(parseJSON: dataBody)
+
+            let delta = res["choices"][0]["delta"]["content"].string
+            self.completion(delta, nil)
+        }
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {

@@ -36,6 +36,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     private var keepAliveTimer: Timer?
     
     var captureSession = AVCaptureSession()
+    var capturing = false
     private var audioDataOutput = AVCaptureAudioDataOutput()
     
     private var isAudioSessionSetup = false
@@ -90,7 +91,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         guard wsTask !== nil else {
             throw ASRError.ConnectionNotActive
         }
-        let keepAliveMessage = "{ 'type': 'KeepAlive' }"
+        let keepAliveMessage = "{\"type\":\"KeepAlive\"}"
         print("Sending \(keepAliveMessage)")
         try await wsTask!.send(.string(keepAliveMessage))
     }
@@ -129,6 +130,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         wsTask = urlSession?.webSocketTask(with: request)
         wsTask?.resume()
         receiveMessage()
+        startKeepAliveTimer()
     }
     
     // MARK: - Audio Session Management
@@ -183,7 +185,11 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     // MARK: - Speech Recognition
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // TODO: send data to deepgram, need to chop buffer to make sure it is between 20ms to 250ms of audio, per https://developers.deepgram.com/reference/streaming
+        guard self.capturing else {
+//            print("ignoring captured data because self.capturing=\(self.capturing)")
+            return
+        }
+        // Note: need to chop buffer to make sure it is between 20ms to 250ms of audio, per https://developers.deepgram.com/reference/streaming
         let duration = CMSampleBufferGetDuration(sampleBuffer).seconds
         if duration < 0.02 || duration > 0.25 {
             print("Warning: sample buffer size out of bound (got \(duration) seconds)")
@@ -245,7 +251,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         print("ASR: start")
         setupWs()
         setupAudio()
-//        captureSession.startRunning()
+        captureSession.startRunning()
     }
     
     // MARK: - Sentence Handling
@@ -293,7 +299,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         func flushBuf() {
             let response = buf.joined()
             self.tts.convertTextToSpeech(text: response)
-            self.captureSession.stopRunning()
+            self.capturing = false
             print("Stopped capturing")
             if self.tts.synthesizer.delegate == nil {
                 self.tts.synthesizer.delegate = self
@@ -340,7 +346,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     func reset() {
         // “Reset” means the user abandons the current conversation for a new chat session with Sam.
         self.tts.stopSpeech()
-        self.captureSession.stopRunning()
+        self.capturing = false
         self.disconnect()
         self.resultsLock.wait()
         self.results.removeAll()
@@ -355,11 +361,10 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     }
     
     func repeate() {
+        self.capturing = false
         if let lastResponse = responses.last {
-            self.captureSession.stopRunning()
             self.tts.convertTextToSpeech(text: lastResponse)
         } else {
-            self.captureSession.stopRunning()
             self.tts.convertTextToSpeech(text: "Nothing to repeat")
         }
     }
@@ -386,7 +391,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         resumeListeningTimer?.invalidate()
         resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             print("Starting capturing again")
-            self.captureSession.startRunning()
+            self.capturing = true
         }
     }
 }
