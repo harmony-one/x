@@ -83,7 +83,7 @@
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
-		CD0D13342ADA73B300031EDD /* Hey Anne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Anne.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13342ADA73B300031EDD /* Hey Artem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Artem.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CD0D133B2ADA73B300031EDD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -91,9 +91,9 @@
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey AnneTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13482ADA73B400031EDD /* Hey ArtemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey ArtemTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* xTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xTests.swift; sourceTree = "<group>"; };
-		CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey AnneUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13522ADA73B400031EDD /* Hey ArtemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey ArtemUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13562ADA73B400031EDD /* xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITests.swift; sourceTree = "<group>"; };
 		CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
@@ -243,9 +243,9 @@
 		CD0D13352ADA73B300031EDD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD0D13342ADA73B300031EDD /* Hey Anne.app */,
-				CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */,
-				CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */,
+				CD0D13342ADA73B300031EDD /* Hey Artem.app */,
+				CD0D13482ADA73B400031EDD /* Hey ArtemTests.xctest */,
+				CD0D13522ADA73B400031EDD /* Hey ArtemUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,9 +311,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CD0D13332ADA73B300031EDD /* Hey Anne */ = {
+		CD0D13332ADA73B300031EDD /* Hey Artem */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Anne" */;
+			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Artem" */;
 			buildPhases = (
 				CD0D13302ADA73B300031EDD /* Sources */,
 				CD0D13312ADA73B300031EDD /* Frameworks */,
@@ -323,17 +323,17 @@
 			);
 			dependencies = (
 			);
-			name = "Hey Anne";
+			name = "Hey Artem";
 			packageProductDependencies = (
 				6EE4A8E92AE69F9300B98C84 /* Starscream */,
 			);
 			productName = x;
-			productReference = CD0D13342ADA73B300031EDD /* Hey Anne.app */;
+			productReference = CD0D13342ADA73B300031EDD /* Hey Artem.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CD0D13472ADA73B400031EDD /* Hey AnneTests */ = {
+		CD0D13472ADA73B400031EDD /* Hey ArtemTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneTests" */;
+			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey ArtemTests" */;
 			buildPhases = (
 				CD0D13442ADA73B400031EDD /* Sources */,
 				CD0D13452ADA73B400031EDD /* Frameworks */,
@@ -344,14 +344,14 @@
 			dependencies = (
 				CD0D134A2ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey AnneTests";
+			name = "Hey ArtemTests";
 			productName = xTests;
-			productReference = CD0D13482ADA73B400031EDD /* Hey AnneTests.xctest */;
+			productReference = CD0D13482ADA73B400031EDD /* Hey ArtemTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CD0D13512ADA73B400031EDD /* Hey AnneUITests */ = {
+		CD0D13512ADA73B400031EDD /* Hey ArtemUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneUITests" */;
+			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey ArtemUITests" */;
 			buildPhases = (
 				CD0D134E2ADA73B400031EDD /* Sources */,
 				CD0D134F2ADA73B400031EDD /* Frameworks */,
@@ -362,9 +362,9 @@
 			dependencies = (
 				CD0D13542ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey AnneUITests";
+			name = "Hey ArtemUITests";
 			productName = xUITests;
-			productReference = CD0D13522ADA73B400031EDD /* Hey AnneUITests.xctest */;
+			productReference = CD0D13522ADA73B400031EDD /* Hey ArtemUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -390,7 +390,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Anne" */;
+			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Artem" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -406,9 +406,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CD0D13332ADA73B300031EDD /* Hey Anne */,
-				CD0D13472ADA73B400031EDD /* Hey AnneTests */,
-				CD0D13512ADA73B400031EDD /* Hey AnneUITests */,
+				CD0D13332ADA73B300031EDD /* Hey Artem */,
+				CD0D13472ADA73B400031EDD /* Hey ArtemTests */,
+				CD0D13512ADA73B400031EDD /* Hey ArtemUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -496,12 +496,12 @@
 /* Begin PBXTargetDependency section */
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Anne */;
+			target = CD0D13332ADA73B300031EDD /* Hey Artem */;
 			targetProxy = CD0D13492ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 		CD0D13542ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Anne */;
+			target = CD0D13332ADA73B300031EDD /* Hey Artem */;
 			targetProxy = CD0D13532ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -637,16 +637,20 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = x/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Hey Anne";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hey Artem";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -656,7 +660,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.anne;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.artem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -683,16 +687,20 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = x/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Hey Anne";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hey Artem";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -702,7 +710,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.anne;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.artem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -732,7 +740,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Anne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Anne";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Artem.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Artem";
 			};
 			name = Debug;
 		};
@@ -755,7 +763,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Anne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Anne";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Artem.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Artem";
 			};
 			name = Release;
 		};
@@ -806,7 +814,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Anne" */ = {
+		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Artem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135A2ADA73B400031EDD /* Debug */,
@@ -815,7 +823,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Anne" */ = {
+		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Artem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135D2ADA73B400031EDD /* Debug */,
@@ -824,7 +832,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneTests" */ = {
+		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey ArtemTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13602ADA73B400031EDD /* Debug */,
@@ -833,7 +841,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey AnneUITests" */ = {
+		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey ArtemUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13632ADA73B400031EDD /* Debug */,
