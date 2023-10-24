@@ -1,4 +1,4 @@
-2023-10-23 Mon: Worked on [google text to speech for iOS application](https://github.com/harmony-one/x/pull/62)
+2023-10-24 Tue: Worked on [google text to speech for iOS application](https://github.com/harmony-one/x/pull/62), deployed testflight build "Sergey", spoke with Yura and Artem to share knowledge about Xcode and project setup.
 
 2023-10-23 Mon: Worked on [adding deepgram](https://github.com/harmony-one/x/pull/56) (speech recognition) to the iOS application
 
