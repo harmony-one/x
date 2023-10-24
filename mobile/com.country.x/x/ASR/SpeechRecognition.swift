@@ -332,11 +332,13 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     }
     
     func pause() {
-        self.tts.pauseSpeech()
+        self.capturing = false
+//        self.tts.pauseSpeech()
     }
     
     func continueSpeech() {
-        self.tts.continueSpeech()
+        self.capturing = true
+//        self.tts.continueSpeech()
     }
     
     func cut() {
@@ -353,6 +355,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         self.resultsLock.signal()
         self.tts.synthesizer.delegate = nil
         self.start()
+        self.capturing = true
     }
     
     func speak() {
@@ -388,10 +391,13 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        resumeListeningTimer?.invalidate()
-        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             print("Starting capturing again")
             self.capturing = true
         }
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        self.capturing = false
+        resumeListeningTimer?.invalidate()
     }
 }
