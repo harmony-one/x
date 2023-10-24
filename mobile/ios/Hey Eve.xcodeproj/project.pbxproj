@@ -7,6 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A46B5A4D2AE73B9D00C874ED /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
+		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
+		A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */; };
+		A46B5A5E2AE73B9D00C874ED /* sunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A5D2AE73B9D00C874ED /* sunTests.swift */; };
+		A46B5A682AE73B9D00C874ED /* sunUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A672AE73B9D00C874ED /* sunUITests.swift */; };
+		A46B5A6A2AE73B9D00C874ED /* sunUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */; };
+		A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
+		A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
+		A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
+		A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
+		A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
+		A46B5A7A2AE73CD600C874ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B9BA337B2AE6830700D7756D /* beep.mp3 */; };
+		A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
+		A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
+		A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
+		A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
+		A46B5A802AE73CEB00C874ED /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
+		A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
+		A46B5A822AE73CF200C874ED /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
+		A46B5A832AE73CF500C874ED /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
+		A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
+		A46B5A852AE73CFD00C874ED /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
+		A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
+		A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
+		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
+		A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
+		A46B5A8A2AE73D2C00C874ED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
+		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
+		A46B5A8E2AE73D7F00C874ED /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A8D2AE73D7F00C874ED /* AppConfig.plist */; };
+		A46B5A8F2AE73D7F00C874ED /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A8D2AE73D7F00C874ED /* AppConfig.plist */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -42,6 +73,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A46B5A5A2AE73B9D00C874ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A46B5A492AE73B9D00C874ED;
+			remoteInfo = sun;
+		};
+		A46B5A642AE73B9D00C874ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A46B5A492AE73B9D00C874ED;
+			remoteInfo = sun;
+		};
 		CD0D13492ADA73B400031EDD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
@@ -59,6 +104,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
+		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A46B5A592AE73B9D00C874ED /* sunTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46B5A5D2AE73B9D00C874ED /* sunTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunTests.swift; sourceTree = "<group>"; };
+		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
+		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A46B5A8D2AE73D7F00C874ED /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -96,10 +151,30 @@
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
-		E4FEFBB32AE42D8600C6F1EA /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A46B5A472AE73B9D00C874ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A562AE73B9D00C874ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A602AE73B9D00C874ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD0D13312ADA73B300031EDD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,6 +201,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A46B5A4B2AE73B9D00C874ED /* sun */ = {
+			isa = PBXGroup;
+			children = (
+				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
+				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
+				A46B5A522AE73B9D00C874ED /* Preview Content */,
+			);
+			path = sun;
+			sourceTree = "<group>";
+		};
+		A46B5A522AE73B9D00C874ED /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A46B5A5C2AE73B9D00C874ED /* sunTests */ = {
+			isa = PBXGroup;
+			children = (
+				A46B5A5D2AE73B9D00C874ED /* sunTests.swift */,
+			);
+			path = sunTests;
+			sourceTree = "<group>";
+		};
+		A46B5A662AE73B9D00C874ED /* sunUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A46B5A672AE73B9D00C874ED /* sunUITests.swift */,
+				A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */,
+			);
+			path = sunUITests;
+			sourceTree = "<group>";
+		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +343,9 @@
 				CD0D13362ADA73B300031EDD /* x */,
 				CD0D134B2ADA73B400031EDD /* xTests */,
 				CD0D13552ADA73B400031EDD /* xUITests */,
+				A46B5A4B2AE73B9D00C874ED /* sun */,
+				A46B5A5C2AE73B9D00C874ED /* sunTests */,
+				A46B5A662AE73B9D00C874ED /* sunUITests */,
 				CD0D13352ADA73B300031EDD /* Products */,
 				CD0D13652ADA74C800031EDD /* Frameworks */,
 			);
@@ -244,6 +357,9 @@
 				CD0D13342ADA73B300031EDD /* Hey Eve.app */,
 				CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */,
 				CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */,
+				A46B5A4A2AE73B9D00C874ED /* sun.app */,
+				A46B5A592AE73B9D00C874ED /* sunTests.xctest */,
+				A46B5A632AE73B9D00C874ED /* sunUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -267,7 +383,7 @@
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
-				E4FEFBB32AE42D8600C6F1EA /* AppConfig.plist */,
+				A46B5A8D2AE73D7F00C874ED /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -309,6 +425,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A46B5A492AE73B9D00C874ED /* sun */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A46B5A712AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sun" */;
+			buildPhases = (
+				A46B5A462AE73B9D00C874ED /* Sources */,
+				A46B5A472AE73B9D00C874ED /* Frameworks */,
+				A46B5A482AE73B9D00C874ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sun;
+			productName = sun;
+			productReference = A46B5A4A2AE73B9D00C874ED /* sun.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A46B5A582AE73B9D00C874ED /* sunTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A46B5A722AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sunTests" */;
+			buildPhases = (
+				A46B5A552AE73B9D00C874ED /* Sources */,
+				A46B5A562AE73B9D00C874ED /* Frameworks */,
+				A46B5A572AE73B9D00C874ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A46B5A5B2AE73B9D00C874ED /* PBXTargetDependency */,
+			);
+			name = sunTests;
+			productName = sunTests;
+			productReference = A46B5A592AE73B9D00C874ED /* sunTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A46B5A622AE73B9D00C874ED /* sunUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A46B5A732AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sunUITests" */;
+			buildPhases = (
+				A46B5A5F2AE73B9D00C874ED /* Sources */,
+				A46B5A602AE73B9D00C874ED /* Frameworks */,
+				A46B5A612AE73B9D00C874ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A46B5A652AE73B9D00C874ED /* PBXTargetDependency */,
+			);
+			name = sunUITests;
+			productName = sunUITests;
+			productReference = A46B5A632AE73B9D00C874ED /* sunUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		CD0D13332ADA73B300031EDD /* Hey Eve */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Eve" */;
@@ -372,6 +541,17 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					A46B5A492AE73B9D00C874ED = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					A46B5A582AE73B9D00C874ED = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = A46B5A492AE73B9D00C874ED;
+					};
+					A46B5A622AE73B9D00C874ED = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = A46B5A492AE73B9D00C874ED;
+					};
 					CD0D13332ADA73B300031EDD = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -401,11 +581,44 @@
 				CD0D13332ADA73B300031EDD /* Hey Eve */,
 				CD0D13472ADA73B400031EDD /* Hey EveTests */,
 				CD0D13512ADA73B400031EDD /* Hey EveUITests */,
+				A46B5A492AE73B9D00C874ED /* sun */,
+				A46B5A582AE73B9D00C874ED /* sunTests */,
+				A46B5A622AE73B9D00C874ED /* sunUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A46B5A482AE73B9D00C874ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46B5A8F2AE73D7F00C874ED /* AppConfig.plist in Resources */,
+				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
+				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
+				A46B5A7A2AE73CD600C874ED /* beep.mp3 in Resources */,
+				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
+				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
+				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
+				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
+				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A572AE73B9D00C874ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A612AE73B9D00C874ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD0D13322ADA73B300031EDD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,6 +629,7 @@
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				B9BA337C2AE6830700D7756D /* beep.mp3 in Resources */,
+				A46B5A8E2AE73D7F00C874ED /* AppConfig.plist in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -439,6 +653,48 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A46B5A462AE73B9D00C874ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
+				A46B5A4D2AE73B9D00C874ED /* sunApp.swift in Sources */,
+				A46B5A8A2AE73D2C00C874ED /* Item.swift in Sources */,
+				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
+				A46B5A822AE73CF200C874ED /* SpeechRecognition.swift in Sources */,
+				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
+				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
+				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
+				A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */,
+				A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */,
+				A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */,
+				A46B5A852AE73CFD00C874ED /* Message.swift in Sources */,
+				A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */,
+				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
+				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */,
+				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
+				A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A552AE73B9D00C874ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46B5A5E2AE73B9D00C874ED /* sunTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46B5A5F2AE73B9D00C874ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46B5A682AE73B9D00C874ED /* sunUITests.swift in Sources */,
+				A46B5A6A2AE73B9D00C874ED /* sunUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD0D13302ADA73B300031EDD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,6 +740,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A46B5A5B2AE73B9D00C874ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A46B5A492AE73B9D00C874ED /* sun */;
+			targetProxy = A46B5A5A2AE73B9D00C874ED /* PBXContainerItemProxy */;
+		};
+		A46B5A652AE73B9D00C874ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A46B5A492AE73B9D00C874ED /* sun */;
+			targetProxy = A46B5A642AE73B9D00C874ED /* PBXContainerItemProxy */;
+		};
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CD0D13332ADA73B300031EDD /* Hey Eve */;
@@ -497,6 +763,159 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A46B5A6B2AE73B9D00C874ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				ENABLE_PREVIEWS = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sun";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sun;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A46B5A6C2AE73B9D00C874ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sun;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A46B5A6D2AE73B9D00C874ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sun.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sun";
+			};
+			name = Debug;
+		};
+		A46B5A6E2AE73B9D00C874ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sunTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sun.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sun";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A46B5A6F2AE73B9D00C874ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sunUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = sun;
+			};
+			name = Debug;
+		};
+		A46B5A702AE73B9D00C874ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D9AHA462DR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sunUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = sun;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		CD0D135A2ADA73B400031EDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -796,6 +1215,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A46B5A712AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sun" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A46B5A6B2AE73B9D00C874ED /* Debug */,
+				A46B5A6C2AE73B9D00C874ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A46B5A722AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sunTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A46B5A6D2AE73B9D00C874ED /* Debug */,
+				A46B5A6E2AE73B9D00C874ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A46B5A732AE73B9D00C874ED /* Build configuration list for PBXNativeTarget "sunUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A46B5A6F2AE73B9D00C874ED /* Debug */,
+				A46B5A702AE73B9D00C874ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Eve" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
