@@ -1,0 +1,613 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ACE5856F2AE83C2300D8C76D /* VoiceAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE5856E2AE83C2300D8C76D /* VoiceAIApp.swift */; };
+		ACE585712AE83C2300D8C76D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE585702AE83C2300D8C76D /* ContentView.swift */; };
+		ACE585732AE83C2400D8C76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE585722AE83C2400D8C76D /* Assets.xcassets */; };
+		ACE585762AE83C2400D8C76D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE585752AE83C2400D8C76D /* Preview Assets.xcassets */; };
+		ACE585802AE83C2400D8C76D /* VoiceAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE5857F2AE83C2400D8C76D /* VoiceAITests.swift */; };
+		ACE5858A2AE83C2400D8C76D /* VoiceAIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE585892AE83C2400D8C76D /* VoiceAIUITests.swift */; };
+		ACE5858C2AE83C2400D8C76D /* VoiceAIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE5858B2AE83C2400D8C76D /* VoiceAIUITestsLaunchTests.swift */; };
+		ACE5859F2AE8455C00D8C76D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ACE5859E2AE8455C00D8C76D /* Settings.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ACE5857C2AE83C2400D8C76D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACE585632AE83C2300D8C76D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACE5856A2AE83C2300D8C76D;
+			remoteInfo = VoiceAI;
+		};
+		ACE585862AE83C2400D8C76D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACE585632AE83C2300D8C76D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACE5856A2AE83C2300D8C76D;
+			remoteInfo = VoiceAI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ACE5856B2AE83C2300D8C76D /* VoiceAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE5856E2AE83C2300D8C76D /* VoiceAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAIApp.swift; sourceTree = "<group>"; };
+		ACE585702AE83C2300D8C76D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ACE585722AE83C2400D8C76D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACE585752AE83C2400D8C76D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ACE5857B2AE83C2400D8C76D /* VoiceAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE5857F2AE83C2400D8C76D /* VoiceAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAITests.swift; sourceTree = "<group>"; };
+		ACE585852AE83C2400D8C76D /* VoiceAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE585892AE83C2400D8C76D /* VoiceAIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAIUITests.swift; sourceTree = "<group>"; };
+		ACE5858B2AE83C2400D8C76D /* VoiceAIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ACE5859B2AE83FDD00D8C76D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		ACE5859E2AE8455C00D8C76D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ACE585682AE83C2300D8C76D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585782AE83C2400D8C76D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585822AE83C2400D8C76D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ACE585622AE83C2300D8C76D = {
+			isa = PBXGroup;
+			children = (
+				ACE5856D2AE83C2300D8C76D /* VoiceAI */,
+				ACE5857E2AE83C2400D8C76D /* VoiceAITests */,
+				ACE585882AE83C2400D8C76D /* VoiceAIUITests */,
+				ACE5856C2AE83C2300D8C76D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ACE5856C2AE83C2300D8C76D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ACE5856B2AE83C2300D8C76D /* VoiceAI.app */,
+				ACE5857B2AE83C2400D8C76D /* VoiceAITests.xctest */,
+				ACE585852AE83C2400D8C76D /* VoiceAIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ACE5856D2AE83C2300D8C76D /* VoiceAI */ = {
+			isa = PBXGroup;
+			children = (
+				ACE5859B2AE83FDD00D8C76D /* Info.plist */,
+				ACE5856E2AE83C2300D8C76D /* VoiceAIApp.swift */,
+				ACE585702AE83C2300D8C76D /* ContentView.swift */,
+				ACE585722AE83C2400D8C76D /* Assets.xcassets */,
+				ACE5859E2AE8455C00D8C76D /* Settings.bundle */,
+				ACE585742AE83C2400D8C76D /* Preview Content */,
+			);
+			path = VoiceAI;
+			sourceTree = "<group>";
+		};
+		ACE585742AE83C2400D8C76D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ACE585752AE83C2400D8C76D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ACE5857E2AE83C2400D8C76D /* VoiceAITests */ = {
+			isa = PBXGroup;
+			children = (
+				ACE5857F2AE83C2400D8C76D /* VoiceAITests.swift */,
+			);
+			path = VoiceAITests;
+			sourceTree = "<group>";
+		};
+		ACE585882AE83C2400D8C76D /* VoiceAIUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ACE585892AE83C2400D8C76D /* VoiceAIUITests.swift */,
+				ACE5858B2AE83C2400D8C76D /* VoiceAIUITestsLaunchTests.swift */,
+			);
+			path = VoiceAIUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ACE5856A2AE83C2300D8C76D /* VoiceAI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACE5858F2AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAI" */;
+			buildPhases = (
+				ACE585672AE83C2300D8C76D /* Sources */,
+				ACE585682AE83C2300D8C76D /* Frameworks */,
+				ACE585692AE83C2300D8C76D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoiceAI;
+			productName = VoiceAI;
+			productReference = ACE5856B2AE83C2300D8C76D /* VoiceAI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ACE5857A2AE83C2400D8C76D /* VoiceAITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACE585922AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAITests" */;
+			buildPhases = (
+				ACE585772AE83C2400D8C76D /* Sources */,
+				ACE585782AE83C2400D8C76D /* Frameworks */,
+				ACE585792AE83C2400D8C76D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACE5857D2AE83C2400D8C76D /* PBXTargetDependency */,
+			);
+			name = VoiceAITests;
+			productName = VoiceAITests;
+			productReference = ACE5857B2AE83C2400D8C76D /* VoiceAITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ACE585842AE83C2400D8C76D /* VoiceAIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACE585952AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAIUITests" */;
+			buildPhases = (
+				ACE585812AE83C2400D8C76D /* Sources */,
+				ACE585822AE83C2400D8C76D /* Frameworks */,
+				ACE585832AE83C2400D8C76D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACE585872AE83C2400D8C76D /* PBXTargetDependency */,
+			);
+			name = VoiceAIUITests;
+			productName = VoiceAIUITests;
+			productReference = ACE585852AE83C2400D8C76D /* VoiceAIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ACE585632AE83C2300D8C76D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					ACE5856A2AE83C2300D8C76D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					ACE5857A2AE83C2400D8C76D = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = ACE5856A2AE83C2300D8C76D;
+					};
+					ACE585842AE83C2400D8C76D = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = ACE5856A2AE83C2300D8C76D;
+					};
+				};
+			};
+			buildConfigurationList = ACE585662AE83C2300D8C76D /* Build configuration list for PBXProject "VoiceAI" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ACE585622AE83C2300D8C76D;
+			productRefGroup = ACE5856C2AE83C2300D8C76D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ACE5856A2AE83C2300D8C76D /* VoiceAI */,
+				ACE5857A2AE83C2400D8C76D /* VoiceAITests */,
+				ACE585842AE83C2400D8C76D /* VoiceAIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ACE585692AE83C2300D8C76D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE585762AE83C2400D8C76D /* Preview Assets.xcassets in Resources */,
+				ACE5859F2AE8455C00D8C76D /* Settings.bundle in Resources */,
+				ACE585732AE83C2400D8C76D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585792AE83C2400D8C76D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585832AE83C2400D8C76D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ACE585672AE83C2300D8C76D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE585712AE83C2300D8C76D /* ContentView.swift in Sources */,
+				ACE5856F2AE83C2300D8C76D /* VoiceAIApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585772AE83C2400D8C76D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE585802AE83C2400D8C76D /* VoiceAITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACE585812AE83C2400D8C76D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE5858A2AE83C2400D8C76D /* VoiceAIUITests.swift in Sources */,
+				ACE5858C2AE83C2400D8C76D /* VoiceAIUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ACE5857D2AE83C2400D8C76D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACE5856A2AE83C2300D8C76D /* VoiceAI */;
+			targetProxy = ACE5857C2AE83C2400D8C76D /* PBXContainerItemProxy */;
+		};
+		ACE585872AE83C2400D8C76D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACE5856A2AE83C2300D8C76D /* VoiceAI */;
+			targetProxy = ACE585862AE83C2400D8C76D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ACE5858D2AE83C2400D8C76D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ACE5858E2AE83C2400D8C76D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ACE585902AE83C2400D8C76D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VoiceAI/Preview Content\"";
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VoiceAI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location needed plz";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location plzzzzz";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to record audio for stuff...";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Gotta be able to tell watchu sayin";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = " Trackin' u";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ACE585912AE83C2400D8C76D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VoiceAI/Preview Content\"";
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VoiceAI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location needed plz";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location plzzzzz";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone to record audio for stuff...";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Gotta be able to tell watchu sayin";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = " Trackin' u";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ACE585932AE83C2400D8C76D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceAI";
+			};
+			name = Debug;
+		};
+		ACE585942AE83C2400D8C76D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceAI";
+			};
+			name = Release;
+		};
+		ACE585962AE83C2400D8C76D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VoiceAI;
+			};
+			name = Debug;
+		};
+		ACE585972AE83C2400D8C76D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2WYHY6MN7C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnai.personal.VoiceAIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VoiceAI;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ACE585662AE83C2300D8C76D /* Build configuration list for PBXProject "VoiceAI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE5858D2AE83C2400D8C76D /* Debug */,
+				ACE5858E2AE83C2400D8C76D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACE5858F2AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE585902AE83C2400D8C76D /* Debug */,
+				ACE585912AE83C2400D8C76D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACE585922AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE585932AE83C2400D8C76D /* Debug */,
+				ACE585942AE83C2400D8C76D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACE585952AE83C2400D8C76D /* Build configuration list for PBXNativeTarget "VoiceAIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACE585962AE83C2400D8C76D /* Debug */,
+				ACE585972AE83C2400D8C76D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ACE585632AE83C2300D8C76D /* Project object */;
+}
