@@ -58,7 +58,6 @@ struct ActionsView: View {
                             }
                             
                         }  else if index  == 1 {
-                            
                             Button(action: {
                                 
                             }) {
@@ -81,8 +80,6 @@ struct ActionsView: View {
                                             isListening = true
                                             print("Started Listening...")
                                             SpeechRecognition.shared.speak()
-                                            
-                                            
                                         }
                                     }
                                     .onEnded { _ in
@@ -92,7 +89,6 @@ struct ActionsView: View {
                                         }
                                     }
                             )
-                            
                         } else {
                             Button(action: {
                                 if index == 2 {
@@ -110,7 +106,6 @@ struct ActionsView: View {
                                 } else if index == 5 {
                                     SpeechRecognition.shared.cut()
                                 }
-                                
                             }) {
                                 VStack(spacing: imageTextSpacing) {
                                     Image(buttonTitles[index].lowercased())

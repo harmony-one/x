@@ -37,6 +37,7 @@
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		CD701A002AE7716A00539383 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CD7019FF2AE7716A00539383 /* SwiftyJSON */; };
 		CD71E6422AE55B6D005C24F3 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CD71E6412AE55B6D005C24F3 /* Collections */; };
 		CDA379642AE3CA5D006ABBD3 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDA379632AE3CA5D006ABBD3 /* AppConfig.plist */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 			files = (
 				CD71E6422AE55B6D005C24F3 /* Collections in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
+				CD701A002AE7716A00539383 /* SwiftyJSON in Frameworks */,
 				CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,20 +174,20 @@
 			path = Actions;
 			sourceTree = "<group>";
 		};
-		B9AD504F2ADFE888006F18A1 /* Converter */ = {
+		B9AD504F2ADFE888006F18A1 /* TTS */ = {
 			isa = PBXGroup;
 			children = (
 				B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */,
 			);
-			path = Converter;
+			path = TTS;
 			sourceTree = "<group>";
 		};
-		B9AD50522ADFE8A0006F18A1 /* SpeechRecognition */ = {
+		B9AD50522ADFE8A0006F18A1 /* ASR */ = {
 			isa = PBXGroup;
 			children = (
 				B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */,
 			);
-			path = SpeechRecognition;
+			path = ASR;
 			sourceTree = "<group>";
 		};
 		B9AD50552ADFE91C006F18A1 /* Permission */ = {
@@ -253,8 +255,8 @@
 				B9AD506E2ADFFD4E006F18A1 /* AppConfigration */,
 				B9AD50582ADFE961006F18A1 /* OpenAIService */,
 				B9AD50552ADFE91C006F18A1 /* Permission */,
-				B9AD50522ADFE8A0006F18A1 /* SpeechRecognition */,
-				B9AD504F2ADFE888006F18A1 /* Converter */,
+				B9AD50522ADFE8A0006F18A1 /* ASR */,
+				B9AD504F2ADFE888006F18A1 /* TTS */,
 				B930AADB2ADE2DA1009F9F8C /* Extension */,
 				B930AAD12ADD4BAF009F9F8C /* Dashboard */,
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
@@ -321,6 +323,7 @@
 			name = "Hey Sam";
 			packageProductDependencies = (
 				CD71E6412AE55B6D005C24F3 /* Collections */,
+				CD7019FF2AE7716A00539383 /* SwiftyJSON */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Hey Sam.app */;
@@ -396,6 +399,7 @@
 			mainGroup = CD0D132B2ADA73B300031EDD;
 			packageReferences = (
 				CD71E6402AE54F72005C24F3 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				CD7019FE2AE7716A00539383 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -837,6 +841,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CD7019FE2AE7716A00539383 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		CD71E6402AE54F72005C24F3 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -848,6 +860,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CD7019FF2AE7716A00539383 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD7019FE2AE7716A00539383 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
 		CD71E6412AE55B6D005C24F3 /* Collections */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CD71E6402AE54F72005C24F3 /* XCRemoteSwiftPackageReference "swift-collections" */;
