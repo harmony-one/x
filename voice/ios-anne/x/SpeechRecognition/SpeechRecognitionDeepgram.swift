@@ -10,9 +10,12 @@ struct ResponseData: Decodable {
 }
 
 
-class SpeechRecognitionDeepgram: NSObject {
+class SpeechRecognitionDeepgram: NSObject, AVAudioPlayerDelegate {
     static let shared = SpeechRecognitionDeepgram()
+    private let audioPlayerTest = AudioPlayer()
 
+    private var player: AVAudioPlayer?
+    
     private let audioEngine = AVAudioEngine()
     private let apiKey = {
         let config = AppConfig()
@@ -30,7 +33,7 @@ class SpeechRecognitionDeepgram: NSObject {
         }
 
         return token
-    }
+    }()
 
     private lazy var socket: WebSocket = {
         let url = URL(string: "wss://api.deepgram.com/v1/listen?model=conversationalai&encoding=linear16&sample_rate=48000&channels=1")!
@@ -88,67 +91,91 @@ class SpeechRecognitionDeepgram: NSObject {
     }
 
     public func textToSpeech(text: String) {
-        var voiceParams: [String: Any] = [
-            "languageCode": "en-US",
-            "name": "en-US-Neural2-H"
-        ]
 
-        let params: [String: Any] = [
-            "input": [
-                "text": "some simple text"
-            ],
-            "voice": voiceParams,
-            "audioConfig": [
-                "audioEncoding": "LINEAR16"
+
+
+        DispatchQueue.global(qos: .background).async {
+
+            var voiceParams: [String: Any] = [
+                "languageCode": "en-US",
+                "name": "en-US-Neural2-H"
             ]
-        ]
-
-        // Convert the Dictionary to Data
-        let httpBody = try! JSONSerialization.data(withJSONObject: params)
-
-
-        var url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        request.httpBody = httpBody
-
-        request.addValue("Bearer \(googleToken)", forHTTPHeaderField: "Authorization")
-        request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
-        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else if let data = data {
-                do {
-                    let r = try JSONDecoder().decode(ResponseData.self, from: data)
-                    let responseString = String(data: data, encoding: .utf8)
-//                    print("Response: \(r.audioContent)")
-
-////                    let audioData = Data(base64Encoded: r.audioContent)
-//                    guard let audioData = Data(base64Encoded: r.audioContent) else {
-//                        fatalError("Unable to locate plist file")
-//                    }
-//
-//                    let player = AVAudioPlayer(data: audioData)
-//                    player.play();
-
-
-
-                } catch {
-                    print("Error decoding JSON: \(error)")
+            
+            let params: [String: Any] = [
+                "input": [
+                    "text": "hello world"
+                ],
+                "voice": voiceParams,
+                "audioConfig": [
+                    "audioEncoding": "MP3"
+                ]
+            ]
+            
+            // Convert the Dictionary to Data
+            let httpBody = try! JSONSerialization.data(withJSONObject: params)
+            
+            
+            var url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
+            var request = URLRequest(url: URL(string: url)!)
+            request.httpMethod = "POST"
+            request.httpBody = httpBody
+            
+            request.addValue("Bearer \(self.googleToken)", forHTTPHeaderField: "Authorization")
+            request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
+            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                } else if let data = data {
+                    do {
+                        
+                        
+//                                            let responseString = String(data: data, encoding: .utf8)
+//                                            print("Response: \(responseString)")
+                        
+                        let r = try JSONDecoder().decode(ResponseData.self, from: data)
+                        
+                                        
+                        
+                        //                    let audioData = Data(base64Encoded: r.audioContent)
+                        guard let audioData = Data(base64Encoded: r.audioContent) else {
+                            fatalError("Unable to locate plist file")
+                        }
+                        //
+                        DispatchQueue.main.async {
+                            
+//                            self.audioPlayerTest.playSound()
+                            
+                            do {
+                                self.player = try AVAudioPlayer(data: audioData)
+                                self.player!.prepareToPlay()
+                                self.player!.play()
+                                print("play runned")
+                            } catch {
+                                print("Error creating AVAudioPlayer: \(error)")
+                            }
+                        
+                        }
+                        
+                        
+                        
+                    } catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                    // Handle the response data as needed
+                    
+                    
+                    //                let audioContent: String = response["audioContent"]
+                    
+                    // Decode the base64 string into a Data object
+                    //                let audioData = Data(base64Encoded: audioContent)
+                    
                 }
-                // Handle the response data as needed
-
-
-//                let audioContent: String = response["audioContent"]
-
-                // Decode the base64 string into a Data object
-//                let audioData = Data(base64Encoded: audioContent)
-
             }
+            task.resume()
         }
-        task.resume()
     }
 
     public func setup() {
@@ -157,14 +184,24 @@ class SpeechRecognitionDeepgram: NSObject {
 
         textToSpeech(text: "hello world")
 
-        print("setup SpeechRecognitionDeepgram")
-        start()
+//        print("setup SpeechRecognitionDeepgram")
+//        start()
 
 //        // Set up the synthesizer delegate
 //        textToSpeechConverter.synthesizer.delegate = self
 
 //        // Convert a default greeting text to speech
 //        textToSpeechConverter.convertTextToSpeech(text: greatingText)
+    }
+    
+    // Implement AVAudioPlayerDelegate "did finish" callback to cleanup and notify listener of completion.
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("audioPlayerDidFinishPlaying")
+        self.player?.delegate = nil
+        self.player = nil
+        
+//        self.completionHandler!()
+//        self.completionHandler = nil
     }
 }
 
