@@ -245,7 +245,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
         print("ASR: start")
         setupWs()
         setupAudio()
-        captureSession.startRunning()
+//        captureSession.startRunning()
     }
     
     // MARK: - Sentence Handling
@@ -294,6 +294,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
             let response = buf.joined()
             self.tts.convertTextToSpeech(text: response)
             self.captureSession.stopRunning()
+            print("Stopped capturing")
             if self.tts.synthesizer.delegate == nil {
                 self.tts.synthesizer.delegate = self
             }
@@ -382,7 +383,10 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
-//        self.captureSession.startRunning()
+        resumeListeningTimer?.invalidate()
+        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            print("Starting capturing again")
+            self.captureSession.startRunning()
+        }
     }
 }
