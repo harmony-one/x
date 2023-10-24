@@ -23,6 +23,15 @@ class SpeechRecognitionDeepgram: NSObject {
         return apiKey
     }()
 
+    private let googleToken = {
+        let config = AppConfig()
+        guard let token = config.getGoogleToken() else  {
+            return ""
+        }
+
+        return token
+    }
+
     private lazy var socket: WebSocket = {
         let url = URL(string: "wss://api.deepgram.com/v1/listen?model=conversationalai&encoding=linear16&sample_rate=48000&channels=1")!
         var urlRequest = URLRequest(url: url)
@@ -103,8 +112,7 @@ class SpeechRecognitionDeepgram: NSObject {
         request.httpMethod = "POST"
         request.httpBody = httpBody
 
-        var token = "ya29.a0AfB_byA_VOGz77AbfkkS67xJiGIJvDgpv7VWDdoIF3ofnlNykW8r98EtiJrHRcD4szMufWneVwpiK-laKVFva3ZD2oxfLLdPvpU1Pth8zUe-9GW5bm1fDpaIJUrgGF10FTSshuD2rtELAtf8Xwcc5s-cZCdQwsMu5tis8txo2boaCgYKATYSARISFQGOcNnCVXJs3FNArhLYlKddYk0hYg0178"
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(googleToken)", forHTTPHeaderField: "Authorization")
         request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
 

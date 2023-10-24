@@ -11,6 +11,7 @@ class AppConfig {
     
     private var apiKey: String?
     private var deepgramAPIKey: String?
+    private var googleToken: String?
 
     init() {
         loadConfiguration()
@@ -31,6 +32,7 @@ class AppConfig {
 
             self.apiKey = dictionary["API_KEY"]
             self.deepgramAPIKey = dictionary["DEEPGRAM_API_KEY"]
+            self.googleToken = dictionary["GOOGLE_TOKEN"]
         } catch {
             fatalError(error.localizedDescription)
         }
@@ -42,5 +44,9 @@ class AppConfig {
 
     func getDeepgramAPIKey() -> String? {
         return self.deepgramAPIKey
+    }
+
+    func getGoogleToken() -> String? {
+        return self.googleToken
     }
 }
