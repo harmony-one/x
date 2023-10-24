@@ -12,6 +12,7 @@ class SpeechRecognition: NSObject {
     
     // MARK: - Properties
     
+    private let audioPlayerTest = AudioPlayer()
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -178,8 +179,8 @@ class SpeechRecognition: NSObject {
     
     func speak() {
         // ”Speak” allows Theo to force Sam keep listening while holding down the button.
-        self.aiResponseArray.removeAll()
-        self.textToSpeechConverter.stopSpeech()
+        self.audioPlayerTest.playSound()
+        
     }
     
     func repeate() {
