@@ -123,7 +123,18 @@ class SpeechRecognitionDeepgram: NSObject {
                 do {
                     let r = try JSONDecoder().decode(ResponseData.self, from: data)
                     let responseString = String(data: data, encoding: .utf8)
-                    print("Response: \(r.audioContent)")
+//                    print("Response: \(r.audioContent)")
+
+////                    let audioData = Data(base64Encoded: r.audioContent)
+//                    guard let audioData = Data(base64Encoded: r.audioContent) else {
+//                        fatalError("Unable to locate plist file")
+//                    }
+//
+//                    let player = AVAudioPlayer(data: audioData)
+//                    player.play();
+
+
+
                 } catch {
                     print("Error decoding JSON: \(error)")
                 }
