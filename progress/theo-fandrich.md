@@ -1,4 +1,4 @@
-2023-10-22 Mon: Preparing Frank, Sergey, and Artem's apps for full end to end deploy which should be ready by 9am Tueday morning. Undelegation from all validators should also be complete by 9am Tuesday morning. Alaina and I will work to prepare a blog post for 1bot.
+2023-10-22 Mon: Preparing Frank, Sergey, and Artem's apps for full end to end deploy which should be ready by 9am Tueday morning. Alaina and I will work to prepare a blog post for 1bot.
 
 2023-10-21 Sun: Deployed xCode build for Hey Anne and reconfigured so that all naming conventions matched. I uppdated the temporary logo, openAI API key, and documented how and where to create Appconfig folder [here](https://www.notion.so/harmonyone/Help-d3df4ffd40fc46a1abe77e598a8a195e).
 

@@ -1,3 +1,7 @@
+2023-10-23 Mon: Add subscription handling on [Discord bot](https://github.com/harmony-one/harmony-discord-bot/pull/1) and [stripe backend](https://github.com/harmony-one/stripe-payments-backend/pull/4). Regarding 1bot development, the top 3 tasks: 1) Finish fiat payment on Discord bot (16hours); 2) Upgrade voice transcription/summary using llama-index vector database to improve summary and allow the user to inquire about the voice transcript (12hours); 3) Implement Dalle 3 when available (10hours); 4) (optional) Migrate Chromdb (vector database) to the hosted solution when available (4hours).
+
+---
+
 2023-10-20 Fri: Keep working on fiat payment for the Discord bot in a [subscription model using stripe](https://github.com/harmony-one/stripe-payments-backend/pull/4)
 
 2023-10-19 Thu: Keep working on fiat payment for the Discord bot. Added customer creation to the user/create endpoint. Added user/guild (server) logic on discord bot.

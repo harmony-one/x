@@ -1,4 +1,9 @@
 
+
+**2023-10-24 Tue:**
+Working on OLLAMA's configuration on our GPU machine and later plan to test it on IOS emulator and see its response.
+
+
 **2023-10-23 Mon:**
 Deploying and configuring Mistral 7B locally on GPU server with pytorch. It takes 5mins to initiates the 14GB model and memory utilization peaks at 32GBs (after init, it consumes only 1GB) - their exhauts resources even on GPU server. Found other tools/libraries with small LLM models [vLLM](https://vllm.readthedocs.io/en/latest/models/supported_models.html) and [OLLAMA](https://ollama.ai/library). OLLAMA's Mistral 7B takes 3 seconds to init (on CPU or GPU machines) and provides output in 0.1-0.5s (on GPU) and 1-3s on CPU. 
 

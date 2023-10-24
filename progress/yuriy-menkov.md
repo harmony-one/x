@@ -1,4 +1,7 @@
-2023-10-16 Mon: 
+2023-10-24 Tue: 
+Continue working on full IOS end-to-end demo using Whipser, GPT4, and Elevenlabs: setup build and starting integrate Whipser speach to text via rest api.
+
+2023-10-23 Mon: 
 Started working on full IOS end-to-end demo "Emotion Build" (using Whipser, GPT4, and Elevenlabs). Reviewed Hey Julia project sources. [Added](https://github.com/harmony-one/x/tree/ios-emotion-build/mobile/samantha) project structure.
  
 ---
