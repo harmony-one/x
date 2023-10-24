@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Speaker Language</string>
+			<key>Titles</key>
+			<array>
+				<string>English (US)</string>
+				<string>French (FR)</string>
+				<string>German (DE)</string>
+				<string>Japanese (JP)</string>
+				<string>Spanish (MX)</string>
+				<string>Chinese (CN)</string>
+				<string>Portuguese (BR)</string>
+				<string>Arabic (MSA)</string>
+			</array>
+			<key>Key</key>
+			<string>speaker_language</string>
+			<key>DefaultValue</key>
+			<string>English (US)</string>
+			<key>Values</key>
+			<array>
+				<string>en-US</string>
+				<string>fr-FR</string>
+				<string>de-DE</string>
+				<string>ja-JP</string>
+				<string>es-MX</string>
+				<string>zh-CN</string>
+				<string>pt-BR</string>
+				<string>ar-001</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Speaker Gender</string>
+			<key>Titles</key>
+			<array>
+				<string>Man</string>
+				<string>Woman</string>
+			</array>
+			<key>Key</key>
+			<string>speaker_gender</string>
+			<key>DefaultValue</key>
+			<string>Woman</string>
+			<key>Values</key>
+			<array>
+				<string>Man</string>
+				<string>Woman</string>
+			</array>
+		</dict>
+				<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Remaining Voice AI Credits</string>
+			<key>Key</key>
+			<string>current_credits</string>
+			<key>DefaultValue</key>
+			<string>1101.01</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>ChatGPT Settings</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Model Version</string>
+			<key>Titles</key>
+			<array>
+				<string>ChatGPT3.5 4K-token ($0.01 per minute)</string>
+				<string>ChatGPT3.5 16K-token ($0.02 per minute)</string>
+				<string>ChatGPT4 8K-token ($0.05 per minute)</string>
+				<string>ChatGPT4 32K-token ($0.10 per minute)</string>
+			</array>
+			<key>Key</key>
+			<string>speaker_language</string>
+			<key>DefaultValue</key>
+			<string>ChatGPT4 8K-token ($0.05 per minute)</string>
+			<key>Values</key>
+			<array>
+				<string>gpt_3d5_4k</string>
+				<string>gpt_3d5_16k</string>
+				<string>gpt_4d0_8k</string>
+				<string>gpt_4d0_32k</string>
+			</array>
+		</dict>
+				<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Profile</string>
+			<key>Titles</key>
+			<array>
+				<string>Custom Instruction 1 (Home)</string>
+				<string>Custom Instruction 2 (Work)</string>
+				<string>Custom Instruction 3 (Commute)</string>
+			</array>
+			<key>Key</key>
+			<string>user_profile</string>
+			<key>DefaultValue</key>
+			<string>Custom Instruction 1 (Home)</string>
+			<key>Values</key>
+			<array>
+				<string>ci_1</string>
+				<string>ci_2</string>
+				<string>ci_3</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Instruction 1</string>
+			<key>Key</key>
+			<string>custom_instruction1</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Instruction 2</string>
+			<key>Key</key>
+			<string>custom_instruction2</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Instruction 3</string>
+			<key>Key</key>
+			<string>custom_instruction3</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<!-- <dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Payment</string>
+		</dict> -->
+		<!-- <dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>Key</key>
+			<string>buy_credits</string>
+			<key>DefaultValue</key>
+			<string>Buy more credits https://www.google.com/</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Terms &amp; Conditions</string>
+
+
+		</dict> -->
+	</array>
+</dict>
+</plist>
