@@ -44,8 +44,15 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     private var results = Deque<ASRResult>()
     private let resultsLock = DispatchSemaphore(value: 1)
     
+    // TODO: use more structured class, one that describes token compositions and confidence
+    private var responses = Deque<String>()
+    
     let apiKey = AppConfig().getDeepgramKey()!
-
+    
+    let tts = TextToSpeechConverter()
+    private let greating = "Hello!"
+    var resumeListeningTimer: Timer? = nil
+    
     // IMPORTANT: must use valid query parameters and values, otherwise socket send / receive would fail, and no reason would be given for debugging
     func buildWsUrl() -> String {
         let queryItems = [
@@ -75,6 +82,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     }
 
     func disconnect() {
+        self.wsConnected = false
         wsTask?.cancel()
     }
 
@@ -105,7 +113,9 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     
     func setup() {
         Permission().setup()
+        self.tts.synthesizer.delegate = self
         start()
+        tts.convertTextToSpeech(text: greating)
     }
     
     func setupWs() {
@@ -205,8 +215,6 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
             case .success(let message):
                 switch message {
                 case .string(let text):
-                    // TODO: parse response, per https://developers.deepgram.com/reference/streaming
-//                    print("Received text message: \(text)")
                     let res = JSON(parseJSON: text)
                     let transcript = res["channel"]["alternatives"][0]["transcript"].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
                     let confidence = res["channel"]["alternatives"][0]["confidence"].doubleValue
@@ -242,9 +250,8 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     
     // MARK: - Sentence Handling
     
-    func checkPoint() {}
-    
     private var endOfSentencePunctuations = [Character("."), Character("?"), Character("!")]
+    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
     
     func tryConsumeSingleSentenceAndMakeQuery() {
         resultsLock.wait()
@@ -282,7 +289,17 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     }
 
     func makeQuery(_ text: String) {
-        
+        var buf = [String]()
+        func flushBuf() {
+            let response = buf.joined()
+            self.tts.convertTextToSpeech(text: response)
+            self.captureSession.stopRunning()
+            if self.tts.synthesizer.delegate == nil {
+                self.tts.synthesizer.delegate = self
+            }
+            self.responses.append(response)
+            buf.removeAll()
+        }
         let service = OpenAIService { res, err in
             guard err == nil else {
                 print("ASR: OpenAI error: \(err!)")
@@ -290,44 +307,60 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
                 return
             }
             guard let res = res else {
-//                print("ASR: no response from OpenAI")
+//                print("ASR: OpenAI Response completed. Flushing buffer")
+//                flushBuf()
                 return
             }
             print("ASR: OpenAI Response received: \(res)")
-//            self.setupAudioSession()
-//            self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
-//            self.addObject(aiResponse)
+            buf.append(res)
+            guard res.last != nil else {
+                return
+            }
+            if self.speechDelimitingPunctuations.contains(res.last!) {
+                flushBuf()
+                return
+            }
         }
         service.query(prompt: text)
     }
     
     func pause() {
-        // “Pause” means holding off Sam’s speaking or listening until Theo presses the button again.
-//        print("pause -- method called")
-//        self.textToSpeechConverter.pauseSpeech()
+        self.tts.pauseSpeech()
     }
     
     func continueSpeech() {
-//        print("continueSpeech -- method called")
-//        self.textToSpeechConverter.continueSpeech()
+        self.tts.continueSpeech()
     }
     
     func cut() {
-        //  ”Cut” means to interrupt stop play audio rambling and stop any further response
-//        print("cut -- method called")
-//        self.textToSpeechConverter.stopSpeech()
+        self.tts.stopSpeech()
     }
     
     func reset() {
-        // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
+        // “Reset” means the user abandons the current conversation for a new chat session with Sam.
+        self.tts.stopSpeech()
+        self.captureSession.stopRunning()
+        self.disconnect()
+        self.resultsLock.wait()
+        self.results.removeAll()
+        self.resultsLock.signal()
+        self.tts.synthesizer.delegate = nil
+        self.start()
     }
     
     func speak() {
-        // ”Speak” allows Theo to force Sam keep listening while holding down the button.
+        // ”Speak” allows the user to force Sam keep listening while holding down the button.
+        // no action needed
     }
     
     func repeate() {
-        // “Repeat” allows Theo to hear Sam’s saying from 10 seconds ago.
+        if let lastResponse = responses.last {
+            self.captureSession.stopRunning()
+            self.tts.convertTextToSpeech(text: lastResponse)
+        } else {
+            self.captureSession.stopRunning()
+            self.tts.convertTextToSpeech(text: "Nothing to repeat")
+        }
     }
 
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
@@ -347,10 +380,9 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
 }
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-//        print("speechSynthesizer -didFinish - method called")
-//        self.setupAudioSession()
-//        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-//        self.startSpeechRecognition()
+        
+//        self.captureSession.startRunning()
     }
 }
