@@ -1,5 +1,7 @@
 2023-10-23 Mon: Started the [Cost Analysis](https://harmonyone.notion.site/Cost-Analysis-97cd614180164d71a398131a0df545bd?pvs=4) to see the monthly cost for us to allow different amounts of free Generative Pre-trained Transformer 4 usage. Iterated on the [App Store Copy](https://harmonyone.notion.site/Voice-AI-Talk-with-ChatGPT4-on-Apple-App-Store-a3dcb50d30654c508779b123d278546f?pvs=4) that will be used for the application process.
 
+---
+
 2023-10-22 Sun: Product testing for Chatgpt, Hey Sam, and [Play.ht's new 2.0 launch](https://www.ycombinator.com/companies/playht).
 
 2023-10-21 Sat: Coordinated with Aaron for App Manager access for Hey Sam. Added character lengths for each section and useful links for the [application process](https://harmonyone.notion.site/App-Store-Project-Intro-Product-Details-Screen-Mocks-a3dcb50d30654c508779b123d278546f?pvs=4).
