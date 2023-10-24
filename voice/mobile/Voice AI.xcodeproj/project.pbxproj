@@ -135,7 +135,7 @@
 		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		B9BA337B2AE6830700D7756D /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
-		CD0D13342ADA73B300031EDD /* Hey Eve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hey Eve.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13342ADA73B300031EDD /* Voice AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
 		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CD0D133B2ADA73B300031EDD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -143,9 +143,9 @@
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey EveTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13482ADA73B400031EDD /* Voice AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* xTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xTests.swift; sourceTree = "<group>"; };
-		CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hey EveUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13562ADA73B400031EDD /* xUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITests.swift; sourceTree = "<group>"; };
 		CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
@@ -354,9 +354,9 @@
 		CD0D13352ADA73B300031EDD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CD0D13342ADA73B300031EDD /* Hey Eve.app */,
-				CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */,
-				CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */,
+				CD0D13342ADA73B300031EDD /* Voice AI.app */,
+				CD0D13482ADA73B400031EDD /* Voice AITests.xctest */,
+				CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */,
 				A46B5A4A2AE73B9D00C874ED /* sun.app */,
 				A46B5A592AE73B9D00C874ED /* sunTests.xctest */,
 				A46B5A632AE73B9D00C874ED /* sunUITests.xctest */,
@@ -478,9 +478,9 @@
 			productReference = A46B5A632AE73B9D00C874ED /* sunUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		CD0D13332ADA73B300031EDD /* Hey Eve */ = {
+		CD0D13332ADA73B300031EDD /* Voice AI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Eve" */;
+			buildConfigurationList = CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AI" */;
 			buildPhases = (
 				CD0D13302ADA73B300031EDD /* Sources */,
 				CD0D13312ADA73B300031EDD /* Frameworks */,
@@ -490,14 +490,14 @@
 			);
 			dependencies = (
 			);
-			name = "Hey Eve";
+			name = "Voice AI";
 			productName = x;
-			productReference = CD0D13342ADA73B300031EDD /* Hey Eve.app */;
+			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CD0D13472ADA73B400031EDD /* Hey EveTests */ = {
+		CD0D13472ADA73B400031EDD /* Voice AITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveTests" */;
+			buildConfigurationList = CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AITests" */;
 			buildPhases = (
 				CD0D13442ADA73B400031EDD /* Sources */,
 				CD0D13452ADA73B400031EDD /* Frameworks */,
@@ -508,14 +508,14 @@
 			dependencies = (
 				CD0D134A2ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey EveTests";
+			name = "Voice AITests";
 			productName = xTests;
-			productReference = CD0D13482ADA73B400031EDD /* Hey EveTests.xctest */;
+			productReference = CD0D13482ADA73B400031EDD /* Voice AITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CD0D13512ADA73B400031EDD /* Hey EveUITests */ = {
+		CD0D13512ADA73B400031EDD /* Voice AIUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveUITests" */;
+			buildConfigurationList = CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AIUITests" */;
 			buildPhases = (
 				CD0D134E2ADA73B400031EDD /* Sources */,
 				CD0D134F2ADA73B400031EDD /* Frameworks */,
@@ -526,9 +526,9 @@
 			dependencies = (
 				CD0D13542ADA73B400031EDD /* PBXTargetDependency */,
 			);
-			name = "Hey EveUITests";
+			name = "Voice AIUITests";
 			productName = xUITests;
-			productReference = CD0D13522ADA73B400031EDD /* Hey EveUITests.xctest */;
+			productReference = CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -565,7 +565,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Eve" */;
+			buildConfigurationList = CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Voice AI" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -578,9 +578,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CD0D13332ADA73B300031EDD /* Hey Eve */,
-				CD0D13472ADA73B400031EDD /* Hey EveTests */,
-				CD0D13512ADA73B400031EDD /* Hey EveUITests */,
+				CD0D13332ADA73B300031EDD /* Voice AI */,
+				CD0D13472ADA73B400031EDD /* Voice AITests */,
+				CD0D13512ADA73B400031EDD /* Voice AIUITests */,
 				A46B5A492AE73B9D00C874ED /* sun */,
 				A46B5A582AE73B9D00C874ED /* sunTests */,
 				A46B5A622AE73B9D00C874ED /* sunUITests */,
@@ -752,12 +752,12 @@
 		};
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Eve */;
+			target = CD0D13332ADA73B300031EDD /* Voice AI */;
 			targetProxy = CD0D13492ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 		CD0D13542ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD0D13332ADA73B300031EDD /* Hey Eve */;
+			target = CD0D13332ADA73B300031EDD /* Voice AI */;
 			targetProxy = CD0D13532ADA73B400031EDD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -773,11 +773,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = D9AHA462DR;
-				ENABLE_PREVIEWS = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Sun";
+				INFOPLIST_KEY_CFBundleDisplayName = Sun;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1046,7 +1045,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = x/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Hey Eve";
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
@@ -1092,7 +1091,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = x/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Hey Eve";
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
@@ -1141,7 +1140,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Eve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Eve";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voice AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Voice AI";
 			};
 			name = Debug;
 		};
@@ -1164,7 +1163,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hey Eve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hey Eve";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Voice AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Voice AI";
 			};
 			name = Release;
 		};
@@ -1242,7 +1241,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Hey Eve" */ = {
+		CD0D132F2ADA73B300031EDD /* Build configuration list for PBXProject "Voice AI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135A2ADA73B400031EDD /* Debug */,
@@ -1251,7 +1250,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey Eve" */ = {
+		CD0D135C2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D135D2ADA73B400031EDD /* Debug */,
@@ -1260,7 +1259,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveTests" */ = {
+		CD0D135F2ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13602ADA73B400031EDD /* Debug */,
@@ -1269,7 +1268,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Hey EveUITests" */ = {
+		CD0D13622ADA73B400031EDD /* Build configuration list for PBXNativeTarget "Voice AIUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD0D13632ADA73B400031EDD /* Debug */,
