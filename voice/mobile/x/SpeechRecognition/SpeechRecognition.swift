@@ -95,7 +95,7 @@ class SpeechRecognition: NSObject {
                 message = result.bestTranscription.formattedString
                 isFinal = result.isFinal
             }
-            
+                        
             if error != nil || isFinal {
                 inputNode.removeTap(onBus: 0)
                 self.recognitionRequest = nil
@@ -194,13 +194,13 @@ class SpeechRecognition: NSObject {
         recognitionRequest = nil
         isAudioSessionSetup = false
         textToSpeechConverter.synthesizer.delegate = nil // Remove the delegate to prevent any callback from the previous conversation
-        startSpeechRecognition()
     }
     
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
             self.reset()
+            self.startSpeechRecognition()
         }
     }
     
@@ -243,7 +243,6 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         
         DispatchQueue.main.async {
             self.setupAudioSession()
-            self.startSpeechRecognition()
         }
     }
 }
