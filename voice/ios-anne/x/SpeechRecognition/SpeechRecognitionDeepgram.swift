@@ -70,9 +70,59 @@ class SpeechRecognitionDeepgram: NSObject {
         startAnalyzingAudio()
     }
 
+    public func textToSpeech(text: String) {
+        var voiceParams: [String: Any] = [
+            "languageCode": "en-US",
+            "name": "en-US-Neural2-H"
+        ]
+
+        let params: [String: Any] = [
+            "input": [
+                "text": "some simple text"
+            ],
+            "voice": voiceParams,
+            "audioConfig": [
+                "audioEncoding": "LINEAR16"
+            ]
+        ]
+
+        // Convert the Dictionary to Data
+        let httpBody = try! JSONSerialization.data(withJSONObject: params)
+
+
+        var url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.httpBody = httpBody
+
+        var token = "..."
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
+        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else if let data = data {
+                // Handle the response data as needed
+                let responseString = String(data: data, encoding: .utf8)
+                print("Response: \(responseString ?? "")")
+
+//                let audioContent: String = response["audioContent"]
+
+                // Decode the base64 string into a Data object
+//                let audioData = Data(base64Encoded: audioContent)
+
+            }
+        }
+        task.resume()
+    }
+
     public func setup() {
         // Check and request necessary permissions
         Permission().setup()
+
+        textToSpeech(text: "hello world")
 
         print("setup SpeechRecognitionDeepgram")
         start()

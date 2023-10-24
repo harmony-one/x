@@ -25,7 +25,7 @@ struct DashboardView: View {
     @State private var isButtonViewPresented = false
     
     var body: some View {
-        
+
         let isPortrait = verticalSizeClass == .regular && horizontalSizeClass == .compact
         let customFontSize: CGFloat = isPortrait ? 18 : 22
         Color(hex:0x313131).ignoresSafeArea()
@@ -51,7 +51,7 @@ struct DashboardView: View {
                     }
                     .padding(.top, 30)
                     Spacer()
-                    
+
                     HStack {
                         VStack {
                             Text(latencyText){ text in
@@ -69,7 +69,7 @@ struct DashboardView: View {
                         Text(paymentsCredits){ text in
                             text.font = .customFont(size:customFontSize)
                             text.foregroundColor = Color(hex: 0x00AEE9)
-                            
+
                             if let range = text.range(of: "ONE"){
                                 text[range].foregroundColor = Color.white
                             }
@@ -92,7 +92,7 @@ struct DashboardView: View {
                             .font(.customFont(size:customFontSize))
                             .foregroundColor(.white)
                     }
-                    
+
                     .padding(.bottom, 30)
                 }.padding(10)
                     .fullScreenCover(isPresented: $isButtonViewPresented, content: {
