@@ -1,3 +1,5 @@
+2023-10-23 Mon: Worked on google text to speech for iOS application
+
 2023-10-23 Mon: Worked on [adding deepgram](https://github.com/harmony-one/x/pull/56) (speech recognition) to the iOS application
 
 ---
