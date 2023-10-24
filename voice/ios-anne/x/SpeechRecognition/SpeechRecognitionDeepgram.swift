@@ -2,6 +2,14 @@ import AVFoundation
 import Speech
 import Starscream
 
+
+struct ResponseData: Decodable {
+    // Define the structure of the expected JSON response
+    let audioContent: String
+    // Add other properties according to your JSON response structure
+}
+
+
 class SpeechRecognitionDeepgram: NSObject {
     static let shared = SpeechRecognitionDeepgram()
 
@@ -95,7 +103,7 @@ class SpeechRecognitionDeepgram: NSObject {
         request.httpMethod = "POST"
         request.httpBody = httpBody
 
-        var token = "..."
+        var token = "ya29.a0AfB_byA_VOGz77AbfkkS67xJiGIJvDgpv7VWDdoIF3ofnlNykW8r98EtiJrHRcD4szMufWneVwpiK-laKVFva3ZD2oxfLLdPvpU1Pth8zUe-9GW5bm1fDpaIJUrgGF10FTSshuD2rtELAtf8Xwcc5s-cZCdQwsMu5tis8txo2boaCgYKATYSARISFQGOcNnCVXJs3FNArhLYlKddYk0hYg0178"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -104,9 +112,15 @@ class SpeechRecognitionDeepgram: NSObject {
             if let error = error {
                 print("Error: \(error)")
             } else if let data = data {
+                do {
+                    let r = try JSONDecoder().decode(ResponseData.self, from: data)
+                    let responseString = String(data: data, encoding: .utf8)
+                    print("Response: \(r.audioContent)")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
                 // Handle the response data as needed
-                let responseString = String(data: data, encoding: .utf8)
-                print("Response: \(responseString ?? "")")
+
 
 //                let audioContent: String = response["audioContent"]
 
