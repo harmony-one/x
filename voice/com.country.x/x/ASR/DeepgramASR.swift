@@ -1,10 +1,3 @@
-//
-//  SpeechRecognition.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 17/10/23.
-//
-
 import AVFoundation
 import Collections
 import Speech
@@ -27,7 +20,7 @@ enum ASRError: Error {
     case CannotKeepAlive
 }
 
-class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSessionWebSocketDelegate {
+class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSessionWebSocketDelegate {
     // MARK: - Properties
 
     private var wsTask: URLSessionWebSocketTask?
@@ -40,7 +33,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     private var audioDataOutput = AVCaptureAudioDataOutput()
     
     private var isAudioSessionSetup = false
-    static let shared = SpeechRecognition()
+    static let shared = DeepgramASR()
     
     private var results = Deque<ASRResult>()
     private let resultsLock = DispatchSemaphore(value: 1)
@@ -50,7 +43,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     
     let apiKey = AppConfig().getDeepgramKey()!
     
-    let tts = TextToSpeechConverter()
+    let tts = AppleTTS()
     private let greating = "Hello!"
     var resumeListeningTimer: Timer? = nil
     
@@ -388,7 +381,7 @@ class SpeechRecognition: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate,
     }
 }
 
-extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+extension DeepgramASR: AVSpeechSynthesizerDelegate {
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
