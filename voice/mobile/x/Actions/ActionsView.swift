@@ -24,7 +24,7 @@ struct ActionsView: View {
     @State private var isRecording = false
 
     
-    let buttonTitles = ["Reset All", "Press Speak", "Fast Forward", "Repeat", "Pause", "Random Facts"]
+    let buttonTitles = ["New Session", "Skip 5 Seconds", "Random Fact", "Pause Play", "Repeat Last", "Press to Speak"]
     let oneValue = "2111.01 ONE"
     
     init() {
@@ -114,7 +114,7 @@ struct ActionsView: View {
                 )
 
         }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
+            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? Color(hex: 0x0088B0) : Color(hex: 0x0088B0)) {
                 handleOtherActions(index: index)
             }
         }
@@ -130,7 +130,7 @@ struct ActionsView: View {
                     .aspectRatio(contentMode: .fit)
                 Text(buttonTitles[index])
                     .foregroundColor(foregroundColor)
-                    .font(.customFont())
+                    .font(.customFont(size: 20))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
@@ -155,12 +155,12 @@ struct ActionsView: View {
     }
     
     func getColor(index: Int) -> Color {
-        let colors: [Color] = [Color(hex: 0x101042),
+        let colors: [Color] = [Color(hex: 0xDDF6FF),
                                Color(hex: 0xDDF6FF),
-                               Color(hex: 0x69FABD),
-                               Color(hex: 0xE0757C),
-                               Color(hex: 0xF7BA67),
-                               Color(hex: 0x3E95B5)]
+                               Color(hex: 0xDDF6FF),
+                               Color(hex: 0xDDF6FF),
+                               Color(hex: 0xDDF6FF),
+                               Color(hex: 0xDDF6FF)]
         return colors[index]
     }
     
