@@ -11,6 +11,8 @@ class AppConfig {
     
     private var apiKey: String?
     private var deepgramKey: String?
+    private var playHtKey: String?
+    private var playHtUserId: String?
 
     init() {
         loadConfiguration()
@@ -31,6 +33,8 @@ class AppConfig {
 
             self.apiKey = dictionary["API_KEY"]
             self.deepgramKey = dictionary["DEEPGRAM_KEY"]
+            self.playHtKey = dictionary["PLAYHT_KEY"]
+            self.playHtUserId = dictionary["PLAYHT_USER_ID"]
         } catch {
             fatalError(error.localizedDescription)
         }
@@ -42,5 +46,9 @@ class AppConfig {
     
     func getDeepgramKey() -> String? {
         return self.deepgramKey
+    }
+    
+    func getPlayHTCredentials() -> (String?, String?) {
+        return (self.playHtUserId, self.playHtKey)
     }
 }

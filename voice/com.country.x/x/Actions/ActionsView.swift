@@ -79,7 +79,7 @@ struct ActionsView: View {
                                         if !isListening {
                                             isListening = true
                                             print("Started Listening...")
-                                            SpeechRecognition.shared.speak()
+                                            DeepgramASR.shared.speak()
                                         }
                                     }
                                     .onEnded { _ in
@@ -92,19 +92,19 @@ struct ActionsView: View {
                         } else {
                             Button(action: {
                                 if index == 2 {
-                                    SpeechRecognition.shared.reset()
+                                    DeepgramASR.shared.reset()
                                 } else if index == 3 {
-                                    SpeechRecognition.shared.repeate()
+                                    DeepgramASR.shared.repeate()
                                 }  else if index == 4 {
                                     
                                     if isPlaying {
-                                        SpeechRecognition.shared.continueSpeech()
+                                        DeepgramASR.shared.continueSpeech()
                                     } else {
-                                        SpeechRecognition.shared.pause()
+                                        DeepgramASR.shared.pause()
                                     }
                                     self.isPlaying.toggle()
                                 } else if index == 5 {
-                                    SpeechRecognition.shared.cut()
+                                    DeepgramASR.shared.cut()
                                 }
                             }) {
                                 VStack(spacing: imageTextSpacing) {
@@ -151,7 +151,7 @@ struct ActionsView: View {
                             }
                         } else if index == 1{
                             Button(action: {
-                                SpeechRecognition.shared.speak()
+                                DeepgramASR.shared.speak()
                             }) {
                                 VStack(spacing: imageTextSpacing) {
                                     
@@ -170,7 +170,7 @@ struct ActionsView: View {
                                         if !isListening {
                                             isListening = true
                                             print("Started Listening...")
-                                            SpeechRecognition.shared.speak()
+                                            DeepgramASR.shared.speak()
                                             
                                             
                                         }
@@ -185,18 +185,18 @@ struct ActionsView: View {
                         } else {
                             Button(action: {
                                 if index == 2 {
-                                    SpeechRecognition.shared.reset()
+                                    DeepgramASR.shared.reset()
                                 } else if index == 3 {
-                                    SpeechRecognition.shared.repeate()
+                                    DeepgramASR.shared.repeate()
                                 }  else if index == 4 {
                                     if isPlaying {
-                                        SpeechRecognition.shared.continueSpeech()
+                                        DeepgramASR.shared.continueSpeech()
                                     } else {
-                                        SpeechRecognition.shared.pause()
+                                        DeepgramASR.shared.pause()
                                     }
                                     self.isPlaying.toggle()
                                 } else if index == 5 {
-                                    SpeechRecognition.shared.cut()
+                                    DeepgramASR.shared.cut()
                                 }
                                 
                             }) {

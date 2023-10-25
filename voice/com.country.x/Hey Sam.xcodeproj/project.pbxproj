@@ -12,8 +12,8 @@
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
 		B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
-		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
-		B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
+		B9AD50512ADFE888006F18A1 /* AppleTTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* AppleTTS.swift */; };
+		B9AD50542ADFE8A0006F18A1 /* DeepgramASR.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* DeepgramASR.swift */; };
 		B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
 		B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
@@ -37,6 +37,7 @@
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		CD30FFD82AE896CE00A61696 /* PlayHT.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD30FFD72AE896CE00A61696 /* PlayHT.swift */; };
 		CD701A002AE7716A00539383 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CD7019FF2AE7716A00539383 /* SwiftyJSON */; };
 		CD71E6422AE55B6D005C24F3 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CD71E6412AE55B6D005C24F3 /* Collections */; };
 		CDA379642AE3CA5D006ABBD3 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDA379632AE3CA5D006ABBD3 /* AppConfig.plist */; };
@@ -65,8 +66,8 @@
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
-		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
+		B9AD50502ADFE888006F18A1 /* AppleTTS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTTS.swift; sourceTree = "<group>"; };
+		B9AD50532ADFE8A0006F18A1 /* DeepgramASR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepgramASR.swift; sourceTree = "<group>"; };
 		B9AD50562ADFE91C006F18A1 /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
 		B9AD505C2ADFE9B7006F18A1 /* Choices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choices.swift; sourceTree = "<group>"; };
 		B9AD505D2ADFE9B7006F18A1 /* Usage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Usage.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
+		CD30FFD72AE896CE00A61696 /* PlayHT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHT.swift; sourceTree = "<group>"; };
 		CDA379632AE3CA5D006ABBD3 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,7 +179,8 @@
 		B9AD504F2ADFE888006F18A1 /* TTS */ = {
 			isa = PBXGroup;
 			children = (
-				B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */,
+				B9AD50502ADFE888006F18A1 /* AppleTTS.swift */,
+				CD30FFD72AE896CE00A61696 /* PlayHT.swift */,
 			);
 			path = TTS;
 			sourceTree = "<group>";
@@ -185,7 +188,7 @@
 		B9AD50522ADFE8A0006F18A1 /* ASR */ = {
 			isa = PBXGroup;
 			children = (
-				B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */,
+				B9AD50532ADFE8A0006F18A1 /* DeepgramASR.swift */,
 			);
 			path = ASR;
 			sourceTree = "<group>";
@@ -459,11 +462,12 @@
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
-				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				B9AD50542ADFE8A0006F18A1 /* DeepgramASR.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
+				CD30FFD82AE896CE00A61696 /* PlayHT.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
-				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
+				B9AD50512ADFE888006F18A1 /* AppleTTS.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,

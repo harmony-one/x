@@ -1,15 +1,10 @@
-//
-//  TextToSpeechConverter.swift
-//  x
-//
 //  Created by Nagesh Kumar Mishra on 17/10/23.
-//
 
 import Foundation
 import AVFoundation
 
 // TextToSpeechConverter class responsible for converting text to speech
-class TextToSpeechConverter {
+class AppleTTS {
     // AVSpeechSynthesizer instance to handle speech synthesis
     let synthesizer = AVSpeechSynthesizer()
     
