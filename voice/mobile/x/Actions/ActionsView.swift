@@ -121,25 +121,8 @@ struct ActionsView: View {
     
     @ViewBuilder
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 1 {
-    
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.5)
-                        .onChanged { _ in
-                            // Start recording
-                            isRecording = true
-                            print("Recording started...")
-                            SpeechRecognition.shared.speak()
-                        }
-                )
-
-        }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
+        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
+            handleOtherActions(index: index)
         }
     }
     
@@ -161,7 +144,15 @@ struct ActionsView: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle())
+        .simultaneousGesture(
+            LongPressGesture(minimumDuration: 0.5).onChanged { _ in
+                if index == 5 {
+                    handleOtherActions(index: index, isLongPress: true)
+                }
+            }
+        )
     }
+
     
     func getColor(index: Int) -> Color {
         let colors: [Color] = [Color(hex: 0xDDF6FF),
@@ -189,11 +180,10 @@ struct ActionsView: View {
         }
     }
     
-    func handleOtherActions(index: Int) {
+    func handleOtherActions(index: Int, isLongPress: Bool = false) {
         switch index {
         case 0:
             SpeechRecognition.shared.reset()
-        //    dismissAction()
         case 1:
             stopRecording()
         case 2:
@@ -208,9 +198,14 @@ struct ActionsView: View {
         case 4:
             SpeechRecognition.shared.repeate()
         case 5:
-            SpeechRecognition.shared.speak()
+            if isLongPress {
+                // Handle long press actions
+                startRecording()
+                SpeechRecognition.shared.speak()
+            }
         default:
             break
         }
     }
+
 }

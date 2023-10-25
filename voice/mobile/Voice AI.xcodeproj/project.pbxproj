@@ -10,7 +10,6 @@
 		A466B5A72AE8431A0006E3F8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A466B5A62AE8431A0006E3F8 /* AppConfig.plist */; };
 		A466B5A82AE8431A0006E3F8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A466B5A62AE8431A0006E3F8 /* AppConfig.plist */; };
 		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
-		A466B5AC2AE9AC880006E3F8 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
 		A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */; };
 		A46B5A5E2AE73B9D00C874ED /* sunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A5D2AE73B9D00C874ED /* sunTests.swift */; };
@@ -668,7 +667,6 @@
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
 				A46B5A822AE73CF200C874ED /* SpeechRecognition.swift in Sources */,
 				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
-				A466B5AC2AE9AC880006E3F8 /* xApp.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
 				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
 				B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */,
