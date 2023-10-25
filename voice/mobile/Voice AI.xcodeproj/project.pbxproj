@@ -108,6 +108,7 @@
 /* Begin PBXFileReference section */
 		A466B5A62AE8431A0006E3F8 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
 		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		A46B5A4B2AE73B9D00C874ED /* sun */ = {
 			isa = PBXGroup;
 			children = (
+				A4680DA02AE9CA7200F5F8ED /* Info.plist */,
 				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
 				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
 				A46B5A522AE73B9D00C874ED /* Preview Content */,
@@ -782,6 +784,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sun;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
@@ -819,6 +822,7 @@
 				DEVELOPMENT_TEAM = D9AHA462DR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sun;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
