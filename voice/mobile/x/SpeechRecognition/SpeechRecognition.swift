@@ -30,7 +30,7 @@ class SpeechRecognition: NSObject {
     
     // Array to store AI responses
     private var aiResponseArray: [String] = []
-    private let greatingText = "Hey Sam!!"
+    private let greatingText = "Hey!"
     
     private let audioPlayer = AudioPlayer()
     private var isRandomFacts = true
