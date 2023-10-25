@@ -77,7 +77,7 @@ struct ActionsView: View {
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
         if index == 1 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
                 handleOtherActions(index: index)
             }
                 .simultaneousGesture(
@@ -90,7 +90,7 @@ struct ActionsView: View {
                 )
 
         }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
+            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
                 handleOtherActions(index: index)
             }
         }
