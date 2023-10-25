@@ -10,6 +10,7 @@ import Foundation
 class AppConfig {
     
     private var apiKey: String?
+    private var deepgramKey: String?
 
     init() {
         loadConfiguration()
@@ -29,6 +30,7 @@ class AppConfig {
             }
 
             self.apiKey = dictionary["API_KEY"]
+            self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
             fatalError(error.localizedDescription)
         }
@@ -36,5 +38,9 @@ class AppConfig {
 
     func getAPIKey() -> String? {
         return self.apiKey
+    }
+    
+    func getDeepgramKey() -> String? {
+        return self.deepgramKey
     }
 }

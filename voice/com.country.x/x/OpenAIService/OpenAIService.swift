@@ -6,40 +6,49 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct OpenAIService {
-        
+let config = AppConfig()
+
+class OpenAIService: NSObject, URLSessionDataDelegate {
+    private var session: URLSession
+    private var completion: (String?, Error?) -> Void
+    private let apiKey = config.getAPIKey()
+
+    init(completion: @escaping (String?, Error?) -> Void) {
+        self.session = URLSession(configuration: URLSessionConfiguration.default)
+        self.completion = completion
+        super.init()
+    }
+
     // Function to send input text to OpenAI for processing
-    func sendToOpenAI(inputText: String, completion: @escaping (String?, Error?) -> Void) {
-        
-        let config = AppConfig()
-        guard let openAI_APIKey = config.getAPIKey() else  {
-            completion(nil, nil)
+    func query(prompt: String) {
+        guard self.apiKey != nil else {
+            self.completion(nil, NSError(domain: "No Key", code: -2))
             return
         }
-        
-        // Define headers for the HTTP request
+
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(openAI_APIKey)" // Replace openAI_APIKey with your actual API key
+            "Authorization": "Bearer \(apiKey!)"
         ]
 
-        // Define the body of the HTTP request
         let body: [String: Any] = [
-            "model": "gpt-4",
+            "model": "gpt-4-32k",
             "messages": [
                 [
                     "role": "user",
-                    "content": inputText
+                    "content": prompt
                 ]
             ],
-            "temperature": 0.5
+            "temperature": 0.5, // TODO: make temperature adjustable by init
+            "stream": true
         ]
 
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
-            let error = NSError(domain: "Invalid URL", code: -1, userInfo: nil)
-            completion(nil, error)
+            let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
+            self.completion(nil, error)
             return
         }
 
@@ -52,46 +61,49 @@ struct OpenAIService {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
-            completion(nil, error)
+            self.completion(nil, error)
             return
         }
 
         // Print the input text being sent to OpenAI
-        print("Sending to OpenAI: \(inputText)")
+        print("Sending to OpenAI: \(prompt)")
 
         // Initiate the data task for the request
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // Check for networking errors
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-
-            // Ensure data is not nil
-            guard let data = data else {
-                let dataNilError = NSError(domain: "Data is nil", code: -1, userInfo: nil)
-                completion(nil, dataNilError)
-                return
-            }
-
-            // Print the raw response from OpenAI
-            print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
-
-            // Decode the JSON response
-            do {
-                let decoder = JSONDecoder()
-                let result = try decoder.decode(OpenAIResponse.self, from: data)
-                if let aitext = result.choices?.first?.message?.content?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                    completion(aitext, nil)
-                } else {
-                    let invalidResponseError = NSError(domain: "Invalid response", code: -1, userInfo: nil)
-                    completion(nil, invalidResponseError)
-                }
-            } catch {
-                completion(nil, error)
-            }
-        }
-        .resume() // Start the URL session task
+        let task = self.session.dataTask(with: request)
+        task.delegate = self
+        task.resume()
     }
-    
+
+    // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+//        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
+        let str = String(data: data, encoding: .utf8)
+        guard let str=str else {
+            let error = NSError(domain: "Unable to decode string", code: -2, userInfo: ["body": str ?? ""])
+            self.completion(nil, error)
+            return
+        }
+//        print("OpenAI: raw response: ", str)
+        let chunks = str.components(separatedBy: "\n\n").filter{chunk in chunk.hasPrefix("data:")}
+//        print("OpenAI: chunks", chunks)
+        for chunk in chunks {
+            let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
+            if dataBody == "[DONE]" {
+                continue
+            }
+            let res = JSON(parseJSON: dataBody)
+
+            let delta = res["choices"][0]["delta"]["content"].string
+            self.completion(delta, nil)
+        }
+    }
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if let error = error as NSError? {
+            self.completion(nil, error)
+            NSLog("OpenAI: received error: %@ / %d", error.domain, error.code)
+        } else {
+            NSLog("OpenAI: task complete")
+        }
+    }
 }

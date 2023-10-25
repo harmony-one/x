@@ -6,9 +6,9 @@ struct Permission {
     func setup() {
         requestMicrophoneAccess { granted in
             if granted {
-                requestSpeechRecognitionPermission()
+                print("Permission: mic access granted")
             } else {
-                print("Microphone access denied")
+                print("Permission: mic access denied")
             }
         }
     }
@@ -18,26 +18,6 @@ struct Permission {
         AVAudioApplication.requestRecordPermission { granted in
             DispatchQueue.main.async {
                 completion(granted)
-            }
-        }
-    }
-    
-    // Request access to speech recognition
-    func requestSpeechRecognitionPermission() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            OperationQueue.main.addOperation {
-                switch authStatus {
-                case .authorized:
-                    print("Speech recognition authorized")
-                case .denied:
-                    print("User denied speech recognition permission")
-                case .notDetermined:
-                    print("Speech recognition not determined")
-                case .restricted:
-                    print("Speech recognition restricted")
-                @unknown default:
-                    fatalError("New case for speech recognition authorization is available")
-                }
             }
         }
     }

@@ -1,7 +1,13 @@
 (Coming soon 10/22-10/24)
-Swift-based streaming Deepgram end-to-end integration
-Response-streaming OpenAI inegration
-Streaming Play.ht synthesis 
+[x] Swift-based streaming Deepgram end-to-end integration
+[x] Response-streaming OpenAI inegration
+[ ] Streaming Play.ht synthesis 
+
+2023-10-24 Tue (6.5h+): Fix issues with streaming ASR error handling, payload parsing, keep-alive, auto-resuming, and closing; Implementing OpenAI streaming response handling, piping ASR to OpenAI, streamed toke nresponse processing; Piping to Speech synthesizer for end-to-end demo; UI Button integration and implementation based on streamed components; Debugging, end-to-end testing of streaming ASR (Deepgram) + LM (OpenAI); Debugging capturing activation for AVCaptureSession and implementing workarounds; Implement basic measures to counter self-interference (pause listening while speaking), fine-tune parameters and sentence delimiting to compare model performance, deploy to TestFlight
+
+2023-10-23 Tue (6h): Complete Deepgram integraiton; Research on audio buffer splitting and joining; Implement and debug stream ASR end-to-end; Research, debug, and fix issues related to native websocket continuous receiving errors, reconnects, and sending errors for various payloads (keepalive, data); Simplify JSON payload parsing and encoding; Research and implementations on audio buffer merging, splitting, metadata retrieval and computation, and raw buffer parsing and manipulation; Debug x.country preview issues, app store app internal user access issues; Discussion on development process, concurrent implementation structure, forks, and merges
+
+2023-10-22 Mon (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing
 
 2023-10-21 Sun (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing; Complete Deepgram integration;
 
