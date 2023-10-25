@@ -114,7 +114,7 @@ struct ActionsView: View {
                 )
 
         }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? Color(hex: 0x0088B0) : Color(hex: 0x0088B0)) {
+            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
                 handleOtherActions(index: index)
             }
         }
