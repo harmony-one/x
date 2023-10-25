@@ -13,6 +13,15 @@ struct ButtonData {
     let image: String
 }
 
+struct PressEffectButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+                .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
+                .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
+                .animation(.easeInOut, value: configuration.isPressed)
+    }
+}
+
 struct ActionsView: View {
    // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
@@ -143,16 +152,16 @@ struct ActionsView: View {
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
-                    .foregroundColor(foregroundColor)
                     .font(.customFont(size: 18))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
             .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2), height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3))
-            .background(getColor(index: index))
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
-        } .overlay(
+        }
+        .buttonStyle(PressEffectButtonStyle())
+        .overlay(
             index == 5 ?
                 AnyView(
                     VStack {
