@@ -99,23 +99,8 @@ struct ActionsView: View {
     
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 1 {
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.5)
-                        .onChanged { _ in
-                            // Start recording
-                            isRecording = true
-                            print("Recording started...")
-                        }
-                )
-
-        }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
+        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
+            handleOtherActions(index: index)
         }
     }
     
