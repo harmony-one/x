@@ -21,6 +21,9 @@ class SpeechRecognition: NSObject {
     let audioSession = AVAudioSession.sharedInstance()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
+    let vibrationManager = VibrationManager()
+    // Create an instance of OpenAIService
+    var openAI = OpenAIService()
     
     // Maximum size of the array
     let maxArraySize = 5
@@ -140,11 +143,12 @@ class SpeechRecognition: NSObject {
         audioEngine.stop()
         
         self.audioPlayer.playSound()
-        OpenAIService().sendToOpenAI(inputText: recognizedText) { [self] aiResponse, error in
+        VibrationManager.startVibration()
+        openAI.sendToOpenAI(inputText: recognizedText) { [self] aiResponse, error in
             self.audioPlayer.stopSound()
+            VibrationManager.stopVibration()
             guard let aiResponse = aiResponse else {
-                self.stopListening()
-                self.textToSpeechConverter.convertTextToSpeech(text: "An issue is currently preventing the action. Please try again after some time.")
+                print("An issue is currently preventing the action. Please try again after some time.")
                 return
             }
             self.setupAudioSession()
@@ -186,6 +190,7 @@ class SpeechRecognition: NSObject {
     func reset() {
         // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
         print("reset -- method called")
+        openAI.cancelOpenAICall()
         textToSpeechConverter.stopSpeech()
         self.aiResponseArray.removeAll()
         stopListening()
