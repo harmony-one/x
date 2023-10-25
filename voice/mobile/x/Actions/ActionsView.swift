@@ -8,6 +8,11 @@
 import Foundation
 import SwiftUI
 
+struct ButtonData {
+    let label: String
+    let image: String
+}
+
 struct ActionsView: View {
    // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
@@ -23,9 +28,17 @@ struct ActionsView: View {
 
     @State private var isRecording = false
 
-    
-    let buttonTitles = ["New Session", "Skip 5 Seconds", "Random Fact", "Pause Play", "Repeat Last", "Press to Speak"]
+
     let oneValue = "2111.01 ONE"
+
+    let buttonsList: [ButtonData] = [
+        ButtonData(label: "New Session", image: "new session"),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds"),
+        ButtonData(label: "Random Fact", image: "random fact"),
+        ButtonData(label: "Pause / Play", image: "pause play"),
+        ButtonData(label: "Repeat Last", image: "repeat last"),
+        ButtonData(label: "Press to Speak", image: "press to speak")
+    ]
     
     init() {
             // Disable idle timer when the view is created
@@ -50,7 +63,7 @@ struct ActionsView: View {
         GeometryReader { geometry in
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 3), spacing: 0) {
-                    ForEach(0..<buttonTitles.count, id: \.self) { index in
+                    ForEach(buttonsList.indices, id: \.self) { index in
                         landscapeViewButton(index: index, geometry: geometry)
                     }
                 }
@@ -64,13 +77,14 @@ struct ActionsView: View {
         GeometryReader { geometry in
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 2), spacing: 0) {
-                    ForEach(0..<buttonTitles.count, id: \.self) { index in
+                    ForEach(buttonsList.indices, id: \.self) { index in
                         portraitViewButton(index: index, geometry: geometry)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(0)
+
         }
     }
     
@@ -124,11 +138,11 @@ struct ActionsView: View {
     func gridButton(index: Int, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: imageTextSpacing) {
-
-                Image(buttonTitles[index].lowercased())
+                let button = buttonsList[index]
+                Image(button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
-                Text(buttonTitles[index])
+                Text(button.label)
                     .foregroundColor(foregroundColor)
                     .font(.customFont(size: 18))
                     .multilineTextAlignment(.center)
