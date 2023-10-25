@@ -130,7 +130,7 @@ struct ActionsView: View {
                     .aspectRatio(contentMode: .fit)
                 Text(buttonTitles[index])
                     .foregroundColor(foregroundColor)
-                    .font(.customFont(size: 20))
+                    .font(.customFont(size: 18))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
