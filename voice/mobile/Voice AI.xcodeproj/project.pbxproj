@@ -43,6 +43,8 @@
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
 		B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
+		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
 		B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
@@ -119,6 +121,7 @@
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
+		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
 		B9AD50562ADFE91C006F18A1 /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
@@ -281,6 +284,7 @@
 			children = (
 				B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */,
 				B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */,
+				B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -665,6 +669,7 @@
 				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
 				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
+				B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */,
 				A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */,
 				A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */,
 				A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */,
@@ -707,6 +712,7 @@
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
+				B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */,
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,

@@ -8,9 +8,10 @@
 import Foundation
 
 struct OpenAIService {
-        
+    private var task: URLSessionDataTask?
+
     // Function to send input text to OpenAI for processing
-    func sendToOpenAI(inputText: String, completion: @escaping (String?, Error?) -> Void) {
+    mutating func sendToOpenAI(inputText: String, completion: @escaping (String?, Error?) -> Void) {
         
         let config = AppConfig()
         guard let openAI_APIKey = config.getAPIKey() else  {
@@ -60,7 +61,8 @@ struct OpenAIService {
         print("Sending to OpenAI: \(inputText)")
 
         // Initiate the data task for the request
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        let session = URLSession.shared
+        self.task = session.dataTask(with: request) { data, response, error in
             // Check for networking errors
             if let error = error {
                 completion(nil, error)
@@ -91,7 +93,11 @@ struct OpenAIService {
                 completion(nil, error)
             }
         }
-        .resume() // Start the URL session task
+        task?.resume()
     }
     
+    // Method to cancel the ongoing API call
+        func cancelOpenAICall() {
+            task?.cancel()
+        }
 }
