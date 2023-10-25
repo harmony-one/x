@@ -100,7 +100,7 @@ struct ActionsView: View {
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
         if index == 1 {
     
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
                 handleOtherActions(index: index)
             }
                 .simultaneousGesture(
@@ -124,7 +124,7 @@ struct ActionsView: View {
     func gridButton(index: Int, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: imageTextSpacing) {
-            
+
                 Image(buttonTitles[index].lowercased())
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
