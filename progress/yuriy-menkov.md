@@ -1,3 +1,7 @@
+2023-10-25 Wed: 
+Working on bug fixes for /x/voice/mobile application: press Speak Button while ChatGPT is processing; Pause Button loses its functionality while response is being processed.
+    
+
 2023-10-24 Tue: 
 Continue working on full IOS end-to-end demo using Whipser, GPT4, and Elevenlabs: setup build and starting integrate Whipser speach to text via rest api.
 
