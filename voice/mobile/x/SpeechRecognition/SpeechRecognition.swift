@@ -33,6 +33,7 @@ class SpeechRecognition: NSObject {
     private let greatingText = "Hey Sam!!"
     
     private let audioPlayer = AudioPlayer()
+    private var isRandomFacts = true
     
     // MARK: - Initialization and Setup
     
@@ -141,7 +142,7 @@ class SpeechRecognition: NSObject {
         recognitionTask = nil
         recognitionRequest?.endAudio()
         audioEngine.stop()
-        
+        isRandomFacts = false
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
         openAI.sendToOpenAI(inputText: recognizedText) { [self] aiResponse, error in
@@ -151,6 +152,7 @@ class SpeechRecognition: NSObject {
                 print("An issue is currently preventing the action. Please try again after some time.")
                 return
             }
+            isRandomFacts = true
             self.setupAudioSession()
             self.stopListening()
             self.setupAudioEngine()
@@ -184,13 +186,18 @@ class SpeechRecognition: NSObject {
     
     func randomFacts() {
         print("randomFacts -- method called")
-        handleEndOfSentence("random facts")
+        if isRandomFacts {
+            handleEndOfSentence("Give me one random fact")
+        }
     }
     
     func reset() {
         // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
         print("reset -- method called")
+        isRandomFacts = true
         openAI.cancelOpenAICall()
+        self.audioPlayer.stopSound()
+        VibrationManager.stopVibration()
         textToSpeechConverter.stopSpeech()
         self.aiResponseArray.removeAll()
         stopListening()
