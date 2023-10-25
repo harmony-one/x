@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A466B5A72AE8431A0006E3F8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A466B5A62AE8431A0006E3F8 /* AppConfig.plist */; };
-		A466B5A82AE8431A0006E3F8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A466B5A62AE8431A0006E3F8 /* AppConfig.plist */; };
 		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
@@ -39,6 +37,8 @@
 		A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		A46B5A8A2AE73D2C00C874ED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D133B2ADA73B300031EDD /* Item.swift */; };
 		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
+		A4B2180A2AE9E22300FBD6AF /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4B218092AE9E22300FBD6AF /* AppConfig.plist */; };
+		A4B2180B2AE9E22300FBD6AF /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4B218092AE9E22300FBD6AF /* AppConfig.plist */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -106,7 +106,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A466B5A62AE8431A0006E3F8 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +117,7 @@
 		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A4B218092AE9E22300FBD6AF /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -384,12 +384,12 @@
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
 				CD0D133B2ADA73B300031EDD /* Item.swift */,
-				A466B5A62AE8431A0006E3F8 /* AppConfig.plist */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
 				CD0D136A2ADB28CE00031EDD /* logo.png */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
+				A4B218092AE9E22300FBD6AF /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -599,7 +599,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A466B5A82AE8431A0006E3F8 /* AppConfig.plist in Resources */,
+				A4B2180B2AE9E22300FBD6AF /* AppConfig.plist in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
@@ -635,9 +635,9 @@
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
+				A4B2180A2AE9E22300FBD6AF /* AppConfig.plist in Resources */,
 				A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
-				A466B5A72AE8431A0006E3F8 /* AppConfig.plist in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
