@@ -184,6 +184,7 @@ struct ActionsView: View {
             isRecording = false
             // Stop your recording logic here
             print("Stopped Recording")
+            
             SpeechRecognition.shared.stopSpeak()
 
         }
