@@ -161,20 +161,6 @@ struct ActionsView: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle())
-        .overlay(
-            index == 5 ?
-                AnyView(
-                    VStack {
-                        Spacer()
-                        Text(oneValue)
-                            .foregroundColor(.black)
-                            .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2))
-                            .font(.customFont(size: 18))
-                            .padding(.vertical,(verticalSizeClass == .compact ? 5 : 10))
-                            .background(Color(hex: 0xA7C9D8))
-                    }
-                ) : AnyView(EmptyView())
-        )
     }
     
     func getColor(index: Int) -> Color {
