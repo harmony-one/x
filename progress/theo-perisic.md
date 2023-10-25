@@ -1,3 +1,5 @@
+2023-10-24 Tue: Added more promotion options to the [Cost Analysis](https://harmonyone.notion.site/Cost-Analysis-97cd614180164d71a398131a0df545bd?pvs=4) including the 5 minute usage with 10 minute break and 10 sessions per day restrictions. Added and tested 6 new model personas through [custom instructions](https://www.notion.so/harmonyone/Custom-Instructions-2e3ff8d9e9254c039e2d253ad18ec6a1).
+
 2023-10-23 Mon: Started the [Cost Analysis](https://harmonyone.notion.site/Cost-Analysis-97cd614180164d71a398131a0df545bd?pvs=4) to see the monthly cost for us to allow different amounts of free Generative Pre-trained Transformer 4 usage. Iterated on the [App Store Copy](https://harmonyone.notion.site/Voice-AI-Talk-with-ChatGPT4-on-Apple-App-Store-a3dcb50d30654c508779b123d278546f?pvs=4) that will be used for the application process.
 
 ---
