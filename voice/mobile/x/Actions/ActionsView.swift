@@ -185,21 +185,21 @@ struct ActionsView: View {
         case 0:
             SpeechRecognition.shared.reset()
         //    dismissAction()
-            
         case 1:
             stopRecording()
-
+        case 2:
+            SpeechRecognition.shared.randomFacts()
         case 3:
-            SpeechRecognition.shared.repeate()
-        case 4:
             if isPlaying {
                 SpeechRecognition.shared.continueSpeech()
             } else {
                 SpeechRecognition.shared.pause()
             }
             self.isPlaying.toggle()
+        case 4:
+            SpeechRecognition.shared.repeate()
         case 5:
-            SpeechRecognition.shared.randomFacts()
+            SpeechRecognition.shared.speak()
         default:
             break
         }
