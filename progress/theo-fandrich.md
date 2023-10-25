@@ -1,3 +1,5 @@
+2023-10-22 Tue: We are on our way to having a 5-min functional demo by Friday. Current tasks/bugs/fixes that are underway: Custom Instruction implementations through system settings, streaming audio with chatGPT4 and built in iphone audio synthesis, haptic feedback for improved user experience, and makeover for all user interface buttons. Unit testing and linter will be implemented in the next 7 days as well to streamline and optimize the output of production code.
+
 2023-10-22 Mon: Preparing Frank, Sergey, and Artem's apps for full end to end deploy which should be ready by 9am Tueday morning. Alaina and I will work to prepare a blog post for 1bot.
 
 ---
