@@ -1,5 +1,7 @@
 2023-10-23 Mon: Designed v4 mockups for x.country, vertical and horizontal. Removed one token amount, swapped colors and icons. Designed active states. Updated [user guide](https://www.notion.so/harmonyone/Getting-Started-on-harmony1bot-ad0e403158364da093952242afabe658?pvs=4) for ONE Bot, to be published in a blog post on Friday. Synced with Frank on ONE Bot updates.
 
+2023-10-24 Tues: Wrote [substack post](https://docs.google.com/document/d/1ximwp1ae5yozvLYKEUq_lUrAeU_8HkJjVi6dTkarxsM/edit) on ONE Bots vision, roadmap, and user guide. Designed a graphic outlining current features for the post. Tested Chat GPT 3.5 vs 4 on voice experience with theo- found custom instructions are essential to the right user experience. Designed Voice AI Logos on Dalle 3, designed banner.
+
 ---
 
 2023-10-22 Sun: Designed v3 mockups for x.country, changing icons, labels, button placement, and contrast. Tested /pdf on ONE Bot, & uploaded a [tweet](https://x.com/harmonyprotocol/status/1716249178081501598?s=20) promoting the feature. Corresponded with users via Telegram on how to utilize ONE Bot.
