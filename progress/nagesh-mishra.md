@@ -1,3 +1,6 @@
+
+2023-10-23 Wed: Implemented the Vibration Manager and URL session cancellation, along with the integration of continuous vibration signaling during the openAI call. These changes have been successfully pushed to TestFlight build version 11. Due to the restructuring of the folder, some code was inadvertently missed in the audio play. I have rectified this issue by reintroducing the missing code and also included the soft beep MP3 file.
+
 2023-10-23 Mon: I have implemented a new design for the button screen and updated the hardcoded ONE value to 2111.01 ONE on both the dashboard and button screens. Additionally, I added a "press to speak" functionality and incorporated a soft beep that sounds every second to indicate that ChatGPT is processing a response. I completed all remaining button functionalities except for the 'Fast Forward' action. Presentation mode has also been enabled for the application. The Dashboard code has been temporarily commented out, but can be easily reintegrated in the future if needed.
 
 ---
