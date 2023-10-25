@@ -1,5 +1,4 @@
-
-2023-10-23 Mon: I implemented a new design for the button screen. Updated the hardcoded Hard Coded ONE Value to 2111.01 ONE on the dashboard and buttons screen. Added press speak functionality, Add functionality for the 'Press Speak' feature. Incorporate a soft beep every second to indicate waiting for ChatGPT response. Completed the remaining button functionalities, excluding the 'Fast Forward' action. Enable presentation mode for the application. Temporarily commented out the Dashboard code. If it is required in the future, we can easily reintegrate it.
+2023-10-23 Mon: I have implemented a new design for the button screen and updated the hardcoded ONE value to 2111.01 ONE on both the dashboard and button screens. Additionally, I added a "press to speak" functionality and incorporated a soft beep that sounds every second to indicate that ChatGPT is processing a response. I completed all remaining button functionalities except for the 'Fast Forward' action. Presentation mode has also been enabled for the application. The Dashboard code has been temporarily commented out, but can be easily reintegrated in the future if needed.
 
 ---
 

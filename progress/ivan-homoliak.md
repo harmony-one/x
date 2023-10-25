@@ -1,7 +1,7 @@
 
 
 **2023-10-24 Tue:**
-Working on OLLAMA's configuration on our GPU machine and later plan to test it on IOS emulator and see its response.
+Configuring new GPU server for OLLAMA models - installing nvidia + CUDA. Enabled REST API and exposed a few models outside. Checking how to do HTTPS authentication in OLLAMA project. Debugging the bigger models than 13B sometime stuck and keep zombie processes that cannot be killed. 
 
 
 **2023-10-23 Mon:**
