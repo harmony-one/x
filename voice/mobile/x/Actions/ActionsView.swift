@@ -18,7 +18,7 @@ struct PressEffectButtonStyle: ButtonStyle {
         configuration.label
                 .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
                 .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
-                .animation(.easeInOut, value: configuration.isPressed)
+                .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
