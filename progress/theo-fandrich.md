@@ -1,3 +1,5 @@
+2023-10-23 Wed: Conducted 15 minutes testing of Whipser App and Voice AI App. iOS 16 support will be available by Thursday 10/26, and we should have our own apple support development account available upon Apple's approval so we can deploy our first app for wider testing.
+
 2023-10-22 Tue: We are on our way to having a 5-min functional demo by Friday. Some of the current tasks/bugs/fixes that are underway: Custom Instruction implementations through system settings, streaming audio with chatGPT4 and built in iphone audio synthesis, haptic feedback for improved user experience, and makeover for all buttons. Unit testing and linter will be implemented in the next 7 days as well to streamline and optimize the output of production code.
 
 2023-10-22 Mon: Preparing Frank, Sergey, and Artem's apps for full end to end deploy which should be ready by 9am Tueday morning. Alaina and I will work to prepare a blog post for 1bot.
