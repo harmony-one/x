@@ -179,7 +179,7 @@ class SpeechRecognition: NSObject {
     
     func speak() {
         // ”Speak” allows Theo to force Sam keep listening while holding down the button.
-        self.audioPlayerTest.playSound()
+//        self.audioPlayerTest.playSound()
         
     }
     
