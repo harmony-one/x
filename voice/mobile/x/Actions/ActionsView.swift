@@ -13,13 +13,6 @@ struct ButtonData {
     let image: String
 }
 
-enum LongPressStage {
-    case started
-    case ended
-    // Add more cases if needed
-}
-
-
 struct PressEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
