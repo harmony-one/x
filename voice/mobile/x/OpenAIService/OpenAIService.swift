@@ -52,7 +52,7 @@ struct OpenAIService {
         }
 
         // Print the input text being sent to OpenAI
-//        print("Sending to OpenAI: \(conversation)")
+        print("Sending to OpenAI: \(conversation.count)")
 
         // Initiate the data task for the request
         let session = URLSession.shared
