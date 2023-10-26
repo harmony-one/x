@@ -27,7 +27,6 @@ struct ActionsView: View {
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
     
-    @State private var isPlaying = false
     @State private var isListening = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -175,12 +174,11 @@ struct ActionsView: View {
         case 2:
             SpeechRecognition.shared.randomFacts()
         case 3:
-            if isPlaying {
+            if SpeechRecognition.shared.isPaused() {
                 SpeechRecognition.shared.continueSpeech()
             } else {
                 SpeechRecognition.shared.pause()
             }
-            self.isPlaying.toggle()
         case 4:
             SpeechRecognition.shared.repeate()
         case 5:
