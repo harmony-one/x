@@ -70,6 +70,7 @@ struct ActionsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(0)
+            .scrollDisabled(true)
         }
     }
     
@@ -84,7 +85,7 @@ struct ActionsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(0)
-
+            .scrollDisabled(true)
         }
     }
     
