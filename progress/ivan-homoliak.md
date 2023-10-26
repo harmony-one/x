@@ -1,4 +1,6 @@
 
+**2023-10-25 Wed:**
+Continue in local deployment and testing of small models on CPU-based machine - gpt4all, vLLM. Studying features of [LLMFarm](https://github.com/guinmoon/LLMFarm) that can be used on IOS 16+. Pasivelly reviewing recent PRs from Aaron. (Worked only 4hrs)
 
 **2023-10-24 Tue:**
 Configuring new GPU server for OLLAMA models - installing nvidia + CUDA. Enabled REST API and exposed a few models outside. Checking how to do HTTPS authentication in OLLAMA project. Debugging the bigger models than 13B sometime stuck and keep zombie processes that cannot be killed. 
