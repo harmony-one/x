@@ -130,7 +130,7 @@ class SpeechRecognition: NSObject {
         }
     }
     
-    // Call when user released the "Speak" button
+    // Call when user releases "Press to Speak" button
     func endSpeechRecognition() {
         if let message = self.currentRecognitionMessage, !message.isEmpty {
             self.handleEndOfSentence(message)
