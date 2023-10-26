@@ -246,7 +246,6 @@ class SpeechRecognition: NSObject {
         audioEngine.inputNode.removeTap(onBus: 0)
         textToSpeechConverter.stopSpeech()
         isAudioSessionSetup = false // Reset to false when the audio session is stopped
-        
     }
 }
 

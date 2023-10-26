@@ -2,6 +2,8 @@
 
 2023-10-24 Tues: Wrote [substack post](https://docs.google.com/document/d/1ximwp1ae5yozvLYKEUq_lUrAeU_8HkJjVi6dTkarxsM/edit) on ONE Bots vision, roadmap, and user guide. Designed a graphic outlining current features for the post. Tested Chat GPT 3.5 vs 4 on voice experience with theo- found custom instructions are essential to the right user experience. Designed Voice AI Logos on Dalle 3, designed banner.
 
+2023-10-25 Weds: Designed new logo for VoiceAI using Dalle3, iterated color combos. Continued writing Substack article for 10/27.
+
 ---
 
 2023-10-22 Sun: Designed v3 mockups for x.country, changing icons, labels, button placement, and contrast. Tested /pdf on ONE Bot, & uploaded a [tweet](https://x.com/harmonyprotocol/status/1716249178081501598?s=20) promoting the feature. Corresponded with users via Telegram on how to utilize ONE Bot.

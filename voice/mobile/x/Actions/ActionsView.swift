@@ -8,6 +8,20 @@
 import Foundation
 import SwiftUI
 
+struct ButtonData {
+    let label: String
+    let image: String
+}
+
+struct PressEffectButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+                .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
+                .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
+                .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+    }
+}
+
 struct ActionsView: View {
    // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
@@ -23,9 +37,17 @@ struct ActionsView: View {
 
     @State private var isRecording = false
 
-    
-    let buttonTitles = ["New Session", "Skip 5 Seconds", "Random Fact", "Pause Play", "Repeat Last", "Press to Speak"]
+
     let oneValue = "2111.01 ONE"
+
+    let buttonsList: [ButtonData] = [
+        ButtonData(label: "New Session", image: "new session"),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds"),
+        ButtonData(label: "Random Fact", image: "random fact"),
+        ButtonData(label: "Pause / Play", image: "pause play"),
+        ButtonData(label: "Repeat Last", image: "repeat last"),
+        ButtonData(label: "Press to Speak", image: "press to speak")
+    ]
     
     init() {
             // Disable idle timer when the view is created
@@ -50,7 +72,7 @@ struct ActionsView: View {
         GeometryReader { geometry in
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 3), spacing: 0) {
-                    ForEach(0..<buttonTitles.count, id: \.self) { index in
+                    ForEach(buttonsList.indices, id: \.self) { index in
                         landscapeViewButton(index: index, geometry: geometry)
                     }
                 }
@@ -64,59 +86,28 @@ struct ActionsView: View {
         GeometryReader { geometry in
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 2), spacing: 0) {
-                    ForEach(0..<buttonTitles.count, id: \.self) { index in
+                    ForEach(buttonsList.indices, id: \.self) { index in
                         portraitViewButton(index: index, geometry: geometry)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(0)
+
         }
     }
     
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 1 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
-                handleOtherActions(index: index)
-            }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.5)
-                        .onChanged { _ in
-                            // Start recording
-                            isRecording = true
-                            print("Recording started...")
-                        }
-                )
-
-        }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
-                handleOtherActions(index: index)
-            }
+        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
+            handleOtherActions(index: index)
         }
     }
     
     @ViewBuilder
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 1 {
-    
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.5)
-                        .onChanged { _ in
-                            // Start recording
-                            isRecording = true
-                            print("Recording started...")
-                            SpeechRecognition.shared.speak()
-                        }
-                )
-
-        }  else {
-            gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-                handleOtherActions(index: index)
-            }
+        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
+            handleOtherActions(index: index)
         }
     }
     
@@ -124,35 +115,29 @@ struct ActionsView: View {
     func gridButton(index: Int, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: imageTextSpacing) {
-
-                Image(buttonTitles[index].lowercased())
+                let button = buttonsList[index]
+                Image(button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
-                Text(buttonTitles[index])
-                    .foregroundColor(foregroundColor)
+                Text(button.label)
                     .font(.customFont(size: 18))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
             .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2), height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3))
-            .background(getColor(index: index))
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
-        } .overlay(
-            index == 5 ?
-                AnyView(
-                    VStack {
-                        Spacer()
-                        Text(oneValue)
-                            .foregroundColor(.black)
-                            .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2))
-                            .font(.customFont(size: 18))
-                            .padding(.vertical,(verticalSizeClass == .compact ? 5 : 10))
-                            .background(Color(hex: 0xA7C9D8))
-                    }
-                ) : AnyView(EmptyView())
+        }
+        .buttonStyle(PressEffectButtonStyle())
+        .simultaneousGesture(
+            LongPressGesture(minimumDuration: 0.5).onChanged { _ in
+                if index == 5 {
+                    handleOtherActions(index: index, isLongPress: true)
+                }
+            }
         )
     }
+
     
     func getColor(index: Int) -> Color {
         let colors: [Color] = [Color(hex: 0xDDF6FF),
@@ -180,11 +165,10 @@ struct ActionsView: View {
         }
     }
     
-    func handleOtherActions(index: Int) {
+    func handleOtherActions(index: Int, isLongPress: Bool = false) {
         switch index {
         case 0:
             SpeechRecognition.shared.reset()
-        //    dismissAction()
         case 1:
             stopRecording()
         case 2:
@@ -199,9 +183,14 @@ struct ActionsView: View {
         case 4:
             SpeechRecognition.shared.repeate()
         case 5:
-            SpeechRecognition.shared.speak()
+            if isLongPress {
+                // Handle long press actions
+                startRecording()
+                SpeechRecognition.shared.speak()
+            }
         default:
             break
         }
     }
+
 }
