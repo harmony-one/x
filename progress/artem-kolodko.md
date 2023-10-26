@@ -1,3 +1,5 @@
+2023-10-26 Thu: Reviewed Aaron's [PR](https://github.com/harmony-one/x/pull/63) with PlayHT support, added it to Hey Artem app. Started reviewing [PR](https://github.com/harmony-one/x/pull/61) with iOS stream. X app payments: [implemented](https://github.com/ArtemKolodko/stripe-payments-backend/pull/6) user balance on payments backend side, added initial credits, implemented Stripe payment intent for X app. Researching Stripe docs with iOS integration.
+
 2023-10-25 Wed: Started working on payments for X app: refactoring DB schema in [stripe-payments-backend](https://github.com/harmony-one/stripe-payments-backend) to support free credits, adding new Stripe payment intent event handler to support Apple Pay.
 
 2023-10-24 Tue: Completed local environment setup for ios-anne. Had s call with Sergey to split the tasks and discuss common pitfalls while working on ios projects. Started setting up com.country.x.artem as a separate project (work in progress).
