@@ -21,5 +21,10 @@ struct Message : Codable {
 		role = try values.decodeIfPresent(String.self, forKey: .role)
 		content = try values.decodeIfPresent(String.self, forKey: .content)
 	}
+    
+    init(role: String?, content: String?) {
+        self.role = role
+        self.content = content
+    }
 
 }
