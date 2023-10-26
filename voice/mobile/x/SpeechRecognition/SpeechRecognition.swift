@@ -36,6 +36,9 @@ class SpeechRecognition: NSObject {
     private let audioPlayer = AudioPlayer()
     private var isRandomFacts = true
     
+    private var isRequestingOpenAI = false;
+    private var _isPaused = false;
+    
     // MARK: - Initialization and Setup
     
     func setup() {
@@ -138,6 +141,10 @@ class SpeechRecognition: NSObject {
         // For example, you can handle UI updates or other necessary tasks.
         // ...
         print("handleEndOfSentence -- method called")
+        
+        self.isRequestingOpenAI = true;
+        self._isPaused = false;
+        
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -152,8 +159,10 @@ class SpeechRecognition: NSObject {
             VibrationManager.stopVibration()
             guard let aiResponse = aiResponse else {
                 print("An issue is currently preventing the action. Please try again after some time.")
+                self.isRequestingOpenAI = false;
                 return
             }
+            
             isRandomFacts = true
             self.setupAudioSession()
             self.stopListening()
@@ -161,7 +170,12 @@ class SpeechRecognition: NSObject {
             if self.textToSpeechConverter.synthesizer.delegate == nil {
                 self.textToSpeechConverter.synthesizer.delegate = self
             }
-            self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
+            
+            self.isRequestingOpenAI = false;
+        
+            if(!self.isPaused()) {
+                self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
+            }
             self.conversation.append(Message(role: "assistant", content: aiResponse))
             self.addObject(aiResponse)
         }
@@ -177,14 +191,34 @@ class SpeechRecognition: NSObject {
         }
     }
     
+    func isPaused() -> Bool {
+        return self._isPaused;
+    }
+    
     func pause() {
         print("pause -- method called")
-        self.textToSpeechConverter.pauseSpeech()
+        self._isPaused = true;
+        
+        if(self.isRequestingOpenAI) {
+            self.audioPlayer.stopSound()
+            VibrationManager.stopVibration()
+        } else {
+            self.textToSpeechConverter.pauseSpeech()
+        }
     }
     
     func continueSpeech() {
         print("continueSpeech -- method called")
-        self.textToSpeechConverter.continueSpeech()
+        self._isPaused = false;
+        
+        if(self.isRequestingOpenAI) {
+            self.audioPlayer.playSound()
+            VibrationManager.startVibration()
+        } else if self.textToSpeechConverter.synthesizer.isSpeaking {
+            self.textToSpeechConverter.continueSpeech()
+        } else {
+            self.repeate();
+        }
     }
     
     func randomFacts() {

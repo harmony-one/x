@@ -15,11 +15,27 @@ struct Permission {
     
     // Request access to the microphone
     func requestMicrophoneAccess(completion: @escaping (Bool) -> Void) {
-        AVAudioApplication.requestRecordPermission { granted in
-            DispatchQueue.main.async {
-                completion(granted)
+        if #available(iOS 14.0, *) {
+            AVCaptureDevice.requestAccess(for: .audio) { granted in
+                DispatchQueue.main.async {
+                    completion(granted)
+                }
             }
+        } else {
+            // Fallback on earlier versions
+            let granted = checkMicrophoneAccess()
+            completion(granted)
         }
+    }
+
+    // Fallback function for checking microphone access on earlier iOS versions
+    func checkMicrophoneAccess() -> Bool {
+        let audioSession = AVAudioSession.sharedInstance()
+        var granted = false
+        audioSession.requestRecordPermission { grantedPermission in
+            granted = grantedPermission
+        }
+        return granted
     }
     
     // Request access to speech recognition
