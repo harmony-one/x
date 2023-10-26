@@ -91,9 +91,6 @@ class SpeechRecognitionDeepgram: NSObject, AVAudioPlayerDelegate {
     }
 
     public func textToSpeech(text: String) {
-
-
-
         DispatchQueue.global(qos: .background).async {
 
             var voiceParams: [String: Any] = [
@@ -114,7 +111,6 @@ class SpeechRecognitionDeepgram: NSObject, AVAudioPlayerDelegate {
             // Convert the Dictionary to Data
             let httpBody = try! JSONSerialization.data(withJSONObject: params)
             
-            
             var url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
             var request = URLRequest(url: URL(string: url)!)
             request.httpMethod = "POST"
@@ -123,8 +119,7 @@ class SpeechRecognitionDeepgram: NSObject, AVAudioPlayerDelegate {
             request.addValue("Bearer \(self.googleToken)", forHTTPHeaderField: "Authorization")
             request.addValue("fleet-purpose-366617", forHTTPHeaderField: "x-goog-user-project")
             request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            
-            
+
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")

@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		17A10F7EDE746F1D40F7E4DF /* SpeechRecognitionDeepgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */; };
+		6E1B5E3C2AEAE7230046BC4D /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E1B5E3B2AEAE7230046BC4D /* AppConfig.plist */; };
+		6E1B5E3E2AEAE8B90046BC4D /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E1B5E3D2AEAE8B90046BC4D /* beep.mp3 */; };
+		6E1B5E402AEB089D0046BC4D /* VoiceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1B5E3F2AEB089D0046BC4D /* VoiceService.swift */; };
 		6E8CFE6F2AEABFBD00115124 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 6E8CFE6E2AEABFBD00115124 /* OpenAI */; };
 		6E8CFE712AEAC03B00115124 /* OpenAITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8CFE702AEAC03B00115124 /* OpenAITest.swift */; };
-		6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
-		6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
-		6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EC2ED912AE8389800DC62EB /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC2ED902AE8389800DC62EB /* AudioPlayer.swift */; };
-		6EC2ED932AE83A5200DC62EB /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED922AE83A5200DC62EB /* beep.mp3 */; };
 		6EE4A8EA2AE69F9300B98C84 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 6EE4A8E92AE69F9300B98C84 /* Starscream */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
@@ -67,10 +66,11 @@
 
 /* Begin PBXFileReference section */
 		17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionDeepgram.swift; sourceTree = "<group>"; };
+		6E1B5E3B2AEAE7230046BC4D /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		6E1B5E3D2AEAE8B90046BC4D /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = beep.mp3; path = ../../../../../../../Downloads/beep.mp3; sourceTree = "<group>"; };
+		6E1B5E3F2AEB089D0046BC4D /* VoiceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceService.swift; sourceTree = "<group>"; };
 		6E8CFE702AEAC03B00115124 /* OpenAITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAITest.swift; sourceTree = "<group>"; };
-		6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		6EC2ED902AE8389800DC62EB /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
-		6EC2ED922AE83A5200DC62EB /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = beep.mp3; path = ../../../ios/x/Resources/beep.mp3; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6EC2ED922AE83A5200DC62EB /* beep.mp3 */,
+				6E1B5E3D2AEAE8B90046BC4D /* beep.mp3 */,
 				B930AACF2ADD4BAF009F9F8C /* Font */,
 			);
 			path = Resources;
@@ -280,7 +280,8 @@
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
-				6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */,
+				6E1B5E3B2AEAE7230046BC4D /* AppConfig.plist */,
+				6E1B5E3F2AEB089D0046BC4D /* VoiceService.swift */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -431,13 +432,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 				E40B719E2AE6282000F4317A /* logo.jpg in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
-				6EC2ED932AE83A5200DC62EB /* beep.mp3 in Resources */,
+				6E1B5E3C2AEAE7230046BC4D /* AppConfig.plist in Resources */,
+				6E1B5E3E2AEAE8B90046BC4D /* beep.mp3 in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -448,7 +449,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +456,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +478,7 @@
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
+				6E1B5E402AEB089D0046BC4D /* VoiceService.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				6EC2ED912AE8389800DC62EB /* AudioPlayer.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
