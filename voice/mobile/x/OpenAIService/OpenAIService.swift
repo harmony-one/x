@@ -25,17 +25,9 @@ struct OpenAIService {
             "Authorization": "Bearer \(openAI_APIKey)" // Replace openAI_APIKey with your actual API key
         ]
 
-//        conversation.append(Message(role: "user", content: inputText))
-        // Define the body of the HTTP request
         let body: [String: Any] = [
             "model": "gpt-4",
-            "messages": [
-                conversation
-//                [
-//                    "role": "user",
-//                    "content": inputText
-//                ]
-            ],
+            "messages": conversation.map { ["role": $0.role, "content": $0.content] },
             "temperature": 0.5
         ]
 
