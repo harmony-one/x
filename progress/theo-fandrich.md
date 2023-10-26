@@ -1,4 +1,6 @@
-2023-10-23 Wed: Conducted 15 minutes testing of Whipser App and Voice AI App, left comments [here](https://www.notion.so/harmonyone/Fandrich-caf2da5319354c31bf686efa20127744). iOS 16 support will be available by Thursday 10/26, and we should have our own apple support development account available upon Apple's approval so we can deploy our first app for wider testing.
+2023-10-24 Thu: Conducted 15 minutes testing of Whipser App and Voice AI App, left comments [here](https://www.notion.so/harmonyone/Fandrich-caf2da5319354c31bf686efa20127744)
+
+2023-10-23 Wed: iOS 16 support will be available by Thursday 10/26, and we should have our own apple support development account available upon Apple's approval so we can deploy our first app for wider testing. Left new tasks for bugs discovered, specifically for handling outstanding network responses overlapping with new user requests ("random fact", "press to talk").
 
 2023-10-22 Tue: We are on our way to having a 5-min functional demo by Friday. Some of the current tasks/bugs/fixes that are underway: Custom Instruction implementations through system settings, streaming audio with chatGPT4 and built in iphone audio synthesis, haptic feedback for improved user experience, and makeover for all buttons. Unit testing and linter will be implemented in the next 7 days as well to streamline and optimize the output of production code.
 
