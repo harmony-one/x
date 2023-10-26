@@ -18,7 +18,7 @@ class TextToSpeechConverter {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
-        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.vo.speech.voice.enhanced.en-US.Samantha") ?? AVSpeechSynthesisVoice(identifier: "com.apple.speech.voice.compact.en-US.Samantha")
+        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.enhanced.en-US.Ava") ?? AVSpeechSynthesisVoice(identifier: "com.apple.speech.voice.compact.en-US.Samantha")
         
         // Set the pitch of the speech utterance
         utterance.pitchMultiplier = pitch
