@@ -9,7 +9,7 @@ import AVFoundation
 import Speech
 
 class SpeechRecognition: NSObject {
-    
+
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -29,6 +29,7 @@ class SpeechRecognition: NSObject {
     let maxArraySize = 5
     
     // Array to store AI responses
+
     private var aiResponseArray: [String] = []
     private var conversation: [Message] = []
     private let greatingText = "Hey!"
@@ -154,7 +155,7 @@ class SpeechRecognition: NSObject {
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
         self.conversation.append(Message(role: "user", content: recognizedText))
-        openAI.sendToOpenAI(conversation: self.conversation) { [self] aiResponse, error in
+        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
             self.audioPlayer.stopSound()
             VibrationManager.stopVibration()
             guard let aiResponse = aiResponse else {
@@ -249,7 +250,7 @@ class SpeechRecognition: NSObject {
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
-            self.reset()
+            // self.reset() commented to allow conversation history
             self.startSpeechRecognition()
         }
     }
