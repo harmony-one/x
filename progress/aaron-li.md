@@ -1,7 +1,12 @@
-(Coming soon 10/22-10/24)
+Overview:
 [x] Swift-based streaming Deepgram end-to-end integration
 [x] Response-streaming OpenAI inegration
-[ ] Streaming Play.ht synthesis 
+[.] Streaming Play.ht synthesis
+[.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
+
+2023-10-26 Thu (2h+): Documenting, testing implementation and TODOs; Implementation of Relay and integration with attestation verification
+
+2023-10-25 Wed (5.5h): Research on OpenAI key generation process, security recommendations; Research on Apple app attestation and integrity services, verification algorithm and reference implementations; Research on CBOR and WebAuthn standards and related libraries, and app attestation design and format; Step by step implementation of attestation verification; Verify reference implementation on public key construction
 
 2023-10-24 Tue (9h): Fix issues with streaming ASR error handling, payload parsing, keep-alive, auto-resuming, and closing; Implementing OpenAI streaming response handling, piping ASR to OpenAI, streamed toke nresponse processing; Piping to Speech synthesizer for end-to-end demo; UI Button integration and implementation based on streamed components; Debugging, end-to-end testing of streaming ASR (Deepgram) + LM (OpenAI); Debugging capturing activation for AVCaptureSession and implementing workarounds; Implement basic measures to counter self-interference (pause listening while speaking), fine-tune parameters and sentence delimiting to compare model performance, deploy to TestFlight; Review PlayHT streaming implementation, documentations, models and styles; Resolve merge conflicts; Implement TTS streaming skeleton; Review latest code commits, package dependency sizes; PlayHT basic partial integration, with TODO instructions; Evalaute and experiment with PlayHT models and parameters
 
