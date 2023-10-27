@@ -116,6 +116,19 @@ class SpeechRecognition: NSObject {
     private func handleRecognitionError(_ error: Error?) {
         if let error = error {
             print("Speech recognition error: \(error)")
+
+            let nsError = error as NSError
+            if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
+                print("No speech was detected. Please speak again.")
+                // Notify the user in a suitable manner, possibly with UI updates or a popup.
+            }
+            
+            // General cleanup process
+            let inputNode = audioEngine.inputNode
+            inputNode.removeTap(onBus: 0)
+            recognitionRequest = nil
+            recognitionTask = nil
+            currentRecognitionMessage = nil
             stopListening()
         }
     }
@@ -142,14 +155,6 @@ class SpeechRecognition: NSObject {
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
         }
-    }
-    
-    func endSpeechRecognition() {
-        if let message = currentRecognitionMessage, !message.isEmpty {
-            print("MESSAGE:", message)
-            handleEndOfSentence(message)
-        }
-        currentRecognitionMessage = nil
     }
     
     // MARK: - Sentence Handling
