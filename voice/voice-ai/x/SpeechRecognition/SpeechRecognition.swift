@@ -44,6 +44,8 @@ class SpeechRecognition: NSObject {
         
     // MARK: - Initialization and Setup
     
+    
+    
     func setup() {
         checkPermissionsAndSetupAudio()
         self.textToSpeechConverter.convertTextToSpeech(text: greatingText)
@@ -176,7 +178,11 @@ class SpeechRecognition: NSObject {
         isRandomFacts = false
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
+        if (self.conversation.count == 0) {
+            self.conversation.append(openAI.setConversationContext())
+        }
         self.conversation.append(Message(role: "user", content: recognizedText))
+        print(self.conversation)
         openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
             self.audioPlayer.stopSound()
             VibrationManager.stopVibration()

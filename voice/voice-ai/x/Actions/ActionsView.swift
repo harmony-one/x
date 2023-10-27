@@ -46,9 +46,9 @@ struct ActionsView: View {
         ButtonData(label: "New Session", image: "new session", action: .reset),
         ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
         ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
-        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
-        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
         ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
+        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
+        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
     ]
     
     let buttonsLandscape: [ButtonData] = [
