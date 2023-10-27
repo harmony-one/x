@@ -105,21 +105,23 @@ class SpeechRecognition: NSObject {
             if let result = result {
                 message = result.bestTranscription.formattedString
                 isFinal = result.isFinal
+                self.currentRecognitionMessage = message
             }
                         
             if isFinal {
-                print( "Speech recognition \(message) ")
-                
                 inputNode.removeTap(onBus: 0)
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                if !message.isEmpty {
+                if let message = self.currentRecognitionMessage, !message.isEmpty {
+                    print("MESSAGE:", message)
                     self.handleEndOfSentence(message)
                 }
+                self.currentRecognitionMessage = nil
             }
             
             if let error = error {
                 print( "Speech recognition error: \(error)")
+                // TODO: No speech detected error should clean up and reset the whole process
             }
         }
         
@@ -133,6 +135,15 @@ class SpeechRecognition: NSObject {
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
         }
+    }
+    
+    // Call when user releases "Press to Speak" button
+    func endSpeechRecognition() {
+        if let message = self.currentRecognitionMessage, !message.isEmpty {
+            print("MESSAGE:", message)
+            self.handleEndOfSentence(message)
+        }
+        self.currentRecognitionMessage = nil
     }
     
     // MARK: - Sentence Handling
@@ -248,10 +259,11 @@ class SpeechRecognition: NSObject {
     }
     
     func speak() {
-        stopListening()
-        self.textToSpeechConverter.pauseSpeech()
-        // self.reset() commented to allow conversation history
-        self.startSpeechRecognition()
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.pauseSpeech()
+            self.reset()
+            self.startSpeechRecognition()
+        }
     }
     
     func stopSpeak() {
