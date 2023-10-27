@@ -6,10 +6,8 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct DashboardView: View {
-    @Environment(\.modelContext) private var modelContext
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
@@ -123,7 +121,7 @@ struct DashboardView: View {
 
 #Preview {
     NavigationView {
-      //  DashboardView() Currently we are displaying only buttons 
+      //  DashboardView() Currently we are displaying only buttons
         ActionsView()
     }
 }

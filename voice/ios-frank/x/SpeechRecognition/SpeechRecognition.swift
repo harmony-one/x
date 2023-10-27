@@ -9,7 +9,7 @@ import AVFoundation
 import Speech
 
 class SpeechRecognition: NSObject {
-    
+
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -21,15 +21,27 @@ class SpeechRecognition: NSObject {
     let audioSession = AVAudioSession.sharedInstance()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
+    let vibrationManager = VibrationManager()
+    // Create an instance of OpenAIService
+    var openAI = OpenAIService()
     
     // Maximum size of the array
     let maxArraySize = 5
     
     // Array to store AI responses
+
     private var aiResponseArray: [String] = []
-    private let greatingText = "Hey Sam!!"
+    private var conversation: [Message] = []
+    private let greatingText = "Hey!"
     
     private let audioPlayer = AudioPlayer()
+    private var isRandomFacts = true
+    
+    private var isRequestingOpenAI = false;
+    private var _isPaused = false;
+    
+    // Current message being processed
+    var currentRecognitionMessage: String?
     
     // MARK: - Initialization and Setup
     
@@ -94,6 +106,7 @@ class SpeechRecognition: NSObject {
             if let result = result {
                 message = result.bestTranscription.formattedString
                 isFinal = result.isFinal
+                self.currentRecognitionMessage = message
             }
                         
             if error != nil || isFinal {
@@ -104,13 +117,6 @@ class SpeechRecognition: NSObject {
             
             if let error = error {
                 print( "Speech recognition error: \(error)")
-            }
-            
-            self.silenceTimer?.invalidate()
-            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
-                if !message.isEmpty {
-                    self.handleEndOfSentence(message)
-                }
             }
         }
         
@@ -126,6 +132,14 @@ class SpeechRecognition: NSObject {
         }
     }
     
+    // Call when user releases "Press to Speak" button
+    func endSpeechRecognition() {
+        if let message = self.currentRecognitionMessage, !message.isEmpty {
+            self.handleEndOfSentence(message)
+        }
+        self.currentRecognitionMessage = nil
+    }
+    
     // MARK: - Sentence Handling
     
     func handleEndOfSentence(_ recognizedText: String) {
@@ -133,27 +147,42 @@ class SpeechRecognition: NSObject {
         // For example, you can handle UI updates or other necessary tasks.
         // ...
         print("handleEndOfSentence -- method called")
+        
+        self.isRequestingOpenAI = true;
+        self._isPaused = false;
+        
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
         recognitionRequest?.endAudio()
         audioEngine.stop()
-        
+        isRandomFacts = false
         self.audioPlayer.playSound()
-        OpenAIService().sendToOpenAI(inputText: recognizedText) { [self] aiResponse, error in
+        VibrationManager.startVibration()
+        self.conversation.append(Message(role: "user", content: recognizedText))
+        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
             self.audioPlayer.stopSound()
+            VibrationManager.stopVibration()
             guard let aiResponse = aiResponse else {
-                self.stopListening()
-                self.textToSpeechConverter.convertTextToSpeech(text: "An issue is currently preventing the action. Please try again after some time.")
+                print("An issue is currently preventing the action. Please try again after some time.")
+                self.isRequestingOpenAI = false;
                 return
             }
+            
+            isRandomFacts = true
             self.setupAudioSession()
             self.stopListening()
             self.setupAudioEngine()
             if self.textToSpeechConverter.synthesizer.delegate == nil {
                 self.textToSpeechConverter.synthesizer.delegate = self
             }
-            self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
+            
+            self.isRequestingOpenAI = false;
+        
+            if(!self.isPaused()) {
+                self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
+            }
+            self.conversation.append(Message(role: "assistant", content: aiResponse))
             self.addObject(aiResponse)
         }
     }
@@ -168,26 +197,53 @@ class SpeechRecognition: NSObject {
         }
     }
     
+    func isPaused() -> Bool {
+        return self._isPaused;
+    }
+    
     func pause() {
         print("pause -- method called")
-        self.textToSpeechConverter.pauseSpeech()
+        self._isPaused = true;
+        
+        if(self.isRequestingOpenAI) {
+            self.audioPlayer.stopSound()
+            VibrationManager.stopVibration()
+        } else {
+            self.textToSpeechConverter.pauseSpeech()
+        }
     }
     
     func continueSpeech() {
         print("continueSpeech -- method called")
-        self.textToSpeechConverter.continueSpeech()
+        self._isPaused = false;
+        
+        if(self.isRequestingOpenAI) {
+            self.audioPlayer.playSound()
+            VibrationManager.startVibration()
+        } else if self.textToSpeechConverter.synthesizer.isSpeaking {
+            self.textToSpeechConverter.continueSpeech()
+        } else {
+            self.repeate();
+        }
     }
     
     func randomFacts() {
         print("randomFacts -- method called")
-        handleEndOfSentence("random facts")
+        if isRandomFacts {
+            handleEndOfSentence("Give me one random fact")
+        }
     }
     
     func reset() {
         // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
         print("reset -- method called")
+        isRandomFacts = true
+        openAI.cancelOpenAICall()
+        self.audioPlayer.stopSound()
+        VibrationManager.stopVibration()
         textToSpeechConverter.stopSpeech()
         self.aiResponseArray.removeAll()
+        self.conversation.removeAll()
         stopListening()
         recognitionTask?.finish()
         recognitionTask = nil
@@ -199,7 +255,7 @@ class SpeechRecognition: NSObject {
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
-            self.reset()
+            // self.reset() commented to allow conversation history
             self.startSpeechRecognition()
         }
     }
@@ -230,7 +286,6 @@ class SpeechRecognition: NSObject {
         audioEngine.inputNode.removeTap(onBus: 0)
         textToSpeechConverter.stopSpeech()
         isAudioSessionSetup = false // Reset to false when the audio session is stopped
-        
     }
 }
 
