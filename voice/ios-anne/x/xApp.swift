@@ -21,6 +21,8 @@ struct xApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    let voiceService = VoiceService()
 
     var body: some Scene {
         WindowGroup {
