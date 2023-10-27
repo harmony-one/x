@@ -59,7 +59,8 @@ struct ActionsView: View {
                 portraitView
             }
         }.onAppear(
-            perform: SpeechRecognition.shared.setup
+            // perform: SpeechRecognition.shared.setup
+            perform: DeepgramASR.shared.setup
         )
         .navigationBarTitle("Grid of Buttons")
         .edgesIgnoringSafeArea(.all)

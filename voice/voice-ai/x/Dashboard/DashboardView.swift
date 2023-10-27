@@ -108,7 +108,8 @@ struct DashboardView: View {
                         self.hideButtons.toggle()
                     }
             ).onAppear(
-                perform: SpeechRecognition.shared.setup
+                // perform: SpeechRecognition.shared.setup
+                perform: DeepgramASR.shared.setup
             )
         
     
