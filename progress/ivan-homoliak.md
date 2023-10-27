@@ -1,4 +1,8 @@
 
+**2023-10-26 Thu:**
+Starting development of Android App with the focus on Android 31+, which has support for the newest Neural Network API enabling 8-bit quantization (and thus more efficient utilization of GPU, but covering on 51% of devices). Studying  [Sherpa](https://github.com/Bip-Rep/sherpa/tree/1.0.0) that works with Meta's llama model (7B) - installed locally. (Worked only 4hrs)
+
+
 **2023-10-25 Wed:**
 Continue in local deployment and testing of small models on CPU-based machine - gpt4all, vLLM. Studying features of [LLMFarm](https://github.com/guinmoon/LLMFarm) that can be used on IOS 16+. Pasivelly reviewing recent PRs from Aaron. (Worked only 4hrs)
 
