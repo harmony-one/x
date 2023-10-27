@@ -40,6 +40,9 @@ class SpeechRecognition: NSObject {
     private var isRequestingOpenAI = false;
     private var _isPaused = false;
     
+    // Current message being processed
+    var currentRecognitionMessage: String?
+    
     // MARK: - Initialization and Setup
     
     func setup() {
@@ -103,6 +106,7 @@ class SpeechRecognition: NSObject {
             if let result = result {
                 message = result.bestTranscription.formattedString
                 isFinal = result.isFinal
+                self.currentRecognitionMessage = message
             }
                         
             if error != nil || isFinal {
@@ -113,13 +117,6 @@ class SpeechRecognition: NSObject {
             
             if let error = error {
                 print( "Speech recognition error: \(error)")
-            }
-            
-            self.silenceTimer?.invalidate()
-            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
-                if !message.isEmpty {
-                    self.handleEndOfSentence(message)
-                }
             }
         }
         
@@ -133,6 +130,14 @@ class SpeechRecognition: NSObject {
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
         }
+    }
+    
+    // Call when user releases "Press to Speak" button
+    func endSpeechRecognition() {
+        if let message = self.currentRecognitionMessage, !message.isEmpty {
+            self.handleEndOfSentence(message)
+        }
+        self.currentRecognitionMessage = nil
     }
     
     // MARK: - Sentence Handling

@@ -31,12 +31,10 @@ struct ActionsView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var isPressing = false
+    @State private var isRecording = false
     @State private var hasStartedListening = false
     @State private var hasStoppedListening = false
-
-    @State private var isRecording = false
-
-
+    
     let oneValue = "2111.01 ONE"
 
     let buttonsList: [ButtonData] = [
@@ -130,12 +128,14 @@ struct ActionsView: View {
         }
         .buttonStyle(PressEffectButtonStyle())
         .simultaneousGesture(
-            LongPressGesture(minimumDuration: 0.5).onChanged { _ in
-                if index == 5 {
-                    handleOtherActions(index: index, isLongPress: true)
+            LongPressGesture(minimumDuration: 0.5, maximumDistance: 10)
+                .onEnded { _ in
+                    if index == 5 {
+                        handleOtherActions(index: index)
+                    }
                 }
-            }
         )
+
     }
 
     
@@ -165,7 +165,7 @@ struct ActionsView: View {
         }
     }
     
-    func handleOtherActions(index: Int, isLongPress: Bool = false) {
+    func handleOtherActions(index: Int) {
         switch index {
         case 0:
             SpeechRecognition.shared.reset()
@@ -182,10 +182,12 @@ struct ActionsView: View {
         case 4:
             SpeechRecognition.shared.repeate()
         case 5:
-            if isLongPress {
-                // Handle long press actions
+            if self.isRecording == false {
                 startRecording()
                 SpeechRecognition.shared.speak()
+            } else {
+                stopRecording()
+                SpeechRecognition.shared.endSpeechRecognition()
             }
         default:
             break
