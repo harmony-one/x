@@ -91,7 +91,7 @@ class OpenAIExService: NSObject, URLSessionDataDelegate {
             if dataBody == "[DONE]" {
                 continue
             }
-            let res = JSON(dataBody)
+            let res = JSON(parseJSON: dataBody)
 
             let delta = res["choices"][0]["delta"]["content"].string
             self.completion(delta, nil)

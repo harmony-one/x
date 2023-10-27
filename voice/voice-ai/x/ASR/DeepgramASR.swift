@@ -220,7 +220,7 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
 
                 switch message {
                 case .string(let text):
-                    let res = JSON(text)
+                    let res = JSON(parseJSON: text)
                     
                     let transcript = res["channel"]["alternatives"][0]["transcript"].stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
                     
@@ -339,12 +339,12 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
     
     func pause() {
         self.capturing = false
-//        self.tts.pauseSpeech()
+        self.tts.pauseSpeech()
     }
     
     func continueSpeech() {
         self.capturing = true
-//        self.tts.continueSpeech()
+        self.tts.continueSpeech()
     }
     
     func cut() {

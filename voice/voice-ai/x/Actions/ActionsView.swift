@@ -34,6 +34,7 @@ struct ActionsView: View {
     @State private var isRecording = false
     @State private var hasStartedListening = false
     @State private var hasStoppedListening = false
+    @State private var isPlaying = false
     
     let oneValue = "2111.01 ONE"
 
@@ -43,7 +44,7 @@ struct ActionsView: View {
         ButtonData(label: "Random Fact", image: "random fact"),
         ButtonData(label: "Pause / Play", image: "pause play"),
         ButtonData(label: "Repeat Last", image: "repeat last"),
-        ButtonData(label: "Press to Speak", image: "press to speak")
+        ButtonData(label: "You can Speak now", image: "press to speak")
     ]
     
     init() {
@@ -169,27 +170,30 @@ struct ActionsView: View {
     func handleOtherActions(index: Int) {
         switch index {
         case 0:
-            SpeechRecognition.shared.reset()
+            DeepgramASR.shared.reset()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DeepgramASR.shared.setup()
+            }
+            
+            self.isPlaying = false
+            break;
         case 1:
-            stopRecording()
+            // stopRecording()
+            break;
         case 2:
-            SpeechRecognition.shared.randomFacts()
+            DeepgramASR.shared.makeQuery("Give me one random fact")
+            break;
         case 3:
-            if SpeechRecognition.shared.isPaused() {
-                SpeechRecognition.shared.continueSpeech()
+            if isPlaying {
+                DeepgramASR.shared.continueSpeech()
             } else {
-                SpeechRecognition.shared.pause()
+                DeepgramASR.shared.pause()
             }
+            self.isPlaying.toggle()
+            break;
         case 4:
-            SpeechRecognition.shared.repeate()
-        case 5:
-            if self.isRecording == false {
-                startRecording()
-                SpeechRecognition.shared.speak()
-            } else {
-                stopRecording()
-                SpeechRecognition.shared.endSpeechRecognition()
-            }
+            DeepgramASR.shared.repeate()
         default:
             break
         }

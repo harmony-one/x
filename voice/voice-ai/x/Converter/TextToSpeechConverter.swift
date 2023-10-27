@@ -18,7 +18,13 @@ class TextToSpeechConverter {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
-        utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.voice.enhanced.en-US.Ava") ?? AVSpeechSynthesisVoice(identifier: "com.apple.speech.voice.compact.en-US.Samantha")
+        // Choose a default language or make it customizable based on user settings
+        if let voice = AVSpeechSynthesisVoice(language: language) {
+            utterance.voice = voice
+        } else {
+            // Print a message if the specified voice is not available and use the system's default language
+            print("The specified voice is not available. Defaulting to the system's language.")
+        }
         
         // Set the pitch of the speech utterance
         utterance.pitchMultiplier = pitch
