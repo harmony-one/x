@@ -4,14 +4,15 @@ import AVFoundation
 class AudioPlayer: NSObject {
     
     var audioPlayer: AVAudioPlayer?
-
-     func playSound() {
-        guard let soundURL = Bundle.main.url(forResource: "beep", withExtension: "mp3") else {
-            print("Sound file not found")
-            return
-        }
+    var audioData: [Data] = []
+    
+    func addData(data: Data) {
+        audioData.append(data)
+    }
+    
+    func play() {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer = try AVAudioPlayer(data: audioData[0])
             audioPlayer?.numberOfLoops = -1 // Play continuously
             audioPlayer?.play()
         } catch {
