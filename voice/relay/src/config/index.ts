@@ -13,6 +13,9 @@ const config = {
   corsOrigins: process.env.CORS ?? '',
   teamId: process.env.TEAM_ID ?? '',
   packageName: process.env.PACKAGE_NAME ?? '',
+  openai: { key: process.env.OPENAI_KEY ?? '' },
+  deepgram: { key: process.env.DEEPGRAM_KEY ?? '' },
+  playht: { key: process.env.PLAYHT_KEY ?? '' },
 }
 
 export default config

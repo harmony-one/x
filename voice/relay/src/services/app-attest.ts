@@ -23,7 +23,8 @@ CgYIKoZIzj0EAwMDaAAwZQIwQgFGnByvsiVbpTKwSga0kP0e8EeDS4+sQmTvb7vn
 oyFraWVIyd/dganmrduC1bmTBGwD
 -----END CERTIFICATE-----`
 
-// https://github.com/kjur/jsrsasign/issues/176#issuecomment-1073434816
+// Based on: https://github.com/kjur/jsrsasign/issues/176#issuecomment-1073434816
+// See also discussions: https://github.com/trasherdk/jsrsasign/issues/3
 const verifyCertificateChain = (certificates: string[]): boolean => {
   let valid = true
   for (let i = 0; i < certificates.length; i++) {

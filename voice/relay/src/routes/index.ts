@@ -1,6 +1,6 @@
 import { Router, type Request, type Response, type NextFunction } from 'express'
 import NodeCache from 'node-cache'
-import OpenAI from '../services/openai.js'
+import OpenAIRelay from '../services/openai.js'
 import { HttpStatusCode } from 'axios'
 import { validateAttestation } from '../services/app-attest.js'
 // import config from '../config/index.js'
@@ -47,22 +47,22 @@ router.post('/attestation', async (req, res) => {
   res.json({ token })
 })
 
-// NOTE: there are suggestions that error should be handled by calling next(..) with error as an argument, but it seems less robust than the custom format used here, because we don't have a well-defined behavior, whereas by responding `error:\n` followed by a JSON string, we do.
+// NOTE: see discussions here regarding throwing error in the middle of a stream response
 // https://github.com/expressjs/express/issues/2700
-router.post('/openai', authenticated, async (req, res) => {
-  // TODO
-  let completed = false
-  OpenAI.completion((data, error) => {
-    if (error) {
-      res.send('error:\n' + JSON.stringify({ error: error.toString() }))
-      completed = true
+router.post('/openai/completion', authenticated, async (req, res, next) => {
+  try {
+    if (!req.body.stream) {
+      const completion = await OpenAIRelay.completion(req.body)
+      res.json(completion)
     }
-    if (!completed) {
-      res.write(data)
-    }
-  }, () => {
+    await OpenAIRelay.completionStream(req.body, (data) => {
+      res.write(`data:\n${JSON.stringify(data)}`)
+    })
+    res.write('data:\n[DONE]')
     res.end()
-  })
+  } catch (ex) {
+    next(ex)
+  }
 })
 
 export default router
