@@ -39,6 +39,7 @@ struct ActionsView: View {
     @State private var hasStoppedListening = false
     @State private var isRecordingContinued = false
     @State private var orientation = UIDevice.current.orientation
+    @State private var scale: CGFloat = 1.2
     
     
     let oneValue = "2111.01 ONE"
@@ -76,10 +77,6 @@ struct ActionsView: View {
                 }
             }
             .edgesIgnoringSafeArea(.all)
-
-            if isSynthesizing {
-                overlayView
-            }
         }
         .onChange(of: isSynthesizing) { newValue in
             if newValue {
@@ -100,41 +97,6 @@ struct ActionsView: View {
         //             }
         //         }
     }
-    
-    var overlayView: some View {
-            Color.black.opacity(0.4)
-                .edgesIgnoringSafeArea(.all)
-                .transition(.opacity)
-                .overlay(
-                    Circle()
-                        .stroke(Color.white, lineWidth: 2)
-                        .frame(width: 100, height: 100)
-                        .overlay(
-                            Circle()
-                                .trim(from: 0, to: 0.8)
-                                .stroke(Color.white, lineWidth: 5)
-                                .frame(width: 90, height: 90)
-                                .rotationEffect(Angle(degrees: isSynthesizing ? 360 : 0))
-                                .animation(Animation.linear(duration: 3).repeatForever(autoreverses: false), value: isSynthesizing)
-                        )
-                )
-        }
-    
-    var pulsatingIndicator: some View {
-           Group {
-               if isSynthesizing {
-                   Circle()
-                       .fill(Color.blue)
-                       .frame(width: 100, height: 100)
-                       .scaleEffect(isSynthesizing ? 1.5 : 1)
-                       .opacity(isSynthesizing ? 0 : 1)
-                       .animation(.easeOut(duration: 1).repeatForever(autoreverses: false), value: isSynthesizing)
-                       .onAppear() {
-                           self.isSynthesizing = true
-                       }
-               }
-           }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-       }
     
     var landscapeView: some View {
         baseView(colums: 3, buttons: buttonsLandscape)
@@ -162,19 +124,43 @@ struct ActionsView: View {
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isRecording) {
-                handleOtherActions(actionType: button.action)
+            ZStack {
+                GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isRecording) {
+                    handleOtherActions(actionType: button.action)
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.1)
+                        .onEnded { _ in handleOtherActions(actionType: button.action)}
+                )
+                .zIndex(1) // Ensure buttons are below the circle
+
+                if isSynthesizing {
+                    Circle()
+                        .strokeBorder(Color(red: 0x00 / 255, green: 0x88 / 255, blue: 0xB0 / 255), lineWidth: 1)
+                        .frame(width: buttonSize * 0.9, height: buttonSize * 0.9) // Make the circle a little smaller
+                        .scaleEffect(scale)
+                        .opacity(2 - Double(scale))
+                        .animation(Animation.easeOut(duration: 1).repeatForever(autoreverses: true), value: isSynthesizing)
+                        .offset(y: -buttonSize * 0.2)
+                        .zIndex(2)
+                }
             }
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.1)
-                    .onEnded { _ in handleOtherActions(actionType: button.action)}
-            )
+            .onChange(of: isSynthesizing) { newValue in
+                if newValue {
+                    withAnimation(Animation.easeOut(duration: 1).repeatForever(autoreverses: true)) {
+                        scale = 1.5
+                    }
+                } else {
+                    scale = 1.2
+                }
+            }
         } else {
             GridButton(button: button, geometry: geometry, foregroundColor: .black) {
                 handleOtherActions(actionType: button.action)
             }
         }
     }
+
     
     func startRecording() {
         isRecording = true
