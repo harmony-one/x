@@ -2,13 +2,14 @@ import cbor from 'cbor'
 import jsrsasign from 'jsrsasign'
 import { parseAuthenticatorData } from '@simplewebauthn/server/helpers'
 import { hash as sha256 } from 'fast-sha256'
-import { hexView, stringToBytes } from '../utils.js'
+import { chunkstr, hexView, stringToBytes } from '../utils.js'
 import config from '../config/index.js'
 import NodeCache from 'node-cache'
+
 const PubKeyCache = new NodeCache()
 // https://www.apple.com/certificateauthority/Apple_App_Attestation_Root_CA.pem
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AppleRootCA = `-----BEGIN CERTIFICATE-----
+const AppleRootCAPEM = `-----BEGIN CERTIFICATE-----
 MIICITCCAaegAwIBAgIQC/O+DvHN0uD7jG5yH2IXmDAKBggqhkjOPQQDAzBSMSYw
 JAYDVQQDDB1BcHBsZSBBcHAgQXR0ZXN0YXRpb24gUm9vdCBDQTETMBEGA1UECgwK
 QXBwbGUgSW5jLjETMBEGA1UECAwKQ2FsaWZvcm5pYTAeFw0yMDAzMTgxODMyNTNa
@@ -38,6 +39,13 @@ const verifyCertificateChain = (certificates: string[]): boolean => {
   return valid
 }
 
+const buildPEM = (binaryCert: Buffer): string => {
+  const b64Encoded = binaryCert.toString('base64')
+  return '-----BEGIN CERTIFICATE-----\n' +
+      chunkstr(b64Encoded, 64).join('\n') + '\n' +
+      '-----END CERTIFICATE-----\n'
+}
+
 // See https://developer.apple.com/documentation/devicecheck/validating_apps_that_connect_to_your_server#3576643
 // NOTE: a small part is copied from gist linked by discussions in https://developer.apple.com/forums/thread/687626
 // See also PHP implementation: https://gist.github.com/gbalduzzi/0f2f14c3511da9e7811ad6f3a0175d06
@@ -64,7 +72,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
 
   const credCertBuffer = Buffer.from(attestationObject.attStmt.x5c[0] ?? '')
   const receipt = Buffer.from(attestationObject.attStmt.receipt ?? '')
-  // step 1: Verify that the x5c array contains the intermediate and leaf certificates for App Attest, starting from the credential certificate in the first data buffer in the array (credcert). Verify the validity of the certificates using Apple’s App Attest root certificate.
+
   // TODO: this is only partially done. Not using Apple’s App Attest root certificate yet
   if (credCertBuffer.length === 0) {
     console.error('Missing attestation credential cert')
@@ -72,6 +80,25 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   }
   if (receipt.length === 0) {
     console.error(`Missing receipt: ${receipt}`)
+    return false
+  }
+  const credCert = new jsrsasign.X509()
+  credCert.readCertHex(credCertBuffer.toString('hex'))
+  // credCert.
+
+  console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
+
+  // step 1: Verify that the x5c array contains the intermediate and leaf certificates for App Attest, starting from the credential certificate in the first data buffer in the array (credcert). Verify the validity of the certificates using Apple’s App Attest root certificate.
+
+  const pemChain = attestationObject.attStmt.x5c.map((b: any) => buildPEM(Buffer.from(b)))
+  const chainVerified = verifyCertificateChain([...pemChain, AppleRootCAPEM])
+  if (!chainVerified) {
+    console.error(`invalid cert chain of ${pemChain.length} certs`)
+    for (const pem of pemChain) {
+      console.error('cert:')
+      console.error(pem)
+      console.error('\n')
+    }
     return false
   }
 
@@ -85,12 +112,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   const nonceStr = hexView(nonce)
   // step 4: Obtain the value of the credCert extension with OID 1.2.840.113635.100.8.2, which is a DER-encoded ASN.1 sequence. Decode the sequence and extract the single octet string that it contains. Verify that the string equals nonce.
   // DER and ASN.1 reference: https://letsencrypt.org/docs/a-warm-welcome-to-asn1-and-der/
-  const credCert = new jsrsasign.X509()
-  credCert.readCertHex(credCertBuffer.toString('hex'))
-  console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
-
   // TODO: not sure if this is implemented correctly. Waiting for jsrsasign library author to respond: https://github.com/kjur/jsrsasign/issues/364
-
   const extInfo = credCert.getExtInfo('1.2.840.113635.100.8.2')
   if (!extInfo) {
     console.error('Cannot find extension 1.2.840.113635.100.8.2')
