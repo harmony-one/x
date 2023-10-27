@@ -49,6 +49,7 @@ class SpeechRecognition: NSObject {
     func setup() {
         checkPermissionsAndSetupAudio()
         self.textToSpeechConverter.convertTextToSpeech(text: greatingText)
+        
     }
     
     private func checkPermissionsAndSetupAudio() {
@@ -140,7 +141,7 @@ class SpeechRecognition: NSObject {
         recognitionRequest = nil
         recognitionTask = nil
         if !message.isEmpty {
-            print("MESSAGE:", message)
+            print("Message:", message)
             handleEndOfSentence(message)
         }
         currentRecognitionMessage = nil
@@ -285,7 +286,6 @@ class SpeechRecognition: NSObject {
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
-            self.reset()
             self.startSpeechRecognition()
         }
     }
