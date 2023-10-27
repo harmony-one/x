@@ -21,6 +21,7 @@ class SpeechRecognition: NSObject {
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     let vibrationManager = VibrationManager()
+    
     // Create an instance of OpenAIService
     var openAI = OpenAIService()
     
@@ -28,7 +29,6 @@ class SpeechRecognition: NSObject {
     let maxArraySize = 5
     
     // Array to store AI responses
-
     private var aiResponseArray: [String] = []
     private var conversation: [Message] = []
     private let greatingText = "Hey!"
@@ -45,29 +45,27 @@ class SpeechRecognition: NSObject {
     // MARK: - Initialization and Setup
     
     func setup() {
-        // Check and request necessary permissions
+        checkPermissionsAndSetupAudio()
+        self.textToSpeechConverter.convertTextToSpeech(text: greatingText)
+    }
+    
+    private func checkPermissionsAndSetupAudio() {
         Permission().setup()
-        
-        // Set up the synthesizer delegate
         textToSpeechConverter.synthesizer.delegate = self
-        
-        // Convert a default greeting text to speech
+        setupAudioSession()
         setupAudioEngine()
-        textToSpeechConverter.convertTextToSpeech(text: greatingText)
     }
     
     // MARK: - Audio Session Management
-    
-    func setupAudioSession() {
-        if !isAudioSessionSetup {
-            do {
-                try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-                // try audioSession.setCategory(.playback)
-                try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-                isAudioSessionSetup = true
-            } catch {
-                print("Error setting up audio session: \(error.localizedDescription)")
-            }
+    private func setupAudioSession() {
+        guard !isAudioSessionSetup else { return }
+        
+        do {
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            isAudioSessionSetup = true
+        } catch {
+            print("Error setting up audio session: \(error.localizedDescription)")
         }
     }
     
@@ -89,42 +87,51 @@ class SpeechRecognition: NSObject {
         print("startSpeechRecognition -- method called")
         
         setupAudioSession()
-        
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-        }
+        cleanupRecognition()
         
         let inputNode = audioEngine.inputNode
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         recognitionRequest?.shouldReportPartialResults = true
+        handleRecognition(inputNode: inputNode)
+    }
+    
+    private func handleRecognition(inputNode: AVAudioNode) {
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest!) { result, error in
-            var isFinal = false
-            var message = ""
-            
-            if let result = result {
-                message = result.bestTranscription.formattedString
-                isFinal = result.isFinal
-                self.currentRecognitionMessage = message
-            }
-                        
-            if isFinal {
-                inputNode.removeTap(onBus: 0)
-                self.recognitionRequest = nil
-                self.recognitionTask = nil
-                if let message = self.currentRecognitionMessage, !message.isEmpty {
-                    print("MESSAGE:", message)
-                    self.handleEndOfSentence(message)
-                }
-                self.currentRecognitionMessage = nil
+            guard let result = result else {
+                self.handleRecognitionError(error)
+                return
             }
             
-            if let error = error {
-                print( "Speech recognition error: \(error)")
-                // TODO: No speech detected error should clean up and reset the whole process
+            let message = result.bestTranscription.formattedString
+            self.currentRecognitionMessage = message
+            
+            if result.isFinal {
+                self.handleFinalRecognition(inputNode: inputNode, message: message)
             }
         }
         
+        installTapAndStartEngine(inputNode: inputNode)
+    }
+    
+    private func handleRecognitionError(_ error: Error?) {
+        if let error = error {
+            print("Speech recognition error: \(error)")
+            stopListening()
+        }
+    }
+    
+    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
+        inputNode.removeTap(onBus: 0)
+        recognitionRequest = nil
+        recognitionTask = nil
+        if !message.isEmpty {
+            print("MESSAGE:", message)
+            handleEndOfSentence(message)
+        }
+        currentRecognitionMessage = nil
+    }
+    
+    private func installTapAndStartEngine(inputNode: AVAudioNode) {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
             self.recognitionRequest?.append(buffer)
@@ -137,13 +144,12 @@ class SpeechRecognition: NSObject {
         }
     }
     
-    // Call when user releases "Press to Speak" button
     func endSpeechRecognition() {
-        if let message = self.currentRecognitionMessage, !message.isEmpty {
+        if let message = currentRecognitionMessage, !message.isEmpty {
             print("MESSAGE:", message)
-            self.handleEndOfSentence(message)
+            handleEndOfSentence(message)
         }
-        self.currentRecognitionMessage = nil
+        currentRecognitionMessage = nil
     }
     
     // MARK: - Sentence Handling
@@ -193,6 +199,31 @@ class SpeechRecognition: NSObject {
         }
     }
     
+    func reset() {
+        print("reset -- method called")
+        isRandomFacts = true
+        openAI.cancelOpenAICall()
+        audioPlayer.stopSound()
+        VibrationManager.stopVibration()
+        textToSpeechConverter.stopSpeech()
+        cleanupForNewSession()
+    }
+    
+    private func cleanupForNewSession() {
+        aiResponseArray.removeAll()
+        conversation.removeAll()
+        stopListening()
+        cleanupRecognition()
+        isAudioSessionSetup = false
+        textToSpeechConverter.synthesizer.delegate = nil
+    }
+    
+    private func cleanupRecognition() {
+        recognitionTask?.cancel()
+        recognitionTask = nil
+        recognitionRequest?.endAudio()
+    }
+    
     // Method to add a new response to the array, managing the size
     func addObject(_ newObject: String) {
         if aiResponseArray.count < maxArraySize {
@@ -240,24 +271,6 @@ class SpeechRecognition: NSObject {
         }
     }
     
-    func reset() {
-        // “Reset” means Theo abandons the current conversation for a new chat session with Sam.
-        print("reset -- method called")
-        isRandomFacts = true
-        openAI.cancelOpenAICall()
-        self.audioPlayer.stopSound()
-        VibrationManager.stopVibration()
-        textToSpeechConverter.stopSpeech()
-        self.aiResponseArray.removeAll()
-        self.conversation.removeAll()
-        stopListening()
-        recognitionTask?.finish()
-        recognitionTask = nil
-        recognitionRequest = nil
-        isAudioSessionSetup = false
-        textToSpeechConverter.synthesizer.delegate = nil // Remove the delegate to prevent any callback from the previous conversation
-    }
-    
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
@@ -288,14 +301,12 @@ class SpeechRecognition: NSObject {
         }
     }
     
-    // Helper method to stop ongoing listening
     private func stopListening() {
-        recognitionTask?.cancel()
-        recognitionTask = nil
+        cleanupRecognition()
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
         textToSpeechConverter.stopSpeech()
-        isAudioSessionSetup = false // Reset to false when the audio session is stopped
+        isAudioSessionSetup = false
     }
 }
 
