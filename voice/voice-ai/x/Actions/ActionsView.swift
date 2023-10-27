@@ -76,17 +76,18 @@ struct ActionsView: View {
             perform: SpeechRecognition.shared.setup
         )
         .edgesIgnoringSafeArea(.all)
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                    if UIDevice.current.orientation != orientation {
-                        if isRecording {
-                            isRecordingContinued = true
+        // TODO: Remove the orientation logic for now
+        // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+        //             if UIDevice.current.orientation != orientation {
+        //                 if isRecording {
+        //                     isRecordingContinued = true
                             
-                            print("Recording stopSpeak...")
-                            SpeechRecognition.shared.cancelSpeak()
-                        }
-                        orientation = UIDevice.current.orientation
-                    }
-                }
+        //                     print("Recording stopSpeak...")
+        //                     SpeechRecognition.shared.cancelSpeak()
+        //                 }
+        //                 orientation = UIDevice.current.orientation
+        //             }
+        //         }
     }
     
     var landscapeView: some View {
@@ -120,16 +121,7 @@ struct ActionsView: View {
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.1)
-                    .onChanged { _ in
-                        // Start recording
-                        isRecording = true
-                        isRecordingContinued = true
-                        print("Recording started...")
-                        SpeechRecognition.shared.speak()
-                    }
-                    .onEnded { _ in
-                        isRecordingContinued = false
-                    }
+                    .onEnded { _ in handleOtherActions(actionType: button.action)}
             )
         } else {
             GridButton(button: button, geometry: geometry, foregroundColor: .black) {
@@ -147,11 +139,9 @@ struct ActionsView: View {
     func stopRecording() {
         if isRecording {
             isRecording = false
-            if !isRecordingContinued {
-                // Stop your recording logic here
-                print("Stopped Recording")
-                SpeechRecognition.shared.stopSpeak()
-            }
+            // Stop your recording logic here
+            print("Stopped Recording")
+            SpeechRecognition.shared.stopSpeak()
         }
     }
     
@@ -172,7 +162,15 @@ struct ActionsView: View {
         case .repeatLast:
             SpeechRecognition.shared.repeate()
         case .speak:
-            stopRecording()
+            if self.isRecording == false {
+                startRecording()
+                SpeechRecognition.shared.speak()
+            } else {
+                // Introducing a delay before stopping the recording
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.stopRecording()
+                }
+            }
         default:
             break
         }
