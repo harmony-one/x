@@ -267,6 +267,10 @@ class SpeechRecognition: NSObject {
         recognitionTask?.finish()
     }
     
+    func cancelSpeak() {
+        stopListening()
+    }
+    
     func repeate() {
         
         // "Repeat" allows the user to hear the app saying from 10 seconds ago.

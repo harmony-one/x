@@ -65,6 +65,17 @@ struct ActionsView: View {
             perform: SpeechRecognition.shared.setup
         )
         .edgesIgnoringSafeArea(.all)
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                    if UIDevice.current.orientation != orientation {
+                        if isRecording {
+                            isRecordingContinued = true
+                            
+                            print("Recording stopSpeak...")
+                            SpeechRecognition.shared.cancelSpeak()
+                        }
+                        orientation = UIDevice.current.orientation
+                    }
+                }
     }
     
     var landscapeView: some View {
