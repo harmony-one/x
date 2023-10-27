@@ -30,6 +30,7 @@ struct ActionsView: View {
     let imageTextSpacing: CGFloat = 30
     
     @State private var isListening = false
+    @State private var isSynthesizing = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var isPressing = false
@@ -66,16 +67,26 @@ struct ActionsView: View {
     }
     
     var body: some View {
-        Group {
-            if verticalSizeClass == .compact {
-                landscapeView
-            } else {
-                portraitView
+        ZStack {
+            Group {
+                if verticalSizeClass == .compact {
+                    landscapeView
+                } else {
+                    portraitView
+                }
             }
-        }.onAppear(
-            perform: SpeechRecognition.shared.setup
-        )
-        .edgesIgnoringSafeArea(.all)
+            .edgesIgnoringSafeArea(.all)
+
+            if isSynthesizing {
+                overlayView
+            }
+        }
+        .onChange(of: isSynthesizing) { newValue in
+            if newValue {
+                print("isSynthesizing is now true")
+            }
+        }
+        .onAppear(perform: SpeechRecognition.shared.setup)
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
         //             if UIDevice.current.orientation != orientation {
@@ -89,6 +100,41 @@ struct ActionsView: View {
         //             }
         //         }
     }
+    
+    var overlayView: some View {
+            Color.black.opacity(0.4)
+                .edgesIgnoringSafeArea(.all)
+                .transition(.opacity)
+                .overlay(
+                    Circle()
+                        .stroke(Color.white, lineWidth: 2)
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Circle()
+                                .trim(from: 0, to: 0.8)
+                                .stroke(Color.white, lineWidth: 5)
+                                .frame(width: 90, height: 90)
+                                .rotationEffect(Angle(degrees: isSynthesizing ? 360 : 0))
+                                .animation(Animation.linear(duration: 3).repeatForever(autoreverses: false), value: isSynthesizing)
+                        )
+                )
+        }
+    
+    var pulsatingIndicator: some View {
+           Group {
+               if isSynthesizing {
+                   Circle()
+                       .fill(Color.blue)
+                       .frame(width: 100, height: 100)
+                       .scaleEffect(isSynthesizing ? 1.5 : 1)
+                       .opacity(isSynthesizing ? 0 : 1)
+                       .animation(.easeOut(duration: 1).repeatForever(autoreverses: false), value: isSynthesizing)
+                       .onAppear() {
+                           self.isSynthesizing = true
+                       }
+               }
+           }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+       }
     
     var landscapeView: some View {
         baseView(colums: 3, buttons: buttonsLandscape)
@@ -142,6 +188,18 @@ struct ActionsView: View {
             // Stop your recording logic here
             print("Stopped Recording")
             SpeechRecognition.shared.stopSpeak()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    self.isSynthesizing = true
+                    
+                    // Set isSynthesizing back to false after 3 seconds
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            self.isSynthesizing = false
+                        }
+                    }
+                }
+            }
         }
     }
     
