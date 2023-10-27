@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct ButtonData {
-    let label: String
-    let image: String
-}
-
 struct PressEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -20,6 +15,22 @@ struct PressEffectButtonStyle: ButtonStyle {
             .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
             .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
+}
+
+enum ActionType {
+    case reset
+    case skip
+    case randomFact
+    case play
+    case repeatLast
+    case speak
+}
+
+struct ButtonData: Identifiable {
+    let id = UUID()
+    let label: String
+    let image: String
+    let action: ActionType
 }
 
 struct ActionsView: View {
@@ -40,13 +51,22 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonsList: [ButtonData] = [
-        ButtonData(label: "New Session", image: "new session"),
-        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds"),
-        ButtonData(label: "Random Fact", image: "random fact"),
-        ButtonData(label: "Pause / Play", image: "pause play"),
-        ButtonData(label: "Repeat Last", image: "repeat last"),
-        ButtonData(label: "Press to Speak", image: "press to speak")
+    let buttonsPortrait: [ButtonData] = [
+        ButtonData(label: "New Session", image: "new session", action: .reset),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
+        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
+        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
+        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
+        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
+    ]
+    
+    let buttonsLandscape: [ButtonData] = [
+        ButtonData(label: "New Session", image: "new session", action: .reset),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
+        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
+        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
+        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
+        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
     ]
     
     init() {
@@ -79,26 +99,19 @@ struct ActionsView: View {
     }
     
     var landscapeView: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 3), spacing: 0) {
-                    ForEach(buttonsList.indices, id: \.self) { index in
-                        landscapeViewButton(index: index, geometry: geometry)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .padding(0)
-            .scrollDisabled(true)
-        }
+        baseView(colums: 3, buttons: buttonsLandscape)
     }
     
     var portraitView: some View {
-        GeometryReader { geometry in
+        baseView(colums: 2, buttons: buttonsPortrait)
+    }
+    
+    func baseView(colums: Int, buttons: [ButtonData]) -> some View {
+        return GeometryReader { geometry in
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: 2), spacing: 0) {
-                    ForEach(buttonsList.indices, id: \.self) { index in
-                        portraitViewButton(index: index, geometry: geometry)
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: colums), spacing: 0) {
+                    ForEach(buttons) { button in
+                        viewButton(button: button, geometry: geometry)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -109,10 +122,10 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 5 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
-                handleOtherActions(index: index)
+    func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
+        if button.action == .speak {
+            gridButton(button: button, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.1)
@@ -128,48 +141,21 @@ struct ActionsView: View {
                     }
             )
         } else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
-                handleOtherActions(index: index)
+            gridButton(button: button, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(actionType: button.action)
             }
         }
     }
     
     @ViewBuilder
-    func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        if index == 5 {
-            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
-                handleOtherActions(index: index)
-            }
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.1)
-                    .onChanged { _ in
-                        // Start recording
-                        isRecording = true
-                        isRecordingContinued = true
-                        print("Recording started...")
-                        SpeechRecognition.shared.speak()
-                    }
-                    .onEnded { _ in
-                        isRecordingContinued = false
-                    }
-            )
-        } else {
-            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
-                handleOtherActions(index: index)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    func gridButton(index: Int, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
+    func gridButton(button: ButtonData, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: imageTextSpacing) {
-                let button = buttonsList[index]
                 Image(button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
-                    .font(.customFont(size: 18))
+                    .font(.customFont(size: 14))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
@@ -208,23 +194,23 @@ struct ActionsView: View {
         }
     }
     
-    func handleOtherActions(index: Int) {
-        switch index {
-        case 0:
+    func handleOtherActions(actionType: ActionType) {
+        switch actionType {
+        case .reset:
             SpeechRecognition.shared.reset()
-        case 1:
+        case .skip:
             stopRecording()
-        case 2:
+        case .randomFact:
             SpeechRecognition.shared.randomFacts()
-        case 3:
+        case .play:
             if SpeechRecognition.shared.isPaused() {
                 SpeechRecognition.shared.continueSpeech()
             } else {
                 SpeechRecognition.shared.pause()
             }
-        case 4:
+        case .repeatLast:
             SpeechRecognition.shared.repeate()
-        case 5:
+        case .speak:
             stopRecording()
         default:
             break
