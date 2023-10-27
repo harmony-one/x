@@ -17,7 +17,6 @@ class SpeechRecognition: NSObject {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var isAudioSessionSetup = false
-    private var silenceTimer: Timer?
     let audioSession = AVAudioSession.sharedInstance()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
@@ -42,7 +41,7 @@ class SpeechRecognition: NSObject {
     
     // Current message being processed
     var currentRecognitionMessage: String?
-    
+        
     // MARK: - Initialization and Setup
     
     func setup() {
@@ -106,13 +105,18 @@ class SpeechRecognition: NSObject {
             if let result = result {
                 message = result.bestTranscription.formattedString
                 isFinal = result.isFinal
-                self.currentRecognitionMessage = message
             }
                         
-            if error != nil || isFinal {
+            if  isFinal {
+                print( "Speech recognition isFinal ")
+                print( "Speech recognition \(message) ")
+                
                 inputNode.removeTap(onBus: 0)
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
+                if !message.isEmpty {
+                    self.handleEndOfSentence(message)
+                }
             }
             
             if let error = error {
@@ -253,15 +257,18 @@ class SpeechRecognition: NSObject {
     }
     
     func speak() {
-        DispatchQueue.main.async {
-            self.textToSpeechConverter.pauseSpeech()
-            // self.reset() commented to allow conversation history
-            self.startSpeechRecognition()
-        }
+        stopListening()
+        self.textToSpeechConverter.pauseSpeech()
+        // self.reset() commented to allow conversation history
+        self.startSpeechRecognition()
     }
     
     func stopSpeak() {
         recognitionTask?.finish()
+    }
+    
+    func cancelSpeak() {
+        stopListening()
     }
     
     func repeate() {

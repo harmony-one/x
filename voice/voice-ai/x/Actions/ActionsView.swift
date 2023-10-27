@@ -16,14 +16,14 @@ struct ButtonData {
 struct PressEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-                .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
-                .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
-                .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+            .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
+            .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
 struct ActionsView: View {
-   // var dismissAction: () -> Void
+    // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
     
@@ -34,9 +34,12 @@ struct ActionsView: View {
     @State private var isRecording = false
     @State private var hasStartedListening = false
     @State private var hasStoppedListening = false
+    @State private var isRecordingContinued = false
+    @State private var orientation = UIDevice.current.orientation
+    
     
     let oneValue = "2111.01 ONE"
-
+    
     let buttonsList: [ButtonData] = [
         ButtonData(label: "New Session", image: "new session"),
         ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds"),
@@ -47,10 +50,10 @@ struct ActionsView: View {
     ]
     
     init() {
-            // Disable idle timer when the view is created
-            UIApplication.shared.isIdleTimerDisabled = true
-        }
-
+        // Disable idle timer when the view is created
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
     var body: some View {
         Group {
             if verticalSizeClass == .compact {
@@ -61,8 +64,18 @@ struct ActionsView: View {
         }.onAppear(
             perform: SpeechRecognition.shared.setup
         )
-        .navigationBarTitle("Grid of Buttons")
         .edgesIgnoringSafeArea(.all)
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                    if UIDevice.current.orientation != orientation {
+                        if isRecording {
+                            isRecordingContinued = true
+                            
+                            print("Recording stopSpeak...")
+                            SpeechRecognition.shared.cancelSpeak()
+                        }
+                        orientation = UIDevice.current.orientation
+                    }
+                }
     }
     
     var landscapeView: some View {
@@ -97,15 +110,53 @@ struct ActionsView: View {
     
     @ViewBuilder
     func landscapeViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-            handleOtherActions(index: index)
+        if index == 5 {
+            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(index: index)
+            }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.1)
+                    .onChanged { _ in
+                        // Start recording
+                        isRecording = true
+                        isRecordingContinued = true
+                        print("Recording started...")
+                        SpeechRecognition.shared.speak()
+                    }
+                    .onEnded { _ in
+                        isRecordingContinued = false
+                    }
+            )
+        } else {
+            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
+                handleOtherActions(index: index)
+            }
         }
     }
     
     @ViewBuilder
     func portraitViewButton(index: Int, geometry: GeometryProxy) -> some View {
-        gridButton(index: index, geometry: geometry, foregroundColor: Color(hex: 0x0088B0)) {
-            handleOtherActions(index: index)
+        if index == 5 {
+            gridButton(index: index, geometry: geometry, foregroundColor: .black) {
+                handleOtherActions(index: index)
+            }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.1)
+                    .onChanged { _ in
+                        // Start recording
+                        isRecording = true
+                        isRecordingContinued = true
+                        print("Recording started...")
+                        SpeechRecognition.shared.speak()
+                    }
+                    .onEnded { _ in
+                        isRecordingContinued = false
+                    }
+            )
+        } else {
+            gridButton(index: index, geometry: geometry, foregroundColor:  index == 0 ? .white : .black) {
+                handleOtherActions(index: index)
+            }
         }
     }
     
@@ -127,17 +178,8 @@ struct ActionsView: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle())
-        .simultaneousGesture(
-            LongPressGesture(minimumDuration: 0.5, maximumDistance: 10)
-                .onEnded { _ in
-                    if index == 5 {
-                        handleOtherActions(index: index)
-                    }
-                }
-        )
-
     }
-
+    
     
     func getColor(index: Int) -> Color {
         let colors: [Color] = [Color(hex: 0xDDF6FF),
@@ -154,14 +196,15 @@ struct ActionsView: View {
         // Start your recording logic here
         print("Started Recording...")
     }
-
+    
     func stopRecording() {
         if isRecording {
             isRecording = false
-            // Stop your recording logic here
-            print("Stopped Recording")
-            SpeechRecognition.shared.stopSpeak()
-
+            if !isRecordingContinued {
+                // Stop your recording logic here
+                print("Stopped Recording")
+                SpeechRecognition.shared.stopSpeak()
+            }
         }
     }
     
@@ -182,16 +225,10 @@ struct ActionsView: View {
         case 4:
             SpeechRecognition.shared.repeate()
         case 5:
-            if self.isRecording == false {
-                startRecording()
-                SpeechRecognition.shared.speak()
-            } else {
-                stopRecording()
-                SpeechRecognition.shared.endSpeechRecognition()
-            }
+            stopRecording()
         default:
             break
         }
     }
-
+    
 }
