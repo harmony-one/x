@@ -47,6 +47,8 @@ router.post('/attestation', async (req, res) => {
   res.json({ token })
 })
 
+// NOTE: there are suggestions that error should be handled by calling next(..) with error as an argument, but it seems less robust than the custom format used here, because we don't have a well-defined behavior, whereas by responding `error:\n` followed by a JSON string, we do.
+// https://github.com/expressjs/express/issues/2700
 router.post('/openai', authenticated, async (req, res) => {
   // TODO
   let completed = false

@@ -10,7 +10,9 @@ const config = {
     key: DEBUG ? './certs/test.key' : './certs/privkey.pem',
     cert: DEBUG ? './certs/test.cert' : './certs/fullchain.pem'
   },
-  corsOrigins: process.env.CORS ?? ''
+  corsOrigins: process.env.CORS ?? '',
+  teamId: process.env.TEAM_ID ?? '',
+  packageName: process.env.PACKAGE_NAME ?? '',
 }
 
 export default config

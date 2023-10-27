@@ -5,8 +5,8 @@ import { hash as sha256 } from 'fast-sha256'
 import { hexView, stringToBytes } from '../utils.js'
 import config from '../config/index.js'
 import NodeCache from 'node-cache'
+import ASN1Util = jsrsasign.KJUR.asn1.ASN1Util
 const PubKeyCache = new NodeCache()
-
 // https://www.apple.com/certificateauthority/Apple_App_Attestation_Root_CA.pem
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AppleRootCA = `-----BEGIN CERTIFICATE-----
@@ -26,10 +26,24 @@ oyFraWVIyd/dganmrduC1bmTBGwD
 
 // See https://developer.apple.com/documentation/devicecheck/validating_apps_that_connect_to_your_server#3576643
 // NOTE: a small part is copied from gist linked by discussions in https://developer.apple.com/forums/thread/687626
+// See also PHP implementation: https://gist.github.com/gbalduzzi/0f2f14c3511da9e7811ad6f3a0175d06
+// Related issues and partial implementations: https://developer.apple.com/forums/thread/662477
 // const inputKeyId = get keyId from the app - this is a base64 of the sha256sum of the public key in uncompressed point format
 // const attestation = get attestation from the app
 export const validateAttestation = async (inputKeyId: string, challenge: string, attestation: string): Promise<boolean> => {
   const keyId = Buffer.from(inputKeyId, 'base64')
+  // decoded CBOR format:
+  // {
+  //   fmt: 'apple-appattest',
+  //   attStmt: {
+  //     x5c: [
+  //       <Buffer 30 82 02 cc ... >,
+  //       <Buffer 30 82 02 36 ... >
+  //     ],
+  //     receipt: <Buffer 30 80 06 09 ... >
+  //   },
+  //   authData: <Buffer 21 c9 9e 00 ... >
+  // }
   const attestationObject = (await cbor.decodeAll(Buffer.from(attestation, 'base64')))[0]
   const parsedAuthData = parseAuthenticatorData(attestationObject.authData)
   // authData.
@@ -54,11 +68,32 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   const appendedAuthData = Buffer.concat([Buffer.from(attestationObject.authData), clientDataHash])
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const nonce = Buffer.from(sha256(new Uint8Array(appendedAuthData)))
-  // step 4: TODO: Obtain the value of the credCert extension with OID 1.2.840.113635.100.8.2, which is a DER-encoded ASN.1 sequence. Decode the sequence and extract the single octet string that it contains. Verify that the string equals nonce.
-
-  // step 5: Create the SHA256 hash of the public key in credCert, and verify that it matches the key identifier from your app.
+  const nonceStr = hexView(nonce)
+  // step 4: Obtain the value of the credCert extension with OID 1.2.840.113635.100.8.2, which is a DER-encoded ASN.1 sequence. Decode the sequence and extract the single octet string that it contains. Verify that the string equals nonce.
+  // DER and ASN.1 reference: https://letsencrypt.org/docs/a-warm-welcome-to-asn1-and-der/
   const credCert = new jsrsasign.X509()
   credCert.readCertHex(credCertBuffer.toString('hex'))
+  console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
+
+  // TODO: not sure if this is implemented correctly. Waiting for jsrsasign library author to respond: https://github.com/kjur/jsrsasign/issues/364
+
+  const extInfo = credCert.getExtInfo('1.2.840.113635.100.8.2')
+  if (!extInfo) {
+    console.error('Cannot find extension 1.2.840.113635.100.8.2')
+    return false
+  }
+
+  // See usage at https://kjur.github.io/jsrsasign/api/symbols/ASN1HEX.html and jsrsasign source code in x509-1.1.js and asn1hex-1.1.js on how they used ASN1HEX.getV internally
+  const expectedNonceStr = jsrsasign.ASN1HEX.getV(credCert.hex, extInfo.vidx)
+
+  if (expectedNonceStr !== nonceStr) {
+    console.error(`nonce mismatch: expectedNonce=${expectedNonceStr}; nonce=${nonceStr}`)
+    return false
+  }
+
+  // const extension = parsedAuthData.
+  // step 5: Create the SHA256 hash of the public key in credCert, and verify that it matches the key identifier from your app.
+
   const credCertPubKeyPoints = (credCert.getPublicKey() as jsrsasign.KJUR.crypto.ECDSA).getPublicKeyXYHex()
   const credCertPubKey = Buffer.concat([
     Buffer.from([0x04]),
@@ -72,11 +107,11 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
     return false
   }
   const hexRpIdHash = hexView(parsedAuthData.rpIdHash)
-  const hexKeyid = hexView(sha256(new Uint8Array(keyId)))
+  const appIdHash = hexView(sha256(stringToBytes(`${config.teamId}.${config.packageName}`)))
 
   // step 6: Compute the SHA256 hash of your app’s App ID, and verify that it’s the same as the authenticator data’s RP ID hash.
-  if (hexRpIdHash !== hexKeyid) {
-    console.error(`rpIdHash !== keyId: ${hexRpIdHash} | ${hexKeyid}`)
+  if (hexRpIdHash !== appIdHash) {
+    console.error(`rpIdHash !== appIdHash: ${hexRpIdHash} | ${appIdHash}`)
     return false
   }
 
@@ -92,8 +127,8 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   }
   const aaguidStr = Buffer.from(parsedAuthData.aaguid).toString()
   if (config.debug) {
-    if (aaguidStr !== 'appattestdevelop') {
-      console.error(`bad aaguid: ${aaguidStr}; expected to be appattestdevelop`)
+    if (aaguidStr !== 'appattestdevelop' && aaguidStr !== 'appattest\x00\x00\x00\x00\x00\x00\x00') {
+      console.error(`bad aaguid: ${aaguidStr}; expected to be appattestdevelop or appattest\x00\x00\x00\x00\x00\x00\x00`)
       return false
     }
   } else {
@@ -102,6 +137,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
       return false
     }
   }
+  // step 9: Verify that the authenticator data’s credentialId field is the same as the key identifier.
   if (!parsedAuthData.credentialID || hexView(parsedAuthData.credentialID) !== keyIdStr) {
     console.error(`bad credentialID: ${aaguidStr}; expected to be keyId: ${keyIdStr}`)
     return false
