@@ -9,7 +9,7 @@ import AVFoundation
 import Speech
 
 class SpeechRecognition: NSObject {
-    
+
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -29,7 +29,9 @@ class SpeechRecognition: NSObject {
     let maxArraySize = 5
     
     // Array to store AI responses
+
     private var aiResponseArray: [String] = []
+    private var conversation: [Message] = []
     private let greatingText = "Hey!"
     
     private let audioPlayer = AudioPlayer()
@@ -157,7 +159,8 @@ class SpeechRecognition: NSObject {
         isRandomFacts = false
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
-        openAI.sendToOpenAI(inputText: recognizedText) { [self] aiResponse, error in
+        self.conversation.append(Message(role: "user", content: recognizedText))
+        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
             self.audioPlayer.stopSound()
             VibrationManager.stopVibration()
             guard let aiResponse = aiResponse else {
@@ -179,7 +182,7 @@ class SpeechRecognition: NSObject {
             if(!self.isPaused()) {
                 self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
             }
-        
+            self.conversation.append(Message(role: "assistant", content: aiResponse))
             self.addObject(aiResponse)
         }
     }
@@ -240,6 +243,7 @@ class SpeechRecognition: NSObject {
         VibrationManager.stopVibration()
         textToSpeechConverter.stopSpeech()
         self.aiResponseArray.removeAll()
+        self.conversation.removeAll()
         stopListening()
         recognitionTask?.finish()
         recognitionTask = nil
@@ -251,7 +255,7 @@ class SpeechRecognition: NSObject {
     func speak() {
         DispatchQueue.main.async {
             self.textToSpeechConverter.pauseSpeech()
-            self.reset()
+            // self.reset() commented to allow conversation history
             self.startSpeechRecognition()
         }
     }

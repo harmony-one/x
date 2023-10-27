@@ -9,9 +9,9 @@ import Foundation
 
 struct OpenAIService {
     private var task: URLSessionDataTask?
-
+//    private var conversation: [Message]
     // Function to send input text to OpenAI for processing
-    mutating func sendToOpenAI(inputText: String, completion: @escaping (String?, Error?) -> Void) {
+    mutating func sendToOpenAI(conversation: [Message], completion: @escaping (String?, Error?) -> Void) {
         
         let config = AppConfig()
         guard let openAI_APIKey = config.getAPIKey() else  {
@@ -25,19 +25,9 @@ struct OpenAIService {
             "Authorization": "Bearer \(openAI_APIKey)" // Replace openAI_APIKey with your actual API key
         ]
 
-        // Define the body of the HTTP request
         let body: [String: Any] = [
             "model": "gpt-4",
-            "messages": [
-                [
-                    "role": "system",
-                    "content": "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand."
-                ],
-                [
-                    "role": "user",
-                    "content": inputText
-                ]
-            ],
+            "messages": conversation.map { ["role": $0.role, "content": $0.content] },
             "temperature": 0.5
         ]
 
@@ -62,7 +52,7 @@ struct OpenAIService {
         }
 
         // Print the input text being sent to OpenAI
-        print("Sending to OpenAI: \(inputText)")
+        print("Sending to OpenAI: \(conversation.count)")
 
         // Initiate the data task for the request
         let session = URLSession.shared
@@ -88,6 +78,9 @@ struct OpenAIService {
                 let decoder = JSONDecoder()
                 let result = try decoder.decode(OpenAIResponse.self, from: data)
                 if let aitext = result.choices?.first?.message?.content?.trimmingCharacters(in: .whitespacesAndNewlines) {
+//                    conversation.append(Message(role:"system", content: aitext))
+                    print("***********")
+                    print(aitext)
                     completion(aitext, nil)
                 } else {
                     let invalidResponseError = NSError(domain: "Invalid response", code: -1, userInfo: nil)
