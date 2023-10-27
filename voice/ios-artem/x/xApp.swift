@@ -24,7 +24,7 @@ struct xApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DashboardView()
+            CheckoutView()
         }
         .modelContainer(sharedModelContainer)
     }

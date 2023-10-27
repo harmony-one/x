@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		17A10F7EDE746F1D40F7E4DF /* SpeechRecognitionDeepgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */; };
+		229006A62AEBE7710007909D /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 229006A52AEBE7710007909D /* StripePaymentSheet */; };
+		229006AB2AEBF7C90007909D /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229006AA2AEBF7C90007909D /* CheckoutView.swift */; };
 		6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
@@ -63,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionDeepgram.swift; sourceTree = "<group>"; };
+		229006AA2AEBF7C90007909D /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 		6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229006A62AEBE7710007909D /* StripePaymentSheet in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */,
 				6EE4A8EA2AE69F9300B98C84 /* Starscream in Frameworks */,
@@ -129,6 +133,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		229006A92AEBF7B40007909D /* PaymentsCheckout */ = {
+			isa = PBXGroup;
+			children = (
+				229006AA2AEBF7C90007909D /* CheckoutView.swift */,
+			);
+			path = PaymentsCheckout;
+			sourceTree = "<group>";
+		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +265,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				229006A92AEBF7B40007909D /* PaymentsCheckout */,
 				B95B4D7C2AE2D16100DFE2EB /* Actions */,
 				B9AD506E2ADFFD4E006F18A1 /* AppConfigration */,
 				B9AD50582ADFE961006F18A1 /* OpenAIService */,
@@ -326,6 +339,7 @@
 			name = "Hey Artem";
 			packageProductDependencies = (
 				6EE4A8E92AE69F9300B98C84 /* Starscream */,
+				229006A52AEBE7710007909D /* StripePaymentSheet */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Hey Artem.app */;
@@ -401,6 +415,7 @@
 			mainGroup = CD0D132B2ADA73B300031EDD;
 			packageReferences = (
 				6EE4A8E82AE69F9300B98C84 /* XCRemoteSwiftPackageReference "Starscream" */,
+				229006A42AEBE6E80007909D /* XCRemoteSwiftPackageReference "stripe-ios-spm" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -467,6 +482,7 @@
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
+				229006AB2AEBF7C90007909D /* CheckoutView.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,
@@ -666,6 +682,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -716,6 +733,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -853,6 +871,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		229006A42AEBE6E80007909D /* XCRemoteSwiftPackageReference "stripe-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stripe/stripe-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 23.18.0;
+			};
+		};
 		6EE4A8E82AE69F9300B98C84 /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream";
@@ -864,6 +890,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		229006A52AEBE7710007909D /* StripePaymentSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 229006A42AEBE6E80007909D /* XCRemoteSwiftPackageReference "stripe-ios-spm" */;
+			productName = StripePaymentSheet;
+		};
 		6EE4A8E92AE69F9300B98C84 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6EE4A8E82AE69F9300B98C84 /* XCRemoteSwiftPackageReference "Starscream" */;
