@@ -1,5 +1,7 @@
 
-2023-10-26 Wed: Updated the app to ensure compatibility with iOS 16 and resolve the UI scrolling problem. Pushed these changes to TestFlight build version 17. Also, Currently reviewing Aaron's streaming code and merged https://github.com/harmony-one/x/pull/68 and pushed a new build to TestFlight build version 18.
+2023-10-27 Fri: 1. Started integrating Aaron's Deepgram with the OpenAI stream in the Voice AI module. 2. Reviewed Frank's pull request and successfully merged the changes into the main branch.3. Bug Fix: Resolved an issue where users could hold the press-to-speak button to begin recording, and upon release, the recording would be sent to ChatGPT. Due to device orientation changes causing a shift in button positions, the recognition task has been temporarily suspended. 4. Generated a TestFlight build labeled as version 20, which includes the updates from points 2 and 3.
+
+2023-10-26 Thu: Updated the app to ensure compatibility with iOS 16 and resolve the UI scrolling problem. Pushed these changes to TestFlight build version 17. Also, Currently reviewing Aaron's streaming code and merged https://github.com/harmony-one/x/pull/68 and pushed a new build to TestFlight build version 18.
 
 2023-10-25 Wed: Implemented the Vibration Manager and URL session cancellation, along with the integration of continuous vibration signaling during the openAI call. These changes have been successfully pushed to TestFlight build version 11. Due to the restructuring of the folder, some code was inadvertently missed in the audio play. I have rectified this issue by reintroducing the missing code and also included the soft beep MP3 file.
 
