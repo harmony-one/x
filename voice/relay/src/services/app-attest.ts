@@ -5,7 +5,6 @@ import { hash as sha256 } from 'fast-sha256'
 import { hexView, stringToBytes } from '../utils.js'
 import config from '../config/index.js'
 import NodeCache from 'node-cache'
-import ASN1Util = jsrsasign.KJUR.asn1.ASN1Util
 const PubKeyCache = new NodeCache()
 // https://www.apple.com/certificateauthority/Apple_App_Attestation_Root_CA.pem
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,6 +22,20 @@ CgYIKoZIzj0EAwMDaAAwZQIwQgFGnByvsiVbpTKwSga0kP0e8EeDS4+sQmTvb7vn
 53O5+FRXgeLhpJ06ysC5PrOyAjEAp5U4xDgEgllF7En3VcE3iexZZtKeYnpqtijV
 oyFraWVIyd/dganmrduC1bmTBGwD
 -----END CERTIFICATE-----`
+
+// https://github.com/kjur/jsrsasign/issues/176#issuecomment-1073434816
+const verifyCertificateChain = (certificates: string[]): boolean => {
+  let valid = true
+  for (let i = 0; i < certificates.length; i++) {
+    let issuerIndex = i + 1
+    // If i == certificates.length - 1, self signed root ca
+    if (i === certificates.length - 1) issuerIndex = i
+    const issuerPubKey = jsrsasign.KEYUTIL.getKey(certificates[issuerIndex])
+    const certificate = new jsrsasign.X509(certificates[i])
+    valid = valid && certificate.verifySignature(issuerPubKey)
+  }
+  return valid
+}
 
 // See https://developer.apple.com/documentation/devicecheck/validating_apps_that_connect_to_your_server#3576643
 // NOTE: a small part is copied from gist linked by discussions in https://developer.apple.com/forums/thread/687626
