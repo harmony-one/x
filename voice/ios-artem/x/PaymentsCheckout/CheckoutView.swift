@@ -2,7 +2,7 @@ import StripePaymentSheet
 import SwiftUI
 
 class MyBackendModel: ObservableObject {
-  let backendCheckoutUrl = URL(string: "http://localhost:3002/stripe/payment-sheet")! // Your backend endpoint
+  let backendCheckoutUrl = URL(string: "http://192.168.1.74:3002/stripe/payment-sheet")! // Your backend endpoint
   @Published var paymentSheet: PaymentSheet?
   @Published var paymentResult: PaymentSheetResult?
 
