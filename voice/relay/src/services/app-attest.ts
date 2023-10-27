@@ -8,7 +8,6 @@ import NodeCache from 'node-cache'
 
 const PubKeyCache = new NodeCache()
 // https://www.apple.com/certificateauthority/Apple_App_Attestation_Root_CA.pem
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AppleRootCAPEM = `-----BEGIN CERTIFICATE-----
 MIICITCCAaegAwIBAgIQC/O+DvHN0uD7jG5yH2IXmDAKBggqhkjOPQQDAzBSMSYw
 JAYDVQQDDB1BcHBsZSBBcHAgQXR0ZXN0YXRpb24gUm9vdCBDQTETMBEGA1UECgwK
@@ -107,7 +106,6 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
 
   // step 3: Generate a new SHA256 hash of the composite item to create nonce.
   const appendedAuthData = Buffer.concat([Buffer.from(attestationObject.authData), clientDataHash])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const nonce = Buffer.from(sha256(new Uint8Array(appendedAuthData)))
   const nonceStr = hexView(nonce)
   // step 4: Obtain the value of the credCert extension with OID 1.2.840.113635.100.8.2, which is a DER-encoded ASN.1 sequence. Decode the sequence and extract the single octet string that it contains. Verify that the string equals nonce.
