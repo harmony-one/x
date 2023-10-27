@@ -4,7 +4,9 @@ Overview:
 [.] Streaming Play.ht synthesis
 [.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
 
-2023-10-26 Thu (2h+): Documenting, testing implementation and TODOs; Implementation of Relay and integration with attestation verification
+2023-10-27 Fri (4.5h+): Deploy and setup relay server instance with domain and certificates; Implement certificate chain verification and binary to PEM conversion; Revise and fix bugs on attestation verification; Implement client side examples for using Relay with TODOs;
+
+2023-10-26 Thu (6.5h): Documenting, testing implementation and TODOs; Implementation of Relay and integration with attestation verification; Code review on recent PRs #70, #73; Review attestation formats, WebAuthn libraries, research on DER encoding, Octet string, ASN.1 sequence, and the maximal use of jsrsasign library; Revise attestation verification implementaiton on missing steps (nonce verification, certificate chain); Research on X.509 custom extension field retrieval, jsrsasign library inner working and utility functions, and past issues and solutions
 
 2023-10-25 Wed (5.5h): Research on OpenAI key generation process, security recommendations; Research on Apple app attestation and integrity services, verification algorithm and reference implementations; Research on CBOR and WebAuthn standards and related libraries, and app attestation design and format; Step by step implementation of attestation verification; Verify reference implementation on public key construction
 
