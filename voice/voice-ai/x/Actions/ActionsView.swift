@@ -8,15 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct PressEffectButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(configuration.isPressed ? Color(hex: 0x0088B0) : Color(hex: 0xDDF6FF))
-            .foregroundColor(configuration.isPressed ? Color(hex: 0xDDF6FF) : Color(hex: 0x0088B0))
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
-    }
-}
-
 enum ActionType {
     case reset
     case skip
@@ -124,7 +115,7 @@ struct ActionsView: View {
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
         if button.action == .speak {
-            gridButton(button: button, geometry: geometry, foregroundColor: .black) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isRecording) {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
@@ -141,40 +132,10 @@ struct ActionsView: View {
                     }
             )
         } else {
-            gridButton(button: button, geometry: geometry, foregroundColor: .black) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black) {
                 handleOtherActions(actionType: button.action)
             }
         }
-    }
-    
-    @ViewBuilder
-    func gridButton(button: ButtonData, geometry: GeometryProxy, foregroundColor: Color, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: imageTextSpacing) {
-                Image(button.image)
-                    .fixedSize()
-                    .aspectRatio(contentMode: .fit)
-                Text(button.label)
-                    .font(.customFont(size: 14))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-            }
-            .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2), height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3))
-            .cornerRadius(0)
-            .alignmentGuide(.bottom) { _ in 0.5 }
-        }
-        .buttonStyle(PressEffectButtonStyle())
-    }
-    
-    
-    func getColor(index: Int) -> Color {
-        let colors: [Color] = [Color(hex: 0xDDF6FF),
-                               Color(hex: 0xDDF6FF),
-                               Color(hex: 0xDDF6FF),
-                               Color(hex: 0xDDF6FF),
-                               Color(hex: 0xDDF6FF),
-                               Color(hex: 0xDDF6FF)]
-        return colors[index]
     }
     
     func startRecording() {
