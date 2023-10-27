@@ -107,8 +107,7 @@ class SpeechRecognition: NSObject {
                 isFinal = result.isFinal
             }
                         
-            if  isFinal {
-                print( "Speech recognition isFinal ")
+            if isFinal {
                 print( "Speech recognition \(message) ")
                 
                 inputNode.removeTap(onBus: 0)
@@ -134,14 +133,6 @@ class SpeechRecognition: NSObject {
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
         }
-    }
-    
-    // Call when user releases "Press to Speak" button
-    func endSpeechRecognition() {
-        if let message = self.currentRecognitionMessage, !message.isEmpty {
-            self.handleEndOfSentence(message)
-        }
-        self.currentRecognitionMessage = nil
     }
     
     // MARK: - Sentence Handling
