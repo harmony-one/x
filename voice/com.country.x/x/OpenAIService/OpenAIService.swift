@@ -1,10 +1,3 @@
-//
-//  OpenAIService.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 18/10/23.
-//
-
 import Foundation
 import SwiftyJSON
 

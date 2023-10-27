@@ -38,6 +38,7 @@
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
 		CD30FFD82AE896CE00A61696 /* PlayHT.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD30FFD72AE896CE00A61696 /* PlayHT.swift */; };
+		CD45F0412AEBC0EC006AE24B /* OpenAIServiceViaRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD45F0402AEBC0EC006AE24B /* OpenAIServiceViaRelay.swift */; };
 		CD701A002AE7716A00539383 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = CD7019FF2AE7716A00539383 /* SwiftyJSON */; };
 		CD71E6422AE55B6D005C24F3 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = CD71E6412AE55B6D005C24F3 /* Collections */; };
 		CDA379642AE3CA5D006ABBD3 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDA379632AE3CA5D006ABBD3 /* AppConfig.plist */; };
@@ -97,6 +98,7 @@
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
 		CD30FFD72AE896CE00A61696 /* PlayHT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayHT.swift; sourceTree = "<group>"; };
+		CD45F0402AEBC0EC006AE24B /* OpenAIServiceViaRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIServiceViaRelay.swift; sourceTree = "<group>"; };
 		CDA379632AE3CA5D006ABBD3 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +208,7 @@
 			children = (
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
+				CD45F0402AEBC0EC006AE24B /* OpenAIServiceViaRelay.swift */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 			files = (
 				B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
+				CD45F0412AEBC0EC006AE24B /* OpenAIServiceViaRelay.swift in Sources */,
 				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,

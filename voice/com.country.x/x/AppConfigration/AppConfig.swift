@@ -10,6 +10,7 @@ import Foundation
 class AppConfig {
     
     private var apiKey: String?
+    private var relay: String?
     private var deepgramKey: String?
     private var playHtKey: String?
     private var playHtUserId: String?
@@ -32,6 +33,7 @@ class AppConfig {
             }
 
             self.apiKey = dictionary["API_KEY"]
+            self.relay = dictionary["RELAY"]
             self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             self.playHtKey = dictionary["PLAYHT_KEY"]
             self.playHtUserId = dictionary["PLAYHT_USER_ID"]
@@ -42,6 +44,10 @@ class AppConfig {
 
     func getAPIKey() -> String? {
         return self.apiKey
+    }
+    
+    func getRelay() -> String? {
+        return self.relay
     }
     
     func getDeepgramKey() -> String? {
