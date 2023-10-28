@@ -1,3 +1,5 @@
+**2023-10-27 Fri:**
+Getting familiar with development of swift and studying Aaron's code.
 
 **2023-10-26 Thu:**
 Starting development of Android App with the focus on Android 31+, which has support for the newest Neural Network API enabling 8-bit quantization (and thus more efficient utilization of GPU, but covering on 51% of devices). Studying  [Sherpa](https://github.com/Bip-Rep/sherpa/tree/1.0.0) that works with Meta's llama model (7B) - installed locally. (Worked only 4hrs)

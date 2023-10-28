@@ -79,8 +79,6 @@ struct OpenAIService {
                 let result = try decoder.decode(OpenAIResponse.self, from: data)
                 if let aitext = result.choices?.first?.message?.content?.trimmingCharacters(in: .whitespacesAndNewlines) {
 //                    conversation.append(Message(role:"system", content: aitext))
-                    print("***********")
-                    print(aitext)
                     completion(aitext, nil)
                 } else {
                     let invalidResponseError = NSError(domain: "Invalid response", code: -1, userInfo: nil)
@@ -94,7 +92,11 @@ struct OpenAIService {
     }
     
     // Method to cancel the ongoing API call
-        func cancelOpenAICall() {
-            task?.cancel()
-        }
+    func cancelOpenAICall() {
+        task?.cancel()
+    }
+    
+    func setConversationContext() -> Message {
+        return Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
+    }
 }
