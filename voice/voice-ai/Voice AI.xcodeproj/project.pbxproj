@@ -71,8 +71,8 @@
 		F64E8D772AEC00FB00D52996 /* DeepgramASR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E8D752AEC00BC00D52996 /* DeepgramASR.swift */; };
 		F64E8D7E2AEC03D400D52996 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		F64E8D7F2AEC03E100D52996 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
-		F64E8D812AEC056700D52996 /* OpenAIExService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E8D802AEC056700D52996 /* OpenAIExService.swift */; };
-		F64E8D822AEC05BA00D52996 /* OpenAIExService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E8D802AEC056700D52996 /* OpenAIExService.swift */; };
+		F64E8D812AEC056700D52996 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E8D802AEC056700D52996 /* OpenAIStreamService.swift */; };
+		F64E8D822AEC05BA00D52996 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64E8D802AEC056700D52996 /* OpenAIStreamService.swift */; };
 		F64E8D8E2AEC1A9E00D52996 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; fileRef = F64E8D8D2AEC1A9E00D52996 /* SwiftyJSON */; };
 		F64E8D8F2AEC1B0200D52996 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		F64E8D902AEC1B0B00D52996 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
@@ -163,7 +163,7 @@
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
 		F64E8D642AEBD19700D52996 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		F64E8D752AEC00BC00D52996 /* DeepgramASR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepgramASR.swift; sourceTree = "<group>"; };
-		F64E8D802AEC056700D52996 /* OpenAIExService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIExService.swift; sourceTree = "<group>"; };
+		F64E8D802AEC056700D52996 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F64E8D8B2AEC1A9B00D52996 /* swift-collections */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swift-collections"; path = "/Users/ymenkov/Library/Developer/Xcode/DerivedData/Voice_AI-adwpsveskjswaqhbuxiiaeqvwuzw/SourcePackages/checkouts/swift-collections"; sourceTree = "<absolute>"; };
 		F64E8D8D2AEC1A9E00D52996 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyJSON; path = "/Users/ymenkov/Library/Developer/Xcode/DerivedData/Voice_AI-adwpsveskjswaqhbuxiiaeqvwuzw/SourcePackages/checkouts/SwiftyJSON"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -338,7 +338,7 @@
 			children = (
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
-				F64E8D802AEC056700D52996 /* OpenAIExService.swift */,
+				F64E8D802AEC056700D52996 /* OpenAIStreamService.swift */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -703,7 +703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F64E8D822AEC05BA00D52996 /* OpenAIExService.swift in Sources */,
+				F64E8D822AEC05BA00D52996 /* OpenAIStreamService.swift in Sources */,
 				F64E8D772AEC00FB00D52996 /* DeepgramASR.swift in Sources */,
 				F64E8D682AEBE7F500D52996 /* SpeechRecognition.swift in Sources */,
 				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
@@ -765,7 +765,7 @@
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
-				F64E8D812AEC056700D52996 /* OpenAIExService.swift in Sources */,
+				F64E8D812AEC056700D52996 /* OpenAIStreamService.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

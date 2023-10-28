@@ -313,7 +313,7 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
             self.responses.append(response)
             buf.removeAll()
         }
-        let service = OpenAIExService { res, err in
+        let service = OpenAIStreamService { res, err in
             guard err == nil else {
                 print("ASR: OpenAI error: \(err!)")
                 //                self.textToSpeechConverter.convertTextToSpeech(text: "An issue is currently preventing the action. Please try again after some time.")

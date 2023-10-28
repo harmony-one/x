@@ -10,7 +10,7 @@ import SwiftyJSON
 
 let config = AppConfig()
 
-class OpenAIExService: NSObject, URLSessionDataDelegate {
+class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = config.getAPIKey()
