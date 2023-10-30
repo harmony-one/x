@@ -20,12 +20,20 @@ final class xUITestsLaunchTests: XCTestCase {
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         
-        let button0 = app.staticTexts["New Session"]
-        XCTAssertTrue(button0.exists)
+        let buttonLabels = [
+            "New Session",
+            "Skip 5 Seconds",
+            "Random Fact",
+            "Press to Speak",
+            "Repeat Last",
+            "Pause / Play"
+        ]
+        
+        for label in buttonLabels {
+            let button = app.staticTexts[label]
+            XCTAssertTrue(button.exists)
+        }
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
