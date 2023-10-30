@@ -1,10 +1,11 @@
 import StripePaymentSheet
 import SwiftUI
 
-class MyBackendModel: ObservableObject {
+class StripeCheckoutModel: ObservableObject {
   let backendCheckoutUrl = URL(string: "http://192.168.1.74:3002/stripe/payment-sheet")! // Your backend endpoint
   @Published var paymentSheet: PaymentSheet?
   @Published var paymentResult: PaymentSheetResult?
+  @Published var isPaid = false
 
   func preparePaymentSheet() {
     // MARK: Fetch the PaymentIntent and Customer information from the backend
@@ -44,7 +45,7 @@ class MyBackendModel: ObservableObject {
 }
 
 struct CheckoutView: View {
-  @ObservedObject var model = MyBackendModel()
+  @ObservedObject var model = StripeCheckoutModel()
 
   var body: some View {
     VStack {
