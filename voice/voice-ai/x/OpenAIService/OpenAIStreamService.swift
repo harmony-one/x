@@ -1,8 +1,8 @@
 //
-//  OpenAIExService.swift
-//  Voice AI
+//  OpenAIService.swift
+//  x
 //
-//  Created by Yuriy Menkov on 27.10.2023.
+//  Created by Nagesh Kumar Mishra on 18/10/23.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     // Function to send input text to OpenAI for processing
-    func query(prompt: String) {
+    func query(conversation: [Message]) {
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
             return
@@ -35,13 +35,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         ]
 
         let body: [String: Any] = [
-            "model": "gpt-4",
-            "messages": [
-                [
-                    "role": "user",
-                    "content": prompt
-                ]
-            ],
+            "model": "gpt-4-32k",
+            "messages": conversation.map { ["role": $0.role, "content": $0.content] },
             "temperature": 0.7, // TODO: make temperature adjustable by init
             "stream": true
         ]
@@ -65,9 +60,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.completion(nil, error)
             return
         }
-
-        // Print the input text being sent to OpenAI
-        print("Sending to OpenAI: \(prompt)")
 
         // Initiate the data task for the request
         self.task = self.session.dataTask(with: request)
