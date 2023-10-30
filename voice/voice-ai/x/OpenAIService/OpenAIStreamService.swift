@@ -11,6 +11,7 @@ import SwiftyJSON
 let config = AppConfig()
 
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
+    private var task: URLSessionDataTask?
     private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = config.getAPIKey()
@@ -34,14 +35,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         ]
 
         let body: [String: Any] = [
-            "model": "gpt-4-32k",
+            "model": "gpt-4",
             "messages": [
                 [
                     "role": "user",
                     "content": prompt
                 ]
             ],
-            "temperature": 0.5, // TODO: make temperature adjustable by init
+            "temperature": 0.7, // TODO: make temperature adjustable by init
             "stream": true
         ]
 
@@ -69,9 +70,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         print("Sending to OpenAI: \(prompt)")
 
         // Initiate the data task for the request
-        let task = self.session.dataTask(with: request)
-        task.delegate = self
-        task.resume()
+        self.task = self.session.dataTask(with: request)
+        self.task?.delegate = self
+        self.task?.resume()
     }
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
@@ -94,6 +95,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             let res = JSON(parseJSON: dataBody)
 
             let delta = res["choices"][0]["delta"]["content"].string
+            
             self.completion(delta, nil)
         }
     }
@@ -105,6 +107,10 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         } else {
             NSLog("OpenAI: task complete")
         }
+    }
+    
+    func cancelOpenAICall() {
+        self.task?.cancel()
     }
     
     func setConversationContext() -> Message {

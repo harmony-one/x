@@ -8,7 +8,18 @@
 import AVFoundation
 import Speech
 
-class SpeechRecognition: NSObject {
+protocol SpeechRecognitionProtocol {
+    func reset()
+    func randomFacts()
+    func isPaused() -> Bool
+    func continueSpeech()
+    func pause()
+    func repeate()
+    func speak()
+    func stopSpeak()
+}
+
+class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
     // MARK: - Properties
     
@@ -17,7 +28,7 @@ class SpeechRecognition: NSObject {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var isAudioSessionSetup = false
-    let audioSession = AVAudioSession.sharedInstance()
+    var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     let vibrationManager = VibrationManager()
@@ -45,9 +56,7 @@ class SpeechRecognition: NSObject {
     var currentRecognitionMessage: String?
         
     // MARK: - Initialization and Setup
-    
-    
-    
+
     func setup() {
         checkPermissionsAndSetupAudio()
         self.textToSpeechConverter.convertTextToSpeech(text: greatingText)
@@ -101,7 +110,9 @@ class SpeechRecognition: NSObject {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest!) { result, error in
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+
+        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
@@ -144,7 +155,7 @@ class SpeechRecognition: NSObject {
         recognitionTask = nil
         if !message.isEmpty {
             print("Message:", message)
-            makeQuery(message)
+            handleEndOfSentence(message)
         }
         currentRecognitionMessage = nil
     }
@@ -156,62 +167,12 @@ class SpeechRecognition: NSObject {
         }
         
         do {
+            audioEngine.prepare()
             try audioEngine.start()
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
         }
     }
-    
-    // MARK: - Sentence Handling
-    
-//    func handleEndOfSentence(_ recognizedText: String) {
-//        // Add your logic here for actions to be performed at the end of the user's sentence.
-//        // For example, you can handle UI updates or other necessary tasks.
-//        // ...
-//        print("handleEndOfSentence -- method called")
-//        
-//        self.isRequestingOpenAI = true;
-//        self._isPaused = false;
-//        
-//        recognitionTask?.finish()
-//        recognitionTask?.cancel()
-//        recognitionTask = nil
-//        recognitionRequest?.endAudio()
-//        audioEngine.stop()
-//        isRandomFacts = false
-//        self.audioPlayer.playSound()
-//        VibrationManager.startVibration()
-//        if (self.conversation.count == 0) {
-//            self.conversation.append(openAI.setConversationContext())
-//        }
-//        self.conversation.append(Message(role: "user", content: recognizedText))
-//        print(self.conversation)
-//        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
-//            self.audioPlayer.stopSound()
-//            VibrationManager.stopVibration()
-//            guard let aiResponse = aiResponse else {
-//                print("An issue is currently preventing the action. Please try again after some time.")
-//                self.isRequestingOpenAI = false;
-//                return
-//            }
-//            
-//            isRandomFacts = true
-//            self.setupAudioSession()
-//            self.stopListening()
-//            self.setupAudioEngine()
-//            if self.textToSpeechConverter.synthesizer.delegate == nil {
-//                self.textToSpeechConverter.synthesizer.delegate = self
-//            }
-//            
-//            self.isRequestingOpenAI = false;
-//        
-//            if(!self.isPaused()) {
-//                self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
-//            }
-//            self.conversation.append(Message(role: "assistant", content: aiResponse))
-//            self.addObject(aiResponse)
-//        }
-//    }
     
     func makeQuery(_ text: String) {
         var buf = [String]()
@@ -232,15 +193,17 @@ class SpeechRecognition: NSObject {
                 return
             }
             guard let res = res else {
-//                print("ASR: OpenAI Response completed. Flushing buffer")
-//                flushBuf()
+    //                print("ASR: OpenAI Response completed. Flushing buffer")
+    //                flushBuf()
                 return
             }
             print("ASR: OpenAI Response received: \(res)")
+            
             buf.append(res)
             guard res.last != nil else {
                 return
             }
+            
             if self.speechDelimitingPunctuations.contains(res.last!) {
                 flushBuf()
                 return
@@ -249,14 +212,70 @@ class SpeechRecognition: NSObject {
         service.query(prompt: text)
     }
     
+    // MARK: - Sentence Handling
+    
+    func handleEndOfSentence(_ recognizedText: String) {
+        // Add your logic here for actions to be performed at the end of the user's sentence.
+        // For example, you can handle UI updates or other necessary tasks.
+        // ...
+        print("handleEndOfSentence -- method called")
+        
+        self.isRequestingOpenAI = true;
+        self._isPaused = false;
+        
+        recognitionTask?.finish()
+        recognitionTask?.cancel()
+        recognitionTask = nil
+        recognitionRequest?.endAudio()
+        audioEngine.stop()
+        isRandomFacts = false
+        self.audioPlayer.playSound()
+        VibrationManager.startVibration()
+        if (self.conversation.count == 0) {
+            self.conversation.append(openAI.setConversationContext())
+        }
+        self.conversation.append(Message(role: "user", content: recognizedText))
+        print(self.conversation)
+        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
+            self.audioPlayer.stopSound()
+            VibrationManager.stopVibration()
+            guard let aiResponse = aiResponse else {
+                print("An issue is currently preventing the action. Please try again after some time.")
+                self.isRequestingOpenAI = false;
+                isRandomFacts = true
+                return
+            }
+            
+            isRandomFacts = true
+            self.setupAudioSession()
+            self.stopListening()
+            self.setupAudioEngine()
+            if self.textToSpeechConverter.synthesizer.delegate == nil {
+                self.textToSpeechConverter.synthesizer.delegate = self
+            }
+            
+            self.isRequestingOpenAI = false;
+        
+            if(!self.isPaused()) {
+                self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
+            }
+            self.conversation.append(Message(role: "assistant", content: aiResponse))
+            self.addObject(aiResponse)
+        }
+    }
+    
     func reset() {
         print("reset -- method called")
-        isRandomFacts = true
-        openAI.cancelOpenAICall()
-        audioPlayer.stopSound()
-        VibrationManager.stopVibration()
+        stopGPT()
         textToSpeechConverter.stopSpeech()
         cleanupForNewSession()
+    }
+    
+    private func stopGPT() {
+        isRandomFacts = true
+        // openAI.cancelOpenAICall()
+        audioPlayer.stopSound()
+        VibrationManager.stopVibration()
     }
     
     private func cleanupForNewSession() {
@@ -317,19 +336,30 @@ class SpeechRecognition: NSObject {
     func randomFacts() {
         print("randomFacts -- method called")
         if isRandomFacts {
-            makeQuery("Give me one random fact")
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
+            handleEndOfSentence("Give me one random fact")
         }
     }
     
     func speak() {
-        DispatchQueue.main.async {
-            self.textToSpeechConverter.pauseSpeech()
-            self.startSpeechRecognition()
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        // Check if recognition is in progress
+        guard !audioEngine.isRunning && recognitionTask?.state != .running else {
+            print("Recognition is already in progress.")
+            return
         }
+        cleanupRecognition()
+        audioEngine.inputNode.removeTap(onBus: 0)
+        isAudioSessionSetup = false
+        self.startSpeechRecognition()
     }
     
     func stopSpeak() {
-        recognitionTask?.finish()
+        if audioEngine.isRunning {
+            recognitionTask?.finish()
+        }
     }
     
     func cancelSpeak() {
