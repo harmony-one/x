@@ -8,7 +8,18 @@
 import AVFoundation
 import Speech
 
-class SpeechRecognition: NSObject {
+protocol SpeechRecognitionProtocol {
+    func reset()
+    func randomFacts()
+    func isPaused() -> Bool
+    func continueSpeech()
+    func pause()
+    func repeate()
+    func speak()
+    func stopSpeak()
+}
+
+class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
     // MARK: - Properties
     
