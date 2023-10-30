@@ -1,4 +1,4 @@
-2023-10-30 Mon: (Implement unit tests for SpeechRecognition, Actions module, & Converter, resolve bugs regarding "Press to Talk" crashing when spammed)
+2023-10-30 Mon: Implemented audio interruption for the "Random Fact" button during GPT's speech playback.Fixed the app-breaking issue caused by spamming the "Press to Talk" button. Generated a TestFlight build labeled as version 0.8.2(7). Continuing with the remaining unit tests as listed.
 
 ---
 
