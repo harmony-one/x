@@ -1,4 +1,4 @@
-2023-10-30 Mon: (Implement unit tests for UI components from Actions module, update with new logo)
+2023-10-30 Mon: Working on unit tests for UI components from Actions module, update with new logo, and migrated harmony one bot to another server
 
 ---
 
