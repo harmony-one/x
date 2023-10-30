@@ -54,9 +54,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     var currentRecognitionMessage: String?
         
     // MARK: - Initialization and Setup
-    
-    
-    
+
     func setup() {
         checkPermissionsAndSetupAudio()
         self.textToSpeechConverter.convertTextToSpeech(text: greatingText)
@@ -110,7 +108,9 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest!) { result, error in
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+
+        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
@@ -165,6 +165,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
         
         do {
+            audioEngine.prepare()
             try audioEngine.start()
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
@@ -201,6 +202,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             guard let aiResponse = aiResponse else {
                 print("An issue is currently preventing the action. Please try again after some time.")
                 self.isRequestingOpenAI = false;
+                isRandomFacts = true
                 return
             }
             
@@ -224,12 +226,16 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     
     func reset() {
         print("reset -- method called")
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        cleanupForNewSession()
+    }
+    
+    private func stopGPT() {
         isRandomFacts = true
         openAI.cancelOpenAICall()
         audioPlayer.stopSound()
         VibrationManager.stopVibration()
-        textToSpeechConverter.stopSpeech()
-        cleanupForNewSession()
     }
     
     private func cleanupForNewSession() {
@@ -288,6 +294,8 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     func randomFacts() {
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
         print("randomFacts -- method called")
         if isRandomFacts {
             handleEndOfSentence("Give me one random fact")
@@ -295,14 +303,23 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     func speak() {
-        DispatchQueue.main.async {
-            self.textToSpeechConverter.pauseSpeech()
-            self.startSpeechRecognition()
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        // Check if recognition is in progress
+        guard !audioEngine.isRunning && recognitionTask?.state != .running else {
+            print("Recognition is already in progress.")
+            return
         }
+        cleanupRecognition()
+        audioEngine.inputNode.removeTap(onBus: 0)
+        isAudioSessionSetup = false
+        self.startSpeechRecognition()
     }
     
     func stopSpeak() {
-        recognitionTask?.finish()
+        if audioEngine.isRunning {
+            recognitionTask?.finish()
+        }
     }
     
     func cancelSpeak() {
