@@ -1,3 +1,8 @@
+2023-10-30 Mon: Implemented audio interruption for the "Random Fact" button during GPT's speech playback.Fixed the app-breaking issue caused by spamming the "Press to Talk" button. Generated a TestFlight build labeled as version 0.8.2(7). Continuing with the remaining unit tests as listed.
+
+2023-10-29 Sun: Implemented the ActionHandler class to manage button actions, prioritizing unit testability. Introduced a SpeechRecognition protocol to enhance unit testing capabilities. Created ActionHandlerTests, featuring an initial test case. Developed mock objects to emulate speech and text-to-speech operations for testing purposes. Included a README file with instructions for conducting tests and writing unit tests.
+
+---
 
 2023-10-27 Fri: 1. Started integrating Aaron's Deepgram with the OpenAI stream in the Voice AI module. 2. Reviewed Frank's pull request and successfully merged the changes into the main branch.3. Bug Fix: Resolved an issue where users could hold the press-to-speak button to begin recording, and upon release, the recording would be sent to ChatGPT. Due to device orientation changes causing a shift in button positions, the recognition task has been temporarily suspended. 4. Generated a TestFlight build labeled as version 20, which includes the updates from points 2 and 3.
 

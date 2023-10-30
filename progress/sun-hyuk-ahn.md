@@ -1,3 +1,7 @@
+2023-10-29 Sun: Cleaning up Yuriy's PR so that "Press to Speak" button is working. Will wrap up tomorrow.
+
+2023-10-28 Sat: Reviewed Yuriy's PR on streaming implementation for OpenAI.
+
 2023-10-27 Fri: Fixed "Press to Speak" so that it does not crash from silence anymore. Bug fix regarding interruption has been fixed, "Press to Speak" in the middle of generation and synthesis is working as expected. There is a known bug where a user rapidly spamming "Press to Speak" button will the audio functionality to crash (will continue working on this). ChatGPT4 context has been enabled.
 
 2023-10-26 Thu: Redeployed with another bug fix where "Press to Speak" button ends only when user lets go of the hold (previously 1.5 second silence would stop the recording). Implemented interruptibility where recognition task and audio response now stops when user holds the "Press to Speak" button, starting a new recognition task. Implemented OpenAI call with custom instruction embedded.

@@ -26,6 +26,9 @@ final class xUITests: XCTestCase {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
+        
+        let button0 = app.staticTexts["old Session"]
+        XCTAssertFalse(button0.exists)
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

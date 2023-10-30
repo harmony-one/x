@@ -23,6 +23,9 @@ final class xUITestsLaunchTests: XCTestCase {
 
         // Insert steps here to perform after app launch but before taking a screenshot,
         // such as logging into a test account or navigating somewhere in the app
+        
+        let button0 = app.staticTexts["New Session"]
+        XCTAssertTrue(button0.exists)
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
