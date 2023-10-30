@@ -294,10 +294,10 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     func randomFacts() {
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
         print("randomFacts -- method called")
         if isRandomFacts {
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
             handleEndOfSentence("Give me one random fact")
         }
     }
