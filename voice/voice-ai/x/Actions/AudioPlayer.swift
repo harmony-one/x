@@ -8,6 +8,28 @@
 import Foundation
 import AVFoundation
 
+protocol AVAudioSessionProtocol {
+    func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
+    func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws
+}
+
+class AVAudioSessionWrapper: AVAudioSessionProtocol {
+    private let avAudioSession: AVAudioSession
+
+    init() {
+        self.avAudioSession = AVAudioSession.sharedInstance()
+    }
+
+    func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws {
+        try avAudioSession.setCategory(category, mode: mode, options: options)
+    }
+
+    func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws {
+        try avAudioSession.setActive(active, options: options)
+    }
+
+}
+
 class AudioPlayer: NSObject {
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?

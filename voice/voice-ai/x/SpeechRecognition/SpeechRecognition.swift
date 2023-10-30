@@ -8,7 +8,18 @@
 import AVFoundation
 import Speech
 
-class SpeechRecognition: NSObject {
+protocol SpeechRecognitionProtocol {
+    func reset()
+    func randomFacts()
+    func isPaused() -> Bool
+    func continueSpeech()
+    func pause()
+    func repeate()
+    func speak()
+    func stopSpeak()
+}
+
+class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
     // MARK: - Properties
     
@@ -17,7 +28,7 @@ class SpeechRecognition: NSObject {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var isAudioSessionSetup = false
-    let audioSession = AVAudioSession.sharedInstance()
+    var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     let vibrationManager = VibrationManager()
