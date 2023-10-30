@@ -1,3 +1,6 @@
+2023-10-30 Mon: (Implement unit tests for SpeechRecognition, Actions module, & Converter, resolve bugs regarding "Press to Talk" crashing when spammed)
+
+---
 
 2023-10-27 Fri: 1. Started integrating Aaron's Deepgram with the OpenAI stream in the Voice AI module. 2. Reviewed Frank's pull request and successfully merged the changes into the main branch.3. Bug Fix: Resolved an issue where users could hold the press-to-speak button to begin recording, and upon release, the recording would be sent to ChatGPT. Due to device orientation changes causing a shift in button positions, the recognition task has been temporarily suspended. 4. Generated a TestFlight build labeled as version 20, which includes the updates from points 2 and 3.
 
