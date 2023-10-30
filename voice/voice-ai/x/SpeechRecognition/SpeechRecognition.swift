@@ -7,6 +7,7 @@
 
 import AVFoundation
 import Speech
+import ChatGPTSwift
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -18,6 +19,8 @@ protocol SpeechRecognitionProtocol {
     func speak()
     func stopSpeak()
 }
+
+let conversationContext = ChatGPTSwift.Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
 
 class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
@@ -36,14 +39,15 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
     
     // Create an instance of OpenAIService
-    var openAI = OpenAIService()
+    var openAIApi: ChatGPTAPI?
+    var openAITask: SpeechRecognition?
     
     // Maximum size of the array
     let maxArraySize = 5
     
     // Array to store AI responses
     private var aiResponseArray: [String] = []
-    private var conversation: [Message] = []
+    private var conversation: [ChatGPTSwift.Message] = []
     private let greatingText = "Hey!"
     
     private let audioPlayer = AudioPlayer()
@@ -100,6 +104,15 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     func startSpeechRecognition() {
         print("startSpeechRecognition -- method called")
         
+        let config = AppConfig()
+        
+        guard let openAI_APIKey = config.getAPIKey() else  {
+            print("Not found openAI key")
+            return
+        }
+        
+        self.openAIApi = ChatGPTAPI(apiKey: openAI_APIKey)
+        
         setupAudioSession()
         cleanupRecognition()
         
@@ -155,7 +168,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         recognitionTask = nil
         if !message.isEmpty {
             print("Message:", message)
-            makeQuery(message)
+            makeAIQuery(message)
         }
         currentRecognitionMessage = nil
     }
@@ -174,100 +187,46 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
     }
     
-    func makeQuery(_ text: String) {
-        var buf = [String]()
-        func flushBuf() {
-            let response = buf.joined()
-            self.textToSpeechConverter.convertTextToSpeech(text: response)
-            print("Stopped capturing")
-            if self.textToSpeechConverter.synthesizer.delegate == nil {
-                self.textToSpeechConverter.synthesizer.delegate = self
-            }
-            self.conversation.append(Message(role: "assistant", content: response))
-            self.addObject(response)
-            buf.removeAll()
-        }
-        
+    func makeAIQuery(_ text: String) {
         if (self.conversation.count == 0) {
-            self.conversation.append(openAI.setConversationContext())
+            self.conversation.append(conversationContext)
         }
-        self.conversation.append(Message(role: "user", content: text))
         
-        let service = OpenAIStreamService { res, err in
-            guard err == nil else {
-                print("ASR: OpenAI error: \(err!)")
-                //                self.textToSpeechConverter.convertTextToSpeech(text: "An issue is currently preventing the action. Please try again after some time.")
-                return
-            }
-            guard let res = res else {
-    //                print("ASR: OpenAI Response completed. Flushing buffer")
-    //                flushBuf()
-                return
-            }
-            print("ASR: OpenAI Response received: \(res)")
-            
-            buf.append(res)
-            guard res.last != nil else {
-                return
-            }
-            
-            if self.speechDelimitingPunctuations.contains(res.last!) {
-                flushBuf()
-                return
-            }
-        }
-        service.query(conversation: conversation)
-    }
-    
-    // MARK: - Sentence Handling
-    
-    func handleEndOfSentence__(_ recognizedText: String) {
-        // Add your logic here for actions to be performed at the end of the user's sentence.
-        // For example, you can handle UI updates or other necessary tasks.
-        // ...
-        print("handleEndOfSentence -- method called")
+        self.openAIApi?.replaceHistoryList(with: self.conversation)
         
-        self.isRequestingOpenAI = true;
-        self._isPaused = false;
+        self.conversation.append(ChatGPTSwift.Message(role: "user", content: text))
         
-        recognitionTask?.finish()
-        recognitionTask?.cancel()
-        recognitionTask = nil
-        recognitionRequest?.endAudio()
-        audioEngine.stop()
-        isRandomFacts = false
-        self.audioPlayer.playSound()
-        VibrationManager.startVibration()
-        if (self.conversation.count == 0) {
-            self.conversation.append(openAI.setConversationContext())
-        }
-        self.conversation.append(Message(role: "user", content: recognizedText))
-        print(self.conversation)
-        openAI.sendToOpenAI(conversation: conversation) { [self] aiResponse, error in
-            self.audioPlayer.stopSound()
-            VibrationManager.stopVibration()
-            guard let aiResponse = aiResponse else {
-                print("An issue is currently preventing the action. Please try again after some time.")
-                self.isRequestingOpenAI = false;
-                isRandomFacts = true
-                return
+        Task {
+            do {
+                let stream = try await self.openAIApi?.sendMessageStream(
+                    text: text,
+                    model: "gpt-4",
+                    temperature: 0.5
+                )
+                
+                var fullResponse = [String]()
+                var buf = [String]()
+                
+                for try await line in stream {
+                    buf.append(line)
+                    fullResponse.append(line)
+                    
+                    if self.speechDelimitingPunctuations.contains(line) {
+                        let response = buf.joined()
+                        
+                        self.textToSpeechConverter.convertTextToSpeech(text: response)
+                        buf.removeAll()
+                    }
+                }
+                
+                let response = buf.joined()
+                self.textToSpeechConverter.convertTextToSpeech(text: response)
+                
+                self.conversation.append(Message(role: "assistant", content: fullResponse))
+                self.addObject(response)
+            } catch {
+                print(error.localizedDescription)
             }
-            
-            isRandomFacts = true
-            self.setupAudioSession()
-            self.stopListening()
-            self.setupAudioEngine()
-            if self.textToSpeechConverter.synthesizer.delegate == nil {
-                self.textToSpeechConverter.synthesizer.delegate = self
-            }
-            
-            self.isRequestingOpenAI = false;
-        
-            if(!self.isPaused()) {
-                self.textToSpeechConverter.convertTextToSpeech(text: aiResponse)
-            }
-            self.conversation.append(Message(role: "assistant", content: aiResponse))
-            self.addObject(aiResponse)
         }
     }
     
@@ -345,7 +304,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         if isRandomFacts {
             stopGPT()
             textToSpeechConverter.stopSpeech()
-            makeQuery("Give me one random fact")
+            makeAIQuery("Give me one random fact")
         }
     }
     

@@ -114,12 +114,10 @@
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
-		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
-		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
-		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
-		F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F610490F2AF02DEE0087F745 /* SwiftyJSON */; };
 		F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F61049112AF02DF50087F745 /* SwiftyJSON */; };
+		F67E43282AF05C16001B72CD /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43272AF05C16001B72CD /* ChatGPTSwift */; };
+		F67E432A2AF05C1D001B72CD /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43292AF05C1D001B72CD /* ChatGPTSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,7 +211,6 @@
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
-		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67E432A2AF05C1D001B72CD /* ChatGPTSwift in Frameworks */,
 				F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67E43282AF05C16001B72CD /* ChatGPTSwift in Frameworks */,
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */,
@@ -383,7 +382,6 @@
 		B9AD50582ADFE961006F18A1 /* OpenAIService */ = {
 			isa = PBXGroup;
 			children = (
-				F61049092AF02D820087F745 /* OpenAIStreamService.swift */,
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 			);
@@ -513,6 +511,7 @@
 			name = sun;
 			packageProductDependencies = (
 				F61049112AF02DF50087F745 /* SwiftyJSON */,
+				F67E43292AF05C1D001B72CD /* ChatGPTSwift */,
 			);
 			productName = sun;
 			productReference = A46B5A4A2AE73B9D00C874ED /* sun.app */;
@@ -569,6 +568,7 @@
 			name = "Voice AI";
 			packageProductDependencies = (
 				F610490F2AF02DEE0087F745 /* SwiftyJSON */,
+				F67E43272AF05C16001B72CD /* ChatGPTSwift */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -656,6 +656,7 @@
 			mainGroup = CD0D132B2ADA73B300031EDD;
 			packageReferences = (
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				F67E43262AF05ACE001B72CD /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -741,7 +742,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
-				F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
@@ -786,7 +786,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */,
-				F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
@@ -820,7 +819,6 @@
 				B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */,
 				6E53AF522AF012A40022A8F2 /* Font.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
-				F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */,
 				B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */,
 				B9C4A8342AEE96E300327529 /* AppConfig.swift in Sources */,
@@ -843,7 +841,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
-				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
@@ -1433,6 +1430,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		F67E43262AF05ACE001B72CD /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alfianlosari/ChatGPTSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1445,6 +1450,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		F67E43272AF05C16001B72CD /* ChatGPTSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43262AF05ACE001B72CD /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			productName = ChatGPTSwift;
+		};
+		F67E43292AF05C1D001B72CD /* ChatGPTSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43262AF05ACE001B72CD /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			productName = ChatGPTSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

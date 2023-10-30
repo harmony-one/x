@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OpenAIService {
+struct OpenAIServiceDeprecated {
     private var task: URLSessionDataTask?
 //    private var conversation: [Message]
     // Function to send input text to OpenAI for processing
