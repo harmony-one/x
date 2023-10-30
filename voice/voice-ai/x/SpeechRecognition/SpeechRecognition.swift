@@ -155,7 +155,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         recognitionTask = nil
         if !message.isEmpty {
             print("Message:", message)
-            handleEndOfSentence(message)
+            makeQuery(message)
         }
         currentRecognitionMessage = nil
     }
@@ -183,9 +183,16 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             if self.textToSpeechConverter.synthesizer.delegate == nil {
                 self.textToSpeechConverter.synthesizer.delegate = self
             }
+            self.conversation.append(Message(role: "assistant", content: response))
             self.addObject(response)
             buf.removeAll()
         }
+        
+        if (self.conversation.count == 0) {
+            self.conversation.append(openAI.setConversationContext())
+        }
+        self.conversation.append(Message(role: "user", content: text))
+        
         let service = OpenAIStreamService { res, err in
             guard err == nil else {
                 print("ASR: OpenAI error: \(err!)")
@@ -209,12 +216,12 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
                 return
             }
         }
-        service.query(prompt: text)
+        service.query(conversation: conversation)
     }
     
     // MARK: - Sentence Handling
     
-    func handleEndOfSentence(_ recognizedText: String) {
+    func handleEndOfSentence__(_ recognizedText: String) {
         // Add your logic here for actions to be performed at the end of the user's sentence.
         // For example, you can handle UI updates or other necessary tasks.
         // ...
@@ -338,7 +345,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         if isRandomFacts {
             stopGPT()
             textToSpeechConverter.stopSpeech()
-            handleEndOfSentence("Give me one random fact")
+            makeQuery("Give me one random fact")
         }
     }
     
