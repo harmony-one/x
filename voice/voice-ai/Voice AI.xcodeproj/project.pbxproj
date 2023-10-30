@@ -9,6 +9,34 @@
 /* Begin PBXBuildFile section */
 		6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
+		6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
+		6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
+		6E53AF442AF011E50022A8F2 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
+		6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
+		6E53AF472AF0121E0022A8F2 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
+		6E53AF482AF012470022A8F2 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		6E53AF492AF0125D0022A8F2 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
+		6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
+		6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
+		6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
+		6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
+		6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
+		6E53AF502AF012990022A8F2 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
+		6E53AF512AF012A40022A8F2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
+		6E53AF522AF012A40022A8F2 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
+		6E53AF532AF012A40022A8F2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
+		6E53AF542AF012A40022A8F2 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
+		6E53AF552AF012A50022A8F2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
+		6E53AF562AF012A50022A8F2 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
+		6E53AF572AF012A50022A8F2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
+		6E53AF582AF012A50022A8F2 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
+		6E53AF592AF012CD0022A8F2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
+		6E53AF5A2AF012D00022A8F2 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
+		6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
+		6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
+		6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
+		6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
@@ -89,6 +117,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6E53AF402AF010540022A8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A46B5A492AE73B9D00C874ED;
+			remoteInfo = sun;
+		};
 		A46B5A5A2AE73B9D00C874ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
@@ -216,6 +251,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E53AF5A2AF012D00022A8F2 /* CoreAudio.framework in Frameworks */,
+				6E53AF592AF012CD0022A8F2 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +588,7 @@
 			);
 			dependencies = (
 				CD0D13542ADA73B400031EDD /* PBXTargetDependency */,
+				6E53AF412AF010540022A8F2 /* PBXTargetDependency */,
 			);
 			name = "Voice AIUITests";
 			productName = xUITests;
@@ -684,7 +722,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
+				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
+				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
 				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
@@ -752,21 +792,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
+				6E53AF532AF012A40022A8F2 /* String.swift in Sources */,
 				CD0D134D2ADA73B400031EDD /* ActionHandlerTests.swift in Sources */,
 				B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */,
+				6E53AF522AF012A40022A8F2 /* Font.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */,
 				B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */,
 				B9C4A8342AEE96E300327529 /* AppConfig.swift in Sources */,
+				6E53AF542AF012A40022A8F2 /* Text.swift in Sources */,
 				B9C4A8322AEE96B600327529 /* Usage.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
 				B9C4A8302AEE96B100327529 /* Message.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
 				B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */,
+				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
+				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,14 +820,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
+				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
+				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
+				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
+				6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */,
+				6E53AF552AF012A50022A8F2 /* Color.swift in Sources */,
+				6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */,
+				6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */,
+				6E53AF472AF0121E0022A8F2 /* AudioPlayer.swift in Sources */,
 				CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */,
+				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
+				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
+				6E53AF482AF012470022A8F2 /* ActionsView.swift in Sources */,
+				6E53AF582AF012A50022A8F2 /* Text.swift in Sources */,
+				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
+				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
+				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,
+				6E53AF492AF0125D0022A8F2 /* TextToSpeechConverter.swift in Sources */,
+				6E53AF442AF011E50022A8F2 /* SpeechRecognition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6E53AF412AF010540022A8F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A46B5A492AE73B9D00C874ED /* sun */;
+			targetProxy = 6E53AF402AF010540022A8F2 /* PBXContainerItemProxy */;
+		};
 		A46B5A5B2AE73B9D00C874ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A46B5A492AE73B9D00C874ED /* sun */;
@@ -1238,7 +1307,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = x;
+				TEST_TARGET_NAME = "Voice AI";
 			};
 			name = Debug;
 		};
@@ -1260,7 +1329,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = x;
+				TEST_TARGET_NAME = "Voice AI";
 			};
 			name = Release;
 		};
