@@ -1,4 +1,4 @@
-2023-10-30 Mon: (Resolve bugs in GPT streaming PR, specifically button interaction and async request/response handling)
+2023-10-30 Mon: (Resolve bugs in GPT streaming PR, specifically button interaction and async request/response handling) Continue working on GPT streaming [PR](https://github.com/harmony-one/x/pull/84)
 
 ---
 
