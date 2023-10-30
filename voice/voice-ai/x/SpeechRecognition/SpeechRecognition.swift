@@ -232,7 +232,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
         if (self.conversation.count == 0) {
-            self.conversation.append(openAI.setConversationContext())
+            self.conversation.append(contentsOf: openAI.setConversationContext())
         }
         self.conversation.append(Message(role: "user", content: recognizedText))
         print(self.conversation)
