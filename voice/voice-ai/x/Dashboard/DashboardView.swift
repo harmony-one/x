@@ -110,6 +110,7 @@ struct DashboardView: View {
                     }
             ).onAppear(
                 perform: SpeechRecognition.shared.setup
+                // perform: DeepgramASR.shared.setup
             )
         
     
