@@ -1,3 +1,7 @@
+---
+
+2023-10-27 Sun: Prepared tasks for engineers by testing out PRs and organizing kanban. Streaming works, but button functionality has too many bugs to merge branch still, listed some of the more peritenent issues [here](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91?p=6b34ab5846484b47ba32b42ee4ecd661&pm=s). Team members should complete unit testing set up by Tuesday based off of Nagesh's [template](https://github.com/harmony-one/x/pull/85) he created today.
+
 2023-10-26 Sat: Reviewed Yuriy's streaming [PR](https://github.com/harmony-one/x/pull/84/files), unfortunately there are still some bugs that are introduced with this PR, so will continue to work with Yuriy, Sun, and Aaron to have this implemented. 
 
 2023-10-25 Fri: Worked on draft of delegating unit testing, component testing, and end-to-end testing for Voice AI with Sun ([doc](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91?p=25ebd29796fe4848b8835b11828b83d1&pm=s)). I expired all previous builds and deployed 0.8.2 build with proper versioning and provided notes for updates regarding the 9am build version 0.8.2. Theo and I will be collecting feedback for daily testing of whisper app and voice ai app ([doc](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91?p=56121e87272843bab0bfe2ead2f57bd8&pm=s)).
