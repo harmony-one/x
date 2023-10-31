@@ -1,5 +1,6 @@
 import AVFoundation
 import Speech
+import Combine
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -12,7 +13,7 @@ protocol SpeechRecognitionProtocol {
     func stopSpeak()
 }
 
-class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
+class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -36,10 +37,15 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
-    private var _isPaused = false
+    
     private var resumeListeningTimer: Timer? = nil
     private var silenceTimer: Timer?
     private var isCapturing = false
+    
+    @Published private var _isPaused = false
+    var isPausedPublisher: Published<Bool>.Publisher {
+        $_isPaused
+    }
     
     // Current message being processed
         

@@ -19,6 +19,8 @@ struct ActionsView: View {
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = ActionHandler()
     
+    @ObservedObject var speechRecognition = SpeechRecognition.shared
+    
     let oneValue = "2111.01 ONE"
     
     let buttonsPortrait: [ButtonData] = [
@@ -89,13 +91,15 @@ struct ActionsView: View {
             }
             .padding(0)
             .scrollDisabled(true)
-        }
+        }.onReceive(speechRecognition.isPausedPublisher, perform: { isPaused in
+            print("updated \(isPaused)")
+        })
     }
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isRecording) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: !speechRecognition.isPaused()) {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
