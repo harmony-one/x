@@ -327,7 +327,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("randomFacts -- method called")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        makeQuery("Give me one random fact")
+        makeQuery("Give me a random Wikiepdia entry in 2 sentences")
     }
     
     func speak() {
