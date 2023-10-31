@@ -8,10 +8,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = config.getAPIKey()
+    private var temperature: Double
 
-    init(completion: @escaping (String?, Error?) -> Void) {
+    init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
+        self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
     }
 
@@ -31,7 +33,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             //            "model": "gpt-4-32k",
             "model": "gpt-4",
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
-            "temperature": 0.7, // TODO: make temperature adjustable by init
+            "temperature": self.temperature,
             "stream": true
         ]
 
@@ -99,6 +101,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     func cancelOpenAICall() {
         self.task?.cancel()
+    }
+    
+    func setTemperature(_ t: Double) {
+        if t >= 0 && t <= 1 {
+            self.temperature = t
+        } else {
+            print("Invalid temperature value. It should be between 0 and 1.")
+        }
     }
 
     static func setConversationContext() -> Message {

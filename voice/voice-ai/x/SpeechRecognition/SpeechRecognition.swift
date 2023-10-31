@@ -1,5 +1,6 @@
 import AVFoundation
 import Speech
+import Combine
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -12,7 +13,7 @@ protocol SpeechRecognitionProtocol {
     func stopSpeak()
 }
 
-class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
+class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -36,10 +37,20 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
-    private var _isPaused = false
+    
     private var resumeListeningTimer: Timer? = nil
     private var silenceTimer: Timer?
     private var isCapturing = false
+    
+    @Published private var _isPaused = false
+    var isPausedPublisher: Published<Bool>.Publisher {
+        $_isPaused
+    }
+    
+    @Published private var _isPlaying = false
+    var isPlaingPublisher: Published<Bool>.Publisher {
+        $_isPlaying
+    }
     
     // Current message being processed
         
@@ -277,8 +288,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         textToSpeechConverter.stopSpeech()
         cleanupRecognition()
         isAudioSessionSetup = false
-        resumeCapturing()
-        textToSpeechConverter.synthesizer.delegate = nil
+        textToSpeechConverter.convertTextToSpeech(text: greatingText)
     }
     
     private func cleanupRecognition() {
@@ -291,20 +301,26 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         return _isPaused
     }
     
+    func isPlaying() -> Bool {
+        return _isPlaying
+    }
+    
     func pause() {
-        print("pause -- method called")
+        print("[SpeechRecognition][pause]")
         _isPaused = true
         
         if isRequestingOpenAI {
             audioPlayer.stopSound()
             VibrationManager.stopVibration()
-        } else {
+        } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
+        } else {
+            audioPlayer.playSound(false, "pausePlay")
         }
     }
     
     func continueSpeech() {
-        print("continueSpeech -- method called")
+        print("[SpeechRecognition][continueSpeech]")
         _isPaused = false
         
         if isRequestingOpenAI {
@@ -313,15 +329,15 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
         } else {
-            repeate()
+            audioPlayer.playSound(false, "pausePlay")
         }
     }
     
     func randomFacts() {
-        print("randomFacts -- method called")
+        print("[SpeechRecognition][randomFacts]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        makeQuery("Give me one random fact")
+        makeQuery("Give me a random Wikiepdia entry in 2 sentences")
     }
     
     func speak() {
@@ -350,7 +366,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             print("repeate content", m.content ?? "")
             textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
         } else {
-            textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
         }
     }
 }
@@ -359,6 +375,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        _isPlaying = false;
         resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             print("Starting capturing again")
             DispatchQueue.main.async {
@@ -368,6 +385,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        _isPlaying = true;
         audioPlayer.stopSound()
         pauseCapturing()
         resumeListeningTimer?.invalidate()
