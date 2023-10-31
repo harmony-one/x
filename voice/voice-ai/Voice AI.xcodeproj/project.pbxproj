@@ -69,6 +69,7 @@
 		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
+		A47949BD2AF1A7BB004E341D /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E71304F2AF137F100288AF8 /* AppConfig.plist */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -692,6 +693,7 @@
 				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
 				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
 				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
+				A47949BD2AF1A7BB004E341D /* AppConfig.plist in Resources */,
 				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
 				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
 				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,

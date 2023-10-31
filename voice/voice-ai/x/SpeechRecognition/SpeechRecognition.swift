@@ -26,7 +26,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    let vibrationManager = VibrationManager()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
    
@@ -247,6 +246,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             if self.speechDelimitingPunctuations.contains(res.last!) {
+                VibrationManager.stopVibration()
                 flushBuf()
                 return
             }
