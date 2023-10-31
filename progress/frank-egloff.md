@@ -1,4 +1,5 @@
-2023-10-30 Mon: (Implement unit testing for - OpenAiService (Context) & OpenAiService (Streaming))
+2023-10-30 Mon: Change home grid button spacing and font size to match Figma design. Added custom instructions to message context. Update context and custom instructions to streaming functionality. Started working on the unit tests for OpenAiService module
+(Implement unit testing for - OpenAiService (Context) & OpenAiService (Streaming))
 
 ---
 2023-10-27 Fri: Added conversation context and updated user interface on [Voice AI app](https://github.com/harmony-one/x/pull/83). Worked on fixing harmony1Bot /vkom command.
