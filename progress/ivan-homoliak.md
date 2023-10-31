@@ -1,4 +1,7 @@
 
+**2023-10-30 Tue:**
+Continue on getting into Android development. (Will update later)
+
 **2023-10-30 Mon:**
 Studying management of secret keys (such as API keys) in mobile Apps across open source project in Github (involving iOS and Android). Studied also OWASP for mobile applications as well as some community discussions and articles.
 
