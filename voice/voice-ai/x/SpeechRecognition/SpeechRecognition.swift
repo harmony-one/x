@@ -277,8 +277,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         textToSpeechConverter.stopSpeech()
         cleanupRecognition()
         isAudioSessionSetup = false
-        resumeCapturing()
-        textToSpeechConverter.synthesizer.delegate = nil
+        textToSpeechConverter.convertTextToSpeech(text: greatingText)
     }
     
     private func cleanupRecognition() {
