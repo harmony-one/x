@@ -26,7 +26,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     let vibrationManager = VibrationManager()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
-   
+    
     var pendingOpenAIStream: OpenAIStreamService?
     
     private var conversation: [Message] = []
@@ -42,9 +42,9 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Current message being processed
-        
+    
     // MARK: - Initialization and Setup
-
+    
     func setup() {
         checkPermissionsAndSetupAudio()
         textToSpeechConverter.convertTextToSpeech(text: greatingText)
@@ -60,7 +60,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     // MARK: - Audio Session Management
-
+    
     private func setupAudioSession() {
         guard !isAudioSessionSetup else { return }
         
@@ -101,7 +101,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     
     private func handleRecognition(inputNode: AVAudioNode) {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
-
+        
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
@@ -113,9 +113,9 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
             
             // isFinal does not work. See https://stackoverflow.com/a/42925643/1179349
-//            if result.isFinal {
-//                self.handleFinalRecognition(inputNode: inputNode, message: message)
-//            }
+            //            if result.isFinal {
+            //                self.handleFinalRecognition(inputNode: inputNode, message: message)
+            //            }
             
             self.silenceTimer?.invalidate()
             self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
@@ -124,7 +124,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
                 }
             }
         }
-    
+        
         installTapAndStartEngine(inputNode: inputNode)
     }
     
@@ -145,9 +145,9 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     }
     
     private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
-//        inputNode.removeTap(onBus: 0)
-//        recognitionRequest = nil
-//        recognitionTask = nil
+        //        inputNode.removeTap(onBus: 0)
+        //        recognitionRequest = nil
+        //        recognitionTask = nil
         if !message.isEmpty {
             print("Message:", message)
             makeQuery(message)
@@ -184,7 +184,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
         
         if conversation.count == 0 {
-            conversation.append(OpenAIStreamService.setConversationContext())
+            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
         
         print("[SpeechRecognition] query: \(text)")
@@ -241,140 +241,142 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         self.audioPlayer.playSound()
         VibrationManager.startVibration()
         if (self.conversation.count == 0) {
-            self.conversation.append(contentsOf: openAI.setConversationContext())
-    }
-    
-    func resumeCapturing() {
-        guard !isCapturing else {
-            return
-        }
-        isCapturing = true
-        print("[SpeechRecognition][resumeCapturing]")
-        setupAudioSession()
-        setupAudioEngine()
-        startSpeechRecognition()
-    }
-    
-    func registerTTS() {
-        if textToSpeechConverter.synthesizer.delegate == nil {
-            textToSpeechConverter.synthesizer.delegate = self
+            self.conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
     }
-    
-    func reset() {
-        print("[SpeechRecognition][reset]")
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        cleanupForNewSession()
-    }
-    
-    private func stopGPT() {
-        isRandomFacts = true
-        pendingOpenAIStream?.cancelOpenAICall()
-        audioPlayer.stopSound()
-        VibrationManager.stopVibration()
-    }
-    
-    private func cleanupForNewSession() {
-        conversation.removeAll()
-        pauseCapturing()
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        cleanupRecognition()
-        isAudioSessionSetup = false
-        resumeCapturing()
-        textToSpeechConverter.synthesizer.delegate = nil
-    }
-    
-    private func cleanupRecognition() {
-        recognitionTask?.cancel()
-        recognitionTask = nil
-        recognitionRequest?.endAudio()
-    }
-    
-    func isPaused() -> Bool {
-        return _isPaused
-    }
-    
-    func pause() {
-        print("pause -- method called")
-        _isPaused = true
         
-        if isRequestingOpenAI {
+        func resumeCapturing() {
+            guard !isCapturing else {
+                return
+            }
+            isCapturing = true
+            print("[SpeechRecognition][resumeCapturing]")
+            setupAudioSession()
+            setupAudioEngine()
+            startSpeechRecognition()
+        }
+        
+        func registerTTS() {
+            if textToSpeechConverter.synthesizer.delegate == nil {
+                textToSpeechConverter.synthesizer.delegate = self
+            }
+        }
+        
+        func reset() {
+            print("[SpeechRecognition][reset]")
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
+            cleanupForNewSession()
+        }
+        
+        private func stopGPT() {
+            isRandomFacts = true
+            pendingOpenAIStream?.cancelOpenAICall()
             audioPlayer.stopSound()
             VibrationManager.stopVibration()
-        } else {
-            textToSpeechConverter.pauseSpeech()
         }
-    }
-    
-    func continueSpeech() {
-        print("continueSpeech -- method called")
-        _isPaused = false
         
-        if isRequestingOpenAI {
-            audioPlayer.playSound()
-            VibrationManager.startVibration()
-        } else if textToSpeechConverter.synthesizer.isSpeaking {
-            textToSpeechConverter.continueSpeech()
-        } else {
-            repeate()
+        private func cleanupForNewSession() {
+            conversation.removeAll()
+            pauseCapturing()
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
+            cleanupRecognition()
+            isAudioSessionSetup = false
+            resumeCapturing()
+            textToSpeechConverter.synthesizer.delegate = nil
         }
-    }
-    
-    func randomFacts() {
-        print("randomFacts -- method called")
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        makeQuery("Give me one random fact")
-    }
-    
-    func speak() {
-        pauseCapturing()
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        cleanupRecognition()
-        isAudioSessionSetup = false
-        resumeCapturing()
-    }
-    
-    func stopSpeak() {
-        if audioEngine.isRunning {
-            recognitionTask?.finish()
+        
+        private func cleanupRecognition() {
+            recognitionTask?.cancel()
+            recognitionTask = nil
+            recognitionRequest?.endAudio()
         }
-    }
-    
-    func cancelSpeak() {
-        pauseCapturing()
-    }
-    
-    func repeate() {
-        pauseCapturing()
-        print("repeate", conversation)
-        if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
-            print("repeate content", m.content ?? "")
-            textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
-        } else {
-            textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
+        
+        func isPaused() -> Bool {
+            return _isPaused
         }
-    }
-}
-
-// Extension for AVSpeechSynthesizerDelegate
-
-extension SpeechRecognition: AVSpeechSynthesizerDelegate {
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            print("Starting capturing again")
-            DispatchQueue.main.async {
-                self.resumeCapturing()
+        
+        func pause() {
+            print("pause -- method called")
+            _isPaused = true
+            
+            if isRequestingOpenAI {
+                audioPlayer.stopSound()
+                VibrationManager.stopVibration()
+            } else {
+                textToSpeechConverter.pauseSpeech()
+            }
+        }
+        
+        func continueSpeech() {
+            print("continueSpeech -- method called")
+            _isPaused = false
+            
+            if isRequestingOpenAI {
+                audioPlayer.playSound()
+                VibrationManager.startVibration()
+            } else if textToSpeechConverter.synthesizer.isSpeaking {
+                textToSpeechConverter.continueSpeech()
+            } else {
+                repeate()
+            }
+        }
+        
+        func randomFacts() {
+            print("randomFacts -- method called")
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
+            makeQuery("Give me one random fact")
+        }
+        
+        func speak() {
+            pauseCapturing()
+            stopGPT()
+            textToSpeechConverter.stopSpeech()
+            cleanupRecognition()
+            isAudioSessionSetup = false
+            resumeCapturing()
+        }
+        
+        func stopSpeak() {
+            if audioEngine.isRunning {
+                recognitionTask?.finish()
+            }
+        }
+        
+        func cancelSpeak() {
+            pauseCapturing()
+        }
+        
+        func repeate() {
+            pauseCapturing()
+            print("repeate", conversation)
+            if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
+                print("repeate content", m.content ?? "")
+                textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
+            } else {
+                textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
             }
         }
     }
-
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        audioPlayer.stopSound()
-        pauseCapturing()
-        resumeListeningTimer?.invalidate()
+    
+    // Extension for AVSpeechSynthesizerDelegate
+    
+    extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+            resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                print("Starting capturing again")
+                DispatchQueue.main.async {
+                    self.resumeCapturing()
+                }
+            }
+        }
+        
+        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+            audioPlayer.stopSound()
+            pauseCapturing()
+            resumeListeningTimer?.invalidate()
+        }
     }
-}
+
