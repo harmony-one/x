@@ -5,8 +5,8 @@
 //  Created by Nagesh Kumar Mishra on 23/10/23.
 //
 
-import Foundation
 import AVFoundation
+import Foundation
 
 protocol AVAudioSessionProtocol {
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
@@ -27,14 +27,17 @@ class AVAudioSessionWrapper: AVAudioSessionProtocol {
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws {
         try avAudioSession.setActive(active, options: options)
     }
-
 }
 
 class AudioPlayer: NSObject {
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?
-
+    
     func playSound() {
+        self.playSound(true)
+    }
+
+    func playSound(_ loop: Bool = true) {
         guard let soundURL = Bundle.main.url(forResource: "beep", withExtension: "mp3") else {
             print("Sound file not found")
             return
@@ -46,7 +49,9 @@ class AudioPlayer: NSObject {
             audioPlayer?.play()
 
             // Schedule a Timer to play the sound every 2 seconds
-            timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(playSoundWithDelay), userInfo: nil, repeats: true)
+            if loop {
+                timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(playSoundWithDelay), userInfo: nil, repeats: true)
+            }
         } catch {
             print("Error playing sound: \(error.localizedDescription)")
         }

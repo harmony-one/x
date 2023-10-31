@@ -1,10 +1,3 @@
-//
-//  OpenAIService.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 18/10/23.
-//
-
 import Foundation
 import SwiftyJSON
 
@@ -35,12 +28,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         ]
 
         let body: [String: Any] = [
-            "model": "gpt-4-32k",
-            "messages": conversation.map { ["role": $0.role, "content": $0.content] },
+            //            "model": "gpt-4-32k",
+            "model": "gpt-4",
+            "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
             "temperature": 0.7, // TODO: make temperature adjustable by init
             "stream": true
         ]
 
+        print("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
@@ -63,31 +58,32 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         // Initiate the data task for the request
         self.task = self.session.dataTask(with: request)
-        self.task?.delegate = self
-        self.task?.resume()
+        self.task!.delegate = self
+        self.task!.resume()
     }
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
 //        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
         let str = String(data: data, encoding: .utf8)
-        guard let str=str else {
+        guard let str = str else {
             let error = NSError(domain: "Unable to decode string", code: -2, userInfo: ["body": str ?? ""])
             self.completion(nil, error)
             return
         }
 //        print("OpenAI: raw response: ", str)
-        let chunks = str.components(separatedBy: "\n\n").filter{chunk in chunk.hasPrefix("data:")}
+        let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
+                self.completion("[DONE]", nil)
                 continue
             }
             let res = JSON(parseJSON: dataBody)
 
             let delta = res["choices"][0]["delta"]["content"].string
-            
+
             self.completion(delta, nil)
         }
     }
@@ -100,13 +96,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             NSLog("OpenAI: task complete")
         }
     }
-    
+
     func cancelOpenAICall() {
         self.task?.cancel()
     }
-    
-    func setConversationContext() -> Message {
-        return Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
+
+    static func setConversationContext() -> Message {
+        return Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
     }
 }
-
