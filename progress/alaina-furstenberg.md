@@ -1,3 +1,7 @@
+2023-10-30 Mon: Contacted the remote team & utilized Calendly to schedule user testing calls. Synced with remote team on steps to take prior to our call. Spent 30 mins on Whisper and 15 on VoiceAI, feedback can be found [here](https://www.notion.so/harmonyone/Alaina-fb16535018a34835a8346b74f64e1c56)Aided Rikako in onboarding, synced with Theo on Thursday's event.
+
+---
+
 2023-10-29 Sun: Edited/uploaded the [protocol all-hands meeting](https://youtu.be/xLKpmzKrHrg?si=V1R0sgdotOF3AtM-) onto Youtube & [tweeted](https://x.com/harmonyprotocol/status/1718860772200308977?s=20) the video out. Created 6 iterations of 'V' on Dalle3 to encapsulate 'Voice AI' & continued to experiment further with app logos. Re-edited/shared our current logo with Theo. Researched marketing strategies for ONE Bot to grow user base... planning to create Twitter & Tiktok demos on Monday.
 
 2023-10-27 Fri: Published [Substack article](https://blog.harmony.one/p/unleashing-web-one-bots-integration?r=1zilbf&utm_campaign=post&utm_medium=web) and promoted on [Twitter](https://x.com/harmonyprotocol/status/1718029109333574128?s=20). Realigned mocks for x.country, synced with Julia on visual feedback for voice app, weighed pros & cons of haptics vs visual feedback. Created moodboard to show design agency for Voice AI logo. 
