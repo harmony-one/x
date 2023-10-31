@@ -1,4 +1,4 @@
-2023-10-30 Mon: Contacted the remote team & utilized Calendly to schedule user testing calls. Synced with remote team on steps to take prior to our call. Spent 30 mins on Whisper and 15 on VoiceAI, feedback can be found [here](https://www.notion.so/harmonyone/Alaina-fb16535018a34835a8346b74f64e1c56)Aided Rikako in onboarding, synced with Theo on Thursday's event.
+2023-10-30 Mon: Contacted the remote team & utilized Calendly to schedule user testing calls. Synced with remote team on steps to take prior to our call. Prepared topics of discussion for testing. Spent 30 mins on Whisper and 15 on VoiceAI, feedback can be found [here](https://www.notion.so/harmonyone/Alaina-fb16535018a34835a8346b74f64e1c56). Aided Rikako in onboarding, synced with Theo on Thursday's event.
 
 ---
 
