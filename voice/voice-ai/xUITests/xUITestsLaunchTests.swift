@@ -17,7 +17,7 @@ final class xUITestsLaunchTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLaunch() throws {
+    func testActionButtons() throws {
         let app = XCUIApplication()
         app.launch()
         
