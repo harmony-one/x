@@ -18,6 +18,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private var messageInRecongnition = ""
+    private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var isAudioSessionSetup = false
@@ -32,6 +34,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private var conversation: [Message] = []
     private let greatingText = "Hey!"
+
+    // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
+    //    private var isGreatingFinished = false
     
     private let audioPlayer = AudioPlayer()
     private var isRandomFacts = true
@@ -39,7 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isRequestingOpenAI = false
     
     private var resumeListeningTimer: Timer? = nil
-    private var silenceTimer: Timer?
+//    private var silenceTimer: Timer?
     private var isCapturing = false
     
     @Published private var _isPaused = false
@@ -60,7 +65,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         checkPermissionsAndSetupAudio()
         textToSpeechConverter.convertTextToSpeech(text: greatingText)
         isCapturing = true
-        startSpeechRecognition()
+//        startSpeechRecognition()
     }
     
     private func checkPermissionsAndSetupAudio() {
@@ -110,9 +115,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         handleRecognition(inputNode: inputNode)
     }
     
+
     private func handleRecognition(inputNode: AVAudioNode) {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
-
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
@@ -123,17 +128,27 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
             
-            // isFinal does not work. See https://stackoverflow.com/a/42925643/1179349
+            if !message.isEmpty {
+                self.recognitionLock.wait()
+                self.messageInRecongnition = message
+                self.recognitionLock.signal()
+            }
+            // isFinal does not work mid-speech. See https://stackoverflow.com/a/42925643/1179349
+            // Note: not using this. Instead, use stopSpeak() to trigger finalization instead
 //            if result.isFinal {
+//                self.recognitionLock.wait()
+//                let message = self.messageInRecongnition
+//                self.messageInRecongnition = ""
+//                self.recognitionLock.signal()
 //                self.handleFinalRecognition(inputNode: inputNode, message: message)
 //            }
             
-            self.silenceTimer?.invalidate()
-            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                if !message.isEmpty {
-                    self.handleFinalRecognition(inputNode: inputNode, message: message)
-                }
-            }
+//            self.silenceTimer?.invalidate()
+//            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+//                if !message.isEmpty {
+//                    self.handleFinalRecognition(inputNode: inputNode, message: message)
+//                }
+//            }
         }
     
         installTapAndStartEngine(inputNode: inputNode)
@@ -146,6 +161,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
                 // Notify the user in a suitable manner, possibly with UI updates or a popup.
+                return
             }
             // General cleanup process
             let inputNode = audioEngine.inputNode
@@ -155,15 +171,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
-//        inputNode.removeTap(onBus: 0)
-//        recognitionRequest = nil
-//        recognitionTask = nil
-        if !message.isEmpty {
-            print("Message:", message)
-            makeQuery(message)
-        }
-    }
+// TODO: remove
+//    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
+////        inputNode.removeTap(onBus: 0)
+////        recognitionRequest = nil
+////        recognitionTask = nil
+//        if !message.isEmpty {
+//            makeQuery(message)
+//        }
+//    }
     
     private func installTapAndStartEngine(inputNode: AVAudioNode) {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -181,6 +197,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func makeQuery(_ text: String) {
+        if(self.isRequestingOpenAI){
+            return
+        }
         var buf = [String]()
         func flushBuf() {
             let response = buf.joined()
@@ -241,7 +260,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         isCapturing = false
         print("[SpeechRecognition][pauseCapturing]")
-        _isPaused = false
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -341,6 +359,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func speak() {
+        print("[SpeechRecognition][speak]")
         pauseCapturing()
         stopGPT()
         textToSpeechConverter.stopSpeech()
@@ -353,6 +372,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if audioEngine.isRunning {
             recognitionTask?.finish()
         }
+        if !self.messageInRecongnition.isEmpty {
+            self.recognitionLock.wait()
+            let message = self.messageInRecongnition
+            self.messageInRecongnition = ""
+            self.recognitionLock.signal()
+            self.makeQuery(message)
+        }
+        pauseCapturing()
     }
     
     func cancelSpeak() {
@@ -376,12 +403,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         _isPlaying = false;
-        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-            print("Starting capturing again")
-            DispatchQueue.main.async {
-                self.resumeCapturing()
-            }
-        }
+        // TODO: to be used later for automatically resuming capturing when agent is not speaking
+        //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+        //            print("[SpeechRecognition][speechSynthesizer][didFinish] Starting capturing again")
+        //            DispatchQueue.main.async {
+        //                if self.isGreatingFinished {
+        //                    self.resumeCapturing()
+        //                }
+        //                self.isGreatingFinished = true
+        //            }
+        //        }
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
