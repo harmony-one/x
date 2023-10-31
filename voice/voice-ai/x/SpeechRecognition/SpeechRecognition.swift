@@ -280,7 +280,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     
     private func stopGPT() {
         isRandomFacts = true
-        // openAI.cancelOpenAICall()
+//        openAI.cancelOpenAICall()
         audioPlayer.stopSound()
         VibrationManager.stopVibration()
     }
@@ -352,11 +352,10 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     func speak() {
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        // Check if recognition is in progress
-        guard !audioEngine.isRunning && recognitionTask?.state != .running else {
-            print("Recognition is already in progress.")
-            return
-        }
+//        guard !audioEngine.isRunning && recognitionTask?.state != .running else {
+//            print("Recognition is already in progress.")
+//            return
+//        }
         cleanupRecognition()
         audioEngine.inputNode.removeTap(onBus: 0)
         isAudioSessionSetup = false
