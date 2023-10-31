@@ -1,3 +1,7 @@
+2023-10-30 Mon: Fixed bugs preventing ChatGPT streaming from working. Fixed another bug preventing interruption during synthesis.
+
+---
+
 2023-10-29 Sun: Cleaning up Yuriy's PR so that "Press to Speak" button is working. Will wrap up tomorrow.
 
 2023-10-28 Sat: Reviewed Yuriy's PR on streaming implementation for OpenAI.
