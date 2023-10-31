@@ -349,7 +349,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             print("repeate content", m.content ?? "")
             textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
         } else {
-            textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
         }
     }
 }
