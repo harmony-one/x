@@ -306,7 +306,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func pause() {
-        print("pause -- method called")
+        print("[SpeechRecognition][pause]")
         _isPaused = true
         
         if isRequestingOpenAI {
@@ -315,12 +315,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
         } else {
-            audioPlayer.playSound(false,"pausePlay")
+            audioPlayer.playSound(false, "pausePlay")
         }
     }
     
     func continueSpeech() {
-        print("continueSpeech -- method called")
+        print("[SpeechRecognition][continueSpeech]")
         _isPaused = false
         
         if isRequestingOpenAI {
@@ -329,12 +329,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
         } else {
-            audioPlayer.playSound(false,"pausePlay")
+            audioPlayer.playSound(false, "pausePlay")
         }
     }
     
     func randomFacts() {
-        print("randomFacts -- method called")
+        print("[SpeechRecognition][randomFacts]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
         makeQuery("Give me a random Wikiepdia entry in 2 sentences")
