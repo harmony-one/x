@@ -47,6 +47,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         $_isPaused
     }
     
+    @Published private var _isPlaying = false
+    var isPlaingPublisher: Published<Bool>.Publisher {
+        $_isPlaying
+    }
+    
     // Current message being processed
         
     // MARK: - Initialization and Setup
@@ -297,6 +302,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         return _isPaused
     }
     
+    func isPlaying() -> Bool {
+        return _isPlaying
+    }
+    
     func pause() {
         print("pause -- method called")
         _isPaused = true
@@ -365,6 +374,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        _isPlaying = false;
         resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             print("Starting capturing again")
             DispatchQueue.main.async {
@@ -374,6 +384,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        _isPlaying = true;
         audioPlayer.stopSound()
         pauseCapturing()
         resumeListeningTimer?.invalidate()

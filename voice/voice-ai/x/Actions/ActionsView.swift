@@ -98,8 +98,12 @@ struct ActionsView: View {
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
+        let isActive =
+        ( button.action == .speak && !speechRecognition.isPaused() )
+        || ( button.action == .play && speechRecognition.isPlaying() )
+        
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: !speechRecognition.isPaused()) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive ) {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
@@ -107,7 +111,7 @@ struct ActionsView: View {
                     .onEnded { _ in handleOtherActions(actionType: button.action)}
             )
         } else {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive) {
                 handleOtherActions(actionType: button.action)
             }
         }
