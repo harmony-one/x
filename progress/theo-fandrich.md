@@ -1,4 +1,4 @@
-2023-10-30 Mon:
+2023-10-30 Mon: Coordinated update v0.8.4 with streaming. Accessed and setup internal apple store development account and will prepare for transition tomorrow. Helped Rika onboard to testflight, test out Whisper App, and reviewed some of her goals.
 
 ---
 
