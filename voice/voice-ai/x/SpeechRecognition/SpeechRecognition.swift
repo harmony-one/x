@@ -1,5 +1,6 @@
 import AVFoundation
 import Speech
+import Combine
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -12,7 +13,7 @@ protocol SpeechRecognitionProtocol {
     func stopSpeak()
 }
 
-class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
+class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
@@ -36,10 +37,20 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
-    private var _isPaused = false
+    
     private var resumeListeningTimer: Timer? = nil
     private var silenceTimer: Timer?
     private var isCapturing = false
+    
+    @Published private var _isPaused = false
+    var isPausedPublisher: Published<Bool>.Publisher {
+        $_isPaused
+    }
+    
+    @Published private var _isPlaying = false
+    var isPlaingPublisher: Published<Bool>.Publisher {
+        $_isPlaying
+    }
     
     // Current message being processed
         
@@ -291,6 +302,10 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         return _isPaused
     }
     
+    func isPlaying() -> Bool {
+        return _isPlaying
+    }
+    
     func pause() {
         print("pause -- method called")
         _isPaused = true
@@ -321,7 +336,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         print("randomFacts -- method called")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        makeQuery("Give me one random fact")
+        makeQuery("Give me a random Wikiepdia entry in 2 sentences")
     }
     
     func speak() {
@@ -359,6 +374,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        _isPlaying = false;
         resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             print("Starting capturing again")
             DispatchQueue.main.async {
@@ -368,6 +384,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        _isPlaying = true;
         audioPlayer.stopSound()
         pauseCapturing()
         resumeListeningTimer?.invalidate()
