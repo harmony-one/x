@@ -1,3 +1,6 @@
+
+2023-10-31 Tue: Added a new MP3 file and fixed playback issues. Assisted Sergey with UITest challenges.
+
 2023-10-30 Mon: Implemented audio interruption for the "Random Fact" button during GPT's speech playback.Fixed the app-breaking issue caused by spamming the "Press to Talk" button. Generated a TestFlight build labeled as version 0.8.2(7). Continuing with the remaining unit tests as listed.
 
 2023-10-29 Sun: Implemented the ActionHandler class to manage button actions, prioritizing unit testability. Introduced a SpeechRecognition protocol to enhance unit testing capabilities. Created ActionHandlerTests, featuring an initial test case. Developed mock objects to emulate speech and text-to-speech operations for testing purposes. Included a README file with instructions for conducting tests and writing unit tests.
