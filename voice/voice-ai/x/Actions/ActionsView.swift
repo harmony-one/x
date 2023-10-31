@@ -91,9 +91,7 @@ struct ActionsView: View {
             }
             .padding(0)
             .scrollDisabled(true)
-        }.onReceive(speechRecognition.isPausedPublisher, perform: { isPaused in
-            print("updated \(isPaused)")
-        })
+        }
     }
     
     @ViewBuilder
