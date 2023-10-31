@@ -1,3 +1,5 @@
+2023-10-31 Tue: [Completed](https://github.com/harmony-one/stripe-payments-backend/pull/5) basic methods for X payments service: it support creating new users, refund and widthdraw funds. [Deployed](https://x-payments-api.fly.dev/api#/users) service to fly.io, asked Aaron to review it and discuss the next steps. Continue research Apple [Storekit](https://developer.apple.com/storekit/) to implement payments in iOS app.
+
 2023-10-30 Mon: [implemented](https://github.com/harmony-one/x/commit/f748d5ea3e8779de8fb07d7b187b6126404f0d4a) simple unit test for Payment module in Hey Artem, checking how to implement UI tests. Continue working on payments service DB schema, need to discuss details with Aaron.
 
 ---
