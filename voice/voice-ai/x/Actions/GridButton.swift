@@ -10,7 +10,7 @@ struct GridButton: View {
 
     
     let buttonSize: CGFloat = 100
-    let imageTextSpacing: CGFloat = 30
+    let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
@@ -21,7 +21,7 @@ struct GridButton: View {
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
-                    .font(.customFont(size: 14))
+                    .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
