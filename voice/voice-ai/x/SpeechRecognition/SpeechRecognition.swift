@@ -288,8 +288,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         textToSpeechConverter.stopSpeech()
         cleanupRecognition()
         isAudioSessionSetup = false
-        resumeCapturing()
-        textToSpeechConverter.synthesizer.delegate = nil
+        textToSpeechConverter.convertTextToSpeech(text: greatingText)
     }
     
     private func cleanupRecognition() {
@@ -313,8 +312,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if isRequestingOpenAI {
             audioPlayer.stopSound()
             VibrationManager.stopVibration()
-        } else {
+        } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
+        } else {
+            audioPlayer.playSound(false,"pausePlay")
         }
     }
     
@@ -328,7 +329,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
         } else {
-            repeate()
+            audioPlayer.playSound(false,"pausePlay")
         }
     }
     
@@ -365,7 +366,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("repeate content", m.content ?? "")
             textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
         } else {
-            textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
         }
     }
 }
