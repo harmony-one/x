@@ -1,10 +1,3 @@
-//
-//  xTests.swift
-//  xTests
-//
-//  Created by Aaron Li on 10/13/23.
-//
-
 import XCTest
 @testable import Voice_AI
 
@@ -22,6 +15,7 @@ final class ActionHandlerTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         actionHandler = nil
+        mockSpeechRecognition = nil
         
     }
     
@@ -29,19 +23,19 @@ final class ActionHandlerTests: XCTestCase {
     func testHandleSkipWhileRecording() {
         actionHandler.isRecording = true
         actionHandler.handle(actionType: .skip)
-        XCTAssertFalse(actionHandler.isRecording)
+        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
     }
     
     // Test if random fact action calls the randomFacts() method in our mock
     func testHandleRandomFact() {
         actionHandler.handle(actionType: .randomFact)
-        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled)
+        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled, "randomFacts() should be called after .randomFact action")
     }
     
     // Test if repeatLast action calls the repeate() method in our mock
     func testHandleRepeatLast() {
         actionHandler.handle(actionType: .repeatLast)
-        XCTAssertTrue(mockSpeechRecognition.repeateCalled)
+        XCTAssertTrue(mockSpeechRecognition.repeateCalled, "repeat() should be called after .repeatLast action")
     }
     
     func testExample() throws {
