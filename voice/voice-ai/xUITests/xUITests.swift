@@ -22,13 +22,24 @@ final class xUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testActionButtons() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
         
-        let button0 = app.staticTexts["old Session"]
-        XCTAssertFalse(button0.exists)
+        let labels = [
+            "New Session",
+            "Skip 5 Seconds",
+            "Random Fact",
+            "Press to Speak",
+            "Repeat Last",
+            "Pause / Play",
+        ]
+        
+        for label in labels {
+            let button = app.staticTexts[label]
+            XCTAssertTrue(button.exists)
+        }
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }

@@ -37,6 +37,7 @@
 		6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
+		6EF76CEA2AF0FB2200D329E8 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */; };
 		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
@@ -260,6 +261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EF76CEA2AF0FB2200D329E8 /* SwiftyJSON in Frameworks */,
 				6E53AF5A2AF012D00022A8F2 /* CoreAudio.framework in Frameworks */,
 				6E53AF592AF012CD0022A8F2 /* AVFoundation.framework in Frameworks */,
 			);
@@ -607,6 +609,9 @@
 				6E53AF412AF010540022A8F2 /* PBXTargetDependency */,
 			);
 			name = "Voice AIUITests";
+			packageProductDependencies = (
+				6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */,
+			);
 			productName = xUITests;
 			productReference = CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -1436,6 +1441,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
 		F610490F2AF02DEE0087F745 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
