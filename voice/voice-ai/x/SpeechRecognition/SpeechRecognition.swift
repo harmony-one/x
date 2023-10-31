@@ -300,7 +300,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
         } else {
-            audioPlayer.playSound()
+            audioPlayer.playSound(false,"pausePlay")
         }
     }
     
@@ -314,7 +314,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
         } else {
-            audioPlayer.stopSound()
+            audioPlayer.playSound(false,"pausePlay")
         }
     }
     
