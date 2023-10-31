@@ -21,7 +21,7 @@ struct GridButton: View {
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
-                    .font(.customFont(size: 12))
+                    .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
