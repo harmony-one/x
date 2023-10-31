@@ -355,14 +355,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][randomFacts]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        makeQuery("Give me a random Wikiepdia entry in 2 sentences")
+        makeQuery("Summarize a random Wikipedia entry in 2 sentences")
     }
     
     func speak() {
         print("[SpeechRecognition][speak]")
         pauseCapturing()
         stopGPT()
-        textToSpeechConverter.stopSpeech()
+        textToSpeechConverter.stopSpeech()g
         cleanupRecognition()
         isAudioSessionSetup = false
         resumeCapturing()
