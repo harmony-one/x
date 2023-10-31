@@ -325,29 +325,31 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func pause() {
         print("[SpeechRecognition][pause]")
-        _isPaused = true
         
         if isRequestingOpenAI {
+            _isPaused = true
             audioPlayer.stopSound()
             VibrationManager.stopVibration()
         } else if textToSpeechConverter.synthesizer.isSpeaking {
+            _isPaused = true
             textToSpeechConverter.pauseSpeech()
         } else {
-            audioPlayer.playSound(false, "pausePlay")
+            audioPlayer.playSound(false, "beep")
         }
     }
     
     func continueSpeech() {
         print("[SpeechRecognition][continueSpeech]")
-        _isPaused = false
         
         if isRequestingOpenAI {
+            _isPaused = false
             audioPlayer.playSound()
             VibrationManager.startVibration()
         } else if textToSpeechConverter.synthesizer.isSpeaking {
+            _isPaused = false
             textToSpeechConverter.continueSpeech()
         } else {
-            audioPlayer.playSound(false, "pausePlay")
+            audioPlayer.playSound(false, "beep")
         }
     }
     
@@ -362,7 +364,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][speak]")
         pauseCapturing()
         stopGPT()
-        textToSpeechConverter.stopSpeech()g
+        textToSpeechConverter.stopSpeech()
         cleanupRecognition()
         isAudioSessionSetup = false
         resumeCapturing()
