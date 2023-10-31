@@ -4,6 +4,10 @@ Overview:
 [.] Streaming Play.ht synthesis
 [.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
 
+2023-10-30 Mon (5.5h): Review code updates and errors related to OpenAI streaming (#82, #83, #88, #87, #86, #84, 81); Fix OpenAI streaming implementation and integrations, graceful error handling, crash issues in classic Speech Recognition crash issues, various button failures and unexpected responses; End-to-end debugging and testing, and publishing new deployment in Hey Sam; Discuss findings and tasks related to key protection and attestation; Live discussions related to OpenAI streaming issues
+
+2023-10-29 Sun (1h): Code review and discussions on alternative OpenAI and Deepgram streaming implementations, recent pull requests and versions, product updates;
+
 2023-10-27 Fri (4.5h+): Deploy and setup relay server instance with domain and certificates; Implement certificate chain verification and binary to PEM conversion; Revise and fix bugs on attestation verification; Implement client side examples for using Relay with TODOs;
 
 2023-10-26 Thu (6.5h): Documenting, testing implementation and TODOs; Implementation of Relay and integration with attestation verification; Code review on recent PRs #70, #73; Review attestation formats, WebAuthn libraries, research on DER encoding, Octet string, ASN.1 sequence, and the maximal use of jsrsasign library; Revise attestation verification implementaiton on missing steps (nonce verification, certificate chain); Research on X.509 custom extension field retrieval, jsrsasign library inner working and utility functions, and past issues and solutions
