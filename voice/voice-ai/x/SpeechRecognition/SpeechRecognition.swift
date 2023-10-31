@@ -297,8 +297,10 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         if isRequestingOpenAI {
             audioPlayer.stopSound()
             VibrationManager.stopVibration()
-        } else {
+        } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
+        } else {
+            audioPlayer.playSound()
         }
     }
     
@@ -312,7 +314,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         } else if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
         } else {
-            repeate()
+            audioPlayer.stopSound()
         }
     }
     
