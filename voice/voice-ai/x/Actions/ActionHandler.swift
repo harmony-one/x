@@ -21,6 +21,7 @@ struct ButtonData: Identifiable {
     let label: String
     let image: String
     let action: ActionType
+    var active: Bool
 }
 
 class ActionHandler: ObservableObject {
