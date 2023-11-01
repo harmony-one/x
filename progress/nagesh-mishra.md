@@ -1,4 +1,6 @@
 
+2023-10-31 Web: I have created a one-page document on Component and End-to-End Testing for the Speech Recognition System, and provided support to Artem and Sergey in their task.
+
 2023-10-31 Tue: Added a new MP3 file and fixed playback issues. Assisted Sergey with UITest challenges.
 
 2023-10-30 Mon: Implemented audio interruption for the "Random Fact" button during GPT's speech playback.Fixed the app-breaking issue caused by spamming the "Press to Talk" button. Generated a TestFlight build labeled as version 0.8.2(7). Continuing with the remaining unit tests as listed.
