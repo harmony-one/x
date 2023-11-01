@@ -24,7 +24,7 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonsPortrait: [ButtonData] = [
+    @State private var buttonsPortrait: [ButtonData] = [
         ButtonData(label: "New Session", image: "new session", action: .reset),
         ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
         ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
@@ -33,7 +33,7 @@ struct ActionsView: View {
         ButtonData(label: "Pause / Play", image: "pause play", action: .play),
     ]
     
-    let buttonsLandscape: [ButtonData] = [
+    @State private var buttonsLandscape: [ButtonData] = [
         ButtonData(label: "New Session", image: "new session", action: .reset),
         ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
         ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
@@ -110,17 +110,17 @@ struct ActionsView: View {
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
-        let isActive =
-        ( button.action == .speak && !actionHandler.isRecording && !speechRecognition.isPaused() )
-        || ( button.action == .play && speechRecognition.isPlaying() )
-        
+        let isActive = (button.action == .play && speechRecognition.isPlaying())
+
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive, colorExternalManage: true) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.0)
-                    .onEnded { _ in handleOtherActions(actionType: button.action)}
+                    .onEnded { _ in
+                        handleOtherActions(actionType: button.action)
+                    }
             )
         } else {
             GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive) {
