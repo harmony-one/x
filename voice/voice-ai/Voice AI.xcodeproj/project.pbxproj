@@ -69,6 +69,8 @@
 		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
+		A4925D812AF2C757000649C6 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4925D802AF2C757000649C6 /* AppConfig.plist */; };
+		A4925D822AF2C757000649C6 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4925D802AF2C757000649C6 /* AppConfig.plist */; };
 		B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* MessageContextTests.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
@@ -76,8 +78,6 @@
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
 		B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
-		B9653CAC2AF14FBB00318C57 /* pausePlay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B9653CAB2AF14FBB00318C57 /* pausePlay.mp3 */; };
-		B9653CAD2AF14FBB00318C57 /* pausePlay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B9653CAB2AF14FBB00318C57 /* pausePlay.mp3 */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
@@ -180,6 +180,7 @@
 		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A4925D802AF2C757000649C6 /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3C083B22AF1BADB0069232C /* MessageContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageContextTests.swift; sourceTree = "<group>"; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
@@ -188,7 +189,6 @@
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		B9653CAB2AF14FBB00318C57 /* pausePlay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pausePlay.mp3; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
@@ -318,7 +318,6 @@
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B9653CAB2AF14FBB00318C57 /* pausePlay.mp3 */,
 				A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */,
 				B930AACF2ADD4BAF009F9F8C /* Font */,
 			);
@@ -462,6 +461,7 @@
 				B930AAD12ADD4BAF009F9F8C /* Dashboard */,
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
+				A4925D802AF2C757000649C6 /* AppConfig.plist */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
 				CD0D136A2ADB28CE00031EDD /* logo.png */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
@@ -696,10 +696,10 @@
 			files = (
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
-				B9653CAD2AF14FBB00318C57 /* pausePlay.mp3 in Resources */,
 				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
 				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
 				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
+				A4925D822AF2C757000649C6 /* AppConfig.plist in Resources */,
 				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
 				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
 				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,
@@ -724,6 +724,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4925D812AF2C757000649C6 /* AppConfig.plist in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
@@ -734,7 +735,6 @@
 				A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
-				B9653CAC2AF14FBB00318C57 /* pausePlay.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

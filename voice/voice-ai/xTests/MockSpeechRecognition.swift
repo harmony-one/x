@@ -12,7 +12,6 @@ import AVFoundation
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-   
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
     var speakCalled: Bool = false
@@ -26,7 +25,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         return false
     }
 
-    func reset() {
+    func reset(feedback: Bool?) {
         resetCalled = true
     }
 
