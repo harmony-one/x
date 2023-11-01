@@ -415,6 +415,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeate() {
+        textToSpeechConverter.stopSpeech()
         pauseCapturing()
         print("repeate", conversation)
         if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
