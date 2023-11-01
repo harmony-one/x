@@ -25,21 +25,21 @@ struct ActionsView: View {
     let oneValue = "2111.01 ONE"
     
     @State private var buttonsPortrait: [ButtonData] = [
-        ButtonData(label: "New Session", image: "new session", action: .reset, active: false),
-        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip, active: false),
-        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact, active: false),
-        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak, active: true),
-        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast, active: false),
-        ButtonData(label: "Pause / Play", image: "pause play", action: .play, active: false),
+        ButtonData(label: "New Session", image: "new session", action: .reset),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
+        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
+        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
+        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
+        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
     ]
     
     @State private var buttonsLandscape: [ButtonData] = [
-        ButtonData(label: "New Session", image: "new session", action: .reset, active: false),
-        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip, active: false),
-        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast, active: false),
-        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact, active: false),
-        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak, active: true),
-        ButtonData(label: "Pause / Play", image: "pause play", action: .play, active: false),
+        ButtonData(label: "New Session", image: "new session", action: .reset),
+        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
+        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
+        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
+        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
+        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
     ]
     
     init() {
