@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E7F19560-250D-4A19-A9C1-A8885219F4CD",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Voice AI.xcodeproj",
+        "identifier" : "CD0D13472ADA73B400031EDD",
+        "name" : "Voice AITests"
+      }
+    }
+  ],
+  "version" : 1
+}
