@@ -14,6 +14,7 @@ struct ActionsView: View {
     let imageTextSpacing: CGFloat = 30
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
     @State private var orientation = UIDevice.current.orientation
@@ -57,6 +58,19 @@ struct ActionsView: View {
             perform: SpeechRecognition.shared.setup
         )
         .edgesIgnoringSafeArea(.all)
+        .onChange(of: scenePhase) { newPhase in
+                    switch newPhase {
+                    case .active:
+                        print("App became active")
+                    case .inactive:
+                        print("App became inactive")
+                        speechRecognition.reset(feedback: false)
+                    case .background:
+                        print("App moved to the background")
+                    @unknown default:
+                        break
+                    }
+                }
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
         //             if UIDevice.current.orientation != orientation {
