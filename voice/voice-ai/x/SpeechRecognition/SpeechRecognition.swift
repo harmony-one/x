@@ -1,6 +1,6 @@
 import AVFoundation
-import Speech
 import Combine
+import Speech
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -114,7 +114,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         handleRecognition(inputNode: inputNode)
     }
     
-
     private func handleRecognition(inputNode: AVAudioNode) {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
@@ -170,11 +169,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-// TODO: remove
+    // TODO: remove
 //    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
-////        inputNode.removeTap(onBus: 0)
-////        recognitionRequest = nil
-////        recognitionTask = nil
+    ////        inputNode.removeTap(onBus: 0)
+    ////        recognitionRequest = nil
+    ////        recognitionTask = nil
 //        if !message.isEmpty {
 //            makeQuery(message)
 //        }
@@ -196,7 +195,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func makeQuery(_ text: String) {
-        if(self.isRequestingOpenAI){
+        if isRequestingOpenAI {
             return
         }
         var buf = [String]()
@@ -227,7 +226,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
-                print("[SpeechRecognition] OpenAI error: \(err!)")
+                let nsError = err! as NSError
+                self.isRequestingOpenAI = false
+                if nsError.code == -999 {
+                    print("[SpeechRecognition] OpenAI Cancelled")
+                    return
+                }
+                print("[SpeechRecognition] OpenAI error: \(nsError)")
+                buf.removeAll()
+                self.registerTTS()
                 self.textToSpeechConverter.convertTextToSpeech(text: "Oh, my neuron network ran into an error. Can you try again?")
                 return
             }
@@ -295,6 +302,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private func stopGPT() {
         isRandomFacts = true
         pendingOpenAIStream?.cancelOpenAICall()
+        pendingOpenAIStream = nil
         audioPlayer.stopSound()
         VibrationManager.stopVibration()
     }
@@ -370,12 +378,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if audioEngine.isRunning {
             recognitionTask?.finish()
         }
-        if !self.messageInRecongnition.isEmpty {
-            self.recognitionLock.wait()
-            let message = self.messageInRecongnition
-            self.messageInRecongnition = ""
-            self.recognitionLock.signal()
-            self.makeQuery(message)
+        if !messageInRecongnition.isEmpty {
+            recognitionLock.wait()
+            let message = messageInRecongnition
+            messageInRecongnition = ""
+            recognitionLock.signal()
+            makeQuery(message)
         }
         pauseCapturing()
     }
@@ -400,7 +408,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        _isPlaying = false;
+        _isPlaying = false
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
         //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
         //            print("[SpeechRecognition][speechSynthesizer][didFinish] Starting capturing again")
@@ -414,7 +422,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        _isPlaying = true;
+        _isPlaying = true
         audioPlayer.stopSound()
         pauseCapturing()
         resumeListeningTimer?.invalidate()

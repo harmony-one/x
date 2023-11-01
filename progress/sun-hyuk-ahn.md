@@ -1,3 +1,7 @@
+2023-11-01 Wed: (Fix streaming interruption bug)
+
+2023-10-31 Tue: Spent time debugging a bug crashing the app during "Press to Speak" interruption. Realized that when the streaming is completed, during synthesis, interruption is being handled correctly. However, while streaming, starting a new recognition will crash the application. Fixed bugs preventing Pause / Play button from working.
+
 2023-10-30 Mon: Fixed bugs preventing ChatGPT streaming from working. Fixed another bug preventing interruption during synthesis.
 
 ---
