@@ -326,30 +326,26 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func pause() {
         print("[SpeechRecognition][pause]")
         
-        if isRequestingOpenAI {
-            _isPaused = true
-            audioPlayer.stopSound()
-            VibrationManager.stopVibration()
-        } else if textToSpeechConverter.synthesizer.isSpeaking {
+        if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
             textToSpeechConverter.pauseSpeech()
         } else {
-            audioPlayer.playSound(false, "beep")
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false, "beep")
+            }
         }
     }
     
     func continueSpeech() {
         print("[SpeechRecognition][continueSpeech]")
         
-        if isRequestingOpenAI {
-            _isPaused = false
-            audioPlayer.playSound()
-            VibrationManager.startVibration()
-        } else if textToSpeechConverter.synthesizer.isSpeaking {
+        if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = false
             textToSpeechConverter.continueSpeech()
         } else {
-            audioPlayer.playSound(false, "beep")
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false, "beep")
+            }
         }
     }
     
