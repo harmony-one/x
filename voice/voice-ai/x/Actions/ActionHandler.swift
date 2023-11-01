@@ -37,6 +37,8 @@ class ActionHandler: ObservableObject {
     func handle(actionType: ActionType) {
         switch actionType {
         case .reset:
+            self.isRecording = false
+            self.isSynthesizing = false
             speechRecognition.reset()
         case .skip:
             stopRecording()
