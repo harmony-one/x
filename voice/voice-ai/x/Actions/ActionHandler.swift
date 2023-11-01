@@ -14,6 +14,7 @@ enum ActionType {
     case play
     case repeatLast
     case speak
+    case stopSpeak
 }
 
 struct ButtonData: Identifiable {
@@ -26,6 +27,7 @@ struct ButtonData: Identifiable {
 class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
+    private var lastRecordingStateChangeTime: Int64 = 0
     
     let speechRecognition: SpeechRecognitionProtocol
     var onSynthesizingChanged: ((Bool) -> Void)?
@@ -39,6 +41,7 @@ class ActionHandler: ObservableObject {
         case .reset:
             self.isRecording = false
             self.isSynthesizing = false
+            self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
         case .skip:
             stopRecording()
@@ -53,22 +56,23 @@ class ActionHandler: ObservableObject {
         case .repeatLast:
             speechRecognition.repeate()
         case .speak:
-            if self.isRecording == false {
-                startRecording()
-                SpeechRecognition.shared.speak()
-            } else {
-                // Introducing a delay before stopping the recording
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self.stopRecording()
-                }
-            }
+            self.startRecording()
+        case .stopSpeak:
+            self.stopRecording()
         }
     }
     
     func startRecording() {
+        guard lastRecordingStateChangeTime + 500 < Int64(NSDate().timeIntervalSince1970 * 1000) else {
+            return
+        }
+        guard !isRecording else {
+            return
+        }
+        lastRecordingStateChangeTime = Int64(NSDate().timeIntervalSince1970 * 1000)
         isRecording = true
         print("Started Recording...")
-        // Add any other logic to start recording if necessary
+        SpeechRecognition.shared.speak()
     }
     
     func stopRecording() {
