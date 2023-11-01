@@ -69,7 +69,7 @@ struct ActionsView: View {
     
     var body: some View {
         let isLandscape = verticalSizeClass == .compact ? true : false
-        let buttons = isLandscape ? buttonsLandscape : buttonsPortrait;
+        let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
