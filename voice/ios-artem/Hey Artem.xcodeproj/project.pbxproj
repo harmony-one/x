@@ -10,6 +10,7 @@
 		17A10F7EDE746F1D40F7E4DF /* SpeechRecognitionDeepgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */; };
 		229006A62AEBE7710007909D /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 229006A52AEBE7710007909D /* StripePaymentSheet */; };
 		229006AB2AEBF7C90007909D /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229006AA2AEBF7C90007909D /* CheckoutView.swift */; };
+		22E15D312AF2CBE200789D20 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22E15D302AF2CBE200789D20 /* SyncedProducts.storekit */; };
 		22F615AF2AF2657C00F301A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F615AE2AF2657C00F301A5 /* StoreKit.framework */; };
 		22F615B12AF265B100F301A5 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22F615B02AF265B100F301A5 /* Products.storekit */; };
 		22F615B62AF2679800F301A5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615B52AF2679800F301A5 /* Store.swift */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionDeepgram.swift; sourceTree = "<group>"; };
 		229006AA2AEBF7C90007909D /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		22E15D302AF2CBE200789D20 /* SyncedProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncedProducts.storekit; sourceTree = "<group>"; };
 		22F615AE2AF2657C00F301A5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		22F615B02AF265B100F301A5 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		22F615B52AF2679800F301A5 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */,
 				22F615B02AF265B100F301A5 /* Products.storekit */,
+				22E15D302AF2CBE200789D20 /* SyncedProducts.storekit */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
+				22E15D312AF2CBE200789D20 /* SyncedProducts.storekit in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -685,7 +689,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -737,7 +741,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22E15D2F2AF2B8E700789D20 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22E15D2E2AF2B8E700789D20 /* AppConfig.plist */; };
 		6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -37,9 +38,6 @@
 		6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
-		6E7130502AF137F100288AF8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E71304F2AF137F100288AF8 /* AppConfig.plist */; };
-		6E7130512AF137F100288AF8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E71304F2AF137F100288AF8 /* AppConfig.plist */; };
-		6E7130522AF137F100288AF8 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E71304F2AF137F100288AF8 /* AppConfig.plist */; };
 		6EF76CEA2AF0FB2200D329E8 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */; };
 		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
@@ -165,8 +163,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22E15D2E2AF2B8E700789D20 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButton.swift; sourceTree = "<group>"; };
-		6E71304F2AF137F100288AF8 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = AppConfig.plist; path = x/AppConfig.plist; sourceTree = SOURCE_ROOT; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -461,7 +459,7 @@
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
-				6E71304F2AF137F100288AF8 /* AppConfig.plist */,
+				22E15D2E2AF2B8E700789D20 /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -718,11 +716,11 @@
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
+				22E15D2F2AF2B8E700789D20 /* AppConfig.plist in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
-				6E7130502AF137F100288AF8 /* AppConfig.plist in Resources */,
 				A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -734,7 +732,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7130512AF137F100288AF8 /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +739,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7130522AF137F100288AF8 /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
