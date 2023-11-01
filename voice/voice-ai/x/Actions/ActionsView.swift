@@ -18,7 +18,7 @@ struct ActionsView: View {
     @State private var isRecording = false
     @State private var isRecordingContinued = false
     @State private var orientation = UIDevice.current.orientation
-    @StateObject var actionHandler: ActionHandler = ActionHandler()
+    @StateObject var actionHandler: ActionHandler = .init()
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
@@ -59,18 +59,18 @@ struct ActionsView: View {
         )
         .edgesIgnoringSafeArea(.all)
         .onChange(of: scenePhase) { newPhase in
-                    switch newPhase {
-                    case .active:
-                        print("App became active")
-                    case .inactive:
-                        print("App became inactive")
-                        speechRecognition.reset(feedback: false)
-                    case .background:
-                        print("App moved to the background")
-                    @unknown default:
-                        break
-                    }
-                }
+            switch newPhase {
+            case .active:
+                print("App became active")
+            case .inactive:
+                print("App became inactive")
+                speechRecognition.reset(feedback: false)
+            case .background:
+                print("App moved to the background")
+            @unknown default:
+                break
+            }
+        }
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
         //             if UIDevice.current.orientation != orientation {
@@ -113,13 +113,13 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying())
 
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {
-                handleOtherActions(actionType: button.action)
-            }
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.0)
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {}.simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        actionHandler.handle(actionType: ActionType.speak)
+                    }
                     .onEnded { _ in
-                        handleOtherActions(actionType: button.action)
+                        actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
         } else {
@@ -129,23 +129,7 @@ struct ActionsView: View {
         }
     }
     
-    func startRecording() {
-            isRecording = true
-            // Start your recording logic here
-            print("Started Recording...")
-        }
-        
-    func stopRecording() {
-        if isRecording {
-            isRecording = false
-            // Stop your recording logic here
-            print("Stopped Recording")
-            SpeechRecognition.shared.stopSpeak()
-        }
-    }
-    
     func handleOtherActions(actionType: ActionType) {
         actionHandler.handle(actionType: actionType)
     }
-    
 }
