@@ -11,6 +11,7 @@ protocol SpeechRecognitionProtocol {
     func repeate()
     func speak()
     func stopSpeak()
+    func playBeep()
 }
 
 extension SpeechRecognitionProtocol {
@@ -43,7 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
     
-    private let audioPlayer = AudioPlayer()
+    public let audioPlayer = AudioPlayer()
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
@@ -384,6 +385,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         makeQuery("Summarize a random Wikipedia entry in 2 sentences")
     }
     
+    func playBeep() {
+        audioPlayer.playSound(false)
+    }
+    
     func speak() {
         print("[SpeechRecognition][speak]")
         pauseCapturing()
@@ -398,6 +403,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if audioEngine.isRunning {
             recognitionTask?.finish()
         }
+        
         if !messageInRecongnition.isEmpty {
             recognitionLock.wait()
             let message = messageInRecongnition

@@ -55,6 +55,7 @@ class ActionHandler: ObservableObject {
                 startRecording()
                 SpeechRecognition.shared.speak()
             } else {
+                SpeechRecognition.shared.playBeep()
                 // Introducing a delay before stopping the recording
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.stopRecording()
