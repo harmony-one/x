@@ -30,7 +30,7 @@ struct GridButton: View {
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(active: active, colorExternalManage: colorExternalManage))
+        .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
     }
 }
 
@@ -41,18 +41,39 @@ struct PressEffectButtonStyle: ButtonStyle {
     
     var background: Color?
     var active: Bool = false
-    var colorExternalManage: Bool = false
+    var invertColors: Bool = false
     
-    init(background: Color? = nil, active: Bool = false, colorExternalManage: Bool = false) {
+    init(background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
         self.background = background
         self.active = active
-        self.colorExternalManage = colorExternalManage
+        self.invertColors = invertColors
     }
     
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(background ?? ((!self.colorExternalManage && configuration.isPressed) || self.active ? COLOR_ACTIVE : COLOR_DEFAULT))
-            .foregroundColor((!self.colorExternalManage && configuration.isPressed) || self.active ? COLOR_DEFAULT : COLOR_ACTIVE)
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+            configuration.label
+                .background(background ?? determineBackgroundColor(configuration: configuration))
+                .foregroundColor(determineForegroundColor(configuration: configuration))
+                .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
+        }
+    
+    // .speak button should have inverted colors
+    // .play button should have the "pressed" color while pause / play is in process
+    // this is the only case as of now that uses self.active to determined the colors
+    // all other buttons(including .speak) should be triggered through configuration.isPressed
+    
+    private func determineBackgroundColor(configuration: Configuration) -> Color {
+        if invertColors {
+            return configuration.isPressed || self.active ? COLOR_DEFAULT : COLOR_ACTIVE
+        } else {
+            return configuration.isPressed || self.active ? COLOR_ACTIVE : COLOR_DEFAULT
+        }
+    }
+
+    private func determineForegroundColor(configuration: Configuration) -> Color {
+        if invertColors {
+            return configuration.isPressed || self.active ? COLOR_ACTIVE : COLOR_DEFAULT
+        } else {
+            return configuration.isPressed || self.active ? COLOR_DEFAULT : COLOR_ACTIVE
+        }
     }
 }
