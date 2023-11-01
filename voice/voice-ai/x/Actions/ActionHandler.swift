@@ -58,7 +58,9 @@ class ActionHandler: ObservableObject {
         case .speak:
             self.startRecording()
         case .stopSpeak:
-            self.stopRecording()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self.stopRecording()
+            }
         }
     }
     
