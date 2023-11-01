@@ -26,7 +26,10 @@ struct GridButton: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
-            .frame(width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2), height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3))
+            .frame(
+                width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2),
+                height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3)
+            )
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
