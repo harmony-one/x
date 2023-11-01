@@ -1,3 +1,7 @@
+2023-10-31 Tue: [Modified](https://github.com/harmony-one/x/commit/ec269538f031671e2e845d34281c738f58e0d94d) ActionHandlerTests.swift (a complete tearDownWithError(), added assert messages, and removed file header). Added tests for [Permission.swift](https://github.com/harmony-one/x/commit/f1e15f9d9a114c7185ee5e2cb4c9e6fadcb109c4) and [SpeechRecognition.swift](https://github.com/harmony-one/x/commit/5eb27dc0ea82e53446f4d07655d9c47609c3a186).
+
+2023-10-30 Mon:[Removed animations](https://github.com/harmony-one/x/commit/fb2ac5bbf6c4b41970e9773345a99867019f526b). Started researching [live test attestation](https://developer.apple.com/documentation/devicecheck/establishing_your_app_s_integrity) data. 
+
 2023-10-27 Fri: Added in [visual feedback](https://github.com/harmony-one/x/commit/db24712085daae84c8f9bee4e60a3996ff72ec61) for when the app is synthesizing. In progress: Ending the synthesizing indicator when the app starts speaking and starting the speaking indicator. 
 
 2023-10-26 Thu: Worked on the [selection of voices](https://github.com/harmony-one/x/commit/b754c92eabc5942f74763e95416c4f1206a75900) (added Evan for the male voice per Theo P's request). Continued work on iOS 16 compatability changes. 
