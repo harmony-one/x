@@ -396,13 +396,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if audioEngine.isRunning {
             recognitionTask?.finish()
         }
+        
         if !messageInRecongnition.isEmpty {
             recognitionLock.wait()
             let message = messageInRecongnition
             messageInRecongnition = ""
             recognitionLock.signal()
             makeQuery(message)
+        } else {
+            audioPlayer.playSound(false)
         }
+        
         pauseCapturing()
     }
     
