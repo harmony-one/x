@@ -12,16 +12,6 @@ class OpenAIServiceTests: XCTestCase {
 
     var openAIStreamService: OpenAIStreamService!
 
-//    override func setUp() {
-//        super.setUp()
-//        openAIService = OpenAIService()
-//    }
-//
-//    override func tearDown() {
-//        openAIService = nil
-//        super.tearDown()
-//    }
-    
     func testQuery() {
         var testConversation: [Message] = []
         testConversation.append(OpenAIStreamService.setConversationContext())
