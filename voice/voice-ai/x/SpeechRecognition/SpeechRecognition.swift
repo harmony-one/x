@@ -331,7 +331,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             textToSpeechConverter.pauseSpeech()
         } else {
             if !isRequestingOpenAI {
-                audioPlayer.playSound(false, "beep")
+                audioPlayer.playSound(false)
             }
         }
     }
@@ -344,7 +344,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             textToSpeechConverter.continueSpeech()
         } else {
             if !isRequestingOpenAI {
-                audioPlayer.playSound(false, "beep")
+                audioPlayer.playSound(false)
             }
         }
     }
