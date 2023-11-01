@@ -24,7 +24,5 @@
 		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
-    <key>NSCameraUsageDescription</key>
-    <string>Custom message</string>
 </dict>
 </plist>
