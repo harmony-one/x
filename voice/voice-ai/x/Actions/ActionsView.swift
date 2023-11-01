@@ -24,36 +24,43 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonsPortrait: [ButtonData] = [
-        ButtonData(label: "New Session", image: "new session", action: .reset),
-        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
-        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
-        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
-        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
-        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
-    ]
+    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
+    let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
+    let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
+    let buttonSpeak = ButtonData(label: "Press to Speak", image: "press to speak", action: .speak)
+    let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
+    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
     
-    let buttonsLandscape: [ButtonData] = [
-        ButtonData(label: "New Session", image: "new session", action: .reset),
-        ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip),
-        ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast),
-        ButtonData(label: "Random Fact", image: "random fact", action: .randomFact),
-        ButtonData(label: "Press to Speak", image: "press to speak", action: .speak),
-        ButtonData(label: "Pause / Play", image: "pause play", action: .play),
-    ]
+    let buttonsPortrait: [ButtonData]
+    let buttonsLandscape: [ButtonData]
     
     init() {
+        buttonsPortrait = [
+            buttonReset,
+            buttonSkip,
+            buttonRandom,
+            buttonSpeak,
+            buttonRepeat,
+            buttonPlay
+        ]
+        buttonsLandscape = [
+            buttonReset,
+            buttonSkip,
+            buttonRepeat,
+            buttonRandom,
+            buttonSpeak,
+            buttonPlay
+        ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
     var body: some View {
+        let isLandscape = verticalSizeClass == .compact ? true : false
+        let buttons = isLandscape ? buttonsLandscape : buttonsPortrait;
+        let colums = isLandscape ? 3 : 2
         Group {
-            if verticalSizeClass == .compact {
-                landscapeView
-            } else {
-                portraitView
-            }
+            baseView(colums: colums, buttons: buttons)
         }.onAppear(
             perform: SpeechRecognition.shared.setup
         )
@@ -83,14 +90,6 @@ struct ActionsView: View {
         //                 orientation = UIDevice.current.orientation
         //             }
         //         }
-    }
-    
-    var landscapeView: some View {
-        baseView(colums: 3, buttons: buttonsLandscape)
-    }
-    
-    var portraitView: some View {
-        baseView(colums: 2, buttons: buttonsPortrait)
     }
     
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
