@@ -105,7 +105,7 @@ struct ActionsView: View {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.1)
+                LongPressGesture(minimumDuration: 0.0)
                     .onEnded { _ in handleOtherActions(actionType: button.action)}
             )
         } else {
