@@ -10,6 +10,14 @@
 		17A10F7EDE746F1D40F7E4DF /* SpeechRecognitionDeepgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */; };
 		229006A62AEBE7710007909D /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 229006A52AEBE7710007909D /* StripePaymentSheet */; };
 		229006AB2AEBF7C90007909D /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229006AA2AEBF7C90007909D /* CheckoutView.swift */; };
+		22F615AF2AF2657C00F301A5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F615AE2AF2657C00F301A5 /* StoreKit.framework */; };
+		22F615B12AF265B100F301A5 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22F615B02AF265B100F301A5 /* Products.storekit */; };
+		22F615B62AF2679800F301A5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615B52AF2679800F301A5 /* Store.swift */; };
+		22F615B82AF267E800F301A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615B72AF267E800F301A5 /* ContentView.swift */; };
+		22F615BC2AF2685C00F301A5 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615BB2AF2685C00F301A5 /* ProductView.swift */; };
+		22F615BE2AF2687A00F301A5 /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615BD2AF2687A00F301A5 /* SupportView.swift */; };
+		22F615C02AF270C300F301A5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615BF2AF270C300F301A5 /* Persistence.swift */; };
+		22F615C22AF270EB00F301A5 /* RefundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F615C12AF270EA00F301A5 /* RefundView.swift */; };
 		6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EC2ED8E2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
 		6EC2ED8F2AE6DAB800DC62EB /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */; };
@@ -66,6 +74,14 @@
 /* Begin PBXFileReference section */
 		17A10DE7AC7A5E8287244F60 /* SpeechRecognitionDeepgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionDeepgram.swift; sourceTree = "<group>"; };
 		229006AA2AEBF7C90007909D /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		22F615AE2AF2657C00F301A5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		22F615B02AF265B100F301A5 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
+		22F615B52AF2679800F301A5 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		22F615B72AF267E800F301A5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		22F615BB2AF2685C00F301A5 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		22F615BD2AF2687A00F301A5 /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
+		22F615BF2AF270C300F301A5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		22F615C12AF270EA00F301A5 /* RefundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefundView.swift; sourceTree = "<group>"; };
 		6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -111,6 +127,7 @@
 			files = (
 				229006A62AEBE7710007909D /* StripePaymentSheet in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
+				22F615AF2AF2657C00F301A5 /* StoreKit.framework in Frameworks */,
 				CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */,
 				6EE4A8EA2AE69F9300B98C84 /* Starscream in Frameworks */,
 			);
@@ -139,6 +156,19 @@
 				229006AA2AEBF7C90007909D /* CheckoutView.swift */,
 			);
 			path = PaymentsCheckout;
+			sourceTree = "<group>";
+		};
+		22F615B42AF2678300F301A5 /* InAppPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				22F615B52AF2679800F301A5 /* Store.swift */,
+				22F615B72AF267E800F301A5 /* ContentView.swift */,
+				22F615BB2AF2685C00F301A5 /* ProductView.swift */,
+				22F615BD2AF2687A00F301A5 /* SupportView.swift */,
+				22F615BF2AF270C300F301A5 /* Persistence.swift */,
+				22F615C12AF270EA00F301A5 /* RefundView.swift */,
+			);
+			path = InAppPurchase;
 			sourceTree = "<group>";
 		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
@@ -265,6 +295,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				22F615B42AF2678300F301A5 /* InAppPurchase */,
 				229006A92AEBF7B40007909D /* PaymentsCheckout */,
 				B95B4D7C2AE2D16100DFE2EB /* Actions */,
 				B9AD506E2ADFFD4E006F18A1 /* AppConfigration */,
@@ -283,6 +314,7 @@
 				CD0D13432ADA73B400031EDD /* Info.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				6EC2ED8C2AE6DAB800DC62EB /* AppConfig.plist */,
+				22F615B02AF265B100F301A5 /* Products.storekit */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -315,6 +347,7 @@
 		CD0D13652ADA74C800031EDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22F615AE2AF2657C00F301A5 /* StoreKit.framework */,
 				CD0D13682ADA74D100031EDD /* AVFoundation.framework */,
 				CD0D13662ADA74C800031EDD /* CoreAudio.framework */,
 			);
@@ -433,6 +466,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F615B12AF265B100F301A5 /* Products.storekit in Resources */,
 				6EC2ED8D2AE6DAB800DC62EB /* AppConfig.plist in Resources */,
 				E40B719E2AE6282000F4317A /* logo.jpg in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
@@ -470,6 +504,7 @@
 			files = (
 				B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
+				22F615B82AF267E800F301A5 /* ContentView.swift in Sources */,
 				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
@@ -478,11 +513,16 @@
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				22F615BC2AF2685C00F301A5 /* ProductView.swift in Sources */,
+				22F615BE2AF2687A00F301A5 /* SupportView.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
+				22F615C22AF270EB00F301A5 /* RefundView.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				CD0D133C2ADA73B300031EDD /* Item.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
 				229006AB2AEBF7C90007909D /* CheckoutView.swift in Sources */,
+				22F615C02AF270C300F301A5 /* Persistence.swift in Sources */,
+				22F615B62AF2679800F301A5 /* Store.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,

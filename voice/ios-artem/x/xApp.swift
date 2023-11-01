@@ -1,15 +1,10 @@
-//
-//  xApp.swift
-//  x
-//
-//  Created by Aaron Li on 10/13/23.
-//
-
-import SwiftUI
+=import SwiftUI
 import SwiftData
 
 @main
 struct xApp: App {
+    @StateObject var store = Store()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
         ])
@@ -22,10 +17,16 @@ struct xApp: App {
         }
     }()
 
+//    var body: some Scene {
+//        WindowGroup {
+//            CheckoutView()
+//        }
+//        .modelContainer(sharedModelContainer)
+//    }
     var body: some Scene {
         WindowGroup {
-            CheckoutView()
+            ContentView()
+                .environmentObject(store)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
