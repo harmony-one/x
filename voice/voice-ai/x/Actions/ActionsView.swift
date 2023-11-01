@@ -97,11 +97,11 @@ struct ActionsView: View {
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
         let isActive =
-        ( button.action == .speak && !speechRecognition.isPaused() )
+        ( button.action == .speak && !actionHandler.isRecording && !speechRecognition.isPaused() )
         || ( button.action == .play && speechRecognition.isPlaying() )
         
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive ) {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive, colorExternalManage: true) {
                 handleOtherActions(actionType: button.action)
             }
             .simultaneousGesture(
