@@ -124,6 +124,15 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if let response = task.response as? HTTPURLResponse {
+            let statusCode = response.statusCode
+            NSLog("OpenAI: HTTP Status Code: \(statusCode)")
+            if statusCode != 200 {
+                NSLog("OpenAI: error")
+            }
+        }
+        
+        
         if let error = error as NSError? {
             self.completion(nil, error)
             NSLog("OpenAI: received error: %@ / %d", error.domain, error.code)
