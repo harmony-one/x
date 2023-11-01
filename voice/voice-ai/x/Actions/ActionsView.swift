@@ -43,6 +43,18 @@ struct ActionsView: View {
             buttonRepeat,
             buttonPlay
         ]
+        
+        // v2
+//        buttonsLandscape = [
+//            buttonRepeat,
+//            buttonRandom,
+//            buttonReset,
+//            buttonPlay,
+//            buttonSpeak,
+//            buttonSkip,
+//        ]
+        
+        // v1
         buttonsLandscape = [
             buttonReset,
             buttonSkip,
