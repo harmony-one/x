@@ -6,6 +6,7 @@ struct GridButton: View {
     var geometry: GeometryProxy
     var foregroundColor: Color
     var active: Bool = false;
+    var colorExternalManage: Bool = false;
     var action: () -> Void
 
     
@@ -29,7 +30,7 @@ struct GridButton: View {
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(active: active))
+        .buttonStyle(PressEffectButtonStyle(active: active, colorExternalManage: colorExternalManage))
     }
 }
 
@@ -40,16 +41,18 @@ struct PressEffectButtonStyle: ButtonStyle {
     
     var background: Color?
     var active: Bool = false
+    var colorExternalManage: Bool = false
     
-    init(background: Color? = nil, active: Bool = false) {
+    init(background: Color? = nil, active: Bool = false, colorExternalManage: Bool = false) {
         self.background = background
         self.active = active
+        self.colorExternalManage = colorExternalManage
     }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(background ?? (configuration.isPressed || self.active ? COLOR_ACTIVE : COLOR_DEFAULT))
-            .foregroundColor(configuration.isPressed || self.active ? COLOR_DEFAULT : COLOR_ACTIVE)
+            .background(background ?? ((!self.colorExternalManage && configuration.isPressed) || self.active ? COLOR_ACTIVE : COLOR_DEFAULT))
+            .foregroundColor((!self.colorExternalManage && configuration.isPressed) || self.active ? COLOR_DEFAULT : COLOR_ACTIVE)
             .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
