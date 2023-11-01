@@ -3,7 +3,7 @@ import Combine
 import Speech
 
 protocol SpeechRecognitionProtocol {
-    func reset()
+    func reset(feedback: Bool?)
     func randomFacts()
     func isPaused() -> Bool
     func continueSpeech()
@@ -11,6 +11,12 @@ protocol SpeechRecognitionProtocol {
     func repeate()
     func speak()
     func stopSpeak()
+}
+
+extension SpeechRecognitionProtocol {
+    func reset(feedback: Bool? = true) {
+
+    }
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
@@ -292,11 +298,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-    func reset() {
+    func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        cleanupForNewSession()
+        cleanupForNewSession(feedback: feedback)
     }
     
     private func stopGPT() {
@@ -307,14 +313,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         VibrationManager.stopVibration()
     }
     
-    private func cleanupForNewSession() {
+    private func cleanupForNewSession(feedback: Bool? = true) {
         conversation.removeAll()
         pauseCapturing()
         stopGPT()
         textToSpeechConverter.stopSpeech()
         cleanupRecognition()
         isAudioSessionSetup = false
-        textToSpeechConverter.convertTextToSpeech(text: greatingText)
+        if feedback! {
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
+        }
     }
     
     private func cleanupRecognition() {
