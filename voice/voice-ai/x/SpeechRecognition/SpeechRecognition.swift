@@ -48,6 +48,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
+    private var requestInitiatedTimestamp: Int64 = 0
     
     private var resumeListeningTimer: Timer? = nil
 //    private var silenceTimer: Timer?
@@ -201,6 +202,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
+    func getCurrentTimestamp() -> Int64 {
+        return Int64(NSDate().timeIntervalSince1970 * 1000)
+    }
+    
     func makeQuery(_ text: String) {
         if isRequestingOpenAI {
             return
@@ -226,11 +231,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         VibrationManager.startVibration()
         conversation.append(Message(role: "user", content: text))
+        requestInitiatedTimestamp = self.getCurrentTimestamp()
         
         audioPlayer.playSound()
         pauseCapturing()
         isRequestingOpenAI = true
         
+        var responseItemsCounter = 0
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
                 let nsError = err! as NSError
@@ -255,6 +262,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             print("[SpeechRecognition] OpenAI Response received: \(res)")
+            if(responseItemsCounter == 0) {
+                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
+                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
+            }
+            responseItemsCounter += 1
             buf.append(res)
             guard res.last != nil else {
                 return
