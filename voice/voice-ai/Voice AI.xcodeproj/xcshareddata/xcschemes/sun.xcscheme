@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD0D13332ADA73B300031EDD"
-               BuildableName = "Voice AI.app"
-               BlueprintName = "Voice AI"
+               BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
+               BuildableName = "sun.app"
+               BlueprintName = "sun"
                ReferencedContainer = "container:Voice AI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,22 +26,28 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:x/OpenAIService.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
             skipped = "NO"
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD0D13472ADA73B400031EDD"
-               BuildableName = "Voice AITests.xctest"
-               BlueprintName = "Voice AITests"
+               BlueprintIdentifier = "A46B5A582AE73B9D00C874ED"
+               BuildableName = "sunTests.xctest"
+               BlueprintName = "sunTests"
+               ReferencedContainer = "container:Voice AI.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A46B5A622AE73B9D00C874ED"
+               BuildableName = "sunUITests.xctest"
+               BlueprintName = "sunUITests"
                ReferencedContainer = "container:Voice AI.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -61,9 +67,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD0D13332ADA73B300031EDD"
-            BuildableName = "Voice AI.app"
-            BlueprintName = "Voice AI"
+            BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
+            BuildableName = "sun.app"
+            BlueprintName = "sun"
             ReferencedContainer = "container:Voice AI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -78,9 +84,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD0D13332ADA73B300031EDD"
-            BuildableName = "Voice AI.app"
-            BlueprintName = "Voice AI"
+            BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
+            BuildableName = "sun.app"
+            BlueprintName = "sun"
             ReferencedContainer = "container:Voice AI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

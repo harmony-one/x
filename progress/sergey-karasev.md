@@ -1,3 +1,7 @@
+2023-11-01 Wed: I was working on the implementation of app functions ([stop all interactions](https://github.com/harmony-one/x/pull/99/files)) when the user swaps the app upwards
+
+2023-10-31 Tue: Added dark blue highlight as default for “press to speak” button, added highlight “pause / play” when audio is playing, and updated random fact query in this [PR](https://github.com/harmony-one/x/pull/93). Integrated UI unit tests in this [PR](https://github.com/harmony-one/x/pull/91). 
+
 2023-10-30 Mon: Working on unit tests for UI components from Actions module, update with new logo, and migrated harmony one bot to another server
 
 ---

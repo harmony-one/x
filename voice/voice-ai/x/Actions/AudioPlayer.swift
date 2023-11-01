@@ -33,12 +33,12 @@ class AudioPlayer: NSObject {
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?
     
-    func playSound() {
-        self.playSound(true)
+    func playSound(_ isLoop: Bool = true, _ resource: String = "beep") {
+        self.playSoundWithSettings(isLoop, resource)
     }
 
-    func playSound(_ loop: Bool = true) {
-        guard let soundURL = Bundle.main.url(forResource: "beep", withExtension: "mp3") else {
+    func playSoundWithSettings(_ loop: Bool = true, _ resource: String = "beep") {
+        guard let soundURL = Bundle.main.url(forResource: resource, withExtension: "mp3") else {
             print("Sound file not found")
             return
         }

@@ -1,8 +1,9 @@
 import AVFoundation
+import Combine
 import Speech
 
 protocol SpeechRecognitionProtocol {
-    func reset()
+    func reset(feedback: Bool?)
     func randomFacts()
     func isPaused() -> Bool
     func continueSpeech()
@@ -12,18 +13,25 @@ protocol SpeechRecognitionProtocol {
     func stopSpeak()
 }
 
-class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
+extension SpeechRecognitionProtocol {
+    func reset(feedback: Bool? = true) {
+
+    }
+}
+
+class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private var messageInRecongnition = ""
+    private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    let vibrationManager = VibrationManager()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
     
@@ -31,15 +39,29 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     
     private var conversation: [Message] = []
     private let greatingText = "Hey!"
+
+    // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
+    //    private var isGreatingFinished = false
     
     private let audioPlayer = AudioPlayer()
     private var isRandomFacts = true
     
     private var isRequestingOpenAI = false
-    private var _isPaused = false
+    private var requestInitiatedTimestamp: Int64 = 0
+    
     private var resumeListeningTimer: Timer? = nil
-    private var silenceTimer: Timer?
+//    private var silenceTimer: Timer?
     private var isCapturing = false
+    
+    @Published private var _isPaused = false
+    var isPausedPublisher: Published<Bool>.Publisher {
+        $_isPaused
+    }
+    
+    @Published private var _isPlaying = false
+    var isPlaingPublisher: Published<Bool>.Publisher {
+        $_isPlaying
+    }
     
     // Current message being processed
     
@@ -49,7 +71,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         checkPermissionsAndSetupAudio()
         textToSpeechConverter.convertTextToSpeech(text: greatingText)
         isCapturing = true
-        startSpeechRecognition()
+//        startSpeechRecognition()
     }
     
     private func checkPermissionsAndSetupAudio() {
@@ -101,7 +123,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
     
     private func handleRecognition(inputNode: AVAudioNode) {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
-        
+
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
@@ -116,13 +138,27 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             //            if result.isFinal {
             //                self.handleFinalRecognition(inputNode: inputNode, message: message)
             //            }
-            
-            self.silenceTimer?.invalidate()
-            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                if !message.isEmpty {
-                    self.handleFinalRecognition(inputNode: inputNode, message: message)
-                }
+            if !message.isEmpty {
+                self.recognitionLock.wait()
+                self.messageInRecongnition = message
+                self.recognitionLock.signal()
             }
+            // isFinal does not work mid-speech. See https://stackoverflow.com/a/42925643/1179349
+            // Note: not using this. Instead, use stopSpeak() to trigger finalization instead
+//            if result.isFinal {
+//                self.recognitionLock.wait()
+//                let message = self.messageInRecongnition
+//                self.messageInRecongnition = ""
+//                self.recognitionLock.signal()
+//                self.handleFinalRecognition(inputNode: inputNode, message: message)
+//            }
+            
+//            self.silenceTimer?.invalidate()
+//            self.silenceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+//                if !message.isEmpty {
+//                    self.handleFinalRecognition(inputNode: inputNode, message: message)
+//                }
+//            }
         }
         
         installTapAndStartEngine(inputNode: inputNode)
@@ -135,6 +171,7 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
                 // Notify the user in a suitable manner, possibly with UI updates or a popup.
+                return
             }
             // General cleanup process
             let inputNode = audioEngine.inputNode
@@ -144,15 +181,17 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
     }
     
-    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
-        //        inputNode.removeTap(onBus: 0)
-        //        recognitionRequest = nil
-        //        recognitionTask = nil
-        if !message.isEmpty {
-            print("Message:", message)
-            makeQuery(message)
-        }
-    }
+
+    // TODO: remove
+//    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
+    ////        inputNode.removeTap(onBus: 0)
+    ////        recognitionRequest = nil
+    ////        recognitionTask = nil
+//        if !message.isEmpty {
+//            makeQuery(message)
+//        }
+//    }
+
     
     private func installTapAndStartEngine(inputNode: AVAudioNode) {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -169,7 +208,14 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
     }
     
+    func getCurrentTimestamp() -> Int64 {
+        return Int64(NSDate().timeIntervalSince1970 * 1000)
+    }
+    
     func makeQuery(_ text: String) {
+        if isRequestingOpenAI {
+            return
+        }
         var buf = [String]()
         func flushBuf() {
             let response = buf.joined()
@@ -191,14 +237,24 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         
         VibrationManager.startVibration()
         conversation.append(Message(role: "user", content: text))
+        requestInitiatedTimestamp = self.getCurrentTimestamp()
         
         audioPlayer.playSound()
         pauseCapturing()
         isRequestingOpenAI = true
         
+        var responseItemsCounter = 0
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
-                print("[SpeechRecognition] OpenAI error: \(err!)")
+                let nsError = err! as NSError
+                self.isRequestingOpenAI = false
+                if nsError.code == -999 {
+                    print("[SpeechRecognition] OpenAI Cancelled")
+                    return
+                }
+                print("[SpeechRecognition] OpenAI error: \(nsError)")
+                buf.removeAll()
+                self.registerTTS()
                 self.textToSpeechConverter.convertTextToSpeech(text: "Oh, my neuron network ran into an error. Can you try again?")
                 return
             }
@@ -212,11 +268,17 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
                 return
             }
             print("[SpeechRecognition] OpenAI Response received: \(res)")
+            if(responseItemsCounter == 0) {
+                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
+                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
+            }
+            responseItemsCounter += 1
             buf.append(res)
             guard res.last != nil else {
                 return
             }
             if self.speechDelimitingPunctuations.contains(res.last!) {
+                VibrationManager.stopVibration()
                 flushBuf()
                 return
             }
@@ -230,7 +292,6 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
         }
         isCapturing = false
         print("[SpeechRecognition][pauseCapturing]")
-        _isPaused = false
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -262,121 +323,142 @@ class SpeechRecognition: NSObject, SpeechRecognitionProtocol {
             }
         }
         
-        func reset() {
-            print("[SpeechRecognition][reset]")
-            stopGPT()
-            textToSpeechConverter.stopSpeech()
-            cleanupForNewSession()
+
+    
+    func reset(feedback: Bool? = true) {
+        print("[SpeechRecognition][reset]")
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        cleanupForNewSession(feedback: feedback)
+    }
+    
+    private func stopGPT() {
+        isRandomFacts = true
+        pendingOpenAIStream?.cancelOpenAICall()
+        pendingOpenAIStream = nil
+        audioPlayer.stopSound()
+        VibrationManager.stopVibration()
+    }
+    
+    private func cleanupForNewSession(feedback: Bool? = true) {
+        conversation.removeAll()
+        pauseCapturing()
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        cleanupRecognition()
+        isAudioSessionSetup = false
+        if feedback! {
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
         }
+    }
+    
+    private func cleanupRecognition() {
+        recognitionTask?.cancel()
+        recognitionTask = nil
+        recognitionRequest?.endAudio()
+    }
+    
+    func isPaused() -> Bool {
+        return _isPaused
+    }
+    
+    func isPlaying() -> Bool {
+        return _isPlaying
+    }
+    
+    func pause() {
+        print("[SpeechRecognition][pause]")
         
-        private func stopGPT() {
-            isRandomFacts = true
-            pendingOpenAIStream?.cancelOpenAICall()
-            audioPlayer.stopSound()
-            VibrationManager.stopVibration()
-        }
-        
-        private func cleanupForNewSession() {
-            conversation.removeAll()
-            pauseCapturing()
-            stopGPT()
-            textToSpeechConverter.stopSpeech()
-            cleanupRecognition()
-            isAudioSessionSetup = false
-            resumeCapturing()
-            textToSpeechConverter.synthesizer.delegate = nil
-        }
-        
-        private func cleanupRecognition() {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-            recognitionRequest?.endAudio()
-        }
-        
-        func isPaused() -> Bool {
-            return _isPaused
-        }
-        
-        func pause() {
-            print("pause -- method called")
+        if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
-            
-            if isRequestingOpenAI {
-                audioPlayer.stopSound()
-                VibrationManager.stopVibration()
-            } else {
-                textToSpeechConverter.pauseSpeech()
+            textToSpeechConverter.pauseSpeech()
+        } else {
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false)
             }
         }
+    }
+    
+    func continueSpeech() {
+        print("[SpeechRecognition][continueSpeech]")
         
-        func continueSpeech() {
-            print("continueSpeech -- method called")
+        if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = false
-            
-            if isRequestingOpenAI {
-                audioPlayer.playSound()
-                VibrationManager.startVibration()
-            } else if textToSpeechConverter.synthesizer.isSpeaking {
-                textToSpeechConverter.continueSpeech()
-            } else {
-                repeate()
+            textToSpeechConverter.continueSpeech()
+        } else {
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false)
             }
         }
-        
-        func randomFacts() {
-            print("randomFacts -- method called")
-            stopGPT()
-            textToSpeechConverter.stopSpeech()
-            makeQuery("Give me one random fact")
+    }
+    
+    func randomFacts() {
+        print("[SpeechRecognition][randomFacts]")
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        makeQuery("Summarize a random Wikipedia entry in 2 sentences")
+    }
+    
+    func speak() {
+        print("[SpeechRecognition][speak]")
+        pauseCapturing()
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        cleanupRecognition()
+        isAudioSessionSetup = false
+        resumeCapturing()
+    }
+    
+    func stopSpeak() {
+        if audioEngine.isRunning {
+            recognitionTask?.finish()
         }
-        
-        func speak() {
-            pauseCapturing()
-            stopGPT()
-            textToSpeechConverter.stopSpeech()
-            cleanupRecognition()
-            isAudioSessionSetup = false
-            resumeCapturing()
+        if !messageInRecongnition.isEmpty {
+            recognitionLock.wait()
+            let message = messageInRecongnition
+            messageInRecongnition = ""
+            recognitionLock.signal()
+            makeQuery(message)
         }
-        
-        func stopSpeak() {
-            if audioEngine.isRunning {
-                recognitionTask?.finish()
-            }
-        }
-        
-        func cancelSpeak() {
-            pauseCapturing()
-        }
-        
-        func repeate() {
-            pauseCapturing()
-            print("repeate", conversation)
-            if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
-                print("repeate content", m.content ?? "")
-                textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
-            } else {
-                textToSpeechConverter.convertTextToSpeech(text: "There are no prior conversations to repeat.")
-            }
-        }
+        pauseCapturing()
     }
     
     // Extension for AVSpeechSynthesizerDelegate
     
-    extension SpeechRecognition: AVSpeechSynthesizerDelegate {
-        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-            resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                print("Starting capturing again")
-                DispatchQueue.main.async {
-                    self.resumeCapturing()
-                }
-            }
-        }
-        
-        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-            audioPlayer.stopSound()
-            pauseCapturing()
-            resumeListeningTimer?.invalidate()
+    func repeate() {
+        pauseCapturing()
+        print("repeate", conversation)
+        if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
+            print("repeate content", m.content ?? "")
+            textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
+        } else {
+            textToSpeechConverter.convertTextToSpeech(text: greatingText)
         }
     }
+}
+
+// Extension for AVSpeechSynthesizerDelegate
+
+extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        _isPlaying = false
+        // TODO: to be used later for automatically resuming capturing when agent is not speaking
+        //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+        //            print("[SpeechRecognition][speechSynthesizer][didFinish] Starting capturing again")
+        //            DispatchQueue.main.async {
+        //                if self.isGreatingFinished {
+        //                    self.resumeCapturing()
+        //                }
+        //                self.isGreatingFinished = true
+        //            }
+        //        }
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        _isPlaying = true
+        audioPlayer.stopSound()
+        pauseCapturing()
+        resumeListeningTimer?.invalidate()
+    }
+}
 

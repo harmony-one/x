@@ -3,18 +3,37 @@ import SwiftyJSON
 
 let config = AppConfig()
 
+protocol NetworkService {
+    func dataTask(
+        with request: URLRequest,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> URLSessionDataTask
+}
+
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = config.getAPIKey()
-
-    init(completion: @escaping (String?, Error?) -> Void) {
+    private var temperature: Double
+    private let networkService: NetworkService?
+    
+    init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
+        self.networkService = nil
         self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
+        self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
     }
-
+    
+    init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
+        self.networkService = networkService
+        self.session = URLSession(configuration: URLSessionConfiguration.default)
+        self.completion = completion
+        self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
+        super.init()
+    }
+    
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
         guard self.apiKey != nil else {
@@ -31,7 +50,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             //            "model": "gpt-4-32k",
             "model": "gpt-4",
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
-            "temperature": 0.7, // TODO: make temperature adjustable by init
+            "temperature": self.temperature,
             "stream": true
         ]
 
@@ -56,10 +75,26 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
 
-        // Initiate the data task for the request
-        self.task = self.session.dataTask(with: request)
-        self.task!.delegate = self
-        self.task!.resume()
+        // Initiate the data task for the request using networkService
+        if let networkService = networkService {
+            self.task = networkService.dataTask(with: request) { data, response, error in
+                // Handle the data task completion
+            }
+            self.task!.delegate = self
+            self.task!.resume()
+        } else {
+            // Handle the case where networkService is nil (no custom network service provided)
+            // You can use URLSession.shared or other default behavior here.
+            self.task = self.session.dataTask(with: request)
+            self.task!.delegate = self
+            self.task!.resume()
+        }
+        
+        
+//        // Initiate the data task for the request
+//        self.task = self.session.dataTask(with: request)
+//        self.task!.delegate = self
+//        self.task!.resume()
     }
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
@@ -119,4 +154,16 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         contextMessage.append(Message(role: "system", content: contextRules))
         return contextMessage
     }
+  
+    func setTemperature(_ t: Double) {
+        if t >= 0 && t <= 1 {
+            self.temperature = t
+        } else {
+            print("Invalid temperature value. It should be between 0 and 1.")
+        }
+    }
+
+//     static func setConversationContext() -> Message {
+//         return Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
+//     }
 }

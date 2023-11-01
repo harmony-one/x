@@ -1,14 +1,19 @@
+2023-10-31 Tue: Synced with Sun on unit tests. Understood each function of SpeechRecognitionProtocols (reset, randomFacts, isPaused, capturing, cleanup). Debugged my build.
 
-
+2023-10-30 Mon: Got onboarding documents done (signed up for Gusto and Google Workspace). Tested Whisper and Voice AI with Theo.
 
 ---
 In 3 weeks (2023-11-20):
+100% coverage of automated tests (units, components, submit, and release).
 
 In 3 months (2024-01-30):
+Make Voice AI compatible with 10 regions and dialects. 
 
 In 3 seasons(2024-06-30):
+Create a developer ecosystem. Curate a HuggingFace community. Build custom models of speech synthesis. Implement emotions by customizing annotation, pacing, excalamation and tones.
 
 In 3 years (2026-10-30):
+Understand ML architectures and LLMs. Build custom models, make project open source, build a developer community.
 
 ---
 1. Native App / Open Source
@@ -22,5 +27,5 @@ During my research internship at Caltech, I was part of a group called the LIGO 
 
 https://rikah.netlify.app
 https://github.com/rika97
-https://www.linkedin.com/in/rikako-hatoya-56709b141/
+https://www.linkedin.com/in/rikako-hatoya/
 https://www.ted.com/profiles/7659431/translator
