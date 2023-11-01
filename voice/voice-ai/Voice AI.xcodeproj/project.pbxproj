@@ -69,7 +69,10 @@
 		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
-		A47949BD2AF1A7BB004E341D /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E71304F2AF137F100288AF8 /* AppConfig.plist */; };
+		A4925D812AF2C757000649C6 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4925D802AF2C757000649C6 /* AppConfig.plist */; };
+		A4925D822AF2C757000649C6 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4925D802AF2C757000649C6 /* AppConfig.plist */; };
+		B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* MessageContextTests.swift */; };
+		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -177,6 +180,10 @@
 		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A4925D802AF2C757000649C6 /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
+		B3C083B22AF1BADB0069232C /* MessageContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageContextTests.swift; sourceTree = "<group>"; };
+		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -390,6 +397,7 @@
 				F61049092AF02D820087F745 /* OpenAIStreamService.swift */,
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
+				B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -453,6 +461,7 @@
 				B930AAD12ADD4BAF009F9F8C /* Dashboard */,
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
+				A4925D802AF2C757000649C6 /* AppConfig.plist */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
 				CD0D136A2ADB28CE00031EDD /* logo.png */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
@@ -477,6 +486,8 @@
 				CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */,
 				B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */,
 				B9C4A8202AEE612A00327529 /* MockTextToSpeechConverter.swift */,
+				B3C083B22AF1BADB0069232C /* MessageContextTests.swift */,
+				B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -688,7 +699,7 @@
 				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
 				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
 				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
-				A47949BD2AF1A7BB004E341D /* AppConfig.plist in Resources */,
+				A4925D822AF2C757000649C6 /* AppConfig.plist in Resources */,
 				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
 				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
 				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,
@@ -713,6 +724,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4925D812AF2C757000649C6 /* AppConfig.plist in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
@@ -822,6 +834,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */,
 				6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
 				6E53AF532AF012A40022A8F2 /* String.swift in Sources */,
@@ -842,6 +855,7 @@
 				B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,
+				B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */,
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 			);

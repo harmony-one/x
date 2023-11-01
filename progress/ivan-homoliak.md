@@ -1,5 +1,7 @@
+**2023-11-01 Wed:**
+Looking into IOS app development on virtualized OS X. Studying related tutorials. 
 
-**2023-10-30 Tue:**
+**2023-10-31 Tue:**
 Continue on getting into Android development with Kotlin. Changed focus to IOS app development with the local model. Preparing development environment in Virtualbox - installed OS X Monteray (since Ubuntu does not have a proper tool set for IOS development).
  
 
