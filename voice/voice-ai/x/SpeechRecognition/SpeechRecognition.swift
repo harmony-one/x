@@ -26,7 +26,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    let vibrationManager = VibrationManager()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
    
@@ -254,6 +253,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             if self.speechDelimitingPunctuations.contains(res.last!) {
+                VibrationManager.stopVibration()
                 flushBuf()
                 return
             }
@@ -333,29 +333,27 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func pause() {
         print("[SpeechRecognition][pause]")
-        _isPaused = true
         
-        if isRequestingOpenAI {
-            audioPlayer.stopSound()
-            VibrationManager.stopVibration()
-        } else if textToSpeechConverter.synthesizer.isSpeaking {
+        if textToSpeechConverter.synthesizer.isSpeaking {
+            _isPaused = true
             textToSpeechConverter.pauseSpeech()
         } else {
-            audioPlayer.playSound(false, "pausePlay")
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false)
+            }
         }
     }
     
     func continueSpeech() {
         print("[SpeechRecognition][continueSpeech]")
-        _isPaused = false
         
-        if isRequestingOpenAI {
-            audioPlayer.playSound()
-            VibrationManager.startVibration()
-        } else if textToSpeechConverter.synthesizer.isSpeaking {
+        if textToSpeechConverter.synthesizer.isSpeaking {
+            _isPaused = false
             textToSpeechConverter.continueSpeech()
         } else {
-            audioPlayer.playSound(false, "pausePlay")
+            if !isRequestingOpenAI {
+                audioPlayer.playSound(false)
+            }
         }
     }
     
@@ -363,7 +361,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][randomFacts]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        makeQuery("Give me a random Wikiepdia entry in 2 sentences")
+        makeQuery("Summarize a random Wikipedia entry in 2 sentences")
     }
     
     func speak() {
