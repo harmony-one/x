@@ -166,7 +166,7 @@
 
 /* Begin PBXFileReference section */
 		6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButton.swift; sourceTree = "<group>"; };
-		6E71304F2AF137F100288AF8 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		6E71304F2AF137F100288AF8 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = AppConfig.plist; path = x/AppConfig.plist; sourceTree = SOURCE_ROOT; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,7 +209,7 @@
 		CD0D133D2ADA73B400031EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = x/Info.plist; sourceTree = SOURCE_ROOT; };
 		CD0D13482ADA73B400031EDD /* Voice AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandlerTests.swift; sourceTree = "<group>"; };
 		CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
