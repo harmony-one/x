@@ -34,7 +34,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     static let shared = SpeechRecognition()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
-    
+   
     var pendingOpenAIStream: OpenAIStreamService?
     
     private var conversation: [Message] = []
@@ -64,9 +64,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     // Current message being processed
-    
+        
     // MARK: - Initialization and Setup
-    
+
     func setup() {
         checkPermissionsAndSetupAudio()
         textToSpeechConverter.convertTextToSpeech(text: greatingText)
@@ -82,7 +82,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     // MARK: - Audio Session Management
-    
+
     private func setupAudioSession() {
         guard !isAudioSessionSetup else { return }
         
@@ -123,7 +123,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private func handleRecognition(inputNode: AVAudioNode) {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
-
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
@@ -134,10 +133,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
             
-            // isFinal does not work. See https://stackoverflow.com/a/42925643/1179349
-            //            if result.isFinal {
-            //                self.handleFinalRecognition(inputNode: inputNode, message: message)
-            //            }
             if !message.isEmpty {
                 self.recognitionLock.wait()
                 self.messageInRecongnition = message
@@ -160,7 +155,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //                }
 //            }
         }
-        
+    
         installTapAndStartEngine(inputNode: inputNode)
     }
     
@@ -181,7 +176,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-
     // TODO: remove
 //    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
     ////        inputNode.removeTap(onBus: 0)
@@ -191,7 +185,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //            makeQuery(message)
 //        }
 //    }
-
     
     private func installTapAndStartEngine(inputNode: AVAudioNode) {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -298,32 +291,24 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         recognitionRequest?.endAudio()
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
-        isRandomFacts = false
-        self.audioPlayer.playSound()
-        VibrationManager.startVibration()
-        if (self.conversation.count == 0) {
-            self.conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+    }
+    
+    func resumeCapturing() {
+        guard !isCapturing else {
+            return
+        }
+        isCapturing = true
+        print("[SpeechRecognition][resumeCapturing]")
+        setupAudioSession()
+        setupAudioEngine()
+        startSpeechRecognition()
+    }
+    
+    func registerTTS() {
+        if textToSpeechConverter.synthesizer.delegate == nil {
+            textToSpeechConverter.synthesizer.delegate = self
         }
     }
-        
-        func resumeCapturing() {
-            guard !isCapturing else {
-                return
-            }
-            isCapturing = true
-            print("[SpeechRecognition][resumeCapturing]")
-            setupAudioSession()
-            setupAudioEngine()
-            startSpeechRecognition()
-        }
-        
-        func registerTTS() {
-            if textToSpeechConverter.synthesizer.delegate == nil {
-                textToSpeechConverter.synthesizer.delegate = self
-            }
-        }
-        
-
     
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
@@ -423,7 +408,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pauseCapturing()
     }
     
-    // Extension for AVSpeechSynthesizerDelegate
+    func cancelSpeak() {
+        pauseCapturing()
+    }
     
     func repeate() {
         pauseCapturing()
@@ -461,4 +448,3 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         resumeListeningTimer?.invalidate()
     }
 }
-
