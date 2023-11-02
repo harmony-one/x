@@ -1,5 +1,8 @@
+**2023-11-02 Thu:**
+Continue in IOS app development and setup of virtualized OS X. Studying related tutorials. 
+
 **2023-11-01 Wed:**
-Looking into IOS app development on virtualized OS X. Studying related tutorials. 
+Looking into IOS app development on virtualized OS X. Studying related tutorials. Configured TestFlight with Voice IA App on Iphone 15 - testing.
 
 **2023-10-31 Tue:**
 Continue on getting into Android development with Kotlin. Changed focus to IOS app development with the local model. Preparing development environment in Virtualbox - installed OS X Monteray (since Ubuntu does not have a proper tool set for IOS development).
