@@ -4,7 +4,7 @@ Overview:
 [.] Streaming Play.ht synthesis
 [.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
 
-2023-11-01 Wed (4h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts
+2023-11-01 Wed (4.5h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts; Fix "Pause / Play" button bug where the button is sometimes ineffective
 
 2023-10-31 Tue (2.5h): Reimplement for press-to-talk mode, end-to-end debugging and testing; Further research and actions on phishing warning resolutions; Review #93, #95, #97; Fix bugs and crashes related interrupting OpenAI queries; Discussions on present user experience issues and bugs; (Continued) and discussions on on-device work TODOs
 
