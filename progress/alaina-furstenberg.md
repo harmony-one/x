@@ -1,3 +1,5 @@
+2023-11-01 Wed: Created wallpapers for thursday event showcasing x.country/voice ai. Mocked up red versions for voice AI app. Synced with Theo on team ChatGPT acccount and a logo for 'Lend'.
+
 2023-10-31 Tue: Tested variety of custom instructions to override "As an AI" "As of my last update" etc. Failed to consistently have Whisper omit the phrases... all quantitative questions 'ie: What is the fed interest rate? Whats the avg rental price in SF' disregarded custom instructions & redirected me to 'up to date' information. Qualitative questions "Who is the most famous soccer player" listened to custom instructions. Posted on Reddit for further advice. Synced with Amanda/Theo to set team up on ChatGPT Premium 
 
 2023-10-30 Mon: Contacted the remote team & utilized Calendly to schedule user testing calls. Synced with remote team on steps to take prior to our call. Prepared topics of discussion for testing. Spent 30 mins on Whisper and 15 on VoiceAI, feedback can be found [here](https://www.notion.so/harmonyone/Alaina-fb16535018a34835a8346b74f64e1c56). Aided Rikako in onboarding, synced with Theo on Thursday's event.

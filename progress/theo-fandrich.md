@@ -1,4 +1,6 @@
-2023-10-30 Mon: Looked through Apple Guidelines for pushing an application to appstore, compiled some of the more relevant ones [here](https://www.notion.so/harmonyone/App-Store-Review-999af4a573284e2c90f54723d0227532).
+2023-11-01 Wed: (Birthday Progress report) - Debugged Voice AI app and coordinated deployment of v0.8.7 and v0.8.8. Set up 10+ email aliases to prepare App Store Connect account for redemption codes.
+
+2023-10-31 Tue: Looked through Apple Guidelines for pushing an application to appstore, compiled some of the more relevant ones [here](https://www.notion.so/harmonyone/App-Store-Review-999af4a573284e2c90f54723d0227532).
 
 2023-10-30 Mon: Coordinated update v0.8.4 with streaming. Accessed and setup internal apple store development account and will prepare for transition tomorrow. Helped Rika onboard to testflight, test out Whisper App, and reviewed some of her goals.
 

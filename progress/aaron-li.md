@@ -4,6 +4,10 @@ Overview:
 [.] Streaming Play.ht synthesis
 [.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
 
+2023-11-01 Wed (4.5h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts; Fix "Pause / Play" button bug where the button is sometimes ineffective
+
+2023-10-31 Tue (2.5h): Reimplement for press-to-talk mode, end-to-end debugging and testing; Further research and actions on phishing warning resolutions; Review #93, #95, #97; Fix bugs and crashes related interrupting OpenAI queries; Discussions on present user experience issues and bugs; (Continued) and discussions on on-device work TODOs
+
 2023-10-30 Mon (5.5h): Review code updates and errors related to OpenAI streaming (#82, #83, #88, #87, #86, #84, 81); Fix OpenAI streaming implementation and integrations, graceful error handling, crash issues in classic Speech Recognition crash issues, various button failures and unexpected responses; End-to-end debugging and testing, and publishing new deployment in Hey Sam; Discuss findings and tasks related to key protection and attestation; Live discussions related to OpenAI streaming issues
 
 2023-10-29 Sun (1h): Code review and discussions on alternative OpenAI and Deepgram streaming implementations, recent pull requests and versions, product updates;
