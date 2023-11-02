@@ -8,7 +8,7 @@ protocol SpeechRecognitionProtocol {
     func randomFacts()
     func isPaused() -> Bool
     func continueSpeech()
-    func pause()
+    func pause(feedback: Bool?)
     func repeate()
     func speak()
     func stopSpeak()
@@ -17,6 +17,10 @@ protocol SpeechRecognitionProtocol {
 extension SpeechRecognitionProtocol {
     func reset() {
         reset(feedback: true)
+    }
+    
+    func pause() {
+        pause(feedback: true)
     }
 }
 
@@ -348,14 +352,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         return _isPlaying
     }
     
-    func pause() {
+    func pause(feedback: Bool? = true) {
         print("[SpeechRecognition][pause]")
         
         if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
             textToSpeechConverter.pauseSpeech()
         } else {
-            if !isRequestingOpenAI {
+            if !isRequestingOpenAI && feedback! {
                 audioPlayer.playSound(false)
             }
         }
