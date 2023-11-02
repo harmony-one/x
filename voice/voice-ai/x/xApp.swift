@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct xApp: App {
-
+    @StateObject var store = Store()
     var body: some Scene {
         WindowGroup {
            // Currently we are displaying only buttons
           //  DashboardView()
-            ActionsView()
+            ActionsView().environmentObject(store)
         }
     }
 }

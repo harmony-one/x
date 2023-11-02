@@ -19,6 +19,9 @@ struct ActionsView: View {
     @State private var isRecordingContinued = false
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
+    @EnvironmentObject var store: Store
+    @State private var isSkipPressed = false
+    @State private var skipPressedTimer: Timer? = nil
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
@@ -133,14 +136,48 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
+        } else if button.action == .skip {
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {}.simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        actionHandler.handle(actionType: ActionType.speak)
+                        if(self.skipPressedTimer == nil) {
+                            let product = store.products[0]
+                            self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
+                                    Task {
+                                        try await self.store.purchase(product)
+                                    }
+                                    timer.invalidate()
+                                }
+                            print("Start skip button pressed timer")
+                        }
+                        }
+                    .onEnded { _ in
+                        if(self.skipPressedTimer != nil) {
+                            self.skipPressedTimer?.invalidate()
+                            self.skipPressedTimer = nil
+                            print("Destroy skip button pressed timer")
+                        }
+                    }
+            )
         } else {
             GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive) {
-                handleOtherActions(actionType: button.action)
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
             }
         }
     }
     
-    func handleOtherActions(actionType: ActionType) {
+    func handleOtherActions(actionType: ActionType) async {
+//        if(actionType == .skip) {
+//            let product = store.products[0]
+//            let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
+//                            Task {
+//                                try await self.store.purchase(product)
+//                            }
+//                }
+//        }
         actionHandler.handle(actionType: actionType)
     }
 }
