@@ -9,13 +9,13 @@ import SwiftUI
 
 @main
 struct xApp: App {
-
+    
     var body: some Scene {
         WindowGroup {
-           // Currently we are displaying only buttons
-          //  DashboardView()
+            // Currently we are displaying only buttons
+            //  DashboardView()
             ActionsView()
-                .background(Color(hex: 0xDDF6FF))
+                .background(Color(hex: 0xDDF6FF).animation(.none))
         }
     }
 }
