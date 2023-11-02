@@ -228,7 +228,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         print("[SpeechRecognition] query: \(text)")
         
-        VibrationManager.startVibration()
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = self.getCurrentTimestamp()
         
@@ -271,7 +270,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             if self.speechDelimitingPunctuations.contains(res.last!) {
-                VibrationManager.stopVibration()
                 flushBuf()
                 return
             }
@@ -332,7 +330,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pendingOpenAIStream?.cancelOpenAICall()
         pendingOpenAIStream = nil
         audioPlayer.stopSound()
-        VibrationManager.stopVibration()
     }
     
     private func cleanupRecognition() {
