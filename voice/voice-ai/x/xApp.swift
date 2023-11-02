@@ -15,6 +15,7 @@ struct xApp: App {
            // Currently we are displaying only buttons
           //  DashboardView()
             ActionsView()
+                .background(Color(hex: 0xDDF6FF))
         }
     }
 }
