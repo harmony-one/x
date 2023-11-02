@@ -314,7 +314,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][reset]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
-        
+        _isPaused = false
         conversation.removeAll()
         pauseCapturing()
         stopGPT()
@@ -379,6 +379,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][randomFacts]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
+        _isPaused = false
         makeQuery("Provide just a two sentence primer of a random Wikipedia Entry without a response to acknowledge the request.")
     }
     
@@ -418,6 +419,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         textToSpeechConverter.stopSpeech()
         pauseCapturing()
         print("repeate", conversation)
+        _isPaused = false
         if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
             print("repeate content", m.content ?? "")
             textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
