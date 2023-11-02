@@ -17,6 +17,10 @@ struct ActionsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
+    
+    // need it to sync speak button animation with pause button
+    @State private var isSpeakButtonPressed = false
+    
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
@@ -76,7 +80,8 @@ struct ActionsView: View {
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
-        }.onAppear(
+        }.background(Color(hex: 0xDDF6FF).animation(.none))
+        .onAppear(
             perform: SpeechRecognition.shared.setup
         )
         .edgesIgnoringSafeArea(.all)
@@ -86,7 +91,8 @@ struct ActionsView: View {
                 print("App became active")
             case .inactive:
                 print("App became inactive")
-                speechRecognition.reset(feedback: false)
+//                speechRecognition.reset(feedback: false)
+                speechRecognition.pause()
             case .background:
                 print("App moved to the background")
             @unknown default:
@@ -119,20 +125,23 @@ struct ActionsView: View {
             }
             .padding(0)
             .scrollDisabled(true)
+            .background(Color(hex: 0xDDF6FF).animation(.none))
         }
     }
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
-        let isActive = (button.action == .play && speechRecognition.isPlaying())
+        let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {}.simultaneousGesture(
+            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
+                        self.isSpeakButtonPressed = true;
                         actionHandler.handle(actionType: ActionType.speak)
                     }
                     .onEnded { _ in
+                        self.isSpeakButtonPressed = false;
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )

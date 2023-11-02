@@ -15,7 +15,7 @@ struct xApp: App {
         WindowGroup {
            // Currently we are displaying only buttons
           //  DashboardView()
-            ActionsView().environmentObject(store)
+            ActionsView().environmentObject(store).background(Color(hex: 0xDDF6FF).animation(.none))
         }
     }
 }

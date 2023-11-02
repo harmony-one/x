@@ -65,18 +65,22 @@ struct PressEffectButtonStyle: ButtonStyle {
     // all other buttons(including .speak) should be triggered through configuration.isPressed
     
     private func determineBackgroundColor(configuration: Configuration) -> Color {
+        let isPressed =  self.active || configuration.isPressed
+        
         if invertColors {
-            return configuration.isPressed || self.active ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
         } else {
-            return configuration.isPressed || self.active ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
         }
     }
 
     private func determineForegroundColor(configuration: Configuration) -> Color {
+        let isPressed =  self.active || configuration.isPressed
+        
         if invertColors {
-            return configuration.isPressed || self.active ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
         } else {
-            return configuration.isPressed || self.active ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
         }
     }
 }

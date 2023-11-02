@@ -1,9 +1,3 @@
-//
-//  VibrationManager.swift
-//  Voice AI
-//
-//  Created by Nagesh Kumar Mishra on 25/10/23.
-//
 
 import Foundation
 import UIKit
