@@ -1,4 +1,8 @@
-2023-10-28 Sat: Completed [user study](https://www.notion.so/harmonyone/User-Study-Notes-3adef05e7ad64521bc40dd88e657a7ad) for Voice AI.
+2023-11-01 Wed: Completed [Demo Day suggestions](https://www.notion.so/harmonyone/Demo-Day-Suggestions-8af0f34a47694229b723bc9b33feadbc) for Voice AI. Reached out to Fenwick for terms and privacy. Completed [user study](https://www.notion.so/harmonyone/User-Study-Notes-3adef05e7ad64521bc40dd88e657a7ad) for Voice AI.
+
+---
+
+2023-10-28 Sat to 2023-10-31: Out with injury 
 
 2023-10-27 Fri: Started development log for version increments [here](https://www.notion.so/harmonyone/Kanban-2aff109a6221488081bb99c0d2470d91?p=810178d623804820a8d3b3483a6e6ada&pm=s). Collecting Voice AI internal feedback with Theo.
 
