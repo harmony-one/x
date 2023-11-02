@@ -83,7 +83,8 @@ struct ActionsView: View {
                 print("App became active")
             case .inactive:
                 print("App became inactive")
-                speechRecognition.reset(feedback: false)
+//                speechRecognition.reset(feedback: false)
+                speechRecognition.pause()
             case .background:
                 print("App moved to the background")
             @unknown default:
