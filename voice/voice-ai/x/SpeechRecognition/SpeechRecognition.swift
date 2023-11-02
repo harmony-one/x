@@ -63,6 +63,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         $_isPlaying
     }
     
+    private var isPlayingWorkItem: DispatchWorkItem?
+    
     // Current message being processed
         
     // MARK: - Initialization and Setup
@@ -432,8 +434,20 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 // Extension for AVSpeechSynthesizerDelegate
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+    
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        _isPlaying = false
+        
+        isPlayingWorkItem?.cancel()
+        isPlayingWorkItem = DispatchWorkItem { [weak self] in
+            if ((self?._isPlaying) != nil) {
+                print("[SpeechRecognition][synthesizeFinish]")
+                self?._isPlaying = false
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
+        
+        
+        
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
         //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
         //            print("[SpeechRecognition][speechSynthesizer][didFinish] Starting capturing again")
@@ -447,7 +461,18 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        _isPlaying = true
+        
+        
+        isPlayingWorkItem?.cancel()
+        isPlayingWorkItem = DispatchWorkItem { [weak self] in
+            if self?._isPlaying == false {
+                print("[SpeechRecognition][synthesizeStart]")
+                self?._isPlaying = true
+            }
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: isPlayingWorkItem!)
+        
         audioPlayer.stopSound()
         pauseCapturing()
         resumeListeningTimer?.invalidate()
