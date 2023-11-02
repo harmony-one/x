@@ -24,7 +24,6 @@ struct ActionsView: View {
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
-    @State private var isSkipPressed = false
     @State private var skipPressedTimer: Timer? = nil
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
@@ -150,9 +149,9 @@ struct ActionsView: View {
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         actionHandler.handle(actionType: ActionType.speak)
-                        if(self.skipPressedTimer == nil) {
+                        if(self.skipPressedTimer == nil && !store.products.isEmpty) {
                             let product = store.products[0]
-                            self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
+                            self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
                                     Task {
                                         try await self.store.purchase(product)
                                     }
