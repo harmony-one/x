@@ -149,9 +149,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             8. Small talk: "How's the weather?," "Did you catch the game yesterday?," "Any exciting plans for the weekend?"
             9. Closing remarks: "Take care," "Have a great day," "Looking forward to speaking again soon"
         """
-        var contextMessage: [Message] = []
-        contextMessage.append(Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand."))
-        contextMessage.append(Message(role: "system", content: contextRules))
+        var contextMessage: [Message] = 
+            [Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand."),
+            Message(role: "system", content: contextRules)]
+//        contextMessage.append(Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand."))
+//        contextMessage.append(Message(role: "system", content: contextRules))
         return contextMessage
     }
   
