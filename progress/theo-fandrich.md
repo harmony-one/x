@@ -1,4 +1,4 @@
-2023-11-03 Fri: Organized information for beta submission and app store submission [here](https://www.notion.so/harmonyone/App-Store-Beta-Submission-a0ad78ce2bd44460aa61a15a58314d0a).
+2023-11-03 Fri: Organized information for beta and app store submission [here](https://www.notion.so/harmonyone/App-Store-Beta-Submission-a0ad78ce2bd44460aa61a15a58314d0a).
 
 2023-11-02 Thu: Conducted thorough product testing and generated testflight codes for demo day.
 
