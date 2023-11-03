@@ -215,6 +215,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if isRequestingOpenAI {
             return
         }
+        var completeResponse = [String]()
         var buf = [String]()
         func flushBuf() {
             let response = buf.joined()
@@ -223,7 +224,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             registerTTS()
             textToSpeechConverter.convertTextToSpeech(text: response)
-            conversation.append(Message(role: "assistant", content: response))
+            completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
@@ -263,6 +264,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 flushBuf()
                 self.isRequestingOpenAI = false
                 print("[SpeechRecognition] OpenAI Response Complete")
+                print("[SpeechRecognition] Complete Response text", completeResponse.joined())
+                if !completeResponse.isEmpty {
+                    self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
+                }
                 return
             }
             print("[SpeechRecognition] OpenAI Response received: \(res)")
