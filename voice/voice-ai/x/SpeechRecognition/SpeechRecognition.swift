@@ -37,9 +37,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
-   
+       
     var pendingOpenAIStream: OpenAIStreamService?
     
     private var conversation: [Message] = []
@@ -273,10 +271,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             responseItemsCounter += 1
             buf.append(res)
             guard res.last != nil else {
-                return
-            }
-            if self.speechDelimitingPunctuations.contains(res.last!) {
-                flushBuf()
                 return
             }
         }
