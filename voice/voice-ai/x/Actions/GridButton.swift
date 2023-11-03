@@ -2,13 +2,15 @@ import Foundation
 import SwiftUI
 
 struct GridButton: View {
+    
+    @ObservedObject var currentTheme:Theme
+    
     var button: ButtonData
     var geometry: GeometryProxy
     var foregroundColor: Color
     var active: Bool = false;
     var colorExternalManage: Bool = false;
     var action: () -> Void
-
     
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
@@ -33,35 +35,25 @@ struct GridButton: View {
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
+        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak))
     }
 }
-
-// COLOR_MIX
-let COLOR_ACTIVE = Color(hex: 0xeb4034) // Color(hex: 0x0088B0)
-let COLOR_DEFAULT = Color(hex: 0xDDF6FF)
-
-class PressEffectButtonStyleClass: Themable {
-    func applyTheme(_ theme: AppTheme) {
-        // Implement the theme application for the class-based style
-    }
-}
-
-let bridge = PressEffectButtonStyleClass()
 
 struct PressEffectButtonStyle: ButtonStyle {
-    
+    var theme: Theme
     var background: Color?
     var active: Bool = false
     var invertColors: Bool = false
     
-    init(background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
+    init(theme: Theme, background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
         self.background = background
         self.active = active
         self.invertColors = invertColors
+        self.theme = theme
     }
     
     func makeBody(configuration: Configuration) -> some View {
+        
             configuration.label
                 .background(background ?? determineBackgroundColor(configuration: configuration))
                 .foregroundColor(determineForegroundColor(configuration: configuration))
@@ -74,12 +66,14 @@ struct PressEffectButtonStyle: ButtonStyle {
     // all other buttons(including .speak) should be triggered through configuration.isPressed
     
     private func determineBackgroundColor(configuration: Configuration) -> Color {
+        print("^^^^^^^")
+        print(self.theme.buttonActiveColor)
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? self.theme.buttonDefaultColor : self.theme.buttonActiveColor
         } else {
-            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? self.theme.buttonActiveColor : self.theme.buttonDefaultColor
         }
     }
 
@@ -87,9 +81,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? self.theme.buttonActiveColor : self.theme.buttonDefaultColor
         } else {
-            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? self.theme.buttonDefaultColor : self.theme.buttonActiveColor
         }
     }
 }

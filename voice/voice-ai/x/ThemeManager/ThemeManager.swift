@@ -6,69 +6,90 @@
 //
 
 import Foundation
+import SwiftUI
 
-@objc protocol Themable {
-    func applyTheme(_ theme: AppTheme)
+
+enum ThemeName {
+    case herTheme
+    case darkTheme
+    case defaultTheme
+
+    static func fromString(_ name: String) -> ThemeName {
+        switch name {
+        case "herTheme": return .herTheme
+        case "darkTheme": return .darkTheme
+        case "defaultTheme": return .defaultTheme
+        default: return .defaultTheme
+        }
+    }
 }
 
-//struct ThemeManager {
-//    private var themables: NSHashTable<Themable> = NSHashTable<Themable>.weakObjects()
-//    var theme: AppTheme {
-//        didSet {
-//            guard theme != oldValue else { return }
-//            apply()
-//        }
-//    }
-//
-//    init(defaultTheme: AppTheme) {
-//        self.theme = defaultTheme
-//    }
-//
-//    mutating func register(_ themable: Themable) {
-//        themables.add(themable)
-//        themable.applyTheme(theme)
-//    }
-//
-//    private mutating func apply() {
-//        themables.allObjects.forEach {
-//            $0.applyTheme(theme)
-//        }
-//    }
-//}
+class Theme:ObservableObject {
+    @Published var name: ThemeName
+    @Published var brandColor: Color
+    @Published var backgroundColor: Color
+    @Published var contrastBackgroundColor: Color
+    @Published var secondaryColor: Color
+    @Published var shadowColor: Color
+    @Published var bodyTextColor: Color
+    @Published var buttonActiveColor: Color
+    @Published var buttonDefaultColor: Color
 
-
-final class ThemeManager {
-    private var themables = NSHashTable<Themable>
-        .weakObjects()
-
-    var theme: AppTheme {
-        didSet {
-            guard theme != oldValue else { return; }
-            apply()
-        }
+    init(name: ThemeName, brandColor: Color, backgroundColor: Color, contrastBackgroundColor: Color, secondaryColor:Color, shadowColor:Color, bodyTextColor:Color, buttonActiveColor: Color, buttonDefaultColor: Color){
+        self.name = name
+        self.brandColor = brandColor
+        self.backgroundColor = backgroundColor
+        self.contrastBackgroundColor = contrastBackgroundColor
+        self.secondaryColor = secondaryColor
+        self.shadowColor = shadowColor
+        self.bodyTextColor = bodyTextColor
+        self.buttonActiveColor = buttonActiveColor
+        self.buttonDefaultColor = buttonDefaultColor
     }
-
-    private static var instance: ThemeManager?
-
-    static var shared: ThemeManager {
-        if instance == nil {
-            instance = ThemeManager(defaultTheme: .base)
-        }
-        return instance!
+    
+    init() {
+        let themeManager = ThemeManager()
+        let theme = themeManager.getThemeByName(ThemeName.defaultTheme)
+        self.name = theme.name
+        self.brandColor = theme.brandColor
+        self.backgroundColor = theme.backgroundColor
+        self.contrastBackgroundColor = theme.contrastBackgroundColor
+        self.secondaryColor = theme.secondaryColor
+        self.shadowColor = theme.shadowColor
+        self.bodyTextColor = theme.bodyTextColor
+        self.buttonActiveColor = theme.buttonActiveColor
+        self.buttonDefaultColor = theme.buttonDefaultColor
     }
+}
 
-    private init(defaultTheme: AppTheme) {
-        self.theme = defaultTheme
-    }
-
-    func register(_ themable: Themable) {
-        themables.add(themable)
-        themable.applyTheme(theme)
-    }
-
-    private func apply() {
-        themables.allObjects.forEach {
-            $0.applyTheme(theme)
-        }
+struct ThemeManager {
+    var themes: [Theme] = [
+        Theme(
+            name: .defaultTheme,
+            brandColor: Color(hex: 0x552233),
+            backgroundColor: Color(hex: 0x552233),
+            contrastBackgroundColor: Color(hex: 0x552233),
+            secondaryColor: Color(hex: 0x552233),
+            shadowColor: Color(hex: 0x552233),
+            bodyTextColor: Color(hex: 0x552233),
+            buttonActiveColor: Color(hex: 0x0088B0),
+            buttonDefaultColor: Color(hex: 0xDDF6FF)
+        ),
+        
+        Theme(
+            name: .herTheme,
+            brandColor: Color(hex: 0x552233),
+            backgroundColor: Color(hex: 0x552233),
+            contrastBackgroundColor: Color(hex: 0x552233),
+            secondaryColor: Color(hex: 0x552233),
+            shadowColor: Color(hex: 0x552233),
+            bodyTextColor: Color(hex: 0x552233),
+            buttonActiveColor: Color(hex: 0xb02c00),
+            buttonDefaultColor: Color(hex: 0xc9785d)
+        )
+    ]
+    
+    func getThemeByName(_ name: ThemeName) -> Theme {
+        return themes.first { $0.name == name } ?? themes[0]
     }
 }

@@ -8,7 +8,19 @@
 import Foundation
 import SwiftUI
 
+
+
 struct ActionsView: View {
+    let config = AppConfig()
+    
+    @State var currentTheme:Theme = Theme()
+    
+    func changeTheme(name: String){
+        let themeManager = ThemeManager()
+        let themeName = ThemeName.fromString(name)
+        self.currentTheme = themeManager.getThemeByName(themeName)
+    }
+    
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -71,6 +83,8 @@ struct ActionsView: View {
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
+        changeTheme(name: config.getThemeName())
+        print(currentTheme.buttonActiveColor)
     }
     
     var body: some View {
@@ -131,6 +145,7 @@ struct ActionsView: View {
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
+        
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
