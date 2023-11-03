@@ -37,8 +37,17 @@ struct GridButton: View {
     }
 }
 
-let COLOR_ACTIVE = Color(hex: 0x0088B0)
+// COLOR_MIX
+let COLOR_ACTIVE = Color(hex: 0xeb4034) // Color(hex: 0x0088B0)
 let COLOR_DEFAULT = Color(hex: 0xDDF6FF)
+
+class PressEffectButtonStyleClass: Themable {
+    func applyTheme(_ theme: AppTheme) {
+        // Implement the theme application for the class-based style
+    }
+}
+
+let bridge = PressEffectButtonStyleClass()
 
 struct PressEffectButtonStyle: ButtonStyle {
     

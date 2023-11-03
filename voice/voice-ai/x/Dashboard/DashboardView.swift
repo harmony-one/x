@@ -31,7 +31,7 @@ struct DashboardView: View {
         
         let isPortrait = verticalSizeClass == .regular && horizontalSizeClass == .compact
         let customFontSize: CGFloat = isPortrait ? 18 : 22
-        Color(hex:0x313131).ignoresSafeArea()
+        Color("#eb4034").ignoresSafeArea() // hex:0x313131
         // Color("#DDF6FF").ignoresSafeArea()
             .onTapGesture {
                 self.isButtonViewPresented = true
