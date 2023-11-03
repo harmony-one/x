@@ -1,3 +1,5 @@
+2023-11-02 Thu: Fixed repeat button bug. Previously, it was only repeating the final streamed portion. Now it repeats the whole response. Demoed Voice AI at the Voice AI meetup.
+
 2023-11-01 Wed: Fixed streaming interruption bug. Fixed Press to Speak button functionality and color change bug. Discussed over major persisting bugs and have handed them over to the remote engineers.
 
 2023-10-31 Tue: Spent time debugging a bug crashing the app during "Press to Speak" interruption. Realized that when the streaming is completed, during synthesis, interruption is being handled correctly. However, while streaming, starting a new recognition will crash the application. Fixed bugs preventing Pause / Play button from working.
