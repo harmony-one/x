@@ -230,7 +230,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         if conversation.count == 0 {
-            conversation.append(OpenAIStreamService.setConversationContext())
+            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
         
         print("[SpeechRecognition] query: \(text)")
