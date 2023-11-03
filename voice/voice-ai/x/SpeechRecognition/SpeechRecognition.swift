@@ -389,7 +389,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         textToSpeechConverter.stopSpeech()
         _isPaused = false
         let randomYear = Int.random(in: 100..<2020)
-        let query = "Please give me a fact from the year \(randomYear) AD. Do not mention the year. Please respond with two sentences or less."
+        let query = "Please give me a fact from the year \(randomYear) AD. Please respond with two sentences or less."
         makeQuery(query)
     }
     
