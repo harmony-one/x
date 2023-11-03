@@ -113,10 +113,15 @@ struct ActionsView: View {
     
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
         return GeometryReader { geometry in
+            let gridItem = GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
+            let columns = Array(repeating: gridItem, count: colums)
+            let numOfRows: Int = Int(ceil(Double(buttons.count) / Double(colums)))
+            let height = geometry.size.height / CGFloat(numOfRows);
+            
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: colums), spacing: 0) {
+                LazyVGrid(columns: columns, spacing: 0) {
                     ForEach(buttons) { button in
-                        viewButton(button: button, geometry: geometry)
+                        viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -128,11 +133,11 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
+    func viewButton(button: ButtonData) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -144,7 +149,7 @@ struct ActionsView: View {
                     }
             )
         } else if button.action == .skip {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: false) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         actionHandler.handle(actionType: ActionType.speak)
@@ -168,7 +173,7 @@ struct ActionsView: View {
                     }
             )
         } else {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive) {
+            GridButton(button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
