@@ -6,6 +6,13 @@
 //
 
 import XCTest
+import SwiftUI
+
+struct GeometryProxyMock: GeometryProxy {
+    var size: CGSize {
+        return CGSize(width: 320, height: 480)
+    }
+}
 
 final class xUITests: XCTestCase {
 
@@ -20,6 +27,35 @@ final class xUITests: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+    
+    func testGridButton() throws {
+        
+        
+        let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
+        let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
+        let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press to Speak", image: "press to speak", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
+        
+        
+        let geometry = GeometryProxyMock()
+        let button = GridButton(button: buttonReset, geometry: geometry, foregroundColor: .black) {
+            
+        }
+        
+        
+        
+//        let buttonData = ButtonData(label: "Pause", image: "pl", action: .reset);
+//        let geometry = GeometryProxyMock()
+//        let button = GridButton(button: buttonData, geometry: geometry, foregroundColor: .black, action: buttonData.action)
+//        
+//        let buttonData = ButtonData(label: "New Session", image: "new session", action: .reset);
+//        let geometry = GeometryProxyMock()
+//        let button = GridButton(button: buttonData, geometry: geometry, foregroundColor: .black, action: buttonData.action)
+        
+        XCTAssertEqual(button.action, buttonData.action)
     }
 
     func testActionButtons() throws {
