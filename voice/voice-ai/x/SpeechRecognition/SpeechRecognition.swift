@@ -388,7 +388,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        makeQuery("Provide just a two sentence primer of a random Wikipedia Entry without a response to acknowledge the request.")
+        let randomYear = Int.random(in: 100..<2020)
+        let query = "Please give me a fact from the year \(randomYear) AD. Do not mention the year. Please respond with two sentences or less."
+        makeQuery(query)
     }
     
     func speak() {
