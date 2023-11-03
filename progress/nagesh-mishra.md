@@ -1,4 +1,6 @@
 
+2023-11-03 Fri: Implemented component testing for both AudioEngine and AudioSession. Additionally, I've resolved a bug where the Repeat button was only capturing the last of the stream.
+
 2023-11-02 Thu: Fixed the issue related to changes in orientation. I also removed haptic feedback from the thinking process. Currently, I am actively working on component testing for both AudioEngine and AudioSession.
 
 2023-11-01 Web: I have created a one-page document on Component and End-to-End Testing for the Speech Recognition System, and provided support to Artem and Sergey in their task. PRs reviewed https://github.com/harmony-one/x/pull/102, https://github.com/harmony-one/x/pull/99, https://github.com/harmony-one/x/pull/100.
