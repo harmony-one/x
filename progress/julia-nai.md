@@ -1,4 +1,4 @@
-2023-11-03 Fri: [Implemented](https://github.com/harmony-one/x/commit/67c11ec307580d8b79525326c05a44586408a281) randomness for the random fact button. 
+2023-11-03 Fri: [Implemented](https://github.com/harmony-one/x/commit/67c11ec307580d8b79525326c05a44586408a281) randomness for the random fact button. [Added](https://github.com/harmony-one/x/blob/main/voice/voice-ai/x/SpeechRecognition/SpeechRecognition.swift) a cap to the synthesis buffer. If the response doesn't have punctuation, the buffer would wait for the entire response to be streamed before synthesizing. Now, the buffer has a cap of 5 words. 
 Extensively tested the random fact button. ChatGPT seems to be deterministic with random facts. From the ChatGPT website, I tried starting new multiple new conversations with the same prompt asking for a random fun fact and I got the same fun fact every time. Sun and I tested various ChatGPT parameters, but we could not stop the same fact from showing up repeatedly.  
 
 Sun, Aaron, and I discussed the following action items for potentially reducing latency:
