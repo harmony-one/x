@@ -284,6 +284,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 flushBuf()
                 return
             }
+            let words = res.split { $0.isWhitespace }
+            if words.count >= 5 {
+                flushBuf()
+                return
+            }
         }
         pendingOpenAIStream?.query(conversation: conversation)
     }
