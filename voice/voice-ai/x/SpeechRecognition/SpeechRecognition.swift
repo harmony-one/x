@@ -217,6 +217,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         var completeResponse = [String]()
         var buf = [String]()
+        
         func flushBuf() {
             let response = buf.joined()
             guard !response.isEmpty else {
@@ -242,7 +243,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pauseCapturing()
         isRequestingOpenAI = true
         
-        var responseItemsCounter = 0
+        // Initial Flush to reduce perceived latency
+        var initialFlush = false
+        let initialLength = 4
+        
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
                 let nsError = err! as NSError
@@ -270,25 +274,42 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
                 return
             }
+            
             print("[SpeechRecognition] OpenAI Response received: \(res)")
-            if(responseItemsCounter == 0) {
-                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
-                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
-            }
-            responseItemsCounter += 1
             buf.append(res)
             guard res.last != nil else {
                 return
             }
-            if self.speechDelimitingPunctuations.contains(res.last!) {
+            
+            if !initialFlush && (buf.count == initialLength || self.speechDelimitingPunctuations.contains(res.last!)) {
+                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
+                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
+                print("###### INITIAL FLUSH", buf)
                 flushBuf()
+                initialFlush = true
+                return
+            } else {
+                // Two Cases:
+                // 1. Initial flush by delimiter: Continue the process.
+                // 2. By word count: First element may be a punctuation.
+                //    Get rid of the punctuation so that the synthesizer does not read out the it.
+                // TODO: " ." will not be removed!
+                if (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
+                    if self.speechDelimitingPunctuations.contains(buf[0]) {
+                        print("###### FIRST ONE PUNCTUATION", buf)
+                        buf.remove(at: 0)
+                    }
+                    print("###### FLUSH", buf)
+                    flushBuf()
+                }
                 return
             }
-            let words = res.split { $0.isWhitespace }
-            if words.count >= 5 {
-                flushBuf()
-                return
-            }
+//            if buf.count == 5 || (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
+//                print("###### BUFFER", buf)
+//                flushBuf()
+//                return
+//            }
+            
         }
         pendingOpenAIStream?.query(conversation: conversation)
     }
