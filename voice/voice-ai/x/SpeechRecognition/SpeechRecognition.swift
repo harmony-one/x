@@ -324,7 +324,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         textToSpeechConverter.stopSpeech()
         stopGPT()
-        textToSpeechConverter.stopSpeech()
         _isPaused = false
         conversation.removeAll()
         pauseCapturing()
@@ -338,37 +337,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             textToSpeechConverter.convertTextToSpeech(text: greetingText)
         }
     }
-    
-//    var isGreetingInProgress = false
-//    
-//    func reset(feedback: Bool? = true) {
-//        print("[SpeechRecognition][reset]")
-//
-//        // Cancel any ongoing greeting speech
-//        if isGreetingInProgress {
-//            textToSpeechConverter.stopSpeech()
-//            isGreetingInProgress = false
-//        }
-//
-//        stopGPT()
-//        _isPaused = false
-//        conversation.removeAll()
-//        pauseCapturing()
-//        isAudioSessionSetup = false
-//        setupAudioSession()
-//        setupAudioEngine()
-//        registerTTS()
-//
-//        if feedback ?? true {
-//            isGreetingInProgress = true  // Indicate that a new greeting has started
-//            print("[SpeechRecognition][reset] greeting")
-//            textToSpeechConverter.convertTextToSpeech(text: greetingText) {
-//                // This should be called when the speech finishes or is stopped
-//                self.isGreetingInProgress = false
-//            }
-//        }
-//    }
-
     
     private func stopGPT() {
         pendingOpenAIStream?.cancelOpenAICall()
