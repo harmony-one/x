@@ -21,7 +21,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var repeateCalled: Bool = false
 
     func pause(feedback: Bool?) {
-        <#code#>
+        
     }
     
     func isPaused() -> Bool {
