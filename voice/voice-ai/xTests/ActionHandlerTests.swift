@@ -19,12 +19,18 @@ final class ActionHandlerTests: XCTestCase {
         
     }
     
+    func testHandleReset() {
+        actionHandler.handle(actionType: .reset)
+        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+    }
+    
     // Test if the skip action stops the recording when it's already recording
     func testHandleSkipWhileRecording() {
         actionHandler.isRecording = true
         actionHandler.handle(actionType: .skip)
         XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
     }
+    
     
     // Test if random fact action calls the randomFacts() method in our mock
     func testHandleRandomFact() {
@@ -36,6 +42,16 @@ final class ActionHandlerTests: XCTestCase {
     func testHandleRepeatLast() {
         actionHandler.handle(actionType: .repeatLast)
         XCTAssertTrue(mockSpeechRecognition.repeateCalled, "repeat() should be called after .repeatLast action")
+    }
+    
+    func testHandleSpeak() {
+        actionHandler.handle(actionType: .speak)
+        XCTAssertTrue(actionHandler.isRecording, "Recording should be started after .speak action")
+    }
+    
+    func testHandleStopSpeak() {
+        actionHandler.handle(actionType: .stopSpeak)
+        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .stopSpeak action")
     }
     
     func testExample() throws {
