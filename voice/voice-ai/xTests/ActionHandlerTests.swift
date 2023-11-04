@@ -54,6 +54,17 @@ final class ActionHandlerTests: XCTestCase {
         XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .stopSpeak action")
     }
     
+    func testHandlePlay() {
+        actionHandler.handle(actionType: .play)
+        if mockSpeechRecognition.isPaused() {
+            XCTAssertTrue(mockSpeechRecognition.continueSpeechCalled, "Continue Speech should have been called")
+        } else {
+            mockSpeechRecognition.pause()
+            XCTAssertTrue(mockSpeechRecognition.pauseCalled, "Speech should have been paused")
+        }
+        
+    }
+    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

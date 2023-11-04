@@ -1,4 +1,4 @@
-2023-11-04 Sat: Implemented unit tests and increased coverage by 30% for ActionHandler. Working on implementing handlers for MockSpeechRecognition.swift to add ".play" test and bring up coverage to 100%. 
+2023-11-04 Sat: Implemented unit tests for ActionHandler, increasing coverage from 55% to 96%.
 
 2023-11-03 Fri: Learnt about testing (unit, integration, UI) in XCode, and how to do mock testing. Looked into missing parts of current test coverage within SpeechRecognition.swift and investigated how to incorporate their unit tests.
 
