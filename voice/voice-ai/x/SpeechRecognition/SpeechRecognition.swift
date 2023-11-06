@@ -424,8 +424,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        let randomYear = Int.random(in: 100..<2020)
-        let query = "Please give me a fact from the year \(randomYear) AD. Please respond with two sentences or less."
+        let randomRank = Int.random(in: 800..<1500)
+        let query = "Give me a summary of a random wikipedia topic from the top \(randomRank) most popular wikipedia pages. Please respond with two sentences or less. Please respond with only the summary and no other text."
         makeQuery(query)
     }
     
