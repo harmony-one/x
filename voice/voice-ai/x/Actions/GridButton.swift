@@ -17,7 +17,7 @@ struct GridButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: imageTextSpacing) {
-                Image(button.image)
+                Image(pressEffectButtonImage()) // button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
@@ -30,6 +30,13 @@ struct GridButton: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
+    }
+    
+    private func pressEffectButtonImage() -> String {
+        if (self.active && button.action == .play) {
+            return "play"
+        }
+        return button.image
     }
 }
 
