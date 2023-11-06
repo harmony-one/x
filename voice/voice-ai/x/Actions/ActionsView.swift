@@ -26,6 +26,8 @@ struct ActionsView: View {
     @EnvironmentObject var store: Store
     @State private var skipPressedTimer: Timer? = nil
     
+    @State private var buttonFrame: CGRect = .zero
+    
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
     let oneValue = "2111.01 ONE"
@@ -178,8 +180,16 @@ struct ActionsView: View {
                             await handleOtherActions(actionType: button.action)
                         }
                     }
-                    .simultaneousGesture(LongPressGesture().onEnded { _ in
-                        openSettingsApp()
+                    .background(GeometryReader { geometry in
+                        Color.clear.onAppear {
+                            // Capture the button's frame size to use as the maximum distance for the long press gesture
+                            buttonFrame = geometry.frame(in: .local)
+                        }
+                    })
+                    .simultaneousGesture(LongPressGesture(minimumDuration: 2.8, maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                        DispatchQueue.main.async {
+                            openSettingsApp()
+                        }
                     })
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
