@@ -357,6 +357,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
         
+        let hadConversaion = conversation.count > 0;
+        
         textToSpeechConverter.stopSpeech()
         stopGPT()
         _isPaused = false
@@ -367,7 +369,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         setupAudioSession()
         setupAudioEngine()
         registerTTS()
-        if feedback! {
+        
+        print("con \(conversation.count)")
+        
+        if feedback! && hadConversaion {
             print("[SpeechRecognition][reset] greeting")
             textToSpeechConverter.convertTextToSpeech(text: greetingText)
         }
