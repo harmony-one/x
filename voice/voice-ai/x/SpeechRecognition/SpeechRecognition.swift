@@ -89,7 +89,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     // MARK: - Audio Session Management
 
-    private func setupAudioSession() {
+     func setupAudioSession() {
         guard !isAudioSessionSetup else { return }
         
         do {
@@ -111,6 +111,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("Error setting up audio engine: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // Internal getter for audioEngine
+    internal func getAudioEngine() -> AVAudioEngine {
+        return audioEngine
+    }
+    
+    internal func getISAudioSessionSetup() -> Bool {
+        return isAudioSessionSetup
     }
     
     // MARK: - Speech Recognition
