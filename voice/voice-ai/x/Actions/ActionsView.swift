@@ -172,12 +172,27 @@ struct ActionsView: View {
                         }
                     }
             )
+        } else if button.action == .repeatLast {
+            GridButton(button: button, foregroundColor: .black, active: isActive) {
+                        Task {
+                            await handleOtherActions(actionType: button.action)
+                        }
+                    }
+                    .simultaneousGesture(LongPressGesture().onEnded { _ in
+                        openSettingsApp()
+                    })
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
+        }
+    }
+    
+    func openSettingsApp() {
+        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
     }
     
