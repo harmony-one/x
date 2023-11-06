@@ -69,6 +69,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private var isPlayingWorkItem: DispatchWorkItem?
     
+    var isSynthesizerInitiated = false  // Flag to check if speech has been initiated
+    
     // Current message being processed
         
     // MARK: - Initialization and Setup
@@ -358,7 +360,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][reset]")
         
         textToSpeechConverter.stopSpeech()
-        stopGPT()
         _isPaused = false
         conversation.removeAll()
         pauseCapturing()
@@ -369,7 +370,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         registerTTS()
         if feedback! {
             print("[SpeechRecognition][reset] greeting")
+            guard !isSynthesizerInitiated else {
+                print("[SpeechRecognition][reset] Synthesizer has already been initiated.")
+                return
+            }
             textToSpeechConverter.convertTextToSpeech(text: greetingText)
+            isSynthesizerInitiated = true // Set this flag to true to indicate that Synthesizer speaking has started
         }
     }
     
@@ -489,7 +495,8 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
-        
+        isSynthesizerInitiated = false  
+
         
         
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
@@ -518,6 +525,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: isPlayingWorkItem!)
         
         audioPlayer.stopSound()
+        isSynthesizerInitiated = false
         pauseCapturing()
         resumeListeningTimer?.invalidate()
     }
