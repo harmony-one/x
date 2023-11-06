@@ -1,4 +1,4 @@
-2023-11-04 Sun: Tested new Tested various implementations of Sun's chunking and built to testflight. Coordinated and noted behavioral bugs for remote engineers to fix. Worked on generating and researching a solution for the limitation on the internal test codes. 
+2023-11-05 Sun: Tested new Tested various implementations of Sun's chunking and built to testflight. Coordinated and noted behavioral bugs for remote engineers to fix. Worked on generating and researching a solution for the limitation on the internal test codes. 
 
 2023-11-03 Fri: Organized information for beta and app store submission [here](https://www.notion.so/harmonyone/App-Store-Beta-Submission-a0ad78ce2bd44460aa61a15a58314d0a).
 
