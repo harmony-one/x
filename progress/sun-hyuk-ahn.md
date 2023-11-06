@@ -1,3 +1,5 @@
+2023-11-06 Sun: Fixed existing conflicts for some PRs and have reviewed / merged them. Began refactoring code to make it production ready.
+
 2023-11-04 Sat: Made updates and benchmarked the updated streaming implementation. Observed that the initial stream takes about 2-3 seconds but the latter ones are ~950ms.
 
 2023-11-03 Fri: Updated Random Fact button to return random entries. Discussed with Aaron and Julia different approaches to improving the latency. Introduced initial flush (thinking -> synthesizer) of x (currently 5 words) words that increase the perceived latency.
