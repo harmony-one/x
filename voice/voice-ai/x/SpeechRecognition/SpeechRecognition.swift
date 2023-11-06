@@ -68,7 +68,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private var isPlayingWorkItem: DispatchWorkItem?
-    
+        
     // Current message being processed
         
     // MARK: - Initialization and Setup
@@ -359,22 +359,52 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
         
-        textToSpeechConverter.stopSpeech()
-        stopGPT()
-        _isPaused = false
-        conversation.removeAll()
-        pauseCapturing()
-        stopGPT()
-        isAudioSessionSetup = false
-        setupAudioSession()
-        setupAudioEngine()
-        registerTTS()
-        if feedback! {
-            print("[SpeechRecognition][reset] greeting")
-            textToSpeechConverter.convertTextToSpeech(text: greetingText)
+        // Perform all UI updates on the main thread
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.stopSpeech()
+            self._isPaused = false
+            self.conversation.removeAll()
+        }
+        
+        // Perform all cleanup tasks in the background
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.pauseCapturing()
+            self.stopGPT()
+            
+            // No need to reset the audio session if you're going to set it up again immediately after
+            // self.isAudioSessionSetup = false
+            
+            // Call these setup functions only if they are necessary. If they are not changing state, you don't need to call them.
+            self.setupAudioSession()
+            self.setupAudioEngineIfNeeded()
+            
+            // If TTS needs to be registered again, do it in the background
+            self.registerTTS()
+            
+            DispatchQueue.main.async {
+                if feedback == true{
+                    // Play the greeting text
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                }
+            }
         }
     }
-    
+
+    func setupAudioEngineIfNeeded() {
+        guard !audioEngine.isRunning else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            // Only start the audio engine if it's not already running
+            audioEngine.prepare()
+            try audioEngine.start()
+        } catch {
+            print("Error setting up audio engine: \(error.localizedDescription)")
+        }
+    }
+
+
     private func stopGPT() {
         pendingOpenAIStream?.cancelOpenAICall()
         pendingOpenAIStream = nil
@@ -491,7 +521,6 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
-        
         
         
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
