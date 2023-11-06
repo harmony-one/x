@@ -26,22 +26,22 @@ enum ThemeName {
 
 class Theme:ObservableObject {
     @Published var name: ThemeName
-    @Published var brandColor: Color
-    @Published var backgroundColor: Color
-    @Published var contrastBackgroundColor: Color
-    @Published var secondaryColor: Color
-    @Published var shadowColor: Color
+//    @Published var brandColor: Color
+//    @Published var backgroundColor: Color
+//    @Published var contrastBackgroundColor: Color
+//    @Published var secondaryColor: Color
+//    @Published var shadowColor: Color
     @Published var bodyTextColor: Color
     @Published var buttonActiveColor: Color
     @Published var buttonDefaultColor: Color
 
-    init(name: ThemeName, brandColor: Color, backgroundColor: Color, contrastBackgroundColor: Color, secondaryColor:Color, shadowColor:Color, bodyTextColor:Color, buttonActiveColor: Color, buttonDefaultColor: Color){
+    init(name: ThemeName, bodyTextColor:Color, buttonActiveColor: Color, buttonDefaultColor: Color){
         self.name = name
-        self.brandColor = brandColor
-        self.backgroundColor = backgroundColor
-        self.contrastBackgroundColor = contrastBackgroundColor
-        self.secondaryColor = secondaryColor
-        self.shadowColor = shadowColor
+//        self.brandColor = brandColor
+//        self.backgroundColor = backgroundColor
+//        self.contrastBackgroundColor = contrastBackgroundColor
+//        self.secondaryColor = secondaryColor
+//        self.shadowColor = shadowColor
         self.bodyTextColor = bodyTextColor
         self.buttonActiveColor = buttonActiveColor
         self.buttonDefaultColor = buttonDefaultColor
@@ -51,11 +51,6 @@ class Theme:ObservableObject {
         let themeManager = ThemeManager()
         let theme = themeManager.getThemeByName(ThemeName.defaultTheme)
         self.name = theme.name
-        self.brandColor = theme.brandColor
-        self.backgroundColor = theme.backgroundColor
-        self.contrastBackgroundColor = theme.contrastBackgroundColor
-        self.secondaryColor = theme.secondaryColor
-        self.shadowColor = theme.shadowColor
         self.bodyTextColor = theme.bodyTextColor
         self.buttonActiveColor = theme.buttonActiveColor
         self.buttonDefaultColor = theme.buttonDefaultColor
@@ -66,11 +61,11 @@ struct ThemeManager {
     var themes: [Theme] = [
         Theme(
             name: .defaultTheme,
-            brandColor: Color(hex: 0x552233),
-            backgroundColor: Color(hex: 0x552233),
-            contrastBackgroundColor: Color(hex: 0x552233),
-            secondaryColor: Color(hex: 0x552233),
-            shadowColor: Color(hex: 0x552233),
+//            brandColor: Color(hex: 0x552233),
+//            backgroundColor: Color(hex: 0x552233),
+//            contrastBackgroundColor: Color(hex: 0x552233),
+//            secondaryColor: Color(hex: 0x552233),
+//            shadowColor: Color(hex: 0x552233),
             bodyTextColor: Color(hex: 0x552233),
             buttonActiveColor: Color(hex: 0x0088B0),
             buttonDefaultColor: Color(hex: 0xDDF6FF)
@@ -78,11 +73,11 @@ struct ThemeManager {
         
         Theme(
             name: .herTheme,
-            brandColor: Color(hex: 0x552233),
-            backgroundColor: Color(hex: 0x552233),
-            contrastBackgroundColor: Color(hex: 0x552233),
-            secondaryColor: Color(hex: 0x552233),
-            shadowColor: Color(hex: 0x552233),
+//            brandColor: Color(hex: 0x552233),
+//            backgroundColor: Color(hex: 0x552233),
+//            contrastBackgroundColor: Color(hex: 0x552233),
+//            secondaryColor: Color(hex: 0x552233),
+//            shadowColor: Color(hex: 0x552233),
             bodyTextColor: Color(hex: 0x552233),
             buttonActiveColor: Color(hex: 0xb02c00),
             buttonDefaultColor: Color(hex: 0xc9785d)

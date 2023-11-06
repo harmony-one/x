@@ -2,8 +2,7 @@ import Foundation
 import SwiftUI
 
 struct GridButton: View {
-    
-    @ObservedObject var currentTheme:Theme
+    @ObservedObject var currentTheme:Theme = Theme()
     
     var button: ButtonData
     var geometry: GeometryProxy
@@ -66,8 +65,6 @@ struct PressEffectButtonStyle: ButtonStyle {
     // all other buttons(including .speak) should be triggered through configuration.isPressed
     
     private func determineBackgroundColor(configuration: Configuration) -> Color {
-        print("^^^^^^^")
-        print(self.theme.buttonActiveColor)
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {

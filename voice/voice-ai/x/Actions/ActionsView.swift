@@ -84,7 +84,6 @@ struct ActionsView: View {
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
         changeTheme(name: config.getThemeName())
-        print(currentTheme.buttonActiveColor)
     }
     
     var body: some View {
@@ -93,8 +92,7 @@ struct ActionsView: View {
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
-        }.background(Color(hex: 0xeb4034).animation(.none))
-//        .background(Color(hex: 0xDDF6FF).animation(.none))
+        }.background(Color(hex: 0xDDF6FF).animation(.none))
         .onAppear(
             perform: SpeechRecognition.shared.setup
         )
@@ -138,14 +136,13 @@ struct ActionsView: View {
             }
             .padding(0)
             .scrollDisabled(true)
-            .background(Color(hex: 0xeb4034).animation(.none))
-//            .background(Color(hex: 0xDDF6FF).animation(.none))
+            .background(Color(hex: 0xDDF6FF).animation(.none))
         }
     }
     
     @ViewBuilder
     func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
-        
+       
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
