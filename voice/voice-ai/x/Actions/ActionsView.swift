@@ -155,15 +155,20 @@ struct ActionsView: View {
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         actionHandler.handle(actionType: ActionType.speak)
-                        if(self.skipPressedTimer == nil && !store.products.isEmpty) {
-                            let product = store.products[0]
-                            self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
-                                    Task {
-                                        try await self.store.purchase(product)
+                        if(self.skipPressedTimer == nil) {
+                            if(!store.products.isEmpty) {
+                                let product = store.products[0]
+                                self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
+                                        Task {
+                                            print("Purchase product: \(product)")
+                                            try await self.store.purchase(product)
+                                        }
+                                        timer.invalidate()
                                     }
-                                    timer.invalidate()
-                                }
-                            print("Start skip button pressed timer")
+                                print("Start skip button pressed timer")
+                            } else {
+                                print("Cannot purchase: products list is empty. Check productId in IAP Store.")
+                            }
                         }
                         }
                     .onEnded { _ in

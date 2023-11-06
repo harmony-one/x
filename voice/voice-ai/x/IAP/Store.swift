@@ -1,7 +1,7 @@
 import StoreKit
 
 class Store: ObservableObject {
-    private var productIDs = ["credits_500"]
+    private var productIDs = ["0001"]
     
     @Published var products = [Product]()
     

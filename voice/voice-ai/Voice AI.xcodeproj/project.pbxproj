@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
 		22CC4D742AF3AC0B0072EC39 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */; };
 		22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
 		22CC4D7A2AF3AD900072EC39 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
@@ -183,6 +184,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncedProducts.storekit; sourceTree = "<group>"; };
 		22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		22CC4D752AF3AC300072EC39 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		22CC4D792AF3AD900072EC39 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				6E71304F2AF137F100288AF8 /* AppConfig.plist */,
 				22CC4D752AF3AC300072EC39 /* Products.storekit */,
+				22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -779,6 +782,7 @@
 			files = (
 				A4925D812AF2C757000649C6 /* AppConfig.plist in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
+				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */,
@@ -1273,9 +1277,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1299,8 +1303,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.8.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.eve;
+				MARKETING_VERSION = 0.8.11;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1319,9 +1323,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1345,8 +1349,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.8.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.eve;
+				MARKETING_VERSION = 0.8.11;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
