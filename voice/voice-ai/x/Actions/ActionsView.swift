@@ -120,18 +120,15 @@ struct ActionsView: View {
             let numOfRows: Int = Int(ceil(Double(buttons.count) / Double(colums)))
             let height = geometry.size.height / CGFloat(numOfRows);
             
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(buttons) { button in
-                        viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
-                    }
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(buttons) { button in
+                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(0)
-            .scrollDisabled(true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(hex: 0xDDF6FF).animation(.none))
         }
+        .padding(0)
     }
     
     @ViewBuilder
