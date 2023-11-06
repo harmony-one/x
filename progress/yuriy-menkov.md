@@ -1,4 +1,4 @@
-2023-11-6 Mon: Working on reolving "speaker popping" issue. (reproduced on quickly pause/play switch and new sessioan start). Bridge tasks support (btc tranquil payments).
+2023-11-6 Mon: Working on reolving "speaker popping" issue (reproduced on quickly pause/play switch and new sessioan start). Bridge tasks support (btc tranquil payments).
 
 ---
 
