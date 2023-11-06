@@ -1,3 +1,6 @@
+2023-11-06 Mon: Enhanced compatibility with iOS 15 and improved the responsiveness of the reset button through correct thread management.
+
+---
 
 2023-11-03 Fri: Implemented component testing for both AudioEngine and AudioSession. Additionally, I've resolved a bug where the Repeat button was only capturing the last of the stream.
 
