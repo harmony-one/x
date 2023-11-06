@@ -1,5 +1,3 @@
----
-
 2023-11-05 Sun: Started brainstorming alternatives for "Skip 5 seconds" and "Random Fact" will create a notion on Monday.
 
 2023-11-04 Sat: Conducted tests on the Voice AI app and demonstrated its functionalities to family members.
