@@ -134,6 +134,12 @@ struct ActionsView: View {
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
+        
+        let vibrationGesture = LongPressGesture().onChanged { _ in
+            VibrationManager.startVibration()
+        }.onEnded { _ in
+            VibrationManager.stopVibration()
+        }
 
         if button.action == .speak {
             GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
@@ -147,8 +153,10 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
+            .simultaneousGesture(vibrationGesture)
         } else if button.action == .skip {
             GridButton(button: button, foregroundColor: .black, active: false) {}
+                .simultaneousGesture(vibrationGesture)
                 .simultaneousGesture(
                     LongPressGesture()
                         .onChanged { _ in
@@ -180,6 +188,7 @@ struct ActionsView: View {
                             buttonFrame = geometry.frame(in: .local)
                         }
                     })
+                    .simultaneousGesture(vibrationGesture)
                     .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                         DispatchQueue.main.async {
                             openSettingsApp()
@@ -191,6 +200,7 @@ struct ActionsView: View {
                     await handleOtherActions(actionType: button.action)
                 }
             }
+            .simultaneousGesture(vibrationGesture)
         }
     }
     
