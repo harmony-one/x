@@ -14,9 +14,9 @@ class OpenAIServiceTests: XCTestCase {
 
     func testQuery() {
         var testConversation: [Message] = []
-        testConversation.append(OpenAIStreamService.setConversationContext())
+        testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         testConversation.append(Message(role: "user", content: "Hello"))
-
+        // print(testConversation)
         let mockNetworkService = MockNetworkService()
         let openAIStreamService = OpenAIStreamService(networkService: mockNetworkService, completion: { response, error in
             XCTAssertNotNil(response, "Response should not be nil")
