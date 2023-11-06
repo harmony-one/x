@@ -5,7 +5,6 @@ struct GridButton: View {
     @ObservedObject var currentTheme:Theme = Theme()
     
     var button: ButtonData
-    var geometry: GeometryProxy
     var foregroundColor: Color
     var active: Bool = false;
     var colorExternalManage: Bool = false;
@@ -27,10 +26,7 @@ struct GridButton: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
             }
-            .frame(
-                width: geometry.size.width / CGFloat(verticalSizeClass == .compact ? 3 : 2),
-                height: geometry.size.height / CGFloat(verticalSizeClass == .compact ? 2 : 3)
-            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }

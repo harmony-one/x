@@ -7,6 +7,7 @@ import CoreHaptics
 class VibrationManager {
     static var isVibrating = false // Flag to track vibration status
     static var timer: Timer? // Timer for scheduled vibration
+    static var generator: UIImpactFeedbackGenerator?
 
     // Start the vibration loop
     static func startVibration() {
@@ -19,15 +20,18 @@ class VibrationManager {
     static func stopVibration() {
         isVibrating = false
         timer?.invalidate() // Invalidate the timer
+        timer = nil
     }
 
     // Selector method to trigger vibration
     @objc static func vibrate() {
         // Check if the vibration should continue
         if isVibrating {
-            let generator = UIImpactFeedbackGenerator(style: .medium) // Create UIImpactFeedbackGenerator
-            generator.prepare() // Prepare the generator
-            generator.impactOccurred() // Trigger the haptic feedback
+            if generator == nil {
+                generator = UIImpactFeedbackGenerator(style: .medium) // Create UIImpactFeedbackGenerator if it doesn't exist
+            }
+            generator?.prepare() // Prepare the generator
+            generator?.impactOccurred() // Trigger the haptic feedback
         }
     }
 }

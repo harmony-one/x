@@ -1,3 +1,9 @@
+2023-11-04 Sat: Read Apple's [directory](https://developer.apple.com/design/human-interface-guidelines/dark-mode) for designing in Dark Mode, explored their icon library for audio related icons to implement. Experimenting with styles [here](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=0%3A1&mode=design&t=WCpvfpe3okxLLfio-1). Aided Theo in getting Testflight access codes & ordered all supplies (lights + blankets) for TGI.
+
+2023-11-03 Fri: Updated Soph's substack article to reflect the latest custodians. Tested custom instructions on Whisper, found success with [these instructions](https://www.notion.so/harmonyone/custom-instructions-12c4d7691c584b49b098de1a10df8654), these custom instructions double as a 'user manual' to teach users how to use the app. Explored patio lighting options for our Tuesday TGI & discussed implementing "dark mode" elements into our voice AI interface.
+
+2023-11-02 Thu: Drafted 'dark mode' mocks with HER red highlights. Synced with Frank on 'pixel perfect mocks Worked with Theo to create 30 testing codes for our AI event. 
+
 2023-11-01 Wed: Created wallpapers for thursday event showcasing x.country/voice ai. Mocked up red versions for voice AI app. Synced with Theo on team ChatGPT acccount and a logo for 'Lend'.
 
 2023-10-31 Tue: Tested variety of custom instructions to override "As an AI" "As of my last update" etc. Failed to consistently have Whisper omit the phrases... all quantitative questions 'ie: What is the fed interest rate? Whats the avg rental price in SF' disregarded custom instructions & redirected me to 'up to date' information. Qualitative questions "Who is the most famous soccer player" listened to custom instructions. Posted on Reddit for further advice. Synced with Amanda/Theo to set team up on ChatGPT Premium 

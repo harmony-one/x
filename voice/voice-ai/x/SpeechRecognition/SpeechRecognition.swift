@@ -89,7 +89,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     // MARK: - Audio Session Management
 
-    private func setupAudioSession() {
+     func setupAudioSession() {
         guard !isAudioSessionSetup else { return }
         
         do {
@@ -111,6 +111,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("Error setting up audio engine: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // Internal getter for audioEngine
+    internal func getAudioEngine() -> AVAudioEngine {
+        return audioEngine
+    }
+    
+    internal func getISAudioSessionSetup() -> Bool {
+        return isAudioSessionSetup
     }
     
     // MARK: - Speech Recognition
@@ -215,7 +224,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if isRequestingOpenAI {
             return
         }
+        var completeResponse = [String]()
         var buf = [String]()
+        
         func flushBuf() {
             let response = buf.joined()
             guard !response.isEmpty else {
@@ -223,13 +234,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             registerTTS()
             textToSpeechConverter.convertTextToSpeech(text: response)
-            conversation.append(Message(role: "assistant", content: response))
+            completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
         
         if conversation.count == 0 {
-            conversation.append(OpenAIStreamService.setConversationContext())
+            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
         
         print("[SpeechRecognition] query: \(text)")
@@ -241,7 +252,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pauseCapturing()
         isRequestingOpenAI = true
         
-        var responseItemsCounter = 0
+        // Initial Flush to reduce perceived latency
+        var initialFlush = false
+        let initialLength = 4
+        
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
                 let nsError = err! as NSError
@@ -263,22 +277,50 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 flushBuf()
                 self.isRequestingOpenAI = false
                 print("[SpeechRecognition] OpenAI Response Complete")
+                print("[SpeechRecognition] Complete Response text", completeResponse.joined())
+                if !completeResponse.isEmpty {
+                    self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
+                }
                 return
             }
+            
             print("[SpeechRecognition] OpenAI Response received: \(res)")
-            if(responseItemsCounter == 0) {
-                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
-                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
-            }
-            responseItemsCounter += 1
             buf.append(res)
             guard res.last != nil else {
                 return
             }
-            if self.speechDelimitingPunctuations.contains(res.last!) {
+            
+            if !initialFlush && (buf.count == initialLength || self.speechDelimitingPunctuations.contains(res.last!)) {
+                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
+                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
+                print("###### INITIAL FLUSH", buf)
                 flushBuf()
+                initialFlush = true
+                return
+            } else {
+                // Two Cases:
+                // 1. Initial flush by delimiter: Continue the process.
+                // 2. By word count: First element may be a punctuation.
+                //    Get rid of the punctuation so that the synthesizer does not read out the it.
+                // TODO: " ." will not be removed!
+                if buf.count != 1, let lastResCharacter = res.last, self.speechDelimitingPunctuations.contains(lastResCharacter) {
+                    // The 'contains' method is not available in iOS versions prior to 16.0. The updated code functions correctly in Swift 5.5 and iOS 15 without any compatibility issues.
+                    if let firstString = buf.first, let firstCharacter = firstString.first, firstString.count == 1,
+                        self.speechDelimitingPunctuations.contains(firstCharacter) {
+                        print("###### FIRST ONE PUNCTUATION", buf)
+                        buf.remove(at: 0)
+                    }
+                    print("###### FLUSH", buf)
+                    flushBuf()
+                }
                 return
             }
+//            if buf.count == 5 || (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
+//                print("###### BUFFER", buf)
+//                flushBuf()
+//                return
+//            }
+            
         }
         pendingOpenAIStream?.query(conversation: conversation)
     }
@@ -316,8 +358,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
-        stopGPT()
+        
         textToSpeechConverter.stopSpeech()
+        stopGPT()
         _isPaused = false
         conversation.removeAll()
         pauseCapturing()
@@ -383,7 +426,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        makeQuery("Provide just a two sentence primer of a random Wikipedia Entry without a response to acknowledge the request.")
+        let randomRank = Int.random(in: 800..<1500)
+        let query = "Give me a summary of a random wikipedia topic from the top \(randomRank) most popular wikipedia pages. Please respond with two sentences or less. Please respond with only the summary and no other text."
+        makeQuery(query)
     }
     
     func speak() {

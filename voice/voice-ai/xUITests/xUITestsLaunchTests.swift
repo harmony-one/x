@@ -25,7 +25,7 @@ final class xUITestsLaunchTests: XCTestCase {
             "New Session",
             "Skip 5 Seconds",
             "Random Fact",
-            "Press to Speak",
+            "Press & Hold",
             "Repeat Last",
             "Pause / Play"
         ]

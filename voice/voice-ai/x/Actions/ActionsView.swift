@@ -38,6 +38,8 @@ struct ActionsView: View {
     @EnvironmentObject var store: Store
     @State private var skipPressedTimer: Timer? = nil
     
+    @State private var buttonFrame: CGRect = .zero
+    
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
     let oneValue = "2111.01 ONE"
@@ -45,7 +47,7 @@ struct ActionsView: View {
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
     let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press to Speak", image: "press to speak", action: .speak)
+    let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
     let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
     
@@ -126,27 +128,28 @@ struct ActionsView: View {
     
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
         return GeometryReader { geometry in
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0), count: colums), spacing: 0) {
-                    ForEach(buttons) { button in
-                        viewButton(button: button, geometry: geometry)
-                    }
+            let gridItem = GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
+            let columns = Array(repeating: gridItem, count: colums)
+            let numOfRows: Int = Int(ceil(Double(buttons.count) / Double(colums)))
+            let height = geometry.size.height / CGFloat(numOfRows);
+            
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(buttons) { button in
+                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .padding(0)
-            .scrollDisabled(true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(hex: 0xDDF6FF).animation(.none))
         }
+        .padding(0)
     }
     
     @ViewBuilder
-    func viewButton(button: ButtonData, geometry: GeometryProxy) -> some View {
-       
+    func viewButton(button: ButtonData) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -158,19 +161,24 @@ struct ActionsView: View {
                     }
             )
         } else if button.action == .skip {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: false) {}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: false) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         actionHandler.handle(actionType: ActionType.speak)
-                        if(self.skipPressedTimer == nil && !store.products.isEmpty) {
-                            let product = store.products[0]
-                            self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
-                                    Task {
-                                        try await self.store.purchase(product)
+                        if(self.skipPressedTimer == nil) {
+                            if(!store.products.isEmpty) {
+                                let product = store.products[0]
+                                self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
+                                        Task {
+                                            print("Purchase product: \(product)")
+                                            try await self.store.purchase(product)
+                                        }
+                                        timer.invalidate()
                                     }
-                                    timer.invalidate()
-                                }
-                            print("Start skip button pressed timer")
+                                print("Start skip button pressed timer")
+                            } else {
+                                print("Cannot purchase: products list is empty. Check productId in IAP Store.")
+                            }
                         }
                         }
                     .onEnded { _ in
@@ -181,12 +189,35 @@ struct ActionsView: View {
                         }
                     }
             )
+        } else if button.action == .repeatLast {
+            GridButton(button: button, foregroundColor: .black, active: isActive) {
+                        Task {
+                            await handleOtherActions(actionType: button.action)
+                        }
+                    }
+                    .background(GeometryReader { geometry in
+                        Color.clear.onAppear {
+                            // Capture the button's frame size to use as the maximum distance for the long press gesture
+                            buttonFrame = geometry.frame(in: .local)
+                        }
+                    })
+                    .simultaneousGesture(LongPressGesture(minimumDuration: 2.8, maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                        DispatchQueue.main.async {
+                            openSettingsApp()
+                        }
+                    })
         } else {
-            GridButton(button: button, geometry: geometry, foregroundColor: .black, active: isActive) {
+            GridButton(button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
+        }
+    }
+    
+    func openSettingsApp() {
+        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
     }
     

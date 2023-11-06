@@ -21,7 +21,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var repeateCalled: Bool = false
 
     func pause(feedback: Bool?) {
-        <#code#>
+        
     }
     
     func isPaused() -> Bool {
@@ -54,6 +54,15 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     }
     
     func stopSpeak() {
+        
+    }
+    
+    func play() {
+        if self.isPaused() {
+            self.continueSpeech()
+        } else {
+            self.pause()
+        }
         
     }
     

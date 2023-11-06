@@ -81,9 +81,10 @@ struct DashboardView: View {
                         Text(optimiseValue){ text in
                             text.font = .customFont(size:customFontSize)
                             text.foregroundColor = Color(hex: 0x00AEE9)
-                            for each in text.characters.ranges(of: "+"){
-                                text[each].foregroundColor = Color.white
-                            }
+                            // Compatibility issues with iOS 15, currently we are not using this code.
+//                            for each in text.characters.ranges(of: "+"){
+//                                text[each].foregroundColor = Color.white
+//                            }
                         }
                     }
                     HStack {

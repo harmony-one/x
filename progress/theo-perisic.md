@@ -1,3 +1,7 @@
+2023-11-03 Fri: Completed [ideation for improving latency](https://www.notion.so/harmonyone/Ideas-For-Latency-Optimization-7073ab27465146a4a211c7bc1819c7e2) sourcing from y-combinator, twitter, and github repos.
+
+2023-11-02 Thu: Continued product testing for Voice AI with a focus on use cases.
+
 2023-11-01 Wed: Completed [Demo Day suggestions](https://www.notion.so/harmonyone/Demo-Day-Suggestions-8af0f34a47694229b723bc9b33feadbc) for Voice AI. Reached out to Fenwick for terms and privacy. Completed [user study](https://www.notion.so/harmonyone/User-Study-Notes-3adef05e7ad64521bc40dd88e657a7ad) for Voice AI.
 
 ---

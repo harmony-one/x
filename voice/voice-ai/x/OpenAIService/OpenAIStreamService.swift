@@ -145,6 +145,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         self.task?.cancel()
     }
     
+    static func setConversationContext() -> [Message] {
+        let contextMessage: [Message] =
+            [Message(role: "system", content: "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff.")]
+        return contextMessage
+    }
+  
     func setTemperature(_ t: Double) {
         if t >= 0 && t <= 1 {
             self.temperature = t
@@ -153,7 +159,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
     }
 
-    static func setConversationContext() -> Message {
-        return Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
-    }
+//     static func setConversationContext() -> Message {
+//         return Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
+//     }
 }
