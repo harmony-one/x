@@ -303,8 +303,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // 2. By word count: First element may be a punctuation.
                 //    Get rid of the punctuation so that the synthesizer does not read out the it.
                 // TODO: " ." will not be removed!
-                if (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
-                    if self.speechDelimitingPunctuations.contains(buf[0]) {
+                if buf.count != 1, let lastResCharacter = res.last, self.speechDelimitingPunctuations.contains(lastResCharacter) {
+                    // The 'contains' method is not available in iOS versions prior to 16.0. The updated code functions correctly in Swift 5.5 and iOS 15 without any compatibility issues.
+                    if let firstString = buf.first, let firstCharacter = firstString.first, firstString.count == 1,
+                        self.speechDelimitingPunctuations.contains(firstCharacter) {
                         print("###### FIRST ONE PUNCTUATION", buf)
                         buf.remove(at: 0)
                     }
