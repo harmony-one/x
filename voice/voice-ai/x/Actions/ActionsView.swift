@@ -148,34 +148,26 @@ struct ActionsView: View {
                     }
             )
         } else if button.action == .skip {
-            GridButton(button: button, foregroundColor: .black, active: false) {}.simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        actionHandler.handle(actionType: ActionType.speak)
-                        if(self.skipPressedTimer == nil) {
-                            if(!store.products.isEmpty) {
+            GridButton(button: button, foregroundColor: .black, active: false) {}
+                .simultaneousGesture(
+                    LongPressGesture()
+                        .onChanged { _ in
+                            actionHandler.handle(actionType: ActionType.speak)
+                            print("Long press began")
+                        }
+                        .onEnded { _ in
+                            print("Long press ended")
+                            if !store.products.isEmpty {
                                 let product = store.products[0]
-                                self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
-                                        Task {
-                                            print("Purchase product: \(product)")
-                                            try await self.store.purchase(product)
-                                        }
-                                        timer.invalidate()
-                                    }
-                                print("Start skip button pressed timer")
+                                Task {
+                                    print("Purchase product: \(product)")
+                                    try await self.store.purchase(product)
+                                }
                             } else {
                                 print("Cannot purchase: products list is empty. Check productId in IAP Store.")
                             }
                         }
-                        }
-                    .onEnded { _ in
-                        if(self.skipPressedTimer != nil) {
-                            self.skipPressedTimer?.invalidate()
-                            self.skipPressedTimer = nil
-                            print("Destroy skip button pressed timer")
-                        }
-                    }
-            )
+                )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                         Task {
@@ -188,7 +180,7 @@ struct ActionsView: View {
                             buttonFrame = geometry.frame(in: .local)
                         }
                     })
-                    .simultaneousGesture(LongPressGesture(minimumDuration: 2.8, maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                         DispatchQueue.main.async {
                             openSettingsApp()
                         }
