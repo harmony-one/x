@@ -1,10 +1,3 @@
-//
-//  ActionsView.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 20/10/23.
-//
-
 import Foundation
 import SwiftUI
 
@@ -45,9 +38,9 @@ struct ActionsView: View {
     let oneValue = "2111.01 ONE"
     
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
+    let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak)
+    let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
     let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
     
@@ -57,7 +50,7 @@ struct ActionsView: View {
     init() {
         buttonsPortrait = [
             buttonReset,
-            buttonSkip,
+            buttonSayMore,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -77,7 +70,7 @@ struct ActionsView: View {
         // v1
         buttonsLandscape = [
             buttonReset,
-            buttonSkip,
+            buttonSayMore,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
@@ -160,35 +153,31 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
-        } else if button.action == .skip {
-            GridButton(button: button, foregroundColor: .black, active: false) {}.simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        actionHandler.handle(actionType: ActionType.speak)
-                        if(self.skipPressedTimer == nil) {
-                            if(!store.products.isEmpty) {
+        } else if button.action == .sayMore {
+            GridButton(button: button, foregroundColor: .black, active: false){
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+                .simultaneousGesture(
+                    LongPressGesture()
+                        .onChanged { _ in
+                            actionHandler.handle(actionType: ActionType.speak)
+                            print("Long press began")
+                        }
+                        .onEnded { _ in
+                            print("Long press ended")
+                            if !store.products.isEmpty {
                                 let product = store.products[0]
-                                self.skipPressedTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (timer) in
-                                        Task {
-                                            print("Purchase product: \(product)")
-                                            try await self.store.purchase(product)
-                                        }
-                                        timer.invalidate()
-                                    }
-                                print("Start skip button pressed timer")
+                                Task {
+                                    print("Purchase product: \(product)")
+                                    try await self.store.purchase(product)
+                                }
                             } else {
                                 print("Cannot purchase: products list is empty. Check productId in IAP Store.")
                             }
                         }
-                        }
-                    .onEnded { _ in
-                        if(self.skipPressedTimer != nil) {
-                            self.skipPressedTimer?.invalidate()
-                            self.skipPressedTimer = nil
-                            print("Destroy skip button pressed timer")
-                        }
-                    }
-            )
+                )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                         Task {
@@ -201,7 +190,8 @@ struct ActionsView: View {
                             buttonFrame = geometry.frame(in: .local)
                         }
                     })
-                    .simultaneousGesture(LongPressGesture(minimumDuration: 2.8, maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+
                         DispatchQueue.main.async {
                             openSettingsApp()
                         }

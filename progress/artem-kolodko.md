@@ -1,3 +1,7 @@
+2023-11-06 Mon: switched VoiceAI to Simple Rules, added synced Products list, published new version in TestFlight ([PR #121](https://github.com/harmony-one/x/commit/bbad4869b9e1cd67fa60c2c21f17eb2caaf58884)). Now in-app purchases working in TestFlight build! Started implementing logging for TestFlight build, we will need logs to get originalTransactionId and listen for transaction history in payments backend (limitation from AppStore API).
+
+---
+
 2023-11-03 Fri: started working on in-app purchase tracking: researched AppStore API basic methods, transactions structure, [created](https://github.com/harmony-one/stripe-payments-backend/pull/6) test module in X backend to listen user transactions. We need activated Paid Apps in Simple Rules account because it's impossible to track in-app transactions with XCode build (missing real transactionId).
 
 2023-11-02 Thu: [Added](https://github.com/harmony-one/x/pull/115) in-app purchase to VoiceAI bot (hold "skip" button for 2 second to purchase 500 "credits"). Works only for local build for now. Investigated how to enable in-app purchases on TestFlight, we need to move VoiceAI to Simple Rules and activate Paid Apps (currently [in pending](https://appstoreconnect.apple.com/agreements/#/) status).

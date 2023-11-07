@@ -12,6 +12,7 @@ protocol SpeechRecognitionProtocol {
     func repeate()
     func speak()
     func stopSpeak()
+    func sayMore()
 }
 
 extension SpeechRecognitionProtocol {
@@ -38,12 +39,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
+    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";")]
    
     var pendingOpenAIStream: OpenAIStreamService?
     
     private var conversation: [Message] = []
     private let greetingText = "Hey!"
+    private let sayMoreText = "Tell me more."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -57,6 +59,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //    private var silenceTimer: Timer?
     private var isCapturing = false
     
+    // Upperbound for the number of words buffer can contain before triggering a flush
+    private var bufferCapacity = 10
+
+    
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
         $_isPaused
@@ -68,7 +74,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private var isPlayingWorkItem: DispatchWorkItem?
-    
+        
     // Current message being processed
         
     // MARK: - Initialization and Setup
@@ -220,10 +226,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         return Int64(NSDate().timeIntervalSince1970 * 1000)
     }
     
-    func makeQuery(_ text: String) {
+    func makeQuery(_ text: String, maxRetry: Int = 3) {
         if isRequestingOpenAI {
             return
         }
+        
         var completeResponse = [String]()
         var buf = [String]()
         
@@ -232,8 +239,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             guard !response.isEmpty else {
                 return
             }
+            
             registerTTS()
             textToSpeechConverter.convertTextToSpeech(text: response)
+            
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
@@ -243,7 +252,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
         
-        print("[SpeechRecognition] query: \(text)")
+       print("[SpeechRecognition] query: \(text)")
         
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = self.getCurrentTimestamp()
@@ -253,76 +262,80 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-        var initialFlush = false
-        let initialLength = 4
+//        var initialFlush = false
+        var currWord = ""
         
-        pendingOpenAIStream = OpenAIStreamService { res, err in
-            guard err == nil else {
-                let nsError = err! as NSError
-                self.isRequestingOpenAI = false
-                if nsError.code == -999 {
-                    print("[SpeechRecognition] OpenAI Cancelled")
+        func handleQuery(retryCount: Int) {
+            // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
+            pendingOpenAIStream = OpenAIStreamService { res, err in
+                guard err == nil else {
+                    handleError(err!, retryCount: retryCount)
                     return
                 }
-                print("[SpeechRecognition] OpenAI error: \(nsError)")
+                
+                guard let res = res, !res.isEmpty else {
+                    return
+                }
+                
+                if res == "[DONE]" {
+                    buf.append(currWord)
+                    flushBuf()
+                    self.isRequestingOpenAI = false
+                    print("[SpeechRecognition] OpenAI Response Complete")
+                    print("[SpeechRecognition] Complete Response text", completeResponse.joined())
+                    if !completeResponse.isEmpty {
+                        self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
+                    }
+                    return
+                }
+                
+                print("[SpeechRecognition] OpenAI Response received: \(res)")
+                
+                // Append received streams to currWord instead of buf directly
+                if res.first == " " {
+                    buf.append(currWord)
+                    
+                    // buf should only contain complete words
+                    // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
+                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                        flushBuf()
+                    }
+                    
+                    currWord = res
+                    guard res.last != nil else {
+                        return
+                    }
+                    
+                } else {
+                    currWord.append(res)
+                }
+            }
+            pendingOpenAIStream?.query(conversation: conversation)
+        }
+        
+        func handleError(_ error: Error, retryCount: Int) {
+            self.isRequestingOpenAI = false
+            let nsError = error as NSError
+            if nsError.code == -999 {
+                print("[SpeechRecognition] OpenAI Cancelled")
+            } else if retryCount > 0 {
+                let attempt = maxRetry - retryCount
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    buf.removeAll()
+                    currWord = ""
+                    handleQuery(retryCount: retryCount - 1)
+                }
+            } else {
+                print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "Oh, my neuron network ran into an error. Can you try again?")
-                return
+                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
             }
-            guard let res = res else {
-                return
-            }
-            if res == "[DONE]" {
-                flushBuf()
-                self.isRequestingOpenAI = false
-                print("[SpeechRecognition] OpenAI Response Complete")
-                print("[SpeechRecognition] Complete Response text", completeResponse.joined())
-                if !completeResponse.isEmpty {
-                    self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
-                }
-                return
-            }
-            
-            print("[SpeechRecognition] OpenAI Response received: \(res)")
-            buf.append(res)
-            guard res.last != nil else {
-                return
-            }
-            
-            if !initialFlush && (buf.count == initialLength || self.speechDelimitingPunctuations.contains(res.last!)) {
-                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
-                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
-                print("###### INITIAL FLUSH", buf)
-                flushBuf()
-                initialFlush = true
-                return
-            } else {
-                // Two Cases:
-                // 1. Initial flush by delimiter: Continue the process.
-                // 2. By word count: First element may be a punctuation.
-                //    Get rid of the punctuation so that the synthesizer does not read out the it.
-                // TODO: " ." will not be removed!
-                if buf.count != 1, let lastResCharacter = res.last, self.speechDelimitingPunctuations.contains(lastResCharacter) {
-                    // The 'contains' method is not available in iOS versions prior to 16.0. The updated code functions correctly in Swift 5.5 and iOS 15 without any compatibility issues.
-                    if let firstString = buf.first, let firstCharacter = firstString.first, firstString.count == 1,
-                        self.speechDelimitingPunctuations.contains(firstCharacter) {
-                        print("###### FIRST ONE PUNCTUATION", buf)
-                        buf.remove(at: 0)
-                    }
-                    print("###### FLUSH", buf)
-                    flushBuf()
-                }
-                return
-            }
-//            if buf.count == 5 || (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
-//                print("###### BUFFER", buf)
-//                flushBuf()
-//                return
-//            }
-            
         }
-        pendingOpenAIStream?.query(conversation: conversation)
+        
+        handleQuery(retryCount: maxRetry)
     }
     
     func pauseCapturing() {
@@ -359,22 +372,52 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
         
-        textToSpeechConverter.stopSpeech()
-        stopGPT()
-        _isPaused = false
-        conversation.removeAll()
-        pauseCapturing()
-        stopGPT()
-        isAudioSessionSetup = false
-        setupAudioSession()
-        setupAudioEngine()
-        registerTTS()
-        if feedback! {
-            print("[SpeechRecognition][reset] greeting")
-            textToSpeechConverter.convertTextToSpeech(text: greetingText)
+        // Perform all UI updates on the main thread
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.stopSpeech()
+            self._isPaused = false
+            self.conversation.removeAll()
+        }
+        
+        // Perform all cleanup tasks in the background
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.pauseCapturing()
+            self.stopGPT()
+            
+            // No need to reset the audio session if you're going to set it up again immediately after
+            // self.isAudioSessionSetup = false
+            
+            // Call these setup functions only if they are necessary. If they are not changing state, you don't need to call them.
+            self.setupAudioSession()
+            self.setupAudioEngineIfNeeded()
+            
+            // If TTS needs to be registered again, do it in the background
+            self.registerTTS()
+            
+            DispatchQueue.main.async {
+                if feedback == true{
+                    // Play the greeting text
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                }
+            }
         }
     }
-    
+
+    func setupAudioEngineIfNeeded() {
+        guard !audioEngine.isRunning else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            // Only start the audio engine if it's not already running
+            audioEngine.prepare()
+            try audioEngine.start()
+        } catch {
+            print("Error setting up audio engine: \(error.localizedDescription)")
+        }
+    }
+
+
     private func stopGPT() {
         pendingOpenAIStream?.cancelOpenAICall()
         pendingOpenAIStream = nil
@@ -420,43 +463,118 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
         }
     }
-    
+        
     func randomFacts() {
-        print("[SpeechRecognition][randomFacts]")
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        _isPaused = false
-        let randomRank = Int.random(in: 800..<1500)
-        let query = "Give me a summary of a random wikipedia topic from the top \(randomRank) most popular wikipedia pages. Please respond with two sentences or less. Please respond with only the summary and no other text."
-        makeQuery(query)
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][randomFacts]")
+
+            // Stop any ongoing interactions and speech.
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+
+            // Since we are about to initiate a new fact retrieval, pause any capturing.
+            self.pauseCapturing()
+
+            // Fetch a random title for the fact. This function should be synchronous and return immediately.
+            let randomTitle = getTitle()
+            let query = "Summarize \(randomTitle) from Wikipedia"
+
+            // Now make the query to fetch the fact.
+            self.makeQuery(query)
+        }
+
+        // Any UI updates need to be performed on the main thread.
+        DispatchQueue.main.async {
+            // Reset the paused state to allow the new fact to be spoken out loud.
+            self._isPaused = false
+        }
     }
     
+    func sayMore() {
+        print("[SpeechRecognition][sayMore]")
+        
+        // Stop any ongoing speech or OpenAI interactions
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+            
+            // Reset the paused state, ensuring UI updates are on the main thread
+            DispatchQueue.main.async {
+                self._isPaused = false
+            }
+            
+            // Check if there is a previous conversation to refer to
+            if self.conversation.isEmpty {
+                // If there's no previous conversation, request the user to provide context
+                DispatchQueue.main.async {
+                    self.registerTTS()
+                    self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+                }
+                return
+            }
+
+            // Make the query for more information on a background thread
+            let sayMoreText = "Tell me more."
+            self.makeQuery(sayMoreText)
+        }
+    }
+
     func speak() {
-        print("[SpeechRecognition][speak]")
-        pauseCapturing()
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        cleanupRecognition()
-        isAudioSessionSetup = false
-        resumeCapturing()
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][speak]")
+
+            // Stop any ongoing OpenAI requests and text-to-speech conversion
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+
+            // Pause capturing to reset the recognition session
+            self.pauseCapturing()
+
+            // Reset the audio session setup state to ensure it's configured correctly when restarted
+            self.isAudioSessionSetup = false
+
+            // Setup the audio session and engine again, ensuring it's ready for a new recognition session
+            self.setupAudioSession()
+            self.setupAudioEngineIfNeeded()
+
+            // Resume capturing on the main thread to ensure proper setup of audio and recognition
+            DispatchQueue.main.async {
+                self.resumeCapturing()
+            }
+        }
     }
-    
+
+    // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak() {
-        if audioEngine.isRunning {
-            recognitionTask?.finish()
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][stopSpeak]")
+            
+            // Finalize the recognition task if the audio engine is running
+            if self.audioEngine.isRunning {
+                self.recognitionTask?.finish()
+            }
+            
+            // If there's recognized text, handle it
+            if !self.messageInRecongnition.isEmpty {
+                self.recognitionLock.wait()
+                let message = self.messageInRecongnition
+                self.messageInRecongnition = ""
+                self.recognitionLock.signal()
+                
+                // Make the query on the background thread
+                self.makeQuery(message)
+            } else {
+                // Handle the lack of recognized text
+                DispatchQueue.main.async {
+                    self.audioPlayer.playSound(false)
+                }
+            }
+            
+            // Pause capturing after handling the recognized text
+            DispatchQueue.main.async {
+                self.pauseCapturing()
+            }
         }
-        
-        if !messageInRecongnition.isEmpty {
-            recognitionLock.wait()
-            let message = messageInRecongnition
-            messageInRecongnition = ""
-            recognitionLock.signal()
-            makeQuery(message)
-        } else {
-            audioPlayer.playSound(false)
-        }
-        
-        pauseCapturing()
     }
     
     func cancelSpeak() {
@@ -464,15 +582,28 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeate() {
-        textToSpeechConverter.stopSpeech()
-        pauseCapturing()
-        print("repeate", conversation)
-        _isPaused = false
-        if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
-            print("repeate content", m.content ?? "")
-            textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
-        } else {
-            textToSpeechConverter.convertTextToSpeech(text: greetingText)
+        // Ensure all UI-related updates are done on the main thread.
+        DispatchQueue.main.async {
+            // If the synthesizer is already speaking, stop it to prevent overlapping speech.
+            self.textToSpeechConverter.stopSpeech()
+
+            // Set the isPaused flag to false as we're about to speak.
+            self._isPaused = false
+
+            // Find the last message from the assistant in the conversation history.
+            let lastAssistantMessage = self.conversation.last { $0.role == "assistant" && $0.content != "" }
+
+            // Determine the text to repeat. If no last message is found, use the greeting text.
+            let textToRepeat = lastAssistantMessage?.content ?? self.greetingText
+
+            // Use the text-to-speech converter to speak the text.
+            self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
+        }
+
+        // Operations that can be performed in the background (not UI-related) should be offloaded.
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Pause the capturing since we're about to replay the message.
+            self.pauseCapturing()
         }
     }
 }
@@ -491,7 +622,6 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
-        
         
         
         // TODO: to be used later for automatically resuming capturing when agent is not speaking

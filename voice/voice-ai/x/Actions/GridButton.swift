@@ -9,16 +9,23 @@ struct GridButton: View {
     var active: Bool = false;
     var colorExternalManage: Bool = false;
     var action: () -> Void
-    
+
+    @State private var isPlayPressed: Bool = false
+
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            if (button.action == .play && active) {
+                self.isPlayPressed = !self.isPlayPressed
+            }
+            action()
+        }) {
             VStack(spacing: imageTextSpacing) {
-                Image(button.image)
+                Image(pressEffectButtonImage()) // button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
                 Text(button.label)
@@ -31,6 +38,16 @@ struct GridButton: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak))
+    }
+    
+    private func pressEffectButtonImage() -> String {
+        if (self.active && button.action == .play && !self.isPlayPressed) {
+            return "pause play"
+        }
+        if (self.active && self.isPlayPressed) {
+            return "play"
+        }
+        return button.image
     }
 }
 
@@ -48,12 +65,11 @@ struct PressEffectButtonStyle: ButtonStyle {
     }
     
     func makeBody(configuration: Configuration) -> some View {
-        
-            configuration.label
-                .background(background ?? determineBackgroundColor(configuration: configuration))
-                .foregroundColor(determineForegroundColor(configuration: configuration))
-                .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
-        }
+        configuration.label
+            .background(background ?? determineBackgroundColor(configuration: configuration))
+            .foregroundColor(determineForegroundColor(configuration: configuration))
+            .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
+    }
     
     // .speak button should have inverted colors
     // .play button should have the "pressed" color while pause / play is in process

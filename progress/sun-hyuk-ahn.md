@@ -1,3 +1,7 @@
+2023-11-07 Mon: Fixed a bug which ensures streams that are part of the previous word is appended correctly. Upperbounded buffer to contain 10 words at max so that synthesis occurs at delimiter or 10 words. Implemented retryable methods with exponential backoff.
+
+---
+
 2023-11-06 Sun: Fixed existing conflicts for some PRs and have reviewed / merged them. Began refactoring code to make it production ready.
 
 2023-11-04 Sat: Made updates and benchmarked the updated streaming implementation. Observed that the initial stream takes about 2-3 seconds but the latter ones are ~950ms.

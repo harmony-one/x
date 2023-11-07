@@ -1,3 +1,7 @@
+2023-11-06 Mon: Working on "new session" feature, button should trigger a greeting only once.
+
+---
+
 2023-11-03 Fri: I am working on a user interface test for the [GridButton component](https://github.com/harmony-one/x/pull/119).
 
 2023-11-02 Thu: [Fixed the animation](https://github.com/harmony-one/x/pull/108) when changing the device orientation [Pause if the user slides up](https://github.com/harmony-one/x/pull/113) and prevent the pause button from flickering, [Removed](https://github.com/harmony-one/x/pull/116) the beep sound if the user slides up

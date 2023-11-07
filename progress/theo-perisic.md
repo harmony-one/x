@@ -1,3 +1,11 @@
+2023-11-06 Mon: Completed [Privacy Policy](https://github.com/harmony-one/x/blob/main/doc/privacy.md) for free and non-tracking build. Meeting with Fenwick for Privacy and Terms for Voice AI, shared required materials with team, full documents ready by end of week. Completed a brief [list of alternatives](https://harmonyone.notion.site/Alternatives-for-Skip-5-seconds-Random-Fact-504a80795e1e4484a086c5620ceeb5ad?pvs=4) for “Skip 5 Seconds” and “Random Fact”.
+
+---
+
+2023-11-05 Sun: Started brainstorming alternatives for "Skip 5 seconds" and "Random Fact" will create a notion on Monday.
+
+2023-11-04 Sat: Conducted tests on the Voice AI app and demonstrated its functionalities to family members.
+
 2023-11-03 Fri: Completed [ideation for improving latency](https://www.notion.so/harmonyone/Ideas-For-Latency-Optimization-7073ab27465146a4a211c7bc1819c7e2) sourcing from y-combinator, twitter, and github repos.
 
 2023-11-02 Thu: Continued product testing for Voice AI with a focus on use cases.

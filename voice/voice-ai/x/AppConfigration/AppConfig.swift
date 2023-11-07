@@ -31,8 +31,8 @@ class AppConfig {
             }
             
             self.apiKey = dictionary["API_KEY"]
-            self.deepgramKey = dictionary["DEEPGRAM_KEY"]
-            self.themeName = dictionary["THEME_NAME"]
+
+            // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
             fatalError(error.localizedDescription)
         }
