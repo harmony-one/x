@@ -30,7 +30,7 @@ struct ActionsView: View {
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
     let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
+    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play)
     
     let buttonsPortrait: [ButtonData]
     let buttonsLandscape: [ButtonData]
@@ -183,6 +183,16 @@ struct ActionsView: View {
                             openSettingsApp()
                         }
                     })
+        } else if button.action == .play {
+            
+            let isPressed: Bool = isActive && speechRecognition.isPaused()
+            
+            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+            
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                 Task {
