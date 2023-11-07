@@ -1,13 +1,5 @@
-//
-//  ActionsView.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 20/10/23.
-//
-
 import Foundation
 import SwiftUI
-import AudioToolbox
 
 struct ActionsView: View {
     // var dismissAction: () -> Void
@@ -132,10 +124,6 @@ struct ActionsView: View {
         .padding(0)
     }
     
-    func playVibrationSound() {
-        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate), nil)
-    }
-    
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
@@ -144,7 +132,6 @@ struct ActionsView: View {
             GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
-                        self.playVibrationSound()
                         self.isSpeakButtonPressed = true;
                         actionHandler.handle(actionType: ActionType.speak)
                     }
@@ -162,7 +149,6 @@ struct ActionsView: View {
                 .simultaneousGesture(
                     LongPressGesture()
                         .onChanged { _ in
-                            self.playVibrationSound()
                             actionHandler.handle(actionType: ActionType.speak)
                             print("Long press began")
                         }
@@ -191,18 +177,14 @@ struct ActionsView: View {
                             buttonFrame = geometry.frame(in: .local)
                         }
                     })
-                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height))
-                        .onChanged { _ in
-                            self.playVibrationSound()
-                        }
-                        .onEnded { _ in
+                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+
                         DispatchQueue.main.async {
                             openSettingsApp()
                         }
                     })
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
-                self.playVibrationSound()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
