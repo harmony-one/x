@@ -472,6 +472,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Stop any ongoing interactions and speech.
             self.stopGPT()
             // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
             self.isRequestingOpenAI = false
             // hotfix-end
             self.textToSpeechConverter.stopSpeech()
@@ -501,6 +502,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             self.stopGPT()
             // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
             self.isRequestingOpenAI = false
             // hotfix-end
             self.textToSpeechConverter.stopSpeech()
