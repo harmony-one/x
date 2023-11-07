@@ -60,7 +60,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var bufferCapacity = 10
+    private var initialCapacity = 5
+    private var bufferCapacity = 20
 
     
     @Published private var _isPaused = false
@@ -262,7 +263,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-//        var initialFlush = false
+        var initialFlush = false
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
@@ -297,8 +298,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
-                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
-                        flushBuf()
+                    if !initialFlush {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("############ INITIAL FLUSH")
+                            flushBuf()
+                            initialFlush = true
+                        }
+                    } else {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            flushBuf()
+                        }
                     }
                     
                     currWord = res
@@ -325,6 +334,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
                     currWord = ""
+                    initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {

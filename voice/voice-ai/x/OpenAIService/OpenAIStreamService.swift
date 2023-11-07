@@ -36,7 +36,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
-        guard self.apiKey == nil else {
+        guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
             return
         }
