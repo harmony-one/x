@@ -4,6 +4,12 @@ Overview:
 [.] Streaming Play.ht synthesis
 [.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
 
+2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations
+
+2023-11-03 Fri (0.5h): Review #117; New domain and DNS configuration; Review Linux ML development portability to iOS
+
+2023-11-02 Thu (1h): DNS configurations for lend and Cloudflare issue diagnosis; Lend legal term review; Discussions with security vendors on manual review of swap; Review on-device models and compatibility with iOS devices
+
 2023-11-01 Wed (4.5h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts; Fix "Pause / Play" button bug where the button is sometimes ineffective
 
 2023-10-31 Tue (2.5h): Reimplement for press-to-talk mode, end-to-end debugging and testing; Further research and actions on phishing warning resolutions; Review #93, #95, #97; Fix bugs and crashes related interrupting OpenAI queries; Discussions on present user experience issues and bugs; (Continued) and discussions on on-device work TODOs
