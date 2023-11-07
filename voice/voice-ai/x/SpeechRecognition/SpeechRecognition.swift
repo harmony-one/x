@@ -45,6 +45,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private var conversation: [Message] = []
     private let greetingText = "Hey!"
+    private let sayMoreText = "Tell me more."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -478,9 +479,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        let randomTitle = getTitle()
-        let query = "Tell me more."
-        makeQuery(query)
+        if self.conversation.count == 0 {
+            self.registerTTS()
+            self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+            return
+        }
+        makeQuery(sayMoreText)
     }
     
     func speak() {
