@@ -6,6 +6,7 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false;
     var isPressed: Bool = false
+    var image: String? = nil;
     var colorExternalManage: Bool = false;
     var action: () -> Void
     let buttonSize: CGFloat = 100
@@ -35,6 +36,10 @@ struct GridButton: View {
     }
 
     private func pressEffectButtonImage() -> String {
+        if (self.image != nil) {
+            return self.image ?? button.image
+        }
+        
         if (button.pressedImage == nil) {
             return button.image
         }
