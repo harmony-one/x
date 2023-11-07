@@ -171,7 +171,7 @@ struct ActionsView: View {
             
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
-            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressedg) {
+            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
