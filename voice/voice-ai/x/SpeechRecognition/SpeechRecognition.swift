@@ -12,6 +12,7 @@ protocol SpeechRecognitionProtocol {
     func repeate()
     func speak()
     func stopSpeak()
+    func sayMore()
 }
 
 extension SpeechRecognitionProtocol {
@@ -469,6 +470,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         _isPaused = false
         let randomTitle = getTitle()
         let query = "Summarize \(randomTitle) from Wikipedia"
+        makeQuery(query)
+    }
+    
+    func sayMore() {
+        print("[SpeechRecognition][sayMore]")
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        _isPaused = false
+        let randomTitle = getTitle()
+        let query = "Tell me more."
         makeQuery(query)
     }
     

@@ -9,7 +9,7 @@ import Foundation
 
 enum ActionType {
     case reset
-    case skip
+    case sayMore
     case randomFact
     case play
     case repeatLast
@@ -43,8 +43,8 @@ class ActionHandler: ObservableObject {
             self.isSynthesizing = false
             self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
-        case .skip:
-            stopRecording()
+        case .sayMore:
+            speechRecognition.sayMore()
         case .randomFact:
             speechRecognition.randomFacts()
         case .play:

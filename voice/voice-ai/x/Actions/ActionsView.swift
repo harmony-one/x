@@ -33,7 +33,7 @@ struct ActionsView: View {
     let oneValue = "2111.01 ONE"
     
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
+    let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
     let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
@@ -45,7 +45,7 @@ struct ActionsView: View {
     init() {
         buttonsPortrait = [
             buttonReset,
-            buttonSkip,
+            buttonSayMore,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -65,7 +65,7 @@ struct ActionsView: View {
         // v1
         buttonsLandscape = [
             buttonReset,
-            buttonSkip,
+            buttonSayMore,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
@@ -147,8 +147,12 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
-        } else if button.action == .skip {
-            GridButton(button: button, foregroundColor: .black, active: false) {}
+        } else if button.action == .sayMore {
+            GridButton(button: button, foregroundColor: .black, active: false){
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
                 .simultaneousGesture(
                     LongPressGesture()
                         .onChanged { _ in
