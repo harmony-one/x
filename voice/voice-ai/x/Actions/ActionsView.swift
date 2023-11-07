@@ -34,7 +34,8 @@ struct ActionsView: View {
     init() {
 
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
-        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
         let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) random fact", action: .randomFact)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", pressedImage: "\(themePrefix) press & hold pressed", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
@@ -42,7 +43,8 @@ struct ActionsView: View {
         
         buttonsPortrait = [
             buttonReset,
-            buttonSayMore,
+//            buttonSayMore,
+            buttonUserGuide,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -62,7 +64,8 @@ struct ActionsView: View {
         // v1
         buttonsLandscape = [
             buttonReset,
-            buttonSayMore,
+//            buttonSayMore,
+            buttonUserGuide,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
