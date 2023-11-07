@@ -463,15 +463,31 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
         }
     }
-    
+        
     func randomFacts() {
-        print("[SpeechRecognition][randomFacts]")
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        _isPaused = false
-        let randomTitle = getTitle()
-        let query = "Summarize \(randomTitle) from Wikipedia"
-        makeQuery(query)
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][randomFacts]")
+
+            // Stop any ongoing interactions and speech.
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+
+            // Since we are about to initiate a new fact retrieval, pause any capturing.
+            self.pauseCapturing()
+
+            // Fetch a random title for the fact. This function should be synchronous and return immediately.
+            let randomTitle = getTitle()
+            let query = "Summarize \(randomTitle) from Wikipedia"
+
+            // Now make the query to fetch the fact.
+            self.makeQuery(query)
+        }
+
+        // Any UI updates need to be performed on the main thread.
+        DispatchQueue.main.async {
+            // Reset the paused state to allow the new fact to be spoken out loud.
+            self._isPaused = false
+        }
     }
     
     func sayMore() {
