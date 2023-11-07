@@ -38,7 +38,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     let textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-")]
+    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";")]
    
     var pendingOpenAIStream: OpenAIStreamService?
     
@@ -232,8 +232,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             guard !response.isEmpty else {
                 return
             }
+            
             registerTTS()
             textToSpeechConverter.convertTextToSpeech(text: response)
+            
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
@@ -253,8 +255,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-        var initialFlush = false
-        let initialLength = 4
+//        var initialFlush = false
+        let boundLength = 10
+        var currWord = ""
         
         pendingOpenAIStream = OpenAIStreamService { res, err in
             guard err == nil else {
@@ -270,10 +273,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 self.textToSpeechConverter.convertTextToSpeech(text: "Oh, my neuron network ran into an error. Can you try again?")
                 return
             }
+            
             guard let res = res else {
                 return
             }
+            
             if res == "[DONE]" {
+                buf.append(currWord)
                 flushBuf()
                 self.isRequestingOpenAI = false
                 print("[SpeechRecognition] OpenAI Response Complete")
@@ -284,43 +290,26 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             
-           print("[SpeechRecognition] OpenAI Response received: \(res)")
-            buf.append(res)
-            guard res.last != nil else {
-                return
-            }
+            print("[SpeechRecognition] OpenAI Response received: \(res)")
             
-            if !initialFlush && (buf.count == initialLength || self.speechDelimitingPunctuations.contains(res.last!)) {
-                let timestampDelta = self.getCurrentTimestamp() - self.requestInitiatedTimestamp
-                print("[SpeechRecognition] OpenAI first response latency: \(timestampDelta) ms")
-                print("###### INITIAL FLUSH", buf)
-                flushBuf()
-                initialFlush = true
-                return
-            } else {
-                // Two Cases:
-                // 1. Initial flush by delimiter: Continue the process.
-                // 2. By word count: First element may be a punctuation.
-                //    Get rid of the punctuation so that the synthesizer does not read out the it.
-                // TODO: " ." will not be removed!
-                if buf.count != 1, let lastResCharacter = res.last, self.speechDelimitingPunctuations.contains(lastResCharacter) {
-                    // The 'contains' method is not available in iOS versions prior to 16.0. The updated code functions correctly in Swift 5.5 and iOS 15 without any compatibility issues.
-                    if let firstString = buf.first, let firstCharacter = firstString.first, firstString.count == 1,
-                        self.speechDelimitingPunctuations.contains(firstCharacter) {
-                        print("###### FIRST ONE PUNCTUATION", buf)
-                        buf.remove(at: 0)
-                    }
-                    print("###### FLUSH", buf)
+            // Append received streams to currWord instead of buf directly
+            if res.first == " " {
+                buf.append(currWord)
+                
+                // buf should only contain complete words
+                // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
+                if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == boundLength {
                     flushBuf()
                 }
-                return
+                
+                currWord = res
+                guard res.last != nil else {
+                    return
+                }
+                
+            } else {
+                currWord.append(res)
             }
-//            if buf.count == 5 || (buf.count != 1 && self.speechDelimitingPunctuations.contains(res.last!)) {
-//                print("###### BUFFER", buf)
-//                flushBuf()
-//                return
-//            }
-            
         }
         pendingOpenAIStream?.query(conversation: conversation)
     }
@@ -456,8 +445,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        let randomRank = Int.random(in: 800..<1500)
-        let query = "Give me a summary of a random wikipedia topic from the top \(randomRank) most popular wikipedia pages. Please respond with two sentences or less. Please respond with only the summary and no other text."
+        let randomTitle = getTitle()
+        let query = "Summarize \(randomTitle) from Wikipedia"
         makeQuery(query)
     }
     
