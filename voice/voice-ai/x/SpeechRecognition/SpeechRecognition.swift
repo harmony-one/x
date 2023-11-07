@@ -342,7 +342,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "Try again later.")
+                self.textToSpeechConverter.convertTextToSpeech(text: "Network error.")
             }
         }
         
