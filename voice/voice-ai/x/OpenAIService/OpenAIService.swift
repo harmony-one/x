@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Sentry
 
 struct OpenAIService {
     private var task: URLSessionDataTask?
@@ -48,6 +49,9 @@ struct OpenAIService {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
             completion(nil, error)
+            
+            SentrySDK.capture(message: "Error send to OpenAI: \(error.localizedDescription)")
+            
             return
         }
 

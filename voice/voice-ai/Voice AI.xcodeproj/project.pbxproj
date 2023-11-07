@@ -138,6 +138,8 @@
 		F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F610490F2AF02DEE0087F745 /* SwiftyJSON */; };
 		F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F61049112AF02DF50087F745 /* SwiftyJSON */; };
+		F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43312AFAC166001B72CD /* SentrySwiftUI */; };
+		F67E43342AFAC16C001B72CD /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43332AFAC16C001B72CD /* Sentry */; };
 		F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F52AF8172800BC191C /* SpeechRecognitionTests.swift */; };
 		F7F115062AF8173300BC191C /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F72AF8172800BC191C /* StringTests.swift */; };
 		F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F62AF8172800BC191C /* PermissionTests.swift */; };
@@ -291,9 +293,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
+				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */,
 				22CC4D742AF3AC0B0072EC39 /* StoreKit.framework in Frameworks */,
+				F67E43342AFAC16C001B72CD /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +650,8 @@
 			name = "Voice AI";
 			packageProductDependencies = (
 				F610490F2AF02DEE0087F745 /* SwiftyJSON */,
+				F67E43312AFAC166001B72CD /* SentrySwiftUI */,
+				F67E43332AFAC16C001B72CD /* Sentry */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -736,6 +742,7 @@
 			mainGroup = CD0D132B2ADA73B300031EDD;
 			packageReferences = (
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1538,6 +1545,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.15.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1555,6 +1570,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		F67E43312AFAC166001B72CD /* SentrySwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySwiftUI;
+		};
+		F67E43332AFAC16C001B72CD /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

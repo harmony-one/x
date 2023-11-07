@@ -7,6 +7,7 @@
 
 import AVFoundation
 import Foundation
+import Sentry
 
 protocol AVAudioSessionProtocol {
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
@@ -54,6 +55,7 @@ class AudioPlayer: NSObject {
             }
         } catch {
             print("Error playing sound: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error playing sound: \(error.localizedDescription)")
         }
     }
 

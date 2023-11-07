@@ -11,6 +11,7 @@ class AppConfig {
     
     private var apiKey: String?
     private var deepgramKey: String?
+    private var sentryDSN: String?
 
     init() {
         loadConfiguration()
@@ -30,6 +31,8 @@ class AppConfig {
             }
             
             self.apiKey = dictionary["API_KEY"]
+            
+            self.sentryDSN = dictionary["SENTRY_DSN"]
 
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
@@ -39,6 +42,10 @@ class AppConfig {
 
     func getAPIKey() -> String? {
         return self.apiKey
+    }
+    
+    func getSentryDSN() -> String? {
+        return self.sentryDSN
     }
     
     func getDeepgramKey() -> String? {
