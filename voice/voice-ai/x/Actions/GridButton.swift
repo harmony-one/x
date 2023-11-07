@@ -5,10 +5,9 @@ struct GridButton: View {
     var button: ButtonData
     var foregroundColor: Color
     var active: Bool = false;
+    var isPressed: Bool = false
     var colorExternalManage: Bool = false;
     var action: () -> Void
-    @State private var isPlayPressed: Bool = false
-    @State private var isSpeakPressed: Bool = false
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -16,17 +15,6 @@ struct GridButton: View {
 
     var body: some View {
         Button(action: {
-            switch button.action {
-            case .play where active:
-                self.isPlayPressed.toggle()
-            case .speak where active:
-                self.isSpeakPressed.toggle()
-            case .reset:
-                self.isPlayPressed = false
-                self.isSpeakPressed = false
-            default:
-                break
-            }
             action()
         }) {
             VStack(spacing: imageTextSpacing) {
@@ -47,15 +35,18 @@ struct GridButton: View {
     }
 
     private func pressEffectButtonImage() -> String {
-        let themePrefix = "blackred -"
-        switch button.action {
-        case .play where active:
-            return self.isPlayPressed ? "\(themePrefix) play" : "\(themePrefix) pause play"
-        case .speak where active:
-            return self.isSpeakPressed ? "\(themePrefix) press & hold pressed" : "\(themePrefix) press & hold"
-        default:
+        if (button.pressedImage == nil) {
             return button.image
         }
+        
+        if (self.active && !isPressed) {
+            return button.image
+        }
+        
+        if (self.active && isPressed) {
+            return button.pressedImage ?? button.image
+        }
+        return button.image
     }
 }
 

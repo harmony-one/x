@@ -14,7 +14,15 @@ struct ButtonData: Identifiable {
     let id = UUID()
     let label: String
     let image: String
+    let pressedImage: String?
     let action: ActionType
+    
+    init(label: String, image: String, pressedImage: String? = nil, action: ActionType) {
+        self.label = label
+        self.image = image
+        self.pressedImage = pressedImage
+        self.action = action
+    }
 }
 
 class ActionHandler: ObservableObject {
