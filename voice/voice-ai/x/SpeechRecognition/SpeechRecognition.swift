@@ -60,7 +60,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var bufferCapacity = 10
+    private var initialCapacity = 5
+    private var bufferCapacity = 20
 
     
     @Published private var _isPaused = false
@@ -263,7 +264,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-//        var initialFlush = false
+        var initialFlush = false
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
@@ -298,8 +299,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
-                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
-                        flushBuf()
+                    if !initialFlush {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("############ INITIAL FLUSH")
+                            flushBuf()
+                            initialFlush = true
+                        }
+                    } else {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            flushBuf()
+                        }
                     }
                     
                     currWord = res
@@ -320,19 +329,20 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
             } else if retryCount > 0 {
-                let attempt = maxRetry - retryCount
-                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
-                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                let attempt = maxRetry - retryCount + 1
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
                     currWord = ""
+                    initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
+                self.textToSpeechConverter.convertTextToSpeech(text: "Try again later.")
             }
         }
         
