@@ -1,13 +1,15 @@
 import Foundation
+import UIKit
 
 enum ActionType {
     case reset
-    case sayMore
+//    case sayMore
     case randomFact
     case play
     case repeatLast
     case speak
     case stopSpeak
+    case userGuide
 }
 
 struct ButtonData: Identifiable {
@@ -44,8 +46,6 @@ class ActionHandler: ObservableObject {
             self.isSynthesizing = false
             self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
-        case .sayMore:
-            speechRecognition.sayMore()
         case .randomFact:
             speechRecognition.randomFacts()
         case .play:
@@ -62,6 +62,16 @@ class ActionHandler: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
             }
+        case .userGuide:
+            let url = URL(string: "https://x.country/voice")
+            if UIApplication.shared.canOpenURL(url!) {
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            } else {
+                print("Cannot open URL")
+            }
+//        case .sayMore:
+//            speechRecognition.sayMore()
+            
         }
     }
     
