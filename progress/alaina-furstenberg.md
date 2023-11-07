@@ -1,3 +1,7 @@
+2023-11-06 Mon: Refined [black + red mockups](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=0%3A1&mode=design&t=q7kw9s3JibtfgcVK-1) for 6pm implementation. Selected potential icon for new "Say More" button. Began drafting comic to be used on our flyer for TGI tomorrow.
+
+---
+
 2023-11-05 Sun: Selected 'thinking icon'. Created [mocks](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=0%3A1&mode=design&t=WCpvfpe3okxLLfio-1) with red/white/gray icons, I find red too overbearing so I prefer the white/gray icons. Experimented with a red & blue highlight, to be A/B tested with team. I rearranged icons, per my sync with Stephen, to improve  usability while the app is horizontal. I experimented with the icon changes suggested, like having the play and pause icons together and found it to be too busy. Having the icons alternate when the app is paused/played will not only create less busy design, but will give the user proper feedback to know if the session is paused/in play.
 
 2023-11-04 Sat: Read Apple's [directory](https://developer.apple.com/design/human-interface-guidelines/dark-mode) for designing in Dark Mode, explored their icon library for audio related icons to implement. Experimenting with styles [here](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=0%3A1&mode=design&t=WCpvfpe3okxLLfio-1). Aided Theo in getting Testflight access codes & ordered all supplies (lights + blankets) for TGI.
