@@ -133,7 +133,9 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            let isPressed: Bool = true
+            
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
