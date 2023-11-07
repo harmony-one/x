@@ -25,6 +25,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -32,7 +33,7 @@ struct GridButton: View {
         }
         .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
     }
-    
+
     private func pressEffectButtonImage() -> String {
         if (button.pressedImage == nil) {
             return button.image
@@ -45,13 +46,12 @@ struct GridButton: View {
         if (self.active && isPressed) {
             return button.pressedImage ?? button.image
         }
-        
         return button.image
     }
 }
 
-let COLOR_ACTIVE = Color(hex: 0x0088B0)
-let COLOR_DEFAULT = Color(hex: 0xDDF6FF)
+let COLOR_ACTIVE = Color (hex: 0xD7303A) // Color (hex: 0xFFFFFF) // Color (hex: 0xD7303A) // Color(hex: 0x0088B0)
+let COLOR_DEFAULT = Color (hex: 0x1E1E1E) // Color(hex: 0xDDF6FF)
 
 struct PressEffectButtonStyle: ButtonStyle {
     

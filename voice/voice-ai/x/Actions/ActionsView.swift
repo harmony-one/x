@@ -25,17 +25,21 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
-    let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
-    let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play)
+    let themePrefix:String = "blackredTheme -"
+
     
     let buttonsPortrait: [ButtonData]
     let buttonsLandscape: [ButtonData]
     
     init() {
+
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
+        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+        let buttonRandom = ButtonData(label: "Random Fact", image: "\(themePrefix) random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", pressedImage: "\(themePrefix) press & hold pressed", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) pause play", pressedImage: "\(themePrefix) play", action: .play)
+        
         buttonsPortrait = [
             buttonReset,
             buttonSayMore,
@@ -129,7 +133,9 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            let isPressed: Bool = true
+            
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
