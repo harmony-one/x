@@ -140,31 +140,6 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
-        } else if button.action == .sayMore {
-            GridButton(button: button, foregroundColor: .black, active: false){
-                Task {
-                    await handleOtherActions(actionType: button.action)
-                }
-            }
-                .simultaneousGesture(
-                    LongPressGesture()
-                        .onChanged { _ in
-                            actionHandler.handle(actionType: ActionType.speak)
-                            print("Long press began")
-                        }
-                        .onEnded { _ in
-                            print("Long press ended")
-                            if !store.products.isEmpty {
-                                let product = store.products[0]
-                                Task {
-                                    print("Purchase product: \(product)")
-                                    try await self.store.purchase(product)
-                                }
-                            } else {
-                                print("Cannot purchase: products list is empty. Check productId in IAP Store.")
-                            }
-                        }
-                )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                         Task {
