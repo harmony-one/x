@@ -25,7 +25,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
-                    .foregroundColor(.white)
+//                    .foregroundColor(COLOR_ACTIVE)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -68,7 +68,10 @@ struct PressEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(background ?? determineBackgroundColor(configuration: configuration))
-            .foregroundColor(determineForegroundColor(configuration: configuration))
+//            .foregroundColor(determineForegroundColor(configuration: configuration))
+            .overlay(
+                configuration.label
+                    .foregroundColor(determineForegroundColor(configuration: configuration)))
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
     }
     
@@ -91,9 +94,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? COLOR_ACTIVE : .white
         } else {
-            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? .white : COLOR_ACTIVE
         }
     }
 }
