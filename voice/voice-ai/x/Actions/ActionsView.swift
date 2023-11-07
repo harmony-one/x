@@ -42,7 +42,7 @@ struct ActionsView: View {
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
     let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
+    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play)
     
     let buttonsPortrait: [ButtonData]
     let buttonsLandscape: [ButtonData]
@@ -153,31 +153,6 @@ struct ActionsView: View {
                         actionHandler.handle(actionType: ActionType.stopSpeak)
                     }
             )
-        } else if button.action == .sayMore {
-            GridButton(button: button, foregroundColor: .black, active: false){
-                Task {
-                    await handleOtherActions(actionType: button.action)
-                }
-            }
-                .simultaneousGesture(
-                    LongPressGesture()
-                        .onChanged { _ in
-                            actionHandler.handle(actionType: ActionType.speak)
-                            print("Long press began")
-                        }
-                        .onEnded { _ in
-                            print("Long press ended")
-                            if !store.products.isEmpty {
-                                let product = store.products[0]
-                                Task {
-                                    print("Purchase product: \(product)")
-                                    try await self.store.purchase(product)
-                                }
-                            } else {
-                                print("Cannot purchase: products list is empty. Check productId in IAP Store.")
-                            }
-                        }
-                )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                         Task {
@@ -196,6 +171,16 @@ struct ActionsView: View {
                             openSettingsApp()
                         }
                     })
+        } else if button.action == .play {
+            
+            let isPressed: Bool = isActive && speechRecognition.isPaused()
+            
+            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+            
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
                 Task {

@@ -1,3 +1,5 @@
+2023-11-07 Tue: Enhanced the button click responsiveness for the functions 'say more', 'repeat last', 'press & hold', and 'random facts'. Reviewed PR: https://github.com/harmony-one/x/pull/124 and discussed with Artem on Apple Pay implementation for credits.
+
 2023-11-06 Mon: Enhanced compatibility with iOS 15 and improved the responsiveness of the reset button through correct thread management.
 
 ---

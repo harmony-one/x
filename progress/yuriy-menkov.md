@@ -1,3 +1,5 @@
+2023-11-7 Tue: Working on logging an iOS application using sentry.io as a platform for storing and viewing logs
+
 2023-11-6 Mon: Working on reolving "speaker popping" issue (reproduced on quickly pause/play switch and new sessioan start). Bridge tasks support (btc tranquil payments).
 
 ---
