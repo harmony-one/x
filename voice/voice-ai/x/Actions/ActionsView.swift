@@ -32,17 +32,19 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "skip 5 seconds", action: .skip)
-    let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak)
-    let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
+    let themePrefix:String = "blackred -"
     
     let buttonsPortrait: [ButtonData]
     let buttonsLandscape: [ButtonData]
     
     init() {
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
+        let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "\(themePrefix) skip 5 seconds", action: .skip)
+        let buttonRandom = ButtonData(label: "Random Fact", image: "\(themePrefix) random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) pause play", action: .play)
+        
         buttonsPortrait = [
             buttonReset,
             buttonSkip,

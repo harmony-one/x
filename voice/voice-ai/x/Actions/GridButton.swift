@@ -8,6 +8,7 @@ struct GridButton: View {
     var colorExternalManage: Bool = false;
     var action: () -> Void
     @State private var isPlayPressed: Bool = false
+    @State private var isSpeakPressed: Bool = false
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -17,6 +18,9 @@ struct GridButton: View {
         Button(action: {
             if (button.action == .play && active) {
                 self.isPlayPressed = !self.isPlayPressed
+            }
+            if (button.action == .speak && active) {
+                self.isSpeakPressed = !self.isSpeakPressed
             }
             action()
         }) {
@@ -28,6 +32,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -35,20 +40,23 @@ struct GridButton: View {
         }
         .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
     }
-    
+
     private func pressEffectButtonImage() -> String {
-        if (self.active && button.action == .play && !self.isPlayPressed) {
-            return "pause play"
+        let themePrefix = "blackred -"
+        
+        switch button.action {
+        case .play:
+            return self.isPlayPressed ? "\(themePrefix) play" : "\(themePrefix) pause play"
+        case .speak:
+            return self.isSpeakPressed ? "\(themePrefix) press & hold pressed" : "\(themePrefix) press & hold"
+        default:
+            return button.image
         }
-        if (self.active && self.isPlayPressed) {
-            return "play"
-        }
-        return button.image
     }
 }
 
-let COLOR_ACTIVE = Color(hex: 0x0088B0)
-let COLOR_DEFAULT = Color(hex: 0xDDF6FF)
+let COLOR_ACTIVE = Color (hex: 0xD7303A) // Color (hex: 0xFFFFFF) // Color (hex: 0xD7303A) // Color(hex: 0x0088B0)
+let COLOR_DEFAULT = Color (hex: 0x1E1E1E) // Color(hex: 0xDDF6FF)
 
 struct PressEffectButtonStyle: ButtonStyle {
     
