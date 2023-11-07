@@ -476,43 +476,89 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func sayMore() {
         print("[SpeechRecognition][sayMore]")
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        _isPaused = false
-        if self.conversation.count == 0 {
-            self.registerTTS()
-            self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
-            return
+        
+        // Stop any ongoing speech or OpenAI interactions
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+            
+            // Reset the paused state, ensuring UI updates are on the main thread
+            DispatchQueue.main.async {
+                self._isPaused = false
+            }
+            
+            // Check if there is a previous conversation to refer to
+            if self.conversation.isEmpty {
+                // If there's no previous conversation, request the user to provide context
+                DispatchQueue.main.async {
+                    self.registerTTS()
+                    self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+                }
+                return
+            }
+
+            // Make the query for more information on a background thread
+            let sayMoreText = "Tell me more."
+            self.makeQuery(sayMoreText)
         }
-        makeQuery(sayMoreText)
     }
-    
+
     func speak() {
-        print("[SpeechRecognition][speak]")
-        pauseCapturing()
-        stopGPT()
-        textToSpeechConverter.stopSpeech()
-        cleanupRecognition()
-        isAudioSessionSetup = false
-        resumeCapturing()
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][speak]")
+
+            // Stop any ongoing OpenAI requests and text-to-speech conversion
+            self.stopGPT()
+            self.textToSpeechConverter.stopSpeech()
+
+            // Pause capturing to reset the recognition session
+            self.pauseCapturing()
+
+            // Reset the audio session setup state to ensure it's configured correctly when restarted
+            self.isAudioSessionSetup = false
+
+            // Setup the audio session and engine again, ensuring it's ready for a new recognition session
+            self.setupAudioSession()
+            self.setupAudioEngineIfNeeded()
+
+            // Resume capturing on the main thread to ensure proper setup of audio and recognition
+            DispatchQueue.main.async {
+                self.resumeCapturing()
+            }
+        }
     }
-    
+
+    // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak() {
-        if audioEngine.isRunning {
-            recognitionTask?.finish()
+        DispatchQueue.global(qos: .userInitiated).async {
+            print("[SpeechRecognition][stopSpeak]")
+            
+            // Finalize the recognition task if the audio engine is running
+            if self.audioEngine.isRunning {
+                self.recognitionTask?.finish()
+            }
+            
+            // If there's recognized text, handle it
+            if !self.messageInRecongnition.isEmpty {
+                self.recognitionLock.wait()
+                let message = self.messageInRecongnition
+                self.messageInRecongnition = ""
+                self.recognitionLock.signal()
+                
+                // Make the query on the background thread
+                self.makeQuery(message)
+            } else {
+                // Handle the lack of recognized text
+                DispatchQueue.main.async {
+                    self.audioPlayer.playSound(false)
+                }
+            }
+            
+            // Pause capturing after handling the recognized text
+            DispatchQueue.main.async {
+                self.pauseCapturing()
+            }
         }
-        
-        if !messageInRecongnition.isEmpty {
-            recognitionLock.wait()
-            let message = messageInRecongnition
-            messageInRecongnition = ""
-            recognitionLock.signal()
-            makeQuery(message)
-        } else {
-            audioPlayer.playSound(false)
-        }
-        
-        pauseCapturing()
     }
     
     func cancelSpeak() {
@@ -520,15 +566,28 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeate() {
-        textToSpeechConverter.stopSpeech()
-        pauseCapturing()
-        print("repeate", conversation)
-        _isPaused = false
-        if let m = conversation.last(where: { $0.role == "assistant" && $0.content != "" }) {
-            print("repeate content", m.content ?? "")
-            textToSpeechConverter.convertTextToSpeech(text: m.content ?? "")
-        } else {
-            textToSpeechConverter.convertTextToSpeech(text: greetingText)
+        // Ensure all UI-related updates are done on the main thread.
+        DispatchQueue.main.async {
+            // If the synthesizer is already speaking, stop it to prevent overlapping speech.
+            self.textToSpeechConverter.stopSpeech()
+
+            // Set the isPaused flag to false as we're about to speak.
+            self._isPaused = false
+
+            // Find the last message from the assistant in the conversation history.
+            let lastAssistantMessage = self.conversation.last { $0.role == "assistant" && $0.content != "" }
+
+            // Determine the text to repeat. If no last message is found, use the greeting text.
+            let textToRepeat = lastAssistantMessage?.content ?? self.greetingText
+
+            // Use the text-to-speech converter to speak the text.
+            self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
+        }
+
+        // Operations that can be performed in the background (not UI-related) should be offloaded.
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Pause the capturing since we're about to replay the message.
+            self.pauseCapturing()
         }
     }
 }
