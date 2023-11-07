@@ -16,11 +16,16 @@ struct GridButton: View {
 
     var body: some View {
         Button(action: {
-            if (button.action == .play && active) {
-                self.isPlayPressed = !self.isPlayPressed
-            }
-            if (button.action == .speak && active) {
-                self.isSpeakPressed = !self.isSpeakPressed
+            switch button.action {
+            case .play where active:
+                self.isPlayPressed.toggle()
+            case .speak where active:
+                self.isSpeakPressed.toggle()
+            case .reset:
+                self.isPlayPressed = false
+                self.isSpeakPressed = false
+            default:
+                break
             }
             action()
         }) {
