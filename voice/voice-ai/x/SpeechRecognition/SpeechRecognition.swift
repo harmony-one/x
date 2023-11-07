@@ -12,6 +12,7 @@ protocol SpeechRecognitionProtocol {
     func repeate()
     func speak()
     func stopSpeak()
+    func sayMore()
 }
 
 extension SpeechRecognitionProtocol {
@@ -44,6 +45,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private var conversation: [Message] = []
     private let greetingText = "Hey!"
+    private let sayMoreText = "Tell me more."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -56,6 +58,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var resumeListeningTimer: Timer? = nil
 //    private var silenceTimer: Timer?
     private var isCapturing = false
+    
+    // Upperbound for the number of words buffer can contain before triggering a flush
+    private var bufferCapacity = 10
+
     
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -220,10 +226,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         return Int64(NSDate().timeIntervalSince1970 * 1000)
     }
     
-    func makeQuery(_ text: String) {
+    func makeQuery(_ text: String, maxRetry: Int = 3) {
         if isRequestingOpenAI {
             return
         }
+        
         var completeResponse = [String]()
         var buf = [String]()
         
@@ -256,62 +263,79 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         // Initial Flush to reduce perceived latency
 //        var initialFlush = false
-        let boundLength = 10
         var currWord = ""
         
-        pendingOpenAIStream = OpenAIStreamService { res, err in
-            guard err == nil else {
-                let nsError = err! as NSError
-                self.isRequestingOpenAI = false
-                if nsError.code == -999 {
-                    print("[SpeechRecognition] OpenAI Cancelled")
+        func handleQuery(retryCount: Int) {
+            // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
+            pendingOpenAIStream = OpenAIStreamService { res, err in
+                guard err == nil else {
+                    handleError(err!, retryCount: retryCount)
                     return
                 }
-                print("[SpeechRecognition] OpenAI error: \(nsError)")
+                
+                guard let res = res, !res.isEmpty else {
+                    return
+                }
+                
+                if res == "[DONE]" {
+                    buf.append(currWord)
+                    flushBuf()
+                    self.isRequestingOpenAI = false
+                    print("[SpeechRecognition] OpenAI Response Complete")
+                    print("[SpeechRecognition] Complete Response text", completeResponse.joined())
+                    if !completeResponse.isEmpty {
+                        self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
+                    }
+                    return
+                }
+                
+                print("[SpeechRecognition] OpenAI Response received: \(res)")
+                
+                // Append received streams to currWord instead of buf directly
+                if res.first == " " {
+                    buf.append(currWord)
+                    
+                    // buf should only contain complete words
+                    // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
+                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                        flushBuf()
+                    }
+                    
+                    currWord = res
+                    guard res.last != nil else {
+                        return
+                    }
+                    
+                } else {
+                    currWord.append(res)
+                }
+            }
+            pendingOpenAIStream?.query(conversation: conversation)
+        }
+        
+        func handleError(_ error: Error, retryCount: Int) {
+            self.isRequestingOpenAI = false
+            let nsError = error as NSError
+            if nsError.code == -999 {
+                print("[SpeechRecognition] OpenAI Cancelled")
+            } else if retryCount > 0 {
+                let attempt = maxRetry - retryCount
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    buf.removeAll()
+                    currWord = ""
+                    handleQuery(retryCount: retryCount - 1)
+                }
+            } else {
+                print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "Oh, my neuron network ran into an error. Can you try again?")
-                return
-            }
-            
-            guard let res = res else {
-                return
-            }
-            
-            if res == "[DONE]" {
-                buf.append(currWord)
-                flushBuf()
-                self.isRequestingOpenAI = false
-                print("[SpeechRecognition] OpenAI Response Complete")
-                print("[SpeechRecognition] Complete Response text", completeResponse.joined())
-                if !completeResponse.isEmpty {
-                    self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
-                }
-                return
-            }
-            
-            print("[SpeechRecognition] OpenAI Response received: \(res)")
-            
-            // Append received streams to currWord instead of buf directly
-            if res.first == " " {
-                buf.append(currWord)
-                
-                // buf should only contain complete words
-                // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
-                if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == boundLength {
-                    flushBuf()
-                }
-                
-                currWord = res
-                guard res.last != nil else {
-                    return
-                }
-                
-            } else {
-                currWord.append(res)
+                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
             }
         }
-        pendingOpenAIStream?.query(conversation: conversation)
+        
+        handleQuery(retryCount: maxRetry)
     }
     
     func pauseCapturing() {
@@ -448,6 +472,19 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         let randomTitle = getTitle()
         let query = "Summarize \(randomTitle) from Wikipedia"
         makeQuery(query)
+    }
+    
+    func sayMore() {
+        print("[SpeechRecognition][sayMore]")
+        stopGPT()
+        textToSpeechConverter.stopSpeech()
+        _isPaused = false
+        if self.conversation.count == 0 {
+            self.registerTTS()
+            self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+            return
+        }
+        makeQuery(sayMoreText)
     }
     
     func speak() {

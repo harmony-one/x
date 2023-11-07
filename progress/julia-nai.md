@@ -1,3 +1,12 @@
+2023-11-06 Mon: \
+[Updated](https://github.com/harmony-one/x/commit/9fc0405b8d205f26b635035b95cb6d8762a78445) Skip button to use LongPressGesture and removed timer. Changed the long press times to default. \
+[Hard coded](https://github.com/harmony-one/x/commit/a24e51d763529d81bba6a627931e3394f3efdf6c) 600ish wiki titles and changed the random fact query to summarize a random topic from the array of titles. \
+[Increased](https://github.com/harmony-one/x/commit/ad46b0dbe9b0640690d5045c19d9938dc71dabf1) the number of hard coded titles to 1182 from a combination of most views Wiki articles of all time and top 400 wiki articles from 2021 to avoid ChatGPT’s knowledge cutoff. \
+[Added](https://github.com/harmony-one/x/commit/2760b2bef0f64552e1e7a91a35c9d5a404037b08) Say More feature: a new button to expand on last topic. This button replaces the Skip button. \
+[Began](https://github.com/harmony-one/x/tree/surprise-me) changes to make Random Fact button into Surprise Me button. Currently functional with wikipedia summary, riddles, trivia questions, jokes, inspirational quotes, and fun facts, but there is higher than acceptable repetition in riddles, trivia question, jokes, and inspirational quotes. 
+
+---
+
 2023-11-05 Sun: [Changed](https://github.com/harmony-one/x/commit/bfc50ee2c6c8b9d18c6b23f39debeb20b79a6bfd) the random fact button to summarize a random wikipedia topic from the top wikipedia topics in 2 sentences or less. 
 
 [Added](https://github.com/harmony-one/x/commit/3709ad808179f494cb3bab3d2b380725e5c5bb07) long press on Repeat Last button to open settings and [resolved](https://github.com/harmony-one/x/commit/5f0cf52887a863c8f5967840497c5c80f96e7559) an issue with longer-than-default long presses being inconsistent. When the minimum long press time is changed from default, the long press seems to only work 80% of the time. I believe this is because sometimes, since 3 seconds is very long, the finger moves more than the allowed distance; therefore, it is not registered as a long press. I added a geometry reader to match the maximum distance that your finger can move during the long press to the size of the button.

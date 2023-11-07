@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "repeat.pdf",
+      "filename" : "skip 5 seconds.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }
