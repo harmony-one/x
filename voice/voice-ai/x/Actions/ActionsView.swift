@@ -35,7 +35,7 @@ struct ActionsView: View {
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
     let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
     let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak)
+    let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
     let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
     let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", action: .play)
     
