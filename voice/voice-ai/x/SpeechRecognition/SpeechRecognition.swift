@@ -229,6 +229,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func makeQuery(_ text: String, maxRetry: Int = 3) {
         if isRequestingOpenAI {
+            print("RequestingOpenAI: skip")
             return
         }
         
@@ -480,6 +481,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
 
             // Since we are about to initiate a new fact retrieval, pause any capturing.
@@ -506,6 +511,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
             
             // Reset the paused state, ensuring UI updates are on the main thread
