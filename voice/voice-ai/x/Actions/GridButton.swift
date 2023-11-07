@@ -43,11 +43,10 @@ struct GridButton: View {
 
     private func pressEffectButtonImage() -> String {
         let themePrefix = "blackred -"
-        
         switch button.action {
-        case .play:
+        case .play where active:
             return self.isPlayPressed ? "\(themePrefix) play" : "\(themePrefix) pause play"
-        case .speak:
+        case .speak where active:
             return self.isSpeakPressed ? "\(themePrefix) press & hold pressed" : "\(themePrefix) press & hold"
         default:
             return button.image

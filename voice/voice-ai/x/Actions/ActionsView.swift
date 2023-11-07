@@ -40,7 +40,7 @@ struct ActionsView: View {
     
     init() {
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
-        let buttonSkip = ButtonData(label: "Skip 5 Seconds", image: "\(themePrefix) skip 5 seconds", action: .skip)
+        let buttonSayMore = ButtonData(label: "Skip 5 Seconds", image: "\(themePrefix) skip 5 seconds", action: .sayMore)
         let buttonRandom = ButtonData(label: "Random Fact", image: "\(themePrefix) random fact", action: .randomFact)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
