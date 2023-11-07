@@ -319,9 +319,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
             } else if retryCount > 0 {
-                let attempt = maxRetry - retryCount
-                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
-                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                let attempt = maxRetry - retryCount + 1
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
                     currWord = ""
@@ -331,7 +331,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
+                self.textToSpeechConverter.convertTextToSpeech(text: "Try again later.")
             }
         }
         
