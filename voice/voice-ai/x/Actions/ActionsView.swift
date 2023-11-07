@@ -78,7 +78,7 @@ struct ActionsView: View {
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
-        }.background(Color(hex: 0xDDF6FF).animation(.none))
+        }.background(Color(hex: 0x1E1E1E).animation(.none))
         .onAppear(
             perform: SpeechRecognition.shared.setup
         )
@@ -123,7 +123,7 @@ struct ActionsView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(hex: 0xDDF6FF).animation(.none))
+            .background(Color(hex: 0x1E1E1E).animation(.none))
         }
         .padding(0)
     }
