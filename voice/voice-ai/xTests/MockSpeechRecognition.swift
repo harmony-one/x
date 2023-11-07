@@ -57,6 +57,11 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         
     }
     
+    func sayMore() {
+    
+    }
+    
+    
     func play() {
         if self.isPaused() {
             self.continueSpeech()
