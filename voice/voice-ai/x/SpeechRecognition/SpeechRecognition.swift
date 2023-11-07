@@ -465,13 +465,40 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func randomFacts() {
-        print("[SpeechRecognition][randomFacts]")
+        let randomNumberSurprise = Int.random(in: 1...6)
+        print("[SpeechRecognition][randomFacts \(randomNumberSurprise)]")
         stopGPT()
         textToSpeechConverter.stopSpeech()
         _isPaused = false
-        let randomTitle = getTitle()
-        let query = "Summarize \(randomTitle) from Wikipedia"
-        makeQuery(query)
+
+        switch randomNumberSurprise {
+        case 1:
+            let randomTitle = getTitle()
+            let query = "Summarize \(randomTitle) from Wikipedia"
+            makeQuery(query)
+        case 2:
+            let query = "Tell me a brain teaser or riddle. Only respond with the riddle. Do not respond with any extra text or introductory sentence. If I'm wrong in my answer, please tell me so and give me the option of trying again. Don't immediately tell me the answer. If my answer is close enough, please congratulate me and explain the answer. Begin your response by stating 'Here's a riddle for you'."
+            makeQuery(query)
+        case 3:
+            let query = "Ask me a trivia question about history, popular trends, geography, science, sports, or anything else. Only respond with the question. Do not respond with any extra text or introductory sentence. If I'm wrong in my answer, please tell me so and give me the option of trying again. Don't immediately tell me the answer. If my answer is close enough, please congratulate me and explain the answer. Begin your response by stating 'Here's a trivia question for you.'"
+            makeQuery(query)
+        case 4:
+            let query = "Tell me a joke. Only respond with the question. Do not respond with any extra text or introductory sentence. Begin your response by stating 'Here's a joke for you.'"
+            makeQuery(query)
+        case 5:
+            let query = "Tell me an inspirational quote or very short inspirational story. If you give me a quote, please tell me who said it. Do not respond with any extra text or introductory sentence."
+            makeQuery(query)
+        case 6:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let todayDate = dateFormatter.string(from: Date())
+            let query = "Give me a short fun fact from today's date \(todayDate) in history. The fun fact should be condensed to 2 sentences or less. Begin your response with 'A fun fact from today's date in history.'"
+            makeQuery(query)
+        default:
+            let randomTitle = getTitle()
+            let query = "Summarize \(randomTitle) from Wikipedia"
+            makeQuery(query)
+        }
     }
     
     func sayMore() {
