@@ -54,7 +54,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "stream": true
         ]
 
-        print("[OpenAI] sent \(body)")
+       print("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
@@ -106,7 +106,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.completion(nil, error)
             return
         }
-        print("OpenAI: raw response: ", str)
+       print("OpenAI: raw response: ", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {

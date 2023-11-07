@@ -252,7 +252,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         }
         
-        print("[SpeechRecognition] query: \(text)")
+       print("[SpeechRecognition] query: \(text)")
         
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = self.getCurrentTimestamp()
