@@ -9,20 +9,24 @@ import Foundation
 
 class AppConfig {
     
+    // Shared singleton instance
+    static let shared = AppConfig()
     private var apiKey: String?
     private var deepgramKey: String?
-
+    private var minimumSignificantEvents: Int = 0 // Default value
+    private var daysBetweenPrompts: Int = 0 // Default value
+    
     init() {
         loadConfiguration()
     }
-
+    
     private func loadConfiguration() {
         guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
             fatalError("Unable to locate plist file")
         }
-
+        
         let fileURL = URL(fileURLWithPath: path)
-
+        
         do {
             let data = try Data(contentsOf: fileURL)
             guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: String] else {
@@ -30,18 +34,39 @@ class AppConfig {
             }
             
             self.apiKey = dictionary["API_KEY"]
-
+            
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
+            
+            // Convert the string values to Int
+            if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],
+               let events = Int(eventsString) {
+                self.minimumSignificantEvents = events
+            }
+            
+            if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"],
+               let days = Int(daysString) {
+                self.daysBetweenPrompts = days
+            }
+            
         } catch {
             fatalError(error.localizedDescription)
         }
     }
-
+    
     func getAPIKey() -> String? {
         return self.apiKey
     }
     
     func getDeepgramKey() -> String? {
         return self.deepgramKey
+    }
+    
+    // Getter methods for the review prompt configuration
+    func getMinimumSignificantEvents() -> Int? {
+        return self.minimumSignificantEvents
+    }
+    
+    func getDaysBetweenPrompts() -> Int? {
+        return self.daysBetweenPrompts
     }
 }

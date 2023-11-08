@@ -411,6 +411,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if feedback == true{
                     // Play the greeting text
                     self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        ReviewRequester.shared.logSignificantEvent()
+                    }
                 }
             }
         }
