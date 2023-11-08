@@ -1,8 +1,6 @@
-Overview:
-[x] Swift-based streaming Deepgram end-to-end integration
-[x] Response-streaming OpenAI inegration
-[.] Streaming Play.ht synthesis
-[.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
+2023-11-08 Wed (1.5h+): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist
+
+2023-11-07 Tue (2.5h): Make initial production checklist; Research on app analytic systems and integration complexity; End-to-end testing of the app; Fix SSL issue and document steps for future incident resolution; Fix Tweet embedding issues, CSS issues for notion embedding, and research on tweet libraries
 
 2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations
 
