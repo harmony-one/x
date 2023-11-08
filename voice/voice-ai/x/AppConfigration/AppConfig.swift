@@ -31,7 +31,7 @@ class AppConfig {
             }
             
             self.apiKey = dictionary["API_KEY"]
-
+            self.themeName = dictionary["THEME_NAME"]
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
             fatalError(error.localizedDescription)
@@ -47,6 +47,7 @@ class AppConfig {
     }
     
     func getThemeName() -> String {
-        return self.themeName ?? "default"
+        print("********************* \(String(describing: self.themeName))")
+        return self.themeName ?? "defaultTheme"
     }
 }

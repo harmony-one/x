@@ -2,8 +2,7 @@ import Foundation
 import SwiftUI
 
 struct GridButton: View {
-    @ObservedObject var currentTheme:Theme = Theme()
-    
+    var currentTheme:Theme
     var button: ButtonData
     var foregroundColor: Color
     var active: Bool = false;

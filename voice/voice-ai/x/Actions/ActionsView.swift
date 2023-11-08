@@ -9,9 +9,10 @@ struct ActionsView: View {
     @State var currentTheme:Theme = Theme()
     
     func changeTheme(name: String){
-        let themeManager = ThemeManager()
-        let themeName = ThemeName.fromString(name)
-        self.currentTheme = themeManager.getThemeByName(themeName)
+//        let themeManager = ThemeManager()
+        let theme = AppThemeSettings.fromString(name)
+        self.currentTheme.setTheme(theme: theme)
+        //= themeManager.getThemeByName(themeName)
     }
     
     // var dismissAction: () -> Void
@@ -142,7 +143,7 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -154,7 +155,7 @@ struct ActionsView: View {
                     }
             )
         } else if button.action == .repeatLast {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                         Task {
                             await handleOtherActions(actionType: button.action)
                         }
@@ -175,14 +176,14 @@ struct ActionsView: View {
             
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
-            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
             
         } else {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
