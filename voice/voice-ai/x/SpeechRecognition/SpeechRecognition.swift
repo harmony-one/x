@@ -35,6 +35,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
+    private var recognitionTaskCanceled: Bool? = nil
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
@@ -189,13 +190,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if let error = error {
             print("[SpeechRecognition][handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
-            if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
+            
+            if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
                 self.registerTTS()
                 self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 // Notify the user in a suitable manner, possibly with UI updates or a popup.
                 return
             }
+            recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
             inputNode.removeTap(onBus: 0)
@@ -355,12 +358,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         handleQuery(retryCount: maxRetry)
     }
     
-    func pauseCapturing() {
+    func pauseCapturing(cancel: Bool = false) {
         guard isCapturing else {
             return
         }
         isCapturing = false
         print("[SpeechRecognition][pauseCapturing]")
+        
+        if cancel == true {
+            recognitionTaskCanceled = true;
+        }
+        
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -604,7 +612,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func cancelSpeak() {
-        pauseCapturing()
+        pauseCapturing(cancel: true)
     }
     
     func repeate() {
