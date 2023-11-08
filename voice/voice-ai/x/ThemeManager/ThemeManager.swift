@@ -30,7 +30,7 @@ enum AppThemeSettings {
         switch name {
         case "blackredTheme": return .blackredTheme
         case "defaultTheme": return .defaultTheme
-        default: return .defaultTheme
+        default: return .blackredTheme
         }
     }
  }
