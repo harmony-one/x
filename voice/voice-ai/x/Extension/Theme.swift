@@ -21,7 +21,7 @@ extension ThemeSettings {
         bodyTextColor: Color(hex: 0xD7303A),
         buttonActiveColor: Color(hex: 0xD7303A),
         buttonDefaultColor: Color(hex: 0x1E1E1E),
-        fontActiveColor: .white
+        fontActiveColor: .black
      )
  }
 
