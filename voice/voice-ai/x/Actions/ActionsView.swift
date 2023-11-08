@@ -1,5 +1,8 @@
 import Foundation
 import SwiftUI
+import AudioToolbox
+import CoreHaptics
+import UIKit
 
 struct ActionsView: View {
     // var dismissAction: () -> Void
@@ -127,6 +130,9 @@ struct ActionsView: View {
         }
         .padding(0)
     }
+
+    
+    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
@@ -135,7 +141,7 @@ struct ActionsView: View {
         if button.action == .speak {
             let isPressed: Bool = true
             
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {impactFeedbackGenerator.impactOccurred()}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -148,6 +154,7 @@ struct ActionsView: View {
             )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
+                    impactFeedbackGenerator.impactOccurred()
                         Task {
                             await handleOtherActions(actionType: button.action)
                         }
@@ -158,17 +165,17 @@ struct ActionsView: View {
                             buttonFrame = geometry.frame(in: .local)
                         }
                     })
-                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-
-                        DispatchQueue.main.async {
-                            openSettingsApp()
+                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height))
+                        .onEnded { _ in
+                            DispatchQueue.main.async {
+                                openSettingsApp()
                         }
                     })
         } else if button.action == .play {
-            
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+                impactFeedbackGenerator.impactOccurred()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -176,6 +183,8 @@ struct ActionsView: View {
             
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
+                impactFeedbackGenerator.impactOccurred()
+                print("test")
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
