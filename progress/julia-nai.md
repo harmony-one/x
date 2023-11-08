@@ -1,3 +1,6 @@
+2023-11-07 Tue: I [started](https://github.com/harmony-one/x/tree/tap-to-send) work on the framework for the Tap to Speak/Tap to Send button. I reviewed Sun's [PR](https://github.com/harmony-one/x/pull/137) and began researching how to implement the missing component "Make the button interruptible." \
+Right now, there seems to be some unintended behavior with interruptions. I am reviewing how the stopRecording() function is implemented. To have proper interpretability, I believe I will have to change the way stopRecording is implemented to avoid sending an incomplete query to GPT. 
+
 2023-11-06 Mon: \
 [Updated](https://github.com/harmony-one/x/commit/9fc0405b8d205f26b635035b95cb6d8762a78445) Skip button to use LongPressGesture and removed timer. Changed the long press times to default. \
 [Hard coded](https://github.com/harmony-one/x/commit/a24e51d763529d81bba6a627931e3394f3efdf6c) 600ish wiki titles and changed the random fact query to summarize a random topic from the array of titles. \
