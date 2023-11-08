@@ -11,9 +11,12 @@ import Foundation
 protocol AVAudioSessionProtocol {
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws
+    func setMode(_ options: AVAudioSession.Mode) throws
+
 }
 
 class AVAudioSessionWrapper: AVAudioSessionProtocol {
+    
     private let avAudioSession: AVAudioSession
 
     init() {
@@ -27,6 +30,10 @@ class AVAudioSessionWrapper: AVAudioSessionProtocol {
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws {
         try avAudioSession.setActive(active, options: options)
     }
+    func setMode(_ mode: AVAudioSession.Mode) throws {
+        try avAudioSession.setMode(mode)
+    }
+    
 }
 
 class AudioPlayer: NSObject {
