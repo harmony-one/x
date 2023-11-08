@@ -1,4 +1,4 @@
-2023-11-07 Tue: Synced with engineers to fix Voice AI UI, created iPad/iPhone 5.5" display screenshots for App Store submission. Finished designing Voice AI [TGI flyer](https://x.com/harmonyprotocol/status/1722338925845631126?s=20) & printed at FedEx. Prepped TGI helpers for cooking, set up TGI event, and cleaned up after the event.
+2023-11-07 Tue: Synced with engineers to fix Voice AI UI, created iPad/iPhone 5.5" display screenshots for App Store submission. Finished designing Voice AI [TGI flyer](https://x.com/harmonyprotocol/status/1722338925845631126?s=20) & printed at FedEx. Prepped TGI helpers for cooking, set up TGI event, and cleaned up after.
 
 2023-11-06 Mon: Refined [black + red mockups](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=0%3A1&mode=design&t=q7kw9s3JibtfgcVK-1) for 6pm implementation. Selected potential icon for new "Say More" button. Began drafting comic to be used on our flyer for TGI tomorrow. Created iPad mocks for App store submission.
 
