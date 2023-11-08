@@ -48,7 +48,7 @@ class ActionHandler: ObservableObject {
     func handle(actionType: ActionType) {
         if (self.tapSpeak && actionType != .tapSpeak && actionType != .tapStopSpeak) {
             self.tapSpeak = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            DispatchQueue.main.async() {
                 self.speechRecognition.reset()
             }
         }
