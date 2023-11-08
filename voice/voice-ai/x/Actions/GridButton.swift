@@ -7,6 +7,7 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false;
     var isPressed: Bool = false
+    var image: String? = nil;
     var colorExternalManage: Bool = false;
     var action: () -> Void
     let buttonSize: CGFloat = 100
@@ -26,6 +27,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+//                    .foregroundColor(COLOR_ACTIVE)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -33,8 +35,12 @@ struct GridButton: View {
         }
         .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak))
     }
-    
+
     private func pressEffectButtonImage() -> String {
+        if (self.image != nil) {
+            return self.image ?? button.image
+        }
+        
         if (button.pressedImage == nil) {
             return button.image
         }
@@ -46,7 +52,6 @@ struct GridButton: View {
         if (self.active && isPressed) {
             return button.pressedImage ?? button.image
         }
-        
         return button.image
     }
 }
@@ -67,7 +72,10 @@ struct PressEffectButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(background ?? determineBackgroundColor(configuration: configuration))
-            .foregroundColor(determineForegroundColor(configuration: configuration))
+//            .foregroundColor(determineForegroundColor(configuration: configuration))
+            .overlay(
+                configuration.label
+                    .foregroundColor(determineForegroundColor(configuration: configuration)))
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
     }
     
@@ -90,9 +98,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? self.theme.buttonActiveColor : self.theme.buttonDefaultColor
+            return isPressed ? self.theme.buttonActiveColor : .white
         } else {
-            return isPressed ? self.theme.buttonDefaultColor : self.theme.buttonActiveColor
+            return isPressed ? .white : self.theme.buttonActiveColor
         }
     }
 }

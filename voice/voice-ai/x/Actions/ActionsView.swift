@@ -38,20 +38,26 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
-    let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
-    let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play)
+    let themePrefix:String = "blackredTheme -"
+
     
     let buttonsPortrait: [ButtonData]
     let buttonsLandscape: [ButtonData]
     
     init() {
+
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
+        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) pause play", pressedImage: "\(themePrefix) play", action: .play)
+        
         buttonsPortrait = [
             buttonReset,
-            buttonSayMore,
+//            buttonSayMore,
+            buttonUserGuide,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -71,7 +77,8 @@ struct ActionsView: View {
         // v1
         buttonsLandscape = [
             buttonReset,
-            buttonSayMore,
+//            buttonSayMore,
+            buttonUserGuide,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
@@ -88,7 +95,7 @@ struct ActionsView: View {
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
-        }.background(Color(hex: 0xDDF6FF).animation(.none))
+        }.background(Color(hex: 0x1E1E1E).animation(.none))
         .onAppear(
             perform: SpeechRecognition.shared.setup
         )
@@ -133,7 +140,7 @@ struct ActionsView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(hex: 0xDDF6FF).animation(.none))
+            .background(Color(hex: 0x1E1E1E).animation(.none))
         }
         .padding(0)
     }
@@ -143,7 +150,9 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
+            let isPressed: Bool = true
+            
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;

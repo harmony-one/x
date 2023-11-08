@@ -60,7 +60,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var bufferCapacity = 10
+    private var initialCapacity = 5
+    private var bufferCapacity = 20
 
     
     @Published private var _isPaused = false
@@ -186,6 +187,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let nsError = error as NSError
             if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
+                self.registerTTS()
+                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 // Notify the user in a suitable manner, possibly with UI updates or a popup.
                 return
             }
@@ -228,6 +231,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func makeQuery(_ text: String, maxRetry: Int = 3) {
         if isRequestingOpenAI {
+            print("RequestingOpenAI: skip")
             return
         }
         
@@ -262,7 +266,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-//        var initialFlush = false
+        var initialFlush = false
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
@@ -297,8 +301,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
-                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
-                        flushBuf()
+                    if !initialFlush {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("############ INITIAL FLUSH")
+                            flushBuf()
+                            initialFlush = true
+                        }
+                    } else {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            flushBuf()
+                        }
                     }
                     
                     currWord = res
@@ -319,19 +331,20 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
             } else if retryCount > 0 {
-                let attempt = maxRetry - retryCount
-                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
-                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                let attempt = maxRetry - retryCount + 1
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
                     currWord = ""
+                    initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
+                self.textToSpeechConverter.convertTextToSpeech(text: "Network error.")
             }
         }
         
@@ -470,6 +483,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
 
             // Since we are about to initiate a new fact retrieval, pause any capturing.
@@ -496,6 +513,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
             
             // Reset the paused state, ensuring UI updates are on the main thread
