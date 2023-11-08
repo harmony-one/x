@@ -9,10 +9,8 @@ struct ActionsView: View {
     @State var currentTheme:Theme = Theme()
     
     func changeTheme(name: String){
-//        let themeManager = ThemeManager()
         let theme = AppThemeSettings.fromString(name)
         self.currentTheme.setTheme(theme: theme)
-        //= themeManager.getThemeByName(themeName)
     }
     
     // var dismissAction: () -> Void
@@ -38,22 +36,23 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let themePrefix:String = "blackredTheme -"
-
-    
-    let buttonsPortrait: [ButtonData]
-    let buttonsLandscape: [ButtonData]
+    var buttonsPortrait: [ButtonData] = []
+    var buttonsLandscape: [ButtonData] = []
     
     init() {
-
-        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
-//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
-        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) random fact", action: .randomFact)
-        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
-        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
-        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) pause play", pressedImage: "\(themePrefix) play", action: .play)
+        let theme = AppThemeSettings.fromString(config.getThemeName())
+        currentTheme.setTheme(theme: theme)
         
+        let themePrefix = self.currentTheme.name
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
+        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) - random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
+        
+//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
 //            buttonSayMore,
@@ -86,7 +85,7 @@ struct ActionsView: View {
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
-        changeTheme(name: config.getThemeName())
+
     }
     
     var body: some View {

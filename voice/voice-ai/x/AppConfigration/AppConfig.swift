@@ -47,7 +47,6 @@ class AppConfig {
     }
     
     func getThemeName() -> String {
-        print("********************* \(String(describing: self.themeName))")
-        return self.themeName ?? "defaultTheme"
+        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name 
     }
 }

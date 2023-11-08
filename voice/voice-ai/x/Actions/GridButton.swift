@@ -98,9 +98,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? self.theme.buttonActiveColor : .white
+            return isPressed ? self.theme.buttonActiveColor : self.theme.fontActiveColor
         } else {
-            return isPressed ? .white : self.theme.buttonActiveColor
+            return isPressed ? self.theme.fontActiveColor : self.theme.buttonActiveColor
         }
     }
 }

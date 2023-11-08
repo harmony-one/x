@@ -14,6 +14,7 @@ struct ThemeSettings {
     let bodyTextColor: Color
     let buttonActiveColor: Color
     let buttonDefaultColor: Color
+    let fontActiveColor: Color
  }
 
 enum AppThemeSettings {
@@ -39,6 +40,7 @@ class Theme:ObservableObject {
     @Published var bodyTextColor: Color
     @Published var buttonActiveColor: Color
     @Published var buttonDefaultColor: Color
+    @Published var fontActiveColor: Color
     
     init() {
         let defaultTheme = AppThemeSettings.defaultTheme.settings
@@ -46,6 +48,15 @@ class Theme:ObservableObject {
         self.bodyTextColor = defaultTheme.bodyTextColor
         self.buttonActiveColor = defaultTheme.buttonActiveColor
         self.buttonDefaultColor = defaultTheme.buttonDefaultColor
+        self.fontActiveColor = defaultTheme.fontActiveColor
+    }
+    
+    init(theme: ThemeSettings) {
+        self.name = theme.name
+        self.bodyTextColor = theme.bodyTextColor
+        self.buttonActiveColor = theme.buttonActiveColor
+        self.buttonDefaultColor = theme.buttonDefaultColor
+        self.fontActiveColor = theme.fontActiveColor
     }
     
     func setTheme(theme: ThemeSettings) {
@@ -53,6 +64,7 @@ class Theme:ObservableObject {
         self.bodyTextColor = theme.bodyTextColor
         self.buttonActiveColor = theme.buttonActiveColor
         self.buttonDefaultColor = theme.buttonDefaultColor
+        self.fontActiveColor = theme.fontActiveColor
     }
 }
 
