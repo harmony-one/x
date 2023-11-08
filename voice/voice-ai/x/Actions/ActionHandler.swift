@@ -30,6 +30,7 @@ struct ButtonData: Identifiable {
 class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
+    var tapCount: Int = 0
     private var lastRecordingStateChangeTime: Int64 = 0
     
     let speechRecognition: SpeechRecognitionProtocol
@@ -42,6 +43,14 @@ class ActionHandler: ObservableObject {
     func handle(actionType: ActionType) {
         switch actionType {
         case .reset:
+            tapCount += 1
+            
+            if tapCount % 7 == 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    ReviewRequester.shared.logSignificantEvent()
+                }
+            }
+            
             self.isRecording = false
             self.isSynthesizing = false
             self.lastRecordingStateChangeTime = 0
