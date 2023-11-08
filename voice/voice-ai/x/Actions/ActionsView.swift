@@ -35,7 +35,8 @@ struct ActionsView: View {
 
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
+//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", image: "\(themePrefix) user guide", action: .tapSpeak)
         let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) random fact", action: .randomFact)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
@@ -44,7 +45,8 @@ struct ActionsView: View {
         buttonsPortrait = [
             buttonReset,
 //            buttonSayMore,
-            buttonUserGuide,
+//            buttonUserGuide,
+            buttonTapSpeak,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -65,7 +67,8 @@ struct ActionsView: View {
         buttonsLandscape = [
             buttonReset,
 //            buttonSayMore,
-            buttonUserGuide,
+//            buttonUserGuide,
+            buttonTapSpeak,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
@@ -168,6 +171,16 @@ struct ActionsView: View {
                         }
                     })
         } else if button.action == .play {
+            
+            let isPressed: Bool = isActive && speechRecognition.isPaused()
+            
+            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+            
+        } else if button.action == .tapSpeak {
             
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             

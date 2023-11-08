@@ -10,6 +10,8 @@ enum ActionType {
     case speak
     case stopSpeak
     case userGuide
+    case tapSpeak
+    case tapSend
 }
 
 struct ButtonData: Identifiable {
@@ -69,6 +71,10 @@ class ActionHandler: ObservableObject {
             } else {
                 print("Cannot open URL")
             }
+        case .tapSpeak:
+            self.startRecording()
+        case .tapSend:
+            self.stopRecording()
 //        case .sayMore:
 //            speechRecognition.sayMore()
             
