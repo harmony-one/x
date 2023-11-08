@@ -11,6 +11,7 @@ class AppConfig {
     
     private var apiKey: String?
     private var deepgramKey: String?
+    private var themeName: String?
 
     init() {
         loadConfiguration()
@@ -30,7 +31,7 @@ class AppConfig {
             }
             
             self.apiKey = dictionary["API_KEY"]
-
+            self.themeName = dictionary["THEME_NAME"]
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
             fatalError(error.localizedDescription)
@@ -43,5 +44,9 @@ class AppConfig {
     
     func getDeepgramKey() -> String? {
         return self.deepgramKey
+    }
+    
+    func getThemeName() -> String {
+        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name 
     }
 }
