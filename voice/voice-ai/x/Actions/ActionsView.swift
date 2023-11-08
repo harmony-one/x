@@ -154,7 +154,7 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(button: button, foregroundColor: .black, active: actionHandler.tapSpeak, isPressed: actionHandler.tapSpeak) {
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.tapSpeak, isPressed: actionHandler.tapSpeak) {
                     Task {
                         if !actionHandler.tapSpeak {
                             actionHandler.handle(actionType: ActionType.tapSpeak)
