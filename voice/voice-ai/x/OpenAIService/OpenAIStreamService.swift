@@ -1,8 +1,6 @@
 import Foundation
 import SwiftyJSON
 
-let config = AppConfig()
-
 protocol NetworkService {
     func dataTask(
         with request: URLRequest,
@@ -14,7 +12,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var session: URLSession
     private var completion: (String?, Error?) -> Void
-    private let apiKey = config.getAPIKey()
+    private let apiKey = AppConfig.shared.getAPIKey()
     private var temperature: Double
     private let networkService: NetworkService?
     

@@ -1,7 +1,18 @@
 import Foundation
 import SwiftUI
 
+
+
 struct ActionsView: View {
+    let config = AppConfig()
+    
+    @State var currentTheme:Theme = Theme()
+    
+    func changeTheme(name: String){
+        let theme = AppThemeSettings.fromString(name)
+        self.currentTheme.setTheme(theme: theme)
+    }
+    
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -25,22 +36,23 @@ struct ActionsView: View {
     
     let oneValue = "2111.01 ONE"
     
-    let themePrefix:String = "blackredTheme -"
-
-    
-    let buttonsPortrait: [ButtonData]
-    let buttonsLandscape: [ButtonData]
+    var buttonsPortrait: [ButtonData] = []
+    var buttonsLandscape: [ButtonData] = []
     
     init() {
-
-        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) new session", action: .reset)
-//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) user guide", action: .userGuide)
-        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) random fact", action: .randomFact)
-        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) press & hold", action: .speak)
-        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) repeat last", action: .repeatLast)
-        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) pause play", pressedImage: "\(themePrefix) play", action: .play)
+        let theme = AppThemeSettings.fromString(config.getThemeName())
+        currentTheme.setTheme(theme: theme)
         
+        let themePrefix = self.currentTheme.name
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
+        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) - random fact", action: .randomFact)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
+        
+//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
 //            buttonSayMore,
@@ -73,6 +85,7 @@ struct ActionsView: View {
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
+
     }
     
     var body: some View {
@@ -138,7 +151,7 @@ struct ActionsView: View {
         if button.action == .speak {
             let isPressed: Bool = true
             
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -150,7 +163,7 @@ struct ActionsView: View {
                     }
             )
         } else if button.action == .repeatLast {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                         Task {
                             await handleOtherActions(actionType: button.action)
                         }
@@ -171,14 +184,14 @@ struct ActionsView: View {
             
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
-            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
             
         } else {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }

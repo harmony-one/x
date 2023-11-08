@@ -7,7 +7,7 @@ class AppConfigTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        appConfig = AppConfig()
+        appConfig = AppConfig.shared
     }
 
     override func tearDown() {
