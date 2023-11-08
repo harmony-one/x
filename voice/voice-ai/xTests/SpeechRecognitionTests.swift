@@ -75,6 +75,28 @@ class SpeechRecognitionTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.pauseCalled)
     }
 
+    func testIsPlaningPublisherGetter() {
+        let mockSpeechRecognition = MockSpeechRecognition()
+        
+        let isPlayingPublisher = mockSpeechRecognition.isPlaingPublisher
+
+         // Assert: Verify the result
+         var isPlaying: Bool = false
+         let cancellable = isPlayingPublisher.sink { isPlaying = $0 }
+         
+         // At this point, isPlaying should be false by default
+         XCTAssertFalse(isPlaying, "isPlaying should initially be false")
+         
+         // You can modify _isPlaying to change the value
+         speechRecognition._isPlaying = true
+         
+         // After changing the value, isPlaying should be true
+         XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")
+
+         // Clean up the subscription
+         cancellable.cancel()
+    }
+    
     // Test the `repeate()` function
     func testRepeate() {
         // Create a mock SpeechRecognition object
