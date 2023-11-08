@@ -1,15 +1,18 @@
 import SwiftUI
 import SwiftData
 import Sentry
+import SentrySwiftUI
 
 @main
 struct xApp: App {
     @StateObject var store = Store()
     var body: some Scene {
         WindowGroup {
-           // Currently we are displaying only buttons
-          //  DashboardView()
-            ActionsView().environmentObject(store).background(Color(hex: 0xDDF6FF).animation(.none))
+            // Currently we are displaying only buttons
+            //  DashboardView()
+            SentryTracedView("ActionsView"){
+                ActionsView().environmentObject(store).background(Color(hex: 0xDDF6FF).animation(.none))
+            }
         }
     }
     
@@ -22,7 +25,7 @@ struct xApp: App {
         
         SentrySDK.start { options in
             options.dsn = sentryDSN
-            // options.enableUIViewControllerTracing = false
+            options.enableUIViewControllerTracing = true
         }
      }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Sentry
 
 class AppConfig {
     
@@ -36,6 +37,7 @@ class AppConfig {
 
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
         } catch {
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
             fatalError(error.localizedDescription)
         }
     }

@@ -41,6 +41,9 @@ class AudioPlayer: NSObject {
     func playSoundWithSettings(_ loop: Bool = true, _ resource: String = "beep") {
         guard let soundURL = Bundle.main.url(forResource: resource, withExtension: "mp3") else {
             print("Sound file not found")
+            
+            SentrySDK.capture(message: "Sound file not found")
+            
             return
         }
         do {

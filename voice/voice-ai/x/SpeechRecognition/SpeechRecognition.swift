@@ -192,6 +192,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // Notify the user in a suitable manner, possibly with UI updates or a popup.
                 return
             }
+            
+            SentrySDK.capture(message: "handleRecognitionError: \(error.localizedDescription)")
+            
             // General cleanup process
             let inputNode = audioEngine.inputNode
             inputNode.removeTap(onBus: 0)

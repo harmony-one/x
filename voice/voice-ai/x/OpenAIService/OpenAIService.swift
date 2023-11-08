@@ -17,6 +17,7 @@ struct OpenAIService {
         let config = AppConfig()
         guard let openAI_APIKey = config.getAPIKey() else  {
             completion(nil, nil)
+            SentrySDK.capture(message: "Open AI Api key is null")
             return
         }
         
@@ -35,6 +36,9 @@ struct OpenAIService {
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid URL", code: -1, userInfo: nil)
+            
+            SentrySDK.capture(message: "Invalid Open AI url")
+            
             completion(nil, error)
             return
         }
@@ -50,7 +54,7 @@ struct OpenAIService {
         } catch {
             completion(nil, error)
             
-            SentrySDK.capture(message: "Error send to OpenAI: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error OpenAI JSONSerialization: \(error.localizedDescription)")
             
             return
         }
@@ -89,6 +93,7 @@ struct OpenAIService {
                     completion(nil, invalidResponseError)
                 }
             } catch {
+                SentrySDK.capture(message: "Error OpenAI: \(error.localizedDescription)")
                 completion(nil, error)
             }
         }
