@@ -1,3 +1,5 @@
+2023-11-06 Tue: Product tested, listed out bugs, delegated fixes to engineers. Worked through credits handling with Artem, Nagesh should be setting up iOS credits system by Friday.
+
 2023-11-06 Mon: Worked on preparing app store submission. Calculated pricing for Voice AI and discussed with Artem and Nagesh how the backend and iOS app should communicate to support the bahavior. Frank, Sergey, Alaina, and I will have the updated UI implemented by Tuesday morning.
 
 ---
