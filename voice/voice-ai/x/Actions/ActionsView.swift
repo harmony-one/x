@@ -131,8 +131,11 @@ struct ActionsView: View {
         .padding(0)
     }
 
-    
-    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    func vibration() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.prepare()
+        impactFeedbackGenerator.impactOccurred()
+    }
     
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
@@ -141,7 +144,9 @@ struct ActionsView: View {
         if button.action == .speak {
             let isPressed: Bool = true
             
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {impactFeedbackGenerator.impactOccurred()}.simultaneousGesture(
+            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed){
+                    vibration()
+                }.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
                         self.isSpeakButtonPressed = true;
@@ -154,7 +159,7 @@ struct ActionsView: View {
             )
         } else if button.action == .repeatLast {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
-                    impactFeedbackGenerator.impactOccurred()
+                self.vibration()
                         Task {
                             await handleOtherActions(actionType: button.action)
                         }
@@ -175,7 +180,7 @@ struct ActionsView: View {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
-                impactFeedbackGenerator.impactOccurred()
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -183,7 +188,7 @@ struct ActionsView: View {
             
         } else {
             GridButton(button: button, foregroundColor: .black, active: isActive) {
-                impactFeedbackGenerator.impactOccurred()
+                self.vibration()
                 print("test")
                 Task {
                     await handleOtherActions(actionType: button.action)

@@ -35,6 +35,11 @@ struct Permission {
         audioSession.requestRecordPermission { grantedPermission in
             granted = grantedPermission
         }
+        do {
+            try audioSession.setAllowHapticsAndSystemSoundsDuringRecording(true)
+        } catch {
+            print("Error setting up Microphone: \(error.localizedDescription)")
+        }
         return granted
     }
     

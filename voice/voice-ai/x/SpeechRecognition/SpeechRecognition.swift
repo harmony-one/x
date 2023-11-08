@@ -113,6 +113,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
             }
@@ -410,6 +411,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
             // Only start the audio engine if it's not already running
             audioEngine.prepare()
             try audioEngine.start()
