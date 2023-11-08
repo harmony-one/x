@@ -13,17 +13,20 @@ The user id can be used for usage metering, analytics, error capturing (for debu
 - [ ] Measuring user engagement
   - [ ] Session time
   - [ ] Response latency
-  - [ ] Dialogue length
   - [ ] Actions (opening app, buttons pressed, terminating app)
-  - [ ] Content (anonymous)
 - [ ] Analyzing user engagement data 
   - [ ] Storage and accumulation
     - [ ] Google
     - [ ] Sentry
-    - [ ] ElasticSearch
   - [ ] Data visualization and dashboards
     - [ ] Google / Sentry default dashboards (for basic information)
-    - [ ] Kibana (for revenue and contextual queries)
+
+Granular measurements and analytics can be implemented in the upcoming versions:
+
+- [ ] ElasticSearch (Storage and accumulation)
+- [ ] Kibana (for revenue and contextual queries) (Data visualization and dashboards)
+- [ ] Anonymized conversation (Measuring user engagement)
+- [ ] Dialogue length (Measuring user engagement)
 
 #### Error capturing
 
