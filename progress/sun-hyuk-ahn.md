@@ -1,3 +1,5 @@
+2023-11-08 Tue: Update streaming to initially flush 5 words then by delimiting punctuations, upperbounded by 20 words. Finished setting up Sentry with Yuriy. Exponential backoff changes to 2, 4, 8 seconds.
+
 2023-11-07 Mon: Fixed a bug which ensures streams that are part of the previous word is appended correctly. Upperbounded buffer to contain 10 words at max so that synthesis occurs at delimiter or 10 words. Implemented retryable methods with exponential backoff.
 
 ---
