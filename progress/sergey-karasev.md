@@ -1,3 +1,5 @@
+2023-11-08 Wed: Working on "[Tap to Speak & Tap to Send](https://github.com/harmony-one/x/pull/137)" feature
+
 2023-11-07 Tue: [Fix the play/pause button](https://github.com/harmony-one/x/pull/130) state and [working on say more/random fact buttons](https://github.com/harmony-one/x/pull/131) (doesn't work when tapped for the first time) 
 
 2023-11-06 Mon: Working on "new session" feature, button should trigger a greeting only once.
