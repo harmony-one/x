@@ -13,6 +13,7 @@ protocol SpeechRecognitionProtocol {
     func speak()
     func stopSpeak()
     func sayMore()
+    func cancelSpeak()
 }
 
 extension SpeechRecognitionProtocol {

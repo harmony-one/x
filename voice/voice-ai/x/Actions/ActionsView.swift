@@ -29,8 +29,6 @@ struct ActionsView: View {
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @State private var skipPressedTimer: Timer? = nil
-    
-    @State var tapSpeak = false
 
     @State private var buttonFrame: CGRect = .zero
     
@@ -156,13 +154,12 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(button: button, foregroundColor: .black, active: tapSpeak, isPressed: tapSpeak) {
-                    tapSpeak.toggle()
+                GridButton(button: button, foregroundColor: .black, active: actionHandler.tapSpeak, isPressed: actionHandler.tapSpeak) {
                     Task {
-                        if tapSpeak {
-                            actionHandler.handle(actionType: ActionType.speak)
+                        if !actionHandler.tapSpeak {
+                            actionHandler.handle(actionType: ActionType.tapSpeak)
                         } else {
-                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                            actionHandler.handle(actionType: ActionType.tapStopSpeak)
                         }
                     }
                 }
