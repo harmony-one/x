@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 
 
@@ -31,6 +32,9 @@ struct ActionsView: View {
     @State private var skipPressedTimer: Timer? = nil
     
     @State private var buttonFrame: CGRect = .zero
+    @State private var tapCount: Int = 0
+    
+    @State private var showShareSheet: Bool = false
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
@@ -38,6 +42,8 @@ struct ActionsView: View {
     
     var buttonsPortrait: [ButtonData] = []
     var buttonsLandscape: [ButtonData] = []
+    
+    @State private var storage = Set<AnyCancellable>()
     
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
@@ -142,6 +148,12 @@ struct ActionsView: View {
             .background(Color(hex: 0x1E1E1E).animation(.none))
         }
         .padding(0)
+        .sheet(isPresented: $showShareSheet, onDismiss: {showShareSheet = false}) {
+            let url = URL(string: "https://x.country")!
+            let shareLink = ShareLink(title: "Voice AI App", url: url)
+            
+            ActivityView(activityItems: [shareLink.title, shareLink.url])
+        }
     }
     
     @ViewBuilder
@@ -190,6 +202,18 @@ struct ActionsView: View {
                 }
             }
             
+        } else if button.action == .reset {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                Task {
+                    tapCount += 1
+                    
+                    if tapCount % 7 == 0 {
+                        showShareSheet = true
+                    }
+                    
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
