@@ -82,6 +82,11 @@
 		A4925D822AF2C757000649C6 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4925D802AF2C757000649C6 /* AppConfig.plist */; };
 		A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
+		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		B3B3BA7A2AFB40A300D8F8C6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		B3B3BA7B2AFB40A300D8F8C6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		B3B3BA7C2AFB40A300D8F8C6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		B3B3BA7D2AFB40A300D8F8C6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* MessageContextTests.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
@@ -211,6 +216,8 @@
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A4925D802AF2C757000649C6 /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3C083B22AF1BADB0069232C /* MessageContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageContextTests.swift; sourceTree = "<group>"; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
@@ -368,6 +375,14 @@
 			path = sunUITests;
 			sourceTree = "<group>";
 		};
+		B346DF722AF55EEB0023FC87 /* ThemeManager */ = {
+			isa = PBXGroup;
+			children = (
+				B346DF772AF562020023FC87 /* ThemeManager.swift */,
+			);
+			path = ThemeManager;
+			sourceTree = "<group>";
+		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +419,7 @@
 				B930AADD2ADE2DE5009F9F8C /* Font.swift */,
 				B930AADE2ADE2DE5009F9F8C /* String.swift */,
 				B930AADF2ADE2DE5009F9F8C /* Text.swift */,
+				B3B3BA792AFB40A300D8F8C6 /* Theme.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -514,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B3319F2AFB801D00F6A9C9 /* ReviewRequest */,
+				B346DF722AF55EEB0023FC87 /* ThemeManager */,
 				22CC4D722AF3AB350072EC39 /* IAP */,
 				B9AD506E2ADFFD4E006F18A1 /* AppConfigration */,
 				B9AD50582ADFE961006F18A1 /* OpenAIService */,
@@ -844,6 +861,7 @@
 				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
 				F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
+				B3B3BA7D2AFB40A300D8F8C6 /* Theme.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
@@ -887,6 +905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B3BA7A2AFB40A300D8F8C6 /* Theme.swift in Sources */,
 				B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */,
 				F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
@@ -906,6 +925,7 @@
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
+				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
@@ -946,6 +966,7 @@
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				F7F115082AF8173300BC191C /* AudioPlayerTests.swift in Sources */,
+				B3B3BA7B2AFB40A300D8F8C6 /* Theme.swift in Sources */,
 				F7F115092AF8173300BC191C /* UsageTests.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
 				B9C4A8302AEE96B100327529 /* Message.swift in Sources */,
@@ -967,6 +988,7 @@
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
 				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
+				B3B3BA7C2AFB40A300D8F8C6 /* Theme.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
@@ -1068,7 +1090,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
@@ -1127,7 +1149,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -1168,7 +1190,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
@@ -1419,7 +1441,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
@@ -1463,7 +1485,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D9AHA462DR;
+				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;

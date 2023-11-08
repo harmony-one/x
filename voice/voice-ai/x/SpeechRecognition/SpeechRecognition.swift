@@ -100,8 +100,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !isAudioSessionSetup else { return }
         
         do {
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setMode(.spokenAudio)
+              
             isAudioSessionSetup = true
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
@@ -112,8 +114,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func setupAudioEngine() {
         if !audioEngine.isRunning {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
             }
@@ -424,8 +427,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !audioEngine.isRunning else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options:  [.defaultToSpeaker, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             // Only start the audio engine if it's not already running
             audioEngine.prepare()
             try audioEngine.start()

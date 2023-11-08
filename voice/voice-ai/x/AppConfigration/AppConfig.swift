@@ -16,6 +16,8 @@ class AppConfig {
     private var minimumSignificantEvents: Int = 0 // Default value
     private var daysBetweenPrompts: Int = 0 // Default value
     
+    private var themeName: String?
+
     init() {
         loadConfiguration()
     }
@@ -35,6 +37,7 @@ class AppConfig {
             
             self.apiKey = dictionary["API_KEY"]
             
+            self.themeName = dictionary["THEME_NAME"]
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             
             // Convert the string values to Int
@@ -68,5 +71,8 @@ class AppConfig {
     
     func getDaysBetweenPrompts() -> Int? {
         return self.daysBetweenPrompts
+    }
+    func getThemeName() -> String {
+        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name 
     }
 }

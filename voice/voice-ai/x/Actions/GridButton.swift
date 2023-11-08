@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 struct GridButton: View {
+    var currentTheme:Theme
     var button: ButtonData
     var foregroundColor: Color
     var active: Bool = false;
@@ -32,7 +33,7 @@ struct GridButton: View {
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(active: active, invertColors: button.action == .speak))
+        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak))
     }
 
     private func pressEffectButtonImage() -> String {
@@ -55,19 +56,17 @@ struct GridButton: View {
     }
 }
 
-let COLOR_ACTIVE = Color (hex: 0xD7303A) // Color (hex: 0xFFFFFF) // Color (hex: 0xD7303A) // Color(hex: 0x0088B0)
-let COLOR_DEFAULT = Color (hex: 0x1E1E1E) // Color(hex: 0xDDF6FF)
-
 struct PressEffectButtonStyle: ButtonStyle {
-    
+    var theme: Theme
     var background: Color?
     var active: Bool = false
     var invertColors: Bool = false
     
-    init(background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
+    init(theme: Theme, background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
         self.background = background
         self.active = active
         self.invertColors = invertColors
+        self.theme = theme
     }
     
     func makeBody(configuration: Configuration) -> some View {
@@ -89,9 +88,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? COLOR_DEFAULT : COLOR_ACTIVE
+            return isPressed ? self.theme.buttonDefaultColor : self.theme.buttonActiveColor
         } else {
-            return isPressed ? COLOR_ACTIVE : COLOR_DEFAULT
+            return isPressed ? self.theme.buttonActiveColor : self.theme.buttonDefaultColor
         }
     }
 
@@ -99,9 +98,9 @@ struct PressEffectButtonStyle: ButtonStyle {
         let isPressed =  self.active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? COLOR_ACTIVE : .white
+            return isPressed ? self.theme.buttonActiveColor : self.theme.fontActiveColor
         } else {
-            return isPressed ? .white : COLOR_ACTIVE
+            return isPressed ? self.theme.fontActiveColor : self.theme.buttonActiveColor
         }
     }
 }
