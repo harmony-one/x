@@ -10,7 +10,7 @@ protocol SpeechRecognitionProtocol {
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
-    func repeate(startPoint: Int?)
+    func repeate()
     func speak()
     func stopSpeak()
     func sayMore()
@@ -265,7 +265,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             
             registerTTS()
-            textToSpeechConverter.convertTextToSpeech(text: response)
+            
+            if(!self.isRepeatingCurrentSession) {
+                textToSpeechConverter.convertTextToSpeech(text: response)
+            }
             
             self.completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
@@ -635,11 +638,34 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pauseCapturing(cancel: true)
     }
     
-    func repeate(startPoint: Int? = 0) {
+    func repeateActiveSession(startPoint: Int? = 0) {
+        if(self.isRepeatingCurrentSession) {
+            let text = self.completeResponse.joined()
+            
+            let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
+            let activeTextToRepeat = String(text[index...])
+            
+            if(activeTextToRepeat.count > 0) {
+                self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+            }
+            
+            if(self.isRequestingOpenAI && self.isRepeatingCurrentSession) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.repeateActiveSession(startPoint: (startPoint ?? 0) + activeTextToRepeat.count)
+                }
+            } else {
+                self.isRepeatingCurrentSession = false;
+            }
+        }
+    }
+    
+    func repeate() {
         // Ensure all UI-related updates are done on the main thread.
         DispatchQueue.main.async {
             // If the synthesizer is already speaking, stop it to prevent overlapping speech.
+            
             self.textToSpeechConverter.stopSpeech()
+            self.isRepeatingCurrentSession = false;
 
             // Set the isPaused flag to false as we're about to speak.
             self._isPaused = false
@@ -652,21 +678,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             if !textToRepeat.isEmpty {
                 self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
-            } else if !self.completeResponse.isEmpty {
+            } else if (self.isRequestingOpenAI && !self.completeResponse.isEmpty) {
+                // starting repeateActiveSession
                 self.isRepeatingCurrentSession = true;
-                
-                var text = self.completeResponse.joined()
-                
-                let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
-                let activeTextToRepeat = String(text[index...])
-                
-                if(activeTextToRepeat.count > 0) {
-                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
-                }
-                
-                DispatchQueue.main.async {
-                    self.repeate(startPoint: activeTextToRepeat.count)
-                }
+                self.repeateActiveSession(startPoint: 0)
             } else {
                 self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
             }
