@@ -1,3 +1,6 @@
+2023-11-08 Wed: [added](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits/011bb24f59b46c88a58866b4fc6832f373f8537d) new endpoints to Payments service after conversation with Nagesh and Theo F: create user, get user balance, pay (only for test purposes) and withdraw. Deployed [Payments service](https://x-payments-api.fly.dev/api), shared all information with Nagesh and Theo. Continue working on JWT guard on Payments service side.
+
+
 2023-11-07 Tue: [implemented](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits) endpoints on Payments backend side to create a new user, associated with AppleId, drafted architecture and payments flow, discussed details with Nagesh and Theo F (free credits, tokens refill, JWT authorization). Started working on JWT authorization on payments backend side.
 
 2023-11-06 Mon: switched VoiceAI to Simple Rules, added synced Products list, published new version in TestFlight ([PR #121](https://github.com/harmony-one/x/commit/bbad4869b9e1cd67fa60c2c21f17eb2caaf58884)). Now in-app purchases working in TestFlight build! Started implementing logging for TestFlight build, we will need logs to get originalTransactionId and listen for transaction history in payments backend (limitation from AppStore API).

@@ -1,3 +1,7 @@
+2023-11-8 Wed: Continue working on error capturing based on Aaron's [checklist](https://github.com/harmony-one/x/blob/main/doc/checklist.md). Added action buttons metrics based on sentry ui metrics.
+
+2023-11-7 Tue: Working on logging an iOS application using sentry.io as a platform for storing and viewing logs
+
 2023-11-6 Mon: Working on reolving "speaker popping" issue (reproduced on quickly pause/play switch and new sessioan start). Bridge tasks support (btc tranquil payments).
 
 ---

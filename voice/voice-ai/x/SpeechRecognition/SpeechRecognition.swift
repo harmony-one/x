@@ -6,7 +6,7 @@ import Sentry
 protocol SpeechRecognitionProtocol {
     func reset()
     func reset(feedback: Bool?)
-    func randomFacts()
+    func surprise()
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
@@ -14,6 +14,7 @@ protocol SpeechRecognitionProtocol {
     func speak()
     func stopSpeak()
     func sayMore()
+    func cancelSpeak()
 }
 
 extension SpeechRecognitionProtocol {
@@ -30,11 +31,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
-    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let speechRecognizer: SFSpeechRecognizer? = {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        let locale = Locale(identifier: preferredLocale)
+                return SFSpeechRecognizer(locale: locale)
+    } ()
     private var messageInRecongnition = ""
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
+    private var recognitionTaskCanceled: Bool? = nil
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
@@ -61,7 +67,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var bufferCapacity = 10
+    private var initialCapacity = 5
+    private var bufferCapacity = 20
 
     
     @Published private var _isPaused = false
@@ -100,8 +107,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !isAudioSessionSetup else { return }
         
         do {
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setMode(.spokenAudio)
+              
             isAudioSessionSetup = true
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
@@ -113,8 +122,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func setupAudioEngine() {
         if !audioEngine.isRunning {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
                 SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
@@ -146,13 +156,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
             }
-            
             let message = result.bestTranscription.formattedString
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
@@ -187,14 +196,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if let error = error {
             print("[SpeechRecognition][handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
-            if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
+            
+            if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
-                // Notify the user in a suitable manner, possibly with UI updates or a popup.
+//                self.registerTTS()
+//                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
             }
             
             SentrySDK.capture(message: "handleRecognitionError: \(error.localizedDescription)")
             
+            recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
             inputNode.removeTap(onBus: 0)
@@ -235,6 +247,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func makeQuery(_ text: String, maxRetry: Int = 3) {
         if isRequestingOpenAI {
+            print("RequestingOpenAI: skip")
             return
         }
         
@@ -269,7 +282,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isRequestingOpenAI = true
         
         // Initial Flush to reduce perceived latency
-//        var initialFlush = false
+        var initialFlush = false
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
@@ -304,8 +317,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
-                    if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
-                        flushBuf()
+                    if !initialFlush {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("############ INITIAL FLUSH")
+                            flushBuf()
+                            initialFlush = true
+                        }
+                    } else {
+                        if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            flushBuf()
+                        }
                     }
                     
                     currWord = res
@@ -326,12 +347,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
             } else if retryCount > 0 {
-                let attempt = maxRetry - retryCount
-                let delay = pow(2.0, Double(attempt)) // exponential backoff (1s, 2s, 4s, ...)
-                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt + 1) in \(delay) seconds...")
+                let attempt = maxRetry - retryCount + 1
+                let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
+                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
                     currWord = ""
+                    initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
@@ -339,19 +361,24 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
-                self.textToSpeechConverter.convertTextToSpeech(text: "I'm sorry, there seems to be an issue. Please try again later.")
+                self.textToSpeechConverter.convertTextToSpeech(text: "Network error.")
             }
         }
         
         handleQuery(retryCount: maxRetry)
     }
     
-    func pauseCapturing() {
+    func pauseCapturing(cancel: Bool = false) {
         guard isCapturing else {
             return
         }
         isCapturing = false
         print("[SpeechRecognition][pauseCapturing]")
+        
+        if cancel == true {
+            recognitionTaskCanceled = true;
+        }
+        
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -406,6 +433,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if feedback == true{
                     // Play the greeting text
                     self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        ReviewRequester.shared.logSignificantEvent()
+                    }
                 }
             }
         }
@@ -415,8 +446,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !audioEngine.isRunning else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options:  [.defaultToSpeaker, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+            try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             // Only start the audio engine if it's not already running
             audioEngine.prepare()
             try audioEngine.start()
@@ -474,12 +506,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
         
-    func randomFacts() {
+    func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][randomFacts]")
+            print("[SpeechRecognition][surprise]")
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
 
             // Since we are about to initiate a new fact retrieval, pause any capturing.
@@ -506,6 +542,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
             self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
             self.textToSpeechConverter.stopSpeech()
             
             // Reset the paused state, ensuring UI updates are on the main thread
@@ -588,7 +628,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func cancelSpeak() {
-        pauseCapturing()
+        pauseCapturing(cancel: true)
     }
     
     func repeate() {

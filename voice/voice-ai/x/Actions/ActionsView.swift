@@ -1,7 +1,19 @@
 import Foundation
 import SwiftUI
+import Combine
+
+
 
 struct ActionsView: View {
+    let config = AppConfig()
+
+    @State var currentTheme:Theme = Theme()
+
+    func changeTheme(name: String){
+        let theme = AppThemeSettings.fromString(name)
+        self.currentTheme.setTheme(theme: theme)
+    }
+
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -18,28 +30,42 @@ struct ActionsView: View {
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @State private var skipPressedTimer: Timer? = nil
-    
+
     @State private var buttonFrame: CGRect = .zero
+    @State private var tapCount: Int = 0
+    
+    @State private var showShareSheet: Bool = false
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
     let oneValue = "2111.01 ONE"
     
-    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset)
-    let buttonSayMore = ButtonData(label: "Say More", image: "say more", action: .sayMore)
-    let buttonRandom = ButtonData(label: "Random Fact", image: "random fact", action: .randomFact)
-    let buttonSpeak = ButtonData(label: "Press & Hold", image: "circle", action: .speak)
-    let buttonRepeat = ButtonData(label: "Repeat Last", image: "repeat last", action: .repeatLast)
-    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play)
+    var buttonsPortrait: [ButtonData] = []
+    var buttonsLandscape: [ButtonData] = []
     
-    let buttonsPortrait: [ButtonData]
-    let buttonsLandscape: [ButtonData]
+    @State private var storage = Set<AnyCancellable>()
     
     init() {
+        let theme = AppThemeSettings.fromString(config.getThemeName())
+        currentTheme.setTheme(theme: theme)
+
+        let themePrefix = self.currentTheme.name
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to Send", image: "\(themePrefix) - press & hold", action: .speak)
+        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .surprise)
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
+        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
+        
+//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
-            buttonSayMore,
-            buttonRandom,
+//            buttonSayMore,
+//            buttonUserGuide,gi
+            buttonTapSpeak,
+            buttonSurprise,
             buttonSpeak,
             buttonRepeat,
             buttonPlay
@@ -58,14 +84,17 @@ struct ActionsView: View {
         // v1
         buttonsLandscape = [
             buttonReset,
-            buttonSayMore,
+//            buttonSayMore,
+//            buttonUserGuide,
+            buttonTapSpeak,
             buttonRepeat,
-            buttonRandom,
+            buttonSurprise,
             buttonSpeak,
             buttonPlay
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
+
     }
     
     var body: some View {
@@ -74,7 +103,7 @@ struct ActionsView: View {
         let colums = isLandscape ? 3 : 2
         Group {
             baseView(colums: colums, buttons: buttons)
-        }.background(Color(hex: 0xDDF6FF).animation(.none))
+        }.background(Color(hex: 0x1E1E1E).animation(.none))
         .onAppear(
             perform: SpeechRecognition.shared.setup
         )
@@ -119,9 +148,15 @@ struct ActionsView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(hex: 0xDDF6FF).animation(.none))
+            .background(Color(hex: 0x1E1E1E).animation(.none))
         }
         .padding(0)
+        .sheet(isPresented: $showShareSheet, onDismiss: {showShareSheet = false}) {
+            let url = URL(string: "https://x.country")!
+            let shareLink = ShareLink(title: "Voice AI App", url: url)
+            
+            ActivityView(activityItems: [shareLink.title, shareLink.url])
+        }
     }
     
     @ViewBuilder
@@ -129,44 +164,37 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            GridButton(button: button, foregroundColor: .black, active: self.isSpeakButtonPressed) {}.simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        self.isSpeakButtonPressed = true;
-                        actionHandler.handle(actionType: ActionType.speak)
+            if button.pressedLabel != nil {
+                // Press to Speak & Press to Send
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.tapSpeak, isPressed: actionHandler.tapSpeak) {
+                    Task {
+                        if !actionHandler.tapSpeak {
+                            actionHandler.handle(actionType: ActionType.tapSpeak)
+                        } else {
+                            actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                        }
                     }
-                    .onEnded { _ in
-                        self.isSpeakButtonPressed = false;
-                        actionHandler.handle(actionType: ActionType.stopSpeak)
-                    }
-            )
-        } else if button.action == .sayMore {
-            GridButton(button: button, foregroundColor: .black, active: false){
-                Task {
-                    await handleOtherActions(actionType: button.action)
                 }
-            }
-                .simultaneousGesture(
-                    LongPressGesture()
+
+            } else {
+                // Press & Hold
+
+                let isPressed: Bool = true
+
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
                         .onChanged { _ in
+                            self.isSpeakButtonPressed = true;
                             actionHandler.handle(actionType: ActionType.speak)
-                            print("Long press began")
                         }
                         .onEnded { _ in
-                            print("Long press ended")
-                            if !store.products.isEmpty {
-                                let product = store.products[0]
-                                Task {
-                                    print("Purchase product: \(product)")
-                                    try await self.store.purchase(product)
-                                }
-                            } else {
-                                print("Cannot purchase: products list is empty. Check productId in IAP Store.")
-                            }
+                            self.isSpeakButtonPressed = false;
+                            actionHandler.handle(actionType: ActionType.stopSpeak)
                         }
                 )
+            }
         } else if button.action == .repeatLast {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                         Task {
                             await handleOtherActions(actionType: button.action)
                         }
@@ -187,14 +215,34 @@ struct ActionsView: View {
             
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
-            GridButton(button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
             
+        } else if button.action == .reset {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                Task {
+//                    tapCount += 1
+//                    
+//                    if tapCount % 7 == 0 {
+//                        showShareSheet = true
+//                    }
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+        } else if button.action == .surprise {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                self.showShareSheet = true
+            })
         } else {
-            GridButton(button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }

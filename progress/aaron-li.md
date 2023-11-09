@@ -1,20 +1,20 @@
-Overview:
-[x] Swift-based streaming Deepgram end-to-end integration
-[x] Response-streaming OpenAI inegration
-[.] Streaming Play.ht synthesis
-[.] Infrastructure against key leakage (OpenAI and others) using relay and app attestation 
+2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings;
 
-2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations
+2023-11-07 Tue (2.5h): Make initial production checklist; Research on app analytic systems and integration complexity; End-to-end testing of the app; Fix SSL issue and document steps for future incident resolution; Fix Tweet embedding issues, CSS issues for notion embedding, and research on tweet libraries.
 
-2023-11-03 Fri (0.5h): Review #117; New domain and DNS configuration; Review Linux ML development portability to iOS
+2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations.
 
-2023-11-02 Thu (1h): DNS configurations for lend and Cloudflare issue diagnosis; Lend legal term review; Discussions with security vendors on manual review of swap; Review on-device models and compatibility with iOS devices
+---
 
-2023-11-01 Wed (4.5h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts; Fix "Pause / Play" button bug where the button is sometimes ineffective
+2023-11-03 Fri (0.5h): Review #117; New domain and DNS configuration; Review Linux ML development portability to iOS.
 
-2023-10-31 Tue (2.5h): Reimplement for press-to-talk mode, end-to-end debugging and testing; Further research and actions on phishing warning resolutions; Review #93, #95, #97; Fix bugs and crashes related interrupting OpenAI queries; Discussions on present user experience issues and bugs; (Continued) and discussions on on-device work TODOs
+2023-11-02 Thu (1h): DNS configurations for lend and Cloudflare issue diagnosis; Lend legal term review; Discussions with security vendors on manual review of swap; Review on-device models and compatibility with iOS devices.
 
-2023-10-30 Mon (5.5h): Review code updates and errors related to OpenAI streaming (#82, #83, #88, #87, #86, #84, 81); Fix OpenAI streaming implementation and integrations, graceful error handling, crash issues in classic Speech Recognition crash issues, various button failures and unexpected responses; End-to-end debugging and testing, and publishing new deployment in Hey Sam; Discuss findings and tasks related to key protection and attestation; Live discussions related to OpenAI streaming issues
+2023-11-01 Wed (4.5h): Fix "Repeat" button's queueing issue; Fix "New Session"; Fix speak button press and release logics; Experiment with shorter word utterance; Fix EAS rate limiting and maintainer issues on x.country and implement caching; Review recent updates (#108, #105, #104, #101, #99) and resolve merge conflicts; Fix "Pause / Play" button bug where the button is sometimes ineffective.
+
+2023-10-31 Tue (2.5h): Reimplement for press-to-talk mode, end-to-end debugging and testing; Further research and actions on phishing warning resolutions; Review #93, #95, #97; Fix bugs and crashes related interrupting OpenAI queries; Discussions on present user experience issues and bugs; (Continued) and discussions on on-device work TODOs.
+
+2023-10-30 Mon (5.5h): Review code updates and errors related to OpenAI streaming (#82, #83, #88, #87, #86, #84, 81); Fix OpenAI streaming implementation and integrations, graceful error handling, crash issues in classic Speech Recognition crash issues, various button failures and unexpected responses; End-to-end debugging and testing, and publishing new deployment in Hey Sam; Discuss findings and tasks related to key protection and attestation; Live discussions related to OpenAI streaming issues.
 
 2023-10-29 Sun (1h): Code review and discussions on alternative OpenAI and Deepgram streaming implementations, recent pull requests and versions, product updates;
 
