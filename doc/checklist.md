@@ -23,6 +23,10 @@
 - [ ] Users have no way to send a message to customer support (consider submitting voice messages, like Tesla)
 - [ ] Users are not asked to review the app after using the app for a while, if they have not reviewed the app before
 
+#### Version Control
+
+- [ ] There is no record of which version of the code corresponding to which build version on TestFlight or App Store. Consider tagging each version, publish the tag on GitHub, and record the changes under "Releases", before distributing the app to TestFlight or App Store. 
+
 ### Nov 7, 2023
 
 #### Multi-purpose
