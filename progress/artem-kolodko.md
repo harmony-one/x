@@ -1,3 +1,5 @@
+2023-11-09 Thu: [added](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits/568088f801558bc5d558439eda205b8a762e12d3) authorization guard in Payments backend, [implemented](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits/dfb73ec94f2d765bef0c31e43c8d0b2cc0bf47e0) new method to get transactionId after successful purchase and [linking](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits/53aa54eef40e26e171363ab991fe184c92c8b601) appleId to existed account after SignIn. [Updated](https://x-payments-api.fly.dev/api) Payments service.
+
 2023-11-08 Wed: [added](https://github.com/harmony-one/stripe-payments-backend/pull/6/commits/011bb24f59b46c88a58866b4fc6832f373f8537d) new endpoints to Payments service after conversation with Nagesh and Theo F: create user, get user balance, pay (only for test purposes) and withdraw. Deployed [Payments service](https://x-payments-api.fly.dev/api), shared all information with Nagesh and Theo. Continue working on JWT guard on Payments service side.
 
 

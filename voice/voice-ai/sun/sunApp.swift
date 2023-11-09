@@ -1,12 +1,5 @@
-//
-//  xApp.swift
-//  x
-//
-//  Created by Sun Hyuk Ahn on 10/23/23.
-//
-
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct sunApp: App {
@@ -24,8 +17,8 @@ struct sunApp: App {
 
     var body: some Scene {
         WindowGroup {
-           // Currently we are displaying only buttons
-          //  DashboardView()
+            // Currently we are displaying only buttons
+            //  DashboardView()
             ActionsView()
         }
         .modelContainer(sharedModelContainer)

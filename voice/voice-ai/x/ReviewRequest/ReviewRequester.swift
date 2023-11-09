@@ -25,7 +25,7 @@ class ReviewRequester {
         set { UserDefaults.standard.set(newValue, forKey: lastReviewRequestDateKey) }
     }
     
-    internal var significantEventsCount: Int {
+    var significantEventsCount: Int {
         get { UserDefaults.standard.integer(forKey: significantEventsCountKey) }
         set { UserDefaults.standard.set(newValue, forKey: significantEventsCountKey) }
     }
@@ -42,7 +42,7 @@ class ReviewRequester {
         tryPromptForReview()
     }
     
-    internal func tryPromptForReview() {
+    func tryPromptForReview() {
         guard shouldPromptForReview() else { return }
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -65,12 +65,11 @@ class ReviewRequester {
             return Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day! >= daysBetweenPrompts
         }
         
-        return true  // No review has been requested before
+        return true // No review has been requested before
     }
     
     private func resetSignificantEventsCount() {
         significantEventsCount = 0 // Reset the count to 0
         UserDefaults.standard.set(significantEventsCount, forKey: significantEventsCountKey)
     }
-    
 }

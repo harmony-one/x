@@ -1,9 +1,8 @@
-import XCTest
 import AVFoundation
 @testable import Voice_AI
+import XCTest
 
 class AudioPlayerTests: XCTestCase {
-
     var audioPlayer: AudioPlayer!
 
     override func setUp() {

@@ -1,31 +1,39 @@
-//
-//  MockSpeechRecognition.swift
-//  Voice AITests
-//
-//  Created by Nagesh Kumar Mishra on 29/10/23.
-//
-
-import XCTest
 import AVFoundation
+import Combine
 @testable import Voice_AI
-
+import XCTest
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-    func cancelSpeak() {
-        
-    }
+    func cancelSpeak() {}
     
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
     var speakCalled: Bool = false
-    var randomFactsCalled: Bool = false
+    var surpriseCalled: Bool = false
     var continueSpeechCalled: Bool = false
     var pauseCalled: Bool = false
     var repeateCalled: Bool = false
+    
+    private var _isPlaying = false
+    
+    private var isPlayingSubject = PassthroughSubject<Bool, Never>()
 
-    func pause(feedback: Bool?) {
-        
+    // Define a custom publisher and use isPlayingSubject to emit values
+    var isPlaingPublisher: AnyPublisher<Bool, Never> {
+        return isPlayingSubject.eraseToAnyPublisher()
+    }
+
+    // Implement a method to update the value and notify subscribers
+    func setIsPlaying(_ isPlaying: Bool) {
+        _isPlaying = isPlaying
+        isPlayingSubject.send(isPlaying)
+    }
+    
+    func pause(feedback: Bool?) {}
+    
+    func surprise() {
+        surpriseCalled = true
     }
     
     func isPaused() -> Bool {
@@ -41,10 +49,6 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         speakCalled = true
     }
 
-    func randomFacts() {
-        randomFactsCalled = true
-    }
-
     func continueSpeech() {
         continueSpeechCalled = true
     }
@@ -57,22 +61,15 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         repeateCalled = true
     }
     
-    func stopSpeak() {
-        
-    }
+    func stopSpeak() {}
     
-    func sayMore() {
-    
-    }
-    
+    func sayMore() {}
     
     func play() {
-        if self.isPaused() {
-            self.continueSpeech()
+        if isPaused() {
+            continueSpeech()
         } else {
-            self.pause()
+            pause()
         }
-        
     }
-    
 }

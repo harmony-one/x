@@ -1,10 +1,3 @@
-//
-//  sunTests.swift
-//  sunTests
-//
-//  Created by Sun Hyuk Ahn on 10/23/23.
-//
-
 import XCTest
 @testable import sun
 

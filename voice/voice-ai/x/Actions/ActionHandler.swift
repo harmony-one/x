@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 import UIKit
 
@@ -28,37 +29,56 @@ struct ButtonData: Identifiable {
         self.image = image
         self.pressedImage = pressedImage
         self.action = action
-        
     }
 }
 
 class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
-    @Published var tapSpeak = false
+    @Published var isTapToSpeakActive = false
     private var lastRecordingStateChangeTime: Int64 = 0
     
+    var resetThrottler = PassthroughSubject<Void, Never>()
+    var resetCancellable: AnyCancellable?
+
     let speechRecognition: SpeechRecognitionProtocol
     var onSynthesizingChanged: ((Bool) -> Void)?
     
     init(speechRecognition: SpeechRecognitionProtocol = SpeechRecognition.shared) {
         self.speechRecognition = speechRecognition
+        resetCancellable = resetThrottler
+            .throttle(for: .seconds(1), scheduler: DispatchQueue.main, latest: true)
+            .sink {
+                self.reset()
+            }
+    }
+    
+    func reset() {
+        isRecording = false
+        isSynthesizing = false
+        lastRecordingStateChangeTime = 0
+        speechRecognition.reset()
+    }
+    
+    func syncTapToSpeakState(_ actionType: ActionType) {
+        let isItTapToSpeakAction = actionType == .tapSpeak && actionType == .tapStopSpeak
+        let resetTapSpeakState = isTapToSpeakActive && !isItTapToSpeakAction
+        if resetTapSpeakState {
+            isTapToSpeakActive = false
+            speechRecognition.cancelSpeak()
+        }
     }
     
     func handle(actionType: ActionType) {
-        if (self.tapSpeak && actionType != .tapSpeak && actionType != .tapStopSpeak) {
-            self.tapSpeak = false
-            print("async call")
-            self.speechRecognition.cancelSpeak()
-        }
+        syncTapToSpeakState(actionType)
         
         switch actionType {
         case .reset:
-            self.isRecording = false
-            self.isSynthesizing = false
-            self.lastRecordingStateChangeTime = 0
-            speechRecognition.reset()
+            resetThrottler.send()
         case .surprise:
+            if SpeechRecognition.shared.isTimerDidFired {
+                return
+            }
             speechRecognition.surprise()
         case .play:
             if speechRecognition.isPaused() {
@@ -69,12 +89,12 @@ class ActionHandler: ObservableObject {
         case .repeatLast:
             speechRecognition.repeate()
         case .speak:
-            self.startRecording()
+            startRecording()
         case .tapSpeak:
-            self.tapSpeak = true
-            self.startRecording()
+            isTapToSpeakActive = true
+            startRecording()
         case .stopSpeak, .tapStopSpeak:
-            self.tapSpeak = false
+            isTapToSpeakActive = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
             }
@@ -87,11 +107,13 @@ class ActionHandler: ObservableObject {
             }
 //        case .sayMore:
 //            speechRecognition.sayMore()
-            
         }
     }
     
     func startRecording() {
+        if SpeechRecognition.shared.isTimerDidFired {
+            return
+        }
         guard lastRecordingStateChangeTime + 500 < Int64(NSDate().timeIntervalSince1970 * 1000) else {
             return
         }
@@ -121,5 +143,4 @@ class ActionHandler: ObservableObject {
             }
         }
     }
-    
 }

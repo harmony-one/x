@@ -1,10 +1,9 @@
-import XCTest
 @testable import Voice_AI
+import XCTest
 
 final class ActionHandlerTests: XCTestCase {
     var actionHandler: ActionHandler!
     var mockSpeechRecognition: MockSpeechRecognition!
-    
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -16,7 +15,6 @@ final class ActionHandlerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         actionHandler = nil
         mockSpeechRecognition = nil
-        
     }
     
     func testHandleReset() {
@@ -24,13 +22,24 @@ final class ActionHandlerTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
     }
     
+    // Test if the skip action stops the recording when it's already recording
+//    func testHandleSkipWhileRecording() {
+//        actionHandler.isRecording = true
+//        actionHandler.handle(actionType: . .sayMore)
+//        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
+//    }
     
     // Test if random fact action calls the randomFacts() method in our mock
-    func testHandleRandomFact() {
-        actionHandler.handle(actionType: .randomFact)
-        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled, "randomFacts() should be called after .randomFact action")
+    func testHandleSurprise() {
+        actionHandler.handle(actionType: .surprise)
+        XCTAssertTrue(mockSpeechRecognition.surpriseCalled, "surprise() should be called after .surprise action")
     }
     
+    func testReset() {
+        actionHandler.handle(actionType: .reset)
+        mockSpeechRecognition.reset()
+        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+    }
     // Test if repeatLast action calls the repeate() method in our mock
     func testHandleRepeatLast() {
         actionHandler.handle(actionType: .repeatLast)
@@ -55,10 +64,8 @@ final class ActionHandlerTests: XCTestCase {
             mockSpeechRecognition.pause()
             XCTAssertTrue(mockSpeechRecognition.pauseCalled, "Speech should have been paused")
         }
-        
     }
 
-    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -67,12 +74,10 @@ final class ActionHandlerTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
     
-    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
             // Put the code you want to measure the time of here.
         }
     }
-    
 }

@@ -2,13 +2,13 @@ import Foundation
 import SwiftUI
 
 struct GridButton: View {
-    var currentTheme:Theme
+    var currentTheme: Theme
     var button: ButtonData
     var foregroundColor: Color
-    var active: Bool = false;
+    var active: Bool = false
     var isPressed: Bool = false
-    var image: String? = nil;
-    var colorExternalManage: Bool = false;
+    var image: String? = nil
+    var colorExternalManage: Bool = false
     var action: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
@@ -27,6 +27,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .animation(nil)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -36,19 +37,19 @@ struct GridButton: View {
     }
 
     private func pressEffectButtonImage() -> String {
-        if (self.image != nil) {
-            return self.image ?? button.image
+        if image != nil {
+            return image ?? button.image
         }
         
-        if (button.pressedImage == nil) {
+        if button.pressedImage == nil {
             return button.image
         }
         
-        if (self.active && !isPressed) {
+        if active && !isPressed {
             return button.image
         }
         
-        if (self.active && isPressed) {
+        if active && isPressed {
             return button.pressedImage ?? button.image
         }
         return button.image
@@ -91,22 +92,22 @@ struct PressEffectButtonStyle: ButtonStyle {
     // all other buttons(including .speak) should be triggered through configuration.isPressed
     
     private func determineBackgroundColor(configuration: Configuration) -> Color {
-        let isPressed =  self.active || configuration.isPressed
+        let isPressed = active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? self.theme.buttonDefaultColor : self.theme.buttonActiveColor
+            return isPressed ? theme.buttonDefaultColor : theme.buttonActiveColor
         } else {
-            return isPressed ? self.theme.buttonActiveColor : self.theme.buttonDefaultColor
+            return isPressed ? theme.buttonActiveColor : theme.buttonDefaultColor
         }
     }
 
     private func determineForegroundColor(configuration: Configuration) -> Color {
-        let isPressed =  self.active || configuration.isPressed
+        let isPressed = active || configuration.isPressed
         
         if invertColors {
-            return isPressed ? self.theme.buttonActiveColor : self.theme.fontActiveColor
+            return isPressed ? theme.buttonActiveColor : theme.fontActiveColor
         } else {
-            return isPressed ? self.theme.fontActiveColor : self.theme.buttonActiveColor
+            return isPressed ? theme.fontActiveColor : theme.buttonActiveColor
         }
     }
 }

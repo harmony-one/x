@@ -1,3 +1,9 @@
+
+**2023-11-08 Wed:**
+Meeting with Speech group at BUT. Discussed various speach to text topics. Studied some speach to text related papers and text to speech presentation from BUT. Tested Vocie AI app. (Worked for 4 hours)
+
+---
+
 **2023-11-02 Thu:**
 Continue in IOS app development and setup of virtualized OS X. Studying related tutorials. 
 

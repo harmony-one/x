@@ -1,14 +1,6 @@
-//
-//  sunUITestsLaunchTests.swift
-//  sunUITests
-//
-//  Created by Sun Hyuk Ahn on 10/23/23.
-//
-
 import XCTest
 
 final class sunUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
