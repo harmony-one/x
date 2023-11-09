@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import StoreKit
 
 
 struct ActionsView: View {
@@ -231,14 +232,27 @@ struct ActionsView: View {
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
-//                    tapCount += 1
-//                    
-//                    if tapCount % 7 == 0 {
-//                        showShareSheet = true
-//                    }
                     await handleOtherActions(actionType: button.action)
                 }
-            }
+            }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                requestReview()
+            })
+            
+//            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) { }
+//            .highPriorityGesture(
+//                TapGesture()
+//                    .onEnded { _ in
+//                        Task {
+//                            await handleOtherActions(actionType: button.action)
+//                        }
+//                    }
+//            )
+//            .simultaneousGesture(
+//                LongPressGesture(minimumDuration: 2, maximumDistance: max(buttonFrame.width, buttonFrame.height))
+//                    .onEnded { _ in
+//                        requestReview()
+//                    }
+//            )
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
@@ -262,6 +276,14 @@ struct ActionsView: View {
             UIApplication.shared.open(url)
         }
     }
+    
+    func requestReview() {
+            DispatchQueue.main.async {
+                if let windowScene = UIApplication.shared.windows.first?.windowScene {
+                    SKStoreReviewController.requestReview(in: windowScene)
+                }
+            }
+        }
     
     func handleOtherActions(actionType: ActionType) async {
 //        if(actionType == .skip) {
