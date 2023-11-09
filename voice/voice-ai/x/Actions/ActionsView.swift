@@ -175,7 +175,16 @@ struct ActionsView: View {
                         }
                     }
                 }
-
+                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    DispatchQueue.main.async {
+                        let url = URL(string: "https://x.country/app")
+                        if UIApplication.shared.canOpenURL(url!) {
+                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                        } else {
+                            print("Cannot open URL")
+                        }
+                    }
+                })
             } else {
                 // Press & Hold
 
@@ -199,18 +208,17 @@ struct ActionsView: View {
                     await handleOtherActions(actionType: button.action)
                 }
             }
-            .background(GeometryReader { geometry in
-                Color.clear.onAppear {
-                    // Capture the button's frame size to use as the maximum distance for the long press gesture
-                    buttonFrame = geometry.frame(in: .local)
-                }
-            })
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-
                 DispatchQueue.main.async {
-                    openSettingsApp()
+                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp")
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                    } else {
+                        print("Cannot open URL")
+                    }
                 }
             })
+
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
@@ -218,13 +226,25 @@ struct ActionsView: View {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
-            }.simultaneousGesture(
-                LongPressGesture(minimumDuration: 5).onEnded { _ in
-                    self.timerManager.resetTimer()
-                    speechRecognition.isTimerDidFired = false
-                    print("Timer reset after long press.")
+            }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    // Capture the button's frame size to use as the maximum distance for the long press gesture
+                    buttonFrame = geometry.frame(in: .local)
                 }
-            )
+            })
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                DispatchQueue.main.async {
+                    openSettingsApp()
+                }
+            })
+//            .simultaneousGesture(
+//                LongPressGesture(minimumDuration: 5).onEnded { _ in
+//                    self.timerManager.resetTimer()
+//                    speechRecognition.isTimerDidFired = false
+//                    print("Timer reset after long press.")
+//                }
+//            )
             
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
@@ -234,22 +254,6 @@ struct ActionsView: View {
             }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 requestReview()
             })
-            
-//            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) { }
-//            .highPriorityGesture(
-//                TapGesture()
-//                    .onEnded { _ in
-//                        Task {
-//                            await handleOtherActions(actionType: button.action)
-//                        }
-//                    }
-//            )
-//            .simultaneousGesture(
-//                LongPressGesture(minimumDuration: 2, maximumDistance: max(buttonFrame.width, buttonFrame.height))
-//                    .onEnded { _ in
-//                        requestReview()
-//                    }
-//            )
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
