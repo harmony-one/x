@@ -6,8 +6,8 @@ class ReviewRequester {
     static let shared = ReviewRequester()
     
     // Configuration
-    private var minimumSignificantEvents: Int = 0
-    private var daysBetweenPrompts: Int = 0
+    private var minimumSignificantEvents: Int?
+    private var daysBetweenPrompts: Int?
     
     // User default keys
     private let reviewRequestCountKey = "reviewRequestCount"
@@ -55,14 +55,14 @@ class ReviewRequester {
     
     private func shouldPromptForReview() -> Bool {
         // Check if significant events have occurred enough times
-        guard significantEventsCount >= minimumSignificantEvents else { return false }
+        guard significantEventsCount >= minimumSignificantEvents ?? 0 else { return false }
         
         // Check if the review prompt has been shown less than 3 times in the past year
         guard reviewRequestCount < 3 else { return false }
         
         // Check if the specified number of days have passed since the last review request or if it's the first time
         if let lastDate = lastReviewRequestDate {
-            return Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day! >= daysBetweenPrompts
+            return Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day! >= daysBetweenPrompts ?? 0
         }
         
         return true  // No review has been requested before
