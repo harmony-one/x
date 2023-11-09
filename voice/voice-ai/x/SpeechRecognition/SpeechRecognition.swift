@@ -82,6 +82,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private var isPlayingWorkItem: DispatchWorkItem?
+    
+    internal var isTimerDidFired = false
         
     // Current message being processed
         
@@ -92,6 +94,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         textToSpeechConverter.convertTextToSpeech(text: greetingText)
         isCapturing = true
 //        startSpeechRecognition()
+        setupTimer()
+    }
+    
+    private func setupTimer() {
+        TimerManager.shared.startTimer()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTimerDidFire),
+            name: .timerDidFireNotification,
+            object: nil
+        )
     }
     
     private func checkPermissionsAndSetupAudio() {
@@ -570,6 +583,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func speak() {
+      
         DispatchQueue.global(qos: .userInitiated).async {
             print("[SpeechRecognition][speak]")
 
@@ -654,6 +668,18 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             // Pause the capturing since we're about to replay the message.
             self.pauseCapturing()
+        }
+    }
+    
+    @objc func handleTimerDidFire() {
+        // Handle the timer firing
+        print("The timer in TimerManager has fired.")
+        
+        reset(feedback: false)
+        self.isTimerDidFired = true
+        
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait x")
         }
     }
 }

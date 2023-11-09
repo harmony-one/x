@@ -59,6 +59,9 @@ class ActionHandler: ObservableObject {
             self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
         case .surprise:
+            if  SpeechRecognition.shared.isTimerDidFired {
+                return
+            }
             speechRecognition.surprise()
         case .play:
             if speechRecognition.isPaused() {
@@ -92,6 +95,10 @@ class ActionHandler: ObservableObject {
     }
     
     func startRecording() {
+        
+        if  SpeechRecognition.shared.isTimerDidFired {
+            return
+        }
         guard lastRecordingStateChangeTime + 500 < Int64(NSDate().timeIntervalSince1970 * 1000) else {
             return
         }

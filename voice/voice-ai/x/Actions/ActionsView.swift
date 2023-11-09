@@ -6,6 +6,8 @@ import Combine
 
 struct ActionsView: View {
     let config = AppConfig()
+    
+    @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme:Theme = Theme()
 
@@ -219,7 +221,13 @@ struct ActionsView: View {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
-            }
+            }  .simultaneousGesture(
+                LongPressGesture(minimumDuration: 5).onEnded { _ in
+                    self.timerManager.resetTimer()
+                    speechRecognition.isTimerDidFired = false
+                    print("Timer reset after long press.")
+                }
+            )
             
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {

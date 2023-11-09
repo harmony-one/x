@@ -15,8 +15,8 @@ class AppConfig {
     private var apiKey: String?
     private var deepgramKey: String?
     private var sentryDSN: String?
-    private var minimumSignificantEvents: Int = 0 // Default value
-    private var daysBetweenPrompts: Int = 0 // Default value
+    private var minimumSignificantEvents: Int?
+    private var daysBetweenPrompts: Int?
     
     private var themeName: String?
 
