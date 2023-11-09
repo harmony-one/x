@@ -393,6 +393,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             return
         }
         isCapturing = false
+        _isPaused = false
         print("[SpeechRecognition][pauseCapturing]")
         
         if cancel == true {
