@@ -679,7 +679,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         self.isTimerDidFired = true
         
         DispatchQueue.main.async {
-            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait x")
+            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait 10 minutes")
         }
     }
 }
