@@ -18,7 +18,8 @@ class TextToSpeechConverter {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         // Default language based on user settings
-        if let voice = AVSpeechSynthesisVoice(language: nil) {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        if let voice = AVSpeechSynthesisVoice(language: preferredLocale) {
             utterance.voice = voice
         } else {
             // Print a message if the specified voice is not available and use the system's default language
