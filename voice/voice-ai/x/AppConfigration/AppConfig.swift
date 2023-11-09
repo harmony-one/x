@@ -1,15 +1,7 @@
-//
-//  AppConfig.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 18/10/23.
-//
-
 import Foundation
 import Sentry
 
 class AppConfig {
-    
     // Shared singleton instance
     static let shared = AppConfig()
     private var apiKey: String?
@@ -21,7 +13,7 @@ class AppConfig {
     private var themeName: String?
 
     init() {
-        loadConfiguration()
+        self.loadConfiguration()
     }
     
     private func loadConfiguration() {
@@ -46,12 +38,14 @@ class AppConfig {
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],
-               let events = Int(eventsString) {
+               let events = Int(eventsString)
+            {
                 self.minimumSignificantEvents = events
             }
             
             if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"],
-               let days = Int(daysString) {
+               let days = Int(daysString)
+            {
                 self.daysBetweenPrompts = days
             }
             
@@ -81,7 +75,8 @@ class AppConfig {
     func getDaysBetweenPrompts() -> Int? {
         return self.daysBetweenPrompts
     }
+
     func getThemeName() -> String {
-        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name 
+        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name
     }
 }

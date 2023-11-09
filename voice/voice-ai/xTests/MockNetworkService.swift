@@ -1,10 +1,3 @@
-//
-//  MockNetworkService.swift
-//  Voice AITests
-//
-//  Created by Francisco Egloff on 1/11/23.
-//
-
 import Foundation
 
 class MockNetworkService: NetworkService {
@@ -13,7 +6,6 @@ class MockNetworkService: NetworkService {
         return MockURLSessionDataTask()
     }
 }
-
 
 class MockURLSessionDataTask: URLSessionDataTask {
     override func resume() {

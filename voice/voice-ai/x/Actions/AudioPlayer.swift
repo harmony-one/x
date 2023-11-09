@@ -1,10 +1,3 @@
-//
-//  AudioPlayer.swift
-//  Voice AI
-//
-//  Created by Nagesh Kumar Mishra on 23/10/23.
-//
-
 import AVFoundation
 import Foundation
 import Sentry
@@ -13,11 +6,9 @@ protocol AVAudioSessionProtocol {
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws
     func setMode(_ options: AVAudioSession.Mode) throws
-
 }
 
 class AVAudioSessionWrapper: AVAudioSessionProtocol {
-    
     private let avAudioSession: AVAudioSession
 
     init() {
@@ -31,26 +22,26 @@ class AVAudioSessionWrapper: AVAudioSessionProtocol {
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws {
         try avAudioSession.setActive(active, options: options)
     }
+
     func setMode(_ mode: AVAudioSession.Mode) throws {
         try avAudioSession.setMode(mode)
     }
-    
 }
 
 class AudioPlayer: NSObject {
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?
-    
+
     func playSound(_ isLoop: Bool = true, _ resource: String = "beep") {
-        self.playSoundWithSettings(isLoop, resource)
+        playSoundWithSettings(isLoop, resource)
     }
 
     func playSoundWithSettings(_ loop: Bool = true, _ resource: String = "beep") {
         guard let soundURL = Bundle.main.url(forResource: resource, withExtension: "mp3") else {
             print("Sound file not found")
-            
+
             SentrySDK.capture(message: "Sound file not found")
-            
+
             return
         }
         do {

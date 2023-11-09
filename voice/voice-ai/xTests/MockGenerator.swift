@@ -1,12 +1,5 @@
-//
-//  MockGenerator.swift
-//  Voice AI
-//
-//  Created by Rikako Hatoya on 11/5/23.
-//
-
-import UIKit
 import CoreHaptics
+import UIKit
 
 class MockGenerator: UIImpactFeedbackGenerator {
     var impactOccurredCalled = false
