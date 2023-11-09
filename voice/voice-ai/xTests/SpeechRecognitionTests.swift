@@ -1,6 +1,16 @@
 import XCTest
 @testable import Voice_AI
 
+
+//struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
+//
+//func testReset() {
+//    let test = SpeechRecognitionProtocolTest()
+//    XCTAssertEqual(true,test.reset())
+//}
+
+
+
 class SpeechRecognitionTests: XCTestCase {
 
     // Test the `isPaused()` function
@@ -9,7 +19,7 @@ class SpeechRecognitionTests: XCTestCase {
         let mockSpeechRecognition = MockSpeechRecognition()
 
         // Call the `isPaused()` function
-        mockSpeechRecognition.isPaused()
+        let paused = mockSpeechRecognition.isPaused()
 
         // Assert that the `isPausedCalled` property is set to `true`
         XCTAssertTrue(mockSpeechRecognition.isPausedCalled)
@@ -88,7 +98,7 @@ class SpeechRecognitionTests: XCTestCase {
          XCTAssertFalse(isPlaying, "isPlaying should initially be false")
          
          // You can modify _isPlaying to change the value
-         speechRecognition._isPlaying = true
+        mockSpeechRecognition.setIsPlaying(true)
          
          // After changing the value, isPlaying should be true
          XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")

@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 
-
 struct ActionsView: View {
     let config = AppConfig()
 
