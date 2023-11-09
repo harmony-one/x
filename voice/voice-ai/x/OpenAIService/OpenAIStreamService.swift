@@ -52,8 +52,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             Self.queryTimes.append(now)
         } else {
             // rate limited
-            self.completion(nil, NSError(domain: "Rate limited", code: -3))
             Self.rateLimitCounterLock.signal()
+            self.completion(nil, NSError(domain: "Rate limited", code: -3))
             return
         }
         Self.rateLimitCounterLock.signal()
