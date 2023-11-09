@@ -1,4 +1,4 @@
-2023-11-09 Thu: I have added [a window to display a link to the application](https://github.com/harmony-one/x/pull/142) (share feature) after the user taps "new session" button for the seventh time, also [added a throttler](https://github.com/harmony-one/x/pull/144) to the reset session function (in order not to interrupt the greeting)
+2023-11-09 Thu: I have added [a window to display a link to the application](https://github.com/harmony-one/x/pull/142) (share feature) after the user taps "new session" button for the seventh time, also [added a throttler](https://github.com/harmony-one/x/pull/144) to the reset session function (in order not to interrupt the greeting). Clarified the code regarding tap-to-speak and [fixed the play-pause button state](https://github.com/harmony-one/x/pull/149)
 
 2023-11-08 Wed: Working on "[Tap to Speak & Tap to Send](https://github.com/harmony-one/x/pull/137)" feature, made the button interruptible if other buttons are pressed, [Prompt an app store feedback](https://github.com/harmony-one/x/pull/140) window after the user hits a new session seven times.   
 
