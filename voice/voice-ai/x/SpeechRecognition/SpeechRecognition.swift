@@ -30,7 +30,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
-    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let speechRecognizer: SFSpeechRecognizer? = {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        let locale = Locale(identifier: preferredLocale)
+                return SFSpeechRecognizer(locale: locale)
+    } ()
     private var messageInRecongnition = ""
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -155,7 +159,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 self.handleRecognitionError(error)
                 return
             }
-            
             let message = result.bestTranscription.formattedString
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
