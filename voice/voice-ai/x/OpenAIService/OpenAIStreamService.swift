@@ -11,15 +11,19 @@ protocol NetworkService {
 
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
-    private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = AppConfig.shared.getAPIKey()
     private var temperature: Double
     private let networkService: NetworkService?
     
+    // URLSession should be lazy to ensure delegate can be set after super.init
+        lazy private var session: URLSession = {
+            let configuration = URLSessionConfiguration.default
+            return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        }()
+    
     init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = nil
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
@@ -27,7 +31,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     
     init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
@@ -81,13 +84,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.task = networkService.dataTask(with: request) { data, response, error in
                 // Handle the data task completion
             }
-            self.task!.delegate = self
             self.task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
             // You can use URLSession.shared or other default behavior here.
             self.task = self.session.dataTask(with: request)
-            self.task!.delegate = self
             self.task!.resume()
         }
         
