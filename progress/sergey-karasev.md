@@ -1,4 +1,6 @@
-2023-11-08 Wed: Working on "[Tap to Speak & Tap to Send](https://github.com/harmony-one/x/pull/137)" feature
+2023-11-09 Thu: I have added [a window to display a link to the application](https://github.com/harmony-one/x/pull/142) (share feature) after the user taps "new session" button for the seventh time
+
+2023-11-08 Wed: Working on "[Tap to Speak & Tap to Send](https://github.com/harmony-one/x/pull/137)" feature, made the button interruptible if other buttons are pressed, [Prompt an app store feedback](https://github.com/harmony-one/x/pull/140) window after the user hits a new session seven times.   
 
 2023-11-07 Tue: [Fix the play/pause button](https://github.com/harmony-one/x/pull/130) state and [working on say more/random fact buttons](https://github.com/harmony-one/x/pull/131) (doesn't work when tapped for the first time) 
 
