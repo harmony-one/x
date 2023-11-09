@@ -1,10 +1,3 @@
-//
-//  OpenAIService.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 18/10/23.
-//
-
 import Foundation
 import Sentry
 
@@ -13,13 +6,12 @@ struct OpenAIService {
 //    private var conversation: [Message]
     // Function to send input text to OpenAI for processing
     mutating func sendToOpenAI(conversation: [Message], completion: @escaping (String?, Error?) -> Void) {
-        
-        guard let openAI_APIKey = AppConfig.shared.getAPIKey() else  {
+        guard let openAI_APIKey = AppConfig.shared.getAPIKey() else {
             completion(nil, nil)
             SentrySDK.capture(message: "Open AI Api key is null")
             return
         }
-        
+
         // Define headers for the HTTP request
         let headers = [
             "Content-Type": "application/json",
@@ -35,9 +27,9 @@ struct OpenAIService {
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid URL", code: -1, userInfo: nil)
-            
+
             SentrySDK.capture(message: "Invalid Open AI url")
-            
+
             completion(nil, error)
             return
         }
@@ -52,9 +44,9 @@ struct OpenAIService {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
             completion(nil, error)
-            
+
             SentrySDK.capture(message: "Error OpenAI JSONSerialization: \(error.localizedDescription)")
-            
+
             return
         }
 
@@ -63,7 +55,7 @@ struct OpenAIService {
 
         // Initiate the data task for the request
         let session = URLSession.shared
-        self.task = session.dataTask(with: request) { data, response, error in
+        task = session.dataTask(with: request) { data, _, error in
             // Check for networking errors
             if let error = error {
                 completion(nil, error)
@@ -98,12 +90,12 @@ struct OpenAIService {
         }
         task?.resume()
     }
-    
+
     // Method to cancel the ongoing API call
     func cancelOpenAICall() {
         task?.cancel()
     }
-    
+
     func setConversationContext() -> [Message] {
         let contextRules = """
             Do not use the following:
@@ -118,7 +110,7 @@ struct OpenAIService {
             9. Closing remarks: "Take care," "Have a great day," "Looking forward to speaking again soon"
         """
         var contextMessage: [Message] = []
-        contextMessage.append(Message(role: "system", content:"We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand. Your name is Sam."))
+        contextMessage.append(Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand. Your name is Sam."))
         contextMessage.append(Message(role: "system", content: contextRules))
         return contextMessage
     }

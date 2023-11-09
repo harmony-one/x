@@ -1,6 +1,6 @@
 import Foundation
-import SwiftyJSON
 import Sentry
+import SwiftyJSON
 
 protocol NetworkService {
     func dataTask(
@@ -11,30 +11,53 @@ protocol NetworkService {
 
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
-    private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = AppConfig.shared.getAPIKey()
     private var temperature: Double
     private let networkService: NetworkService?
-    
+
+    // Limit 10 queries per minute
+    static var queryTimes: [Int64] = []
+    static var rateLimitCounterLock = DispatchSemaphore(value: 1)
+    static let QueryLimitPerMinute: Int = 10
+
+    // URLSession should be lazy to ensure delegate can be set after super.init
+    private lazy var session: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+    }()
+
     init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = nil
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
     }
-    
+
     init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
     }
-    
+
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
+        Self.rateLimitCounterLock.wait()
+        let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+        if Self.queryTimes.count < Self.QueryLimitPerMinute {
+            Self.queryTimes.append(now)
+        } else if Self.queryTimes.first! < now - 60000 {
+            Self.queryTimes.removeAll(where: { $0 < now - 60000 })
+            Self.queryTimes.append(now)
+        } else {
+            // rate limited
+            Self.rateLimitCounterLock.signal()
+            self.completion(nil, NSError(domain: "Rate limited", code: -3))
+            return
+        }
+        Self.rateLimitCounterLock.signal()
+        
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "Open AI Api key is null")
@@ -54,7 +77,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "stream": true
         ]
 
-       print("[OpenAI] sent \(body)")
+        print("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
@@ -78,20 +101,17 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
-            self.task = networkService.dataTask(with: request) { data, response, error in
+            self.task = networkService.dataTask(with: request) { _, _, _ in
                 // Handle the data task completion
             }
-            self.task!.delegate = self
             self.task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
             // You can use URLSession.shared or other default behavior here.
             self.task = self.session.dataTask(with: request)
-            self.task!.delegate = self
             self.task!.resume()
         }
-        
-        
+
 //        // Initiate the data task for the request
 //        self.task = self.session.dataTask(with: request)
 //        self.task!.delegate = self
@@ -107,7 +127,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.completion(nil, error)
             return
         }
-       print("OpenAI: raw response: ", str)
+        print("OpenAI: raw response: ", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {
@@ -132,8 +152,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
                 NSLog("OpenAI: error")
             }
         }
-        
-        
+
         if let error = error as NSError? {
             self.completion(nil, error)
             NSLog("OpenAI: received error: %@ / %d", error.domain, error.code)
@@ -145,31 +164,31 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     func cancelOpenAICall() {
         self.task?.cancel()
     }
-    
+
     static func setConversationContext() -> [Message] {
         let contextMessage: [Message] =
             [Message(role: "system", content: """
-                     Your name is Voice AI, within the 'Voice AI' app that allows users to talk face-to-face with GPT-4. You are developed by the 'x dot country team'. NEVER apologize. NEVER end with questions. NEVER mention your model cutoff. NEVER mention that you are an AI. Be concise. Adhere to these guidelines strictly.
+            Your name is Voice AI, within the 'Voice AI' app that allows users to talk face-to-face with GPT-4. You are developed by the 'x dot country team'. NEVER apologize. NEVER end with questions. NEVER mention your model cutoff. NEVER mention that you are an AI. Be concise. Adhere to these guidelines strictly.
 
-                     6 buttons:
+            6 buttons:
 
-                     New Session: User starts a fresh new session with you.
+            New Session: User starts a fresh new session with you.
 
-                     Tap To Speak: User taps to speak to the app and then taps again to send the audio to you.
+            Tap To Speak: User taps to speak to the app and then taps again to send the audio to you.
 
-                     Surprise Me: Provides a random fact.
+            Surprise Me: Provides a random fact.
 
-                     Press & Hold: User press and hold while they are talking to send their input to you.
+            Press & Hold: User press and hold while they are talking to send their input to you.
 
-                     Repeat Last: Replays last message you sent.
+            Repeat Last: Replays last message you sent.
 
-                     Pause / Play: Pause and play app audio output.
+            Pause / Play: Pause and play app audio output.
 
-                     Whether the user would like a tutor for high-school exams, a professor for any Wikipedia topic, or a language buddy, your goal is to satisfy the needs of the user as they engage with a super-intelligence, you.
-                     """)]
+            Whether the user would like a tutor for high-school exams, a professor for any Wikipedia topic, or a language buddy, your goal is to satisfy the needs of the user as they engage with a super-intelligence, you.
+            """)]
         return contextMessage
     }
-  
+
     func setTemperature(_ t: Double) {
         if t >= 0 && t <= 1 {
             self.temperature = t
