@@ -1,4 +1,4 @@
-2023-11-09 Thu (3h+): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Research and analysis on iOS market shares by versions, and minimally required versions for key features
+2023-11-09 Thu (3h+): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Test end-to-end; Research and analysis on iOS market shares by versions, and minimally required versions for key features; Code refactor and applying universal formatting
 
 2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings;
 
