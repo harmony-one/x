@@ -6,14 +6,14 @@ import Combine
 
 struct ActionsView: View {
     let config = AppConfig()
-    
+
     @State var currentTheme:Theme = Theme()
-    
+
     func changeTheme(name: String){
         let theme = AppThemeSettings.fromString(name)
         self.currentTheme.setTheme(theme: theme)
     }
-    
+
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -30,7 +30,7 @@ struct ActionsView: View {
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @State private var skipPressedTimer: Timer? = nil
-    
+
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
     
@@ -48,12 +48,13 @@ struct ActionsView: View {
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
-        
+
         let themePrefix = self.currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonRandom = ButtonData(label: "Surprise Me!", image: "\(themePrefix) - random fact", action: .randomFact)
+//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to Send", image: "\(themePrefix) - press & hold", action: .speak)
+        let buttonRandom = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .randomFact)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
@@ -62,7 +63,8 @@ struct ActionsView: View {
         buttonsPortrait = [
             buttonReset,
 //            buttonSayMore,
-            buttonUserGuide,
+//            buttonUserGuide,gi
+            buttonTapSpeak,
             buttonRandom,
             buttonSpeak,
             buttonRepeat,
@@ -83,7 +85,8 @@ struct ActionsView: View {
         buttonsLandscape = [
             buttonReset,
 //            buttonSayMore,
-            buttonUserGuide,
+//            buttonUserGuide,
+            buttonTapSpeak,
             buttonRepeat,
             buttonRandom,
             buttonSpeak,
@@ -161,19 +164,35 @@ struct ActionsView: View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
 
         if button.action == .speak {
-            let isPressed: Bool = true
-            
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        self.isSpeakButtonPressed = true;
-                        actionHandler.handle(actionType: ActionType.speak)
+            if button.pressedLabel != nil {
+                // Press to Speak & Press to Send
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.tapSpeak, isPressed: actionHandler.tapSpeak) {
+                    Task {
+                        if !actionHandler.tapSpeak {
+                            actionHandler.handle(actionType: ActionType.tapSpeak)
+                        } else {
+                            actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                        }
                     }
-                    .onEnded { _ in
-                        self.isSpeakButtonPressed = false;
-                        actionHandler.handle(actionType: ActionType.stopSpeak)
-                    }
-            )
+                }
+
+            } else {
+                // Press & Hold
+
+                let isPressed: Bool = true
+
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            self.isSpeakButtonPressed = true;
+                            actionHandler.handle(actionType: ActionType.speak)
+                        }
+                        .onEnded { _ in
+                            self.isSpeakButtonPressed = false;
+                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                        }
+                )
+            }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                         Task {
