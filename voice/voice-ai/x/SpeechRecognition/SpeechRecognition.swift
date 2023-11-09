@@ -641,12 +641,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func repeateActiveSession(startPoint: Int? = 0) {
         if(self.isRepeatingCurrentSession) {
             let text = self.completeResponse.joined()
+            var activeTextToRepeat = ""
             
-            let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
-            let activeTextToRepeat = String(text[index...])
-            
-            if(activeTextToRepeat.count > 0) {
-                self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+            if(text.count >= (startPoint ?? 0)) {
+                let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
+                activeTextToRepeat = String(text[index...])
+                
+                if(activeTextToRepeat.count > 0) {
+                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+                }
             }
             
             if(self.isRequestingOpenAI && self.isRepeatingCurrentSession) {
