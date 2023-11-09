@@ -49,16 +49,16 @@ class SpeechRecognitionTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.speakCalled)
     }
 
-    // Test the `randomFacts()` function
-    func testRandomFacts() {
+    // Test the `surprise()` function
+    func testSurprise() {
         // Create a mock SpeechRecognition object
         let mockSpeechRecognition = MockSpeechRecognition()
 
-        // Call the `randomFacts()` function
-        mockSpeechRecognition.randomFacts()
+        // Call the `surprise()` function
+        mockSpeechRecognition.surprise()
 
-        // Assert that the `randomFactsCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled)
+        // Assert that the `surpriseCalled` property is set to `true`
+        XCTAssertTrue(mockSpeechRecognition.surpriseCalled)
     }
 
     // Test the `continueSpeech()` function

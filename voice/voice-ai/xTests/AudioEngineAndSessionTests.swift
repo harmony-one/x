@@ -14,10 +14,6 @@ class MockAudioSession: AVAudioSessionProtocol {
     
     }
     
-    
-    func setMode(_ options: AVAudioSession.Mode) throws {
-    }
-    
     var shouldFailSetup = false
     
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws {

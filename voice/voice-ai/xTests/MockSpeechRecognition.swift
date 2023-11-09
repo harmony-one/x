@@ -21,7 +21,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
     var speakCalled: Bool = false
-    var randomFactsCalled: Bool = false
+    var surpriseCalled: Bool = false
     var continueSpeechCalled: Bool = false
     var pauseCalled: Bool = false
     var repeateCalled: Bool = false
@@ -58,8 +58,8 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         speakCalled = true
     }
 
-    func randomFacts() {
-        randomFactsCalled = true
+    func surprise() {
+        surpriseCalled = true
     }
 
     func continueSpeech() {
