@@ -16,6 +16,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var temperature: Double
     private let networkService: NetworkService?
 
+    // Limit 10 queries per minute
+    static var queryTimes: [Int64] = []
+    static var rateLimitCounterLock = DispatchSemaphore(value: 1)
+    static let QueryLimitPerMinute: Int = 10
+
     // URLSession should be lazy to ensure delegate can be set after super.init
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -38,6 +43,21 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
+        Self.rateLimitCounterLock.wait()
+        let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+        if Self.queryTimes.count < Self.QueryLimitPerMinute {
+            Self.queryTimes.append(now)
+        } else if Self.queryTimes.first! < now - 60000 {
+            Self.queryTimes.removeAll(where: { $0 < now - 60000 })
+            Self.queryTimes.append(now)
+        } else {
+            // rate limited
+            self.completion(nil, NSError(domain: "Rate limited", code: -3))
+            Self.rateLimitCounterLock.signal()
+            return
+        }
+        Self.rateLimitCounterLock.signal()
+        
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "Open AI Api key is null")

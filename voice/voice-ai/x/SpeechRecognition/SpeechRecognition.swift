@@ -366,6 +366,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let nsError = error as NSError
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
+            } else if nsError.code == -3 {
+                print("[SpeechRecognition] OpenAI Rate Limited")
+                buf.removeAll()
+                registerTTS()
+                textToSpeechConverter.convertTextToSpeech(text: "I am trying to catch up. Please wait. I can only answer 10 questions per minute at this time")
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
                 let attempt = maxRetry - retryCount + 1
                 let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
