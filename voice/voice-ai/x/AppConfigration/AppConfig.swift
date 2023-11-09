@@ -34,7 +34,7 @@ class AppConfig {
             self.sentryDSN = dictionary["SENTRY_DSN"]
 
             self.themeName = dictionary["THEME_NAME"]
-            // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
+            self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],

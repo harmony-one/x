@@ -246,7 +246,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
-        
+        audioEngine.mainMixerNode
         do {
             audioEngine.prepare()
             try audioEngine.start()
@@ -471,7 +471,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
-        
+        audioEngine.mainMixerNode
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)

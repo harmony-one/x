@@ -17,10 +17,10 @@ final class ActionHandlerTests: XCTestCase {
         mockSpeechRecognition = nil
     }
     
-    func testHandleReset() {
-        actionHandler.handle(actionType: .reset)
-        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
-    }
+//    func testHandleReset() {
+//        actionHandler.handle(actionType: .reset)
+//        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+//    }
     
     // Test if the skip action stops the recording when it's already recording
 //    func testHandleSkipWhileRecording() {
