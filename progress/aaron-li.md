@@ -1,4 +1,4 @@
-2023-11-08 Wed (1.5h+): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist.
+2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings;
 
 2023-11-07 Tue (2.5h): Make initial production checklist; Research on app analytic systems and integration complexity; End-to-end testing of the app; Fix SSL issue and document steps for future incident resolution; Fix Tweet embedding issues, CSS issues for notion embedding, and research on tweet libraries.
 
