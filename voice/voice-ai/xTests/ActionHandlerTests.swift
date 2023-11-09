@@ -38,6 +38,11 @@ final class ActionHandlerTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.surpriseCalled, "surprise() should be called after .surprise action")
     }
     
+    func testReset() {
+        actionHandler.handle(actionType: .reset)
+        mockSpeechRecognition.reset()
+        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+    }
     // Test if repeatLast action calls the repeate() method in our mock
     func testHandleRepeatLast() {
         actionHandler.handle(actionType: .repeatLast)
