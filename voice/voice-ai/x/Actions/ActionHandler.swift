@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Combine
 
 enum ActionType {
     case reset
@@ -38,11 +39,26 @@ class ActionHandler: ObservableObject {
     @Published var tapSpeak = false
     private var lastRecordingStateChangeTime: Int64 = 0
     
+    var resetThrottler = PassthroughSubject<Void, Never>()
+    var resetCancellable: AnyCancellable?
+
     let speechRecognition: SpeechRecognitionProtocol
     var onSynthesizingChanged: ((Bool) -> Void)?
     
     init(speechRecognition: SpeechRecognitionProtocol = SpeechRecognition.shared) {
         self.speechRecognition = speechRecognition
+        resetCancellable = resetThrottler
+            .throttle(for: .seconds(1), scheduler: DispatchQueue.main, latest: true)
+            .sink {
+                self.reset()
+            }
+    }
+    
+    func reset () {
+        self.isRecording = false
+        self.isSynthesizing = false
+        self.lastRecordingStateChangeTime = 0
+        speechRecognition.reset()
     }
     
     func handle(actionType: ActionType) {
@@ -54,10 +70,7 @@ class ActionHandler: ObservableObject {
         
         switch actionType {
         case .reset:
-            self.isRecording = false
-            self.isSynthesizing = false
-            self.lastRecordingStateChangeTime = 0
-            speechRecognition.reset()
+            resetThrottler.send()
         case .surprise:
             speechRecognition.surprise()
         case .play:
