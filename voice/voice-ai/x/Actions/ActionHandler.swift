@@ -4,7 +4,7 @@ import UIKit
 enum ActionType {
     case reset
 //    case sayMore
-    case randomFact
+    case surprise
     case play
     case repeatLast
     case speak
@@ -58,8 +58,8 @@ class ActionHandler: ObservableObject {
             self.isSynthesizing = false
             self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
-        case .randomFact:
-            speechRecognition.randomFacts()
+        case .surprise:
+            speechRecognition.surprise()
         case .play:
             if speechRecognition.isPaused() {
                 speechRecognition.continueSpeech()

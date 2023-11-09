@@ -5,7 +5,7 @@ import Speech
 protocol SpeechRecognitionProtocol {
     func reset()
     func reset(feedback: Bool?)
-    func randomFacts()
+    func surprise()
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
@@ -493,9 +493,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
         
-    func randomFacts() {
+    func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][randomFacts]")
+            print("[SpeechRecognition][surprise]")
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
