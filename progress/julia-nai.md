@@ -1,3 +1,8 @@
+2023-11-07 Wed:
+[Created](https://github.com/harmony-one/x/commit/9f894a4c88da0b87dd56cef53bebd61ebdf91a1b) app to test for optimal synthesis chunking strategies and replicate odd synthesis behavior.
+[Implemented](https://github.com/harmony-one/x/commit/d6ec4b9b140decad26b39d5b234a8b6a827e8c30) Theo P’s custom instruction set as default. Now, the user can ask questions about the app and receive guidance on how to use the app. The app says it is created by x.country team and gives some input on what can be done with the app.
+[Reviewed](https://github.com/harmony-one/x/pull/143) Rikako’s language implementation. Tested Mandarin, English, Korean, and Spanish with great success.The user can speak in the language that their iPhone is set to and the app will respond in that language. For reasons seemingly related to the way dialects are handled by Apple, Cantonese does not seem to work. The random fact button will still read out in English. 
+
 2023-11-07 Tue: I [started](https://github.com/harmony-one/x/tree/tap-to-send) work on the framework for the Tap to Speak/Tap to Send button. I reviewed Sun's [PR](https://github.com/harmony-one/x/pull/137) and began researching how to implement the missing component "Make the button interruptible." \
 Right now, there seems to be some unintended behavior with interruptions. I am reviewing how the stopRecording() function is implemented. To have proper interpretability, I believe I will have to change the way stopRecording is implemented to avoid sending an incomplete query to GPT. 
 
