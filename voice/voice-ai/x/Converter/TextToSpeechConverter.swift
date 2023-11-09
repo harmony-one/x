@@ -14,12 +14,11 @@ class TextToSpeechConverter {
     let synthesizer = AVSpeechSynthesizer()
     
     // Function to convert text to speech with customizable pitch and volume parameters
-    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String = "en-US") {
+    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0) {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
-        
-        // Choose a default language or make it customizable based on user settings
-        if let voice = AVSpeechSynthesisVoice(language: language) {
+        // Default language based on user settings
+        if let voice = AVSpeechSynthesisVoice(language: nil) {
             utterance.voice = voice
         } else {
             // Print a message if the specified voice is not available and use the system's default language
