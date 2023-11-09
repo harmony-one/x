@@ -13,6 +13,15 @@ struct xApp: App {
             minimumSignificantEvents: appConfig.getMinimumSignificantEvents() ?? 5,
             daysBetweenPrompts: appConfig.getDaysBetweenPrompts() ?? 120
          )
+        
+        guard let sentryDSN = appConfig.getSentryDSN() else  {
+            return
+        }
+        
+        SentrySDK.start { options in
+            options.dsn = sentryDSN
+            options.enableUIViewControllerTracing = true
+        }
      }
 
     var body: some Scene {
@@ -24,17 +33,4 @@ struct xApp: App {
             }
         }
     }
-    
-    init() {
-        let config = AppConfig()
-        
-        guard let sentryDSN = config.getSentryDSN() else  {
-            return
-        }
-        
-        SentrySDK.start { options in
-            options.dsn = sentryDSN
-            options.enableUIViewControllerTracing = true
-        }
-     }
 }
