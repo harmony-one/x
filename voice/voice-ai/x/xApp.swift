@@ -1,12 +1,7 @@
-//
-//  xApp.swift
-//  x
-//
-//  Created by Aaron Li on 10/13/23.
-//
-
 import SwiftUI
 import SwiftData
+import Sentry
+import SentrySwiftUI
 
 @main
 struct xApp: App {
@@ -18,13 +13,24 @@ struct xApp: App {
             minimumSignificantEvents: appConfig.getMinimumSignificantEvents() ?? 5,
             daysBetweenPrompts: appConfig.getDaysBetweenPrompts() ?? 120
          )
+        
+        guard let sentryDSN = appConfig.getSentryDSN() else  {
+            return
+        }
+        
+        SentrySDK.start { options in
+            options.dsn = sentryDSN
+            options.enableUIViewControllerTracing = true
+        }
      }
 
     var body: some Scene {
         WindowGroup {
-           // Currently we are displaying only buttons
-          //  DashboardView()
-            ActionsView().environmentObject(store).background(Color(hex: 0x1E1E1E).animation(.none))
+            // Currently we are displaying only buttons
+            //  DashboardView()
+            SentryTracedView("ActionsView"){
+                ActionsView().environmentObject(store).background(Color(hex: 0x1E1E1E).animation(.none))
+            }
         }
     }
 }

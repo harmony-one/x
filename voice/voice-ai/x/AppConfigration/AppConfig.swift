@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Sentry
 
 class AppConfig {
     
@@ -15,6 +16,7 @@ class AppConfig {
     private var deepgramKey: String?
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
+    private var sentryDSN: String?
     
     private var themeName: String?
 
@@ -37,6 +39,8 @@ class AppConfig {
             
             self.apiKey = dictionary["API_KEY"]
             
+            self.sentryDSN = dictionary["SENTRY_DSN"]
+
             self.themeName = dictionary["THEME_NAME"]
             // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             
@@ -52,12 +56,17 @@ class AppConfig {
             }
             
         } catch {
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
             fatalError(error.localizedDescription)
         }
     }
     
     func getAPIKey() -> String? {
         return self.apiKey
+    }
+    
+    func getSentryDSN() -> String? {
+        return self.sentryDSN
     }
     
     func getDeepgramKey() -> String? {

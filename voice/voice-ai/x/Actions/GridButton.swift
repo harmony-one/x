@@ -23,17 +23,16 @@ struct GridButton: View {
                 Image(pressEffectButtonImage()) // button.image)
                     .fixedSize()
                     .aspectRatio(contentMode: .fit)
-                Text(button.label)
+                Text(getLabel())
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
-//                    .foregroundColor(COLOR_ACTIVE)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak))
+        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak && button.pressedLabel == nil))
     }
 
     private func pressEffectButtonImage() -> String {
@@ -53,6 +52,13 @@ struct GridButton: View {
             return button.pressedImage ?? button.image
         }
         return button.image
+    }
+
+    private func getLabel() -> String {
+        if isPressed && button.pressedLabel != nil {
+            return button.pressedLabel!
+        }
+        return button.label
     }
 }
 

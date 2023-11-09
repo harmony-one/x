@@ -4,10 +4,12 @@ import UIKit
 enum ActionType {
     case reset
 //    case sayMore
-    case randomFact
+    case surprise
     case play
     case repeatLast
     case speak
+    case tapSpeak
+    case tapStopSpeak
     case stopSpeak
     case userGuide
 }
@@ -15,21 +17,25 @@ enum ActionType {
 struct ButtonData: Identifiable {
     let id = UUID()
     let label: String
+    let pressedLabel: String?
     let image: String
     let pressedImage: String?
     let action: ActionType
     
-    init(label: String, image: String, pressedImage: String? = nil, action: ActionType) {
+    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType) {
         self.label = label
+        self.pressedLabel = pressedLabel
         self.image = image
         self.pressedImage = pressedImage
         self.action = action
+        
     }
 }
 
 class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
+    @Published var tapSpeak = false
     private var lastRecordingStateChangeTime: Int64 = 0
     
     let speechRecognition: SpeechRecognitionProtocol
@@ -40,14 +46,20 @@ class ActionHandler: ObservableObject {
     }
     
     func handle(actionType: ActionType) {
+        if (self.tapSpeak && actionType != .tapSpeak && actionType != .tapStopSpeak) {
+            self.tapSpeak = false
+            print("async call")
+            self.speechRecognition.cancelSpeak()
+        }
+        
         switch actionType {
         case .reset:
             self.isRecording = false
             self.isSynthesizing = false
             self.lastRecordingStateChangeTime = 0
             speechRecognition.reset()
-        case .randomFact:
-            speechRecognition.randomFacts()
+        case .surprise:
+            speechRecognition.surprise()
         case .play:
             if speechRecognition.isPaused() {
                 speechRecognition.continueSpeech()
@@ -58,7 +70,11 @@ class ActionHandler: ObservableObject {
             speechRecognition.repeate()
         case .speak:
             self.startRecording()
-        case .stopSpeak:
+        case .tapSpeak:
+            self.tapSpeak = true
+            self.startRecording()
+        case .stopSpeak, .tapStopSpeak:
+            self.tapSpeak = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
             }

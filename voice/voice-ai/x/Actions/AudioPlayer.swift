@@ -7,6 +7,7 @@
 
 import AVFoundation
 import Foundation
+import Sentry
 
 protocol AVAudioSessionProtocol {
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws
@@ -47,6 +48,9 @@ class AudioPlayer: NSObject {
     func playSoundWithSettings(_ loop: Bool = true, _ resource: String = "beep") {
         guard let soundURL = Bundle.main.url(forResource: resource, withExtension: "mp3") else {
             print("Sound file not found")
+            
+            SentrySDK.capture(message: "Sound file not found")
+            
             return
         }
         do {
@@ -61,6 +65,7 @@ class AudioPlayer: NSObject {
             }
         } catch {
             print("Error playing sound: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error playing sound: \(error.localizedDescription)")
         }
     }
 

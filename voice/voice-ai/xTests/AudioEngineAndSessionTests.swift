@@ -10,6 +10,10 @@ import AVFoundation
 @testable import Voice_AI // Replace with your app's module name
 
 class MockAudioSession: AVAudioSessionProtocol {
+    func setMode(_ options: AVAudioSession.Mode) throws {
+    
+    }
+    
     
     var shouldFailSetup = false
     

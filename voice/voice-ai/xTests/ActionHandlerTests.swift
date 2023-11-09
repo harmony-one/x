@@ -24,13 +24,6 @@ final class ActionHandlerTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
     }
     
-    // Test if the skip action stops the recording when it's already recording
-    func testHandleSkipWhileRecording() {
-        actionHandler.isRecording = true
-        actionHandler.handle(actionType: .sayMore)
-        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
-    }
-    
     
     // Test if random fact action calls the randomFacts() method in our mock
     func testHandleRandomFact() {

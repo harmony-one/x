@@ -1,11 +1,12 @@
 import AVFoundation
 import Combine
 import Speech
+import Sentry
 
 protocol SpeechRecognitionProtocol {
     func reset()
     func reset(feedback: Bool?)
-    func randomFacts()
+    func surprise()
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
@@ -13,6 +14,7 @@ protocol SpeechRecognitionProtocol {
     func speak()
     func stopSpeak()
     func sayMore()
+    func cancelSpeak()
 }
 
 extension SpeechRecognitionProtocol {
@@ -29,11 +31,16 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
-    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let speechRecognizer: SFSpeechRecognizer? = {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        let locale = Locale(identifier: preferredLocale)
+                return SFSpeechRecognizer(locale: locale)
+    } ()
     private var messageInRecongnition = ""
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
+    private var recognitionTaskCanceled: Bool? = nil
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
@@ -107,6 +114,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             isAudioSessionSetup = true
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
     }
     
@@ -119,6 +127,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
+                SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
             }
         }
     }
@@ -147,13 +156,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
             }
-            
             let message = result.bestTranscription.formattedString
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
@@ -188,12 +196,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         if let error = error {
             print("[SpeechRecognition][handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
-            if nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
+            
+            if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
             }
+            
+            SentrySDK.capture(message: "handleRecognitionError: \(error.localizedDescription)")
+            
+            recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
             inputNode.removeTap(onBus: 0)
@@ -224,6 +237,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition] Audio engine started")
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
         }
     }
     
@@ -343,6 +357,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
@@ -353,12 +368,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         handleQuery(retryCount: maxRetry)
     }
     
-    func pauseCapturing() {
+    func pauseCapturing(cancel: Bool = false) {
         guard isCapturing else {
             return
         }
         isCapturing = false
         print("[SpeechRecognition][pauseCapturing]")
+        
+        if cancel == true {
+            recognitionTaskCanceled = true;
+        }
+        
         recognitionTask?.finish()
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -434,6 +454,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             try audioEngine.start()
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
+            
+            SentrySDK.capture(message: "Error setting up audio engine: \(error.localizedDescription)")
         }
     }
 
@@ -484,9 +506,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
         
-    func randomFacts() {
+    func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][randomFacts]")
+            print("[SpeechRecognition][surprise]")
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
@@ -606,7 +628,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func cancelSpeak() {
-        pauseCapturing()
+        pauseCapturing(cancel: true)
     }
     
     func repeate() {

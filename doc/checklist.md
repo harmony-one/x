@@ -1,5 +1,32 @@
 ## Production Checklist
 
+### Nov 8, 2023
+
+#### User Interface Bugs
+
+- [ ] ~~User Guide is taking the user out of the app to Safari. It could open an in-app browser card (that can be closed by swiping down) instead~~ (no longer relevant since User Guide button is removed)
+- [ ] Tap-to-speak is not cancelled by press-and-hold 
+- [ ] Press-and-hold does not reset tap-to-speak
+
+#### Audio Bugs
+
+- [ ] Input and output devices are not updated, when new devices are connected and made as default audio device (e.g. when airpods are connected, the app still uses the speaker)
+- [ ] Playback interrupts and pauses background audio (e.g. music), but does not resume background audio after playback is completed
+- [ ] Playback sometimes stops functioning when default audio device is disconnected
+- [ ] Playback sometimes stops functioning when airpods are switched between multiple devices (e.g. becomes active in a nearby computer, then switched back to the phone)
+- [ ] If another app (e.g. phone) is exclusively occupying audio capturing (e.g. incoming phone call), and the app begins capturing (e.g. press Tap-to-speak or Press-and-hold while the phone call is ringing), the app would crash
+- [ ] If another app is exclusively occupying audio playback (e.g. incoming phone call), the app's playback would be automatically paused, but the internal state would remain incorrect and the UI would show incorrect status. Multiple button-presses on Pause / Play button are required to recover from the incorrect state
+
+#### Customer Support and Feedback
+
+- [ ] Users are not presented with any information on where to get help 
+- [ ] Users have no way to send a message to customer support (consider submitting voice messages, like Tesla)
+- [ ] Users are not asked to review the app after using the app for a while, if they have not reviewed the app before
+
+#### Version Control
+
+- [ ] There is no record of which version of the code corresponding to which build version on TestFlight or App Store. Consider tagging each version, publish the tag on GitHub, and record the changes under "Releases", before distributing the app to TestFlight or App Store. 
+
 ### Nov 7, 2023
 
 #### Multi-purpose
