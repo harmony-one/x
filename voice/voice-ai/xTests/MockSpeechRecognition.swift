@@ -13,8 +13,9 @@ import Combine
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-    
+
     func cancelSpeak() {
+        
     }
     
     var isPausedCalled: Bool = false

@@ -1,11 +1,12 @@
 import AVFoundation
 import Combine
 import Speech
+import Sentry
 
 protocol SpeechRecognitionProtocol {
     func reset()
     func reset(feedback: Bool?)
-    func randomFacts()
+    func surprise()
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
@@ -30,7 +31,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
-    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let speechRecognizer: SFSpeechRecognizer? = {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        let locale = Locale(identifier: preferredLocale)
+                return SFSpeechRecognizer(locale: locale)
+    } ()
     private var messageInRecongnition = ""
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -77,6 +82,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private var isPlayingWorkItem: DispatchWorkItem?
+    
+    internal var isTimerDidFired = false
         
     // Current message being processed
         
@@ -87,6 +94,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         textToSpeechConverter.convertTextToSpeech(text: greetingText)
         isCapturing = true
 //        startSpeechRecognition()
+        setupTimer()
+    }
+    
+    private func setupTimer() {
+        TimerManager.shared.startTimer()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleTimerDidFire),
+            name: .timerDidFireNotification,
+            object: nil
+        )
     }
     
     private func checkPermissionsAndSetupAudio() {
@@ -109,6 +127,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             isAudioSessionSetup = true
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
     }
     
@@ -121,6 +140,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
+                SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
             }
         }
     }
@@ -149,13 +169,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
             }
-            
             let message = result.bestTranscription.formattedString
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
@@ -197,6 +216,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
             }
+            
+            SentrySDK.capture(message: "handleRecognitionError: \(error.localizedDescription)")
+            
             recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
@@ -228,6 +250,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition] Audio engine started")
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
         }
     }
     
@@ -347,6 +370,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
@@ -443,6 +467,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             try audioEngine.start()
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
+            
+            SentrySDK.capture(message: "Error setting up audio engine: \(error.localizedDescription)")
         }
     }
 
@@ -493,9 +519,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
         
-    func randomFacts() {
+    func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][randomFacts]")
+            print("[SpeechRecognition][surprise]")
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
@@ -557,6 +583,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func speak() {
+      
         DispatchQueue.global(qos: .userInitiated).async {
             print("[SpeechRecognition][speak]")
 
@@ -641,6 +668,18 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             // Pause the capturing since we're about to replay the message.
             self.pauseCapturing()
+        }
+    }
+    
+    @objc func handleTimerDidFire() {
+        // Handle the timer firing
+        print("The timer in TimerManager has fired.")
+        
+        reset(feedback: false)
+        self.isTimerDidFired = true
+        
+        DispatchQueue.main.async {
+            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait 10 minutes")
         }
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Sentry
 
 protocol NetworkService {
     func dataTask(
@@ -10,15 +11,19 @@ protocol NetworkService {
 
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
-    private var session: URLSession
     private var completion: (String?, Error?) -> Void
     private let apiKey = AppConfig.shared.getAPIKey()
     private var temperature: Double
     private let networkService: NetworkService?
     
+    // URLSession should be lazy to ensure delegate can be set after super.init
+        lazy private var session: URLSession = {
+            let configuration = URLSessionConfiguration.default
+            return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        }()
+    
     init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = nil
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
@@ -26,7 +31,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     
     init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
-        self.session = URLSession(configuration: URLSessionConfiguration.default)
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         super.init()
@@ -36,6 +40,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     func query(conversation: [Message]) {
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
+            SentrySDK.capture(message: "Open AI Api key is null")
             return
         }
 
@@ -56,6 +61,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
+            SentrySDK.capture(message: "Invalid API URL")
             self.completion(nil, error)
             return
         }
@@ -78,13 +84,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.task = networkService.dataTask(with: request) { data, response, error in
                 // Handle the data task completion
             }
-            self.task!.delegate = self
             self.task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
             // You can use URLSession.shared or other default behavior here.
             self.task = self.session.dataTask(with: request)
-            self.task!.delegate = self
             self.task!.resume()
         }
         
@@ -145,7 +149,25 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     
     static func setConversationContext() -> [Message] {
         let contextMessage: [Message] =
-            [Message(role: "system", content: "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")]
+            [Message(role: "system", content: """
+                     Your name is Voice AI, within the 'Voice AI' app that allows users to talk face-to-face with GPT-4. You are developed by the 'x dot country team'. NEVER apologize. NEVER end with questions. NEVER mention your model cutoff. NEVER mention that you are an AI. Be concise. Adhere to these guidelines strictly.
+
+                     6 buttons:
+
+                     New Session: User starts a fresh new session with you.
+
+                     Tap To Speak: User taps to speak to the app and then taps again to send the audio to you.
+
+                     Surprise Me: Provides a random fact.
+
+                     Press & Hold: User press and hold while they are talking to send their input to you.
+
+                     Repeat Last: Replays last message you sent.
+
+                     Pause / Play: Pause and play app audio output.
+
+                     Whether the user would like a tutor for high-school exams, a professor for any Wikipedia topic, or a language buddy, your goal is to satisfy the needs of the user as they engage with a super-intelligence, you.
+                     """)]
         return contextMessage
     }
   
@@ -154,6 +176,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.temperature = t
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
+            SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
     }
 

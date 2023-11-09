@@ -1,10 +1,11 @@
 import Foundation
 import UIKit
+import Combine
 
 enum ActionType {
     case reset
 //    case sayMore
-    case randomFact
+    case surprise
     case play
     case repeatLast
     case speak
@@ -38,11 +39,26 @@ class ActionHandler: ObservableObject {
     @Published var tapSpeak = false
     private var lastRecordingStateChangeTime: Int64 = 0
     
+    var resetThrottler = PassthroughSubject<Void, Never>()
+    var resetCancellable: AnyCancellable?
+
     let speechRecognition: SpeechRecognitionProtocol
     var onSynthesizingChanged: ((Bool) -> Void)?
     
     init(speechRecognition: SpeechRecognitionProtocol = SpeechRecognition.shared) {
         self.speechRecognition = speechRecognition
+        resetCancellable = resetThrottler
+            .throttle(for: .seconds(1), scheduler: DispatchQueue.main, latest: true)
+            .sink {
+                self.reset()
+            }
+    }
+    
+    func reset () {
+        self.isRecording = false
+        self.isSynthesizing = false
+        self.lastRecordingStateChangeTime = 0
+        speechRecognition.reset()
     }
     
     func handle(actionType: ActionType) {
@@ -54,12 +70,12 @@ class ActionHandler: ObservableObject {
         
         switch actionType {
         case .reset:
-            self.isRecording = false
-            self.isSynthesizing = false
-            self.lastRecordingStateChangeTime = 0
-            speechRecognition.reset()
-        case .randomFact:
-            speechRecognition.randomFacts()
+            resetThrottler.send()
+        case .surprise:
+            if  SpeechRecognition.shared.isTimerDidFired {
+                return
+            }
+            speechRecognition.surprise()
         case .play:
             if speechRecognition.isPaused() {
                 speechRecognition.continueSpeech()
@@ -92,6 +108,10 @@ class ActionHandler: ObservableObject {
     }
     
     func startRecording() {
+        
+        if  SpeechRecognition.shared.isTimerDidFired {
+            return
+        }
         guard lastRecordingStateChangeTime + 500 < Int64(NSDate().timeIntervalSince1970 * 1000) else {
             return
         }

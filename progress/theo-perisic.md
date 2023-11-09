@@ -1,3 +1,5 @@
+2023-11-08 Wed: Completed [Product Marketing Strategy](https://harmonyone.notion.site/Voice-AI-Marketing-Product-Strategy-7034a6c564124d23be4f061def94eaff?pvs=4) draft and added [custom instructions](https://harmonyone.notion.site/Custom-Instructions-2-Voice-AI-a14b176b252d4c539f7635c8777c5ece?pvs=4) optimized for user experience. Started competitor analysis page using MobileAction to track App Store Optimization.
+
 2023-11-07 Tue: Completed [v0.9.4 Bug Report](https://harmonyone.notion.site/Bugs-for-v0-9-4-ab3601fe24c5451cb38c4891d82e2c2b?pvs=4) and continued testing v0.9.5 and v0.9.6 builds. Tested OpenAI’s speech api for voice quality and latency during chunk transfer encoding.
 
 2023-11-06 Mon: Completed [Privacy Policy](https://github.com/harmony-one/x/blob/main/doc/privacy.md) for free and non-tracking build. Meeting with Fenwick for Privacy and Terms for Voice AI, shared required materials with team, full documents ready by end of week. Completed a brief [list of alternatives](https://harmonyone.notion.site/Alternatives-for-Skip-5-seconds-Random-Fact-504a80795e1e4484a086c5620ceeb5ad?pvs=4) for “Skip 5 Seconds” and “Random Fact”.
