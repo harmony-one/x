@@ -33,9 +33,9 @@ final class ActionHandlerTests: XCTestCase {
     
     
     // Test if random fact action calls the randomFacts() method in our mock
-    func testHandleRandomFact() {
-        actionHandler.handle(actionType: .randomFact)
-        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled, "randomFacts() should be called after .randomFact action")
+    func testHandleSurprise() {
+        actionHandler.handle(actionType: .surprise)
+        XCTAssertTrue(mockSpeechRecognition.surpriseCalled, "surprise() should be called after .surprise action")
     }
     
     // Test if repeatLast action calls the repeate() method in our mock
