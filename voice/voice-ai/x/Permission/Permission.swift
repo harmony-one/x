@@ -1,6 +1,6 @@
 import AVFoundation
-import Speech
 import Sentry
+import Speech
 
 struct Permission {
     // Function to set up necessary permissions
@@ -14,7 +14,7 @@ struct Permission {
             }
         }
     }
-    
+
     // Request access to the microphone
     func requestMicrophoneAccess(completion: @escaping (Bool) -> Void) {
         if #available(iOS 14.0, *) {
@@ -39,7 +39,7 @@ struct Permission {
         }
         return granted
     }
-    
+
     // Request access to speech recognition
     func requestSpeechRecognitionPermission() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
@@ -50,19 +50,16 @@ struct Permission {
                 case .denied:
                     print("User denied speech recognition permission")
                     SentrySDK.capture(message: "User denied speech recognition permission")
-                    break;
                 case .notDetermined:
                     print("Speech recognition not determined")
                     SentrySDK.capture(message: "Speech recognition not determined")
-                    break;
                 case .restricted:
                     print("Speech recognition restricted")
                     SentrySDK.capture(message: "Speech recognition restricted")
-                    break;
+                    break
                 @unknown default:
                     SentrySDK.capture(message: "Fatal error: New case for speech recognition authorization is available")
                     fatalError("New case for speech recognition authorization is available")
-                    break;
                 }
             }
         }

@@ -1,22 +1,11 @@
-//
-//  MockSpeechRecognition.swift
-//  Voice AITests
-//
-//  Created by Nagesh Kumar Mishra on 29/10/23.
-//
-
-import XCTest
 import AVFoundation
-@testable import Voice_AI
 import Combine
-
+@testable import Voice_AI
+import XCTest
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-    
-    func cancelSpeak() {
-        
-    }
+    func cancelSpeak() {}
     
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
@@ -37,16 +26,14 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
 
     // Implement a method to update the value and notify subscribers
     func setIsPlaying(_ isPlaying: Bool) {
-        self._isPlaying = isPlaying
+        _isPlaying = isPlaying
         isPlayingSubject.send(isPlaying)
     }
     
-    func pause(feedback: Bool?) {
-        
-    }
+    func pause(feedback: Bool?) {}
     
     func surprise() {
-        self.surpriseCalled = true
+        surpriseCalled = true
     }
     
     func isPaused() -> Bool {
@@ -74,22 +61,15 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         repeateCalled = true
     }
     
-    func stopSpeak() {
-        
-    }
+    func stopSpeak() {}
     
-    func sayMore() {
-    
-    }
-    
+    func sayMore() {}
     
     func play() {
-        if self.isPaused() {
-            self.continueSpeech()
+        if isPaused() {
+            continueSpeech()
         } else {
-            self.pause()
+            pause()
         }
-        
     }
-    
 }

@@ -1,7 +1,6 @@
-
+import CoreHaptics
 import Foundation
 import UIKit
-import CoreHaptics
 
 // VibrationManager class to handle vibration operations
 class VibrationManager {

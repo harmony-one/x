@@ -1,16 +1,9 @@
-//
-//  ContentView.swift
-//  x
-//
-//  Created by Aaron Li on 10/13/23.
-//
-
 import SwiftUI
 
-//struct DashboardView: View {
+// struct DashboardView: View {
 //    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 //    @Environment(\.verticalSizeClass) var verticalSizeClass
-//    
+//
 //    @State private var latencyText = "256"
 //    @State private var elapaedTime = "01:01:13.211"
 //    @State private var voiceDecibel = "42 / 64 dB"
@@ -18,17 +11,17 @@ import SwiftUI
 //    @State private var source = "x.country/ai"
 //    @State private var optimiseValue = "101 + 27 + 127"
 //    @State private var sessionIdentifier = "1234-5678-90ab"
-//    
+//
 //    @State private var hideButtons = true
 //    @State private var isButtonViewPresented = false
-//    
+//
 //    init() {
 //            // Disable idle timer when the view is created
 //            UIApplication.shared.isIdleTimerDisabled = true
 //        }
-//    
+//
 //    var body: some View {
-//        
+//
 //        let isPortrait = verticalSizeClass == .regular && horizontalSizeClass == .compact
 //        let customFontSize: CGFloat = isPortrait ? 18 : 22
 //        Color("#DDF6FF").ignoresSafeArea()
@@ -54,7 +47,7 @@ import SwiftUI
 //                    }
 //                    .padding(.top, 30)
 //                    Spacer()
-//                    
+//
 //                    HStack {
 //                        VStack {
 //                            Text(latencyText){ text in
@@ -72,7 +65,7 @@ import SwiftUI
 //                        Text(paymentsCredits){ text in
 //                            text.font = .customFont(size:customFontSize)
 //                            text.foregroundColor = Color(hex: 0x00AEE9)
-//                            
+//
 //                            if let range = text.range(of: "ONE"){
 //                                text[range].foregroundColor = Color.white
 //                            }
@@ -96,7 +89,7 @@ import SwiftUI
 //                            .font(.customFont(size:customFontSize))
 //                            .foregroundColor(.white)
 //                    }
-//                    
+//
 //                    .padding(.bottom, 30)
 //                }.padding(10)
 //                    .fullScreenCover(isPresented: $isButtonViewPresented, content: {
@@ -112,12 +105,11 @@ import SwiftUI
 //                perform: SpeechRecognition.shared.setup
 //                // perform: DeepgramASR.shared.setup
 //            )
-//        
-//    
+//
+//
 //    }
 //    func onDisappear() {
 //        // Re-enable idle timer when the view disappears
 //        UIApplication.shared.isIdleTimerDisabled = false
 //    }
-//}
-
+// }

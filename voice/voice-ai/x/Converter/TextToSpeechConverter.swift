@@ -1,12 +1,5 @@
-//
-//  TextToSpeechConverter.swift
-//  x
-//
-//  Created by Nagesh Kumar Mishra on 17/10/23.
-//
-
-import Foundation
 import AVFoundation
+import Foundation
 
 // TextToSpeechConverter class responsible for converting text to speech
 class TextToSpeechConverter {
@@ -59,5 +52,4 @@ class TextToSpeechConverter {
             synthesizer.continueSpeaking()
         }
     }
-    
 }
