@@ -268,3 +268,10 @@ struct ActionsView: View {
         actionHandler.handle(actionType: actionType)
     }
 }
+
+
+#Preview {
+    NavigationView {
+        ActionsView()
+    }
+}
