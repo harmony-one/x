@@ -150,6 +150,7 @@
 		F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F610490F2AF02DEE0087F745 /* SwiftyJSON */; };
 		F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F61049112AF02DF50087F745 /* SwiftyJSON */; };
+		F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F52AF8172800BC191C /* SpeechRecognitionTests.swift */; };
 		F7F115062AF8173300BC191C /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F72AF8172800BC191C /* StringTests.swift */; };
 		F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F62AF8172800BC191C /* PermissionTests.swift */; };
@@ -981,6 +982,7 @@
 				B9C4A8302AEE96B100327529 /* Message.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
 				B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */,
+				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,

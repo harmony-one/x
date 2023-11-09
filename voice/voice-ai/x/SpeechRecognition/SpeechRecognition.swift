@@ -30,7 +30,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Properties
     
     private let audioEngine = AVAudioEngine()
-    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let speechRecognizer: SFSpeechRecognizer? = {
+        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        let locale = Locale(identifier: preferredLocale)
+                return SFSpeechRecognizer(locale: locale)
+    } ()
     private var messageInRecongnition = ""
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -149,13 +153,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     private func handleRecognition(inputNode: AVAudioNode) {
-        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
             guard let result = result else {
                 self.handleRecognitionError(error)
                 return
             }
-            
             let message = result.bestTranscription.formattedString
             print("[SpeechRecognition][handleRecognition] \(message)")
             print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
