@@ -1,6 +1,7 @@
 import AVFoundation
 import Combine
 import Speech
+import Sentry
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -113,6 +114,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             isAudioSessionSetup = true
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
     }
     
@@ -125,6 +127,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
+                SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
             }
         }
     }
@@ -200,6 +203,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
             }
+            
+            SentrySDK.capture(message: "handleRecognitionError: \(error.localizedDescription)")
+            
             recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
@@ -231,6 +237,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition] Audio engine started")
         } catch {
             print("Error starting audio engine: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
         }
     }
     
@@ -350,6 +357,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 self.registerTTS()
@@ -446,6 +454,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             try audioEngine.start()
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
+            
+            SentrySDK.capture(message: "Error setting up audio engine: \(error.localizedDescription)")
         }
     }
 

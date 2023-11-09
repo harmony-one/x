@@ -1,5 +1,6 @@
 import Foundation
 import SwiftyJSON
+import Sentry
 
 protocol NetworkService {
     func dataTask(
@@ -36,6 +37,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     func query(conversation: [Message]) {
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
+            SentrySDK.capture(message: "Open AI Api key is null")
             return
         }
 
@@ -56,6 +58,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
+            SentrySDK.capture(message: "Invalid API URL")
             self.completion(nil, error)
             return
         }
@@ -172,6 +175,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             self.temperature = t
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
+            SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
     }
 
