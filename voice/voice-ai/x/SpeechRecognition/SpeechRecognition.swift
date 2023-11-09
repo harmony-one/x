@@ -10,7 +10,7 @@ protocol SpeechRecognitionProtocol {
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
-    func repeate()
+    func repeate(startPoint: Int?)
     func speak()
     func stopSpeak()
     func sayMore()
@@ -51,6 +51,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var pendingOpenAIStream: OpenAIStreamService?
     
     private var conversation: [Message] = []
+    private var completeResponse: [String] = []
+    private var isRepeatingCurrentSession = false;
+
     private let greetingText = "Hey!"
     private let sayMoreText = "Tell me more."
 
@@ -251,7 +254,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             return
         }
         
-        var completeResponse = [String]()
+        self.completeResponse = [String]()
+        
         var buf = [String]()
         
         func flushBuf() {
@@ -263,7 +267,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             registerTTS()
             textToSpeechConverter.convertTextToSpeech(text: response)
             
-            completeResponse.append(response)
+            self.completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
@@ -302,9 +306,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     flushBuf()
                     self.isRequestingOpenAI = false
                     print("[SpeechRecognition] OpenAI Response Complete")
-                    print("[SpeechRecognition] Complete Response text", completeResponse.joined())
-                    if !completeResponse.isEmpty {
-                        self.conversation.append(Message(role: "assistant", content: completeResponse.joined()))
+                    print("[SpeechRecognition] Complete Response text", self.completeResponse.joined())
+                    if !self.completeResponse.isEmpty {
+                        self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     return
                 }
@@ -631,7 +635,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         pauseCapturing(cancel: true)
     }
     
-    func repeate() {
+    func repeate(startPoint: Int? = 0) {
         // Ensure all UI-related updates are done on the main thread.
         DispatchQueue.main.async {
             // If the synthesizer is already speaking, stop it to prevent overlapping speech.
@@ -644,10 +648,28 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let lastAssistantMessage = self.conversation.last { $0.role == "assistant" && $0.content != "" }
 
             // Determine the text to repeat. If no last message is found, use the greeting text.
-            let textToRepeat = lastAssistantMessage?.content ?? self.greetingText
-
-            // Use the text-to-speech converter to speak the text.
-            self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
+            let textToRepeat = lastAssistantMessage?.content ?? "";
+            
+            if !textToRepeat.isEmpty {
+                self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
+            } else if !self.completeResponse.isEmpty {
+                self.isRepeatingCurrentSession = true;
+                
+                var text = self.completeResponse.joined()
+                
+                let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
+                let activeTextToRepeat = String(text[index...])
+                
+                if(activeTextToRepeat.count > 0) {
+                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+                }
+                
+                DispatchQueue.main.async {
+                    self.repeate(startPoint: activeTextToRepeat.count)
+                }
+            } else {
+                self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+            }
         }
 
         // Operations that can be performed in the background (not UI-related) should be offloaded.
