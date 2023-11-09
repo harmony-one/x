@@ -13,7 +13,7 @@ import Combine
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-
+    
     func cancelSpeak() {
         
     }
@@ -25,6 +25,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var continueSpeechCalled: Bool = false
     var pauseCalled: Bool = false
     var repeateCalled: Bool = false
+    var surpriseCalled: Bool = false
     
     private var _isPlaying = false
     
@@ -43,6 +44,10 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     
     func pause(feedback: Bool?) {
         
+    }
+    
+    func surprise() {
+        self.surpriseCalled = true
     }
     
     func isPaused() -> Bool {

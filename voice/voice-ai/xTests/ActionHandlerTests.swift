@@ -31,13 +31,17 @@ final class ActionHandlerTests: XCTestCase {
 //        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
 //    }
     
-    
-    // Test if random fact action calls the randomFacts() method in our mock
-    func testHandleRandomFact() {
-        actionHandler.handle(actionType: .randomFact)
-        XCTAssertTrue(mockSpeechRecognition.randomFactsCalled, "randomFacts() should be called after .randomFact action")
+    func testSurprise() {
+        actionHandler.handle(actionType: .surprise)
+        mockSpeechRecognition.surprise()
+        XCTAssertTrue(mockSpeechRecognition.surpriseCalled, "surprise() should be called after .surprise action")
     }
     
+    func testReset() {
+        actionHandler.handle(actionType: .reset)
+        mockSpeechRecognition.reset()
+        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+    }
     // Test if repeatLast action calls the repeate() method in our mock
     func testHandleRepeatLast() {
         actionHandler.handle(actionType: .repeatLast)
