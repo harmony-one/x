@@ -36,7 +36,7 @@ struct ButtonData: Identifiable {
 class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
-    @Published var tapSpeak = false
+    @Published var isTapToSpeakActive = false
     private var lastRecordingStateChangeTime: Int64 = 0
     
     var resetThrottler = PassthroughSubject<Void, Never>()
@@ -61,12 +61,17 @@ class ActionHandler: ObservableObject {
         speechRecognition.reset()
     }
     
-    func handle(actionType: ActionType) {
-        if (self.tapSpeak && actionType != .tapSpeak && actionType != .tapStopSpeak) {
-            self.tapSpeak = false
-            print("async call")
+    func syncTapToSpeakState (_ actionType: ActionType) {
+        let isItTapToSpeakAction = actionType == .tapSpeak && actionType == .tapStopSpeak;
+        let resetTapSpeakState = self.isTapToSpeakActive && !isItTapToSpeakAction
+        if (resetTapSpeakState) {
+            self.isTapToSpeakActive = false
             self.speechRecognition.cancelSpeak()
         }
+    }
+    
+    func handle(actionType: ActionType) {
+        syncTapToSpeakState(actionType)
         
         switch actionType {
         case .reset:
@@ -87,10 +92,10 @@ class ActionHandler: ObservableObject {
         case .speak:
             self.startRecording()
         case .tapSpeak:
-            self.tapSpeak = true
+            self.isTapToSpeakActive = true
             self.startRecording()
         case .stopSpeak, .tapStopSpeak:
-            self.tapSpeak = false
+            self.isTapToSpeakActive = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
             }

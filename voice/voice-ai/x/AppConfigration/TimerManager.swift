@@ -16,8 +16,10 @@ extension Notification.Name {
 class TimerManager: ObservableObject {
     static let shared = TimerManager()
     var timerCancellable: AnyCancellable?
-    let fiveMinutes: TimeInterval = 5 * 60
-
+//    let fiveMinutes: TimeInterval = 5 * 60
+    // TODO: for beta purpose, disable the timer
+    let minutes: TimeInterval = 10000000000000
+    
     func startTimer() {
         resetTimer()
     }
@@ -27,7 +29,7 @@ class TimerManager: ObservableObject {
            timerCancellable?.cancel()
 
            // Schedule a new timer
-           timerCancellable = Timer.publish(every: fiveMinutes, on: .main, in: .common)
+           timerCancellable = Timer.publish(every: minutes, on: .main, in: .common)
                .autoconnect()
                .first()
                .sink { [weak self] _ in

@@ -31,9 +31,10 @@ final class ActionHandlerTests: XCTestCase {
 //        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
 //    }
     
-    func testSurprise() {
+    
+    // Test if random fact action calls the randomFacts() method in our mock
+    func testHandleSurprise() {
         actionHandler.handle(actionType: .surprise)
-        mockSpeechRecognition.surprise()
         XCTAssertTrue(mockSpeechRecognition.surpriseCalled, "surprise() should be called after .surprise action")
     }
     

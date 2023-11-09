@@ -27,6 +27,7 @@ struct GridButton: View {
                     .font(.customFont(size: 11))
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .animation(nil)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
