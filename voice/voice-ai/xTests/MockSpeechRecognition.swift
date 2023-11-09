@@ -8,10 +8,12 @@
 import XCTest
 import AVFoundation
 @testable import Voice_AI
+import Combine
 
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
+
     func cancelSpeak() {
         
     }
@@ -23,7 +25,22 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var continueSpeechCalled: Bool = false
     var pauseCalled: Bool = false
     var repeateCalled: Bool = false
+    
+    private var _isPlaying = false
+    
+    private var isPlayingSubject = PassthroughSubject<Bool, Never>()
 
+    // Define a custom publisher and use isPlayingSubject to emit values
+    var isPlaingPublisher: AnyPublisher<Bool, Never> {
+        return isPlayingSubject.eraseToAnyPublisher()
+    }
+
+    // Implement a method to update the value and notify subscribers
+    func setIsPlaying(_ isPlaying: Bool) {
+        self._isPlaying = isPlaying
+        isPlayingSubject.send(isPlaying)
+    }
+    
     func pause(feedback: Bool?) {
         
     }
