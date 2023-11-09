@@ -6,9 +6,9 @@ class AppConfig {
     static let shared = AppConfig()
     private var apiKey: String?
     private var deepgramKey: String?
-    private var sentryDSN: String?
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
+    private var sentryDSN: String?
     
     private var themeName: String?
 
