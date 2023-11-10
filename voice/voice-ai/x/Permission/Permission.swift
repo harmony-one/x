@@ -35,9 +35,9 @@ struct Permission {
         let audioSession = AVAudioSession.sharedInstance()
         var permissionCheck = false
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
-            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-            try AVAudioSession.sharedInstance().setMode(.spokenAudio)
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setMode(.spokenAudio)
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
