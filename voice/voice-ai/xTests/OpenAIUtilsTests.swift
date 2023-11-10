@@ -33,10 +33,11 @@ final class OpenAIUtilsTests: XCTestCase {
             Voice_AI.Message(role: "assistant", content: "Please adhere to the community guidelines."),
         ];
         
-        let limitedConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 43)
+        let limitedConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 52)
         
         XCTAssertEqual(limitedConversation.count, 2, "conversation should contain 2 messages")
-        
+        XCTAssertEqual(limitedConversation[0].content, "confirmed.")
+        XCTAssertEqual(limitedConversation[1].content, "Please adhere to the community guidelines.")
     }
     
     func testShouldReturnAllMessages() throws {
