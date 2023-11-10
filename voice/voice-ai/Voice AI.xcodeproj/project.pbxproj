@@ -87,6 +87,7 @@
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B36367562AFC69F2000409FC /* RandomFactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
+		B38ADB9D2AFE0A0F006BDC93 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F72708412AFD672E000DE81D /* AppConfig.plist */; };
 		B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* MessageContextTests.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
@@ -853,6 +854,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38ADB9D2AFE0A0F006BDC93 /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
