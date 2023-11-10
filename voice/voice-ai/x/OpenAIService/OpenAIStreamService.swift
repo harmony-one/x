@@ -45,6 +45,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             let daysElapsed = Calendar.current.dateComponents([.day], from: Self.lastStartTimeOfTheDay!, to: Date()).day!
             if daysElapsed >= 1 {
                 UserDefaults.standard.set(now.timeIntervalSince1970, forKey: "OpenAILastStartTime")
+                Self.lastStartTimeOfTheDay = now
                 print("[OpenAI] Setting new last start time to be \(Self.lastStartTimeOfTheDay!)")
             }
         }
