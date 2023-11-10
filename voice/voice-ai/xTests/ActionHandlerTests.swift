@@ -1,5 +1,6 @@
 import XCTest
 import Combine
+
 @testable import Voice_AI
 
 final class ActionHandlerTests: XCTestCase {
@@ -18,14 +19,20 @@ final class ActionHandlerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         actionHandler = nil
         mockSpeechRecognition = nil
-        
     }
-     
+
     func testHandleReset() {
         actionHandler.handle(actionType: .reset)
         mockSpeechRecognition.reset()
         XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
     }
+
+    
+//    func testHandleReset() {
+//        actionHandler.handle(actionType: .reset)
+//        XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
+//    }
+
     
     // Test if the skip action stops the recording when it's already recording
 //    func testHandleSkipWhileRecording() {
@@ -33,7 +40,6 @@ final class ActionHandlerTests: XCTestCase {
 //        actionHandler.handle(actionType: . .sayMore)
 //        XCTAssertFalse(actionHandler.isRecording, "Recording should be stopped after .skip action")
 //    }
-    
     
     // Test if random fact action calls the randomFacts() method in our mock
     func testHandleSurprise() {
@@ -83,7 +89,6 @@ final class ActionHandlerTests: XCTestCase {
             mockSpeechRecognition.pause()
             XCTAssertTrue(mockSpeechRecognition.pauseCalled, "Speech should have been paused")
         }
-        
     }
 
     func testStartRecording() {
@@ -112,7 +117,6 @@ final class ActionHandlerTests: XCTestCase {
         // Add more assertions based on your requirements
     }
     
-    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -121,12 +125,10 @@ final class ActionHandlerTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
     
-    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
             // Put the code you want to measure the time of here.
         }
     }
-    
 }

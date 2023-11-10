@@ -1,14 +1,6 @@
-//
-//  xUITestsLaunchTests.swift
-//  xUITests
-//
-//  Created by Aaron Li on 10/13/23.
-//
-
 import XCTest
 
 final class xUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
@@ -20,7 +12,7 @@ final class xUITestsLaunchTests: XCTestCase {
     func testActionButtons() throws {
         let app = XCUIApplication()
         app.launch()
-        
+
         let buttonLabels = [
             "New Session",
             "Skip 5 Seconds",
@@ -29,7 +21,7 @@ final class xUITestsLaunchTests: XCTestCase {
             "Repeat Last",
             "Pause / Play"
         ]
-        
+
         for label in buttonLabels {
             let button = app.staticTexts[label]
             XCTAssertTrue(button.exists)

@@ -1,18 +1,9 @@
-//
-//  AudioEngineAudioSessionTests.swift
-//  Voice AITests
-//
-//  Created by Nagesh Kumar Mishra on 02/11/23.
-//
-
-import XCTest
 import AVFoundation
 @testable import Voice_AI // Replace with your app's module name
+import XCTest
 
 class MockAudioSession: AVAudioSessionProtocol {
-    func setMode(_ options: AVAudioSession.Mode) throws {
-    
-    }
+    func setMode(_ options: AVAudioSession.Mode) throws {}
     
     var shouldFailSetup = false
     
@@ -40,7 +31,6 @@ final class AudioEngineAndSessionTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         speechRecognition = nil
-        
     }
     
     func testSetupAudioSession() {
@@ -78,11 +68,10 @@ final class AudioEngineAndSessionTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
     
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+//    func testPerformanceExample() throws {
+//        // This is an example of a performance test case.
+//        measure {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
 }

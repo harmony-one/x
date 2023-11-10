@@ -1,18 +1,14 @@
-import XCTest
 @testable import Voice_AI
+import XCTest
 
-
-//struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
+// struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
 //
-//func testReset() {
+// func testReset() {
 //    let test = SpeechRecognitionProtocolTest()
 //    XCTAssertEqual(true,test.reset())
-//}
-
-
+// }
 
 class SpeechRecognitionTests: XCTestCase {
-
     // Test the `isPaused()` function
     func testIsPaused() {
         // Create a mock SpeechRecognition object
@@ -87,26 +83,26 @@ class SpeechRecognitionTests: XCTestCase {
 
     func testIsPlaningPublisherGetter() {
         let mockSpeechRecognition = MockSpeechRecognition()
-        
+
         let isPlayingPublisher = mockSpeechRecognition.isPlaingPublisher
 
-         // Assert: Verify the result
-         var isPlaying: Bool = false
-         let cancellable = isPlayingPublisher.sink { isPlaying = $0 }
-         
-         // At this point, isPlaying should be false by default
-         XCTAssertFalse(isPlaying, "isPlaying should initially be false")
-         
-         // You can modify _isPlaying to change the value
-        mockSpeechRecognition.setIsPlaying(true)
-         
-         // After changing the value, isPlaying should be true
-         XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")
+        // Assert: Verify the result
+        var isPlaying = false
+        let cancellable = isPlayingPublisher.sink { isPlaying = $0 }
 
-         // Clean up the subscription
-         cancellable.cancel()
+        // At this point, isPlaying should be false by default
+        XCTAssertFalse(isPlaying, "isPlaying should initially be false")
+
+        // You can modify _isPlaying to change the value
+        mockSpeechRecognition.setIsPlaying(true)
+
+        // After changing the value, isPlaying should be true
+        XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")
+
+        // Clean up the subscription
+        cancellable.cancel()
     }
-    
+
     // Test the `repeate()` function
     func testRepeate() {
         // Create a mock SpeechRecognition object

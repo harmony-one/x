@@ -6,8 +6,8 @@ class ReviewRequester {
     static let shared = ReviewRequester()
     
     // Configuration
-    private var minimumSignificantEvents: Int = 0
-    private var daysBetweenPrompts: Int = 0
+    private var minimumSignificantEvents: Int?
+    private var daysBetweenPrompts: Int?
     
     // User default keys
     private let reviewRequestCountKey = "reviewRequestCount"
@@ -25,7 +25,7 @@ class ReviewRequester {
         set { UserDefaults.standard.set(newValue, forKey: lastReviewRequestDateKey) }
     }
     
-    internal var significantEventsCount: Int {
+    var significantEventsCount: Int {
         get { UserDefaults.standard.integer(forKey: significantEventsCountKey) }
         set { UserDefaults.standard.set(newValue, forKey: significantEventsCountKey) }
     }
@@ -42,7 +42,7 @@ class ReviewRequester {
         tryPromptForReview()
     }
     
-    internal func tryPromptForReview() {
+    func tryPromptForReview() {
         guard shouldPromptForReview() else { return }
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -55,22 +55,21 @@ class ReviewRequester {
     
     private func shouldPromptForReview() -> Bool {
         // Check if significant events have occurred enough times
-        guard significantEventsCount >= minimumSignificantEvents else { return false }
+        guard significantEventsCount >= minimumSignificantEvents ?? 0 else { return false }
         
         // Check if the review prompt has been shown less than 3 times in the past year
         guard reviewRequestCount < 3 else { return false }
         
         // Check if the specified number of days have passed since the last review request or if it's the first time
         if let lastDate = lastReviewRequestDate {
-            return Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day! >= daysBetweenPrompts
+            return Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day! >= daysBetweenPrompts ?? 0
         }
         
-        return true  // No review has been requested before
+        return true // No review has been requested before
     }
     
     private func resetSignificantEventsCount() {
         significantEventsCount = 0 // Reset the count to 0
         UserDefaults.standard.set(significantEventsCount, forKey: significantEventsCountKey)
     }
-    
 }

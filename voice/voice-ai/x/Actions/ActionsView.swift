@@ -1,18 +1,18 @@
-import Foundation
-import SwiftUI
 import Combine
-
+import Foundation
+import StoreKit
+import SwiftUI
 
 struct ActionsView: View {
     let config = AppConfig()
     
     @ObservedObject private var timerManager = TimerManager.shared
 
-    @State var currentTheme:Theme = Theme()
+    @State var currentTheme: Theme = .init()
 
-    func changeTheme(name: String){
+    func changeTheme(name: String) {
         let theme = AppThemeSettings.fromString(name)
-        self.currentTheme.setTheme(theme: theme)
+        currentTheme.setTheme(theme: theme)
     }
 
     // var dismissAction: () -> Void
@@ -50,7 +50,7 @@ struct ActionsView: View {
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
-        let themePrefix = self.currentTheme.name
+        let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
@@ -95,7 +95,6 @@ struct ActionsView: View {
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
-
     }
     
     var body: some View {
@@ -105,23 +104,23 @@ struct ActionsView: View {
         Group {
             baseView(colums: colums, buttons: buttons)
         }.background(Color(hex: 0x1E1E1E).animation(.none))
-        .onAppear(
-            perform: SpeechRecognition.shared.setup
-        )
-        .edgesIgnoringSafeArea(.all)
-        .onChange(of: scenePhase) { newPhase in
-            switch newPhase {
-            case .active:
-                print("App became active")
-            case .inactive:
-                print("App became inactive")
-                speechRecognition.pause(feedback: false)
-            case .background:
-                print("App moved to the background")
-            @unknown default:
-                break
+            .onAppear(
+                perform: SpeechRecognition.shared.setup
+            )
+            .edgesIgnoringSafeArea(.all)
+            .onChange(of: scenePhase) { newPhase in
+                switch newPhase {
+                case .active:
+                    print("App became active")
+                case .inactive:
+                    print("App became inactive")
+                    speechRecognition.pause(feedback: false)
+                case .background:
+                    print("App moved to the background")
+                @unknown default:
+                    break
+                }
             }
-        }
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
         //             if UIDevice.current.orientation != orientation {
@@ -140,8 +139,8 @@ struct ActionsView: View {
         return GeometryReader { geometry in
             let gridItem = GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
             let columns = Array(repeating: gridItem, count: colums)
-            let numOfRows: Int = Int(ceil(Double(buttons.count) / Double(colums)))
-            let height = geometry.size.height / CGFloat(numOfRows);
+            let numOfRows: Int = .init(ceil(Double(buttons.count) / Double(colums)))
+            let height = geometry.size.height / CGFloat(numOfRows)
             
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
@@ -152,9 +151,9 @@ struct ActionsView: View {
             .background(Color(hex: 0x1E1E1E).animation(.none))
         }
         .padding(0)
-        .sheet(isPresented: $showShareSheet, onDismiss: {showShareSheet = false}) {
-            let url = URL(string: "https://x.country")!
-            let shareLink = ShareLink(title: "Voice AI App", url: url)
+        .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
+            let url = URL(string: "https://x.country/app")!
+            let shareLink = ShareLink(title: "Share app link x.country/app with Friends", url: url)
             
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
@@ -162,7 +161,7 @@ struct ActionsView: View {
     
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
-        let isActive = (button.action == .play && speechRecognition.isPlaying() && !self.isSpeakButtonPressed)
+        let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
             if button.pressedLabel != nil {
@@ -176,69 +175,85 @@ struct ActionsView: View {
                         }
                     }
                 }
-
+                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    DispatchQueue.main.async {
+                        let url = URL(string: "https://x.country/voice")
+                        if UIApplication.shared.canOpenURL(url!) {
+                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                        } else {
+                            print("Cannot open URL")
+                        }
+                    }
+                })
             } else {
                 // Press & Hold
 
                 let isPressed: Bool = true
 
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
-                            self.isSpeakButtonPressed = true;
+                            self.isSpeakButtonPressed = true
                             actionHandler.handle(actionType: ActionType.speak)
                         }
                         .onEnded { _ in
-                            self.isSpeakButtonPressed = false;
+                            self.isSpeakButtonPressed = false
                             actionHandler.handle(actionType: ActionType.stopSpeak)
                         }
                 )
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
-                        Task {
-                            await handleOtherActions(actionType: button.action)
-                        }
+                Task {
+                    await handleOtherActions(actionType: button.action)
+                }
+            }
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                DispatchQueue.main.async {
+                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp")
+                    if UIApplication.shared.canOpenURL(url!) {
+                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                    } else {
+                        print("Cannot open URL")
                     }
-                    .background(GeometryReader { geometry in
-                        Color.clear.onAppear {
-                            // Capture the button's frame size to use as the maximum distance for the long press gesture
-                            buttonFrame = geometry.frame(in: .local)
-                        }
-                    })
-                    .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                }
+            })
 
-                        DispatchQueue.main.async {
-                            openSettingsApp()
-                        }
-                    })
         } else if button.action == .play {
-            
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
-            }  .simultaneousGesture(
-                LongPressGesture(minimumDuration: 5).onEnded { _ in
-                    self.timerManager.resetTimer()
-                    speechRecognition.isTimerDidFired = false
-                    print("Timer reset after long press.")
+            }
+            .background(GeometryReader { geometry in
+                Color.clear.onAppear {
+                    // Capture the button's frame size to use as the maximum distance for the long press gesture
+                    buttonFrame = geometry.frame(in: .local)
                 }
-            )
+            })
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                DispatchQueue.main.async {
+                    openSettingsApp()
+                }
+            })
+//            .simultaneousGesture(
+//                LongPressGesture(minimumDuration: 5).onEnded { _ in
+//                    self.timerManager.resetTimer()
+//                    speechRecognition.isTimerDidFired = false
+//                    print("Timer reset after long press.")
+//                }
+//            )
             
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
-//                    tapCount += 1
-//                    
-//                    if tapCount % 7 == 0 {
-//                        showShareSheet = true
-//                    }
                     await handleOtherActions(actionType: button.action)
                 }
-            }
+            }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                requestReview()
+            })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
@@ -263,6 +278,14 @@ struct ActionsView: View {
         }
     }
     
+    func requestReview() {
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.windows.first?.windowScene {
+                SKStoreReviewController.requestReview(in: windowScene)
+            }
+        }
+    }
+    
     func handleOtherActions(actionType: ActionType) async {
 //        if(actionType == .skip) {
 //            let product = store.products[0]
@@ -275,7 +298,6 @@ struct ActionsView: View {
         actionHandler.handle(actionType: actionType)
     }
 }
-
 
 #Preview {
     NavigationView {
