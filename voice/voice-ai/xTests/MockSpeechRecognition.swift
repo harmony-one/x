@@ -61,7 +61,10 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         repeateCalled = true
     }
     
-    func stopSpeak() {}
+    func stopSpeak() {
+        speakCalled = false
+    }
+
     
     func sayMore() {}
     

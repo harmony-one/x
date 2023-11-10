@@ -6,9 +6,9 @@ class AppConfig {
     static let shared = AppConfig()
     private var apiKey: String?
     private var deepgramKey: String?
-    private var sentryDSN: String?
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
+    private var sentryDSN: String?
     
     private var themeName: String?
 
@@ -34,7 +34,7 @@ class AppConfig {
             self.sentryDSN = dictionary["SENTRY_DSN"]
 
             self.themeName = dictionary["THEME_NAME"]
-            // self.deepgramKey = dictionary["DEEPGRAM_KEY"]
+            self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],

@@ -246,7 +246,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
-        
+        audioEngine.mainMixerNode
         do {
             audioEngine.prepare()
             try audioEngine.start()
@@ -471,7 +471,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
-        
+        audioEngine.mainMixerNode
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
@@ -658,14 +658,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeateActiveSession(startPoint: Int? = 0) {
-        if isRepeatingCurrentSession {
-            let text = completeResponse.joined()
+        if(self.isRepeatingCurrentSession) {
+            let text = self.completeResponse.joined()
+            var activeTextToRepeat = ""
             
-            let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
-            let activeTextToRepeat = String(text[index...])
-            
-            if activeTextToRepeat.count > 0 {
-                textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+            if(text.count >= (startPoint ?? 0)) {
+                let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
+                activeTextToRepeat = String(text[index...])
+                
+                if(activeTextToRepeat.count > 0) {
+                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+                }
             }
             
             if isRequestingOpenAI && isRepeatingCurrentSession {
