@@ -42,7 +42,7 @@ final class AudioEngineAndSessionTests: XCTestCase {
     func testSetupAudioEngine() {
         // Ensure that audio engine setup succeeds
         speechRecognition.setupAudioEngine()
-        let inputNode = speechRecognition.getAudioEngine().inputNode
+        _ = speechRecognition.getAudioEngine().inputNode
         speechRecognition.startSpeechRecognition()
         XCTAssertTrue(speechRecognition.getAudioEngine().isRunning)
     }

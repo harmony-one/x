@@ -16,10 +16,13 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var temperature: Double
     private let networkService: NetworkService?
 
+    static var lastStartTimeOfTheDay: Date?
+
     // Limit 10 queries per minute
     static var queryTimes: [Int64] = []
     static var rateLimitCounterLock = DispatchSemaphore(value: 1)
     static let QueryLimitPerMinute: Int = 10
+    static let MaxGPT4DurationMinutes: Int = 10
 
     // URLSession should be lazy to ensure delegate can be set after super.init
     private lazy var session: URLSession = {
@@ -27,17 +30,25 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
 
-    init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
-        self.networkService = nil
-        self.completion = completion
-        self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
-        super.init()
+    convenience init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
+        self.init(networkService: nil, completion: completion, temperature: temperature)
     }
 
     init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
+        if Self.lastStartTimeOfTheDay == nil {
+            Self.lastStartTimeOfTheDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "OpenAILastStartTime"))
+            print("[OpenAI] Read last start time to be \(Self.lastStartTimeOfTheDay!)")
+            let now = Date()
+            let daysElapsed = Calendar.current.dateComponents([.day], from: Self.lastStartTimeOfTheDay!, to: Date()).day!
+            if daysElapsed >= 1 {
+                UserDefaults.standard.set(now.timeIntervalSince1970, forKey: "OpenAILastStartTime")
+                Self.lastStartTimeOfTheDay = now
+                print("[OpenAI] Setting new last start time to be \(Self.lastStartTimeOfTheDay!)")
+            }
+        }
         super.init()
     }
 
@@ -57,7 +68,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
         Self.rateLimitCounterLock.signal()
-        
+
         guard self.apiKey != nil else {
             self.completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "Open AI Api key is null")
@@ -69,13 +80,22 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "Authorization": "Bearer \(apiKey!)"
         ]
 
+        var model = "gpt-4"
+
+        let miutesElasped = Calendar.current.dateComponents([.minute], from: Self.lastStartTimeOfTheDay!, to: Date()).minute!
+
+        if miutesElasped > Self.MaxGPT4DurationMinutes {
+            model = "gpt-3.5-turbo"
+        }
+
         let body: [String: Any] = [
             //            "model": "gpt-4-32k",
-            "model": "gpt-4",
+            "model": model,
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
             "temperature": self.temperature,
             "stream": true
         ]
+        print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped)")
 
         print("[OpenAI] sent \(body)")
         // Validate the URL
@@ -167,25 +187,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     static func setConversationContext() -> [Message] {
         let contextMessage: [Message] =
-            [Message(role: "system", content: """
-            Your name is Voice AI, within the 'Voice AI' app that allows users to talk face-to-face with GPT-4. You are developed by the 'x dot country team'. NEVER apologize. NEVER end with questions. NEVER mention your model cutoff. NEVER mention that you are an AI. Be concise. Adhere to these guidelines strictly.
-
-            6 buttons:
-
-            New Session: User starts a fresh new session with you.
-
-            Tap To Speak: User taps to speak to the app and then taps again to send the audio to you.
-
-            Surprise Me: Provides a random fact.
-
-            Press & Hold: User press and hold while they are talking to send their input to you.
-
-            Repeat Last: Replays last message you sent.
-
-            Pause / Play: Pause and play app audio output.
-
-            Whether the user would like a tutor for high-school exams, a professor for any Wikipedia topic, or a language buddy, your goal is to satisfy the needs of the user as they engage with a super-intelligence, you.
-            """)]
+                [Message(role: "system", content: "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")]
         return contextMessage
     }
 

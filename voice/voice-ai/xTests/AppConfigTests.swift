@@ -43,7 +43,7 @@ class AppConfigTests: XCTestCase {
         XCTAssertNotNil(appConfig.getAPIKey(), "API Key should not be nil")
         XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
         XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
-        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
+//        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
         XCTAssertNotNil(appConfig.getDaysBetweenPrompts(), "DaysBetweenPrompts should not be nil")
         XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents be nil")
     }

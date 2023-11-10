@@ -1,3 +1,7 @@
+2023-11-10 Fri: I am currently working on making In-App Purchases (IAP) compatible with iOS 14 and am assisting Artem with support regarding IAP.
+
+2023-11-09 Thu: Enhanced compatibility with iOS 14 and a new timer mechanism has been added to the application, which initiates a countdown for 5 minutes.
+
 2023-11-08 Wed: Implement AirPods compatibility and prompt for a 5-star App Store review when initiating a new session. Reviewed:https://github.com/harmony-one/x/pull/124/
 
 2023-11-07 Tue: Enhanced the button click responsiveness for the functions 'say more', 'repeat last', 'press & hold', and 'random facts'. Reviewed PR: https://github.com/harmony-one/x/pull/124 and discussed with Artem on Apple Pay implementation for credits.

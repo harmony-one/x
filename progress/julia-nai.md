@@ -1,4 +1,8 @@
-2023-11-07 Wed:
+2023-11-09 Thu: [Created](https://docs.google.com/spreadsheets/d/1IlE0EpLUsmmDPwdx2b6adzw1UGeY3f-o-dO6qbWN0b8/edit?usp=sharing) dynamic pricing calculator spreadsheet for GPT 4 with adjustable assumptions. 
+[Reverted](https://github.com/harmony-one/x/commit/0659298ca8caca81ec4c34f26ce3e2fd05a4c897) custom instructions.
+Worked on investigating the tap to speak button slowness. I have a local build which dumps extra debugging information in an overly verbose way, but I have not been able to identify the source of the issue yet. 
+
+2023-11-08 Wed:
 [Created](https://github.com/harmony-one/x/commit/9f894a4c88da0b87dd56cef53bebd61ebdf91a1b) app to test for optimal synthesis chunking strategies and replicate odd synthesis behavior.
 [Implemented](https://github.com/harmony-one/x/commit/d6ec4b9b140decad26b39d5b234a8b6a827e8c30) Theo P’s custom instruction set as default. Now, the user can ask questions about the app and receive guidance on how to use the app. The app says it is created by x.country team and gives some input on what can be done with the app.
 [Reviewed](https://github.com/harmony-one/x/pull/143) Rikako’s language implementation. Tested Mandarin, English, Korean, and Spanish with great success.The user can speak in the language that their iPhone is set to and the app will respond in that language. For reasons seemingly related to the way dialects are handled by Apple, Cantonese does not seem to work. The random fact button will still read out in English. 
