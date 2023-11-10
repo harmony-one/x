@@ -7,21 +7,29 @@ struct OpenAIUtils {
         var totalContentLength = 0
 
         for message in conversaton.reversed() {
-            if let content = message.content {
-                if totalContentLength + content.count <= charactersCount {
-                    filteredConversation.insert(message, at: 0)
-                    totalContentLength += content.count
-                } else if totalContentLength < charactersCount {
-                    let diff = totalContentLength - charactersCount
-                    let length = min(diff, content.count)
-                    
-                    let trimmedContent = String(content.suffix(length));
-                    let newMessage = Message(role: message.role, content: trimmedContent);
-                    
-                    filteredConversation.insert(newMessage, at: 0)
-                    
-                    break
-                }
+            guard let content = message.content else {
+                continue
+            }
+            
+            if content.count == 0 {
+                continue
+            }
+            
+            if totalContentLength + content.count <= charactersCount {
+                filteredConversation.insert(message, at: 0)
+                totalContentLength += content.count
+                continue
+            }
+            
+            let charsLeft = charactersCount - totalContentLength;
+            if charsLeft > 0 {
+                let length = min(charsLeft, content.count)
+                let trimmedContent = String(content.suffix(length));
+                let newMessage = Message(role: message.role, content: trimmedContent);
+                
+                filteredConversation.insert(newMessage, at: 0)
+                totalContentLength += trimmedContent.count;
+                break
             }
         }
         
