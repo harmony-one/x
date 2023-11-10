@@ -36,6 +36,9 @@ struct ActionsView: View {
     @State private var tapCount: Int = 0
     
     @State private var showShareSheet: Bool = false
+    @State private var showShareAlert: Bool = false
+    
+    static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
@@ -105,7 +108,22 @@ struct ActionsView: View {
             baseView(colums: colums, buttons: buttons)
         }.background(Color(hex: 0x1E1E1E).animation(.none))
             .onAppear(
-                perform: SpeechRecognition.shared.setup
+                perform: {
+                    SpeechRecognition.shared.setup()
+                    Timer.scheduledTimer(withTimeInterval: Self.DelayBeforeShowingAlert, repeats: true) { _ in
+                        let r = Double.random(in: 0.0 ..< 1.0)
+                        if r < 0.5 {
+                            self.showShareAlert = true
+                            return
+                        }
+                        let daysElapsed = Calendar.current.dateComponents([.day], from: ReviewRequester.shared.lastReviewRequestDate ?? Date(timeIntervalSince1970: 0), to: Date()).day!
+                        if daysElapsed < 120 {
+                            self.showShareAlert = true
+                        } else {
+                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                        }
+                    }
+                }
             )
             .edgesIgnoringSafeArea(.all)
             .onChange(of: scenePhase) { newPhase in
@@ -121,6 +139,19 @@ struct ActionsView: View {
                     break
                 }
             }
+            .alert(isPresented: $showShareAlert) {
+                Alert(
+                    title: Text("Share the app with friends?"),
+                    message: Text("Send the link: x.country/app"),
+                    primaryButton: .default(Text("Sure!")) {
+                        showShareSheet = true
+                    },
+                    secondaryButton: .default(Text("Cancel")){
+                        showShareAlert = false
+                    }
+                )
+            }
+
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
         //             if UIDevice.current.orientation != orientation {
