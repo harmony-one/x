@@ -358,7 +358,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     currWord.append(res)
                 }
             }
-            pendingOpenAIStream?.query(conversation: conversation)
+            
+            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
