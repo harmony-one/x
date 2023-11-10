@@ -24,6 +24,59 @@ class OpenAIServiceTests: XCTestCase {
     }
 }
 
+class OpenAIResponseTests: XCTestCase {
+
+    func testInit() throws {
+        // Given
+        let json = """
+        {
+            "id": "123",
+            "object": "response",
+            "created": 1635790771,
+            "model": "gpt-3.5-turbo",
+            "choices": [
+                {
+                    "message": {
+                        "role": "user",
+                        "content": "Hi"
+                    },
+                    "finish_reason": "OK",
+                    "index": 1
+                
+                },
+            ],
+            "usage": {
+                "prompt_tokens": 10,
+                "completion_tokens": 50,
+                "total_tokens": 60
+            }
+        }
+        """
+
+        // When
+        let jsonData = Data(json.utf8)
+        let response = try JSONDecoder().decode(OpenAIResponse.self, from: jsonData)
+
+        // Then
+        XCTAssertEqual(response.id, "123")
+        XCTAssertEqual(response.object, "response")
+        XCTAssertEqual(response.created, 1635790771)
+        XCTAssertEqual(response.model, "gpt-3.5-turbo")
+
+        XCTAssertEqual(response.choices?.count, 1)
+        XCTAssertEqual(response.choices?[0].message?.role, "user")
+        XCTAssertEqual(response.choices?[0].message?.content, "Hi")
+
+        XCTAssertNotNil(response.usage)
+        XCTAssertEqual(response.usage?.prompt_tokens, 10)
+        XCTAssertEqual(response.usage?.completion_tokens, 50)
+        XCTAssertEqual(response.usage?.total_tokens, 60)
+    }
+
+    // Add more test cases as needed
+
+}
+
 class MessageTests: XCTestCase {
     func testInitialization() {
         // Test initializing a Message instance
