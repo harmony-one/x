@@ -65,3 +65,31 @@ Review and update your code if tests fail. Re-run tests to ensure everything pas
 
 #Note: Run tests on a physical device for faster performance compared to the simulator.
 
+--- 
+
+#Sandbox Testing Guide for In-App Purchases
+#Introduction
+Sandbox testing allows you to simulate in-app purchases in your iOS app without making actual charges. This guide will help you test the purchase flow using a Store class, which handles product requests, transactions, and restoration of purchases.
+
+#Prerequisites
+- Access to App Store Connect.
+- An iOS device for testing (sandbox testing can't be done on simulators).
+- The Store class implemented for handling in-app purchases.
+
+#Step 1: Set Up Sandbox Tester Accounts
+- Log in to App Store Connect.
+- Navigate to Users and Access > Sandbox Testers.
+- Create new tester accounts with unique email addresses.
+
+#Step 2: Configure In-App Purchases in App Store Connect
+- Go to the Features tab and select In-App Purchases.
+- Set up your in-app purchase items with unique identifiers.
+
+#Step 3: Run the App on a Real Device: 
+- Build and run your app from Xcode on a real iOS device.
+
+#Step 4: Sign Out of Regular Apple ID: 
+- On your device, sign out of the regular Apple ID (in the App Store and iTunes Store).
+
+#Step 5: Sign In with a Sandbox Tester Account:
+- When prompted for a sign-in within your app (e.g., when initiating a purchase), use a sandbox tester account. 

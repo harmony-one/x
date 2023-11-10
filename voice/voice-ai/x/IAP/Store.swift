@@ -1,100 +1,171 @@
 import StoreKit
+import SwiftUI
 
-class Store: ObservableObject {
-//    private var productIDs = ["0001"]
-//
-//    @Published var products = [Product]()
-//
-//    @Published var purchasedNonConsumables = Set<Product>()
-//    @Published var purchasedNonRenewables = Set<Product>()
-//
-//    @Published var purchasedConsumables = [Product]()
-//    @Published var purchasedSubscriptions = Set<Product>()
-//
-//    @Published var entitlements = [Transaction]()
-//
-//    var transacitonListener: Task<Void, Error>?
-//
-//    init() {
-//        transacitonListener = listenForTransactions()
-//
-//        Task {
-//            await requestProducts()
-//            // Must be called after the products are already fetched
-//            await updateCurrentEntitlements()
-//        }
-//    }
-//
-//    @MainActor
-//    func requestProducts() async {
-//        do {
-//            products = try await Product.products(for: productIDs)
-//        } catch {
-//            print(error)
-//        }
-//    }
-//
-//    @MainActor
-//    func purchase(_ product: Product) async throws {
-//        let result = try await product.purchase()
-//
-//        switch result {
-//        case .success(let transacitonVerification):
-//            await handle(transactionVerification: transacitonVerification)
-//        default:
-//            return
-//        }
-//    }
-//
-//    private func listenForTransactions() -> Task<Void, Error> {
-//        return Task.detached {
-//            for await result in Transaction.updates {
-//                await self.handle(transactionVerification: result)
-//            }
-//        }
-//    }
-//
-//    @MainActor
-//    @discardableResult
-//    private func handle(transactionVerification result: VerificationResult<Transaction>) async -> Transaction? {
-//        switch result {
-//        case let .verified(transaction):
-//            guard let product = self.products.first(where: { $0.id == transaction.productID}) else { return transaction }
-//
-//            guard !transaction.isUpgraded else { return nil }
-//
-//            self.addPurchased(product)
-//
-//            await transaction.finish()
-//
-//            return transaction
-//        default:
-//            return nil
-//        }
-//    }
-//
-//    @MainActor
-//    private func updateCurrentEntitlements() async {
-//        for await result in Transaction.currentEntitlements {
-//            if let transaction = await self.handle(transactionVerification: result) {
-//                entitlements.append(transaction)
-//            }
-//        }
-//    }
-//
-//    private func addPurchased(_ product: Product) {
-//        switch product.type {
-//        case .consumable:
-//            purchasedConsumables.append(product)
-//            Persistence.increaseConsumablesCount(creditsAmount: 500)
-//        case .nonConsumable:
-//            purchasedNonConsumables.insert(product)
-//        case .nonRenewable:
-//            purchasedNonRenewables.insert(product)
-//        case .autoRenewable:
-//            purchasedSubscriptions.insert(product)
-//        default:
-//            return
-//        }
-//    }
+struct PurchaseView: View {
+    @EnvironmentObject var store: Store
+    
+    var body: some View {
+        NavigationView {
+            List {
+                if store.products.isEmpty {
+                    Text("Loading products...")
+                } else {
+                    ForEach(store.products, id: \.productIdentifier) { product in
+                        productRow(for: product)
+                    }
+                }
+            }
+            .navigationTitle("Products")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Restore") {
+                        store.restorePurchases() // Implement this in your Store class
+                    }
+                }
+            }
+        }
+        .onAppear {
+            store.requestProducts()
+        }
+    }
+
+    @ViewBuilder
+    private func productRow(for product: SKProduct) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(product.localizedTitle)
+                    .font(.headline)
+                Text(product.localizedDescription)
+                    .font(.subheadline)
+            }
+
+            Spacer()
+
+            if store.purchasedNonConsumables.contains(product.productIdentifier) {
+                Text("Purchased")
+                    .foregroundColor(.green)
+            } else {
+                Button(action: {
+                    store.purchase(product)
+                }) {
+                    Text("Buy")
+                        .foregroundColor(.blue)
+                }
+            }
+        }
+    }
+}
+
+class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    private var productIDs = ["0001"]
+    
+    @Published var products = [SKProduct]()
+    
+    @Published var purchasedNonConsumables = Set<String>()
+    @Published var purchasedNonRenewables = Set<String>()
+    
+    @Published var purchasedConsumables = [String]()
+    @Published var purchasedSubscriptions = Set<String>()
+    
+    override init() {
+        super.init()
+        SKPaymentQueue.default().add(self)
+        requestProducts()
+    }
+    
+    func requestProducts() {
+        let request = SKProductsRequest(productIdentifiers: Set(productIDs))
+        request.delegate = self
+        request.start()
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        DispatchQueue.main.async {
+            self.products = response.products
+        }
+    }
+    
+    func purchase(_ product: SKProduct) {
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment)
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased, .restored:
+                complete(transaction: transaction)
+            case .failed:
+                failed(transaction: transaction)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func complete(transaction: SKPaymentTransaction) {
+        DispatchQueue.main.async {
+            let productID = transaction.payment.productIdentifier
+
+            let productType = self.productType(for: productID)
+            self.addPurchased(productID, ofType: productType)
+
+            // Obtain the transaction ID here
+            let transactionID = transaction.transactionIdentifier
+
+            // You can now use this transactionID for further processing, logging, or verification
+            print("Transaction ID: \(transactionID ?? "N/A")")
+
+            SKPaymentQueue.default().finishTransaction(transaction)
+        }
+    }
+    
+    private func failed(transaction: SKPaymentTransaction) {
+        if let error = transaction.error as NSError? {
+            if error.code != SKError.paymentCancelled.rawValue {
+                print("Transaction Error: \(error.localizedDescription)")
+            }
+        }
+        
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    func restorePurchases() {
+            SKPaymentQueue.default().restoreCompletedTransactions()
+        }
+
+    private func productType(for productID: String) -> ProductType {
+        switch productID {
+        // Replace these with your actual product IDs and their types
+        case "0001":
+            return .consumable
+        case "com.yourapp.nonConsumableProductID":
+            return .nonConsumable
+        case "com.yourapp.autoRenewableSubscriptionProductID":
+            return .autoRenewableSubscription
+        case "com.yourapp.nonRenewingSubscriptionProductID":
+            return .nonRenewingSubscription
+        default:
+            fatalError("Unknown product ID")
+        }
+    }
+    
+    private func addPurchased(_ productID: String, ofType productType: ProductType) {
+        switch productType {
+        case .consumable:
+            purchasedConsumables.append(productID)
+            // Add your logic to increase consumables count
+        case .nonConsumable:
+            purchasedNonConsumables.insert(productID)
+        case .autoRenewableSubscription, .nonRenewingSubscription:
+            purchasedSubscriptions.insert(productID)
+        }
+    }
+
+    enum ProductType {
+        case consumable
+        case nonConsumable
+        case autoRenewableSubscription
+        case nonRenewingSubscription
+    }
 }

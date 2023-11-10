@@ -301,6 +301,7 @@ struct ActionsView: View {
 
 #Preview {
     NavigationView {
-        ActionsView()
+      //  ActionsView()
+        PurchaseView().environmentObject(Store())
     }
 }
