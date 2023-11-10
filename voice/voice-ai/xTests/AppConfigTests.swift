@@ -22,9 +22,29 @@ class AppConfigTests: XCTestCase {
     func testDeepgramKeyIsNotNil() {
         XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
     }
+    
+    func testSentryDSNIsNotNil() {
+        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
+    }
 
+    func testThemeNameIsNotNil() {
+        XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
+    }
+    
+    func testMinimumSignificantEventsIsNotNil() {
+        XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents be nil")
+    }
+    
+    func getDaysBetweenPromptsIsNotNil() {
+        XCTAssertNotNil(appConfig.getDaysBetweenPrompts(), "DaysBetweenPrompts should not be nil")
+    }
+    
     func testLoadingValidPlistFile() {
         XCTAssertNotNil(appConfig.getAPIKey(), "API Key should not be nil")
         XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
+        XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
+        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
+        XCTAssertNotNil(appConfig.getDaysBetweenPrompts(), "DaysBetweenPrompts should not be nil")
+        XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents be nil")
     }
 }
