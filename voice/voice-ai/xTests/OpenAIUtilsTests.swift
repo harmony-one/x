@@ -50,14 +50,15 @@ final class OpenAIUtilsTests: XCTestCase {
         let limitedConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 100)
         
         XCTAssertEqual(limitedConversation.count, 3, "conversation should contain all messages")
-        
+        XCTAssertEqual(limitedConversation[0].content, "Welcome to the platform!")
+        XCTAssertEqual(limitedConversation[1].content, "Your order has been confirmed.")
+        XCTAssertEqual(limitedConversation[3].content, "Please adhere to the community guidelines.")
     }
     
     func testShouldFilterEmptyConversation() throws {
         let emptyConversation: [Voice_AI.Message] = [];
         
         let limitedEmpty = Voice_AI.OpenAIUtils.limitConversationContext(emptyConversation, charactersCount: 100)
-        
         
         XCTAssertEqual(limitedEmpty.count, 0, "conversation should contain all messages")
     }
