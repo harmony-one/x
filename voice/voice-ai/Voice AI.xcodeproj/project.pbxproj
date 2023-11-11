@@ -121,7 +121,6 @@
 		B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */; };
-		B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8202AEE612A00327529 /* MockTextToSpeechConverter.swift */; };
 		B9C4A8282AEE867A00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
 		B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
 		B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */; };
@@ -261,7 +260,6 @@
 		B9B331A22AFB849000F6A9C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSpeechRecognition.swift; sourceTree = "<group>"; };
-		B9C4A8202AEE612A00327529 /* MockTextToSpeechConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9C4A8262AEE861C00327529 /* ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		B9CE36E92AFD0365009999CF /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* Voice AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -597,7 +595,6 @@
 				F7F114FB2AF8172800BC191C /* VibrationManagerTests.swift */,
 				CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */,
 				B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */,
-				B9C4A8202AEE612A00327529 /* MockTextToSpeechConverter.swift */,
 				B3C083B22AF1BADB0069232C /* OpenAITests.swift */,
 				B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */,
 				B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */,
@@ -1006,7 +1003,6 @@
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
 				B3C0FE4B2AFEC68800B712E7 /* IAPTests.swift in Sources */,
-				B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
