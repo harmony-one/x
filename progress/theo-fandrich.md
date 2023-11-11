@@ -1,4 +1,4 @@
-2023-11-10 Fri: Made a 9am push that integrated some new support for in App purchases coming soon.
+2023-11-10 Fri: Made a 9am push that integrated some new support for in App purchases coming soon. Working on few small bugs still in place such has long press triggering tap functionality, overlap of "Tap to Speak" & "Press & Hold" functionality, and will improve logic for free credits.
 
 2023-11-09 Thu: Made a huge push for 3 initial releases to the app store today. Download voice AI on the appstore [here](x.country/app).
 
