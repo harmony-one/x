@@ -1,17 +1,10 @@
 import AVFoundation
 import Foundation
 
-protocol TextToSpeechConverterProtocol {
-    func convertTextToSpeech(text: String, pitch: Float, volume: Float)
-    func stopSpeech()
-    func pauseSpeech()
-    func continueSpeech()
-}
-
 // TextToSpeechConverter class responsible for converting text to speech
-class TextToSpeechConverter: TextToSpeechConverterProtocol {
+class TextToSpeechConverter {
     // AVSpeechSynthesizer instance to handle speech synthesis
-    var synthesizer = AVSpeechSynthesizer()
+    let synthesizer = AVSpeechSynthesizer()
     
     // Function to convert text to speech with customizable pitch and volume parameters
     func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0) {
@@ -49,10 +42,6 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         // Check if the synthesizer is currently speaking and pause it immediately
         if synthesizer.isSpeaking {
             synthesizer.pauseSpeaking(at: .immediate)
-            print("Speech paused.")
-            Thread.sleep(forTimeInterval: 1.0)
-        } else {
-            print("Speech is not speaking.")
         }
     }
     
