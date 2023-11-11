@@ -91,7 +91,8 @@
 		B36367562AFC69F2000409FC /* RandomFactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
 		B38ADB9D2AFE0A0F006BDC93 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F72708412AFD672E000DE81D /* AppConfig.plist */; };
-		B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* MessageContextTests.swift */; };
+		B3C083B32AF1BADB0069232C /* OpenAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C083B22AF1BADB0069232C /* OpenAITests.swift */; };
+		B3C0FE4B2AFEC68800B712E7 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C0FE4A2AFEC68800B712E7 /* IAPTests.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */; };
@@ -233,7 +234,8 @@
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
-		B3C083B22AF1BADB0069232C /* MessageContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageContextTests.swift; sourceTree = "<group>"; };
+		B3C083B22AF1BADB0069232C /* OpenAITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAITests.swift; sourceTree = "<group>"; };
+		B3C0FE4A2AFEC68800B712E7 /* IAPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -597,14 +599,23 @@
 				F7F114FB2AF8172800BC191C /* VibrationManagerTests.swift */,
 				CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */,
 				B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */,
+<<<<<<< HEAD
 				B3C083B22AF1BADB0069232C /* MessageContextTests.swift */,
+=======
+				B9C4A8202AEE612A00327529 /* MockTextToSpeechConverter.swift */,
+				B3C083B22AF1BADB0069232C /* OpenAITests.swift */,
+>>>>>>> origin/main
 				B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */,
 				B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */,
 				F7F1150D2AF825F700BC191C /* MockGenerator.swift */,
 				B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */,
 				6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */,
+<<<<<<< HEAD
 				F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */,
 				F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */,
+=======
+				B3C0FE4A2AFEC68800B712E7 /* IAPTests.swift */,
+>>>>>>> origin/main
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1007,11 +1018,16 @@
 				6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */,
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
+<<<<<<< HEAD
+=======
+				B3C0FE4B2AFEC68800B712E7 /* IAPTests.swift in Sources */,
+				B9C4A8212AEE612A00327529 /* MockTextToSpeechConverter.swift in Sources */,
+>>>>>>> origin/main
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,
-				B3C083B32AF1BADB0069232C /* MessageContextTests.swift in Sources */,
+				B3C083B32AF1BADB0069232C /* OpenAITests.swift in Sources */,
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 			);
