@@ -40,23 +40,29 @@ class TextToSpeechConverterTests: XCTestCase {
         // Now, check if the synthesizer is speaking
         XCTAssertTrue(textToSpeechConverter.synthesizer.isSpeaking)
     }
+//    func testConvertTextToSpeechSupportedLanguage() {
+//        let mockSynthesizer = MockAVSpeechSynthesizer()
+//        // Set a supported language that you know has an available voice
+//        let supportedLanguage = "en-US"
+//
+//        // Call the method to convert text to speech with the supported language
+//        textToSpeechConverter.convertTextToSpeech(text: "Test speech", pitch: 1.0, volume: 1.0, language: supportedLanguage)
+//
+//        XCTAssertEqual(mockSynthesizer.selectedVoiceLanguage, supportedLanguage)
+//        }
     
-//    func testConvertTextToSpeechNoVoiceAvailable() {
-//        let textToSpeechConverter = TextToSpeechConverter()
-//
-//        // Set a preferred language that you know does not have an available voice
-//        let unsupportedLanguage = "xx-XX" // Replace with a language code that has no voice support
-//
-//        // Call the method to convert text to speech
-//        textToSpeechConverter.convertTextToSpeech(text: "Test speech")
-//
-//        // Now, check that the synthesizer's voice is set to the default language
-//        let defaultLanguage = Locale.preferredLanguages.first ?? "en-US"
-//        XCTAssertEqual(textToSpeechConverter.synthesizer.voice?.language, defaultLanguage)
-//    }
+    func testConvertTextToSpeechUnsupportedLanguage() {
+        let textToSpeechConverter = TextToSpeechConverter()
 
+        // Set a preferred language that you know does not have an available voice
+        let unsupportedLanguage = "xx-XX"
 
+        // Call the method to convert text to speech
+        textToSpeechConverter.convertTextToSpeech(text: "Test speech", pitch: 1.0, volume: 1.0, language: unsupportedLanguage)
 
+        let isDefaultVoiceUsed = textToSpeechConverter.isDefaultVoiceUsed
+        XCTAssertTrue(isDefaultVoiceUsed)
+    }
 
     func testStopSpeech() {
         let mockSynthesizer = MockAVSpeechSynthesizer()

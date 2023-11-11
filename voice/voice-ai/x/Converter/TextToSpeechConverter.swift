@@ -2,7 +2,7 @@ import AVFoundation
 import Foundation
 
 protocol TextToSpeechConverterProtocol {
-    func convertTextToSpeech(text: String, pitch: Float, volume: Float)
+    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?)
     func stopSpeech()
     func pauseSpeech()
     func continueSpeech()
@@ -10,18 +10,26 @@ protocol TextToSpeechConverterProtocol {
 
 // TextToSpeechConverter class responsible for converting text to speech
 class TextToSpeechConverter: TextToSpeechConverterProtocol {
+    
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
+    let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+    
+    private(set) var isDefaultVoiceUsed = false
     
     // Function to convert text to speech with customizable pitch and volume parameters
-    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0) {
+    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
+        
+        let selectedLanguage = language ?? preferredLocale
         // Default language based on user settings
-        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
-        if let voice = AVSpeechSynthesisVoice(language: preferredLocale) {
+//        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+        if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
             utterance.voice = voice
         } else {
+            // this is used just for the unit tests
+            isDefaultVoiceUsed = true
             // Print a message if the specified voice is not available and use the system's default language
             print("The specified voice is not available. Defaulting to the system's language.")
         }
