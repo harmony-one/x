@@ -2,7 +2,7 @@
 
 2023-11-09 Thu: Debugging for bugs caused by unit tests requesting microphone permission (issue due to "IsFormatSampleRateAndChannelCountValid(format)" causes entire test to fail due to thread kill). Currently still working on it but so far: 1. Improved error handling for audioSession.recordPermission(). 2. Added NS microphone permissions requestg in Info.plist 3. Set up AVAudioSession properly by setting setCategory() and setActive() for AVAudioSession() 
 
-2023-11-08 Wed: Resolved haptics issue which was earlier colliding with recording functions. Implemented language support so that app defaults to device's preferred first language instead of English (PR: #143 [https://github.com/harmony-one/x/pull/143]). Debugging on compiling issues for running unit tests.
+2023-11-08 Wed: Resolved haptics issue which was earlier colliding with recording functions (PR: #141 [https://github.com/harmony-one/x/pull/141]). Implemented language support so that app defaults to device's preferred first language instead of English (PR: #143 [https://github.com/harmony-one/x/pull/143]). Debugging on compiling issues for running unit tests.
 
 2023-11-07 Tue: Investigated a method to mitigate the haptics issue using UIImpactFeedbackGenerator and modifying SpeechRecognition.swift (Haptics feedback using AudioServicesPlayAlertSound() had bug: conflict with AVAudio when functions .playAndRecord() or .record() are in action). Investigated unit test failures due to new functions being implemented, which were leading to threading errors. Assisted Theo with preparation for the TGI event.
 
