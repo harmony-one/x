@@ -1,10 +1,4 @@
-2023-11-10 Fri: Made a 9am push that integrated some new support for in App purchases coming soon. Working on few small bugs still in place such has long press triggering tap functionality, overlap of "Tap to Speak" & "Press & Hold" functionality, and will improve logic for free credits.
-
-2023-11-09 Thu: Made a huge push for 3 initial releases to the app store today. Download voice AI on the App Store [here](x.country/app).
-
-2023-11-08 Wed: Worked on engineers to fix bugs regarding UI inconsistencies and conducted product testing for rate limiting. 
-
-2023-11-07 Tue: Product tested, listed out bugs, delegated fixes to engineers, submitted to App Store connect.
+2023-11-07 Tue: Product tested, listed out bugs, delegated fixes to engineers, submitted to App store connect.
 
 2023-11-06 Mon: Worked on preparing app store submission. Calculated pricing for Voice AI and documented how the backend and iOS app should communicate to support the bahavior. The updated UI will be implemented by Tuesday morning.
 

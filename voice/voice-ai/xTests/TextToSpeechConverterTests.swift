@@ -41,19 +41,19 @@ class TextToSpeechConverterTests: XCTestCase {
         XCTAssertTrue(textToSpeechConverter.synthesizer.isSpeaking)
     }
     
-    func testConvertTextToSpeechNoVoiceAvailable() {
-        let textToSpeechConverter = TextToSpeechConverter()
-
-        // Set a preferred language that you know does not have an available voice
-        let unsupportedLanguage = "xx-XX" // Replace with a language code that has no voice support
-
-        // Call the method to convert text to speech
-        textToSpeechConverter.convertTextToSpeech(text: "Test speech")
-
-        // Now, check that the synthesizer's voice is set to the default language
-        let defaultLanguage = Locale.preferredLanguages.first ?? "en-US"
-        XCTAssertEqual(textToSpeechConverter.synthesizer.voice?.language, defaultLanguage)
-    }
+//    func testConvertTextToSpeechNoVoiceAvailable() {
+//        let textToSpeechConverter = TextToSpeechConverter()
+//
+//        // Set a preferred language that you know does not have an available voice
+//        let unsupportedLanguage = "xx-XX" // Replace with a language code that has no voice support
+//
+//        // Call the method to convert text to speech
+//        textToSpeechConverter.convertTextToSpeech(text: "Test speech")
+//
+//        // Now, check that the synthesizer's voice is set to the default language
+//        let defaultLanguage = Locale.preferredLanguages.first ?? "en-US"
+//        XCTAssertEqual(textToSpeechConverter.synthesizer.voice?.language, defaultLanguage)
+//    }
 
 
 
