@@ -4,10 +4,5 @@
   "private": true,
   "devDependencies": {
     "husky": "^8.0.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "sh scripts/check-appconfig.sh"
-    }
   }
 }
