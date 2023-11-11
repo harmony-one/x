@@ -225,6 +225,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
+            recognitionRequest?.endAudio()
             inputNode.removeTap(onBus: 0)
             recognitionRequest = nil
             recognitionTask = nil

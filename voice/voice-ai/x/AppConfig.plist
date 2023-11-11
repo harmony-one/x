@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SENTRY_DSN</key>
+	<string>https://ada377cd27ad332eac42885cb7ab479c@o896820.ingest.sentry.io/4506186155229184</string>
+	<key>DAYS_BETWEEN_PROMPTS</key>
+	<string>0</string>
+	<key>MINIMUM_SIGNIFICANT_EVENTS</key>
+	<string>0</string>
+	<key>THEME_NAME</key>
+	<string>blackredTheme</string>
+	<key>DEEPGRAM_KEY</key>
+	<string>bbb3c496a05aec710d633f6d0aa30fd4cc30fc5d</string>
+	<key>API_KEY</key>
+	<string>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</string>
+</dict>
+</plist>
