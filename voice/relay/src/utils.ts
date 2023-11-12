@@ -28,7 +28,10 @@ export function chunkstr (str: string, size: number): string[] {
 const aesKey = sha256(stringToBytes(SharedEncryptionSecret)).slice(0, 32)
 const aesIv = sha256(stringToBytes(SharedEncryptionIV)).slice(0, 16)
 
+// console.log('aesKey', aesKey)
+// console.log('aesIv', aesIv)
+
 export function encrypt (s: string): Buffer {
-  const cipher = crypto.createCipheriv('aes-256-gcm', aesKey, aesIv)
+  const cipher = crypto.createCipheriv('aes-256-cbc', aesKey, aesIv)
   return Buffer.concat([cipher.update(s, 'utf8'), cipher.final()])
 }

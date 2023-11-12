@@ -2,7 +2,7 @@ import { Router, type Request, type Response, type NextFunction } from 'express'
 import { HttpStatusCode } from 'axios'
 import rateLimit, { type Options as RLOptions, type RateLimitRequestHandler } from 'express-rate-limit'
 import { BlockedDeviceIds, BlockedIps, OpenAIDistributedKeys } from '../config/index.js'
-import { encrypt, hexString, stringToBytes } from '../utils.js'
+import { encrypt, hexString, hexView, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
 const router: Router = Router()
 
@@ -27,11 +27,13 @@ const parseDeviceToken = (req: Request, res: Response, next: NextFunction): any 
     res.status(HttpStatusCode.Forbidden).json({ error: 'device unsupported', code: 100 })
     return
   }
-  if (BlockedDeviceIds.includes(deviceToken)) {
+  const deviceTokenHash = hexView(sha256(stringToBytes(deviceToken)))
+  if (BlockedDeviceIds.includes(deviceTokenHash)) {
     res.status(HttpStatusCode.Forbidden).json({ error: 'device banned', code: 101 })
     return
   }
   req.deviceToken = deviceToken
+  req.deviceTokenHash = deviceTokenHash
   next()
 }
 
@@ -51,12 +53,13 @@ router.get('/health', (req, res) => {
 
 router.get('/key', parseDeviceToken, checkIpBan, deviceLimiter(), ipLimiter(), (req, res) => {
   // TODO: validate the device token, https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per-device_data
-  const deviceToken = req.deviceToken
   const numKeys = BigInt(OpenAIDistributedKeys.length)
-  const h = hexString(sha256(stringToBytes(deviceToken)))
-  const keyIndex = Number(BigInt(h) % numKeys)
+  const keyIndex = Number(BigInt('0x' + req.deviceTokenHash) % numKeys)
   const key = OpenAIDistributedKeys[keyIndex]
   const encryptedKey = encrypt(key)
+  const encoded = encryptedKey.toString('base64')
+
+  console.log(`[deviceTokenHash=${req.deviceTokenHash}][ip=${req.clientIp}] Provided encryptedKey ${encoded}`)
   res.json({ key: encryptedKey.toString('base64') })
 })
 

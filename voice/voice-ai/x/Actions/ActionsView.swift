@@ -4,7 +4,7 @@ import StoreKit
 import SwiftUI
 
 struct ActionsView: View {
-    let config = AppConfig()
+    let config = AppConfig.shared
     
     @ObservedObject private var timerManager = TimerManager.shared
 

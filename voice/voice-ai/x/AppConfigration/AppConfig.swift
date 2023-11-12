@@ -20,20 +20,20 @@ class AppConfig {
 
     init() {
         self.loadConfiguration()
+        Task {
+            await self.requestOpenAIKey()
+        }
     }
     
     private func decrypt(base64EncodedEncryptedKey: String) throws -> String {
-        let d = Data(base64Encoded: base64EncodedEncryptedKey)
-        guard let d = d else {
+        let encryptedKey = Data(base64Encoded: base64EncodedEncryptedKey)
+        guard let encryptedKey = encryptedKey else {
             throw NSError(domain: "Invalid encoded encrypted key", code: -1)
         }
-        let encryptedKey = String(data: d, encoding: .utf8)
-        guard let encryptedKey = encryptedKey else {
-            throw NSError(domain: "Malformed key encoding", code: -2)
-        }
-        let iv: [UInt8] = Array(self.sharedEncryptionIV!.utf8)
-        let sharedKey: [UInt8] = Array(self.sharedEncryptionSecret!.utf8)
-        let aes = try AES(key: sharedKey, blockMode: GCM(iv: iv))
+        
+        let iv = [UInt8](self.sharedEncryptionIV!.data(using: .utf8)!.sha256()[0..<16])
+        let sharedKey = [UInt8](self.sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0..<32])
+        let aes = try AES(key: sharedKey, blockMode: CBC(iv: iv))
         let dBytes = try aes.decrypt(encryptedKey.bytes)
         let dKey = String(data: Data(dBytes), encoding: .utf8)
         guard let key = dKey else {
@@ -50,7 +50,7 @@ class AppConfig {
         }
         let s = URLSession(configuration: .default)
         guard let url = URL(string: "\(relayUrl)/key") else {
-            let error = NSError(domain: "Invalid Relay URL", code: -1, userInfo: nil)
+            print("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return
         }
@@ -66,7 +66,7 @@ class AppConfig {
         }
         var r = URLRequest(url: url)
         r.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
-        s.dataTask(with: r) { data, _, err in
+        let t = s.dataTask(with: r) { data, _, err in
             if let err = err {
                 print("[AppConfig][requestOpenAIKey] cannot get key", err)
                 SentrySDK.capture(message: "Cannot get key. Error: \(err)")
@@ -89,7 +89,7 @@ class AppConfig {
                 SentrySDK.capture(message: "[AppConfig][requestOpenAIKey] error processing key response \(error)")
             }
         }
-//        s.dataTask(with: "")
+        t.resume()
     }
     
     private func loadConfiguration() {
