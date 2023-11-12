@@ -20,6 +20,10 @@ class AppConfig {
 
     init() {
         self.loadConfiguration()
+        if openaiKey != nil && openaiKey != "" {
+            // if a local key is assigned (for debugging), do not request from server
+            return
+        }
         Task {
             await self.requestOpenAIKey()
         }
@@ -113,6 +117,7 @@ class AppConfig {
 
             self.themeName = dictionary["THEME_NAME"]
             self.deepgramKey = dictionary["DEEPGRAM_KEY"]
+            self.openaiKey = dictionary["API_KEY"]
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],
