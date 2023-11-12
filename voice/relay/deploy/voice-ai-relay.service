@@ -1,0 +1,15 @@
+[Unit]
+Description=Voice AI Relay Server
+Documentation=https://github.com/harmony-one/x/
+After=network.target
+
+[Service]
+Environment=PORT=80 HTTPS_PORT=443
+Type=simple
+User=worker
+WorkingDirectory=/opt/git/x/voice/relay
+ExecStart=/usr/bin/node /opt/git/x/voice/relay/bin/run.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
