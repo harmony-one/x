@@ -8,7 +8,7 @@ Environment=PORT=80 HTTPS_PORT=443
 Type=simple
 User=worker
 WorkingDirectory=/opt/git/x/voice/relay
-ExecStart=/usr/bin/node /opt/git/x/voice/relay/bin/run.js
+ExecStart=/usr/bin/node --loader ts-node/esm ./bin/run.ts
 Restart=on-failure
 
 [Install]
