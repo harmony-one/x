@@ -2,7 +2,7 @@ import { Router, type Request, type Response, type NextFunction } from 'express'
 import { HttpStatusCode } from 'axios'
 import rateLimit, { type Options as RLOptions, type RateLimitRequestHandler } from 'express-rate-limit'
 import { BlockedDeviceIds, BlockedIps, OpenAIDistributedKeys } from '../config/index.js'
-import { encrypt, hexString, hexView, stringToBytes } from '../utils.js'
+import { encrypt, hexView, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
 const router: Router = Router()
 
