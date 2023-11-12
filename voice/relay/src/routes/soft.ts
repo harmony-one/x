@@ -50,6 +50,7 @@ router.get('/health', (req, res) => {
 })
 
 router.get('/key', parseDeviceToken, checkIpBan, deviceLimiter(), ipLimiter(), (req, res) => {
+  // TODO: validate the device token, https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per-device_data
   const deviceToken = req.deviceToken
   const numKeys = BigInt(OpenAIDistributedKeys.length)
   const h = hexString(sha256(stringToBytes(deviceToken)))
