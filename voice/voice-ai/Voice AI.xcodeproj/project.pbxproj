@@ -148,6 +148,7 @@
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
@@ -318,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
+				CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */,
 				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */,
@@ -702,6 +704,7 @@
 				F610490F2AF02DEE0087F745 /* SwiftyJSON */,
 				F67E43312AFAC166001B72CD /* SentrySwiftUI */,
 				F67E43332AFAC16C001B72CD /* Sentry */,
+				CD8A1A642B0084C400A5B2CC /* CryptoSwift */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -793,6 +796,7 @@
 			packageReferences = (
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1603,6 +1607,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
 		F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
@@ -1626,6 +1638,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 		F610490F2AF02DEE0087F745 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
