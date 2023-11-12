@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import createError from 'http-errors'
 // import apiRouter from './routes/hard.js'
-import apiRouter from './routes/soft.js'
+import softRateLimitedApiRouter from './routes/soft.js'
 import fs from 'fs'
 import http, { type Server as HttpServer } from 'http'
 import https from 'https'
@@ -64,7 +64,7 @@ app.options('*', async (_req, res) => {
   res.end()
 })
 
-app.use('/', apiRouter)
+app.use('/soft', softRateLimitedApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
