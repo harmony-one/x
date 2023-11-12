@@ -1,8 +1,7 @@
-import express from 'express'
+import express, { type Response, type Request, type NextFunction } from 'express'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import Fingerprint from 'express-fingerprint'
-
+import createError from 'http-errors'
 // import apiRouter from './routes/hard.js'
 import apiRouter from './routes/soft.js'
 import fs from 'fs'
@@ -11,6 +10,7 @@ import https from 'https'
 import config from './config/index.js'
 import cors from 'cors'
 import compression from 'compression'
+import requestIp from 'request-ip'
 
 const app = express()
 let httpServer: HttpServer
@@ -35,16 +35,7 @@ if (config.https.only) {
 }
 const httpsServer = https.createServer(httpsOptions, app)
 app.use(compression())
-app.use(Fingerprint({
-  parameters: [
-    // @ts-expect-error missing decl
-    Fingerprint.useragent,
-    // @ts-expect-error missing decl
-    Fingerprint.acceptHeaders,
-    // @ts-expect-error missing decl
-    Fingerprint.geoip
-  ]
-}))
+app.use(requestIp.mw())
 
 app.use(morgan('common'))
 app.use(cookieParser())
@@ -74,6 +65,22 @@ app.options('*', async (_req, res) => {
 })
 
 app.use('/', apiRouter)
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404))
+})
+
+// error handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = config.debug ? err : ''
+
+  // render the error page
+  res.status(500)
+  res.json({ error: res.locals.error, message: err.message, stack: config.debug ? err.stack : undefined })
+})
 
 export {
   httpServer,

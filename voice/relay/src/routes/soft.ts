@@ -1,28 +1,62 @@
 import { Router, type Request, type Response, type NextFunction } from 'express'
-import NodeCache from 'node-cache'
-import OpenAIRelay from '../services/openai.js'
 import { HttpStatusCode } from 'axios'
-import rateLimit from 'express-rate-limit'
-
+import rateLimit, { type Options as RLOptions, type RateLimitRequestHandler } from 'express-rate-limit'
+import { BlockedDeviceIds, BlockedIps, OpenAIDistributedKeys } from '../config/index.js'
+import { encrypt, hexString, stringToBytes } from '../utils.js'
+import { hash as sha256 } from 'fast-sha256'
 const router: Router = Router()
 
+const deviceLimiter = (args?: RLOptions): RateLimitRequestHandler => rateLimit({
+  windowMs: 1000 * 60,
+  limit: 10,
+  keyGenerator: req => req.header('x-device-token') ?? '',
+  ...args
+})
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const limiter = (args?: any) => rateLimit({
-    windowMs: 1000 * 60,
-    max: 60,
-    keyGenerator: req => req.fingerprint?.hash ?? '',
-    ...args
+const ipLimiter = (args?: RLOptions): RateLimitRequestHandler => rateLimit({
+  windowMs: 1000 * 60,
+  limit: 10,
+  keyGenerator: req => req.clientIp ?? 'N/A',
+  ...args
 })
 
+const parseDeviceToken = (req: Request, res: Response, next: NextFunction): any => {
+  const deviceToken = req.header('x-device-token')
+  if (!deviceToken) {
+    res.status(HttpStatusCode.Forbidden).json({ error: 'device unsupported', code: 100 })
+    return
+  }
+  if (BlockedDeviceIds.includes(deviceToken)) {
+    res.status(HttpStatusCode.Forbidden).json({ error: 'device banned', code: 101 })
+    return
+  }
+  req.deviceToken = deviceToken
+  next()
+}
 
+const checkIpBan = (req: Request, res: Response, next: NextFunction): any => {
+  if (!req.clientIp) {
+    console.error('[checkIpBan] Cannot find ip of request', req)
+  }
+  if (BlockedIps.includes(req.clientIp ?? 'N/A')) {
+    res.status(HttpStatusCode.Forbidden).json({ error: 'ip banned', code: 102 })
+  }
+  next()
+}
 
 router.get('/health', (req, res) => {
-    res.send('OK')
+  res.send('OK')
 })
 
-router.get('/key', limiter(), (req,res) =>{
-    
+router.get('/key', parseDeviceToken, checkIpBan, deviceLimiter(), ipLimiter(), (req, res) => {
+  const deviceToken = req.deviceToken
+  const numKeys = BigInt(OpenAIDistributedKeys.length)
+  const h = hexString(sha256(stringToBytes(deviceToken)))
+  const keyIndex = Number(BigInt(h) % numKeys)
+  const key = OpenAIDistributedKeys[keyIndex]
+  const encryptedKey = encrypt(key)
+  res.json({ key: encryptedKey.toString('base64') })
 })
 
 export default router
