@@ -599,7 +599,7 @@
 				F7F114FB2AF8172800BC191C /* VibrationManagerTests.swift */,
 				CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */,
 				B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */,
-				B3C083B22AF1BADB0069232C /* OpenAITests.swift */,
+				B3C083B22AF1BADB0069232C /* MessageContextTests.swift */,
 				B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */,
 				B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */,
 				F7F1150D2AF825F700BC191C /* MockGenerator.swift */,
@@ -1011,7 +1011,6 @@
 				6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */,
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
-				B3C0FE4B2AFEC68800B712E7 /* IAPTests.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
@@ -1369,7 +1368,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1415,7 +1414,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
