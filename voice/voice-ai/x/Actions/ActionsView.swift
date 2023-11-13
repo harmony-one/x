@@ -282,10 +282,10 @@ struct ActionsView: View {
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
-            }.simultaneousGesture(LongPressGesture(minimumDuration: 5, maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+            }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                // requestReview()
                 
-                store.purchasedConsumables
+                store.purchaseConsumable()
             })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
@@ -334,7 +334,6 @@ struct ActionsView: View {
 
 #Preview {
     NavigationView {
-      //  ActionsView()
-        PurchaseView().environmentObject(Store())
+       ActionsView()
     }
 }

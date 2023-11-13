@@ -1,60 +1,6 @@
 import StoreKit
+import Sentry
 import SwiftUI
-
-struct PurchaseView: View {
-    @EnvironmentObject var store: Store
-    
-    var body: some View {
-        NavigationView {
-            List {
-                if store.products.isEmpty {
-                    Text("Loading products...")
-                } else {
-                    ForEach(store.products, id: \.productIdentifier) { product in
-                        productRow(for: product)
-                    }
-                }
-            }
-            .navigationTitle("Products")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Restore") {
-                        store.restorePurchases() // Implement this in your Store class
-                    }
-                }
-            }
-        }
-        .onAppear {
-            store.requestProducts()
-        }
-    }
-
-    @ViewBuilder
-    private func productRow(for product: SKProduct) -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(product.localizedTitle)
-                    .font(.headline)
-                Text(product.localizedDescription)
-                    .font(.subheadline)
-            }
-
-            Spacer()
-
-            if store.purchasedNonConsumables.contains(product.productIdentifier) {
-                Text("Purchased")
-                    .foregroundColor(.green)
-            } else {
-                Button(action: {
-                    store.purchase(product)
-                }) {
-                    Text("Buy")
-                        .foregroundColor(.blue)
-                }
-            }
-        }
-    }
-}
 
 class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTransactionObserver {
     private var productIDs = ["0001"]
@@ -82,6 +28,26 @@ class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTrans
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         DispatchQueue.main.async {
             self.products = response.products
+            if response.invalidProductIdentifiers.count > 0 {
+                SentrySDK.capture(message: "[Store][ProductsRequest] Invalid Product IDs: \(response.invalidProductIdentifiers)")
+            }
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased, .restored:
+                DispatchQueue.main.async {
+                    self.complete(transaction: transaction)
+                }
+            case .failed:
+                DispatchQueue.main.async {
+                    self.failed(transaction: transaction)
+                }
+            default:
+                break
+            }
         }
     }
     
@@ -90,32 +56,37 @@ class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTrans
         SKPaymentQueue.default().add(payment)
     }
     
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case .purchased, .restored:
-                complete(transaction: transaction)
-            case .failed:
-                failed(transaction: transaction)
-            default:
-                break
-            }
+    // As we currently have only one, it's been directly assigned to purchases.
+    func purchaseConsumable() {
+        guard self.products.count > 0,
+              let product = self.products.first  else {
+            SentrySDK.capture(message: "[Store][PurchaseConsumable] No items to pruchase")
+            return
         }
+        self.purchase(product)
+    }
+    
+    func isProductPurchased(_ productID: String) -> Bool {
+        return purchasedNonConsumables.contains(productID) ||
+        purchasedNonRenewables.contains(productID) ||
+        purchasedSubscriptions.contains(productID)
     }
     
     private func complete(transaction: SKPaymentTransaction) {
         DispatchQueue.main.async {
             let productID = transaction.payment.productIdentifier
-
+            
             let productType = self.productType(for: productID)
             self.addPurchased(productID, ofType: productType)
-
+            
             // Obtain the transaction ID here
             let transactionID = transaction.transactionIdentifier
-
+            
             // You can now use this transactionID for further processing, logging, or verification
-            print("Transaction ID: \(transactionID ?? "N/A")")
-
+            SentrySDK.capture(message:"Transaction ID: \(transactionID ?? "N/A")")
+            
+            // Consider server-side validation of the receipt here
+            
             SKPaymentQueue.default().finishTransaction(transaction)
         }
     }
@@ -123,7 +94,7 @@ class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTrans
     private func failed(transaction: SKPaymentTransaction) {
         if let error = transaction.error as NSError? {
             if error.code != SKError.paymentCancelled.rawValue {
-                print("Transaction Error: \(error.localizedDescription)")
+                SentrySDK.capture(message:"[Store][failed] Transaction Error: \(error.localizedDescription)")
             }
         }
         
@@ -131,12 +102,12 @@ class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTrans
     }
     
     func restorePurchases() {
-            SKPaymentQueue.default().restoreCompletedTransactions()
-        }
-
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
     private func productType(for productID: String) -> ProductType {
         switch productID {
-        // Replace these with your actual product IDs and their types
+            // Replace these with your actual product IDs and their types
         case "0001":
             return .consumable
         case "com.yourapp.nonConsumableProductID":
@@ -154,14 +125,20 @@ class Store: NSObject,ObservableObject,SKProductsRequestDelegate, SKPaymentTrans
         switch productType {
         case .consumable:
             purchasedConsumables.append(productID)
-            // Add your logic to increase consumables count
+            Persistence.increaseConsumablesCount(creditsAmount: 500)
         case .nonConsumable:
             purchasedNonConsumables.insert(productID)
         case .autoRenewableSubscription, .nonRenewingSubscription:
             purchasedSubscriptions.insert(productID)
         }
     }
-
+    
+    func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        // Implement logic here to decide whether to continue the transaction
+        // For now, returning true to allow the transaction
+        return true
+    }
+    
     enum ProductType {
         case consumable
         case nonConsumable
