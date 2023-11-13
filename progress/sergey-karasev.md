@@ -2,7 +2,7 @@
 
 ---
 
-2023-11-10 Fri: Working on [truncating the accumulating context to a maximum of 512 characters](https://github.com/harmony-one/x/pull/159) and adding unit tests for the "limiter" 
+2023-11-10 Fri: Working on [truncating the accumulating context to a maximum of 512 characters](https://github.com/harmony-one/x/pull/159) and adding unit tests for the "limiter", [added the same logic to harmony one bot](https://github.com/harmony-one/HarmonyOneBot/pull/343). 
 
 2023-11-09 Thu: I have added [a window to display a link to the application](https://github.com/harmony-one/x/pull/142) (share feature) after the user taps "new session" button for the seventh time, also [added a throttler](https://github.com/harmony-one/x/pull/144) to the reset session function (in order not to interrupt the greeting). Clarified the code regarding tap-to-speak and [fixed the play-pause button state](https://github.com/harmony-one/x/pull/149)
 
