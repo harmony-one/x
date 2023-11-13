@@ -1,3 +1,5 @@
+2023-11-12 Sun: Reviewed Aaron's PR on relayer service, as well as the configuration in the cloud service.
+
 2023-11-11 Sat: Configured [Github action and Husky pre-commit hook](https://github.com/harmony-one/x/pull/165) preventing AppConfig.plist from being committed.
 
 2023-11-10 Fri: Debugged time calculation logic that triggers gpt-3.5.
