@@ -1,4 +1,4 @@
-2023-11-13 Mon: Working on setup buttons debounce to have better app stability (prevent crashes etc). Working on setup more comprehensive/granular logs (sentry)
+2023-11-13 Mon: Working on setup buttons [debounce](https://github.com/harmony-one/x/pull/170/files) to have better app stability (prevent crashes etc). Working on setup more comprehensive/granular logs (sentry)
 
 ---
 
