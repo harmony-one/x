@@ -397,7 +397,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
-                audioPlayer.playSound(false)
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
