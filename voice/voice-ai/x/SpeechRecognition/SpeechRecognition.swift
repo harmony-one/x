@@ -297,7 +297,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         if conversation.count == 0 {
-            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            let conversationContext = OpenAIStreamService.setConversationContext()
+            if (conversationContext[0].content != "") {
+                conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            }
         }
         
         print("[SpeechRecognition] query: \(text)")
@@ -478,8 +481,21 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
         }
+        
     }
 
+    func checkContextChange() -> Bool {
+        if (conversation.count == 0) {
+            return false
+        }
+        let currentContext = conversation.first?.content
+        let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        if (currentContext == newContext) {
+            return false
+        }
+        return true
+    }
+    
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
         audioEngine.mainMixerNode

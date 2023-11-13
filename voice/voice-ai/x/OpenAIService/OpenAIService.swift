@@ -97,21 +97,8 @@ struct OpenAIService {
     }
 
     func setConversationContext() -> [Message] {
-        let contextRules = """
-            Do not use the following:
-            1. Acknowledgements: "I see," "I understand," "Got it," "That makes sense"
-            2. Interruptions: "Excuse me," "Sorry to interrupt," "May I add something?"
-            3. Expressing uncertainty: "I'm not sure," "I could be wrong," "I think so, but I'd need to double-check"
-            4. Apologies: "I apologize," "I'm sorry for the inconvenience," "I'm sorry if I misunderstood"
-            5. Polite suggestions: "Perhaps you could consider," "It might be helpful to," "Have you thought about"
-            6. Expressing gratitude: "Thank you so much," "I really appreciate your help," "Thanks a million"
-            7. Expressing empathy: "I understand how you feel," "That must be difficult," "I'm here for you"
-            8. Small talk: "How's the weather?," "Did you catch the game yesterday?," "Any exciting plans for the weekend?"
-            9. Closing remarks: "Take care," "Have a great day," "Looking forward to speaking again soon"
-        """
-        var contextMessage: [Message] = []
-        contextMessage.append(Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand. Your name is Sam."))
-        contextMessage.append(Message(role: "system", content: contextRules))
+        let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        let contextMessage: [Message] = [Message(role: "system", content: content)]
         return contextMessage
     }
 }
