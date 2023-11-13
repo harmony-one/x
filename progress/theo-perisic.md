@@ -1,3 +1,9 @@
+2023-11-12 Sun: Reviewed Fenwick Terms of Service, sent comments back for changes.
+
+2023-11-11 Sat: Continued testing Voice AI, currently heavy burden on user to get value out of usage.
+
+2023-11-10 Fri: Completed an initial release usage and [feedback table](https://harmonyone.notion.site/Initial-Release-Usage-and-Feedback-661d427191534b6f9a58e950685e1242?pvs=4) to focus on main blockers to “30 people 30 minutes” goal.
+
 2023-11-09 Thu: Following App Store launch, completed [in-app growth strategies](https://harmonyone.notion.site/App-Growth-Brainstorm-5a776417f42d4c38923bf541a79df413?pvs=4). Continued [app testing](https://harmonyone.notion.site/App-Store-Release-Testing-f4c1cc052fc84d999a6ddd8e218fb27a?pvs=4). 
 
 2023-11-08 Wed: Completed [Product Marketing Strategy](https://harmonyone.notion.site/Voice-AI-Marketing-Product-Strategy-7034a6c564124d23be4f061def94eaff?pvs=4) draft and added [custom instructions](https://harmonyone.notion.site/Custom-Instructions-2-Voice-AI-a14b176b252d4c539f7635c8777c5ece?pvs=4) optimized for user experience. Started competitor analysis page using MobileAction to track App Store Optimization.

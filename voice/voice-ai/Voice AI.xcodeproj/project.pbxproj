@@ -147,6 +147,7 @@
 		CD0D13672ADA74C800031EDD /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
@@ -320,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
+				CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */,
 				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */,
@@ -597,7 +599,7 @@
 				F7F114FB2AF8172800BC191C /* VibrationManagerTests.swift */,
 				CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */,
 				B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */,
-				B3C083B22AF1BADB0069232C /* MessageContextTests.swift */,
+				B3C083B22AF1BADB0069232C /* OpenAITests.swift */,
 				B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */,
 				B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */,
 				F7F1150D2AF825F700BC191C /* MockGenerator.swift */,
@@ -705,6 +707,7 @@
 				F610490F2AF02DEE0087F745 /* SwiftyJSON */,
 				F67E43312AFAC166001B72CD /* SentrySwiftUI */,
 				F67E43332AFAC16C001B72CD /* Sentry */,
+				CD8A1A642B0084C400A5B2CC /* CryptoSwift */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -796,6 +799,7 @@
 			packageReferences = (
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1007,6 +1011,7 @@
 				6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */,
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
+				B3C0FE4B2AFEC68800B712E7 /* IAPTests.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
@@ -1364,7 +1369,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1390,7 +1395,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.9.12;
+				MARKETING_VERSION = 0.9.14;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1410,7 +1415,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1436,7 +1441,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.9.12;
+				MARKETING_VERSION = 0.9.14;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1607,6 +1612,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
 		F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
@@ -1630,6 +1643,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 		F610490F2AF02DEE0087F745 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

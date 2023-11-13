@@ -1,10 +1,16 @@
-2023-11-10 Thu: Implementing long press actions for multiple buttons. Fixing various bugs for the launch day. Debugging Aaron's rate limit merge (initially defaulted to 3.5turbo due to date calculation bug).
+2023-11-12 Sun: Reviewed Aaron's PR on relayer service, as well as the configuration in the cloud service.
 
-2023-11-09 Wed: Implemented "Press to Speak & Press to Send" button. Researched into different tools we can use to develop the "share" feature. [Branch](https://www.branch.io/) seems to be the most useful SDK. Began looking into the SDK to start implementation.
+2023-11-11 Sat: Configured [Github action and Husky pre-commit hook](https://github.com/harmony-one/x/pull/165) preventing AppConfig.plist from being committed.
 
-2023-11-08 Tue: Update streaming to initially flush 5 words then by delimiting punctuations, upperbounded by 20 words. Finished setting up Sentry with Yuriy. Exponential backoff changes to 2, 4, 8 seconds.
+2023-11-10 Fri: Debugged time calculation logic that triggers gpt-3.5.
 
-2023-11-07 Mon: Fixed a bug which ensures streams that are part of the previous word is appended correctly. Upperbounded buffer to contain 10 words at max so that synthesis occurs at delimiter or 10 words. Implemented retryable methods with exponential backoff.
+2023-11-09 Thu: Implementing long press actions for multiple buttons. Fixing various bugs for the launch day. Debugging Aaron's rate limit merge (initially defaulted to 3.5turbo due to date calculation bug).
+
+2023-11-08 Wed: Implemented "Press to Speak & Press to Send" button. Researched into different tools we can use to develop the "share" feature. [Branch](https://www.branch.io/) seems to be the most useful SDK. Began looking into the SDK to start implementation.
+
+2023-11-07 Tue: Update streaming to initially flush 5 words then by delimiting punctuations, upperbounded by 20 words. Finished setting up Sentry with Yuriy. Exponential backoff changes to 2, 4, 8 seconds.
+
+2023-11-06 Mon: Fixed a bug which ensures streams that are part of the previous word is appended correctly. Upperbounded buffer to contain 10 words at max so that synthesis occurs at delimiter or 10 words. Implemented retryable methods with exponential backoff.
 
 ---
 

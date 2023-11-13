@@ -15,7 +15,14 @@ const config = {
   packageName: process.env.PACKAGE_NAME ?? '',
   openai: { key: process.env.OPENAI_KEY ?? '' },
   deepgram: { key: process.env.DEEPGRAM_KEY ?? '' },
-  playht: { key: process.env.PLAYHT_KEY ?? '' },
+  playht: { key: process.env.PLAYHT_KEY ?? '' }
 }
+
+export const OpenAIDistributedKeys: string[] = JSON.parse(process.env.OPENAI_DISTRIBUTED_KEYS ?? '[]')
+export const BlockedDeviceIds: string[] = JSON.parse(process.env.BLOCKED_DEVICE_IDS ?? '[]')
+export const BlockedIps: string[] = JSON.parse(process.env.BLOCKED_IPS ?? '[]')
+
+export const SharedEncryptionSecret: string = process.env.SHARED_ENCRYPTION_SECRET ?? ''
+export const SharedEncryptionIV: string = process.env.SHARED_ENCRYPTION_IV ?? ''
 
 export default config

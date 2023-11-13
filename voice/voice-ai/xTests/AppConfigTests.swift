@@ -16,7 +16,7 @@ class AppConfigTests: XCTestCase {
     }
 
     func testAPIKeyIsNotNil() {
-        XCTAssertNotNil(appConfig.getAPIKey(), "API Key should not be nil")
+        XCTAssertNotNil(appConfig.getOpenAIKey(), "API Key should not be nil")
     }
 
     func testDeepgramKeyIsNotNil() {
@@ -40,7 +40,7 @@ class AppConfigTests: XCTestCase {
     }
     
     func testLoadingValidPlistFile() {
-        XCTAssertNotNil(appConfig.getAPIKey(), "API Key should not be nil")
+        XCTAssertNotNil(appConfig.getOpenAIKey(), "API Key should not be nil")
         XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
         XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
 //        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
