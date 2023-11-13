@@ -219,6 +219,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
+                audioPlayer.playSound(false)
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
@@ -396,6 +397,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleQuery(retryCount: retryCount - 1)
                 }
             } else {
+                audioPlayer.playSound(false)
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
