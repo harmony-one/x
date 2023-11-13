@@ -350,7 +350,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
-                            print("############ INITIAL FLUSH")
                             flushBuf()
                             initialFlush = true
                         }
@@ -371,6 +370,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             
             let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         

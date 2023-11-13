@@ -96,7 +96,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "stream": true
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped)")
-
+        
         print("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {

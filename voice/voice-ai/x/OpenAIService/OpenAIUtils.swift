@@ -1,11 +1,13 @@
-
 import Foundation
 
 struct OpenAIUtils {
     static func limitConversationContext (_ conversaton: [Message], charactersCount: Int) -> [Message] {
         var filteredConversation: [Message] = []
         var totalContentLength = 0
-
+        
+        filteredConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+        totalContentLength += filteredConversation.count
+        
         for message in conversaton.reversed() {
             guard let content = message.content else {
                 continue

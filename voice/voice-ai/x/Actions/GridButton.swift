@@ -14,10 +14,14 @@ struct GridButton: View {
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @State private var debounce_timer:Timer?
 
     var body: some View {
         Button(action: {
-            action()
+            self.debounce_timer?.invalidate()
+            self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                action()
+            }
         }) {
             VStack(spacing: imageTextSpacing) {
                 Image(pressEffectButtonImage()) // button.image)
