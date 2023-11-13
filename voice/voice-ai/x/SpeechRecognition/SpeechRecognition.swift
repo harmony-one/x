@@ -12,7 +12,7 @@ protocol SpeechRecognitionProtocol {
     func pause(feedback: Bool?)
     func repeate()
     func speak()
-    func stopSpeak()
+    func stopSpeak(cancel: Bool?)
     func sayMore()
     func cancelSpeak()
 }
@@ -24,6 +24,10 @@ extension SpeechRecognitionProtocol {
     
     func pause() {
         pause(feedback: true)
+    }
+    
+    func stopSpeak() {
+        stopSpeak(cancel: false)
     }
 }
 
@@ -400,7 +404,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         handleQuery(retryCount: maxRetry)
     }
     
-    func pauseCapturing(cancel: Bool = false) {
+    func pauseCapturing(cancel: Bool? = false) {
         guard isCapturing else {
             return
         }
@@ -418,6 +422,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         recognitionRequest?.endAudio()
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
+        print("stop")
     }
     
     func resumeCapturing() {
@@ -627,7 +632,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     // Refactored 'stopSpeak' function to finalize speech recognition
-    func stopSpeak() {
+    func stopSpeak(cancel: Bool? = false) {
         DispatchQueue.global(qos: .userInitiated).async {
             print("[SpeechRecognition][stopSpeak]")
             
@@ -654,7 +659,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             // Pause capturing after handling the recognized text
             DispatchQueue.main.async {
-                self.pauseCapturing()
+                self.pauseCapturing(cancel: cancel)
             }
         }
     }

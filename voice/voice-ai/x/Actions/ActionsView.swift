@@ -224,8 +224,10 @@ struct ActionsView: View {
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
+                            if (self.isSpeakButtonPressed == false) {
+                                actionHandler.handle(actionType: ActionType.speak)
+                            }
                             self.isSpeakButtonPressed = true
-                            actionHandler.handle(actionType: ActionType.speak)
                         }
                         .onEnded { _ in
                             self.isSpeakButtonPressed = false
