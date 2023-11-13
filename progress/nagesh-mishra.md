@@ -1,3 +1,8 @@
+
+2023-11-13 Mon: Completed implementation of In-App Purchases compatible with iOS 14 and began integrating the logging of input and output tokens in the iOS local database.
+
+---
+
 2023-11-10 Fri: I am currently working on making In-App Purchases (IAP) compatible with iOS 14 and am assisting Artem with support regarding IAP.
 
 2023-11-09 Thu: Enhanced compatibility with iOS 14 and a new timer mechanism has been added to the application, which initiates a countdown for 5 minutes.
