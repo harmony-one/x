@@ -16,18 +16,29 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var repeateCalled: Bool = false
     
     private var _isPlaying = false
+    private var _isPausing = false
     
     private var isPlayingSubject = PassthroughSubject<Bool, Never>()
+    private var isPausingSubject = PassthroughSubject<Bool, Never>()
 
     // Define a custom publisher and use isPlayingSubject to emit values
-    var isPlaingPublisher: AnyPublisher<Bool, Never> {
+    var isPlayingPublisher: AnyPublisher<Bool, Never> {
         return isPlayingSubject.eraseToAnyPublisher()
+    }
+    
+    var isPausingPublisher: AnyPublisher<Bool, Never> {
+        return isPausingSubject.eraseToAnyPublisher()
     }
 
     // Implement a method to update the value and notify subscribers
     func setIsPlaying(_ isPlaying: Bool) {
         _isPlaying = isPlaying
         isPlayingSubject.send(isPlaying)
+    }
+    
+    func setIsPausing(_ isPausing: Bool) {
+        _isPausing = isPausing
+        isPausingSubject.send(isPausing)
     }
     
     func pause(feedback: Bool?) {}

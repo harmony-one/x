@@ -1,5 +1,7 @@
 @testable import Voice_AI
 import XCTest
+import StoreKit
+import SwiftUI
 
 // struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
 //
@@ -9,13 +11,21 @@ import XCTest
 // }
 
 class SpeechRecognitionTests: XCTestCase {
+    
+    var speechRecognition: MockSpeechRecognition!
+
+   override func setUp() {
+       super.setUp()
+       speechRecognition = MockSpeechRecognition()
+   }
+    
     // Test the `isPaused()` function
     func testIsPaused() {
         // Create a mock SpeechRecognition object
         let mockSpeechRecognition = MockSpeechRecognition()
 
         // Call the `isPaused()` function
-        let paused = mockSpeechRecognition.isPaused()
+        _ = mockSpeechRecognition.isPaused()
 
         // Assert that the `isPausedCalled` property is set to `true`
         XCTAssertTrue(mockSpeechRecognition.isPausedCalled)
@@ -81,10 +91,59 @@ class SpeechRecognitionTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.pauseCalled)
     }
 
-    func testIsPlaningPublisherGetter() {
+//    func testIsPlayingPublisher() {
+//        // Given
+//        var receivedIsPlayingValues: [Bool] = []
+//        let expectation = XCTestExpectation(description: "Received values from isPlayingPublisher")
+//
+//        // When
+//        let publisher = speechRecognition.isPlayingPublisher
+//        let cancellable = publisher.sink { value in
+//            receivedIsPlayingValues.append(value)
+//            expectation.fulfill()
+//        }
+//
+//        // Simulate changes in the isPlaying state
+//        speechRecognition._isPlaying = true
+//        speechRecognition._isPlaying = false
+//        speechRecognition._isPlaying = true
+//
+//        // Then
+//        wait(for: [expectation], timeout: 1.0)
+//        XCTAssertEqual(receivedIsPlayingValues, [false, true, false, true])
+//
+//        cancellable.cancel()
+//    }
+
+    func testIsPausedPublisher() {
+        // Given
+        var receivedIsPausedValues: [Bool] = []
+        let expectation = XCTestExpectation(description: "Received values from isPausedPublisher")
+//        var speechRecognition: MockSpeechRecognition = MockSpeechRecognition()
+        
+        // When
+        let publisher = speechRecognition.isPlayingPublisher
+        let cancellable = publisher.sink { value in
+            receivedIsPlayingValues.append(value)
+            expectation.fulfill()
+        }
+
+        // Simulate changes in the isPaused state using the mock
+        speechRecognition.setIsPausing(true)
+        speechRecognition.setIsPausing(false)
+        speechRecognition.setIsPausing(true)
+
+        // Then
+        wait(for: [expectation], timeout: 1.0)
+        XCTAssertEqual(receivedIsPausedValues, [true, false, true])
+
+        cancellable.cancel()
+    }
+    
+    func testIsPlayingPublisherGetter() {
         let mockSpeechRecognition = MockSpeechRecognition()
 
-        let isPlayingPublisher = mockSpeechRecognition.isPlaingPublisher
+        let isPlayingPublisher = mockSpeechRecognition.isPlayingPublisher
 
         // Assert: Verify the result
         var isPlaying = false
