@@ -7,10 +7,6 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
-    
-    @State private var timeAtPress = Date()
-    @State private var isDragActive = false
-    
     var image: String? = nil
     var colorExternalManage: Bool = false
     var action: () -> Void
@@ -18,63 +14,10 @@ struct GridButton: View {
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    func onDragEnded() {
-        self.isDragActive = false
-    }
-    
-    func onDragStart() {
-        if(!self.isDragActive) {
-            self.isDragActive = true
-            
-            self.timeAtPress = Date()
-        }
-    }
-    
+
     var body: some View {
-        let drag = DragGesture(minimumDistance: 0)
-            .onChanged({ drag in
-                self.onDragStart()
-            })
-            .onEnded({ drag in
-              self.onDragEnded()
-            })
-
-           let hackyPinch = MagnificationGesture(minimumScaleDelta: 0.0)
-            .onChanged({ delta in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
-
-          let hackyRotation = RotationGesture(minimumAngleDelta: Angle(degrees: 0.0))
-            .onChanged({ delta in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
-
-          let hackyPress = LongPressGesture(minimumDuration: 0.0, maximumDistance: 0.0)
-            .onChanged({ _ in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
-        
-        let combinedGesture = drag
-          .simultaneously(with: hackyPinch)
-          .simultaneously(with: hackyRotation)
-          .exclusively(before: hackyPress)
-        
-        return Button(action: {
-            let elapsed = Date().timeIntervalSince(self.timeAtPress)
-
-            if(elapsed < 3) {
-                action()
-            }
+        Button(action: {
+            action()
         }) {
             VStack(spacing: imageTextSpacing) {
                 Image(pressEffectButtonImage()) // button.image)
@@ -91,7 +34,6 @@ struct GridButton: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak && button.pressedLabel == nil))
-        .simultaneousGesture(combinedGesture)
     }
 
     private func pressEffectButtonImage() -> String {

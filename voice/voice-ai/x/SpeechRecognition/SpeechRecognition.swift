@@ -80,7 +80,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     @Published private var _isPlaying = false
-    var isPlaingPublisher: Published<Bool>.Publisher {
+    var isPlayingPublisher: Published<Bool>.Publisher {
         $_isPlaying
     }
     
