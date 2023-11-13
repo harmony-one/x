@@ -296,9 +296,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-        if conversation.count == 0 {
-            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
-        }
+//        if conversation.count == 0 {
+//            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+//        }
         
         print("[SpeechRecognition] query: \(text)")
         
@@ -366,8 +366,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
-            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
