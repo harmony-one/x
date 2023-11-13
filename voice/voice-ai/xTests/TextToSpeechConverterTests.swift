@@ -40,16 +40,23 @@ class TextToSpeechConverterTests: XCTestCase {
         // Now, check if the synthesizer is speaking
         XCTAssertTrue(textToSpeechConverter.synthesizer.isSpeaking)
     }
-//    func testConvertTextToSpeechSupportedLanguage() {
-//        let mockSynthesizer = MockAVSpeechSynthesizer()
-//        // Set a supported language that you know has an available voice
-//        let supportedLanguage = "en-US"
-//
-//        // Call the method to convert text to speech with the supported language
-//        textToSpeechConverter.convertTextToSpeech(text: "Test speech", pitch: 1.0, volume: 1.0, language: supportedLanguage)
-//
-//        XCTAssertEqual(mockSynthesizer.selectedVoiceLanguage, supportedLanguage)
-//        }
+    
+    func testConvertTextToSpeechSupportedLanguage() {
+        let mockSynthesizer = MockAVSpeechSynthesizer()
+        textToSpeechConverter.synthesizer = mockSynthesizer
+        
+        let text = "Hello, world!"
+        let supportedLanguage = "fr-FR"
+        
+        // Call the convertTextToSpeech method with the supported language
+        textToSpeechConverter.convertTextToSpeech(text: text, language: supportedLanguage)
+        
+        // Check if the utterance's voice is set correctly to the supported language
+        XCTAssertEqual(mockSynthesizer.selectedVoiceLanguage, supportedLanguage)
+        
+        // Verify that isDefaultVoiceUsed is false
+        XCTAssertFalse(textToSpeechConverter.isDefaultVoiceUsed)
+        }
     
     func testConvertTextToSpeechUnsupportedLanguage() {
         let textToSpeechConverter = TextToSpeechConverter()
