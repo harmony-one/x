@@ -225,6 +225,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
+            recognitionRequest?.endAudio()
             inputNode.removeTap(onBus: 0)
             recognitionRequest = nil
             recognitionTask = nil
@@ -243,6 +244,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private func installTapAndStartEngine(inputNode: AVAudioNode) {
         let recordingFormat = inputNode.outputFormat(forBus: 0)
+        if recordingFormat.sampleRate == 0.0 {
+            return
+        }
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
@@ -358,7 +362,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     currWord.append(res)
                 }
             }
-            pendingOpenAIStream?.query(conversation: conversation)
+            
+            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
         func handleError(_ error: Error, retryCount: Int) {

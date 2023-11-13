@@ -1,12 +1,14 @@
-2023-11-09 Thu (3h+): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Test end-to-end; Research and analysis on iOS market shares by versions, and minimally required versions for key features; Code refactor and applying universal formatting
+2023-11-11 Sat (6h): Implement basic key protection in relay with AES encryption, multi-key rotation, device id and ip tracking, ban list, and key retrieval API with rate limit; Implement client side decryption and initialization; Client side bug fixes, end-to-end testing; Deployment on GCP and systemd service with instance metadata as parameter; Setup and build guide; Allow local key override
+
+2023-11-10 Fri (1.5h): Review #141, #157, #159, #160; Research on GPT chat session, context compression and effects; Interview preparation and discussion on technical problems 
+
+2023-11-09 Thu (5h): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Test end-to-end; Research and analysis on iOS market shares by versions, and minimally required versions for key features; Code refactor and applying universal formatting; Implement GPT model switch based on GPT usage time; Implement random alert to share and review based on app usage time; Test end-to-end and fix bugs
 
 2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings;
 
 2023-11-07 Tue (2.5h): Make initial production checklist; Research on app analytic systems and integration complexity; End-to-end testing of the app; Fix SSL issue and document steps for future incident resolution; Fix Tweet embedding issues, CSS issues for notion embedding, and research on tweet libraries.
 
 2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations.
-
----
 
 2023-11-03 Fri (0.5h): Review #117; New domain and DNS configuration; Review Linux ML development portability to iOS.
 

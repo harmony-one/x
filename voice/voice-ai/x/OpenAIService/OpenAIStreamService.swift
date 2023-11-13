@@ -12,7 +12,7 @@ protocol NetworkService {
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
-    private let apiKey = AppConfig.shared.getAPIKey()
+    private let apiKey = AppConfig.shared.getOpenAIKey()
     private var temperature: Double
     private let networkService: NetworkService?
 

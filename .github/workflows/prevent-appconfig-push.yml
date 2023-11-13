@@ -1,0 +1,18 @@
+name: Prevent AppConfig.plist Push
+
+on: [push, pull_request]
+
+jobs:
+  check-appconfig:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for AppConfig.plist
+        run: |
+          if git ls-files | grep -q 'AppConfig.plist'; then
+            echo "AppConfig.plist file detected. Failing the workflow."
+            exit 1
+          fi
+

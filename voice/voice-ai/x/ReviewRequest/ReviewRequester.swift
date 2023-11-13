@@ -20,7 +20,7 @@ class ReviewRequester {
         set { UserDefaults.standard.set(newValue, forKey: reviewRequestCountKey) }
     }
     
-    private var lastReviewRequestDate: Date? {
+    var lastReviewRequestDate: Date? {
         get { UserDefaults.standard.object(forKey: lastReviewRequestDateKey) as? Date }
         set { UserDefaults.standard.set(newValue, forKey: lastReviewRequestDateKey) }
     }
@@ -42,8 +42,8 @@ class ReviewRequester {
         tryPromptForReview()
     }
     
-    func tryPromptForReview() {
-        guard shouldPromptForReview() else { return }
+    func tryPromptForReview(forced: Bool = false) {
+        guard forced || shouldPromptForReview() else { return }
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             SKStoreReviewController.requestReview(in: windowScene)

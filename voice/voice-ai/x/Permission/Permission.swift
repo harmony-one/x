@@ -33,11 +33,33 @@ struct Permission {
     // Fallback function for checking microphone access on earlier iOS versions
     func checkMicrophoneAccess() -> Bool {
         let audioSession = AVAudioSession.sharedInstance()
-        var granted = false
-        audioSession.requestRecordPermission { grantedPermission in
-            granted = grantedPermission
+        var permissionCheck = false
+        do {
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+            try audioSession.setMode(.spokenAudio)
+        } catch {
+            print("Error setting up audio engine: \(error.localizedDescription)")
+            SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
-        return granted
+        switch audioSession.recordPermission {
+            case .granted:
+                permissionCheck = true
+            case .denied:
+                permissionCheck = false
+            case .undetermined:
+                print("Request permission here")
+                AVAudioSession.sharedInstance().requestRecordPermission({ granted in
+                    if granted {
+                            permissionCheck = true
+                        } else {
+                            permissionCheck = false
+                        }
+                })
+            default:
+                break
+            }
+        return permissionCheck
     }
 
     // Request access to speech recognition
