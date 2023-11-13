@@ -65,12 +65,15 @@ class ActionHandler: ObservableObject {
         let resetTapSpeakState = isTapToSpeakActive && !isItTapToSpeakAction
         if resetTapSpeakState {
             isTapToSpeakActive = false
-            speechRecognition.cancelSpeak()
+            lastRecordingStateChangeTime = 0
+            stopRecording(cancel: true)
         }
     }
     
     func handle(actionType: ActionType) {
         syncTapToSpeakState(actionType)
+        
+        print("Run action \(actionType)")
         
         switch actionType {
         case .reset:
@@ -126,11 +129,11 @@ class ActionHandler: ObservableObject {
         SpeechRecognition.shared.speak()
     }
     
-    func stopRecording() {
+    func stopRecording(cancel: Bool = false) {
         if isRecording {
             isRecording = false
             print("Stopped Recording")
-            speechRecognition.stopSpeak()
+            speechRecognition.stopSpeak(cancel: cancel)
             // Simulating delay before triggering a synthesizing state change
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.isSynthesizing = true
