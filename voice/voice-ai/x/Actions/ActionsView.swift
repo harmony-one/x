@@ -143,18 +143,18 @@ struct ActionsView: View {
                     break
                 }
             }
-            .alert(isPresented: $showShareAlert) {
-                Alert(
-                    title: Text("Share the app with friends?"),
-                    message: Text("Send the link: x.country/app"),
-                    primaryButton: .default(Text("Sure!")) {
-                        showShareSheet = true
-                    },
-                    secondaryButton: .default(Text("Cancel")) {
-                        showShareAlert = false
-                    }
-                )
-            }
+//            .alert(isPresented: $showShareAlert) {
+//                Alert(
+//                    title: Text("Share the app with friends?"),
+//                    message: Text("Send the link: x.country/app"),
+//                    primaryButton: .default(Text("Sure!")) {
+//                        showShareSheet = true
+//                    },
+//                    secondaryButton: .default(Text("Cancel")) {
+//                        showShareAlert = false
+//                    }
+//                )
+//            }
 
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
