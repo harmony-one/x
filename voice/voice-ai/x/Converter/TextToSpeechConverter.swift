@@ -30,11 +30,6 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
             selectedLanguage = preferredLocale
         }
         
-        let voices = AVSpeechSynthesisVoice.speechVoices()
-        for voice in voices {
-            print("\(voice.language) - \(voice.name) - \(voice.identifier)")
-        }
-        
         // Default language based on user settings
 //        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
