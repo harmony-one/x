@@ -4,15 +4,15 @@ import XCTest
 
 class MockAudioSession: AVAudioSessionProtocol {
     func setMode(_ options: AVAudioSession.Mode) throws {}
-    
+
     var shouldFailSetup = false
-    
+
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws {
         if shouldFailSetup {
             throw NSError(domain: "MockAudioSessionErrorDomain", code: 123, userInfo: nil)
         }
     }
-    
+
     func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws {
         if shouldFailSetup {
             throw NSError(domain: "MockAudioSessionErrorDomain", code: 456, userInfo: nil)
@@ -22,23 +22,23 @@ class MockAudioSession: AVAudioSessionProtocol {
 
 final class AudioEngineAndSessionTests: XCTestCase {
     var speechRecognition: SpeechRecognition!
-    
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         speechRecognition = SpeechRecognition()
     }
-    
+
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         speechRecognition = nil
     }
-    
+
     func testSetupAudioSession() {
         // Ensure that audio session setup succeeds
         speechRecognition.setupAudioSession()
         XCTAssertTrue(speechRecognition.getISAudioSessionSetup())
     }
-    
+
     func testSetupAudioEngine() {
         // Ensure that audio engine setup succeeds
         speechRecognition.setupAudioEngine()
@@ -46,7 +46,7 @@ final class AudioEngineAndSessionTests: XCTestCase {
         speechRecognition.startSpeechRecognition()
         XCTAssertTrue(speechRecognition.getAudioEngine().isRunning)
     }
-    
+
     // Test scenarios where audio session setup might fail (e.g., permission issues or unsupported audio modes)
     func testAudioSessionSetupFailure() {
         // For this test, you can use a mock AVAudioSession that simulates failure scenarios.
@@ -54,12 +54,12 @@ final class AudioEngineAndSessionTests: XCTestCase {
         let mockAudioSession = MockAudioSession()
         mockAudioSession.shouldFailSetup = true
         speechRecognition.audioSession = mockAudioSession
-        
+
         speechRecognition.setupAudioSession()
-        
+
         XCTAssertFalse(speechRecognition.getISAudioSessionSetup())
     }
-    
+
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -67,7 +67,7 @@ final class AudioEngineAndSessionTests: XCTestCase {
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
-    
+
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
 //        measure {

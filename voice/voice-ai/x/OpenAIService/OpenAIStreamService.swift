@@ -83,9 +83,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         var model = "gpt-4"
 
         let miutesElasped = Calendar.current.dateComponents([.minute], from: Self.lastStartTimeOfTheDay!, to: Date()).minute!
-        
+
         let boosterPurchaseTime = Persistence.getBoosterPurchaseTime()
-        
+
         let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
 
         if !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
@@ -100,7 +100,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "stream": true
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
-        
+
         print("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {

@@ -3,10 +3,6 @@ import XCTest
 
 struct GeometryProxyMock {
     var size: CGSize
-
-    init(size: CGSize) {
-        self.size = size
-    }
 }
 
 final class xUITests: XCTestCase {
@@ -34,7 +30,7 @@ final class xUITests: XCTestCase {
             "Random Fact",
             "Press & Hold",
             "Repeat Last",
-            "Pause / Play",
+            "Pause / Play"
         ]
 
         for label in labels {

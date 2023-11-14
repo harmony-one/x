@@ -7,14 +7,14 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
-    var image: String? = nil
+    var image: String?
     var colorExternalManage: Bool = false
     var action: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State private var debounce_timer:Timer?
+    @State private var debounce_timer: Timer?
 
     var body: some View {
         Button(action: {
@@ -44,15 +44,15 @@ struct GridButton: View {
         if image != nil {
             return image ?? button.image
         }
-        
+
         if button.pressedImage == nil {
             return button.image
         }
-        
+
         if active && !isPressed {
             return button.image
         }
-        
+
         if active && isPressed {
             return button.pressedImage ?? button.image
         }
@@ -72,14 +72,14 @@ struct PressEffectButtonStyle: ButtonStyle {
     var background: Color?
     var active: Bool = false
     var invertColors: Bool = false
-    
+
     init(theme: Theme, background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
         self.background = background
         self.active = active
         self.invertColors = invertColors
         self.theme = theme
     }
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(background ?? determineBackgroundColor(configuration: configuration))
@@ -89,15 +89,15 @@ struct PressEffectButtonStyle: ButtonStyle {
                     .foregroundColor(determineForegroundColor(configuration: configuration)))
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
     }
-    
+
     // .speak button should have inverted colors
     // .play button should have the "pressed" color while pause / play is in process
     // this is the only case as of now that uses self.active to determined the colors
     // all other buttons(including .speak) should be triggered through configuration.isPressed
-    
+
     private func determineBackgroundColor(configuration: Configuration) -> Color {
         let isPressed = active || configuration.isPressed
-        
+
         if invertColors {
             return isPressed ? theme.buttonDefaultColor : theme.buttonActiveColor
         } else {
@@ -107,7 +107,7 @@ struct PressEffectButtonStyle: ButtonStyle {
 
     private func determineForegroundColor(configuration: Configuration) -> Color {
         let isPressed = active || configuration.isPressed
-        
+
         if invertColors {
             return isPressed ? theme.buttonActiveColor : theme.fontActiveColor
         } else {

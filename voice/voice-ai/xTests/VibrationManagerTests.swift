@@ -14,7 +14,7 @@ class VibrationManagerTests: XCTestCase {
         XCTAssertFalse(VibrationManager.isVibrating, "VibrationManager should not be in a vibrating state after stopping")
         XCTAssertNil(VibrationManager.timer, "Timer should be nil after stopping vibration")
     }
-    
+
     func testVibrate() {
         // Check if generator is created when it's nil
         VibrationManager.isVibrating = true
@@ -22,7 +22,7 @@ class VibrationManagerTests: XCTestCase {
         VibrationManager.vibrate()
 
         XCTAssertNotNil(VibrationManager.generator, "generator should have been created")
-        
+
         // Check is impactOccurred() and prepare() are called when generator is created
         let mockGenerator = MockGenerator(style: .medium)
         VibrationManager.generator = mockGenerator

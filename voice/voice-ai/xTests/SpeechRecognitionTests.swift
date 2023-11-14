@@ -11,14 +11,14 @@ import SwiftUI
 // }
 
 class SpeechRecognitionTests: XCTestCase {
-    
+
     var speechRecognition: MockSpeechRecognition!
 
    override func setUp() {
        super.setUp()
        speechRecognition = MockSpeechRecognition()
    }
-    
+
     // Test the `isPaused()` function
     func testIsPaused() {
         // Create a mock SpeechRecognition object
@@ -139,7 +139,7 @@ class SpeechRecognitionTests: XCTestCase {
 //
 //        cancellable.cancel()
 //    }
-    
+
     func testIsPlayingPublisherGetter() {
         let mockSpeechRecognition = MockSpeechRecognition()
 

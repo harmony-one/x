@@ -15,7 +15,7 @@ class AppConfig {
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
-    
+
     private var themeName: String?
 
     init() {
@@ -28,13 +28,13 @@ class AppConfig {
             await self.requestOpenAIKey()
         }
     }
-    
+
     private func decrypt(base64EncodedEncryptedKey: String) throws -> String {
         let encryptedKey = Data(base64Encoded: base64EncodedEncryptedKey)
         guard let encryptedKey = encryptedKey else {
             throw NSError(domain: "Invalid encoded encrypted key", code: -1)
         }
-        
+
         let iv = [UInt8](self.sharedEncryptionIV!.data(using: .utf8)!.sha256()[0..<16])
         let sharedKey = [UInt8](self.sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0..<32])
         let aes = try AES(key: sharedKey, blockMode: CBC(iv: iv))
@@ -45,7 +45,7 @@ class AppConfig {
         }
         return key
     }
-    
+
     private func requestOpenAIKey() async {
         guard let relayUrl = self.relayUrl else {
             print("Relay URL not set")
@@ -95,20 +95,20 @@ class AppConfig {
         }
         t.resume()
     }
-    
+
     private func loadConfiguration() {
         guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
             fatalError("Unable to locate plist file")
         }
-        
+
         let fileURL = URL(fileURLWithPath: path)
-        
+
         do {
             let data = try Data(contentsOf: fileURL)
             guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: String] else {
                 fatalError("Unable to convert plist into dictionary")
             }
-            
+
             self.sentryDSN = dictionary["SENTRY_DSN"]
 
             self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"]
@@ -118,43 +118,41 @@ class AppConfig {
             self.themeName = dictionary["THEME_NAME"]
             self.deepgramKey = dictionary["DEEPGRAM_KEY"]
             self.openaiKey = dictionary["API_KEY"]
-            
+
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],
-               let events = Int(eventsString)
-            {
+               let events = Int(eventsString) {
                 self.minimumSignificantEvents = events
             }
-            
+
             if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"],
-               let days = Int(daysString)
-            {
+               let days = Int(daysString) {
                 self.daysBetweenPrompts = days
             }
-            
+
         } catch {
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
             fatalError(error.localizedDescription)
         }
     }
-    
+
     func getOpenAIKey() -> String? {
         return self.openaiKey
     }
-    
+
     func getSentryDSN() -> String? {
         return self.sentryDSN
     }
-    
+
     func getDeepgramKey() -> String? {
         return self.deepgramKey
     }
-    
+
     // Getter methods for the review prompt configuration
     func getMinimumSignificantEvents() -> Int? {
         return self.minimumSignificantEvents
     }
-    
+
     func getDaysBetweenPrompts() -> Int? {
         return self.daysBetweenPrompts
     }

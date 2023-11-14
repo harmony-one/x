@@ -6,9 +6,9 @@ import XCTest
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
     func stopSpeak(cancel: Bool?) {}
-    
+
     func cancelSpeak() {}
-    
+
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
     var speakCalled: Bool = false
@@ -16,10 +16,10 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var continueSpeechCalled: Bool = false
     var pauseCalled: Bool = false
     var repeateCalled: Bool = false
-    
+
     private var _isPlaying = false
     private var _isPausing = false
-    
+
     private var isPlayingSubject = PassthroughSubject<Bool, Never>()
     private var isPausingSubject = PassthroughSubject<Bool, Never>()
 
@@ -27,7 +27,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     var isPlayingPublisher: AnyPublisher<Bool, Never> {
         return isPlayingSubject.eraseToAnyPublisher()
     }
-    
+
     var isPausingPublisher: AnyPublisher<Bool, Never> {
         return isPausingSubject.eraseToAnyPublisher()
     }
@@ -37,18 +37,18 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         _isPlaying = isPlaying
         isPlayingSubject.send(isPlaying)
     }
-    
+
     func setIsPausing(_ isPausing: Bool) {
         _isPausing = isPausing
         isPausingSubject.send(isPausing)
     }
-    
+
     func pause(feedback: Bool?) {}
-    
+
     func surprise() {
         surpriseCalled = true
     }
-    
+
     func isPaused() -> Bool {
         isPausedCalled = true
         return false
@@ -73,14 +73,13 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     func repeate() {
         repeateCalled = true
     }
-    
+
     func stopSpeak() {
         speakCalled = false
     }
 
-    
     func sayMore() {}
-    
+
     func play() {
         if isPaused() {
             continueSpeech()

@@ -42,7 +42,7 @@ class OpenAIResponseTests: XCTestCase {
                     },
                     "finish_reason": "OK",
                     "index": 1
-                
+
                 },
             ],
             "usage": {

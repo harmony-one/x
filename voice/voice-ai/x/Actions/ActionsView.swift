@@ -5,7 +5,7 @@ import SwiftUI
 
 struct ActionsView: View {
     let config = AppConfig.shared
-    
+
     @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme: Theme = .init()
@@ -23,32 +23,32 @@ struct ActionsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
-    
+
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-    
+
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
-    @State private var skipPressedTimer: Timer? = nil
+    @State private var skipPressedTimer: Timer?
 
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
-    
+
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
-    
+
     static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
-    
+
     @ObservedObject var speechRecognition = SpeechRecognition.shared
-    
+
     let oneValue = "2111.01 ONE"
-    
+
     var buttonsPortrait: [ButtonData] = []
     var buttonsLandscape: [ButtonData] = []
-    
+
     @State private var storage = Set<AnyCancellable>()
-    
+
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
@@ -62,7 +62,7 @@ struct ActionsView: View {
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
-        
+
 //        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
@@ -74,7 +74,7 @@ struct ActionsView: View {
             buttonRepeat,
             buttonPlay
         ]
-        
+
         // v2
 //        buttonsLandscape = [
 //            buttonRepeat,
@@ -84,7 +84,7 @@ struct ActionsView: View {
 //            buttonSpeak,
 //            buttonSkip,
 //        ]
-        
+
         // v1
         buttonsLandscape = [
             buttonReset,
@@ -99,7 +99,7 @@ struct ActionsView: View {
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
     }
-    
+
     var body: some View {
         let isLandscape = verticalSizeClass == .compact ? true : false
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
@@ -157,7 +157,7 @@ struct ActionsView: View {
         //             if UIDevice.current.orientation != orientation {
         //                 if isRecording {
         //                     isRecordingContinued = true
-        
+
         //                     print("Recording stopSpeak...")
         //                     SpeechRecognition.shared.cancelSpeak()
         //                 }
@@ -165,14 +165,14 @@ struct ActionsView: View {
         //             }
         //         }
     }
-    
+
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
         return GeometryReader { geometry in
             let gridItem = GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
             let columns = Array(repeating: gridItem, count: colums)
             let numOfRows: Int = .init(ceil(Double(buttons.count) / Double(colums)))
             let height = geometry.size.height / CGFloat(numOfRows)
-            
+
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
                     viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
@@ -185,11 +185,11 @@ struct ActionsView: View {
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: "https://testflight.apple.com/join/TXohwYOn")!
             let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
-            
+
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
     }
-    
+
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
@@ -261,7 +261,7 @@ struct ActionsView: View {
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
-            
+
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -285,7 +285,7 @@ struct ActionsView: View {
 //                    print("Timer reset after long press.")
 //                }
 //            )
-            
+
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 Task {
@@ -311,13 +311,13 @@ struct ActionsView: View {
             }
         }
     }
-    
+
     func openSettingsApp() {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
-    
+
     func requestReview() {
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.windows.first?.windowScene {
@@ -325,7 +325,7 @@ struct ActionsView: View {
             }
         }
     }
-    
+
     func handleOtherActions(actionType: ActionType) async {
         actionHandler.handle(actionType: actionType)
     }

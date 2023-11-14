@@ -40,24 +40,24 @@ class TextToSpeechConverterTests: XCTestCase {
         // Now, check if the synthesizer is speaking
         XCTAssertTrue(textToSpeechConverter.synthesizer.isSpeaking)
     }
-    
+
     func testConvertTextToSpeechSupportedLanguage() {
         let mockSynthesizer = MockAVSpeechSynthesizer()
         textToSpeechConverter.synthesizer = mockSynthesizer
-        
+
         let text = "Hello, world!"
         let supportedLanguage = "fr-FR"
-        
+
         // Call the convertTextToSpeech method with the supported language
         textToSpeechConverter.convertTextToSpeech(text: text, language: supportedLanguage)
-        
+
         // Check if the utterance's voice is set correctly to the supported language
         XCTAssertEqual(mockSynthesizer.selectedVoiceLanguage, supportedLanguage)
-        
+
         // Verify that isDefaultVoiceUsed is false
         XCTAssertFalse(textToSpeechConverter.isDefaultVoiceUsed)
         }
-    
+
     func testConvertTextToSpeechUnsupportedLanguage() {
         let textToSpeechConverter = TextToSpeechConverter()
 
@@ -86,7 +86,6 @@ class TextToSpeechConverterTests: XCTestCase {
         XCTAssertFalse(mockSynthesizer.isSpeaking)
     }
 
-
     func testPauseSpeech() {
         let mockSynthesizer = MockAVSpeechSynthesizer()
         let textToSpeechConverter = TextToSpeechConverter()
@@ -101,7 +100,7 @@ class TextToSpeechConverterTests: XCTestCase {
         // Now, check if the pause operation was correctly called
         XCTAssertTrue(mockSynthesizer.isPaused)
     }
-    
+
     func testPauseSpeechNotSpeaking() {
         let mockSynthesizer = MockAVSpeechSynthesizer()
         let textToSpeechConverter = TextToSpeechConverter()
@@ -117,7 +116,6 @@ class TextToSpeechConverterTests: XCTestCase {
         XCTAssertFalse(mockSynthesizer.isPaused)
     }
 
-    
     func testContinueSpeech() {
         let mockSynthesizer = MockAVSpeechSynthesizer()
         let textToSpeechConverter = TextToSpeechConverter()
