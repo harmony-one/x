@@ -42,7 +42,7 @@ struct ActionsView: View {
     
     @ObservedObject var speechRecognition = SpeechRecognition.shared
     
-    let oneValue = "2111.01 ONE"
+    let oneValue = "2111.01 ONE "
     
     var buttonsPortrait: [ButtonData] = []
     var buttonsLandscape: [ButtonData] = []
@@ -132,7 +132,7 @@ struct ActionsView: View {
                     print("App became active")
                     SettingsBundleHelper.checkAndExecuteSettings()
                     if (speechRecognition.checkContextChange()) {
-                        speechRecognition.reset()
+                        speechRecognition.reset() 
                     }
                 case .inactive:
                     print("App became inactive")
