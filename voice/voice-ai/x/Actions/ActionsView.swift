@@ -9,7 +9,7 @@ struct ActionsView: View {
     @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme: Theme = .init()
-
+    
     func changeTheme(name: String) {
         let theme = AppThemeSettings.fromString(name)
         currentTheme.setTheme(theme: theme)
@@ -130,6 +130,10 @@ struct ActionsView: View {
                 switch newPhase {
                 case .active:
                     print("App became active")
+                    SettingsBundleHelper.checkAndExecuteSettings()
+                    if (speechRecognition.checkContextChange()) {
+                        speechRecognition.reset()
+                    }
                 case .inactive:
                     print("App became inactive")
                     speechRecognition.pause(feedback: false)
@@ -313,9 +317,11 @@ struct ActionsView: View {
     }
     
     func openSettingsApp() {
-        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+        if let url = URL(string: UIApplication.openSettingsURLString),
+            UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
+        
     }
     
     func requestReview() {
