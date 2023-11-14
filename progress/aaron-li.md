@@ -1,3 +1,7 @@
+2023-11-13 Mon (3h): Technical interview and post-interview analysis; Implementing and testing in-app purchase for GPT-4 booster; Review #167, #168, #169, 170, #171, #173, #174, #175
+
+2023-11-12 Sun (0.5h): Review app payment server and API design and discussions
+
 2023-11-11 Sat (6h): Implement basic key protection in relay with AES encryption, multi-key rotation, device id and ip tracking, ban list, and key retrieval API with rate limit; Implement client side decryption and initialization; Client side bug fixes, end-to-end testing; Deployment on GCP and systemd service with instance metadata as parameter; Setup and build guide; Allow local key override
 
 2023-11-10 Fri (1.5h): Review #141, #157, #159, #160; Research on GPT chat session, context compression and effects; Interview preparation and discussion on technical problems 
