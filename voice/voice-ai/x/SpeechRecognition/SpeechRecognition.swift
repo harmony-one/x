@@ -275,9 +275,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("RequestingOpenAI: skip")
             return
         }
-        
         completeResponse = [String]()
-        
         var buf = [String]()
         
         func flushBuf() {
@@ -285,28 +283,19 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             guard !response.isEmpty else {
                 return
             }
-            
             registerTTS()
             
             if !isRepeatingCurrentSession {
                 textToSpeechConverter.convertTextToSpeech(text: response)
             }
-            
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
-        
-//        if conversation.count == 0 {
-//            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
-//        }
-        
         print("[SpeechRecognition] query: \(text)")
-        
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
-//        audioPlayer.playSound()
         pauseCapturing()
         isRequestingOpenAI = true
         
@@ -321,11 +310,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     handleError(err!, retryCount: retryCount)
                     return
                 }
-                
                 guard let res = res, !res.isEmpty else {
                     return
                 }
-                
                 if res == "[DONE]" {
                     buf.append(currWord)
                     flushBuf()
@@ -337,13 +324,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     }
                     return
                 }
-                
                 print("[SpeechRecognition] OpenAI Response received: \(res)")
-                
                 // Append received streams to currWord instead of buf directly
                 if res.first == " " {
                     buf.append(currWord)
-                    
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
@@ -356,19 +340,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                             flushBuf()
                         }
                     }
-                    
                     currWord = res
                     guard res.last != nil else {
                         return
                     }
-                    
                 } else {
                     currWord.append(res)
                 }
             }
-            
             let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
-//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
@@ -384,7 +364,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: "I am trying to catch up. Please wait. I can only answer 10 questions per minute at this time")
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
-                //trigger a beep
                 audioPlayer.playSound(false)
                 
                 let attempt = maxRetry - retryCount + 1
@@ -404,7 +383,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: "Network error.")
             }
         }
-        
         handleQuery(retryCount: maxRetry)
     }
     
@@ -677,11 +655,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let text = self.completeResponse.joined()
             var activeTextToRepeat = ""
             
-            if(text.count >= (startPoint ?? 0)) {
+            if text.count >= (startPoint ?? 0) {
                 let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
                 activeTextToRepeat = String(text[index...])
                 
-                if(activeTextToRepeat.count > 0) {
+                if(!activeTextToRepeat.isEmpty) {
                     self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
                 }
             }

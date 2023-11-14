@@ -13,7 +13,7 @@ struct OpenAIUtils {
                 continue
             }
             
-            if content.count == 0 {
+            if content.isEmpty {
                 continue
             }
             
@@ -23,14 +23,14 @@ struct OpenAIUtils {
                 continue
             }
             
-            let charsLeft = charactersCount - totalContentLength;
+            let charsLeft = charactersCount - totalContentLength
             if charsLeft > 0 {
                 let length = min(charsLeft, content.count)
-                let trimmedContent = String(content.suffix(length));
-                let newMessage = Message(role: message.role, content: trimmedContent);
+                let trimmedContent = String(content.suffix(length))
+                let newMessage = Message(role: message.role, content: trimmedContent)
                 
                 filteredConversation.insert(newMessage, at: 0)
-                totalContentLength += trimmedContent.count;
+                totalContentLength += trimmedContent.count
                 break
             }
         }

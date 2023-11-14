@@ -700,6 +700,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B977F8442B03987C00236729 /* PBXTargetDependency */,
 			);
 			name = "Voice AI";
 			packageProductDependencies = (
@@ -799,6 +800,7 @@
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				B977F8482B03B6FC00236729 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1069,6 +1071,10 @@
 			isa = PBXTargetDependency;
 			target = A46B5A492AE73B9D00C874ED /* sun */;
 			targetProxy = A46B5A642AE73B9D00C874ED /* PBXContainerItemProxy */;
+		};
+		B977F8442B03987C00236729 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = B977F8432B03987C00236729 /* SwiftLintPlugin */;
 		};
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1611,6 +1617,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B977F8402B03980900236729 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
+		B977F8482B03B6FC00236729 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
 		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
@@ -1642,6 +1664,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		B977F8432B03987C00236729 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B977F8402B03980900236729 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
 		};
 		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;

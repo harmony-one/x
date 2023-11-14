@@ -6,7 +6,7 @@ struct OpenAIService {
 //    private var conversation: [Message]
     // Function to send input text to OpenAI for processing
     mutating func sendToOpenAI(conversation: [Message], completion: @escaping (String?, Error?) -> Void) {
-        guard let openAI_APIKey = AppConfig.shared.getOpenAIKey() else {
+        guard let openAIApiKey = AppConfig.shared.getOpenAIKey() else {
             completion(nil, nil)
             SentrySDK.capture(message: "Open AI Api key is null")
             return
@@ -15,7 +15,7 @@ struct OpenAIService {
         // Define headers for the HTTP request
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(openAI_APIKey)" // Replace openAI_APIKey with your actual API key
+            "Authorization": "Bearer \(openAIApiKey)" // Replace openAI_APIKey with your actual API key
         ]
 
         let body: [String: Any] = [

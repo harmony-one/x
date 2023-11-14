@@ -7,19 +7,19 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
-    var image: String? = nil
+    var image: String?
     var colorExternalManage: Bool = false
     var action: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State private var debounce_timer:Timer?
+    @State private var debounceTimer: Timer?
 
     var body: some View {
         Button(action: {
-            self.debounce_timer?.invalidate()
-            self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            self.debounceTimer?.invalidate()
+            self.debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                 action()
             }
         }) {
