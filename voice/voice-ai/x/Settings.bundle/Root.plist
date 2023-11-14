@@ -8,11 +8,15 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+			<string>PSTitleValueSpecifier</string>
+			<key>IsSecure</key>
+			<false/>
 			<key>Title</key>
-			<string>AI Credits: $3.5</string>
+			<string>Premium Use Expires</string>
+			<key>DefaultValue</key>
+			<string>2022-12-14 22:15:00</string>
 			<key>Key</key>
-			<string>AI_CREDITS</string>
+			<string>EXPIRE_AT</string>
 		</dict>
 		<dict>
 			<key>Type</key>
