@@ -1,3 +1,4 @@
+2023-11-14 Tue: SwiftLint was integrated into the project. Custom rules were established for coding standards, and issues identified by SwiftLint were resolved. Sentry uploads dsym file using the Xcode build script is in progress. (but using a sentry-cli command without Xcode is done)
 
 2023-11-13 Mon: Completed implementation of In-App Purchases compatible with iOS 14 and began integrating the logging of input and output tokens in the iOS local database.
 
