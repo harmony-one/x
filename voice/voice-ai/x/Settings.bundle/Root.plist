@@ -9,8 +9,10 @@
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
+			<key>TrueValue</key>
+			<string>FooterText</string>
 			<key>Title</key>
-			<string>Reset app</string>
+			<string>Reset To Default Instructions</string>
 			<key>Key</key>
 			<string>RESET_APP_KEY</string>
 			<key>DefaultValue</key>
@@ -20,7 +22,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Custom Instruction</string>
+			<string>Custom Instructions</string>
 			<key>DefaultValue</key>
 			<string>We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.</string>
 			<key>Key</key>
