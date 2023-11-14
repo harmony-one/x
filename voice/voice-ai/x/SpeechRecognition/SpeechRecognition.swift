@@ -482,17 +482,26 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
 
-    // CHANGES HERE
     func checkContextChange() -> Bool {
         if (conversation.count == 0) {
             return false
         }
-        let currentContext = conversation.first?.content
-        let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        if (currentContext == newContext) {
+        if let contextMessage = conversation.first(where: { $0.role == "system" }) {
+            let currentContext = contextMessage.content
+            let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+            if (currentContext == newContext) {
+                return false
+            }
+            return true
+        } else {
             return false
         }
-        return true
+        // let currentContext = conversation.first?.content
+        // let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        // if (currentContext == newContext) {
+        //     return false
+        // }
+        // return true
     }
     
     func setupAudioEngineIfNeeded() {

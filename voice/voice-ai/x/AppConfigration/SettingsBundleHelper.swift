@@ -29,7 +29,10 @@ class SettingsBundleHelper {
      }
     
     class func hasPremiumMode(_ username: String) -> Bool {
-        let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
-        return username!.trimmingCharacters(in: .whitespaces) == username
+        if let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username) {
+            return username.trimmingCharacters(in: .whitespaces) == username
+        } else {
+            return false
+        }
     }
  }
