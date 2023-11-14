@@ -11,13 +11,7 @@ In another instance, when I asked about the pricing at a botanical garden, the a
 The app provided a long detailed response to one of my questions, prompting me to request a quicker listing of names. Although it complied promptly, I had to ask the app to slow down two separate times and spell out the names twice for clarity. I find response time and rate of speech to be fairly inconsistent. 
 
 2023-11-08 Wed:
-I experienced delays in response, and the voice doesn't quite meet my preferences. Consider categorizing fun facts based on user interests for a more personalized experience, using data from the current conversation. A
-
-dditionally, it would enhance user convenience if the user guide were presented as a pop-up within the app rather than linking to an external webpage.
-
-I came across a bug where I had to hold the 'Surprise ME!' button. Additionally, there's a suggestion to consider changing all buttons to lowercase to align with current trends. 
-
-When I inquired about Los Angeles, the assistant responded appropriately, but when I asked for more details about places to visit, I received the exact same lengthy response. On a positive note, the 'New Session' button works seamlessly.
+I experienced delays in response, and the voice doesn't quite meet my preferences. Consider categorizing fun facts based on user interests for a more personalized experience, using data from the current conversation. Additionally, it would enhance user convenience if the user guide were presented as a pop-up within the app rather than linking to an external webpage. I came across a bug where I had to hold the 'Surprise ME!' button. Additionally, there's a suggestion to consider changing all buttons to lowercase to align with current trends. When I inquired about Los Angeles, the assistant responded appropriately, but when I asked for more details about places to visit, I received the exact same lengthy response. On a positive note, the 'New Session' button works seamlessly.
 
 2023-11-07 Tues:
 While using the app, I often find myself wishing for the ability to engage with it in a hands-free manner. The allure of a speech-driven application lies in its effortless operation, allowing for a more natural conversation and the ability to use the app while engaged in other activities like washing dishes or driving. It would be convenient not to require pressing and holding a button to speak.
