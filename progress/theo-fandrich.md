@@ -1,3 +1,13 @@
+2023-11-13 Mon: Worked with Frank on testing custom instructions, this is almost complete and just needs review from Nagesh. Submitted 1.0.6 to App Store review which includes our first build with in App purchases.
+
+---
+
+2023-11-08 Fri: Tested multiple pull requests and deployed build to testflight.
+
+2023-11-08 Thu: This was our first day getting App Store approval, worked diligently to resolve any blatant issues regarding promotional texts, images, and other inconsistencies.
+
+2023-11-08 Wed: Continued to research apple store guidelines, test developer's code, and deploy to testflight.
+
 2023-11-07 Tue: Product tested, listed out bugs, delegated fixes to engineers, submitted to App store connect.
 
 2023-11-06 Mon: Worked on preparing app store submission. Calculated pricing for Voice AI and documented how the backend and iOS app should communicate to support the bahavior. The updated UI will be implemented by Tuesday morning.

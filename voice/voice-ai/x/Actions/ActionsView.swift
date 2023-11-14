@@ -9,7 +9,7 @@ struct ActionsView: View {
     @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme: Theme = .init()
-    
+
     func changeTheme(name: String) {
         let theme = AppThemeSettings.fromString(name)
         currentTheme.setTheme(theme: theme)
@@ -135,6 +135,7 @@ struct ActionsView: View {
                     if (speechRecognition.checkContextChange()) {
                         speechRecognition.reset() 
                     }
+
                 case .inactive:
                     print("App became inactive")
                     speechRecognition.pause(feedback: false)
@@ -144,18 +145,18 @@ struct ActionsView: View {
                     break
                 }
             }
-            .alert(isPresented: $showShareAlert) {
-                Alert(
-                    title: Text("Share the app with friends?"),
-                    message: Text("Send the link: x.country/app"),
-                    primaryButton: .default(Text("Sure!")) {
-                        showShareSheet = true
-                    },
-                    secondaryButton: .default(Text("Cancel")){
-                        showShareAlert = false
-                    }
-                )
-            }
+//            .alert(isPresented: $showShareAlert) {
+//                Alert(
+//                    title: Text("Share the app with friends?"),
+//                    message: Text("Send the link: x.country/app"),
+//                    primaryButton: .default(Text("Sure!")) {
+//                        showShareSheet = true
+//                    },
+//                    secondaryButton: .default(Text("Cancel")) {
+//                        showShareAlert = false
+//                    }
+//                )
+//            }
 
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
@@ -188,8 +189,8 @@ struct ActionsView: View {
         }
         .padding(0)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://x.country/app")!
-            let shareLink = ShareLink(title: "Share app link x.country/app with Friends", url: url)
+            let url = URL(string: "https://testflight.apple.com/join/TXohwYOn")!
+            let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
             
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
@@ -212,14 +213,21 @@ struct ActionsView: View {
                     }
                 }
                 .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                    DispatchQueue.main.async {
-                        let url = URL(string: "https://x.country/voice")
-                        if UIApplication.shared.canOpenURL(url!) {
-                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                        } else {
-                            print("Cannot open URL")
+                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
+                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                        Task {
+                            let product = store.products[0]
+                            try await self.store.purchase(product)
                         }
                     }
+//                    DispatchQueue.main.async {
+//                        let url = URL(string: "https://x.country/voice")
+//                        if UIApplication.shared.canOpenURL(url!) {
+//                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//                        } else {
+//                            print("Cannot open URL")
+//                        }
+//                    }
                 })
             } else {
                 // Press & Hold
@@ -229,7 +237,7 @@ struct ActionsView: View {
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
-                            if (self.isSpeakButtonPressed == false) {
+                            if self.isSpeakButtonPressed == false {
                                 actionHandler.handle(actionType: ActionType.speak)
                             }
                             self.isSpeakButtonPressed = true
@@ -311,11 +319,9 @@ struct ActionsView: View {
     }
     
     func openSettingsApp() {
-        if let url = URL(string: UIApplication.openSettingsURLString),
-            UIApplication.shared.canOpenURL(url) {
+        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-        
     }
     
     func requestReview() {
@@ -327,14 +333,6 @@ struct ActionsView: View {
     }
     
     func handleOtherActions(actionType: ActionType) async {
-//        if(actionType == .skip) {
-//            let product = store.products[0]
-//            let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { (timer) in
-//                            Task {
-//                                try await self.store.purchase(product)
-//                            }
-//                }
-//        }
         actionHandler.handle(actionType: actionType)
     }
 }

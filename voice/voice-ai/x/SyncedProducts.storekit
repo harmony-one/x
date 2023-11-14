@@ -7,6 +7,36 @@
     {
       "displayPrice" : "4.99",
       "familyShareable" : false,
+      "internalID" : "6472008698",
+      "localizations" : [
+        {
+          "description" : "3 Days of GPT4 Premium Use",
+          "displayName" : "X.country",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.country.app.purchase.3day",
+      "referenceName" : "3-Day GPT4",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "6471991954",
+      "localizations" : [
+        {
+          "description" : "3 Days of Premium GPT4 Usage",
+          "displayName" : "AI Credit",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "3_day_gpt4_consumable",
+      "referenceName" : "3-Day GPT4 Consumable",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
       "internalID" : "6471300731",
       "localizations" : [
         {
@@ -16,7 +46,7 @@
         }
       ],
       "productID" : "0001",
-      "referenceName" : "Voice AI Credits",
+      "referenceName" : "AI Credits",
       "type" : "Consumable"
     }
   ],
@@ -24,7 +54,7 @@
     "_applicationInternalID" : "6470936896",
     "_developerTeamID" : "5WAH566W3B",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 720961039.63013506,
+    "_lastSynchronizedDate" : 721618230.26254797,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

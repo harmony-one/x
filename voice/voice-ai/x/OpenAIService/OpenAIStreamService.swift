@@ -83,8 +83,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         var model = "gpt-4"
 
         let miutesElasped = Calendar.current.dateComponents([.minute], from: Self.lastStartTimeOfTheDay!, to: Date()).minute!
+        
+        let boosterPurchaseTime = Persistence.getBoosterPurchaseTime()
+        
+        let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
 
-        if miutesElasped > Self.MaxGPT4DurationMinutes {
+        if !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"
         }
 
@@ -95,7 +99,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "temperature": self.temperature,
             "stream": true
         ]
-        print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped)")
+        print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
         
         print("[OpenAI] sent \(body)")
         // Validate the URL
@@ -187,8 +191,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     // CHANGES HERE
     static func setConversationContext() -> [Message] {
-        let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        let contextMessage: [Message] = [Message(role: "system", content: content)]
+        let contextMessage: [Message] =
+                [Message(role: "system", content: "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")]
         return contextMessage
     }
 
@@ -200,7 +204,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
     }
-    
+
 //     static func setConversationContext() -> Message {
 //         return Message(role: "system", content: "We are having a face-to-face voice conversation. NEVER apologize. NEVER say bye. NEVER end with questions. NEVER mention about your model cutoff. NEVER mention you are an AI. Adhere to these guidelines strictly. Keep responses 1 sentence unless the user wants to expand.")
 //     }

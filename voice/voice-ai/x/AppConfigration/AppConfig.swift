@@ -87,7 +87,7 @@ class AppConfig {
                 // TODO: decrypt key
                 let key = try self.decrypt(base64EncodedEncryptedKey: eeKey)
                 self.openaiKey = key
-                print("Got key", key)
+//                print("Got key", key)
             } catch {
                 print("[AppConfig][requestOpenAIKey] error processing key response", error)
                 SentrySDK.capture(message: "[AppConfig][requestOpenAIKey] error processing key response \(error)")
