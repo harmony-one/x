@@ -1,3 +1,7 @@
+2023-11-13 Mon: Fixed a bug which ensures custom instructions are not deleted when cleaning up context for 512 max tokens. User testing with Theo and Alaina to diagnose if there are persistent issues with current chunking method. Went through the official OpenAI API documentation, as well as various sources to see if there was an optimal way of implementing context embedding rather than providing it everytime (result: there does not exist one as of now; Artem / Aaron going over other implementations)
+
+---
+
 2023-11-12 Sun: Reviewed Aaron's PR on relayer service, as well as the configuration in the cloud service.
 
 2023-11-11 Sat: Configured [Github action and Husky pre-commit hook](https://github.com/harmony-one/x/pull/165) preventing AppConfig.plist from being committed.
