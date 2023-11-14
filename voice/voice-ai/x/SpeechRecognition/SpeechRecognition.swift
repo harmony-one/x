@@ -296,6 +296,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
+        // CHANGES HERE
         if conversation.count == 0 {
             let conversationContext = OpenAIStreamService.setConversationContext()
             if (conversationContext[0].content != "") {
@@ -484,6 +485,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
     }
 
+    // CHANGES HERE
     func checkContextChange() -> Bool {
         if (conversation.count == 0) {
             return false

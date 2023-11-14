@@ -9,10 +9,8 @@
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
-			<key>TrueValue</key>
-			<string>FooterText</string>
 			<key>Title</key>
-			<string>Reset To Default Instructions</string>
+			<string>Reset to Default Instructions</string>
 			<key>Key</key>
 			<string>RESET_APP_KEY</string>
 			<key>DefaultValue</key>

@@ -185,6 +185,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         self.task?.cancel()
     }
 
+    // CHANGES HERE
     static func setConversationContext() -> [Message] {
         let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
         let contextMessage: [Message] = [Message(role: "system", content: content)]

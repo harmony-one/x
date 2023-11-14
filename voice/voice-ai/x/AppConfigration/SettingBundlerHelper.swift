@@ -7,6 +7,7 @@
 
 import Foundation
 
+// CHANGES HERE
 class SettingsBundleHelper {
     struct SettingsBundleKeys {
         static let Reset = "RESET_APP_KEY"

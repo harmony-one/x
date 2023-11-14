@@ -130,6 +130,7 @@ struct ActionsView: View {
                 switch newPhase {
                 case .active:
                     print("App became active")
+                    // CHANGES HERE
                     SettingsBundleHelper.checkAndExecuteSettings()
                     if (speechRecognition.checkContextChange()) {
                         speechRecognition.reset() 
