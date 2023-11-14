@@ -363,8 +363,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
-//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            // Important: Add an instruction at the beginning of the conversation
+            limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
