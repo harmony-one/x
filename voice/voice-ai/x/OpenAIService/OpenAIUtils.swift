@@ -9,6 +9,11 @@ struct OpenAIUtils {
             guard let content = message.content else {
                 continue
             }
+
+            if message.role == "system" {
+                filteredConversation.insert(message, at: 0)
+                continue
+            }
             
             if content.count == 0 {
                 continue
@@ -28,7 +33,6 @@ struct OpenAIUtils {
                 
                 filteredConversation.insert(newMessage, at: 0)
                 totalContentLength += trimmedContent.count;
-                break
             }
         }
         

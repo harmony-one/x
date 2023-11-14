@@ -91,4 +91,20 @@ final class OpenAIUtilsTests: XCTestCase {
         XCTAssertEqual(limitedc[3].content, "three")
     }
     
+    func testShouldNotDeleteSystemMessages() throws {
+        let conversation: [Voice_AI.Message] = [
+            Voice_AI.Message(role: "system", content: "__instruction__"),
+            Voice_AI.Message(role: "user", content: "How many days are there in a year?"),
+            Voice_AI.Message(role: "assistant", content: "There are 365 days in a standard calendar year."),
+            Voice_AI.Message(role: "user", content: "Ok."),
+        ];
+        
+        let cleanConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 1)
+        
+        XCTAssertEqual(cleanConversation[0].role, "system")
+        XCTAssertEqual(cleanConversation[0].content, "__instruction__")
+        XCTAssertEqual(cleanConversation[1].role, "user")
+        XCTAssertEqual(cleanConversation[1].content, ".")
+    }
+    
 }
