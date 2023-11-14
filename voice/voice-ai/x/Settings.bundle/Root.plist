@@ -14,7 +14,7 @@
 			<key>Title</key>
 			<string>Premium Use Expires</string>
 			<key>DefaultValue</key>
-			<string>2022-12-14 22:15:00</string>
+			<string>2023-12-14 22:15:00</string>
 			<key>Key</key>
 			<string>EXPIRE_AT</string>
 		</dict>
