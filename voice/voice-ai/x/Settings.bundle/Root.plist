@@ -8,6 +8,14 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>AI Credits: $3.5</string>
+			<key>Key</key>
+			<string>AI_CREDITS</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Reset to Default Instructions</string>
