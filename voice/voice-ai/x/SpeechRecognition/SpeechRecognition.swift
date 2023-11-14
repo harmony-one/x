@@ -75,8 +75,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var initialCapacity = 5
-    private var bufferCapacity = 20
+    private var initialCapacity = 10
+    private var bufferCapacity = 50
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
