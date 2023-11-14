@@ -7,7 +7,6 @@ struct OpenAIUtils {
         
         filteredConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         totalContentLength += filteredConversation.count
-        
         for message in conversaton.reversed() {
             guard let content = message.content else {
                 continue
@@ -18,7 +17,7 @@ struct OpenAIUtils {
             }
             
             if totalContentLength + content.count <= charactersCount {
-                filteredConversation.insert(message, at: 0)
+                filteredConversation.insert(message, at: 1)
                 totalContentLength += content.count
                 continue
             }
@@ -29,7 +28,7 @@ struct OpenAIUtils {
                 let trimmedContent = String(content.suffix(length));
                 let newMessage = Message(role: message.role, content: trimmedContent);
                 
-                filteredConversation.insert(newMessage, at: 0)
+                filteredConversation.insert(newMessage, at: 1)
                 totalContentLength += trimmedContent.count;
                 break
             }

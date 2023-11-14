@@ -297,14 +297,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-        // CHANGES HERE
-        if conversation.count == 0 {
-            let conversationContext = OpenAIStreamService.setConversationContext()
-            if (conversationContext[0].content != "") {
-                conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
-            }
-        }
-        
         print("[SpeechRecognition] query: \(text)")
         
         conversation.append(Message(role: "user", content: text))
