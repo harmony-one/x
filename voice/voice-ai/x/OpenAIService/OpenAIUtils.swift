@@ -4,13 +4,15 @@ struct OpenAIUtils {
     static func limitConversationContext (_ conversaton: [Message], charactersCount: Int) -> [Message] {
         var filteredConversation: [Message] = []
         var totalContentLength = 0
+        
+        let separators: CharacterSet = CharacterSet(charactersIn: ".?")
 
         for message in conversaton.reversed() {
             guard let content = message.content else {
                 continue
             }
 
-            if message.role == "system" {
+            if message.role == "system" || message.role == "user" {
                 filteredConversation.insert(message, at: 0)
                 continue
             }
@@ -27,8 +29,9 @@ struct OpenAIUtils {
             
             let charsLeft = charactersCount - totalContentLength;
             if charsLeft > 0 {
-                let length = min(charsLeft, content.count)
-                let trimmedContent = String(content.suffix(length));
+//                let length = min(charsLeft, content.count)
+//                let trimmedContent =  String(content.prefix(length));
+                let trimmedContent = content.components(separatedBy: separators)[0]
                 let newMessage = Message(role: message.role, content: trimmedContent);
                 
                 filteredConversation.insert(newMessage, at: 0)

@@ -14,7 +14,7 @@ final class OpenAIUtilsTests: XCTestCase {
         XCTAssertEqual(count, 96, "conversation context is not equal")
     }
     
-    func testShouldReturnAMessage() throws {
+    func testShouldSaveLastUserMessage() throws {
         let conversation: [Voice_AI.Message] = [
             Voice_AI.Message(role: "assistant", content: "Welcome to the platform!"),
             Voice_AI.Message(role: "user", content: "Your order has been confirmed."),
@@ -23,21 +23,22 @@ final class OpenAIUtilsTests: XCTestCase {
         
         let limitedConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 42)
         
-        XCTAssertEqual(limitedConversation.count, 1, "contain is not equal to 1")
+        XCTAssertEqual(limitedConversation.count, 2, "contain is not equal to 2")
     }
     
     func testShouldAttachPartOfAMessage() throws {
         let conversation: [Voice_AI.Message] = [
-            Voice_AI.Message(role: "assistant", content: "Welcome to the platform!"),
-            Voice_AI.Message(role: "user", content: "Your order has been confirmed."),
-            Voice_AI.Message(role: "assistant", content: "Please adhere to the community guidelines."),
+            Voice_AI.Message(role: "user", content: "How many days are there in a year?"),
+            Voice_AI.Message(role: "assistant", content: "A standard calendar year has 365 days. However, every four years, a leap year occurs, adding an extra day, making it 366 days in that particular year. "),
+            Voice_AI.Message(role: "user", content: "How many weeks are there in a year?"),
         ];
         
         let limitedConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 52)
         
-        XCTAssertEqual(limitedConversation.count, 2, "conversation should contain 2 messages")
-        XCTAssertEqual(limitedConversation[0].content, "confirmed.")
-        XCTAssertEqual(limitedConversation[1].content, "Please adhere to the community guidelines.")
+        XCTAssertEqual(limitedConversation.count, 3, "conversation should contain 3 messages")
+        XCTAssertEqual(limitedConversation[0].content, "How many days are there in a year?")
+        XCTAssertEqual(limitedConversation[1].content, "A standard calendar year has 365 days", "should get the first sentence")
+        XCTAssertEqual(limitedConversation[2].content, "How many weeks are there in a year?")
     }
     
     func testShouldReturnAllMessages() throws {
@@ -94,17 +95,13 @@ final class OpenAIUtilsTests: XCTestCase {
     func testShouldNotDeleteSystemMessages() throws {
         let conversation: [Voice_AI.Message] = [
             Voice_AI.Message(role: "system", content: "__instruction__"),
-            Voice_AI.Message(role: "user", content: "How many days are there in a year?"),
             Voice_AI.Message(role: "assistant", content: "There are 365 days in a standard calendar year."),
-            Voice_AI.Message(role: "user", content: "Ok."),
         ];
         
-        let cleanConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 1)
+        let cleanConversation = Voice_AI.OpenAIUtils.limitConversationContext(conversation, charactersCount: 5)
         
         XCTAssertEqual(cleanConversation[0].role, "system")
         XCTAssertEqual(cleanConversation[0].content, "__instruction__")
-        XCTAssertEqual(cleanConversation[1].role, "user")
-        XCTAssertEqual(cleanConversation[1].content, ".")
     }
     
 }
