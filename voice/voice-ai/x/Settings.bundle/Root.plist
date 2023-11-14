@@ -38,7 +38,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Username</string>
+			<string>Whitelisted Users</string>
 			<key>Key</key>
 			<string>USER_NAME</string>
 		</dict>
