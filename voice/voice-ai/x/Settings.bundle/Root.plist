@@ -26,6 +26,14 @@
 			<key>Key</key>
 			<string>custom_instruction_preference</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Username</string>
+			<key>Key</key>
+			<string>USER_NAME</string>
+		</dict>
 	</array>
 </dict>
 </plist>

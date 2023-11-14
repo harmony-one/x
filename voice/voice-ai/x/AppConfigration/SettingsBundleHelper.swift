@@ -11,6 +11,7 @@ class SettingsBundleHelper {
      struct SettingsBundleKeys {
          static let Reset = "RESET_APP_KEY"
          static let CustomInstruction = "custom_instruction_preference"
+         static let Username = "USER_NAME"
      }
 
      class func checkAndExecuteSettings() {
@@ -26,4 +27,9 @@ class SettingsBundleHelper {
              """
          UserDefaults.standard.set(defaultCustomInstruction, forKey: "custom_instruction_preference")
      }
+    
+    class func hasPremiumMode(_ username: String) -> Bool {
+        let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
+        return username!.trimmingCharacters(in: .whitespaces) == username
+    }
  }
