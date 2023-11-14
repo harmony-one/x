@@ -219,6 +219,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
+                audioPlayer.playSound(false)
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
@@ -305,7 +306,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
-        audioPlayer.playSound()
+//        audioPlayer.playSound()
         pauseCapturing()
         isRequestingOpenAI = true
         
@@ -383,6 +384,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: "I am trying to catch up. Please wait. I can only answer 10 questions per minute at this time")
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
+                //trigger a beep
+                audioPlayer.playSound(false)
+                
                 let attempt = maxRetry - retryCount + 1
                 let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
                 print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
@@ -525,7 +529,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             textToSpeechConverter.pauseSpeech()
         } else {
             if !isRequestingOpenAI && feedback! {
-                audioPlayer.playSound(false)
+//                audioPlayer.playSound(false)
             }
         }
     }
@@ -538,7 +542,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             textToSpeechConverter.continueSpeech()
         } else {
             if !isRequestingOpenAI {
-                audioPlayer.playSound(false)
+//                audioPlayer.playSound(false)
             }
         }
     }
@@ -653,7 +657,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             } else {
                 // Handle the lack of recognized text
                 DispatchQueue.main.async {
-                    self.audioPlayer.playSound(false)
+//                    self.audioPlayer.playSound(false)
                 }
             }
             
