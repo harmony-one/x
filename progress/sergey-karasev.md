@@ -1,4 +1,4 @@
-2023-11-14 Tue: I have added [whitelist user in system settings](https://github.com/harmony-one/x/pull/179).
+2023-11-14 Tue: I have added [whitelist user in system settings](https://github.com/harmony-one/x/pull/179), added [AI credits](https://github.com/harmony-one/x/pull/179/commits/bb91398cb4ce08c36b16ea135ad0adbb395baaa6) in system settings
 
 2023-11-13 Mon: I am working on the "tap-to-speak" button, sometimes its state may conflict with other buttons in the user interface. I have resolved the [issue with quick switching between "tap-to-speak" and "hold-to-speak"](https://github.com/harmony-one/x/pull/169). 
 
