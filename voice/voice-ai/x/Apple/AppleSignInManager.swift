@@ -31,20 +31,22 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
             let email = appleIDCredential.email
             
             KeychainService.shared.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
-            
-            //TODO:
-            
-           // UserAPI().getUserBy(id: appleId + "1212121")
-
-            UserAPI().getUserBy(appleId:  "dfdfaeee1212121")
-
-            // Proceed with further user handling
+            UserAPI().getUserBy(appleId: appleId)
         }
     }
-
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Handle error
-    }
+            if let error = error as? ASAuthorizationError {
+                switch error.code {
+                case .canceled:
+                    // Handle the cancellation here
+                    print("User cancelled the Apple Sign-In.")
+                default:
+                    // Handle other errors
+                    print("Apple Sign-In error: \(error.localizedDescription)")
+                }
+            }
+        }
 }
 
 extension AppleSignInManager: ASAuthorizationControllerPresentationContextProviding {
