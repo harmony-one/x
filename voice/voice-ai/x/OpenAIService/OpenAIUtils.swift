@@ -12,7 +12,10 @@ struct OpenAIUtils {
                 continue
             }
 
-            if message.role == "system" || message.role == "user" {
+            if message.role == "system" {
+                continue
+            }
+            if message.role == "user" {
                 filteredConversation.insert(message, at: 0)
                 continue
             }
@@ -38,7 +41,7 @@ struct OpenAIUtils {
                 totalContentLength += trimmedContent.count;
             }
         }
-        
+   
         return filteredConversation
     }
     

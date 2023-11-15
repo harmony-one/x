@@ -363,9 +363,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            // Important: Add an instruction at the beginning of the conversation
-            conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            
             var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            // Important: Add an instruction at the beginning of the conversation
+            limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            // for custom instruction changes
+            conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
@@ -496,12 +499,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         } else {
             return false
         }
-        // let currentContext = conversation.first?.content
-        // let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        // if (currentContext == newContext) {
-        //     return false
-        // }
-        // return true
     }
     
     func setupAudioEngineIfNeeded() {
@@ -543,7 +540,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func pause(feedback: Bool? = true) {
         print("[SpeechRecognition][pause]")
-        
         if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
             textToSpeechConverter.pauseSpeech()
