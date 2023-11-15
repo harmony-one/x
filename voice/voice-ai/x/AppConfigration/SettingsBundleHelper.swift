@@ -30,4 +30,9 @@ class SettingsBundleHelper {
             return false
         }
     }
+    
+    class func getUserName() -> String? {
+        let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
+        return username
+    }
  }
