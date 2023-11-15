@@ -51,7 +51,7 @@ struct ActionsView: View {
     
     @State private var keyWindow: UIWindow?
 
-    let maxResetClicks = 100
+    let maxResetClicks = 10
     @State private var resetClickCounter = 0
     
     init() {
