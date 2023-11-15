@@ -1,3 +1,5 @@
+2023-11-14 Tue (3.5h): Fixing SSL issues and domain registration issues; Review and implement EWS Substack anchor link sharing; Review implementation plan and issues for account signup, login, in-app purchase restoration; Review #179, #181, #183, #182, #184; GCP IAM setup for devops personnel, and ES operation instructions; Debug MetaMask mobile issues on multisig; Recovery security discussions; Research on and discuss OpenAI Assistant and threading APIs
+
 2023-11-13 Mon (3h): Technical interview and post-interview analysis; Implementing and testing in-app purchase for GPT-4 booster; Review #167, #168, #169, 170, #171, #173, #174, #175
 
 ---
