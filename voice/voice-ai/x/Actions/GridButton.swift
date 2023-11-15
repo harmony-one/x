@@ -27,7 +27,7 @@ struct GridButton: View {
             
             self.debounce_timer?.invalidate()
             
-            if(self.clickCounter >= 10) {
+            if(self.clickCounter >= 100) {
                 self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                     action()
                 }
