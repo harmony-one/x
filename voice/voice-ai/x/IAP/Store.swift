@@ -64,7 +64,9 @@ class Store: ObservableObject {
             guard let product = self.products.first(where: { $0.id == transaction.productID}) else { return transaction }
 
             guard !transaction.isUpgraded else { return nil }
-
+  
+            UserAPI().purchase(transactionId: String(transaction.id))
+ 
             self.addPurchased(product)
 
             await transaction.finish()

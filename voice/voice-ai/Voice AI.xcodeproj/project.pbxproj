@@ -102,6 +102,19 @@
 		B3E5CDF52B0332B9003F4DC2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3E5CDF42B0332B9003F4DC2 /* Settings.bundle */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */; };
+		B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B91F05B42B04B3960029A32D /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B91F05B32B04B3960029A32D /* KeychainSwift */; };
+		B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B91F05BF2B04BFEB0029A32D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
@@ -245,6 +258,12 @@
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B3E5CDF42B0332B9003F4DC2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
+		B91F05AF2B049F720029A32D /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
+		B91F05B52B04B3E00029A32D /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B91F05B92B04BA250029A32D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B91F05BD2B04BFEB0029A32D /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		B91F05C12B04C0D50029A32D /* CreateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUser.swift; sourceTree = "<group>"; };
+		B91F05C42B04C99B0029A32D /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -327,6 +346,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B91F05B42B04B3960029A32D /* KeychainSwift in Frameworks */,
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
 				CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */,
 				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
@@ -409,6 +429,42 @@
 				B346DF772AF562020023FC87 /* ThemeManager.swift */,
 			);
 			path = ThemeManager;
+			sourceTree = "<group>";
+		};
+		B91F05AE2B049F5C0029A32D /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05AF2B049F720029A32D /* AppleSignInManager.swift */,
+				B91F05B52B04B3E00029A32D /* KeychainService.swift */,
+			);
+			path = Apple;
+			sourceTree = "<group>";
+		};
+		B91F05B82B04BA060029A32D /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05B92B04BA250029A32D /* NetworkManager.swift */,
+				B91F05C42B04C99B0029A32D /* APIEnvironment.swift */,
+				B91F05BC2B04BFBC0029A32D /* User */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		B91F05BC2B04BFBC0029A32D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05C02B04C0020029A32D /* Model */,
+				B91F05BD2B04BFEB0029A32D /* UserAPI.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B91F05C02B04C0020029A32D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05C12B04C0D50029A32D /* CreateUser.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
@@ -561,6 +617,8 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				B91F05B82B04BA060029A32D /* NetworkManager */,
+				B91F05AE2B049F5C0029A32D /* Apple */,
 				B9B3319F2AFB801D00F6A9C9 /* ReviewRequest */,
 				B346DF722AF55EEB0023FC87 /* ThemeManager */,
 				22CC4D722AF3AB350072EC39 /* IAP */,
@@ -716,6 +774,7 @@
 				F67E43312AFAC166001B72CD /* SentrySwiftUI */,
 				F67E43332AFAC16C001B72CD /* Sentry */,
 				CD8A1A642B0084C400A5B2CC /* CryptoSwift */,
+				B91F05B32B04B3960029A32D /* KeychainSwift */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -808,6 +867,7 @@
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -901,10 +961,12 @@
 				F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
+				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
 				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
+				B91F05BF2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
 				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
 				B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */,
@@ -919,8 +981,12 @@
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
+				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
+				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */,
 				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
+				B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */,
 				A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,9 +1020,12 @@
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
+				B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
+				B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
 				B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */,
+				B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */,
 				B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */,
 				B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */,
@@ -965,12 +1034,15 @@
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
 				6E6D53242AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				B9CE36EA2AFD0365009999CF /* TimerManager.swift in Sources */,
+				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
+				B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */,
@@ -1625,6 +1697,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
 		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
@@ -1656,6 +1736,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		B91F05B32B04B3960029A32D /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
