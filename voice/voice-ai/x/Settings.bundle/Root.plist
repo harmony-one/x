@@ -20,16 +20,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Reset to Default Instructions</string>
-			<key>Key</key>
-			<string>RESET_APP_KEY</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Custom Instructions</string>
