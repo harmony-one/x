@@ -310,7 +310,11 @@ struct ActionsView: View {
                     self.resetClickCounter += 1
                     if (self.resetClickCounter >= self.maxResetClicks) {
                         self.resetClickCounter = 0
-                        ReviewRequester.shared.tryPromptForReview(forced: true)
+                        let number = Int.random(in: 0 ..< 4)
+                        if (number == 1) {
+                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                        }
+                        
                     }
                 }
             }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
