@@ -1,4 +1,12 @@
-2023-11-13 Mon: 
+2023-11-14 Tues: 
+I inquired about the top healthiest fish, and the app initially ranked salmon as number one, later in the ranking I interrupted to ask the app to repeat what number two on the list was. When prompted to identify the second-ranked fish, the app continued to mention salmon as number two and eventually admitted it couldn't recall the specifics of our conversation.
+
+ Deciding to focus on the recall capabilities, I inquired with the app about our initial conversation, and it started discussing a topic not previously covered in this session or any prior sessions. Additionally, I notice a delay in response consistently when using the "Surprise Me!" function.
+
+2023-11-13 Mon:
+I initiated the session by discussing Las Vegas tourist attractions, followed by a "Surprise Me!" function. However, when asked about our initial conversation, the app only recalled the fun facts it shared, not the session's starting information. 
+
+I attempted to pause the app while it was sharing a fun fact, but it didn't respond immediately; I had to press the pause button again. Inconsistencies in voice recognition and delayed responses are occasional issues with the app.
 
 ---
 
