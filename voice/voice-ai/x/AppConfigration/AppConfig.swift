@@ -16,7 +16,7 @@ class AppConfig {
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
     
-    private var themeName: String?
+    internal var themeName: String?
 
     init() {
         self.loadConfiguration()
@@ -162,4 +162,17 @@ class AppConfig {
     func getThemeName() -> String {
         return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name
     }
+    
+    func getSharedEncryptionSecret() -> String? {
+        return self.sharedEncryptionSecret
+    }
+    
+    func getSharedEncryptionIV() -> String? {
+        return self.sharedEncryptionIV
+    }
+    
+    func getRelayUrl() -> String? {
+        return self.relayUrl
+    }
+    
 }
