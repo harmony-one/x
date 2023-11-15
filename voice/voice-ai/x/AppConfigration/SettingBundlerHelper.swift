@@ -1,10 +1,3 @@
-//
-//  SettingBundlerHelper.swift
-//  Voice AI
-//
-//  Created by Francisco Egloff on 13/11/23.
-//
-
 import Foundation
 
 // CHANGES HERE
