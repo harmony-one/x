@@ -1,10 +1,3 @@
-//
-//  SettingsBundleHelper.swift
-//  Voice AI
-//
-//  Created by Francisco Egloff on 13/11/23.
-//
-
 import Foundation
 
 class SettingsBundleHelper {
@@ -28,9 +21,11 @@ class SettingsBundleHelper {
          UserDefaults.standard.set(defaultCustomInstruction, forKey: "custom_instruction_preference")
      }
     
-    class func hasPremiumMode(_ username: String) -> Bool {
-        if let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username) {
-            return username.trimmingCharacters(in: .whitespaces) == username
+    class func hasPremiumMode() -> Bool {
+        let whitelist = AppConfig.shared.getWhitelist()
+        let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
+        if username != nil && whitelist!.contains(username!) {
+            return true
         } else {
             return false
         }

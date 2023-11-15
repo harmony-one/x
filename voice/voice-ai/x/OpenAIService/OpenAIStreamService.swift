@@ -89,7 +89,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
         
         let username = "stse"
-        if !SettingsBundleHelper.hasPremiumMode(username) && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
+        if !SettingsBundleHelper.hasPremiumMode() && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"
         }
 

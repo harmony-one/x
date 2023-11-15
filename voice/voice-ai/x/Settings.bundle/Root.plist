@@ -42,7 +42,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Whitelisted Users</string>
+			<string>Your Twitter/X</string>
 			<key>Key</key>
 			<string>USER_NAME</string>
 		</dict>
