@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>Title</key>
+			<string>Premium Use Expires</string>
+			<key>DefaultValue</key>
+			<string>2023-12-14 22:15:00</string>
+			<key>Key</key>
+			<string>EXPIRE_AT</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Instructions</string>
+			<key>DefaultValue</key>
+			<string>We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.</string>
+			<key>Key</key>
+			<string>custom_instruction_preference</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Your Twitter/X</string>
+			<key>Key</key>
+			<string>USER_NAME</string>
+		</dict>
+	</array>
+</dict>
+</plist>

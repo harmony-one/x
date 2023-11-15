@@ -75,8 +75,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
-    private var initialCapacity = 5
-    private var bufferCapacity = 20
+    private var initialCapacity = 10
+    private var bufferCapacity = 50
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -270,7 +270,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         return Int64(NSDate().timeIntervalSince1970 * 1000)
     }
     
-    func makeQuery(_ text: String, maxRetry: Int = 3) {
+    // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
+    func makeQuery(_ text: String, maxRetry: Int = 14) {
         if isRequestingOpenAI {
             print("RequestingOpenAI: skip")
             return
@@ -296,10 +297,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
-        
-//        if conversation.count == 0 {
-//            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
-//        }
         
         print("[SpeechRecognition] query: \(text)")
         
@@ -367,8 +364,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
-//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            
+            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            // Important: Add an instruction at the beginning of the conversation
+            limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            // for custom instruction changes
+            conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
@@ -381,14 +383,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI Rate Limited")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "I am trying to catch up. Please wait. I can only answer 10 questions per minute at this time")
+                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 10 questions per minute at this time.")
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
-                //trigger a beep
+                
                 audioPlayer.playSound(false)
                 
                 let attempt = maxRetry - retryCount + 1
-                let delay = pow(2.0, Double(attempt)) // exponential backoff (2s, 4s, 8s, ...)
+                // cap the delay at 64 seconds
+                let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
                 print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     buf.removeAll()
@@ -401,7 +404,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "Network error.")
+                textToSpeechConverter.convertTextToSpeech(text: "No network conditions.")
             }
         }
         
@@ -484,6 +487,22 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
 
+    func checkContextChange() -> Bool {
+        if (conversation.count == 0) {
+            return false
+        }
+        if let contextMessage = conversation.first(where: { $0.role == "system" }) {
+            let currentContext = contextMessage.content
+            let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+            if (currentContext == newContext) {
+                return false
+            }
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
         audioEngine.mainMixerNode
@@ -523,7 +542,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func pause(feedback: Bool? = true) {
         print("[SpeechRecognition][pause]")
-        
         if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
             textToSpeechConverter.pauseSpeech()

@@ -15,6 +15,7 @@ class AppConfig {
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
+    private var whitelist: [String]?
     
     internal var themeName: String?
 
@@ -105,31 +106,35 @@ class AppConfig {
         
         do {
             let data = try Data(contentsOf: fileURL)
-            guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: String] else {
+            guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
                 fatalError("Unable to convert plist into dictionary")
             }
             
-            self.sentryDSN = dictionary["SENTRY_DSN"]
+            self.sentryDSN = dictionary["SENTRY_DSN"] as? String
 
-            self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"]
-            self.sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"]
-            self.relayUrl = dictionary["RELAY_URL"]
+            self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
+            self.sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
+            self.relayUrl = dictionary["RELAY_URL"] as? String
 
-            self.themeName = dictionary["THEME_NAME"]
-            self.deepgramKey = dictionary["DEEPGRAM_KEY"]
-            self.openaiKey = dictionary["API_KEY"]
+            self.themeName = dictionary["THEME_NAME"] as? String
+            self.deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
+            self.openaiKey = dictionary["API_KEY"] as? String
             
             // Convert the string values to Int
-            if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"],
+            if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
                let events = Int(eventsString)
             {
                 self.minimumSignificantEvents = events
             }
             
-            if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"],
+            if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"] as? String,
                let days = Int(daysString)
             {
                 self.daysBetweenPrompts = days
+            }
+            
+            if let whitelistString = dictionary["WHITELIST"] as? [String] {
+                self.whitelist = whitelistString
             }
             
         } catch {
@@ -162,7 +167,7 @@ class AppConfig {
     func getThemeName() -> String {
         return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name
     }
-    
+
     func getSharedEncryptionSecret() -> String? {
         return self.sharedEncryptionSecret
     }
@@ -175,4 +180,7 @@ class AppConfig {
         return self.relayUrl
     }
     
+    func getWhitelist() -> [String]? {
+        return self.whitelist
+    }
 }
