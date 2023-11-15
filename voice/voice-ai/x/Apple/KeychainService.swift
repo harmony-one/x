@@ -34,11 +34,7 @@ class KeychainService {
     func isAppleIdAvailable() -> Bool {
         return keychain.get("appleId") != nil
     }
-    
-    func retrieveUserId() -> String? {
-        return keychain.get("appleId")
-    }
-    
+        
     func retrieveBalance() -> String? {
         return keychain.get("balance")
     }
@@ -57,6 +53,10 @@ class KeychainService {
     
     func retrieveEmail() -> String? {
         return keychain.get("email")
+    }
+    
+    func retrieveAppleID() -> String? {
+        return keychain.get("appleId")
     }
     
     func retrieveUserid() -> String? {

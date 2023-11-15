@@ -125,6 +125,11 @@ struct ActionsView: View {
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
+                    
+                    // This is simply to confirm and retrieve the userID. While the keychain contains the Apple ID, it lacks the server's user ID.
+                    if KeychainService.shared.isAppleIdAvailable() {
+                        UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
+                    }
                 }
             )
             .edgesIgnoringSafeArea(.all)

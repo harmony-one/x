@@ -37,6 +37,9 @@ struct UserAPI {
             switch result {
             case .success(let response):
                 if  response.statusCode == 400 {
+                    print("User already created: \(response)")
+                    print("Fetch User data")
+
                     self.getUserBy(appleId: appleId)
                     return
                 }
