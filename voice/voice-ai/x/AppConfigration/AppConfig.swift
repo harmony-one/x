@@ -15,7 +15,7 @@ class AppConfig {
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
-    private var whitelist: [String]?
+    private var whitelist: [String]? = []
     
     internal var themeName: String?
 
@@ -110,7 +110,6 @@ class AppConfig {
         }
 
         guard let url = URL(string: "\(relayUrl)/whitelist") else {
-//        guard let url = URL(string: "http://localhost:3000/whitelist") else {
             print("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return false
