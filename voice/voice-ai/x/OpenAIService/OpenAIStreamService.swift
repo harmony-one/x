@@ -112,7 +112,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         
         semaphore.wait()
         
-        if !hasPremiumMode && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
+        // TODO: delete "!SettingsBundleHelper.hasPremiumMode" after
+        if !hasPremiumMode && !SettingsBundleHelper.hasPremiumMode() && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"
         }
 
