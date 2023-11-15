@@ -145,6 +145,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
+                try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
             } catch {
                 print("Error setting up audio engine: \(error.localizedDescription)")
                 SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
@@ -510,6 +511,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
             try AVAudioSession.sharedInstance().setMode(.spokenAudio)
+            try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
             // Only start the audio engine if it's not already running
             audioEngine.prepare()
             try audioEngine.start()

@@ -38,6 +38,7 @@ struct Permission {
             try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             try audioSession.setMode(.spokenAudio)
+            try audioSession.setAllowHapticsAndSystemSoundsDuringRecording(true)
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
