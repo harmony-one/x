@@ -242,7 +242,10 @@ struct ActionsView: View {
                         }
                         .onEnded { _ in
                             self.isSpeakButtonPressed = false
-                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                actionHandler.handle(actionType: ActionType.stopSpeak)
+                            }
+                            
                         }
                 )
             }
