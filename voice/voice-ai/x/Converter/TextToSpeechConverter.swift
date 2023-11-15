@@ -65,7 +65,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         if synthesizer.isSpeaking {
             synthesizer.pauseSpeaking(at: .immediate)
             print("Speech paused.")
-            Thread.sleep(forTimeInterval: 1.0)
+//            Thread.sleep(forTimeInterval: 1.0)
         } else {
             print("Speech is not speaking.")
         }
