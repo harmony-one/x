@@ -1,3 +1,5 @@
+2023-11-15 Wed: [check](https://github.com/harmony-one/stripe-payments-backend/commit/31b71c5ad4fd0a6d09a1b33fd62d0eda05c91b8d) uniqueness of transactionId identifier, add API key guard for /purchases and /spend endpoints, added production App Store enviroment support, improved logging
+
 2023-11-14 Tue: [added](https://github.com/harmony-one/stripe-payments-backend/commit/39d28353696a0fb8c59a786fdeed70edfc1970d9) new product support on Payments service side; now the amount of credits purchased by a user is calculated based on productId. [Deployed](https://x-payments-api.fly.dev/api) payments service update to integrate it with VoiceAI app. Working on authorization guard for /users/withdraw endpoint.
 
 2023-11-13 Mon: [added](https://github.com/harmony-one/stripe-payments-backend/commit/0d85b4c137a707168837cc690630998c1d211f67) tokensAmount param to /withdraw endpoint; credits amount to withdraw will be calculated on Payments backend side based on tokensAmount and configuration params. Added `withdrawals` database table to store all withdraw requests and user credits balance data (before and after transaction).

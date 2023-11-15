@@ -1,4 +1,4 @@
-2023-11-13 Mon-Fri: Out of Office
+2023-11-13 - 2023-11-17: Vacation.
 
 ---
 
