@@ -5,6 +5,7 @@ class AppleSignInManager: NSObject {
     static let shared = AppleSignInManager()
     private weak var currentWindow: UIWindow?
 
+    @EnvironmentObject var store: Store
 
     private override init() {}
 
@@ -41,6 +42,12 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
                 case .canceled:
                     // Handle the cancellation here
                     print("User cancelled the Apple Sign-In.")
+                    
+                    Task {
+                        let product = store.products[0]
+                        try await self.store.purchase(product)
+                    }
+                    
                 default:
                     // Handle other errors
                     print("Apple Sign-In error: \(error.localizedDescription)")
