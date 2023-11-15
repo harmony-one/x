@@ -63,6 +63,10 @@ class AppConfigTests: XCTestCase {
         XCTAssertNotNil(appConfig.getRelayUrl(), "RelayURL should not be nil")
     }
     
+    func testWhiteListIsNotNil() {
+        XCTAssertNotNil(appConfig.getWhitelist(), "Whitelist should not be nil")
+    }
+    
     func testLoadingValidPlistFile() {
         XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
         XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
