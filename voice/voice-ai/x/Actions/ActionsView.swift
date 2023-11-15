@@ -2,6 +2,9 @@ import Combine
 import Foundation
 import StoreKit
 import SwiftUI
+import AudioToolbox
+import CoreHaptics
+import UIKit
 
 struct ActionsView: View {
     let config = AppConfig.shared
@@ -205,6 +208,12 @@ struct ActionsView: View {
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
     }
+
+    func vibration() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.prepare()
+        impactFeedbackGenerator.impactOccurred()
+    }
     
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
@@ -214,7 +223,8 @@ struct ActionsView: View {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
-                    Task {
+                 self.vibration()
+                  Task {
                         if !actionHandler.isTapToSpeakActive {
                             actionHandler.handle(actionType: ActionType.tapSpeak)
                         } else {
@@ -257,6 +267,7 @@ struct ActionsView: View {
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -276,6 +287,7 @@ struct ActionsView: View {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -301,6 +313,7 @@ struct ActionsView: View {
             
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -311,6 +324,7 @@ struct ActionsView: View {
 //            })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -320,6 +334,7 @@ struct ActionsView: View {
             })
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
