@@ -49,6 +49,8 @@ struct ActionsView: View {
     
     @State private var storage = Set<AnyCancellable>()
     
+    @State private var keyWindow: UIWindow?
+    
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
@@ -134,6 +136,11 @@ struct ActionsView: View {
                     if (speechRecognition.checkContextChange()) {
                         speechRecognition.reset()
                     }
+                    keyWindow = UIApplication.shared.connectedScenes
+                        .filter { $0.activationState == .foregroundActive }
+                        .compactMap { $0 as? UIWindowScene }
+                        .first?.windows
+                        .filter { $0.isKeyWindow }.first
                 case .inactive:
                     print("App became inactive")
                     speechRecognition.pause(feedback: false)
@@ -213,10 +220,7 @@ struct ActionsView: View {
                 .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                     Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
                         actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                        Task {
-                            let product = store.products[0]
-                            try await self.store.purchase(product)
-                        }
+                       
                     }
 //                    DispatchQueue.main.async {
 //                        let url = URL(string: "https://x.country/voice")
@@ -296,7 +300,9 @@ struct ActionsView: View {
                     await handleOtherActions(actionType: button.action)
                 }
             }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                requestReview()
+                //  requestReview()
+                
+                self.checkUserAuthentication()
             })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
@@ -332,6 +338,21 @@ struct ActionsView: View {
     
     func handleOtherActions(actionType: ActionType) async {
         actionHandler.handle(actionType: actionType)
+    }
+    
+    func checkUserAuthentication() {
+        if KeychainService.shared.isAppleIdAvailable() {
+            // User ID is available, proceed with automatic login or similar functionality
+            Task {
+                let product = store.products[0]
+                try await self.store.purchase(product)
+            }
+        } else {
+            // User ID not found, prompt user to log in or register
+            if let keyWindow = keyWindow {
+                AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
+            }
+        }
     }
 }
 
