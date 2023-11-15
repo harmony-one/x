@@ -298,10 +298,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-//        if conversation.count == 0 {
-//            conversation.append(contentsOf: OpenAIStreamService.setConversationContext())
-//        }
-        
         print("[SpeechRecognition] query: \(text)")
         
         conversation.append(Message(role: "user", content: text))
@@ -368,8 +364,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            let limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
-//            limitedConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+            
+            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            // Important: Add an instruction at the beginning of the conversation
+            limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            // for custom instruction changes
+            conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
+            
             pendingOpenAIStream?.query(conversation: limitedConversation)
         }
         
@@ -486,6 +487,22 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
 
+    func checkContextChange() -> Bool {
+        if (conversation.count == 0) {
+            return false
+        }
+        if let contextMessage = conversation.first(where: { $0.role == "system" }) {
+            let currentContext = contextMessage.content
+            let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+            if (currentContext == newContext) {
+                return false
+            }
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
         audioEngine.mainMixerNode
@@ -525,7 +542,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func pause(feedback: Bool? = true) {
         print("[SpeechRecognition][pause]")
-        
         if textToSpeechConverter.synthesizer.isSpeaking {
             _isPaused = true
             textToSpeechConverter.pauseSpeech()
