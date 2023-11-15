@@ -1,3 +1,5 @@
+2023-11-14 Tue: Updated chunking size (10 / 50) with exponential backoff of total 10 min and canned response. Worked with Frank on implementing custom instructions, as well as setting configurations. Fixed voice selection bug. Went over OpenAI's Assistant to see better implementation of context embedding without having to provide it each time. The current limitation of "assistant" is that streaming is not supported.
+
 2023-11-13 Mon: Fixed a bug which ensures custom instructions are not deleted when cleaning up context for 512 max tokens. User testing with Theo and Alaina to diagnose if there are persistent issues with current chunking method. Went through the official OpenAI API documentation, as well as various sources to see if there was an optimal way of implementing context embedding rather than providing it everytime (result: there does not exist one as of now; Artem / Aaron going over other implementations)
 
 ---
