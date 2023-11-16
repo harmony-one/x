@@ -6,7 +6,12 @@ import AudioToolbox
 import CoreHaptics
 import UIKit
 
-struct ActionsView: View {
+protocol ActionsViewProtocol {
+    associatedtype AssociatedView: View
+    func baseView(colums: Int, buttons: [ButtonData]) -> AssociatedView
+}
+
+struct ActionsView: View, ActionsViewProtocol {
     let config = AppConfig.shared
     
     @ObservedObject private var timerManager = TimerManager.shared

@@ -88,6 +88,7 @@
 		B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		B354AB6C2B066EB9006E2FC4 /* ActionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354AB6B2B066EB9006E2FC4 /* ActionViewTests.swift */; };
 		B36367562AFC69F2000409FC /* RandomFactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
 		B36C89D12B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
@@ -265,6 +266,7 @@
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactTests.swift; sourceTree = "<group>"; };
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B354AB6B2B066EB9006E2FC4 /* ActionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewTests.swift; sourceTree = "<group>"; };
 		B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3BC2CAB2B05F3D000A58477 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 				6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */,
 				F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */,
 				F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */,
+				B354AB6B2B066EB9006E2FC4 /* ActionViewTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1076,6 +1079,7 @@
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
 				B91F05CA2B05F7260029A32D /* APIEnvironment.swift in Sources */,
 				6E35CB4D2AFE87E80004D2D2 /* OpenAIUtils.swift in Sources */,
+				B354AB6C2B066EB9006E2FC4 /* ActionViewTests.swift in Sources */,
 				F7F1150B2AF8173300BC191C /* AppConfigTests.swift in Sources */,
 				F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */,
 				B9CE36EB2AFD0365009999CF /* TimerManager.swift in Sources */,
