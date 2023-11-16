@@ -1,3 +1,5 @@
+2023-11-15 Wed: Completed Harmony quiz [demo](https://harmonyone.notion.site/Harmony-Quiz-Exmaple-75a999245f544662906d09ad2838c820?pvs=4). Started [OpenAI implementation review](https://harmonyone.notion.site/OpenAI-Implementation-Review-3a44d85cce504066a8fed5690bbc56ef?pvs=4).
+
 2023-11-14 Tue: Completed Fenwick [Terms](https://harmonyone.notion.site/Terms-33e7f545c9d7407e88201fca0fa5ace3?pvs=4) & sent back Privacy for edits. Also reviewed other [AI premium app](https://harmonyone.notion.site/Competitor-Analysis-2caebf2a984b485db56e53df08a206bd?pvs=4) payment, insight: subscription plans for 1 week and 1 year are the most common payment schedules offered. 
 
 2023-11-13 Mon: User testing for chunking issue with sun, found Apple's text-to-speech as the cause for the unnatural pausing. Reviewed Fenwick Terms update.
