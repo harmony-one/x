@@ -1,3 +1,6 @@
+
+2023-11-16 Thu: Updated server post-purchase to display a new expiration date on the settings page, assisted Artem with In-App Purchases, and helped Frank resolve unit testing build issues.
+
 2023-11-15 Wed: Implemented login prompt for long-press on "New Session", secure keychain storage, server API network manager, and in-app purchase offer for logged-in users.
 Added user creation with Apple login for 'Artem' on the server; facing issues with delegate not being called when users cancel login, preventing in-app purchase modal display.
 
