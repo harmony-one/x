@@ -559,7 +559,6 @@
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 				B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */,
 				6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */,
-				CDC1370F2B057DB6003386E9 /* RelayAuth.swift */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -578,6 +577,7 @@
 		B9AD506E2ADFFD4E006F18A1 /* AppConfigration */ = {
 			isa = PBXGroup;
 			children = (
+				CDC1370F2B057DB6003386E9 /* RelayAuth.swift */,
 				B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */,
 				B9CE36E92AFD0365009999CF /* TimerManager.swift */,
 				B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */,

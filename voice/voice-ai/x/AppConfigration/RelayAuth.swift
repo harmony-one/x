@@ -103,6 +103,7 @@ class RelayAuth {
             print("[RelayAuth][refreshToken] token refresh rate limited; ignored")
             return nil
         }
+        self.lastRefreshTime = now
 
         let service = DCAppAttestService.shared
         guard service.isSupported else {
