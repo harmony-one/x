@@ -8,7 +8,7 @@ class AppConfig {
     // Shared singleton instance
     static let shared = AppConfig()
     private var openaiKey: String?
-    private var relayUrl: String?
+    private var relayBaseUrl: String?
     private var sharedEncryptionSecret: String?
     private var sharedEncryptionIV: String?
     private var deepgramKey: String?
@@ -48,13 +48,13 @@ class AppConfig {
     }
     
     private func requestOpenAIKey() async {
-        guard let relayUrl = self.relayUrl else {
+        guard let relayBaseUrl = self.relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return
         }
         let s = URLSession(configuration: .default)
-        guard let url = URL(string: "\(relayUrl)/key") else {
+        guard let url = URL(string: "\(relayBaseUrl)/soft/key") else {
             print("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return
@@ -114,7 +114,7 @@ class AppConfig {
 
             self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
             self.sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
-            self.relayUrl = dictionary["RELAY_URL"] as? String
+            self.relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
 
             self.themeName = dictionary["THEME_NAME"] as? String
             self.deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
@@ -177,7 +177,7 @@ class AppConfig {
     }
     
     func getRelayUrl() -> String? {
-        return self.relayUrl
+        return self.relayBaseUrl
     }
     
     func getWhitelist() -> [String]? {
