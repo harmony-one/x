@@ -41,11 +41,19 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
                 switch error.code {
                 case .canceled:
                     // Handle the cancellation here
-                    print("User cancelled the Apple Sign-In.")
+                    print("[AppleSignInManager] User cancelled the Apple Sign-In")
                     
                     Task {
-                        let product = store.products[0]
-                        try await self.store.purchase(product)
+                        if store.products.isEmpty {
+                            print("[AppleSignInManager] No products available")
+                        } else {
+                            let product = store.products[0]
+                            do {
+                                try await self.store.purchase(product)
+                            } catch {
+                                print("[AppleSignInManager] Error during purchase")
+                            }
+                        }
                     }
                     
                 default:

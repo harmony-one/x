@@ -378,8 +378,16 @@ struct ActionsView: View {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
             Task {
-                let product = store.products[0]
-                try await self.store.purchase(product)
+                if store.products.isEmpty {
+                    print("[ActionsView] No products available")
+                } else {
+                    let product = store.products[0]
+                    do {
+                        try await self.store.purchase(product)
+                    } catch {
+                        print("[ActionsView] Error during purchase")
+                    }
+                }
             }
         } else {
             // User ID not found, prompt user to log in or register
