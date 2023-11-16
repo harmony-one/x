@@ -34,12 +34,6 @@ class RelayAuth {
         return self.token
     }
 
-    init() {
-        Task {
-            await self.setup()
-        }
-    }
-
     func enableAutoRefreshToken() {
         guard self.autoRefreshTokenTimer == nil else {
             return
@@ -93,18 +87,18 @@ class RelayAuth {
         guard let keyId = self.keyId else {
             return nil
         }
-        let s = try await DCAppAttestService.shared.attestKey(self.keyId!, clientDataHash: hash)
+        let s = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
         return s.base64EncodedString()
     }
 
     @discardableResult func refreshToken() async -> String? {
         let now = Int64(Date().timeIntervalSince1970)
         if self.lastRefreshTime > now - 5 {
-            print("[RelayAuth][refreshToken] token refresh rate limited; ignored")
+            print("[RelayAuth][refreshToken] token refresh rate limited (now=\(now);last=\(self.lastRefreshTime)); ignored")
             return nil
         }
         self.lastRefreshTime = now
-
+        print("[RelayAuth][refreshToken] setting lastRefreshTime=\(now)")
         let service = DCAppAttestService.shared
         guard service.isSupported else {
             print("[RelayAuth][CRITICAL] DCAppAttestService not supported. Exiting")
@@ -128,6 +122,7 @@ class RelayAuth {
             }
             let token = await self.exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             self.token = token
+            print("[RelayAuth] received token \(token)")
             return token
             // TODO: send attestation to relay, get token
         } catch {
