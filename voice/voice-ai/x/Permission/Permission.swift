@@ -2,22 +2,32 @@ import AVFoundation
 import Sentry
 import Speech
 
-struct Permission {
+class Permission {
+    var handleMicrophoneAccessDeniedCalled = false
+    var speechRecognitionPermissionStatus = "default"
+    
     // Function to set up necessary permissions
     func setup() {
         requestMicrophoneAccess { granted in
             if granted {
-                requestSpeechRecognitionPermission()
+                self.requestSpeechRecognitionPermission()
             } else {
-                print("Microphone access denied")
-                SentrySDK.capture(message: "Microphone access denied")
+                self.handleMicrophoneAccessDenied()
             }
         }
     }
+    
+    func handleMicrophoneAccessDenied() {
+        self.handleMicrophoneAccessDeniedCalled = true
+        print("Microphone access denied")
+        SentrySDK.capture(message: "Microphone access denied")
+    }
 
     // Request access to the microphone
-    func requestMicrophoneAccess(completion: @escaping (Bool) -> Void) {
-        if #available(iOS 14.0, *) {
+    func requestMicrophoneAccess(
+        forceOldVersionForTesting: Bool = false,
+        completion: @escaping (Bool) -> Void) {
+        if !forceOldVersionForTesting, #available(iOS 14.0, *) {
             AVCaptureDevice.requestAccess(for: .audio) { granted in
                 DispatchQueue.main.async {
                     completion(granted)
@@ -69,15 +79,19 @@ struct Permission {
             OperationQueue.main.addOperation {
                 switch authStatus {
                 case .authorized:
-                    print("Speech recognition authorized")
+                    self.speechRecognitionPermissionStatus = "authorized"
+                    print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
                 case .denied:
-                    print("User denied speech recognition permission")
+                    self.speechRecognitionPermissionStatus = "denied"
+                    print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
                     SentrySDK.capture(message: "User denied speech recognition permission")
                 case .notDetermined:
-                    print("Speech recognition not determined")
+                    self.speechRecognitionPermissionStatus = "not determined"
+                    print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
                     SentrySDK.capture(message: "Speech recognition not determined")
                 case .restricted:
-                    print("Speech recognition restricted")
+                    self.speechRecognitionPermissionStatus = "restricted"
+                    print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
                     SentrySDK.capture(message: "Speech recognition restricted")
                     break
                 @unknown default:
