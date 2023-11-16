@@ -7,16 +7,16 @@
     {
       "displayPrice" : "4.99",
       "familyShareable" : false,
-      "internalID" : "6472008698",
+      "internalID" : "6472299092",
       "localizations" : [
         {
-          "description" : "3 Days of GPT4 Premium Use",
-          "displayName" : "X.country",
+          "description" : "Get 3 Days GPT4 Premium Usage",
+          "displayName" : "Voice AI Premium",
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.country.app.purchase.3day",
-      "referenceName" : "3-Day GPT4",
+      "productID" : "com.country.x.purchase.3day",
+      "referenceName" : "3 Day Premium",
       "type" : "Consumable"
     },
     {
@@ -54,7 +54,7 @@
     "_applicationInternalID" : "6470936896",
     "_developerTeamID" : "5WAH566W3B",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 721618230.26254797,
+    "_lastSynchronizedDate" : 721868302.87709105,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

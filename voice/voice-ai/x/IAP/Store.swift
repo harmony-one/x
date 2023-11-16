@@ -1,8 +1,8 @@
 import StoreKit
 
 class Store: ObservableObject {
-    private var productIDs = ["com.country.app.purchase.3day"]
-//    private var productIDs = ["0001"]
+//    private var productIDs = ["com.country.app.purchase.3day"]
+    private var productIDs = ["com.country.x.purchase.3day"]
 
     @Published var products = [Product]()
 
@@ -29,6 +29,7 @@ class Store: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
+            print("[Store] ", productIDs)
             products = try await Product.products(for: productIDs)
             print("[Store] Products:", products)
         } catch {

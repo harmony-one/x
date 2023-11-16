@@ -333,7 +333,6 @@ struct ActionsView: View {
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                requestReview()
                 self.checkUserAuthentication()
             })
         } else if button.action == .surprise {
