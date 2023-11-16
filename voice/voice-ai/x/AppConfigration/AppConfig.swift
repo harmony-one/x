@@ -7,7 +7,7 @@ import SwiftyJSON
 class AppConfig {
     // Shared singleton instance
     static let shared = AppConfig()
-    private var relay: RelayAuth = .init()
+    private var relay: RelayAuth = RelayAuth.shared
     private var relayBaseUrl: String?
     private var openaiBaseUrl: String?
     private var openaiKey: String?
