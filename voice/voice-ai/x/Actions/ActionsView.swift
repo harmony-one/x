@@ -332,10 +332,10 @@ struct ActionsView: View {
                     }
                 }
             }
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                requestReview()
-//                self.checkUserAuthentication()
-//            })
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                requestReview()
+                self.checkUserAuthentication()
+            })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
               self.vibration()
