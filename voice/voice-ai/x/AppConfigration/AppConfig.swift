@@ -15,7 +15,7 @@ class AppConfig {
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
-    private var whitelist: [String]?
+    private var whitelist: [String]? = []
     
     internal var themeName: String?
 
@@ -95,6 +95,54 @@ class AppConfig {
             }
         }
         t.resume()
+    }
+    
+    
+    public func checkWhiteList() async -> Bool  {
+        guard let username = SettingsBundleHelper.getUserName() else {
+            return false
+        }
+        
+        guard let relayUrl = self.relayUrl else {
+            print("Relay URL not set")
+            SentrySDK.capture(message: "Relay URL not set")
+            return false
+        }
+
+        guard let url = URL(string: "\(relayUrl)/whitelist") else {
+            print("Invalid Relay URL")
+            SentrySDK.capture(message: "Invalid Relay URL")
+            return false
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: String] = ["username": username]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        } catch {
+            print("[AppConfig][checkWhiteList] error JSONSerialization", error)
+            SentrySDK.capture(message: "[AppConfig][checkWhiteList] JSONSerialization \(error)")
+            return false
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            let res = try JSON(data: data)
+            guard let status = res["status"].bool else {
+                print("[AppConfig][checkWhiteList] status false \(res)")
+                return false
+            }
+            return status
+        } catch {
+            print("[AppConfig][checkWhiteList] error processing whitelist response", error)
+            SentrySDK.capture(message: "[AppConfig][checkWhiteList] error processing whitelist response \(error)")
+            return false
+        }
     }
     
     private func loadConfiguration() {

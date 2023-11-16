@@ -15,11 +15,23 @@ struct GridButton: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var debounce_timer:Timer?
+    @State private var clickCounter = 0
 
     var body: some View {
-        Button(action: {
+        Button(action: {            
+            self.clickCounter += 1
+            
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                self.clickCounter -= 1
+            }
+            
             self.debounce_timer?.invalidate()
-            self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            
+            if(self.clickCounter >= 100) {
+                self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                    action()
+                }
+            } else {
                 action()
             }
         }) {

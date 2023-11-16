@@ -1,4 +1,4 @@
-2023-11-13 Mon-Fri: Out of Office
+2023-11-12 Sat - 2023-11-19 Sun: Days off.
 
 ---
 
