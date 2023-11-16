@@ -36,6 +36,50 @@ class PermissionTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    func testHandleSpeechRecognitionAuthorizationStatusAuthorized() {
+            let permission = Permission()
+            let authStatus: SFSpeechRecognizerAuthorizationStatus = .authorized
+            
+            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+            
+            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "authorized")
+        }
+    
+    func testHandleSpeechRecognitionAuthorizationStatusDenied() {
+            let permission = Permission()
+            let authStatus: SFSpeechRecognizerAuthorizationStatus = .denied
+            
+            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+            
+            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "denied")
+        }
+    
+    func testHandleSpeechRecognitionAuthorizationStatusNotDetermined() {
+            let permission = Permission()
+            let authStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
+            
+            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+            
+            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "not determined")
+        }
+
+        func testHandleSpeechRecognitionAuthorizationStatusRestricted() {
+            let permission = Permission()
+            let authStatus: SFSpeechRecognizerAuthorizationStatus = .restricted
+            
+            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+            
+            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "restricted")
+        }
+
+//        func testHandleSpeechRecognitionAuthorizationStatusDefault() {
+//            let permission = Permission()
+//            let authStatus: SFSpeechRecognizerAuthorizationStatus = .someUnknownCase
+//            
+//            XCTAssertFatalError {
+//                permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+//            }
+//        }
 
 //    func testCheckMicrophoneAccessGranted() {
 //        let permission = Permission()
