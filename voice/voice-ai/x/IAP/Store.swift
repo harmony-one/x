@@ -14,10 +14,10 @@ class Store: ObservableObject {
 
     @Published var entitlements = [Transaction]()
 
-    var transacitonListener: Task<Void, Error>?
+    var transactionListener: Task<Void, Error>?
 
     init() {
-        transacitonListener = listenForTransactions()
+        transactionListener = listenForTransactions()
 
         Task {
             await requestProducts()
