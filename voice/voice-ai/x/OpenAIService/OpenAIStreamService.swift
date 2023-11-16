@@ -93,31 +93,30 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         let boosterPurchaseTime = Persistence.getBoosterPurchaseTime()
 
         let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
-        
-        
+
         func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
             Task {
                 let status = await AppConfig.shared.checkWhiteList()
                 completion(.success(status))
             }
         }
-        
+
         var hasPremiumMode = false
-        
+
         let semaphore = DispatchSemaphore(value: 0)
-        performAsyncTask() { result in
+        performAsyncTask { result in
             switch result {
             case .success(let status):
                 hasPremiumMode = status
                 semaphore.signal()
-            case .failure(_):
+            case .failure:
                 hasPremiumMode = false
                 semaphore.signal()
             }
         }
-        
+
         semaphore.wait()
-        
+
         // TODO: delete "!SettingsBundleHelper.hasPremiumMode" after
         if !hasPremiumMode && !SettingsBundleHelper.hasPremiumMode() && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"

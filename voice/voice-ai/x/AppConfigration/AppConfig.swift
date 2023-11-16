@@ -107,7 +107,7 @@ class AppConfig {
             return false
         }
         
-        guard let relayUrl = self.relayUrl else {
+        guard let relayUrl = self.relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return false
