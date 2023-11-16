@@ -162,7 +162,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
     return false
   }
   const aaguidStr = Buffer.from(parsedAuthData.aaguid).toString()
-  if (config.debug) {
+  if (config.allowDevelopAttestation) {
     if (aaguidStr !== 'appattestdevelop' && aaguidStr !== 'appattest\x00\x00\x00\x00\x00\x00\x00') {
       console.error(`bad aaguid: ${aaguidStr}; expected to be appattestdevelop or appattest\x00\x00\x00\x00\x00\x00\x00`)
       return false
