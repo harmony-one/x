@@ -98,6 +98,17 @@
 		B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
 		B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
 		B36C89D42B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
+		B3AED8962B05E7FE001AD486 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B3AED8972B05E7FE001AD486 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B3AED8982B05E823001AD486 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B3AED8992B05E823001AD486 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B3AED89A2B05E827001AD486 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B3AED89B2B05E827001AD486 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B3AED89D2B05E87B001AD486 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F92AF8172800BC191C /* AppConfigTests.swift */; };
+		B3AED89E2B05E890001AD486 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B3AED89F2B05E891001AD486 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B3AED8A02B05E8A0001AD486 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B3AED8A12B05E8A0001AD486 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B3E5CDF52B0332B9003F4DC2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3E5CDF42B0332B9003F4DC2 /* Settings.bundle */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
@@ -1058,6 +1069,7 @@
 			files = (
 				B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */,
 				B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */,
+				B3AED89E2B05E890001AD486 /* KeychainService.swift in Sources */,
 				6E6D53252AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
@@ -1073,6 +1085,7 @@
 				A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */,
 				6E53AF522AF012A40022A8F2 /* Font.swift in Sources */,
 				F7F1150C2AF8173300BC191C /* DashboardViewTests.swift in Sources */,
+				B3AED8962B05E7FE001AD486 /* UserAPI.swift in Sources */,
 				F7F115062AF8173300BC191C /* StringTests.swift in Sources */,
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
@@ -1083,9 +1096,11 @@
 				B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */,
 				B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */,
 				B9C4A8342AEE96E300327529 /* AppConfig.swift in Sources */,
+				B3AED89A2B05E827001AD486 /* APIEnvironment.swift in Sources */,
 				6E53AF542AF012A40022A8F2 /* Text.swift in Sources */,
 				B9C4A8322AEE96B600327529 /* Usage.swift in Sources */,
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
+				B3AED8982B05E823001AD486 /* NetworkManager.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
@@ -1100,6 +1115,7 @@
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
+				B3AED8A02B05E8A0001AD486 /* AppleSignInManager.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
@@ -1110,12 +1126,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3AED8992B05E823001AD486 /* NetworkManager.swift in Sources */,
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
+				B3AED89B2B05E827001AD486 /* APIEnvironment.swift in Sources */,
 				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
+				B3AED8972B05E7FE001AD486 /* UserAPI.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
+				B3AED8A12B05E8A0001AD486 /* AppleSignInManager.swift in Sources */,
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
+				B3AED89D2B05E87B001AD486 /* AppConfigTests.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
 				6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */,
 				6E53AF552AF012A50022A8F2 /* Color.swift in Sources */,
@@ -1129,6 +1150,7 @@
 				B9CE36EC2AFD0365009999CF /* TimerManager.swift in Sources */,
 				6E53AF482AF012470022A8F2 /* ActionsView.swift in Sources */,
 				6E53AF582AF012A50022A8F2 /* Text.swift in Sources */,
+				B3AED89F2B05E891001AD486 /* KeychainService.swift in Sources */,
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
 				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
