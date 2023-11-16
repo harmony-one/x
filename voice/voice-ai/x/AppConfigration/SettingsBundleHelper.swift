@@ -8,9 +8,10 @@ class SettingsBundleHelper {
      }
 
      class func checkAndExecuteSettings() {
-         if UserDefaults.standard.bool(forKey: SettingsBundleKeys.Reset) {
-             UserDefaults.standard.set(false, forKey: SettingsBundleKeys.Reset)
-             setDefaulValues()
+         var content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+         if content == nil {
+             SettingsBundleHelper.setDefaulValues()
+             content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
          }
      }
 
