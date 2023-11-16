@@ -32,7 +32,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
             let email = appleIDCredential.email
             
             KeychainService.shared.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
-            UserAPI().getUserBy(appleId: appleId)
+            UserAPI().register(appleId: appleId)
         }
     }
     

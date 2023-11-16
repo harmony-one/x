@@ -90,7 +90,7 @@ class Store: ObservableObject {
         switch product.type {
         case .consumable:
             purchasedConsumables.append(product)
-            Persistence.updateBooster3DayPurchaseTime()
+         //   Persistence.updateBooster3DayPurchaseTime()
 //            Persistence.increaseConsumablesCount(creditsAmount: 500)
         case .nonConsumable:
             purchasedNonConsumables.insert(product)
