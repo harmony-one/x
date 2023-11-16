@@ -4,6 +4,7 @@ import Speech
 
 class Permission {
     var handleMicrophoneAccessDeniedCalled = false
+    var permissionCheck = false
     var speechRecognitionPermissionStatus = "default"
     
     // Function to set up necessary permissions
@@ -35,15 +36,45 @@ class Permission {
                 }
             } else {
                 // Fallback on earlier versions
-                let granted = checkMicrophoneAccess()
-                completion(granted)
+                checkMicrophoneAccess(completion: completion)
             }
         }
     
-    // Fallback function for checking microphone access on earlier iOS versions
-    func checkMicrophoneAccess() -> Bool {
+//    // Fallback function for checking microphone access on earlier iOS versions
+//    func checkMicrophoneAccess() -> Bool {
+//        let audioSession = AVAudioSession.sharedInstance()
+//        var permissionCheck = false
+//        do {
+//            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+//            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+//            try audioSession.setMode(.spokenAudio)
+//            try audioSession.setAllowHapticsAndSystemSoundsDuringRecording(true)
+//        } catch {
+//            print("Error setting up audio engine: \(error.localizedDescription)")
+//            SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
+//        }
+//        switch audioSession.recordPermission {
+//        case .granted:
+//            permissionCheck = true
+//        case .denied:
+//            permissionCheck = false
+//        case .undetermined:
+//            print("Request permission here")
+//            AVAudioSession.sharedInstance().requestRecordPermission({ granted in
+//                if granted {
+//                    permissionCheck = true
+//                } else {
+//                    permissionCheck = false
+//                }
+//            })
+//        default:
+//            break
+//        }
+//        return permissionCheck
+//    }
+    
+    func checkMicrophoneAccess(completion: @escaping (Bool) -> Bool) {
         let audioSession = AVAudioSession.sharedInstance()
-        var permissionCheck = false
         do {
             try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
@@ -53,24 +84,30 @@ class Permission {
             print("Error setting up audio engine: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
-        switch audioSession.recordPermission {
+        let authStatus = audioSession.recordPermission
+        self.handleCheckMicrophoneAccessStatus(authStatus, completion: completion)
+        return self.permissionCheck
+    }
+    
+    func handleCheckMicrophoneAccessStatus(_ authStatus: AVAudioSession.RecordPermission, completion: @escaping (Bool) -> Void) {
+        switch authStatus {
         case .granted:
-            permissionCheck = true
+            self.permissionCheck = true
         case .denied:
-            permissionCheck = false
+            self.permissionCheck = false
         case .undetermined:
             print("Request permission here")
-            AVAudioSession.sharedInstance().requestRecordPermission({ granted in
+            AVAudioSession.sharedInstance().requestRecordPermission{ granted in
                 if granted {
-                    permissionCheck = true
+                    self.permissionCheck = true
                 } else {
-                    permissionCheck = false
+                    self.permissionCheck = false
                 }
-            })
+                completion(self.permissionCheck)
+            }
         default:
             break
         }
-        return permissionCheck
     }
     
     func requestSpeechRecognitionPermission() {

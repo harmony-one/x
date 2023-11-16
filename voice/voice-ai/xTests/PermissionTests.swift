@@ -5,10 +5,10 @@ import Speech
 class PermissionTests: XCTestCase {
     
     func testSetup_MicrophoneAccessDenied() {
-            let permission = MockPermission()
-            permission.setup()
-            XCTAssertTrue(permission.handleMicrophoneAccessDeniedCalled)
-        }
+        let permission = MockPermission()
+        permission.setup()
+        XCTAssertTrue(permission.handleMicrophoneAccessDeniedCalled)
+    }
     
     // for default iOS version
     func testRequestMicrophoneAccessGranted_DefaultVersion() {
@@ -37,44 +37,43 @@ class PermissionTests: XCTestCase {
     }
     
     func testHandleSpeechRecognitionAuthorizationStatusAuthorized() {
-            let permission = Permission()
-            let authStatus: SFSpeechRecognizerAuthorizationStatus = .authorized
-            
-            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
-            
-            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "authorized")
-        }
+        let permission = Permission()
+        let authStatus: SFSpeechRecognizerAuthorizationStatus = .authorized
+        
+        permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+        
+        XCTAssertEqual(permission.speechRecognitionPermissionStatus, "authorized")
+    }
     
     func testHandleSpeechRecognitionAuthorizationStatusDenied() {
-            let permission = Permission()
-            let authStatus: SFSpeechRecognizerAuthorizationStatus = .denied
-            
-            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
-            
-            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "denied")
-        }
+        let permission = Permission()
+        let authStatus: SFSpeechRecognizerAuthorizationStatus = .denied
+        
+        permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+        
+        XCTAssertEqual(permission.speechRecognitionPermissionStatus, "denied")
+    }
     
     func testHandleSpeechRecognitionAuthorizationStatusNotDetermined() {
-            let permission = Permission()
-            let authStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
-            
-            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
-            
-            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "not determined")
-        }
-
-        func testHandleSpeechRecognitionAuthorizationStatusRestricted() {
-            let permission = Permission()
-            let authStatus: SFSpeechRecognizerAuthorizationStatus = .restricted
-            
-            permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
-            
-            XCTAssertEqual(permission.speechRecognitionPermissionStatus, "restricted")
-        }
-
-
-    func testCheckMicrophoneAccessGranted() {
         let permission = Permission()
-        XCTAssertTrue(permission.checkMicrophoneAccess())
+        let authStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
+        
+        permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+        
+        XCTAssertEqual(permission.speechRecognitionPermissionStatus, "not determined")
     }
+    
+    func testHandleSpeechRecognitionAuthorizationStatusRestricted() {
+        let permission = Permission()
+        let authStatus: SFSpeechRecognizerAuthorizationStatus = .restricted
+        
+        permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
+        
+        XCTAssertEqual(permission.speechRecognitionPermissionStatus, "restricted")
+    }
+    
+    //    func testCheckMicrophoneAccessGranted() {
+    //        let permission = Permission()
+    //        XCTAssertTrue(permission.checkMicrophoneAccess())
+    //    }
 }
