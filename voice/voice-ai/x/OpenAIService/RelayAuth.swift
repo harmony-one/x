@@ -11,15 +11,23 @@ class RelayAuth {
     private var keyId: String?
     private var token: String?
     private var autoRefreshTokenTimer: Timer?
+    private var lastRefreshTime: Int64 = 0
 
     private func initializeKeyId() async throws {
         self.keyId = try await DCAppAttestService.shared.generateKey()
         UserDefaults.standard.setValue(self.keyId, forKey: Self.keyIdPath)
     }
 
-    func setup() async -> String? {
+    @discardableResult func setup() async -> String? {
         defer { self.enableAutoRefreshToken() }
         return await self.refreshToken()
+    }
+
+    @discardableResult func refresh() async -> String? {
+        let token = await refreshToken()
+        self.disableAutoRefreshToken()
+        self.enableAutoRefreshToken()
+        return token
     }
 
     func getToken() -> String? {
@@ -45,6 +53,7 @@ class RelayAuth {
 
     func disableAutoRefreshToken() {
         self.autoRefreshTokenTimer?.invalidate()
+        self.autoRefreshTokenTimer = nil
     }
 
     func tryInitializeKeyId() async {
@@ -64,7 +73,7 @@ class RelayAuth {
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         guard let url = URL(string: "\(baseUrl)/hard/challenge") else {
-            print("Invalid Relay URL")
+            print("[RelayAuth] Invalid Relay URL")
             return nil
         }
 
@@ -75,7 +84,7 @@ class RelayAuth {
             let challenge = res["challenge"].string
             return challenge
         } catch {
-            print("[Attestation] error", error)
+            print("[RelayAuth] error", error)
             return nil
         }
     }
@@ -88,8 +97,13 @@ class RelayAuth {
         return s.base64EncodedString()
     }
 
-    func refreshToken() async -> String? {
-        // TODO:
+    @discardableResult func refreshToken() async -> String? {
+        let now = Int64(Date().timeIntervalSince1970)
+        if self.lastRefreshTime > now - 5 {
+            print("[RelayAuth][refreshToken] token refresh rate limited; ignored")
+            return nil
+        }
+
         let service = DCAppAttestService.shared
         guard service.isSupported else {
             print("[RelayAuth][CRITICAL] DCAppAttestService not supported. Exiting")
@@ -138,7 +152,7 @@ class RelayAuth {
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
             req.httpBody = try JSON(body).rawData()
-            print("[RelayAuth][exchangeAttestationForToken] sending \(body)")
+//            print("[RelayAuth][exchangeAttestationForToken] sending \(body)")
             let (data, _) = try await session.data(for: req)
             let res = JSON(data)
             let token = res["token"].string

@@ -7,8 +7,11 @@ import SwiftyJSON
 class AppConfig {
     // Shared singleton instance
     static let shared = AppConfig()
-    private var openaiKey: String?
+    private var relay: RelayAuth = .init()
     private var relayBaseUrl: String?
+    private var openaiBaseUrl: String?
+    private var openaiKey: String?
+
     private var sharedEncryptionSecret: String?
     private var sharedEncryptionIV: String?
     private var deepgramKey: String?
@@ -17,16 +20,17 @@ class AppConfig {
     private var sentryDSN: String?
     private var whitelist: [String]?
     
-    internal var themeName: String?
+    var themeName: String?
 
     init() {
         self.loadConfiguration()
-        if openaiKey != nil && openaiKey != "" {
+        if self.openaiKey != nil, self.openaiKey != "" {
             // if a local key is assigned (for debugging), do not request from server
             return
         }
         Task {
-            await self.requestOpenAIKey()
+            self.openaiKey = await self.relay.setup()
+//            await self.requestOpenAIKey()
         }
     }
     
@@ -119,6 +123,7 @@ class AppConfig {
             self.themeName = dictionary["THEME_NAME"] as? String
             self.deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
             self.openaiKey = dictionary["API_KEY"] as? String
+            self.openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
@@ -145,6 +150,10 @@ class AppConfig {
     
     func getOpenAIKey() -> String? {
         return self.openaiKey
+    }
+    
+    func getOpenAIBaseUrl() -> String? {
+        return self.openaiBaseUrl
     }
     
     func getSentryDSN() -> String? {
@@ -182,5 +191,11 @@ class AppConfig {
     
     func getWhitelist() -> [String]? {
         return self.whitelist
+    }
+    
+    func renewRelayAuth() {
+        Task{
+            self.openaiKey = await self.relay.refresh()
+        }
     }
 }

@@ -22,8 +22,9 @@ router.get('/challenge', (req, res) => {
 async function authenticated (req: Request, res: Response, next: NextFunction): Promise<void> {
   // TODO: if request contains attestation instead of token, allow to proceed as well
   const auth = req.header('authorization')
-  const token = auth?.split('Token ')?.[1]
-  if (!token || TokenCache.get<boolean>(token)) {
+  const token = auth?.split('Bearer ')?.[1]
+  console.log(`[${req.clientIp}] received token ${token}; cache state: ${TokenCache.get<boolean>(token ?? '')}`)
+  if (!token || !TokenCache.get<boolean>(token)) {
     res.status(HttpStatusCode.Unauthorized).json({ error: 'invalid token' })
     return
   }
@@ -54,14 +55,14 @@ router.post('/attestation', async (req, res) => {
 
 // NOTE: see discussions here regarding throwing error in the middle of a stream response
 // https://github.com/expressjs/express/issues/2700
-router.post('/openai/completion', authenticated, async (req, res, next) => {
+router.post('/openai/chat/completions', authenticated, async (req, res, next) => {
   try {
     if (!req.body.stream) {
       const completion = await OpenAIRelay.completion(req.body)
       res.json(completion)
     }
     await OpenAIRelay.completionStream(req.body, (data) => {
-      res.write(`data:\n${JSON.stringify(data)}`)
+      res.write(`data:\n${JSON.stringify(data)}\n\n`)
     })
     res.write('data:\n[DONE]')
     res.end()
