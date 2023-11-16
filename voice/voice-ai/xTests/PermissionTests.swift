@@ -72,17 +72,9 @@ class PermissionTests: XCTestCase {
             XCTAssertEqual(permission.speechRecognitionPermissionStatus, "restricted")
         }
 
-//        func testHandleSpeechRecognitionAuthorizationStatusDefault() {
-//            let permission = Permission()
-//            let authStatus: SFSpeechRecognizerAuthorizationStatus = .someUnknownCase
-//            
-//            XCTAssertFatalError {
-//                permission.handleSpeechRecognitionAuthorizationStatus(authStatus)
-//            }
-//        }
 
-//    func testCheckMicrophoneAccessGranted() {
-//        let permission = Permission()
-//        XCTAssertTrue(permission.checkMicrophoneAccess())
-//    }
+    func testCheckMicrophoneAccessGranted() {
+        let permission = Permission()
+        XCTAssertTrue(permission.checkMicrophoneAccess())
+    }
 }

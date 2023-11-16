@@ -99,7 +99,7 @@ class Permission {
             self.speechRecognitionPermissionStatus = "restricted"
             print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
             SentrySDK.capture(message: "Speech recognition restricted")
-        default:
+        @unknown default:
             SentrySDK.capture(message: "Fatal error: New case for speech recognition authorization is available")
             fatalError("New case for speech recognition authorization is available")
         }
