@@ -1,4 +1,4 @@
-2023-11-15 Wed: We have released version 1.1115.18 (versioning: 1.MDD.HH). Testing of in-App Purchase (IAP) functionality is underway and should be submitted to App Store Approval by Friday 3pm. We expect to have 40+ daily active users by Sunday morning.
+2023-11-15 Wed: We have released version 1.1115.18 (versioning: 1.MDD.HH). Testing of in-App Purchase (IAP) functionality is underway and should be submitted to App Store Approval by Friday 3pm. We expect to have 40+ daily active users by Sunday morning. Yesterday, we had only 8 users, but this was because we had some complications with key security.
 
 2023-11-14 Tue: Built version 0.9.20. Since launch 5 days ago, we have accumulated 183 downloads with a conversion rate of 15%+ of Product Page Views. 68% of our downloads have been from organic App Store Search. Today's active daily users were only 10, we will strategize to increase retention.
 
