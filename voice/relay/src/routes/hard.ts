@@ -37,14 +37,19 @@ router.post('/attestation', async (req, res) => {
     res.status(HttpStatusCode.BadRequest).json({ error: 'missing body parameters', inputKeyId, challenge, attestation })
     return
   }
-  const isValid = validateAttestation(inputKeyId, challenge, attestation)
-  if (!isValid) {
-    res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
-    return
+  try {
+    const isValid = await validateAttestation(inputKeyId, challenge, attestation)
+    if (!isValid) {
+      res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
+      return
+    }
+    const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    TokenCache.set(token, true)
+    res.json({ token })
+  } catch (ex: any) {
+    console.error(ex)
+    res.status(HttpStatusCode.InternalServerError).json({ error: 'error processing attestation' })
   }
-  const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
-  TokenCache.set(token, true)
-  res.json({ token })
 })
 
 // NOTE: see discussions here regarding throwing error in the middle of a stream response
