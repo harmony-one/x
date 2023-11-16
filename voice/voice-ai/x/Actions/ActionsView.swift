@@ -305,7 +305,7 @@ struct ActionsView: View {
                 DispatchQueue.main.async {
                     openSettingsApp()
                 }
-            })
+            }).accessibilityIdentifier("button-play")
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -344,7 +344,7 @@ struct ActionsView: View {
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 self.showShareSheet = true
-            })
+            }).accessibilityIdentifier("randomfact")
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
               self.vibration()
