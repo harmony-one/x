@@ -53,6 +53,9 @@ struct ActionsView: View {
     @State private var storage = Set<AnyCancellable>()
     
     @State private var keyWindow: UIWindow?
+
+    let maxResetClicks = 10
+    @State private var resetClickCounter = 0
     
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
@@ -312,10 +315,20 @@ struct ActionsView: View {
 //            )
             
         } else if button.action == .reset {
+            
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
               self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
+                    self.resetClickCounter += 1
+                    if (self.resetClickCounter >= self.maxResetClicks) {
+                        self.resetClickCounter = 0
+                        let number = Int.random(in: 0 ..< 4)
+                        if (number == 1) {
+                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                        }
+                        
+                    }
                 }
             }
 //            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
@@ -341,6 +354,7 @@ struct ActionsView: View {
             }
         }
     }
+    
     
     func openSettingsApp() {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {

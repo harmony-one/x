@@ -15,7 +15,10 @@ const config = {
   packageName: process.env.PACKAGE_NAME ?? '',
   openai: { key: process.env.OPENAI_KEY ?? '' },
   deepgram: { key: process.env.DEEPGRAM_KEY ?? '' },
-  playht: { key: process.env.PLAYHT_KEY ?? '' }
+  playht: { key: process.env.PLAYHT_KEY ?? '' },
+  whitelist: (process.env.WHITELIST ?? '')
+    .split(',')
+    .map((item) => item.toString().toLowerCase())
 }
 
 export const OpenAIDistributedKeys: string[] = JSON.parse(process.env.OPENAI_DISTRIBUTED_KEYS ?? '[]')

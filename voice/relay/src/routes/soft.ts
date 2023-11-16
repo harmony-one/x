@@ -14,7 +14,7 @@ const deviceLimiter = (args?: RLOptions): RateLimitRequestHandler => rateLimit({
 })
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const ipLimiter = (args?: RLOptions): RateLimitRequestHandler => rateLimit({
+export const ipLimiter = (args?: RLOptions): RateLimitRequestHandler => rateLimit({
   windowMs: 1000 * 60,
   limit: 10,
   keyGenerator: req => req.clientIp ?? 'N/A',
@@ -37,7 +37,7 @@ const parseDeviceToken = (req: Request, res: Response, next: NextFunction): any 
   next()
 }
 
-const checkIpBan = (req: Request, res: Response, next: NextFunction): any => {
+export const checkIpBan = (req: Request, res: Response, next: NextFunction): any => {
   if (!req.clientIp) {
     console.error('[checkIpBan] Cannot find ip of request', req)
   }

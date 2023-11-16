@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import createError from 'http-errors'
 import hardKeyProtectionApiRouter from './routes/hard.js'
 import softRateLimitedApiRouter from './routes/soft.js'
+import whitelistApiRouter from './routes/whitelist.js'
 import fs from 'fs'
 import http, { type Server as HttpServer } from 'http'
 import https from 'https'
@@ -80,6 +81,7 @@ if (config.debug) {
 
 app.use('/soft', softRateLimitedApiRouter)
 app.use('/hard', hardKeyProtectionApiRouter)
+app.use('/whitelist', whitelistApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
