@@ -2,6 +2,9 @@ import Combine
 import Foundation
 import StoreKit
 import SwiftUI
+import AudioToolbox
+import CoreHaptics
+import UIKit
 
 struct ActionsView: View {
     let config = AppConfig.shared
@@ -50,6 +53,9 @@ struct ActionsView: View {
     @State private var storage = Set<AnyCancellable>()
     
     @State private var keyWindow: UIWindow?
+
+    let maxResetClicks = 10
+    @State private var resetClickCounter = 0
     
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
@@ -205,6 +211,12 @@ struct ActionsView: View {
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
     }
+
+    func vibration() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.prepare()
+        impactFeedbackGenerator.impactOccurred()
+    }
     
     @ViewBuilder
     func viewButton(button: ButtonData) -> some View {
@@ -214,7 +226,8 @@ struct ActionsView: View {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
-                    Task {
+                 self.vibration()
+                  Task {
                         if !actionHandler.isTapToSpeakActive {
                             actionHandler.handle(actionType: ActionType.tapSpeak)
                         } else {
@@ -257,6 +270,7 @@ struct ActionsView: View {
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -276,6 +290,7 @@ struct ActionsView: View {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -300,17 +315,29 @@ struct ActionsView: View {
 //            )
             
         } else if button.action == .reset {
+            
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
+                    self.resetClickCounter += 1
+                    if (self.resetClickCounter >= self.maxResetClicks) {
+                        self.resetClickCounter = 0
+                        let number = Int.random(in: 0 ..< 4)
+                        if (number == 1) {
+                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                        }
+                        
+                    }
                 }
-            }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                //  requestReview()
-                
-                self.checkUserAuthentication()
-            })
+            }
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                requestReview()
+//                self.checkUserAuthentication()
+//            })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -320,12 +347,14 @@ struct ActionsView: View {
             })
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+              self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
         }
     }
+    
     
     func openSettingsApp() {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
