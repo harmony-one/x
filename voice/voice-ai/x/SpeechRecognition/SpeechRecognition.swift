@@ -278,6 +278,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             return
         }
         
+        // Ensure to cancel the previous retry before proceeding
+        cancelRetry();
+        
         completeResponse = [String]()
         
         var buf = [String]()
