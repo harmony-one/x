@@ -20,7 +20,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>User Context  </string>
+			<string>User Context</string>
 			<key>DefaultValue</key>
 			<string>We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.</string>
 			<key>Key</key>
@@ -40,7 +40,7 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Yout Twitter/X</string>
+			<string>Your Twitter  </string>
 			<key>Key</key>
 			<string>USER_NAME</string>
 			<key>DefaultValue</key>

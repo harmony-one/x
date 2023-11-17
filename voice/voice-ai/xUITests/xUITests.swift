@@ -22,6 +22,38 @@ final class xUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testPlayPause() throws {
+        
+        let app = XCUIApplication()
+        app.launch()
+        
+        let buttonSurpriseMe = app.buttons["randomfact"]
+        let buttonPlay = app.buttons["button-play"]
+        
+
+        // start play
+        buttonSurpriseMe.tap()
+        
+        XCTAssertTrue(buttonPlay.images["blackredTheme - pause play"].exists)
+        
+        sleep(3)
+
+        // pause
+        app.buttons["button-play"].tap()
+        
+        sleep(3)
+        
+        XCTAssertTrue(app.buttons["button-play"].images["blackredTheme - play"].exists)
+        
+        sleep(1)
+
+        // play
+        app.buttons["button-play"].tap()
+
+        XCTAssertTrue(app.buttons["button-play"].images["blackredTheme - play"].exists == false)
+        XCTAssertTrue(buttonPlay.images["blackredTheme - pause play"].exists)
+    }
 
     func testActionButtons() throws {
         // UI tests must launch the application that they test.

@@ -4,21 +4,23 @@ import SwiftUI
 class AppleSignInManager: NSObject {
     static let shared = AppleSignInManager()
     private weak var currentWindow: UIWindow?
-
+    internal var isShowIAPFromSignIn = false
     @EnvironmentObject var store: Store
 
     private override init() {}
 
     func performAppleSignIn(using window: UIWindow) {
+        DispatchQueue.main.async {
             let request = ASAuthorizationAppleIDProvider().createRequest()
             request.requestedScopes = [.fullName, .email]
-
+            
             let controller = ASAuthorizationController(authorizationRequests: [request])
             controller.delegate = self
             controller.presentationContextProvider = self
             self.currentWindow = window
             controller.performRequests()
         }
+    }
 }
 
 extension AppleSignInManager: ASAuthorizationControllerDelegate {
@@ -33,6 +35,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
             
             KeychainService.shared.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
             UserAPI().register(appleId: appleId)
+            isShowIAPFromSignIn = true
         }
     }
     
@@ -42,20 +45,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
                 case .canceled:
                     // Handle the cancellation here
                     print("[AppleSignInManager] User cancelled the Apple Sign-In")
-                    
-                    Task {
-                        if store.products.isEmpty {
-                            print("[AppleSignInManager] No products available")
-                        } else {
-                            let product = store.products[0]
-                            do {
-                                try await self.store.purchase(product)
-                            } catch {
-                                print("[AppleSignInManager] Error during purchase")
-                            }
-                        }
-                    }
-                    
+                    isShowIAPFromSignIn = true
                 default:
                     // Handle other errors
                     print("Apple Sign-In error: \(error.localizedDescription)")
@@ -67,6 +57,7 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
 extension AppleSignInManager: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         guard let window = currentWindow else {
+            isShowIAPFromSignIn = false
             fatalError("Window not set for Apple Sign In")
         }
         return window

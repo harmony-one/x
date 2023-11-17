@@ -15,6 +15,7 @@ protocol SpeechRecognitionProtocol {
     func stopSpeak(cancel: Bool?)
     func sayMore()
     func cancelSpeak()
+    func cancelRetry()
 }
 
 extension SpeechRecognitionProtocol {
@@ -32,8 +33,6 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
-    // MARK: - Properties
-    
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -77,6 +76,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // Upperbound for the number of words buffer can contain before triggering a flush
     private var initialCapacity = 10
     private var bufferCapacity = 50
+    private var retryWorkItem: DispatchWorkItem? = nil
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -278,6 +278,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             return
         }
         
+        // Ensure to cancel the previous retry before proceeding
+        cancelRetry();
+        
         completeResponse = [String]()
         
         var buf = [String]()
@@ -394,12 +397,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // cap the delay at 64 seconds
                 let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
                 print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.retryWorkItem = DispatchWorkItem {
                     buf.removeAll()
                     currWord = ""
                     initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: self.retryWorkItem!)
             } else {
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
@@ -410,6 +414,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         handleQuery(retryCount: maxRetry)
+    }
+    
+    func cancelRetry() {
+        print("[SpeechRecognition][cancelRetry]")
+        self.retryWorkItem?.cancel()
     }
     
     func pauseCapturing(cancel: Bool? = false) {
@@ -644,12 +653,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Reset the audio session setup state to ensure it's configured correctly when restarted
             self.isAudioSessionSetup = false
 
-            // Setup the audio session and engine again, ensuring it's ready for a new recognition session
-            self.setupAudioSession()
-            self.setupAudioEngineIfNeeded()
-
             // Resume capturing on the main thread to ensure proper setup of audio and recognition
             DispatchQueue.main.async {
+                // Setup the audio session and engine again, ensuring it's ready for a new recognition session
+                self.setupAudioSession()
+                self.setupAudioEngineIfNeeded()
+
                 self.resumeCapturing()
             }
         }

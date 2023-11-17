@@ -7,8 +7,11 @@ import SwiftyJSON
 class AppConfig {
     // Shared singleton instance
     static let shared = AppConfig()
+    private var relay: RelayAuth = RelayAuth.shared
+    private var relayBaseUrl: String?
+    private var openaiBaseUrl: String?
     private var openaiKey: String?
-    private var relayUrl: String?
+
     private var sharedEncryptionSecret: String?
     private var sharedEncryptionIV: String?
     private var deepgramKey: String?
@@ -17,16 +20,17 @@ class AppConfig {
     private var sentryDSN: String?
     private var whitelist: [String]? = []
     
-    internal var themeName: String?
+    var themeName: String?
 
     init() {
         self.loadConfiguration()
-        if openaiKey != nil && openaiKey != "" {
+        if self.openaiKey != nil, self.openaiKey != "" {
             // if a local key is assigned (for debugging), do not request from server
             return
         }
         Task {
-            await self.requestOpenAIKey()
+            self.openaiKey = await self.relay.setup()
+//            await self.requestOpenAIKey()
         }
     }
     
@@ -48,13 +52,13 @@ class AppConfig {
     }
     
     private func requestOpenAIKey() async {
-        guard let relayUrl = self.relayUrl else {
+        guard let relayBaseUrl = self.relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return
         }
         let s = URLSession(configuration: .default)
-        guard let url = URL(string: "\(relayUrl)/key") else {
+        guard let url = URL(string: "\(relayBaseUrl)/soft/key") else {
             print("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return
@@ -103,7 +107,7 @@ class AppConfig {
             return false
         }
         
-        guard let relayUrl = self.relayUrl else {
+        guard let relayUrl = self.relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return false
@@ -162,11 +166,12 @@ class AppConfig {
 
             self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
             self.sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
-            self.relayUrl = dictionary["RELAY_URL"] as? String
+            self.relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
 
             self.themeName = dictionary["THEME_NAME"] as? String
             self.deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
             self.openaiKey = dictionary["API_KEY"] as? String
+            self.openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
@@ -193,6 +198,10 @@ class AppConfig {
     
     func getOpenAIKey() -> String? {
         return self.openaiKey
+    }
+    
+    func getOpenAIBaseUrl() -> String? {
+        return self.openaiBaseUrl
     }
     
     func getSentryDSN() -> String? {
@@ -225,10 +234,16 @@ class AppConfig {
     }
     
     func getRelayUrl() -> String? {
-        return self.relayUrl
+        return self.relayBaseUrl
     }
     
     func getWhitelist() -> [String]? {
         return self.whitelist
+    }
+    
+    func renewRelayAuth() {
+        Task{
+            self.openaiKey = await self.relay.refresh()
+        }
     }
 }
