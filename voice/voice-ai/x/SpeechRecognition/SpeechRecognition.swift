@@ -653,12 +653,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Reset the audio session setup state to ensure it's configured correctly when restarted
             self.isAudioSessionSetup = false
 
-            // Setup the audio session and engine again, ensuring it's ready for a new recognition session
-            self.setupAudioSession()
-            self.setupAudioEngineIfNeeded()
-
             // Resume capturing on the main thread to ensure proper setup of audio and recognition
             DispatchQueue.main.async {
+                // Setup the audio session and engine again, ensuring it's ready for a new recognition session
+                self.setupAudioSession()
+                self.setupAudioEngineIfNeeded()
+
                 self.resumeCapturing()
             }
         }
