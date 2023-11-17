@@ -5,6 +5,10 @@ import XCTest
 
 // Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
+    func cancelRetry() {
+        
+    }
+    
     func stopSpeak(cancel: Bool?) {}
     
     func cancelSpeak() {}

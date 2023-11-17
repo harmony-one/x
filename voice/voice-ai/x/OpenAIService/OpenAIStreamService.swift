@@ -12,7 +12,7 @@ protocol NetworkService {
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
-    private let apiKey = AppConfig.shared.getOpenAIKey()
+    private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
     private let networkService: NetworkService?
 
@@ -54,6 +54,18 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
+        guard let apiKey = AppConfig.shared.getOpenAIKey() else {
+            self.completion(nil, NSError(domain: "No Key", code: -2))
+            SentrySDK.capture(message: "OpenAI API key is nil")
+            return
+        }
+
+        guard let baseUrl = self.baseUrl else {
+            self.completion(nil, NSError(domain: "No base url", code: -4))
+            SentrySDK.capture(message: "OpenAI base url is not set")
+            return
+        }
+
         Self.rateLimitCounterLock.wait()
         let now = Int64(NSDate().timeIntervalSince1970 * 1000)
         if Self.queryTimes.count < Self.QueryLimitPerMinute {
@@ -69,49 +81,42 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
         Self.rateLimitCounterLock.signal()
 
-        guard self.apiKey != nil else {
-            self.completion(nil, NSError(domain: "No Key", code: -2))
-            SentrySDK.capture(message: "Open AI Api key is null")
-            return
-        }
-
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey!)"
+            "Authorization": "Bearer \(apiKey)"
         ]
 
         var model = "gpt-4"
 
         let miutesElasped = Calendar.current.dateComponents([.minute], from: Self.lastStartTimeOfTheDay!, to: Date()).minute!
-        
+
         let boosterPurchaseTime = Persistence.getBoosterPurchaseTime()
-        
+
         let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
-        
-        
+
         func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
             Task {
                 let status = await AppConfig.shared.checkWhiteList()
                 completion(.success(status))
             }
         }
-        
+
         var hasPremiumMode = false
-        
+
         let semaphore = DispatchSemaphore(value: 0)
-        performAsyncTask() { result in
+        performAsyncTask { result in
             switch result {
             case .success(let status):
                 hasPremiumMode = status
                 semaphore.signal()
-            case .failure(_):
+            case .failure:
                 hasPremiumMode = false
                 semaphore.signal()
             }
         }
-        
+
         semaphore.wait()
-        
+
         // TODO: delete "!SettingsBundleHelper.hasPremiumMode" after
         if !hasPremiumMode && !SettingsBundleHelper.hasPremiumMode() && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"
@@ -125,10 +130,10 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "stream": true
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
-        
+
         print("[OpenAI] sent \(body)")
         // Validate the URL
-        guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
+        guard let url = URL(string: "\(baseUrl)/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
             SentrySDK.capture(message: "Invalid API URL")
             self.completion(nil, error)
@@ -172,11 +177,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 //        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
         let str = String(data: data, encoding: .utf8)
         guard let str = str else {
-            let error = NSError(domain: "Unable to decode string", code: -2, userInfo: ["body": str ?? ""])
+            let error = NSError(domain: "Unable to decode string", code: -5, userInfo: ["body": str ?? ""])
             self.completion(nil, error)
             return
         }
-        print("OpenAI: raw response: ", str)
+//        print("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {
@@ -188,7 +193,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             let res = JSON(parseJSON: dataBody)
 
             let delta = res["choices"][0]["delta"]["content"].string
-
+            if delta == nil {
+                continue
+            }
             self.completion(delta, nil)
         }
     }
@@ -196,17 +203,23 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let response = task.response as? HTTPURLResponse {
             let statusCode = response.statusCode
-            NSLog("OpenAI: HTTP Status Code: \(statusCode)")
+            if statusCode == 401 {
+                AppConfig.shared.renewRelayAuth()
+                self.completion("Sorry, my connection got disrupted. Please try again.", nil)
+                self.completion("[DONE]", nil)
+                return
+            }
+            NSLog("[OpenAI] HTTP Status Code: \(statusCode)")
             if statusCode != 200 {
-                NSLog("OpenAI: error")
+                NSLog("[OpenAI] error - status code: \(statusCode)")
             }
         }
 
         if let error = error as NSError? {
             self.completion(nil, error)
-            NSLog("OpenAI: received error: %@ / %d", error.domain, error.code)
+            NSLog("[OpenAI]: received error: %@ / %d", error.domain, error.code)
         } else {
-            NSLog("OpenAI: task complete")
+            NSLog("[OpenAI] task complete")
         }
     }
 

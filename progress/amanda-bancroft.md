@@ -1,3 +1,11 @@
+2023-11-16 Thurs: The app's recall has shown noticeable improvements, and it seems that the "Surprise Me!" feature no longer prompts the start of a new session. However, the longer you speak with the app the more the recall weakens. 
+
+I requested the app to craft a grocery list with specific details, after discussing various topics and revisiting the list a few minutes later, the app initially recalled the items in their precise initial order. As our conversation continued and I circled back to the grocery list, it no longer maintained the correct order and eventually presented an entirely different list instead of recalling the original one.
+
+2023-11-15 Wed: The integration of picture-in-picture functionality within this app would significantly enhance its utility for me. Adding picture-in-picture lets you multitask visually while using voice commands, making it easy to access info without interrupting your flow.
+
+The 'Surprise Me' topics sometimes feel mundane; incorporating conversation data to tailor these suggestions would enhance their relevance and engagement. When it comes to prompting creative responses, the app demonstrates effective variability.
+
 2023-11-14 Tues: 
 I inquired about the top healthiest fish, and the app initially ranked salmon as number one, later in the ranking I interrupted to ask the app to repeat what number two on the list was. When prompted to identify the second-ranked fish, the app continued to mention salmon as number two and eventually admitted it couldn't recall the specifics of our conversation.
 

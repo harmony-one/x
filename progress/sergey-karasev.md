@@ -1,3 +1,7 @@
+2023-11-17 Fri: I removed the rate limit for the "surprise me" feature https://github.com/harmony-one/x/pull/210 and working on ui tests.
+
+2023-11-16 Thu: I'm working on UI testing, restoring the functionality of UI tests, [added dependencies and deleted non-functional and outdated tests](https://github.com/harmony-one/x/pull/198).
+
 2023-11-15 Wed: I have added a delay for ["press to speak"](https://github.com/harmony-one/x/pull/188) when a user leaves the button. Working on [integrating user verification](https://github.com/harmony-one/x/pull/190/commits/73235135801418805a704a04765b6756e1d24796) into whitelist, as to not expose secrets.
 
 2023-11-14 Tue: I have added [whitelist user in system settings](https://github.com/harmony-one/x/pull/179), added [AI credits](https://github.com/harmony-one/x/pull/179/commits/bb91398cb4ce08c36b16ea135ad0adbb395baaa6) in system settings. Fixed and [extended tests of a context limiter](https://github.com/harmony-one/x/pull/179) and I made it so that the Context Limiter doesn't delete user messages, and the assistant's messages are now trimmed down to a single sentence, Added [Premium Use Expires](https://github.com/harmony-one/x/pull/179/commits/d9f0907322d930a4d17faff995a990cee3da84a7) in the settings.

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import config from '../config/index.js'
-import {checkIpBan, ipLimiter} from './soft.js';
-import {HttpStatusCode} from 'axios';
+import { checkIpBan, ipLimiter } from './soft.js'
+import { HttpStatusCode } from 'axios'
 
 const router: Router = Router()
 

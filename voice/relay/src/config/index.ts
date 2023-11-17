@@ -12,6 +12,7 @@ const config = {
   },
   corsOrigins: process.env.CORS ?? '',
   teamId: process.env.TEAM_ID ?? '',
+  allowDevelopAttestation: process.env.ALLOW_DEVELOP_ATTESTATION === 'true' || process.env.ALLOW_DEVELOP_ATTESTATION === '1',
   packageName: process.env.PACKAGE_NAME ?? '',
   openai: { key: process.env.OPENAI_KEY ?? '' },
   deepgram: { key: process.env.DEEPGRAM_KEY ?? '' },

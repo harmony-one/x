@@ -58,6 +58,7 @@ class ActionHandler: ObservableObject {
         isSynthesizing = false
         lastRecordingStateChangeTime = 0
         speechRecognition.reset()
+        speechRecognition.cancelRetry()
     }
     
     func syncTapToSpeakState(_ actionType: ActionType) {

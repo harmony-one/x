@@ -1,15 +1,7 @@
 import SwiftUI
 import XCTest
 
-struct GeometryProxyMock {
-    var size: CGSize
-
-    init(size: CGSize) {
-        self.size = size
-    }
-}
-
-final class xUITests: XCTestCase {
+final class xUIDebounceTests: XCTestCase {
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -38,6 +30,8 @@ final class xUITests: XCTestCase {
             let button = app.staticTexts[label]
             XCTAssertTrue(button.exists)
         }
+        
+        let elementsQuery = XCUIApplication().scrollViews.otherElements
 
         elementsQuery/*@START_MENU_TOKEN@*/ .images["random fact"]/*[[".buttons[\"Random Fact\"].images[\"random fact\"]",".images[\"random fact\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ .tap()
         sleep(10)
@@ -49,7 +43,7 @@ final class xUITests: XCTestCase {
         while(i < 50) {
             pausePlayImage.tap()
             i += 1
-            sleep(0.1)
+            sleep(UInt32(0.1))
         }
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.

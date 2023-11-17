@@ -1,3 +1,8 @@
+2023-11-16 Thu: Resolved issue with retry API not being cancelled. Updated product configuration and improved logic handling to prevent crashes when required data is not provided. Worked on the restore server logic handling to be in accordance with the voice app's new product configuration. 
+
+
+2023-11-15 Wed: Discussing key auth server infrastructure with Aaron. Fixed custom instruction configuration so that it loads when the app is downloaded and first loaded. Disabled Apple Pay and user authentication. Addressed and fixed (handed over) a bug that crashed the app when user authentication is loaded.
+
 2023-11-14 Tue: Updated chunking size (10 / 50) with exponential backoff of total 10 min and canned response. Worked with Frank on implementing custom instructions, as well as setting configurations. Fixed voice selection bug. Went over OpenAI's Assistant to see better implementation of context embedding without having to provide it each time. The current limitation of "assistant" is that streaming is not supported.
 
 2023-11-13 Mon: Fixed a bug which ensures custom instructions are not deleted when cleaning up context for 512 max tokens. User testing with Theo and Alaina to diagnose if there are persistent issues with current chunking method. Went through the official OpenAI API documentation, as well as various sources to see if there was an optimal way of implementing context embedding rather than providing it everytime (result: there does not exist one as of now; Artem / Aaron going over other implementations)

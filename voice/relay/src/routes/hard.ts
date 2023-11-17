@@ -22,8 +22,9 @@ router.get('/challenge', (req, res) => {
 async function authenticated (req: Request, res: Response, next: NextFunction): Promise<void> {
   // TODO: if request contains attestation instead of token, allow to proceed as well
   const auth = req.header('authorization')
-  const token = auth?.split('Token ')?.[1]
-  if (!token || TokenCache.get<boolean>(token)) {
+  const token = auth?.split('Bearer ')?.[1]
+  console.log(`[${req.clientIp}] received token ${token}; cache state: ${TokenCache.get<boolean>(token ?? '')}`)
+  if (!token || !TokenCache.get<boolean>(token)) {
     res.status(HttpStatusCode.Unauthorized).json({ error: 'invalid token' })
     return
   }
@@ -37,26 +38,31 @@ router.post('/attestation', async (req, res) => {
     res.status(HttpStatusCode.BadRequest).json({ error: 'missing body parameters', inputKeyId, challenge, attestation })
     return
   }
-  const isValid = validateAttestation(inputKeyId, challenge, attestation)
-  if (!isValid) {
-    res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
-    return
+  try {
+    const isValid = await validateAttestation(inputKeyId, challenge, attestation)
+    if (!isValid) {
+      res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
+      return
+    }
+    const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    TokenCache.set(token, true)
+    res.json({ token })
+  } catch (ex: any) {
+    console.error(ex)
+    res.status(HttpStatusCode.InternalServerError).json({ error: 'error processing attestation' })
   }
-  const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
-  TokenCache.set(token, true)
-  res.json({ token })
 })
 
 // NOTE: see discussions here regarding throwing error in the middle of a stream response
 // https://github.com/expressjs/express/issues/2700
-router.post('/openai/completion', authenticated, async (req, res, next) => {
+router.post('/openai/chat/completions', authenticated, async (req, res, next) => {
   try {
     if (!req.body.stream) {
       const completion = await OpenAIRelay.completion(req.body)
       res.json(completion)
     }
     await OpenAIRelay.completionStream(req.body, (data) => {
-      res.write(`data:\n${JSON.stringify(data)}`)
+      res.write(`data:\n${JSON.stringify(data)}\n\n`)
     })
     res.write('data:\n[DONE]')
     res.end()

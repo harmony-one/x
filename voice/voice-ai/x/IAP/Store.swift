@@ -1,8 +1,8 @@
 import StoreKit
 
 class Store: ObservableObject {
-    private var productIDs = ["com.country.app.purchase.3day"]
-//    private var productIDs = ["0001"]
+//    private var productIDs = ["com.country.app.purchase.3day"]
+    private var productIDs = ["com.country.x.purchase.3day"]
 
     @Published var products = [Product]()
 
@@ -14,10 +14,10 @@ class Store: ObservableObject {
 
     @Published var entitlements = [Transaction]()
 
-    var transacitonListener: Task<Void, Error>?
+    var transactionListener: Task<Void, Error>?
 
     init() {
-        transacitonListener = listenForTransactions()
+        transactionListener = listenForTransactions()
 
         Task {
             await requestProducts()
@@ -29,6 +29,7 @@ class Store: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
+            print("[Store] ", productIDs)
             products = try await Product.products(for: productIDs)
             print("[Store] Products:", products)
         } catch {
@@ -90,7 +91,7 @@ class Store: ObservableObject {
         switch product.type {
         case .consumable:
             purchasedConsumables.append(product)
-            Persistence.updateBooster3DayPurchaseTime()
+         //   Persistence.updateBooster3DayPurchaseTime()
 //            Persistence.increaseConsumablesCount(creditsAmount: 500)
         case .nonConsumable:
             purchasedNonConsumables.insert(product)

@@ -7,6 +7,10 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
+    
+    @State private var timeAtPress = Date()
+    @State private var isDragActive = false
+    
     var image: String? = nil
     var colorExternalManage: Bool = false
     var action: () -> Void
@@ -16,23 +20,78 @@ struct GridButton: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var debounce_timer:Timer?
     @State private var clickCounter = 0
+    
+    func onDragEnded() {
+        self.isDragActive = false
+    }
+
+    func onDragStart() {
+        if(!self.isDragActive) {
+            self.isDragActive = true
+
+            self.timeAtPress = Date()
+        }
+    }
 
     var body: some View {
-        Button(action: {            
-            self.clickCounter += 1
-            
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                self.clickCounter -= 1
-            }
-            
-            self.debounce_timer?.invalidate()
-            
-            if(self.clickCounter >= 100) {
-                self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+        let drag = DragGesture(minimumDistance: 0)
+            .onChanged({ drag in
+                self.onDragStart()
+            })
+            .onEnded({ drag in
+              self.onDragEnded()
+            })
+
+           let hackyPinch = MagnificationGesture(minimumScaleDelta: 0.0)
+            .onChanged({ delta in
+              self.onDragEnded()
+            })
+            .onEnded({ delta in
+              self.onDragEnded()
+            })
+
+          let hackyRotation = RotationGesture(minimumAngleDelta: Angle(degrees: 0.0))
+            .onChanged({ delta in
+              self.onDragEnded()
+            })
+            .onEnded({ delta in
+              self.onDragEnded()
+            })
+
+          let hackyPress = LongPressGesture(minimumDuration: 0.0, maximumDistance: 0.0)
+            .onChanged({ _ in
+              self.onDragEnded()
+            })
+            .onEnded({ delta in
+              self.onDragEnded()
+            })
+
+        let combinedGesture = drag
+          .simultaneously(with: hackyPinch)
+          .simultaneously(with: hackyRotation)
+          .exclusively(before: hackyPress)
+        
+        Button(action: {
+            let elapsed = Date().timeIntervalSince(self.timeAtPress)
+
+            if(elapsed < 1.5) {
+                self.clickCounter += 1
+                
+                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                    self.clickCounter -= 1
+                }
+                
+                self.debounce_timer?.invalidate()
+                
+                print("self.clickCounter", self.clickCounter)
+                
+                if(self.clickCounter >= 100) {
+                    self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                        action()
+                    }
+                } else {
                     action()
                 }
-            } else {
-                action()
             }
         }) {
             VStack(spacing: imageTextSpacing) {
@@ -51,6 +110,7 @@ struct GridButton: View {
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
         .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak && button.pressedLabel == nil))
+        .simultaneousGesture(combinedGesture)
     }
 
     private func pressEffectButtonImage() -> String {

@@ -1,10 +1,3 @@
-//
-//  User.swift
-//  Voice AI
-//
-//  Created by Nagesh Kumar Mishra on 15/11/23.
-//
-
 import Foundation
 import UIKit
 import Sentry
@@ -28,7 +21,7 @@ struct UserAPI {
     
     func register(appleId: String) {
         
-        let commentData = CreateUserBody(appleId: appleId, deviceId: DeviceInfo.getDeviceID()+"111")
+        let commentData = CreateUserBody(appleId: appleId, deviceId: DeviceInfo.getDeviceID())
         guard let bodyData = try? JSONEncoder().encode(commentData) else {
             SentrySDK.capture(message: "[UserAPI][Register] failed to encode data")
             return
@@ -39,7 +32,6 @@ struct UserAPI {
                 if  response.statusCode == 400 {
                     print("User already created: \(response)")
                     print("Fetch User data")
-
                     self.getUserBy(appleId: appleId)
                     return
                 }
@@ -49,7 +41,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
                 print("Success: \(response)")
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
                
@@ -71,7 +63,8 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt)
+                
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
                 
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
             case .failure(let error):
@@ -102,11 +95,17 @@ struct UserAPI {
             case .success(let response):
                 // Handle successful response
                 print("Success: \(response)")
-                SentrySDK.capture(message: "[UserAPI][Register] Success")
+                guard let userID = response.data.id else {
+                    SentrySDK.capture(message: "[UserAPI][purchase] userID not created")
+                    return
+                }
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
+                
+                SentrySDK.capture(message: "[UserAPI][purchase] Success")
             case .failure(let error):
                 // Handle error
                 print("Error: \(error)")
-                SentrySDK.capture(message: "[UserAPI][Register] Error: \(error)")
+                SentrySDK.capture(message: "[UserAPI][purchase] Error: \(error)")
             }
         }
     }

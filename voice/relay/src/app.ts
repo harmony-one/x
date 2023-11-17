@@ -2,7 +2,7 @@ import express, { type Response, type Request, type NextFunction } from 'express
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import createError from 'http-errors'
-// import apiRouter from './routes/hard.js'
+import hardKeyProtectionApiRouter from './routes/hard.js'
 import softRateLimitedApiRouter from './routes/soft.js'
 import whitelistApiRouter from './routes/whitelist.js'
 import fs from 'fs'
@@ -65,7 +65,22 @@ app.options('*', async (_req, res) => {
   res.end()
 })
 
+if (config.debug) {
+  app.use((req, res, next) => {
+    const path = req.path
+    console.log(`[${path}][${req.method}] query: ${JSON.stringify(req.query)}; body: ${JSON.stringify(req.body)}`)
+    const f = res.json
+    res.json = (args) => {
+      console.log(`[${path}][${req.method}] response: ${JSON.stringify(args)}`)
+      res.json = f
+      return res.json(args)
+    }
+    next()
+  })
+}
+
 app.use('/soft', softRateLimitedApiRouter)
+app.use('/hard', hardKeyProtectionApiRouter)
 app.use('/whitelist', whitelistApiRouter)
 
 // catch 404 and forward to error handler

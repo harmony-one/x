@@ -70,7 +70,7 @@ struct ActionsView: View, ActionsViewProtocol {
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to Send", image: "\(themePrefix) - square", action: .speak)
+        let buttonTapSpeak = ButtonData(label: "Tap to SPEAK", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .surprise)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
@@ -148,7 +148,8 @@ struct ActionsView: View, ActionsViewProtocol {
                 switch newPhase {
                 case .active:
                     print("App became active")
-                    SettingsBundleHelper.checkAndExecuteSettings()
+                   // SettingsBundleHelper.checkAndExecuteSettings()
+                  _ = AppSettings.shared
                     if (speechRecognition.checkContextChange()) {
                         speechRecognition.reset()
                     }
@@ -157,6 +158,12 @@ struct ActionsView: View, ActionsViewProtocol {
                         .compactMap { $0 as? UIWindowScene }
                         .first?.windows
                         .filter { $0.isKeyWindow }.first
+                    
+                    if AppleSignInManager.shared.isShowIAPFromSignIn {
+                        print("App isShowIAPFromSignIn active")
+                        showPurchaseDiglog()
+                        AppleSignInManager.shared.isShowIAPFromSignIn = false
+                    }
                 case .inactive:
                     print("App became inactive")
                     speechRecognition.pause(feedback: false)
@@ -310,7 +317,7 @@ struct ActionsView: View, ActionsViewProtocol {
                 DispatchQueue.main.async {
                     openSettingsApp()
                 }
-            })
+            }).accessibilityIdentifier("button-play")
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -336,10 +343,9 @@ struct ActionsView: View, ActionsViewProtocol {
                     }
                 }
             }
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                requestReview()
-//                self.checkUserAuthentication()
-//            })
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                self.checkUserAuthentication()
+            })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
               self.vibration()
@@ -349,7 +355,7 @@ struct ActionsView: View, ActionsViewProtocol {
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 self.showShareSheet = true
-            })
+            }).accessibilityIdentifier("randomfact")
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
               self.vibration()
@@ -382,14 +388,28 @@ struct ActionsView: View, ActionsViewProtocol {
     func checkUserAuthentication() {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
-            Task {
-                let product = store.products[0]
-                try await self.store.purchase(product)
-            }
+            showPurchaseDiglog()
         } else {
             // User ID not found, prompt user to log in or register
             if let keyWindow = keyWindow {
                 AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
+            }
+        }
+    }
+    
+    func showPurchaseDiglog() {
+        DispatchQueue.main.async {
+            Task {
+                if self.store.products.isEmpty {
+                    print("[AppleSignInManager] No products available")
+                } else {
+                    let product = self.store.products[0]
+                    do {
+                        try await self.store.purchase(product)
+                    } catch {
+                        print("[AppleSignInManager] Error during purchase")
+                    }
+                }
             }
         }
     }
