@@ -89,5 +89,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-x/AppConfig.plist
+**/AppConfig.plist
 

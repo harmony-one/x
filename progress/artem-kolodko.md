@@ -1,3 +1,5 @@
+2023-11-17 Fri: [updated](https://github.com/harmony-one/stripe-payments-backend/commit/58b217da44a6c5ee41d64a70cc81cf4878f2dd1c) productId to "com.country.x.purchase.3day", [refactored API](https://github.com/harmony-one/stripe-payments-backend/commit/ffa4b5c40139bc35db1600bcd3581471e1043ea2), deployed [update](https://x-payments-api.fly.dev/api).
+
 2023-11-16 Thu: [added](https://github.com/harmony-one/stripe-payments-backend/commit/0084a613108cffd0aa1cea855ed81e022fd82585) a new field to user account: expirationDate; this field is updated when a 3-day subscription is purchased and is used to determine if the user currently has a subscription. [Added](https://github.com/harmony-one/stripe-payments-backend/commit/3bc72662f19c925d350422ef3291e0dca0f2afa0) new endpoint for deleting user account (required API_KEY to use), renamed /withdraw to /spend, improved logs.
 
 2023-11-15 Wed: [check](https://github.com/harmony-one/stripe-payments-backend/commit/31b71c5ad4fd0a6d09a1b33fd62d0eda05c91b8d) uniqueness of transactionId identifier, add API key guard for /purchases and /spend endpoints, added production App Store enviroment support, improved logging

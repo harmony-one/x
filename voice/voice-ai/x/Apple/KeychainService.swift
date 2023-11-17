@@ -16,7 +16,7 @@ class KeychainService {
         }
     }
     
-    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?) {
+    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String? ) {
         if let id = id {
             keychain.set(id, forKey: "userID")
         }
@@ -28,6 +28,10 @@ class KeychainService {
         }
         if let updatedAt = updatedAt {
             keychain.set(updatedAt, forKey: "updatedAt")
+        }
+        if let expirationDate = expirationDate {
+            keychain.set(expirationDate, forKey: "expirationDate")
+            AppSettings.shared.premiumUseExpires = expirationDate
         }
     }
         
@@ -63,6 +67,10 @@ class KeychainService {
         return keychain.get("userID")
     }
     
+    func retrieveExpirationDate() -> String? {
+        return keychain.get("expirationDate")
+    }
+
     func deleteUserCredentials() {
         keychain.delete("appleId")
         keychain.delete("fullName")
