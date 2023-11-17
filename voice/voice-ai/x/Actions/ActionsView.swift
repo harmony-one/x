@@ -212,7 +212,7 @@ struct ActionsView: View {
         }
         .padding(0)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://testflight.apple.com/join/TXohwYOn")!
+            let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
             let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
             
             ActivityView(activityItems: [shareLink.title, shareLink.url])
