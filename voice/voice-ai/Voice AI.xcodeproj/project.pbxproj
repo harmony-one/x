@@ -278,7 +278,7 @@
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46B5A4A2AE73B9D00C874ED /* Voice 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
 		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -666,7 +666,7 @@
 				CD0D13342ADA73B300031EDD /* Voice AI.app */,
 				CD0D13482ADA73B400031EDD /* Voice AITests.xctest */,
 				CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */,
-				A46B5A4A2AE73B9D00C874ED /* sun.app */,
+				A46B5A4A2AE73B9D00C874ED /* Voice 2.app */,
 				A46B5A592AE73B9D00C874ED /* sunTests.xctest */,
 				A46B5A632AE73B9D00C874ED /* sunUITests.xctest */,
 			);
@@ -786,7 +786,7 @@
 				F67EDE332B07C34100FDEA80 /* CryptoSwift */,
 			);
 			productName = sun;
-			productReference = A46B5A4A2AE73B9D00C874ED /* sun.app */;
+			productReference = A46B5A4A2AE73B9D00C874ED /* Voice 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A46B5A582AE73B9D00C874ED /* sunTests */ = {
@@ -1297,9 +1297,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1117.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1335,9 +1335,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1117.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
