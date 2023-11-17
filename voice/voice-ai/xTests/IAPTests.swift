@@ -2,6 +2,10 @@ import XCTest
 import StoreKit
 
 class PersistenceTests: XCTestCase {
+    override func tearDown() {
+        UserDefaults.standard.removeObject(forKey: Persistence.creditsCountKey)
+        UserDefaults.standard.removeObject(forKey: Persistence.booster3DayPurchaseTimeKey)
+    }
 
     func testIncreaseConsumablesCount() {
         let initialCreditsCount = UserDefaults.standard.integer(forKey: Persistence.creditsCountKey)
@@ -31,10 +35,27 @@ class PersistenceTests: XCTestCase {
 
         XCTAssertEqual(purchaseTime.timeIntervalSince(expectedTime), 0, accuracy: 0.1)
     }
+    
+    
+    func testGetEpochWithValidDateString() {
+        let dateString = "2023-11-17T12:34:56.789Z"
+        let epochTime = Persistence.getEpoch(dateString: dateString)
+        XCTAssertNotNil(epochTime)
+        XCTAssertEqual(epochTime, 1700224496.789)
+    }
 
-    override func tearDown() {
-        UserDefaults.standard.removeObject(forKey: Persistence.creditsCountKey)
-        UserDefaults.standard.removeObject(forKey: Persistence.booster3DayPurchaseTimeKey)
+    func testGetEpochWithInvalidDateString() {
+        let invalidDateString = "invalidDateString"
+        let epochTime = Persistence.getEpoch(dateString: invalidDateString)
+
+        XCTAssertNil(epochTime)
+    }
+    
+    func testGetEpochWithNilDateString() {
+        let nilDateString: String? = nil
+        let epochTime = Persistence.getEpoch(dateString: nilDateString)
+
+        XCTAssertNil(epochTime)
     }
 
 }
