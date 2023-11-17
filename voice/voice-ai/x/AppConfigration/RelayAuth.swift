@@ -1,6 +1,7 @@
 import CryptoKit
 import DeviceCheck
 import Foundation
+import Sentry
 import SwiftyJSON
 
 class RelayAuth {
@@ -11,20 +12,61 @@ class RelayAuth {
     private var keyId: String?
     private var token: String?
     private var autoRefreshTokenTimer: Timer?
-    private var lastRefreshTime: Int64 = 0
+    private var nextAvailableCallTime: Int64 = 0
 
     private func initializeKeyId() async throws {
         self.keyId = try await DCAppAttestService.shared.generateKey()
         UserDefaults.standard.setValue(self.keyId, forKey: Self.keyIdPath)
     }
 
+    private func delayedRetry(on queue: DispatchQueue, retry: Int = 0, closure: @escaping () -> Void) {
+        let delay = min(30000, Int(pow(2.0, Double(retry))) * 1000 + Int.random(in: 0 ... 1000))
+        queue.asyncAfter(deadline: .now() + .milliseconds(delay), execute: closure)
+    }
+
+    private func autoRetryRefreshToken() async -> String? {
+        let now = Int64(Date().timeIntervalSince1970 * 1000)
+        if now < self.nextAvailableCallTime {
+            self.log("[autoRetryRefreshToken] called too frequently, need to wait \(self.nextAvailableCallTime - now)ms")
+            return nil
+        }
+        self.nextAvailableCallTime = now + 5000
+        print("[RelayAuth][autoRetryRefreshToken] setting nextAvailableCallTime=\(self.nextAvailableCallTime)")
+
+        let maxRetry = 5
+        var numRetries = 0
+        while numRetries < maxRetry {
+            do {
+                return try await self.refreshToken()
+            } catch {
+                let error = error as NSError
+                if error.code == -6 {
+                    numRetries += 1
+                    let delay = min(30000, Int(pow(2.0, Double(numRetries))) * 1000 + Int.random(in: 0 ... 1000))
+                    do {
+                        self.log("Refresh token error; Sleeping for \(delay)ms and try again (\(numRetries) attempts made)")
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1000000))
+                    } catch {
+                        self.logError("auto-retry cancelled", -7)
+                        return nil
+                    }
+                } else {
+                    self.logError(error, "numRetries: \(numRetries); major error; skipped retry for token refresh")
+                    return nil
+                }
+            }
+        }
+        self.logError("auto-retry exceeded maximum number (\(maxRetry))", -7)
+        return nil
+    }
+
     @discardableResult func setup() async -> String? {
         defer { self.enableAutoRefreshToken() }
-        return await self.refreshToken()
+        return await self.autoRetryRefreshToken()
     }
 
     @discardableResult func refresh() async -> String? {
-        let token = await refreshToken()
+        let token = await autoRetryRefreshToken()
         self.disableAutoRefreshToken()
         self.enableAutoRefreshToken()
         return token
@@ -40,7 +82,7 @@ class RelayAuth {
         }
         self.autoRefreshTokenTimer = Timer.scheduledTimer(withTimeInterval: 60 * 20, repeats: true) { _ in
             Task {
-                await self.refreshToken()
+                await self.autoRetryRefreshToken()
             }
         }
     }
@@ -56,18 +98,19 @@ class RelayAuth {
             do {
                 try await self.initializeKeyId()
             } catch {
-                print("[RelayAuth][tryInitializeKeyId]", error)
+                self.logError(error, "Cannot get key id")
             }
         }
     }
 
     func getChallenge() async -> String? {
         guard let baseUrl = Self.baseUrl else {
+            self.logError("Invalid base URL", -4)
             return nil
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         guard let url = URL(string: "\(baseUrl)/hard/challenge") else {
-            print("[RelayAuth] Invalid Relay URL")
+            self.logError("Invalid Relay URL", -3)
             return nil
         }
 
@@ -78,66 +121,79 @@ class RelayAuth {
             let challenge = res["challenge"].string
             return challenge
         } catch {
-            print("[RelayAuth] error", error)
+            self.logError(error, "failed to get challenge")
             return nil
         }
     }
 
     func getAttestation(hash: Data) async throws -> String? {
         guard let keyId = self.keyId else {
+            self.logError("No key id set", -5)
             return nil
         }
         let s = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
         return s.base64EncodedString()
     }
 
-    @discardableResult func refreshToken() async -> String? {
-        let now = Int64(Date().timeIntervalSince1970)
-        if self.lastRefreshTime > now - 5 {
-            print("[RelayAuth][refreshToken] token refresh rate limited (now=\(now);last=\(self.lastRefreshTime)); ignored")
-            return nil
+    func log(_ message: String) {
+        print("[RelayAuth]", message)
+        SentrySDK.capture(message: "[RelayAuth] \(message)")
+    }
+
+    @discardableResult func logError(_ msg: String, _ code: Int) -> NSError {
+        let error = NSError(domain: msg, code: code)
+        print("[RelayAuth][ERROR]", code, msg)
+        SentrySDK.capture(error: error) { scope in
+            scope.setTag(value: "RelayAuth", key: "module")
         }
-        self.lastRefreshTime = now
-        print("[RelayAuth][refreshToken] setting lastRefreshTime=\(now)")
+        return error
+    }
+
+    @discardableResult func logError(_ error: Error, _ detail: String = "") -> Error {
+        print("[RelayAuth][ERROR]", detail)
+        SentrySDK.capture(error: error) { scope in
+            scope.setExtra(value: detail, key: "detail")
+            scope.setTag(value: "RelayAuth", key: "module")
+        }
+        return error
+    }
+
+    @discardableResult private func refreshToken() async throws -> String? {
         let service = DCAppAttestService.shared
         guard service.isSupported else {
-            print("[RelayAuth][CRITICAL] DCAppAttestService not supported. Exiting")
-            exit(1)
+            throw self.logError("DCAppAttestService not supported", -1)
         }
         if self.keyId == nil {
             await self.tryInitializeKeyId()
         }
         let challenge = await self.getChallenge()
         guard let challenge = challenge else {
-            print("[RelayAuth] Unable to get challenge from server")
-            // TODO: retry or give some UI feedback / fallback
-            return nil
+            throw self.logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
         do {
             let attestation = try await self.getAttestation(hash: hash)
             guard let attestation = attestation else {
-                print("[RelayAuth] attestation is nil")
-                return nil
+                throw self.logError("attestation is deliberately set to nil", -2)
             }
             let token = await self.exchangeAttestationForToken(attestation: attestation, challenge: challenge)
+            // throw NSError(domain:"testing", code: -6)
             self.token = token
-            print("[RelayAuth] received token \(token)")
+            print("[RelayAuth] received token \(token ?? "N/A")")
             return token
-            // TODO: send attestation to relay, get token
         } catch {
-            print("[RelayAuth] can't get attestation", error)
-            return nil
+            throw self.logError("temporary error for getting attestation", -6)
         }
     }
 
     func exchangeAttestationForToken(attestation: String, challenge: String) async -> String? {
         guard let baseUrl = Self.baseUrl else {
+            self.logError("Invalid base URL", -4)
             return nil
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         guard let url = URL(string: "\(baseUrl)/hard/attestation") else {
-            print("Invalid Relay URL")
+            self.logError("Invalid Relay URL", -3)
             return nil
         }
 
@@ -154,7 +210,7 @@ class RelayAuth {
             let token = res["token"].string
             return token
         } catch {
-            print("[RelayAuth][exchangeAttestationForToken] error", error)
+            self.logError(error, "exchangeAttestationForToken error")
             return nil
         }
     }

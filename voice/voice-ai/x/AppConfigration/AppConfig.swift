@@ -7,7 +7,7 @@ import SwiftyJSON
 class AppConfig {
     // Shared singleton instance
     static let shared = AppConfig()
-    private var relay: RelayAuth = RelayAuth.shared
+    private var relay: RelayAuth = .shared
     private var relayBaseUrl: String?
     private var openaiBaseUrl: String?
     private var openaiKey: String?
@@ -30,7 +30,8 @@ class AppConfig {
         }
         Task {
             self.openaiKey = await self.relay.setup()
-//            await self.requestOpenAIKey()
+            // DEPRECATED, TO BE REMOVED SOON
+            //  await self.requestOpenAIKey()
         }
     }
     
@@ -101,8 +102,7 @@ class AppConfig {
         t.resume()
     }
     
-    
-    public func checkWhiteList() async -> Bool  {
+    public func checkWhiteList() async -> Bool {
         guard let username = SettingsBundleHelper.getUserName() else {
             return false
         }
@@ -242,8 +242,11 @@ class AppConfig {
     }
     
     func renewRelayAuth() {
-        Task{
-            self.openaiKey = await self.relay.refresh()
+        Task {
+            let newToken = await self.relay.refresh()
+            if newToken != nil {
+                self.openaiKey = newToken
+            }
         }
     }
 }
