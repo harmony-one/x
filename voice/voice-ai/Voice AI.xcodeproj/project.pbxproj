@@ -76,7 +76,6 @@
 		A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
-		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
@@ -191,12 +190,32 @@
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
-		F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F610490F2AF02DEE0087F745 /* SwiftyJSON */; };
 		F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F61049112AF02DF50087F745 /* SwiftyJSON */; };
 		F65054FF2B05269200FFEA07 /* xUIDebounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */; };
 		F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43312AFAC166001B72CD /* SentrySwiftUI */; };
 		F67E43342AFAC16C001B72CD /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43332AFAC16C001B72CD /* Sentry */; };
+		F67EDE202B07BD6700FDEA80 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE1F2B07BD6700FDEA80 /* Sentry */; };
+		F67EDE222B07BD6E00FDEA80 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */; };
+		F67EDE242B07BE1C00FDEA80 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE232B07BE1C00FDEA80 /* KeychainSwift */; };
+		F67EDE252B07BE3500FDEA80 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
+		F67EDE262B07BE4A00FDEA80 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
+		F67EDE292B07BE6200FDEA80 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
+		F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
+		F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
+		F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
+		F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
+		F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
+		F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
+		F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE332B07C34100FDEA80 /* CryptoSwift */; };
+		F67EDE352B07C60200FDEA80 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3E5CDF42B0332B9003F4DC2 /* Settings.bundle */; };
+		F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
+		F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
+		F67EDE382B07C67400FDEA80 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		F67EDE3A2B07C94500FDEA80 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F67EDE392B07C94500FDEA80 /* AppConfig.plist */; };
 		F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
 		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
@@ -326,6 +345,8 @@
 		CDC1370F2B057DB6003386E9 /* RelayAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayAuth.swift; sourceTree = "<group>"; };
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
+		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
+		F67EDE392B07C94500FDEA80 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverterTests.swift; sourceTree = "<group>"; };
 		F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
@@ -349,7 +370,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67EDE292B07BE6200FDEA80 /* CoreAudio.framework in Frameworks */,
+				F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */,
+				F67EDE262B07BE4A00FDEA80 /* StoreKit.framework in Frameworks */,
+				F67EDE252B07BE3500FDEA80 /* AVFoundation.framework in Frameworks */,
 				F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */,
+				F67EDE222B07BD6E00FDEA80 /* SentrySwiftUI in Frameworks */,
+				F67EDE242B07BE1C00FDEA80 /* KeychainSwift in Frameworks */,
+				F67EDE202B07BD6700FDEA80 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +451,7 @@
 				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
 				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
 				A46B5A522AE73B9D00C874ED /* Preview Content */,
+				F67EDE392B07C94500FDEA80 /* AppConfig.plist */,
 			);
 			path = sun;
 			sourceTree = "<group>";
@@ -724,6 +753,7 @@
 		CD0D13652ADA74C800031EDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */,
 				22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */,
 				B9B331A22AFB849000F6A9C9 /* StoreKit.framework */,
 				CD0D13682ADA74D100031EDD /* AVFoundation.framework */,
@@ -750,6 +780,10 @@
 			name = sun;
 			packageProductDependencies = (
 				F61049112AF02DF50087F745 /* SwiftyJSON */,
+				F67EDE1F2B07BD6700FDEA80 /* Sentry */,
+				F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */,
+				F67EDE232B07BE1C00FDEA80 /* KeychainSwift */,
+				F67EDE332B07C34100FDEA80 /* CryptoSwift */,
 			);
 			productName = sun;
 			productReference = A46B5A4A2AE73B9D00C874ED /* sun.app */;
@@ -926,6 +960,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
+				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
+				F67EDE3A2B07C94500FDEA80 /* AppConfig.plist in Resources */,
+				F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */,
+				F67EDE352B07C60200FDEA80 /* Settings.bundle in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
@@ -991,8 +1030,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
-				F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
+				F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */,
+				F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */,
+				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
+				F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */,
+				F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */,
+				F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */,
+				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
+				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
+				F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
@@ -1238,7 +1284,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sun;
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1252,7 +1298,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sun;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1276,7 +1322,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sun;
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1841,6 +1887,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		F67EDE1F2B07BD6700FDEA80 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySwiftUI;
+		};
+		F67EDE232B07BE1C00FDEA80 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+		F67EDE332B07C34100FDEA80 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
