@@ -1,3 +1,5 @@
+2023-11-17 Fri: I removed the rate limit for the "surprise me" feature https://github.com/harmony-one/x/pull/210 and working on ui tests.
+
 2023-11-16 Thu: I'm working on UI testing, restoring the functionality of UI tests, [added dependencies and deleted non-functional and outdated tests](https://github.com/harmony-one/x/pull/198).
 
 2023-11-15 Wed: I have added a delay for ["press to speak"](https://github.com/harmony-one/x/pull/188) when a user leaves the button. Working on [integrating user verification](https://github.com/harmony-one/x/pull/190/commits/73235135801418805a704a04765b6756e1d24796) into whitelist, as to not expose secrets.
