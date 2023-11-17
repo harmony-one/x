@@ -193,6 +193,7 @@
 		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
@@ -217,7 +218,7 @@
 		F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE332B07C34100FDEA80 /* CryptoSwift */; };
-		F67EDE352B07C60200FDEA80 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3E5CDF42B0332B9003F4DC2 /* Settings.bundle */; };
+		F67EDE352B07C60200FDEA80 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
 		F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
 		F67EDE382B07C67400FDEA80 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
@@ -982,7 +983,8 @@
 				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
 				F67EDE3A2B07C94500FDEA80 /* AppConfig.plist in Resources */,
 				F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */,
-				F67EDE352B07C60200FDEA80 /* Settings.bundle in Resources */,
+				E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */,
+				F67EDE352B07C60200FDEA80 /* (null) in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
 				B91F05D52B0645200029A32D /* Settings.bundle in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
