@@ -284,7 +284,7 @@ struct ActionsView: View {
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 DispatchQueue.main.async {
-                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp")
+                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
                     if UIApplication.shared.canOpenURL(url!) {
                         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                     } else {
