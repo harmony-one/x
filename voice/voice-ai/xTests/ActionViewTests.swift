@@ -13,7 +13,7 @@ import AudioToolbox
 import CoreHaptics
 import UIKit
 import Combine
-
+import KeychainSwift
 
 extension ActionsView {
     
@@ -55,5 +55,30 @@ class ActionViewTests: XCTestCase {
         XCTAssertTrue(gridProperties.columns.count == 3, "baseView() should create a grid (columns)")
     }
 
+    func testCheckUserAuthentication_UserAvailable() {
+        // Arrange
+        let keychainService = KeychainService.shared
+        keychainService.storeUserCredentials(appleId: "testAppleId", fullName: nil, email: nil)
+        
+        // Act
+        let isUserAvailable = keychainService.isAppleIdAvailable()
+        
+        // Assert
+        XCTAssertTrue(isUserAvailable, "User ID is available, should showPurchaseDialog()")
+    }
+    
+    func testCheckUserAuthentication_UserUnavailable() {
+        // Arrange
+        let keychainService = KeychainService.shared
+        keychainService.storeUserCredentials(appleId: "", fullName: nil, email: nil)
+        
+        // Act
+        let isUserAvailable = keychainService.isAppleIdAvailable()
+        
+        // Assert
+        XCTAssertFalse(isUserAvailable, "User ID not found, prompt user to log in or register")
+    }
 }
+
+    
     
