@@ -1,4 +1,5 @@
 import XCTest
+import StoreKit
 
 class PersistenceTests: XCTestCase {
 
@@ -36,4 +37,30 @@ class PersistenceTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: Persistence.booster3DayPurchaseTimeKey)
     }
 
+}
+
+class StoreTests: XCTestCase {
+    var store: Store!
+
+    override func setUp() {
+        super.setUp()
+        store = Store()
+    }
+
+    override func tearDown() {
+        store = nil
+        super.tearDown()
+    }
+
+    func testRequestProducts() {
+        let expectation = XCTestExpectation(description: "Request Products")
+
+        Task {
+                await store.requestProducts()
+                XCTAssertNotNil(store.products, "products array should not be empty")
+                expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
 }
