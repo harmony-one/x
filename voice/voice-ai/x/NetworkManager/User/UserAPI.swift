@@ -1,10 +1,3 @@
-//
-//  User.swift
-//  Voice AI
-//
-//  Created by Nagesh Kumar Mishra on 15/11/23.
-//
-
 import Foundation
 import UIKit
 import Sentry
