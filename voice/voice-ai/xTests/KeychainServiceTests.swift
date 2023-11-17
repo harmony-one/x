@@ -34,13 +34,15 @@ class KeychainServiceTests: XCTestCase {
         let balance = "100.00"
         let createdAt = "2023-01-01"
         let updatedAt = "2023-02-01"
+        let expirationDate = "2023-03-01"
 
-        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt)
+        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate)
   
         XCTAssertEqual(keychainService.retrieveUserid(), userId)
         XCTAssertEqual(keychainService.retrieveBalance(), balance)
         XCTAssertEqual(keychainService.retrieveCreatedAt(), createdAt)
         XCTAssertEqual(keychainService.retrieveUpdatedAt(), updatedAt)
+        XCTAssertEqual(keychainService.retrieveExpirationDate(), expirationDate)
     }
     
     func testIsAppleIdAvailable() {
@@ -67,7 +69,7 @@ class KeychainServiceTests: XCTestCase {
         let key = "userID"
         let value = "testValue"
         keychainService.clearAll()
-        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil)
+        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil)
  
         keychainService.delete(key: key)
         XCTAssertNil(keychainService.retrieveUserid())
