@@ -7,7 +7,8 @@ import SwiftyJSON
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
     private static let keyIdPath = "AppAttestKeyId"
-    private static let attestationPath = "AppAttestation"
+    private static let attestationPath = "AppAttestationResult"
+    private static let attestationChallengePath = "AppAttestationChallenge"
     private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
@@ -128,23 +129,31 @@ class RelayAuth {
         }
     }
 
-    func getAttestation(hash: Data) async throws -> String? {
+    func getAttestation() async throws -> (String?, String?) {
         guard let keyId = self.keyId else {
             self.logError("No key id set", -5)
-            return nil
+            return (nil, nil)
         }
         // TODO: use keychain
         let attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
         let attestationTime = UserDefaults.standard.double(forKey: Self.attestationTimePath)
+        let storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
         let now = Double(Date().timeIntervalSince1970)
-        if attestationTime > now - 3600 * 24 * 8, attestation != nil {
-            return attestation
+        if attestationTime > now - 3600 * 24 * 8, attestation != nil, storedChallenge != nil {
+            return (attestation, storedChallenge)
         }
+        
+        let challenge = await self.getChallenge()
+        guard let challenge = challenge else {
+            throw self.logError("Unable to get challenge from server", -2)
+        }
+        let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
         let s = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
         let r = s.base64EncodedString()
         UserDefaults.standard.setValue(r, forKey: Self.attestationPath)
         UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
-        return r
+        UserDefaults.standard.setValue(challenge, forKey: Self.attestationChallengePath)
+        return (r, challenge)
     }
 
     func log(_ message: String) {
@@ -178,15 +187,14 @@ class RelayAuth {
         if self.keyId == nil {
             await self.tryInitializeKeyId()
         }
-        let challenge = await self.getChallenge()
-        guard let challenge = challenge else {
-            throw self.logError("Unable to get challenge from server", -2)
-        }
-        let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
+
         do {
-            let attestation = try await self.getAttestation(hash: hash)
+            let (attestation, challenge) = try await self.getAttestation()
             guard let attestation = attestation else {
                 throw self.logError("attestation is deliberately set to nil", -2)
+            }
+            guard let challenge = challenge else {
+                throw self.logError("challenge is deliberately set to nil", -8)
             }
             let token = await self.exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             // throw NSError(domain:"testing", code: -6)

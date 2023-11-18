@@ -11,6 +11,7 @@ export interface TokenUsageLogData {
   endpoint: string
   requestSize: number
   responseSize: number
+  responseTokens: number
   token: string
   totalResponseTime: string // from bigint
   firstResponseTime: string
@@ -33,6 +34,8 @@ export const ES = {
     if (!client) {
       return
     }
+    console.log('[ES]', props)
+    // return
     return await client.index({
       index,
       document: {
