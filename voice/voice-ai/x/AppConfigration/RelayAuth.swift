@@ -7,6 +7,8 @@ import SwiftyJSON
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
     private static let keyIdPath = "AppAttestKeyId"
+    private static let attestationPath = "AppAttestation"
+    private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
     private var keyId: String?
@@ -131,8 +133,18 @@ class RelayAuth {
             self.logError("No key id set", -5)
             return nil
         }
+        // TODO: use keychain
+        let attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
+        let attestationTime = UserDefaults.standard.double(forKey: Self.attestationTimePath)
+        let now = Double(Date().timeIntervalSince1970)
+        if attestationTime > now - 3600 * 24 * 8, attestation != nil {
+            return attestation
+        }
         let s = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
-        return s.base64EncodedString()
+        let r = s.base64EncodedString()
+        UserDefaults.standard.setValue(r, forKey: Self.attestationPath)
+        UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
+        return r
     }
 
     func log(_ message: String) {
