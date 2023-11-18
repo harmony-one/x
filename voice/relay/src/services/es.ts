@@ -12,7 +12,7 @@ export interface TokenUsageLogData {
   requestSize: number
   responseSize: number
   responseTokens: number
-  token: string
+  attestationHash: string
   totalResponseTime: string // from bigint
   firstResponseTime: string
 }
