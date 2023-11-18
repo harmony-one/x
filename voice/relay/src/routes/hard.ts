@@ -3,7 +3,7 @@ import NodeCache from 'node-cache'
 import OpenAIRelay from '../services/openai.js'
 import { HttpStatusCode } from 'axios'
 import { validateAttestation } from '../services/app-attest.js'
-import { hexView, stringToBytes } from '../utils.js'
+import { hexView, now, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
 import config, { BannedTokens } from '../config/index.js'
 import { ES } from '../services/es.js'
@@ -66,18 +66,48 @@ router.post('/attestation', async (req, res) => {
 // NOTE: see discussions here regarding throwing error in the middle of a stream response
 // https://github.com/expressjs/express/issues/2700
 router.post('/openai/chat/completions', authenticated, async (req, res, next) => {
+  let responseSize = 0
+  let responseTokens = 0
+  let firstResponseTime = 0n
+  let totalResponseTime = 0n
+  const startTime = now()
   try {
     if (!req.body.stream) {
       const completion = await OpenAIRelay.completion(req.body)
+      firstResponseTime = now() - startTime
+      responseTokens = Number(completion.usage?.completion_tokens)
+      responseSize = JSON.stringify(completion).length
       res.json(completion)
     }
     await OpenAIRelay.completionStream(req.body, (data) => {
-      res.write(`data:\n${JSON.stringify(data)}\n\n`)
+      const dataStr = JSON.stringify(data)
+      responseSize += dataStr.length
+      responseTokens += 1
+      if (!firstResponseTime) {
+        firstResponseTime = now() - startTime
+      }
+      res.write(`data:\n${dataStr}\n\n`)
     })
+    totalResponseTime = now() - startTime
     res.write('data:\n[DONE]')
     res.end()
   } catch (ex) {
+    if (!firstResponseTime) {
+      firstResponseTime = now()
+    }
+    totalResponseTime = now() - startTime
     next(ex)
+  } finally {
+    ES.add({
+      vendor: 'openai',
+      token: req.token ?? '',
+      requestSize: Number(req.headers['content-length']),
+      responseSize,
+      responseTokens,
+      firstResponseTime: firstResponseTime.toString(),
+      totalResponseTime: totalResponseTime.toString(),
+      endpoint: 'chat/completions'
+    }).catch(e => { console.error(e) })
   }
 })
 

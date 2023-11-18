@@ -22,6 +22,9 @@
       "totalResponseTime": {
         "type": "long"
       },
+      "responseTokens": {
+        "type": "integer"
+      },
       "firstResponseTime": {
         "type": "long"
       }
