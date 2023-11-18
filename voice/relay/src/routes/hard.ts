@@ -55,8 +55,12 @@ router.post('/attestation', async (req, res) => {
       res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
       return
     }
-    const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    const nonce = Math.floor(Date.now() / (1000 * 1800)) * (1000 * 1800)
+    // const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
     const attestationHash = hexView(sha256(stringToBytes(`${inputKeyId};${challenge};${attestation};${config.tokenSeed}`)))
+    const token = hexView(sha256(new Uint8Array(
+      Buffer.concat([Buffer.from(attestationHash, 'hex'), stringToBytes(nonce.toString())])
+    )))
     TokenCache.set(token, attestationHash)
     res.json({ token })
   } catch (ex: any) {
