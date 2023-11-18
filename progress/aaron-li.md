@@ -1,4 +1,6 @@
-2023-11-16 Thu (2h+): End-to-end debugging and testing for app attestation and relay-based OpenAI queries; Debug and fix issues related to verifying develop-environment attestation; Fix issues related to non-functioning app caused by multiple initialization of relayer authentication module; Review devops TODO list proposal
+2023-11-17 Fri (3.5h+): Debug issues that prevent some clients from obtaining relay tokens; Add structed errors and codes for relay client; Capture errors; Auto-retry at client side; Do not override token if failed to get one; Allow new session button to get a new relay token;
+
+2023-11-16 Thu (2.5h): End-to-end debugging and testing for app attestation and relay-based OpenAI queries; Debug and fix issues related to verifying develop-environment attestation; Fix issues related to non-functioning app caused by multiple initialization of relayer authentication module; Review devops TODO list proposal; Review and discuss in-app purchase flows and integrations with server
 
 2023-11-15 Wed (6h): Review in-app-purchase issues and existing implementations; Discuss key leakage issues and review logs; Implement RelayAuth client module for app attestation and relay token management; Debug and fix issues with relay app attestation verification and logging; Discussion on key protection; 
 
