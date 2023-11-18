@@ -3,6 +3,7 @@ declare global {
     interface Request {
       deviceToken?: string
       deviceTokenHash?: string
+      attestationHash?: string
       token?: string
     }
   }

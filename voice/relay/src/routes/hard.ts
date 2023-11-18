@@ -26,16 +26,18 @@ async function authenticated (req: Request, res: Response, next: NextFunction): 
   // TODO: if request contains attestation instead of token, allow to proceed as well
   const auth = req.header('authorization')
   const token = auth?.split('Bearer ')?.[1]
-
-  console.log(`[${req.clientIp}] received token ${token}; cache state: ${TokenCache.get<boolean>(token ?? '')}`)
-  if (!token || !TokenCache.get<boolean>(token)) {
-    res.status(HttpStatusCode.Unauthorized).json({ error: 'invalid token' })
+  if (!token) {
+    res.status(HttpStatusCode.Unauthorized).json({ error: 'no token' })
     return
   }
-  if (BannedTokens.includes(token.toLowerCase())) {
-    res.status(HttpStatusCode.Unauthorized).json({ error: 'banned token' })
+  const attestationHash = TokenCache.get<string>(token)
+  console.log(`[${req.clientIp}] received token for attestation hash: ${attestationHash}`)
+  if (!attestationHash || BannedTokens.includes(attestationHash)) {
+    console.log(`[${req.clientIp}] denied request for banned attestation hash ${attestationHash}`)
+    res.status(HttpStatusCode.Unauthorized).json({ error: 'banned attestation' })
     return
   }
+  req.attestationHash = attestationHash
   req.token = token
   next()
 }
@@ -53,9 +55,9 @@ router.post('/attestation', async (req, res) => {
       res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
       return
     }
-    // const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
-    const token = hexView(sha256(stringToBytes(`${inputKeyId};${challenge};${attestation};${config.tokenSeed}`)))
-    TokenCache.set(token, true)
+    const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    const attestationHash = hexView(sha256(stringToBytes(`${inputKeyId};${challenge};${attestation};${config.tokenSeed}`)))
+    TokenCache.set(token, attestationHash)
     res.json({ token })
   } catch (ex: any) {
     console.error(ex)
@@ -100,7 +102,7 @@ router.post('/openai/chat/completions', authenticated, async (req, res, next) =>
   } finally {
     ES.add({
       vendor: 'openai',
-      token: req.token ?? '',
+      attestationHash: req.attestationHash ?? '',
       requestSize: Number(req.headers['content-length']),
       responseSize,
       responseTokens,

@@ -16,7 +16,7 @@
       "responseSize": {
         "type": "integer"
       },
-      "token": {
+      "attestationHash": {
         "type": "keyword"
       },
       "totalResponseTime": {
