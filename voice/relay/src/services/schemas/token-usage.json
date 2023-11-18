@@ -1,0 +1,30 @@
+{
+  "mappings": {
+    "properties": {
+      "vendor": {
+        "type": "keyword"
+      },
+      "time": {
+        "type": "date"
+      },
+      "endpoint": {
+        "type": "keyword"
+      },
+      "requestSize": {
+        "type": "integer"
+      },
+      "responseSize": {
+        "type": "integer"
+      },
+      "token": {
+        "type": "keyword"
+      },
+      "totalResponseTime": {
+        "type": "long"
+      },
+      "firstResponseTime": {
+        "type": "long"
+      }
+    }
+  }
+}

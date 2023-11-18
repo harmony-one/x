@@ -3,7 +3,10 @@ import NodeCache from 'node-cache'
 import OpenAIRelay from '../services/openai.js'
 import { HttpStatusCode } from 'axios'
 import { validateAttestation } from '../services/app-attest.js'
-// import config from '../config/index.js'
+import { hexView, stringToBytes } from '../utils.js'
+import { hash as sha256 } from 'fast-sha256'
+import config, { BannedTokens } from '../config/index.js'
+import { ES } from '../services/es.js'
 const ChallengeCache = new NodeCache({ stdTTL: 30 })
 const TokenCache = new NodeCache({ stdTTL: 60 * 30 })
 
@@ -23,11 +26,17 @@ async function authenticated (req: Request, res: Response, next: NextFunction): 
   // TODO: if request contains attestation instead of token, allow to proceed as well
   const auth = req.header('authorization')
   const token = auth?.split('Bearer ')?.[1]
+
   console.log(`[${req.clientIp}] received token ${token}; cache state: ${TokenCache.get<boolean>(token ?? '')}`)
   if (!token || !TokenCache.get<boolean>(token)) {
     res.status(HttpStatusCode.Unauthorized).json({ error: 'invalid token' })
     return
   }
+  if (BannedTokens.includes(token.toLowerCase())) {
+    res.status(HttpStatusCode.Unauthorized).json({ error: 'banned token' })
+    return
+  }
+  req.token = token
   next()
 }
 
@@ -44,7 +53,8 @@ router.post('/attestation', async (req, res) => {
       res.status(HttpStatusCode.Forbidden).json({ error: 'attestation validation failed' })
       return
     }
-    const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    // const token = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
+    const token = hexView(sha256(stringToBytes(`${inputKeyId};${challenge};${attestation};${config.tokenSeed}`)))
     TokenCache.set(token, true)
     res.json({ token })
   } catch (ex: any) {
