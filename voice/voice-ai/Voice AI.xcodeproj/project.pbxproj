@@ -83,11 +83,6 @@
 		A46B5A5E2AE73B9D00C874ED /* sunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A5D2AE73B9D00C874ED /* sunTests.swift */; };
 		A46B5A682AE73B9D00C874ED /* sunUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A672AE73B9D00C874ED /* sunUITests.swift */; };
 		A46B5A6A2AE73B9D00C874ED /* sunUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */; };
-		A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
-		A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
-		A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
-		A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
-		A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
 		A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
@@ -212,6 +207,12 @@
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
+		E47F1A972B07F94200455617 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
+		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
+		E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
+		E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
+		E47F1A9B2B07F94F00455617 /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
+		E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
@@ -240,7 +241,6 @@
 		F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
 		F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
 		F67EDE382B07C67400FDEA80 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
-		F67EDE3A2B07C94500FDEA80 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F67EDE392B07C94500FDEA80 /* AppConfig.plist */; };
 		F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
 		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
@@ -375,7 +375,6 @@
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
 		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
-		F67EDE392B07C94500FDEA80 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverterTests.swift; sourceTree = "<group>"; };
 		F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
@@ -480,7 +479,6 @@
 				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
 				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
 				A46B5A522AE73B9D00C874ED /* Preview Content */,
-				F67EDE392B07C94500FDEA80 /* AppConfig.plist */,
 			);
 			path = sun;
 			sourceTree = "<group>";
@@ -1000,21 +998,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
+				E47F1A972B07F94200455617 /* AppConfig.plist in Resources */,
 				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
 				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
-				F67EDE3A2B07C94500FDEA80 /* AppConfig.plist in Resources */,
+				E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */,
 				F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */,
 				E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */,
+				E47F1A9B2B07F94F00455617 /* Dotrice-Condensed.otf in Resources */,
 				F67EDE352B07C60200FDEA80 /* (null) in Resources */,
+				E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
 				B91F05D52B0645200029A32D /* Settings.bundle in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
-				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
+				E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */,
 				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
-				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
-				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
-				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
-				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,7 +1338,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1379,7 +1377,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
@@ -1618,7 +1616,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1644,7 +1642,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1117.9;
+				MARKETING_VERSION = 1.1117.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1664,7 +1662,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1690,7 +1688,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1117.9;
+				MARKETING_VERSION = 1.1117.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

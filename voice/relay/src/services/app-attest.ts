@@ -85,7 +85,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   credCert.readCertHex(credCertBuffer.toString('hex'))
   // credCert.
 
-  console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
+  // console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
 
   // step 1: Verify that the x5c array contains the intermediate and leaf certificates for App Attest, starting from the credential certificate in the first data buffer in the array (credcert). Verify the validity of the certificates using Apple’s App Attest root certificate.
 

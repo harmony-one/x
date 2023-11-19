@@ -12,6 +12,7 @@ import config from './config/index.js'
 import cors from 'cors'
 import compression from 'compression'
 import requestIp from 'request-ip'
+import { ES } from './services/es.js'
 
 const app = express()
 let httpServer: HttpServer
@@ -78,6 +79,8 @@ if (config.debug) {
     next()
   })
 }
+
+ES.init()
 
 app.use('/soft', softRateLimitedApiRouter)
 app.use('/hard', hardKeyProtectionApiRouter)

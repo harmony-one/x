@@ -471,6 +471,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         // Perform all cleanup tasks in the background
         DispatchQueue.global(qos: .userInitiated).async {
+            AppConfig.shared.renewRelayAuth()
             self.pauseCapturing()
             self.stopGPT()
             

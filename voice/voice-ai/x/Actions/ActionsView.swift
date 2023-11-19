@@ -217,7 +217,7 @@ struct ActionsView: View, ActionsViewProtocol {
         }
         .padding(0)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://testflight.apple.com/join/TXohwYOn")!
+            let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
             let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
             
             ActivityView(activityItems: [shareLink.title, shareLink.url])
@@ -289,7 +289,7 @@ struct ActionsView: View, ActionsViewProtocol {
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 DispatchQueue.main.async {
-                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp")
+                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
                     if UIApplication.shared.canOpenURL(url!) {
                         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                     } else {
