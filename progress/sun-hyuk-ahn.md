@@ -1,5 +1,8 @@
-2023-11-16 Thu: Resolved issue with retry API not being cancelled. Updated product configuration and improved logic handling to prevent crashes when required data is not provided. Worked on the restore server logic handling to be in accordance with the voice app's new product configuration. 
+2023-11-18 Sat: Reviewed over updates made for the relayer.
 
+2023-11-17 Fri: Resolved relayer issue.
+
+2023-11-16 Thu: Resolved issue with retry API not being cancelled. Updated product configuration and improved logic handling to prevent crashes when required data is not provided. Worked on the restore server logic handling to be in accordance with the voice app's new product configuration. 
 
 2023-11-15 Wed: Discussing key auth server infrastructure with Aaron. Fixed custom instruction configuration so that it loads when the app is downloaded and first loaded. Disabled Apple Pay and user authentication. Addressed and fixed (handed over) a bug that crashed the app when user authentication is loaded.
 
