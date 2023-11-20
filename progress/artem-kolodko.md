@@ -1,4 +1,4 @@
-2023-11-20 Mon: helped Aaron to track Explorer visits for specific address pages. [Implemented](https://github.com/harmony-one/x/pull/221) Settings modal with 3 buttons in VoiceAI, created PR.
+2023-11-20 Mon: [helped](https://github.com/harmony-one/explorer-v2-frontend/pull/283) Aaron to track Explorer visits for specific address pages, configured Google Tag Manager and Fingerprint.com. [Implemented](https://github.com/harmony-one/x/pull/221) Settings modal with 3 buttons in VoiceAI, created PR.
 
 ---
 
