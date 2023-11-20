@@ -1,6 +1,6 @@
-2023-11-19 Sun: Refactored OpenAI and Actions module.
+2023-11-19 Sun: Refactored [OpenAI](https://github.com/harmony-one/x/commit/ef517118beaaa57bdbe9ede53b37072e47f519b5) and [Actions](https://github.com/harmony-one/x/commit/8f7220effd080dbcf01fb73933b302c053f4e4dd) module.
 
-2023-11-18 Sat: Reviewed over updates made for the relayer.
+2023-11-18 Sat: Reviewed over updates made for the [relayer](https://github.com/harmony-one/x/tree/main/voice/relay).
 
 2023-11-17 Fri: Resolved relayer issue.
 
