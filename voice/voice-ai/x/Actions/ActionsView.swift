@@ -293,7 +293,7 @@ struct ActionsView: View {
                         print("Cannot open URL")
                     }
                 }
-            })
+            }).accessibilityIdentifier("button-repeatLast")
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()

@@ -14,6 +14,9 @@
 		22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
+		6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		6E1FEC772B0BE3B6005EB346 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
+		6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */; };
 		6E35CB4D2AFE87E80004D2D2 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -451,6 +454,7 @@
 				6E6B00EC2B06876600C7EA47 /* SwiftyJSON in Frameworks */,
 				6E6B00F02B06876600C7EA47 /* SentrySwiftUI in Frameworks */,
 				6E53AF5A2AF012D00022A8F2 /* CoreAudio.framework in Frameworks */,
+				6E1FEC772B0BE3B6005EB346 /* StoreKit.framework in Frameworks */,
 				6E6B00F42B06877C00C7EA47 /* KeychainSwift in Frameworks */,
 				6E53AF592AF012CD0022A8F2 /* AVFoundation.framework in Frameworks */,
 				6E6B00EE2B06876600C7EA47 /* Sentry in Frameworks */,
@@ -1281,6 +1285,7 @@
 				6E56C7BF2B067A9C00ED2296 /* ReviewRequester.swift in Sources */,
 				CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */,
 				6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */,
+				6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */,
 				B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
 				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
@@ -1291,6 +1296,7 @@
 				6E53AF582AF012A50022A8F2 /* Text.swift in Sources */,
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
+				6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */,
 				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
 				6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */,
 				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,

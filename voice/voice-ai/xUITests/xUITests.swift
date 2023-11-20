@@ -39,21 +39,64 @@ final class xUITests: XCTestCase {
         
         XCTAssertTrue(buttonPlay.images[pauseImage].exists)
         
-        sleep(3)
+        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
 
         // pause
         buttonPlay.tap()
         
-        sleep(3)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
         
-        XCTAssertTrue(buttonPlay.images[playImage].exists)
-        
-        sleep(1)
+        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: buttonPlay.images[playImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
 
         // play
         buttonPlay.tap()
 
         XCTAssertFalse(buttonPlay.images[playImage].exists)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+    }
+    
+    func testRepeatLast() throws {
+        
+        let app = XCUIApplication()
+        app.launch()
+        
+        let buttonSurpriseMe = app.buttons["randomfact"]
+        let buttonPlay = app.buttons["button-play"]
+        let buttonRepeatLast = app.buttons["button-repeatLast"]
+        let playImage = "blackredTheme - play"
+        let pauseImage = "blackredTheme - pause play"
+        
+
+        // start play
+        buttonSurpriseMe.tap()
+        
+        let existsPredicate = NSPredicate(format: "exists == true")
+
+        // waiting for play starts
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        // is playing
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+
+        // pause audiot
+        buttonPlay.tap()
+        
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[playImage], handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        XCTAssertTrue(buttonPlay.images[playImage].exists)
+        
+        buttonRepeatLast.tap()
+        
+    
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+
+        XCTAssertTrue(buttonPlay.images[playImage].exists)
         XCTAssertTrue(buttonPlay.images[pauseImage].exists)
     }
 
