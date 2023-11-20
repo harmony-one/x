@@ -21,15 +21,14 @@ struct NetworkResponse<T> {
 }
 
 class NetworkManager {
-    
-    static let shared = NetworkManager()
+    static let shared = NetworkManager(session: nil)
     private let session: URLSession
     
-    private init() {
-        self.session = URLSession(configuration: .default)
+    public init(session: URLSession?) {
+        self.session = session ?? URLSession(configuration: .default)
     }
     
-    private func createURL(endpoint: String, parameters: [String: String]?) -> URL? {
+    public func createURL(endpoint: String, parameters: [String: String]?) -> URL? {
         var components = URLComponents(string: APIEnvironment.baseURL + endpoint)
         components?.queryItems = parameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
         return components?.url

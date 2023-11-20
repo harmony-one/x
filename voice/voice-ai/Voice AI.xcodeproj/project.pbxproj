@@ -239,6 +239,9 @@
 		F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
 		F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
 		F67EDE382B07C67400FDEA80 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
+		F67EDE3E2B0C15D100FDEA80 /* ThemeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67EDE3B2B0C15D100FDEA80 /* ThemeManagerTests.swift */; };
+		F67EDE3F2B0C15D100FDEA80 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67EDE3C2B0C15D100FDEA80 /* NetworkManagerTests.swift */; };
+		F67EDE402B0C15D100FDEA80 /* AppleSignInManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67EDE3D2B0C15D100FDEA80 /* AppleSignInManagerTests.swift */; };
 		F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
 		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
@@ -373,6 +376,9 @@
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
 		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
+		F67EDE3B2B0C15D100FDEA80 /* ThemeManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManagerTests.swift; sourceTree = "<group>"; };
+		F67EDE3C2B0C15D100FDEA80 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		F67EDE3D2B0C15D100FDEA80 /* AppleSignInManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleSignInManagerTests.swift; sourceTree = "<group>"; };
 		F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverterTests.swift; sourceTree = "<group>"; };
 		F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVSpeechSynthesizer.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
@@ -749,6 +755,9 @@
 		CD0D134B2ADA73B400031EDD /* xTests */ = {
 			isa = PBXGroup;
 			children = (
+				F67EDE3D2B0C15D100FDEA80 /* AppleSignInManagerTests.swift */,
+				F67EDE3C2B0C15D100FDEA80 /* NetworkManagerTests.swift */,
+				F67EDE3B2B0C15D100FDEA80 /* ThemeManagerTests.swift */,
 				F7731A4C2B06F7520000D3E9 /* OpenAITests.swift */,
 				F7731A4A2B06F7480000D3E9 /* MockPermission.swift */,
 				F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */,
@@ -1199,6 +1208,7 @@
 				A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */,
 				B91F05CC2B05F7340029A32D /* KeychainService.swift in Sources */,
 				B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */,
+				F67EDE3F2B0C15D100FDEA80 /* NetworkManagerTests.swift in Sources */,
 				B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */,
 				6EC2F6352B068507002EFADD /* CreateUser.swift in Sources */,
 				A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */,
@@ -1209,6 +1219,7 @@
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
 				B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
+				F67EDE402B0C15D100FDEA80 /* AppleSignInManagerTests.swift in Sources */,
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
@@ -1239,6 +1250,7 @@
 				B3BC2CAD2B05F44C00A58477 /* AppleSignInManager.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
 				F7731A4B2B06F7480000D3E9 /* MockPermission.swift in Sources */,
+				F67EDE3E2B0C15D100FDEA80 /* ThemeManagerTests.swift in Sources */,
 				CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
 				B91F05CB2B05F72A0029A32D /* CreateUser.swift in Sources */,
