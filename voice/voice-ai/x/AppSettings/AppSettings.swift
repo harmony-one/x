@@ -21,7 +21,7 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "USER_NAME", newValue: userName)
         }
     }
-    
+
     public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"

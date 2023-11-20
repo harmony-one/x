@@ -50,7 +50,7 @@ struct ActionsView: View {
 
     @State private var keyWindow: UIWindow?
 
-    let maxResetClicks = 10
+    let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
     init() {
@@ -256,11 +256,14 @@ struct ActionsView: View {
 //                        }
 //                    }
                 })
+                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    self.checkUserAuthentication()
+                })
             } else {
                 // Press & Hold
-
+                
                 let isPressed: Bool = true
-
+                
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -331,13 +334,15 @@ struct ActionsView: View {
                         self.resetClickCounter = 0
                         let number = Int.random(in: 0 ..< 4)
                         if number == 1 {
-                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                           // ReviewRequester.shared.tryPromptForReview(forced: true)
+                            showInAppPurchasesIfNotLoggedIn()
+
                         }
                     }
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                self.checkUserAuthentication()
+                showPurchaseDiglog()
             })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
@@ -405,6 +410,13 @@ struct ActionsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    func showInAppPurchasesIfNotLoggedIn() {
+        if KeychainService.shared.isAppleIdAvailable() == false || 
+            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            showPurchaseDiglog()
         }
     }
 }
