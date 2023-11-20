@@ -28,6 +28,7 @@ struct ActionsView: View {
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
+    @EnvironmentObject var appSettings: AppSettings
     @State private var skipPressedTimer: Timer? = nil
 
     @State private var buttonFrame: CGRect = .zero
@@ -364,9 +365,10 @@ struct ActionsView: View {
     }
 
     func openSettingsApp() {
-        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        self.appSettings.showSettings(isOpened: true)
+//        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+//            UIApplication.shared.open(url)
+//        }
     }
 
     func requestReview() {
