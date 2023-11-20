@@ -55,13 +55,13 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
         guard let apiKey = AppConfig.shared.getOpenAIKey() else {
-            self.completion(nil, NSError(domain: "No Key", code: -2))
+            completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "OpenAI API key is nil")
             return
         }
 
-        guard let baseUrl = self.baseUrl else {
-            self.completion(nil, NSError(domain: "No base url", code: -4))
+        guard let baseUrl = baseUrl else {
+            completion(nil, NSError(domain: "No base url", code: -4))
             SentrySDK.capture(message: "OpenAI base url is not set")
             return
         }
@@ -76,14 +76,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         } else {
             // rate limited
             Self.rateLimitCounterLock.signal()
-            self.completion(nil, NSError(domain: "Rate limited", code: -3))
+            completion(nil, NSError(domain: "Rate limited", code: -3))
             return
         }
         Self.rateLimitCounterLock.signal()
 
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey)"
+            "Authorization": "Bearer \(apiKey)",
         ]
 
         var model = "gpt-4"
@@ -106,7 +106,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         let semaphore = DispatchSemaphore(value: 0)
         performAsyncTask { result in
             switch result {
-            case .success(let status):
+            case let .success(status):
                 hasPremiumMode = status
                 semaphore.signal()
             case .failure:
@@ -126,8 +126,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             //            "model": "gpt-4-32k",
             "model": model,
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
-            "temperature": self.temperature,
-            "stream": true
+            "temperature": temperature,
+            "stream": true,
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
@@ -136,7 +136,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         guard let url = URL(string: "\(baseUrl)/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
             SentrySDK.capture(message: "Invalid API URL")
-            self.completion(nil, error)
+            completion(nil, error)
             return
         }
 
@@ -149,21 +149,21 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
-            self.completion(nil, error)
+            completion(nil, error)
             return
         }
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
-            self.task = networkService.dataTask(with: request) { _, _, _ in
+            task = networkService.dataTask(with: request) { _, _, _ in
                 // Handle the data task completion
             }
-            self.task!.resume()
+            task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
             // You can use URLSession.shared or other default behavior here.
-            self.task = self.session.dataTask(with: request)
-            self.task!.resume()
+            task = session.dataTask(with: request)
+            task!.resume()
         }
 
 //        // Initiate the data task for the request
@@ -173,12 +173,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    func urlSession(_: URLSession, dataTask _: URLSessionDataTask, didReceive data: Data) {
 //        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
         let str = String(data: data, encoding: .utf8)
         guard let str = str else {
             let error = NSError(domain: "Unable to decode string", code: -5, userInfo: ["body": str ?? ""])
-            self.completion(nil, error)
+            completion(nil, error)
             return
         }
 //        print("[OpenAI] raw response:", str)
@@ -187,7 +187,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
-                self.completion("[DONE]", nil)
+                completion("[DONE]", nil)
                 continue
             }
             let res = JSON(parseJSON: dataBody)
@@ -196,17 +196,17 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             if delta == nil {
                 continue
             }
-            self.completion(delta, nil)
+            completion(delta, nil)
         }
     }
 
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let response = task.response as? HTTPURLResponse {
             let statusCode = response.statusCode
             if statusCode == 401 {
                 AppConfig.shared.renewRelayAuth()
-                self.completion("Sorry, my connection got disrupted. Please try again.", nil)
-                self.completion("[DONE]", nil)
+                completion("Sorry, my connection got disrupted. Please try again.", nil)
+                completion("[DONE]", nil)
                 return
             }
             NSLog("[OpenAI] HTTP Status Code: \(statusCode)")
@@ -216,7 +216,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
 
         if let error = error as NSError? {
-            self.completion(nil, error)
+            completion(nil, error)
             NSLog("[OpenAI]: received error: %@ / %d", error.domain, error.code)
         } else {
             NSLog("[OpenAI] task complete")
@@ -224,7 +224,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     func cancelOpenAICall() {
-        self.task?.cancel()
+        task?.cancel()
     }
 
     static func setConversationContext() -> [Message] {
@@ -235,7 +235,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     func setTemperature(_ t: Double) {
         if t >= 0 && t <= 1 {
-            self.temperature = t
+            temperature = t
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")

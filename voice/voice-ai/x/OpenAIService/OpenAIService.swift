@@ -15,13 +15,13 @@ struct OpenAIService {
         // Define headers for the HTTP request
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(openAI_APIKey)" // Replace openAI_APIKey with your actual API key
+            "Authorization": "Bearer \(openAI_APIKey)", // Replace openAI_APIKey with your actual API key
         ]
 
         let body: [String: Any] = [
             "model": "gpt-4",
             "messages": conversation.map { ["role": $0.role, "content": $0.content] },
-            "temperature": 0.5
+            "temperature": 0.5,
         ]
 
         // Validate the URL
