@@ -22,7 +22,7 @@ struct ButtonData: Identifiable {
     let image: String
     let pressedImage: String?
     let action: ActionType
-    
+
     init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType) {
         self.label = label
         self.pressedLabel = pressedLabel
@@ -37,13 +37,13 @@ class ActionHandler: ObservableObject {
     @Published var isSynthesizing: Bool = false
     @Published var isTapToSpeakActive = false
     private var lastRecordingStateChangeTime: Int64 = 0
-    
+
     var resetThrottler = PassthroughSubject<Void, Never>()
     var resetCancellable: AnyCancellable?
 
     let speechRecognition: SpeechRecognitionProtocol
     var onSynthesizingChanged: ((Bool) -> Void)?
-    
+
     init(speechRecognition: SpeechRecognitionProtocol = SpeechRecognition.shared) {
         self.speechRecognition = speechRecognition
         resetCancellable = resetThrottler
@@ -52,7 +52,7 @@ class ActionHandler: ObservableObject {
                 self.reset()
             }
     }
-    
+
     func reset() {
         isRecording = false
         isSynthesizing = false
@@ -60,7 +60,7 @@ class ActionHandler: ObservableObject {
         speechRecognition.reset()
         speechRecognition.cancelRetry()
     }
-    
+
     func syncTapToSpeakState(_ actionType: ActionType) {
         let isItTapToSpeakAction = actionType == .tapSpeak && actionType == .tapStopSpeak
         let resetTapSpeakState = isTapToSpeakActive && !isItTapToSpeakAction
@@ -70,12 +70,12 @@ class ActionHandler: ObservableObject {
             stopRecording(cancel: true)
         }
     }
-    
+
     func handle(actionType: ActionType) {
         syncTapToSpeakState(actionType)
-        
+
         print("Run action \(actionType)")
-        
+
         switch actionType {
         case .reset:
             resetThrottler.send()
@@ -113,7 +113,7 @@ class ActionHandler: ObservableObject {
 //            speechRecognition.sayMore()
         }
     }
-    
+
     func startRecording() {
         if SpeechRecognition.shared.isTimerDidFired {
             return
@@ -129,7 +129,7 @@ class ActionHandler: ObservableObject {
         print("Started Recording...")
         SpeechRecognition.shared.speak()
     }
-    
+
     func stopRecording(cancel: Bool = false) {
         if isRecording {
             isRecording = false
