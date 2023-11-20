@@ -8,10 +8,9 @@ struct GridButton: View {
     var active: Bool = false
     var isPressed: Bool = false
     var isButtonEnabled: Bool = true
-    
     @State private var timeAtPress = Date()
     @State private var isDragActive = false
-    
+
     var image: String? = nil
     var colorExternalManage: Bool = false
     var action: () -> Void
@@ -19,60 +18,59 @@ struct GridButton: View {
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State private var debounce_timer:Timer?
+    @State private var debounce_timer: Timer?
     @State private var clickCounter = 0
 
-
     func onDragEnded() {
-        self.isDragActive = false
+        isDragActive = false
     }
 
     func onDragStart() {
-        if(!self.isDragActive) {
-            self.isDragActive = true
+        if !isDragActive {
+            isDragActive = true
 
-            self.timeAtPress = Date()
+            timeAtPress = Date()
         }
     }
 
     var body: some View {
         let drag = DragGesture(minimumDistance: 0)
-            .onChanged({ drag in
+            .onChanged { _ in
                 self.onDragStart()
-            })
-            .onEnded({ drag in
-              self.onDragEnded()
-            })
+            }
+            .onEnded { _ in
+                self.onDragEnded()
+            }
 
-           let hackyPinch = MagnificationGesture(minimumScaleDelta: 0.0)
-            .onChanged({ delta in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
+        let hackyPinch = MagnificationGesture(minimumScaleDelta: 0.0)
+            .onChanged { _ in
+                self.onDragEnded()
+            }
+            .onEnded { _ in
+                self.onDragEnded()
+            }
 
-          let hackyRotation = RotationGesture(minimumAngleDelta: Angle(degrees: 0.0))
-            .onChanged({ delta in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
+        let hackyRotation = RotationGesture(minimumAngleDelta: Angle(degrees: 0.0))
+            .onChanged { _ in
+                self.onDragEnded()
+            }
+            .onEnded { _ in
+                self.onDragEnded()
+            }
 
-          let hackyPress = LongPressGesture(minimumDuration: 0.0, maximumDistance: 0.0)
-            .onChanged({ _ in
-              self.onDragEnded()
-            })
-            .onEnded({ delta in
-              self.onDragEnded()
-            })
+        let hackyPress = LongPressGesture(minimumDuration: 0.0, maximumDistance: 0.0)
+            .onChanged { _ in
+                self.onDragEnded()
+            }
+            .onEnded { _ in
+                self.onDragEnded()
+            }
 
         let combinedGesture = drag
-          .simultaneously(with: hackyPinch)
-          .simultaneously(with: hackyRotation)
-          .exclusively(before: hackyPress)
-        
+            .simultaneously(with: hackyPinch)
+            .simultaneously(with: hackyRotation)
+            .exclusively(before: hackyPress)
+
         Button(action: {
             if self.isButtonEnabled {
                 let elapsed = Date().timeIntervalSince(self.timeAtPress)
@@ -107,7 +105,7 @@ struct GridButton: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .animation(Animation.easeOut(duration: 0.5), value: true)
-                    // .animation(nil  )
+                // .animation(nil  )
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .cornerRadius(0)
@@ -121,15 +119,15 @@ struct GridButton: View {
         if image != nil {
             return image ?? button.image
         }
-        
+
         if button.pressedImage == nil {
             return button.image
         }
-        
+
         if active && !isPressed {
             return button.image
         }
-        
+
         if active && isPressed {
             return button.pressedImage ?? button.image
         }
@@ -158,7 +156,7 @@ struct PressEffectButtonStyle: ButtonStyle {
         self.theme = theme
         self.isButtonEnabled = isButtonEnabled
     }
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(background ?? determineBackgroundColor(configuration: configuration))
@@ -169,15 +167,15 @@ struct PressEffectButtonStyle: ButtonStyle {
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
             .opacity(isButtonEnabled ? 1.0 : 1.0) // 0.3
     }
-    
+
     // .speak button should have inverted colors
     // .play button should have the "pressed" color while pause / play is in process
     // this is the only case as of now that uses self.active to determined the colors
     // all other buttons(including .speak) should be triggered through configuration.isPressed
-    
+
     private func determineBackgroundColor(configuration: Configuration) -> Color {
         let isPressed = active || configuration.isPressed
-        
+
         if invertColors {
             return isPressed ? theme.buttonDefaultColor : theme.buttonActiveColor
         } else {
@@ -187,7 +185,7 @@ struct PressEffectButtonStyle: ButtonStyle {
 
     private func determineForegroundColor(configuration: Configuration) -> Color {
         let isPressed = active || configuration.isPressed
-        
+
         if invertColors {
             return isPressed ? theme.buttonActiveColor : theme.fontActiveColor
         } else {

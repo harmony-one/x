@@ -1,4 +1,7 @@
 
+2023-11-20 Mon: Added handling of decline permissions, Long Press "Tap to Speak" should trigger login. Long Press "New Session" should trigger IAP. Currently, 1/10 times the review pops up. Remove review, update to 1/5 times IAP pops up, but only when the user is not logged in or the user is logged in but doesn't have premium. Supported Artem.
+
+---
 2023-11-17 Fri: Implemented where the payment modal is triggered immediately after user sign-in. Resolved all conflicts present in the pull request. Collaborated with Theo to integrate data.ai.
 
 2023-11-16 Thu: Updated server post-purchase to display a new expiration date on the settings page, assisted Artem with In-App Purchases, and helped Frank resolve unit testing build issues.

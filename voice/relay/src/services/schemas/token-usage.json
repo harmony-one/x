@@ -1,0 +1,33 @@
+{
+  "mappings": {
+    "properties": {
+      "vendor": {
+        "type": "keyword"
+      },
+      "time": {
+        "type": "date"
+      },
+      "endpoint": {
+        "type": "keyword"
+      },
+      "requestSize": {
+        "type": "integer"
+      },
+      "responseSize": {
+        "type": "integer"
+      },
+      "attestationHash": {
+        "type": "keyword"
+      },
+      "totalResponseTime": {
+        "type": "long"
+      },
+      "responseTokens": {
+        "type": "integer"
+      },
+      "firstResponseTime": {
+        "type": "long"
+      }
+    }
+  }
+}

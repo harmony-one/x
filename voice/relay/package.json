@@ -10,6 +10,7 @@
     "debug": "DEBUG=true node --loader ts-node/esm ./bin/run.ts"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^8.10.0",
     "@simplewebauthn/server": "^8.3.2",
     "@types/cookie-parser": "^1.4.4",
     "@types/request-ip": "^0.0.41",

@@ -1,3 +1,9 @@
+2023-11-19 Sun: Completed potential [Thanksgiving marketing campaign](https://harmonyone.notion.site/Thanksgiving-Marketing-Campaign-f4e2ff42dd7e4c78946722e4b64244f2?pvs=4).
+
+2023-11-18 Sat: Added and tested [6 scenarios](https://harmonyone.notion.site/AI-Driven-Conversation-d04d358c14ad42d68f35d4799314a838?pvs=4) for AI-driven conversations.
+
+2023-11-17 Fri: We deployed 1.1117.18 public TestFlight build. Completed and tested first draft of [AI-Driven Conversations](https://harmonyone.notion.site/AI-Driven-Conversation-d04d358c14ad42d68f35d4799314a838?pvs=4).
+
 2023-11-16 Thu: Added to OpenAI [review](https://harmonyone.notion.site/OpenAI-Implementation-Review-3a44d85cce504066a8fed5690bbc56ef?pvs=4). Helped Sun with custom instruction issues, documented changes [here](https://harmonyone.notion.site/Custom-Instruction-Framework-a61592bd8937490f9e85d527879d9e20?pvs=4).
 
 2023-11-15 Wed: Completed Harmony quiz [demo](https://harmonyone.notion.site/Harmony-Quiz-Exmaple-75a999245f544662906d09ad2838c820?pvs=4). Started [OpenAI implementation review](https://harmonyone.notion.site/OpenAI-Implementation-Review-3a44d85cce504066a8fed5690bbc56ef?pvs=4).

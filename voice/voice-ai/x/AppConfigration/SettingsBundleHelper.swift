@@ -10,12 +10,12 @@ class SettingsBundleHelper {
      class func checkAndExecuteSettings() {
          var content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
          if content == nil {
-             SettingsBundleHelper.setDefaulValues()
+             SettingsBundleHelper.setDefaultValues()
              content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
          }
      }
 
-     class func setDefaulValues() {
+     class func setDefaultValues() {
          let defaultCustomInstruction = """
              We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
              """
