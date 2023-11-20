@@ -1345,8 +1345,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1383,8 +1383,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
