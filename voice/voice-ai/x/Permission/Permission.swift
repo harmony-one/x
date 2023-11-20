@@ -45,7 +45,7 @@ class Permission {
         let audioSession = AVAudioSession.sharedInstance()
         var permissionCheck = false
         do {
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             try audioSession.setMode(.spokenAudio)
             try audioSession.setAllowHapticsAndSystemSoundsDuringRecording(true)
