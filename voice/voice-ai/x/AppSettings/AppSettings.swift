@@ -6,6 +6,10 @@ class AppSettings: ObservableObject {
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
     
+    func showSettings(isOpened: Bool) {
+        self.isOpened = isOpened
+    }
+    
     @Published var premiumUseExpires: String {
         didSet {
             updateUserDefaultsIfNeeded(forKey: "EXPIRE_AT", newValue: premiumUseExpires)

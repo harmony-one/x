@@ -365,7 +365,7 @@ struct ActionsView: View {
     }
 
     func openSettingsApp() {
-        appSettings.showSettings(isVisible: true)
+        self.appSettings.showSettings(isOpened: true)
 //        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
 //            UIApplication.shared.open(url)
 //        }
