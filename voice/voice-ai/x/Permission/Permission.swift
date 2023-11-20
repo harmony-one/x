@@ -120,7 +120,7 @@ class Permission {
                 }
                 
                 let alert = UIAlertController(title: "\(permissionType) Permission Required",
-                                              message: "This app requires \(permissionType) access to function properly. Please go to settings to enable.",
+                                              message: "Voice AI requires \(permissionType) access to work, go to settings to enable.",
                                               preferredStyle: .alert)
                 
                 let settingsAction = UIAlertAction(title: "Open Settings", style: .default) { _ in
