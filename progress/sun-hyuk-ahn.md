@@ -1,3 +1,5 @@
+2023-11-19 Sun: Refactored OpenAI and Actions module.
+
 2023-11-18 Sat: Reviewed over updates made for the relayer.
 
 2023-11-17 Fri: Resolved relayer issue.
