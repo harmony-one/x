@@ -13,11 +13,6 @@ struct ActionsView: View {
 
     @State var currentTheme: Theme = .init()
 
-    func changeTheme(name: String) {
-        let theme = AppThemeSettings.fromString(name)
-        currentTheme.setTheme(theme: theme)
-    }
-
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -108,7 +103,12 @@ struct ActionsView: View {
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
     }
-
+    
+    func changeTheme(name: String) {
+        let theme = AppThemeSettings.fromString(name)
+        currentTheme.setTheme(theme: theme)
+    }
+    
     var body: some View {
         let isLandscape = verticalSizeClass == .compact ? true : false
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
@@ -157,7 +157,7 @@ struct ActionsView: View {
 
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
                         print("App isShowIAPFromSignIn active")
-                        showPurchaseDialog()
+                        showPurchaseDiglog()
                         AppleSignInManager.shared.isShowIAPFromSignIn = false
                     }
                 case .inactive:
@@ -205,7 +205,7 @@ struct ActionsView: View {
 
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -227,7 +227,7 @@ struct ActionsView: View {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
@@ -381,7 +381,7 @@ struct ActionsView: View {
     func checkUserAuthentication() {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
-            showPurchaseDialog()
+            showPurchaseDiglog()
         } else {
             // User ID not found, prompt user to log in or register
             if let keyWindow = keyWindow {
@@ -390,7 +390,8 @@ struct ActionsView: View {
         }
     }
 
-    func showPurchaseDialog() {
+    func showPurchaseDiglog() {
+        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
