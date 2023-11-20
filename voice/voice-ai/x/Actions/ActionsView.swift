@@ -13,11 +13,6 @@ struct ActionsView: View {
 
     @State var currentTheme: Theme = .init()
 
-    func changeTheme(name: String) {
-        let theme = AppThemeSettings.fromString(name)
-        currentTheme.setTheme(theme: theme)
-    }
-
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
@@ -107,7 +102,12 @@ struct ActionsView: View {
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
     }
-
+    
+    func changeTheme(name: String) {
+        let theme = AppThemeSettings.fromString(name)
+        currentTheme.setTheme(theme: theme)
+    }
+    
     var body: some View {
         let isLandscape = verticalSizeClass == .compact ? true : false
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
@@ -204,7 +204,7 @@ struct ActionsView: View {
 
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -226,7 +226,7 @@ struct ActionsView: View {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
@@ -389,6 +389,7 @@ struct ActionsView: View {
     }
 
     func showPurchaseDiglog() {
+        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
