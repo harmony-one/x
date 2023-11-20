@@ -127,7 +127,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !isAudioSessionSetup else { return }
         
         do {
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             try audioSession.setMode(.spokenAudio)
               
@@ -142,7 +142,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func setupAudioEngine() {
         if !audioEngine.isRunning {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
                 try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
@@ -518,7 +518,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !audioEngine.isRunning else { return }
         audioEngine.mainMixerNode
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
             try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
