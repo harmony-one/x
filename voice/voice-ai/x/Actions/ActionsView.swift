@@ -156,7 +156,7 @@ struct ActionsView: View {
 
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
                         print("App isShowIAPFromSignIn active")
-                        showPurchaseDiglog()
+                        showPurchaseDialog()
                         AppleSignInManager.shared.isShowIAPFromSignIn = false
                     }
                 case .inactive:
@@ -379,7 +379,7 @@ struct ActionsView: View {
     func checkUserAuthentication() {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
-            showPurchaseDiglog()
+            showPurchaseDialog()
         } else {
             // User ID not found, prompt user to log in or register
             if let keyWindow = keyWindow {
@@ -388,7 +388,7 @@ struct ActionsView: View {
         }
     }
 
-    func showPurchaseDiglog() {
+    func showPurchaseDialog() {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {

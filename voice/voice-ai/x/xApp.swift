@@ -7,6 +7,7 @@ import SwiftUI
 struct xApp: App {
     @StateObject var store = Store()
     let appConfig = AppConfig.shared
+    @State private var showingSettings: Bool = true
     init() {
         // Initialize ReviewRequester with values from AppConfig
         ReviewRequester.initialize(
@@ -31,6 +32,12 @@ struct xApp: App {
             SentryTracedView("ActionsView") {
                 ActionsView().environmentObject(store).background(Color(hex: 0x1E1E1E).animation(.none))
             }
+            Button("Show Settings") {
+                        showingSettings = true
+                    }
+                    .sheet(isPresented: $showingSettings) {
+                        SettingsView().environmentObject(store)
+                    }
         }
     }
 }
