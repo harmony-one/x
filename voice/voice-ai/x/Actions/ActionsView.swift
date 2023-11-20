@@ -255,11 +255,14 @@ struct ActionsView: View {
 //                        }
 //                    }
                 })
+                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    self.checkUserAuthentication()
+                })
             } else {
                 // Press & Hold
-
+                
                 let isPressed: Bool = true
-
+                
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -336,7 +339,7 @@ struct ActionsView: View {
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                self.checkUserAuthentication()
+                showPurchaseDiglog()
             })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
