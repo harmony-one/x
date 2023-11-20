@@ -2,8 +2,13 @@ import Foundation
 import Combine
 
 class AppSettings: ObservableObject {
+    @Published var isOpened: Bool = false
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
+    
+    func showSettings(isVisible: Bool) {
+        isOpened = isVisible
+    }
 
     @Published var premiumUseExpires: String {
         didSet {
@@ -21,7 +26,7 @@ class AppSettings: ObservableObject {
         }
     }
 
-    private init() {
+    public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
