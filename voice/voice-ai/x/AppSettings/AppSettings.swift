@@ -6,10 +6,6 @@ class AppSettings: ObservableObject {
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
     
-    func showSettings(isVisible: Bool) {
-        isOpened = isVisible
-    }
-
     @Published var premiumUseExpires: String {
         didSet {
             updateUserDefaultsIfNeeded(forKey: "EXPIRE_AT", newValue: premiumUseExpires)
@@ -25,16 +21,16 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "USER_NAME", newValue: userName)
         }
     }
-
+    
     public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
-
+        
         // Register default values after initialization
         registerDefaultValues()
-
+        
         // Listen to UserDefaults changes
         NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
             .sink { [weak self] _ in
@@ -44,7 +40,7 @@ class AppSettings: ObservableObject {
             }
             .store(in: &cancellables)
     }
-
+    
     private func registerDefaultValues() {
         let defaults = [
             "EXPIRE_AT": "2023-12-14 22:15:00",
@@ -55,16 +51,44 @@ class AppSettings: ObservableObject {
         ]
         UserDefaults.standard.register(defaults: defaults)
     }
-
+    
     private func loadSettings() {
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "2023-12-14 22:15:00"
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam."
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
     }
-
+    
     private func updateUserDefaultsIfNeeded(forKey key: String, newValue: String) {
         if UserDefaults.standard.string(forKey: key) != newValue {
             UserDefaults.standard.set(newValue, forKey: key)
         }
+    }
+    
+    static func getEpoch(dateString: String?) -> TimeInterval? {
+        
+        guard let dateString = dateString else {
+            return nil
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            return date.timeIntervalSince1970
+        }
+        return nil
+    }
+    
+   static func isDateStringInFuture(_ dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC
+
+        guard let date = dateFormatter.date(from: dateString) else {
+            return false // Invalid date format or string
+        }
+
+        return date > Date()
     }
 }
