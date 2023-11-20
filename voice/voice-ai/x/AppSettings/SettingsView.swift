@@ -27,6 +27,12 @@ struct SettingsView: View {
                             self.showShareSheet = true
                             print("Settings: share clicked")
                         }
+                        Button("Open System Settings") {
+                            if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.open(url)
+                            }
+                            print("Settings: system settings clicked")
+                        }
                     }
                     .navigationBarTitle("Settings")
                     .navigationBarItems(trailing: Button("Close") {
