@@ -167,7 +167,7 @@ struct PressEffectButtonStyle: ButtonStyle {
                 configuration.label
                     .foregroundColor(determineForegroundColor(configuration: configuration)))
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
-            .opacity(isButtonEnabled ? 1.0 : 0.3)
+            .opacity(isButtonEnabled ? 1.0 : 1.0) // 0.3
     }
     
     // .speak button should have inverted colors

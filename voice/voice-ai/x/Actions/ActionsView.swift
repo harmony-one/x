@@ -349,7 +349,7 @@ struct ActionsView: View {
                     self.isSurpriseButtonPressed = false
                     Task {
                         await handleOtherActions(actionType: button.action)
-                        await Task.sleep(3 * 1_000_000_000)
+                        await Task.sleep(1 * 500_000_000)
                         self.isSurpriseButtonPressed = true
                     }
                 }
