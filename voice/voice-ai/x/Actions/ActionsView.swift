@@ -6,22 +6,12 @@ import AudioToolbox
 import CoreHaptics
 import UIKit
 
-protocol ActionsViewProtocol {
-    associatedtype AssociatedView: View
-    func baseView(colums: Int, buttons: [ButtonData]) -> AssociatedView
-}
-
-struct ActionsView: View, ActionsViewProtocol {
+struct ActionsView: View {
     let config = AppConfig.shared
     
     @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme: Theme = .init()
-
-    func changeTheme(name: String) {
-        let theme = AppThemeSettings.fromString(name)
-        currentTheme.setTheme(theme: theme)
-    }
 
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
@@ -75,7 +65,7 @@ struct ActionsView: View, ActionsViewProtocol {
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
-        
+
 //        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
@@ -111,6 +101,11 @@ struct ActionsView: View, ActionsViewProtocol {
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func changeTheme(name: String) {
+        let theme = AppThemeSettings.fromString(name)
+        currentTheme.setTheme(theme: theme)
     }
     
     var body: some View {
@@ -209,7 +204,7 @@ struct ActionsView: View, ActionsViewProtocol {
             
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -231,7 +226,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
     
     @ViewBuilder
-    func viewButton(button: ButtonData) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
@@ -398,6 +393,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
     
     func showPurchaseDiglog() {
+        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
