@@ -54,7 +54,7 @@ struct ActionsView: View {
 
     @State private var keyWindow: UIWindow?
 
-    let maxResetClicks = 10
+    let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
     init() {
@@ -333,7 +333,9 @@ struct ActionsView: View {
                         self.resetClickCounter = 0
                         let number = Int.random(in: 0 ..< 4)
                         if number == 1 {
-                            ReviewRequester.shared.tryPromptForReview(forced: true)
+                           // ReviewRequester.shared.tryPromptForReview(forced: true)
+                            showInAppPurchasesIfNotLoggedIn()
+
                         }
                     }
                 }
@@ -405,6 +407,13 @@ struct ActionsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    func showInAppPurchasesIfNotLoggedIn() {
+        if KeychainService.shared.isAppleIdAvailable() == false || 
+            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            showPurchaseDiglog()
         }
     }
 }
