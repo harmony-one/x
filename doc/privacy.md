@@ -6,7 +6,7 @@ This Privacy Policy applies to the processing of personal information by Simple 
 
 If you choose to use our Services, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Services. We will not use or share your information with anyone except as described in this Privacy Policy.
 
-The terms used in this Privacy Policy have the same meanings as in our [Terms of Service](/doc/terms.md).
+The terms used in this Privacy Policy have the same meanings as in our [Terms of Service](https://x.country/terms).
 
 ```
 1. UPDATES TO THIS PRIVACY POLICY
