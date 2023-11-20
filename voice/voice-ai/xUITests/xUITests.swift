@@ -30,29 +30,31 @@ final class xUITests: XCTestCase {
         
         let buttonSurpriseMe = app.buttons["randomfact"]
         let buttonPlay = app.buttons["button-play"]
+        let playImage = "blackredTheme - play"
+        let pauseImage = "blackredTheme - pause play"
         
 
         // start play
         buttonSurpriseMe.tap()
         
-        XCTAssertTrue(buttonPlay.images["blackredTheme - pause play"].exists)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
         
         sleep(3)
 
         // pause
-        app.buttons["button-play"].tap()
+        buttonPlay.tap()
         
         sleep(3)
         
-        XCTAssertTrue(app.buttons["button-play"].images["blackredTheme - play"].exists)
+        XCTAssertTrue(buttonPlay.images[playImage].exists)
         
         sleep(1)
 
         // play
-        app.buttons["button-play"].tap()
+        buttonPlay.tap()
 
-        XCTAssertTrue(app.buttons["button-play"].images["blackredTheme - play"].exists == false)
-        XCTAssertTrue(buttonPlay.images["blackredTheme - pause play"].exists)
+        XCTAssertFalse(buttonPlay.images[playImage].exists)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
     }
 
     func testActionButtons() throws {
