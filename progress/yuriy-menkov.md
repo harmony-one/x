@@ -1,4 +1,4 @@
-2023-11-20 Mon: Working on ui tests and code refactoring.
+2023-11-20 Mon: [Added](https://github.com/harmony-one/x/pull/231/files) unit tests for: ThemeManager, NetworkManager, AppleSignInManager modules. Updated NetworkManager module to improve test coverage; Added mocks for emulation network response.
 
 ---
 
