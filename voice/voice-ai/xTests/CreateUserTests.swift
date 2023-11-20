@@ -3,7 +3,6 @@ import XCTest
 class CreateUserTests: XCTestCase {
 
     func testUserDecoding() throws {
-        // Given
         let json = """
         {
             "id": "123",
@@ -15,11 +14,9 @@ class CreateUserTests: XCTestCase {
             "expirationDate": "2023-11-30T23:59:59Z"
         }
         """.data(using: .utf8)!
-        
-        // When
+
         let user = try JSONDecoder().decode(User.self, from: json)
-        
-        // Then
+
         XCTAssertEqual(user.id, "123")
         XCTAssertEqual(user.deviceId, "device123")
         XCTAssertEqual(user.appleId, "apple123")
@@ -30,18 +27,15 @@ class CreateUserTests: XCTestCase {
     }
 
     func testUserDecodingWithMissingFields() throws {
-        // Given
         let json = """
         {
             "id": "123",
             "deviceId": "device123"
         }
         """.data(using: .utf8)!
-        
-        // When
+   
         let user = try JSONDecoder().decode(User.self, from: json)
-        
-        // Then
+ 
         XCTAssertEqual(user.id, "123")
         XCTAssertEqual(user.deviceId, "device123")
         XCTAssertNil(user.appleId)
@@ -52,15 +46,13 @@ class CreateUserTests: XCTestCase {
     }
     
     func testUserDecodingWithInvalidData() {
-        // Given
         let json = """
         {
             "id": "123",
             "balance": "invalid"
         }
         """.data(using: .utf8)!
-        
-        // When/Then
+
         XCTAssertThrowsError(try JSONDecoder().decode(User.self, from: json)) { error in
             XCTAssertTrue(error is DecodingError)
         }
