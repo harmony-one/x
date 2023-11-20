@@ -1,4 +1,5 @@
 import AVFoundation
+import UIKit
 import Sentry
 import Speech
 
@@ -21,6 +22,7 @@ class Permission {
         self.handleMicrophoneAccessDeniedCalled = true
         print("Microphone access denied")
         SentrySDK.capture(message: "Microphone access denied")
+        self.showAlertForSettings("Microphone")
     }
     
     // Request access to the microphone
@@ -91,6 +93,8 @@ class Permission {
             self.speechRecognitionPermissionStatus = "denied"
             print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
             SentrySDK.capture(message: "User denied speech recognition permission")
+            self.showAlertForSettings("Speech Recognition")
+            
         case .notDetermined:
             self.speechRecognitionPermissionStatus = "not determined"
             print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
@@ -104,4 +108,41 @@ class Permission {
             fatalError("New case for speech recognition authorization is available")
         }
     }
+    
+    private func showAlertForSettings(_ permissionType: String) {
+        print("Attempting to show alert for \(permissionType) permission")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            
+            DispatchQueue.main.async {
+                guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+                    print("No active window scene found")
+                    return
+                }
+                
+                let alert = UIAlertController(title: "\(permissionType) Permission Required",
+                                              message: "This app requires \(permissionType) access to function properly. Please go to settings to enable.",
+                                              preferredStyle: .alert)
+                
+                let settingsAction = UIAlertAction(title: "Open Settings", style: .default) { _ in
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                    UIApplication.shared.open(settingsUrl, options: [:]) { _ in
+                        // Re-check permission after returning from settings
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.setup()
+                        }
+                    }
+                }
+                
+                alert.addAction(settingsAction)
+                
+                if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                    rootViewController.present(alert, animated: true, completion: nil)
+                    print("Alert presented for \(permissionType) permission")
+                } else {
+                    print("No root view controller found to present the alert")
+                }
+            }
+        }
+    }
+    
 }
