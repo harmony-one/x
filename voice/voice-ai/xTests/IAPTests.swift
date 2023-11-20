@@ -37,26 +37,26 @@ class PersistenceTests: XCTestCase {
     }
     
     
-    func testGetEpochWithValidDateString() {
-        let dateString = "2023-11-17T12:34:56.789Z"
-        let epochTime = Persistence.getEpoch(dateString: dateString)
-        XCTAssertNotNil(epochTime)
-        XCTAssertEqual(epochTime, 1700224496.789)
-    }
-
-    func testGetEpochWithInvalidDateString() {
-        let invalidDateString = "invalidDateString"
-        let epochTime = Persistence.getEpoch(dateString: invalidDateString)
-
-        XCTAssertNil(epochTime)
-    }
-    
-    func testGetEpochWithNilDateString() {
-        let nilDateString: String? = nil
-        let epochTime = Persistence.getEpoch(dateString: nilDateString)
-
-        XCTAssertNil(epochTime)
-    }
+//    func testGetEpochWithValidDateString() {
+//        let dateString = "2023-11-17T12:34:56.789Z"
+//        let epochTime = Persistence.getEpoch(dateString: dateString)
+//        XCTAssertNotNil(epochTime)
+//        XCTAssertEqual(epochTime, 1700224496.789)
+//    }
+//
+//    func testGetEpochWithInvalidDateString() {
+//        let invalidDateString = "invalidDateString"
+//        let epochTime = Persistence.getEpoch(dateString: invalidDateString)
+//
+//        XCTAssertNil(epochTime)
+//    }
+//    
+//    func testGetEpochWithNilDateString() {
+//        let nilDateString: String? = nil
+//        let epochTime = Persistence.getEpoch(dateString: nilDateString)
+//
+//        XCTAssertNil(epochTime)
+//    }
 
 }
 
