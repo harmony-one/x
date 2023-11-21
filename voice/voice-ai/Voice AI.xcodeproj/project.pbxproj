@@ -14,6 +14,9 @@
 		22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
+		6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		6E1FEC772B0BE3B6005EB346 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
+		6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */; };
 		6E35CB4D2AFE87E80004D2D2 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -26,7 +29,6 @@
 		6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
-		6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		6E53AF502AF012990022A8F2 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
@@ -44,17 +46,38 @@
 		6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
+		6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		6E56C7B72B06787A00ED2296 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
+		6E56C7B82B06787A00ED2296 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
+		6E56C7B92B06789500ED2296 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		6E56C7BB2B0679BB00ED2296 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		6E56C7BC2B0679E100ED2296 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		6E56C7BD2B067A8F00ED2296 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		6E56C7BE2B067A9600ED2296 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
+		6E56C7BF2B067A9C00ED2296 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
+		6E56C7C02B067AF100ED2296 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		6E6B00EC2B06876600C7EA47 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6B00EB2B06876600C7EA47 /* SwiftyJSON */; };
+		6E6B00EE2B06876600C7EA47 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6B00ED2B06876600C7EA47 /* Sentry */; };
+		6E6B00F02B06876600C7EA47 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6B00EF2B06876600C7EA47 /* SentrySwiftUI */; };
+		6E6B00F22B06877C00C7EA47 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6B00F12B06877C00C7EA47 /* CryptoSwift */; };
+		6E6B00F42B06877C00C7EA47 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6B00F32B06877C00C7EA47 /* KeychainSwift */; };
 		6E6D53242AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E6D53252AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
-		6EF76CEA2AF0FB2200D329E8 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */; };
+		6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		6EC2F6292B067E91002EFADD /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		6EC2F62A2B067EAB002EFADD /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		6EC2F6352B068507002EFADD /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		6EC2F6362B068508002EFADD /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
 		A40CFCE32AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
-		A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A4C2AE73B9D00C874ED /* sunApp.swift */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
@@ -62,11 +85,6 @@
 		A46B5A5E2AE73B9D00C874ED /* sunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A5D2AE73B9D00C874ED /* sunTests.swift */; };
 		A46B5A682AE73B9D00C874ED /* sunUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A672AE73B9D00C874ED /* sunUITests.swift */; };
 		A46B5A6A2AE73B9D00C874ED /* sunUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */; };
-		A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
-		A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
-		A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
-		A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
-		A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
 		A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
@@ -84,24 +102,59 @@
 		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
-		A4E2080C2B02B56C000909C5 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4E2080B2B02B56C000909C5 /* AppConfig.plist */; };
-		A4E2080D2B02B56C000909C5 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4E2080B2B02B56C000909C5 /* AppConfig.plist */; };
-		A4E2080E2B02B56C000909C5 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4E2080B2B02B56C000909C5 /* AppConfig.plist */; };
-		A4E2080F2B02B56C000909C5 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4E2080B2B02B56C000909C5 /* AppConfig.plist */; };
 		B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B36367562AFC69F2000409FC /* RandomFactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
+		B36C89D12B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
+		B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
+		B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
+		B36C89D42B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
+		B37D62552B0B23F0005B8C53 /* UserApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37D62542B0B23F0005B8C53 /* UserApiTests.swift */; };
+		B3BC2CAD2B05F44C00A58477 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B3BC2CB22B05F48700A58477 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B3BC2CB32B05F4AF00A58477 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B3BC2CB42B05F4AF00A58477 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B3BC2CB52B05F4B200A58477 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B3BC2CB62B05F4B200A58477 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */; };
+		B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B91F05B42B04B3960029A32D /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B91F05B32B04B3960029A32D /* KeychainSwift */; };
+		B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B91F05BF2B04BFEB0029A32D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
+		B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B91F05C82B05F6CA0029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
+		B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
+		B91F05CA2B05F7260029A32D /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
+		B91F05CB2B05F72A0029A32D /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C12B04C0D50029A32D /* CreateUser.swift */; };
+		B91F05CC2B05F7340029A32D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
+		B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
+		B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
+		B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
+		B91F05D32B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
+		B91F05D42B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
+		B91F05D52B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
 		B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		B95CC9692B078AD800F3B27A /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
@@ -150,16 +203,56 @@
 		CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
 		CD0D136B2ADB28CE00031EDD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
 		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
+		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
+		E47F1A972B07F94200455617 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
+		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
+		E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
+		E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
+		E47F1A9B2B07F94F00455617 /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
+		E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
-		F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F610490F2AF02DEE0087F745 /* SwiftyJSON */; };
 		F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = F61049112AF02DF50087F745 /* SwiftyJSON */; };
+		F65054FF2B05269200FFEA07 /* xUIDebounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */; };
 		F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43312AFAC166001B72CD /* SentrySwiftUI */; };
 		F67E43342AFAC16C001B72CD /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = F67E43332AFAC16C001B72CD /* Sentry */; };
+		F67EDE202B07BD6700FDEA80 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE1F2B07BD6700FDEA80 /* Sentry */; };
+		F67EDE222B07BD6E00FDEA80 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */; };
+		F67EDE242B07BE1C00FDEA80 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE232B07BE1C00FDEA80 /* KeychainSwift */; };
+		F67EDE252B07BE3500FDEA80 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13682ADA74D100031EDD /* AVFoundation.framework */; };
+		F67EDE262B07BE4A00FDEA80 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
+		F67EDE292B07BE6200FDEA80 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0D13662ADA74C800031EDD /* CoreAudio.framework */; };
+		F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
+		F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
+		F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
+		F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
+		F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
+		F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
+		F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE332B07C34100FDEA80 /* CryptoSwift */; };
+		F67EDE352B07C60200FDEA80 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
+		F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
+		F67EDE382B07C67400FDEA80 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0D136A2ADB28CE00031EDD /* logo.png */; };
 		F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
+		F73ABDBD2B0C25B70073AF33 /* TimerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDBC2B0C25B70073AF33 /* TimerManagerTests.swift */; };
+		F73ABDBF2B0C25BC0073AF33 /* ReviewRequesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDBE2B0C25BB0073AF33 /* ReviewRequesterTests.swift */; };
+		F73ABDC12B0C25BF0073AF33 /* CreateUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC02B0C25BF0073AF33 /* CreateUserTests.swift */; };
+		F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */; };
+		F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */; };
+		F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */; };
+		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
+		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
+		F7731A492B06F7420000D3E9 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */; };
+		F7731A4B2B06F7480000D3E9 /* MockPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A4A2B06F7480000D3E9 /* MockPermission.swift */; };
+		F7731A4D2B06F7520000D3E9 /* OpenAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A4C2B06F7520000D3E9 /* OpenAITests.swift */; };
 		F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F52AF8172800BC191C /* SpeechRecognitionTests.swift */; };
 		F7F115062AF8173300BC191C /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F114F72AF8172800BC191C /* StringTests.swift */; };
@@ -172,13 +265,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6E53AF402AF010540022A8F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A46B5A492AE73B9D00C874ED;
-			remoteInfo = sun;
-		};
 		A46B5A5A2AE73B9D00C874ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CD0D132C2ADA73B300031EDD /* Project object */;
@@ -222,7 +308,7 @@
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A46B5A4A2AE73B9D00C874ED /* sun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46B5A4A2AE73B9D00C874ED /* Voice 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
 		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A46B5A532AE73B9D00C874ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -231,18 +317,29 @@
 		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		A4E2080B2B02B56C000909C5 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
+		B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests.swift; sourceTree = "<group>"; };
 		B31CDCE62AFC644D00AB39EE /* RandomFactTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFactTests.swift; sourceTree = "<group>"; };
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
+		B37D62542B0B23F0005B8C53 /* UserApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiTests.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
+		B91F05AF2B049F720029A32D /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
+		B91F05B52B04B3E00029A32D /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		B91F05B92B04BA250029A32D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B91F05BD2B04BFEB0029A32D /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		B91F05C12B04C0D50029A32D /* CreateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUser.swift; sourceTree = "<group>"; };
+		B91F05C42B04C99B0029A32D /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
+		B91F05CE2B0613B10029A32D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		B91F05D22B0645200029A32D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		B930AADC2ADE2DE5009F9F8C /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B930AADD2ADE2DE5009F9F8C /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
+		B95CC9682B078AD800F3B27A /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
@@ -279,9 +376,23 @@
 		CD0D13662ADA74C800031EDD /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
+		CDC1370F2B057DB6003386E9 /* RelayAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayAuth.swift; sourceTree = "<group>"; };
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
+		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
+		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
 		F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverterTests.swift; sourceTree = "<group>"; };
 		F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVSpeechSynthesizer.swift; sourceTree = "<group>"; };
+		F73ABDBC2B0C25B70073AF33 /* TimerManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManagerTests.swift; sourceTree = "<group>"; };
+		F73ABDBE2B0C25BB0073AF33 /* ReviewRequesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRequesterTests.swift; sourceTree = "<group>"; };
+		F73ABDC02B0C25BF0073AF33 /* CreateUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUserTests.swift; sourceTree = "<group>"; };
+		F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelperTests.swift; sourceTree = "<group>"; };
+		F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManagerTests.swift; sourceTree = "<group>"; };
+		F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
+		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
+		F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
+		F7731A4A2B06F7480000D3E9 /* MockPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPermission.swift; sourceTree = "<group>"; };
+		F7731A4C2B06F7520000D3E9 /* OpenAITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAITests.swift; sourceTree = "<group>"; };
 		F7F114F52AF8172800BC191C /* SpeechRecognitionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionTests.swift; sourceTree = "<group>"; };
 		F7F114F62AF8172800BC191C /* PermissionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionTests.swift; sourceTree = "<group>"; };
 		F7F114F72AF8172800BC191C /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
@@ -298,7 +409,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F67EDE292B07BE6200FDEA80 /* CoreAudio.framework in Frameworks */,
+				F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */,
+				F67EDE262B07BE4A00FDEA80 /* StoreKit.framework in Frameworks */,
+				F67EDE252B07BE3500FDEA80 /* AVFoundation.framework in Frameworks */,
 				F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */,
+				F67EDE222B07BD6E00FDEA80 /* SentrySwiftUI in Frameworks */,
+				F67EDE242B07BE1C00FDEA80 /* KeychainSwift in Frameworks */,
+				F67EDE202B07BD6700FDEA80 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +438,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B91F05B42B04B3960029A32D /* KeychainSwift in Frameworks */,
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
 				CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */,
 				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
@@ -342,9 +461,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EF76CEA2AF0FB2200D329E8 /* SwiftyJSON in Frameworks */,
+				6E6B00EC2B06876600C7EA47 /* SwiftyJSON in Frameworks */,
+				6E6B00F02B06876600C7EA47 /* SentrySwiftUI in Frameworks */,
 				6E53AF5A2AF012D00022A8F2 /* CoreAudio.framework in Frameworks */,
+				6E1FEC772B0BE3B6005EB346 /* StoreKit.framework in Frameworks */,
+				6E6B00F42B06877C00C7EA47 /* KeychainSwift in Frameworks */,
 				6E53AF592AF012CD0022A8F2 /* AVFoundation.framework in Frameworks */,
+				6E6B00EE2B06876600C7EA47 /* Sentry in Frameworks */,
+				6E6B00F22B06877C00C7EA47 /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +526,50 @@
 				B346DF772AF562020023FC87 /* ThemeManager.swift */,
 			);
 			path = ThemeManager;
+			sourceTree = "<group>";
+		};
+		B91F05AE2B049F5C0029A32D /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05AF2B049F720029A32D /* AppleSignInManager.swift */,
+				B91F05B52B04B3E00029A32D /* KeychainService.swift */,
+			);
+			path = Apple;
+			sourceTree = "<group>";
+		};
+		B91F05B82B04BA060029A32D /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05B92B04BA250029A32D /* NetworkManager.swift */,
+				B91F05C42B04C99B0029A32D /* APIEnvironment.swift */,
+				B91F05BC2B04BFBC0029A32D /* User */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		B91F05BC2B04BFBC0029A32D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05C02B04C0020029A32D /* Model */,
+				B91F05BD2B04BFEB0029A32D /* UserAPI.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B91F05C02B04C0020029A32D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05C12B04C0D50029A32D /* CreateUser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B91F05CD2B0613900029A32D /* AppSettings */ = {
+			isa = PBXGroup;
+			children = (
+				B91F05CE2B0613B10029A32D /* AppSettings.swift */,
+			);
+			path = AppSettings;
 			sourceTree = "<group>";
 		};
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
@@ -509,8 +677,10 @@
 		B9AD506E2ADFFD4E006F18A1 /* AppConfigration */ = {
 			isa = PBXGroup;
 			children = (
+				CDC1370F2B057DB6003386E9 /* RelayAuth.swift */,
 				B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */,
 				B9CE36E92AFD0365009999CF /* TimerManager.swift */,
+				B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */,
 			);
 			path = AppConfigration;
 			sourceTree = "<group>";
@@ -543,7 +713,7 @@
 				CD0D13342ADA73B300031EDD /* Voice AI.app */,
 				CD0D13482ADA73B400031EDD /* Voice AITests.xctest */,
 				CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */,
-				A46B5A4A2AE73B9D00C874ED /* sun.app */,
+				A46B5A4A2AE73B9D00C874ED /* Voice 2.app */,
 				A46B5A592AE73B9D00C874ED /* sunTests.xctest */,
 				A46B5A632AE73B9D00C874ED /* sunUITests.xctest */,
 			);
@@ -553,6 +723,9 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				B91F05CD2B0613900029A32D /* AppSettings */,
+				B91F05B82B04BA060029A32D /* NetworkManager */,
+				B91F05AE2B049F5C0029A32D /* Apple */,
 				B9B3319F2AFB801D00F6A9C9 /* ReviewRequest */,
 				B346DF722AF55EEB0023FC87 /* ThemeManager */,
 				22CC4D722AF3AB350072EC39 /* IAP */,
@@ -573,7 +746,8 @@
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				22CC4D752AF3AC300072EC39 /* Products.storekit */,
 				22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */,
-				A4E2080B2B02B56C000909C5 /* AppConfig.plist */,
+				B95CC9682B078AD800F3B27A /* AppConfig.plist */,
+				B91F05D22B0645200029A32D /* Settings.bundle */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -589,6 +763,15 @@
 		CD0D134B2ADA73B400031EDD /* xTests */ = {
 			isa = PBXGroup;
 			children = (
+				F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */,
+				F73ABDC02B0C25BF0073AF33 /* CreateUserTests.swift */,
+				F73ABDBE2B0C25BB0073AF33 /* ReviewRequesterTests.swift */,
+				F73ABDBC2B0C25B70073AF33 /* TimerManagerTests.swift */,
+				F7731A4C2B06F7520000D3E9 /* OpenAITests.swift */,
+				F7731A4A2B06F7480000D3E9 /* MockPermission.swift */,
+				F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */,
+				F7731A462B06F73E0000D3E9 /* IAPTests.swift */,
+				F7731A442B06F73A0000D3E9 /* APITests.swift */,
 				F7F114F92AF8172800BC191C /* AppConfigTests.swift */,
 				F7F114F82AF8172800BC191C /* AudioPlayerTests.swift */,
 				F7F114FC2AF8172800BC191C /* DashboardViewTests.swift */,
@@ -606,6 +789,10 @@
 				6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */,
 				F723CC1E2AFECE2000B2A23A /* TextToSpeechConverterTests.swift */,
 				F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */,
+				B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */,
+				B37D62542B0B23F0005B8C53 /* UserApiTests.swift */,
+				F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */,
+				F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -615,6 +802,7 @@
 			children = (
 				CD0D13562ADA73B400031EDD /* xUITests.swift */,
 				CD0D13582ADA73B400031EDD /* xUITestsLaunchTests.swift */,
+				F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */,
 			);
 			path = xUITests;
 			sourceTree = "<group>";
@@ -622,6 +810,7 @@
 		CD0D13652ADA74C800031EDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */,
 				22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */,
 				B9B331A22AFB849000F6A9C9 /* StoreKit.framework */,
 				CD0D13682ADA74D100031EDD /* AVFoundation.framework */,
@@ -648,9 +837,13 @@
 			name = sun;
 			packageProductDependencies = (
 				F61049112AF02DF50087F745 /* SwiftyJSON */,
+				F67EDE1F2B07BD6700FDEA80 /* Sentry */,
+				F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */,
+				F67EDE232B07BE1C00FDEA80 /* KeychainSwift */,
+				F67EDE332B07C34100FDEA80 /* CryptoSwift */,
 			);
 			productName = sun;
-			productReference = A46B5A4A2AE73B9D00C874ED /* sun.app */;
+			productReference = A46B5A4A2AE73B9D00C874ED /* Voice 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A46B5A582AE73B9D00C874ED /* sunTests */ = {
@@ -708,6 +901,7 @@
 				F67E43312AFAC166001B72CD /* SentrySwiftUI */,
 				F67E43332AFAC16C001B72CD /* Sentry */,
 				CD8A1A642B0084C400A5B2CC /* CryptoSwift */,
+				B91F05B32B04B3960029A32D /* KeychainSwift */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -743,11 +937,14 @@
 			);
 			dependencies = (
 				CD0D13542ADA73B400031EDD /* PBXTargetDependency */,
-				6E53AF412AF010540022A8F2 /* PBXTargetDependency */,
 			);
 			name = "Voice AIUITests";
 			packageProductDependencies = (
-				6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */,
+				6E6B00EB2B06876600C7EA47 /* SwiftyJSON */,
+				6E6B00ED2B06876600C7EA47 /* Sentry */,
+				6E6B00EF2B06876600C7EA47 /* SentrySwiftUI */,
+				6E6B00F12B06877C00C7EA47 /* CryptoSwift */,
+				6E6B00F32B06877C00C7EA47 /* KeychainSwift */,
 			);
 			productName = xUITests;
 			productReference = CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */;
@@ -800,6 +997,7 @@
 				F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -820,15 +1018,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4E2080F2B02B56C000909C5 /* AppConfig.plist in Resources */,
+				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
+				E47F1A972B07F94200455617 /* AppConfig.plist in Resources */,
+				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
+				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
+				E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */,
+				F67EDE362B07C61300FDEA80 /* SyncedProducts.storekit in Resources */,
+				E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */,
+				E47F1A9B2B07F94F00455617 /* Dotrice-Condensed.otf in Resources */,
+				F67EDE352B07C60200FDEA80 /* (null) in Resources */,
+				E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
+				B91F05D52B0645200029A32D /* Settings.bundle in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
-				A46B5A782AE73CD300C874ED /* Dotrice-Bold.otf in Resources */,
+				E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */,
 				A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */,
-				A46B5A772AE73CD300C874ED /* Dotrice-Regular.otf in Resources */,
-				A46B5A762AE73CD300C874ED /* Dotrice-Bold-Expanded.otf in Resources */,
-				A46B5A752AE73CD300C874ED /* Dotrice-Condensed.otf in Resources */,
-				A46B5A792AE73CD300C874ED /* Dotrice-Expanded.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,8 +1054,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4E2080C2B02B56C000909C5 /* AppConfig.plist in Resources */,
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
+				B91F05D32B0645200029A32D /* Settings.bundle in Resources */,
+				B95CC9692B078AD800F3B27A /* AppConfig.plist in Resources */,
 				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
@@ -869,7 +1074,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4E2080D2B02B56C000909C5 /* AppConfig.plist in Resources */,
+				B91F05D42B0645200029A32D /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,7 +1082,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4E2080E2B02B56C000909C5 /* AppConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,19 +1114,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A466B5AA2AE864210006E3F8 /* sunApp.swift in Sources */,
-				F610490D2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
+				F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */,
+				F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */,
+				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
+				F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */,
+				F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */,
+				F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */,
+				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
+				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
+				F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
+				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
 				A46B5A7F2AE73CEB00C874ED /* Color.swift in Sources */,
+				B91F05BF2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
 				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
 				B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */,
 				A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */,
 				A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */,
+				B36C89D42B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */,
 				A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */,
 				B9CE36ED2AFD0365009999CF /* TimerManager.swift in Sources */,
@@ -931,8 +1145,13 @@
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
+				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
+				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */,
 				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
+				B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */,
+				B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */,
 				A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -966,26 +1185,35 @@
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
+				B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
+				B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
 				B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */,
+				B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */,
 				B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */,
 				B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */,
 				A40CFCE32AF98BB700E02128 /* RandomFact.swift in Sources */,
 				22CC4D7A2AF3AD900072EC39 /* Persistence.swift in Sources */,
 				B9AD50572ADFE91C006F18A1 /* Permission.swift in Sources */,
+				B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */,
 				6E6D53242AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
+				CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				B9CE36EA2AFD0365009999CF /* TimerManager.swift in Sources */,
+				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
+				B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */,
+				B36C89D12B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				B9C4A8282AEE867A00327529 /* ActionHandler.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,
 			);
@@ -997,33 +1225,53 @@
 			files = (
 				B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */,
 				B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */,
+				6EC2F6292B067E91002EFADD /* KeychainService.swift in Sources */,
 				6E6D53252AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
-				6E53AF4D2AF012760022A8F2 /* ActionsView.swift in Sources */,
+				F73ABDBF2B0C25BC0073AF33 /* ReviewRequesterTests.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
+				B91F05CA2B05F7260029A32D /* APIEnvironment.swift in Sources */,
 				6E35CB4D2AFE87E80004D2D2 /* OpenAIUtils.swift in Sources */,
 				F7F1150B2AF8173300BC191C /* AppConfigTests.swift in Sources */,
 				F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */,
 				B9CE36EB2AFD0365009999CF /* TimerManager.swift in Sources */,
 				6E53AF532AF012A40022A8F2 /* String.swift in Sources */,
 				B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */,
+				F7731A492B06F7420000D3E9 /* KeychainServiceTests.swift in Sources */,
+				F7731A4D2B06F7520000D3E9 /* OpenAITests.swift in Sources */,
 				CD0D134D2ADA73B400031EDD /* ActionHandlerTests.swift in Sources */,
 				A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */,
+				B91F05CC2B05F7340029A32D /* KeychainService.swift in Sources */,
 				B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */,
+				B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */,
+				6EC2F6352B068507002EFADD /* CreateUser.swift in Sources */,
 				A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */,
 				6E53AF522AF012A40022A8F2 /* Font.swift in Sources */,
 				F7F1150C2AF8173300BC191C /* DashboardViewTests.swift in Sources */,
+				6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */,
 				F7F115062AF8173300BC191C /* StringTests.swift in Sources */,
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
+				B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
+				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
+				F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
+				F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */,
+				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
+				F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */,
 				F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B36367562AFC69F2000409FC /* RandomFactTests.swift in Sources */,
 				B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */,
+				F73ABDC12B0C25BF0073AF33 /* CreateUserTests.swift in Sources */,
+				B3BC2CB32B05F4AF00A58477 /* NetworkManager.swift in Sources */,
 				B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */,
 				B9C4A8342AEE96E300327529 /* AppConfig.swift in Sources */,
+				B91F05C82B05F6CA0029A32D /* AppleSignInManager.swift in Sources */,
+				6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */,
 				6E53AF542AF012A40022A8F2 /* Text.swift in Sources */,
 				B9C4A8322AEE96B600327529 /* Usage.swift in Sources */,
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
+				B37D62552B0B23F0005B8C53 /* UserApiTests.swift in Sources */,
+				6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
@@ -1033,13 +1281,22 @@
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
 				B9C4A8302AEE96B100327529 /* Message.swift in Sources */,
 				6E35CB4C2AFE86130004D2D2 /* OpenAIUtilsTests.swift in Sources */,
+				F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */,
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
+				B3BC2CAD2B05F44C00A58477 /* AppleSignInManager.swift in Sources */,
+				F73ABDBD2B0C25B70073AF33 /* TimerManagerTests.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
+				F7731A4B2B06F7480000D3E9 /* MockPermission.swift in Sources */,
+				CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
+				B91F05CB2B05F72A0029A32D /* CreateUser.swift in Sources */,
 				F7F115072AF8173300BC191C /* PermissionTests.swift in Sources */,
 				6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */,
+				6EC2F62A2B067EAB002EFADD /* AppleSignInManager.swift in Sources */,
 				B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */,
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
+				B3BC2CB52B05F4B200A58477 /* APIEnvironment.swift in Sources */,
+				F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1049,40 +1306,56 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
+				B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */,
 				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
+				B3BC2CB22B05F48700A58477 /* UserAPI.swift in Sources */,
+				B3BC2CB62B05F4B200A58477 /* APIEnvironment.swift in Sources */,
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
+				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
 				6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */,
 				6E53AF552AF012A50022A8F2 /* Color.swift in Sources */,
+				6EC2F6362B068508002EFADD /* CreateUser.swift in Sources */,
 				6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */,
+				B3BC2CB42B05F4AF00A58477 /* NetworkManager.swift in Sources */,
 				6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */,
+				F65054FF2B05269200FFEA07 /* xUIDebounceTests.swift in Sources */,
+				6E56C7C02B067AF100ED2296 /* AppleSignInManager.swift in Sources */,
 				6E53AF472AF0121E0022A8F2 /* AudioPlayer.swift in Sources */,
+				6E56C7BF2B067A9C00ED2296 /* ReviewRequester.swift in Sources */,
 				CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */,
+				6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */,
+				6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */,
+				B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
 				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
+				6E56C7BD2B067A8F00ED2296 /* KeychainService.swift in Sources */,
 				B9CE36EC2AFD0365009999CF /* TimerManager.swift in Sources */,
+				6E56C7BB2B0679BB00ED2296 /* NetworkManager.swift in Sources */,
 				6E53AF482AF012470022A8F2 /* ActionsView.swift in Sources */,
 				6E53AF582AF012A50022A8F2 /* Text.swift in Sources */,
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
+				6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */,
 				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
+				6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */,
 				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,
+				B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */,
 				6E53AF492AF0125D0022A8F2 /* TextToSpeechConverter.swift in Sources */,
+				6E56C7BC2B0679E100ED2296 /* APIEnvironment.swift in Sources */,
+				6E56C7B92B06789500ED2296 /* Theme.swift in Sources */,
+				6E56C7BE2B067A9600ED2296 /* OpenAIUtils.swift in Sources */,
 				6E53AF442AF011E50022A8F2 /* SpeechRecognition.swift in Sources */,
+				6E56C7B82B06787A00ED2296 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6E53AF412AF010540022A8F2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A46B5A492AE73B9D00C874ED /* sun */;
-			targetProxy = 6E53AF402AF010540022A8F2 /* PBXContainerItemProxy */;
-		};
 		A46B5A5B2AE73B9D00C874ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A46B5A492AE73B9D00C874ED /* sun */;
@@ -1113,16 +1386,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sun;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1133,9 +1406,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.1118.9;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
+				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1152,15 +1425,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = sun/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Sun;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app.";
+				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1171,9 +1444,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.x.sun;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.1118.9;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
+				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1391,7 +1664,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1401,8 +1674,8 @@
 				INFOPLIST_FILE = x/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert the audio to speech and is sent to a language model to generate a response.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1417,7 +1690,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.9.17;
+				MARKETING_VERSION = 1.1120.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1437,7 +1710,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1447,8 +1720,8 @@
 				INFOPLIST_FILE = x/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required to record audio for speech";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert speech into text for search and other features in the app";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert the audio to speech and is sent to a language model to generate a response.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1463,7 +1736,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.9.17;
+				MARKETING_VERSION = 1.1120.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1510,7 +1783,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.country.xTests;
+				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1529,7 +1802,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.country.xUITests;
@@ -1551,7 +1824,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.country.xUITests;
@@ -1634,6 +1907,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
 		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
@@ -1661,10 +1942,35 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6EF76CE92AF0FB2200D329E8 /* SwiftyJSON */ = {
+		6E6B00EB2B06876600C7EA47 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F610490E2AF02DE20087F745 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
 			productName = SwiftyJSON;
+		};
+		6E6B00ED2B06876600C7EA47 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		6E6B00EF2B06876600C7EA47 /* SentrySwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySwiftUI;
+		};
+		6E6B00F12B06877C00C7EA47 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+		6E6B00F32B06877C00C7EA47 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+		B91F05B32B04B3960029A32D /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1690,6 +1996,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		F67EDE1F2B07BD6700FDEA80 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySwiftUI;
+		};
+		F67EDE232B07BE1C00FDEA80 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+		F67EDE332B07C34100FDEA80 /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

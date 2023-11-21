@@ -12,7 +12,7 @@ protocol NetworkService {
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
-    private let apiKey = AppConfig.shared.getOpenAIKey()
+    private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
     private let networkService: NetworkService?
 
@@ -22,7 +22,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     static var queryTimes: [Int64] = []
     static var rateLimitCounterLock = DispatchSemaphore(value: 1)
     static let QueryLimitPerMinute: Int = 10
-    static let MaxGPT4DurationMinutes: Int = 10
+    static let MaxGPT4DurationMinutes: Int = 45
 
     // URLSession should be lazy to ensure delegate can be set after super.init
     private lazy var session: URLSession = {
@@ -54,6 +54,18 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     // Function to send input text to OpenAI for processing
     func query(conversation: [Message]) {
+        guard let apiKey = AppConfig.shared.getOpenAIKey() else {
+            completion(nil, NSError(domain: "No Key", code: -2))
+            SentrySDK.capture(message: "OpenAI API key is nil")
+            return
+        }
+
+        guard let baseUrl = baseUrl else {
+            completion(nil, NSError(domain: "No base url", code: -4))
+            SentrySDK.capture(message: "OpenAI base url is not set")
+            return
+        }
+
         Self.rateLimitCounterLock.wait()
         let now = Int64(NSDate().timeIntervalSince1970 * 1000)
         if Self.queryTimes.count < Self.QueryLimitPerMinute {
@@ -64,31 +76,49 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         } else {
             // rate limited
             Self.rateLimitCounterLock.signal()
-            self.completion(nil, NSError(domain: "Rate limited", code: -3))
+            completion(nil, NSError(domain: "Rate limited", code: -3))
             return
         }
         Self.rateLimitCounterLock.signal()
 
-        guard self.apiKey != nil else {
-            self.completion(nil, NSError(domain: "No Key", code: -2))
-            SentrySDK.capture(message: "Open AI Api key is null")
-            return
-        }
-
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey!)"
+            "Authorization": "Bearer \(apiKey)",
         ]
 
         var model = "gpt-4"
 
         let miutesElasped = Calendar.current.dateComponents([.minute], from: Self.lastStartTimeOfTheDay!, to: Date()).minute!
-        
+
         let boosterPurchaseTime = Persistence.getBoosterPurchaseTime()
-        
+
         let isBoosterInEffect = Int64(Date().timeIntervalSince1970) - Int64(boosterPurchaseTime.timeIntervalSince1970) < 3600 * 24 * 3
 
-        if !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
+        func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
+            Task {
+                let status = await AppConfig.shared.checkWhiteList()
+                completion(.success(status))
+            }
+        }
+
+        var hasPremiumMode = false
+
+        let semaphore = DispatchSemaphore(value: 0)
+        performAsyncTask { result in
+            switch result {
+            case let .success(status):
+                hasPremiumMode = status
+                semaphore.signal()
+            case .failure:
+                hasPremiumMode = false
+                semaphore.signal()
+            }
+        }
+
+        semaphore.wait()
+
+        // TODO: delete "!SettingsBundleHelper.hasPremiumMode" after
+        if !hasPremiumMode && !SettingsBundleHelper.hasPremiumMode() && !isBoosterInEffect && miutesElasped > Self.MaxGPT4DurationMinutes {
             model = "gpt-3.5-turbo"
         }
 
@@ -96,17 +126,17 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             //            "model": "gpt-4-32k",
             "model": model,
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
-            "temperature": self.temperature,
-            "stream": true
+            "temperature": temperature,
+            "stream": true,
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
-        
+
         print("[OpenAI] sent \(body)")
         // Validate the URL
-        guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
+        guard let url = URL(string: "\(baseUrl)/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
             SentrySDK.capture(message: "Invalid API URL")
-            self.completion(nil, error)
+            completion(nil, error)
             return
         }
 
@@ -119,21 +149,21 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
-            self.completion(nil, error)
+            completion(nil, error)
             return
         }
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
-            self.task = networkService.dataTask(with: request) { _, _, _ in
+            task = networkService.dataTask(with: request) { _, _, _ in
                 // Handle the data task completion
             }
-            self.task!.resume()
+            task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
             // You can use URLSession.shared or other default behavior here.
-            self.task = self.session.dataTask(with: request)
-            self.task!.resume()
+            task = session.dataTask(with: request)
+            task!.resume()
         }
 
 //        // Initiate the data task for the request
@@ -143,61 +173,69 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    func urlSession(_: URLSession, dataTask _: URLSessionDataTask, didReceive data: Data) {
 //        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
         let str = String(data: data, encoding: .utf8)
         guard let str = str else {
-            let error = NSError(domain: "Unable to decode string", code: -2, userInfo: ["body": str ?? ""])
-            self.completion(nil, error)
+            let error = NSError(domain: "Unable to decode string", code: -5, userInfo: ["body": str ?? ""])
+            completion(nil, error)
             return
         }
-        print("OpenAI: raw response: ", str)
+//        print("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
-                self.completion("[DONE]", nil)
+                completion("[DONE]", nil)
                 continue
             }
             let res = JSON(parseJSON: dataBody)
 
             let delta = res["choices"][0]["delta"]["content"].string
-
-            self.completion(delta, nil)
+            if delta == nil {
+                continue
+            }
+            completion(delta, nil)
         }
     }
 
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let response = task.response as? HTTPURLResponse {
             let statusCode = response.statusCode
-            NSLog("OpenAI: HTTP Status Code: \(statusCode)")
+            if statusCode == 401 {
+                AppConfig.shared.renewRelayAuth()
+                completion("Sorry, my connection got disrupted. Please try again.", nil)
+                completion("[DONE]", nil)
+                return
+            }
+            NSLog("[OpenAI] HTTP Status Code: \(statusCode)")
             if statusCode != 200 {
-                NSLog("OpenAI: error")
+                NSLog("[OpenAI] error - status code: \(statusCode)")
             }
         }
 
         if let error = error as NSError? {
-            self.completion(nil, error)
-            NSLog("OpenAI: received error: %@ / %d", error.domain, error.code)
+            completion(nil, error)
+            NSLog("[OpenAI]: received error: %@ / %d", error.domain, error.code)
         } else {
-            NSLog("OpenAI: task complete")
+            NSLog("[OpenAI] task complete")
         }
     }
 
     func cancelOpenAICall() {
-        self.task?.cancel()
+        task?.cancel()
     }
 
     static func setConversationContext() -> [Message] {
-        let contextMessage: [Message] =
-                [Message(role: "system", content: "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")]
+        let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        let contextMessage: [Message] = [Message(role: "system", content: content)]
         return contextMessage
     }
 
     func setTemperature(_ t: Double) {
         if t >= 0 && t <= 1 {
-            self.temperature = t
+            temperature = t
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")

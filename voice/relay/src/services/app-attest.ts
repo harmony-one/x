@@ -85,7 +85,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   credCert.readCertHex(credCertBuffer.toString('hex'))
   // credCert.
 
-  console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
+  // console.log(`CERT:\n${credCertBuffer.toString('hex')}\n\n`)
 
   // step 1: Verify that the x5c array contains the intermediate and leaf certificates for App Attest, starting from the credential certificate in the first data buffer in the array (credcert). Verify the validity of the certificates using Apple’s App Attest root certificate.
 
@@ -118,9 +118,11 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
   }
 
   // See usage at https://kjur.github.io/jsrsasign/api/symbols/ASN1HEX.html and jsrsasign source code in x509-1.1.js and asn1hex-1.1.js on how they used ASN1HEX.getV internally
+  // const vidx = jsrsasign.ASN1HEX.getVidx(credCert.hex, extInfo.vidx)
+  // const expectedNonceStr = jsrsasign.ASN1HEX.getV(credCert.hex, vidx)
   const expectedNonceStr = jsrsasign.ASN1HEX.getV(credCert.hex, extInfo.vidx)
 
-  if (expectedNonceStr !== nonceStr) {
+  if (expectedNonceStr.slice(8) !== nonceStr) {
     console.error(`nonce mismatch: expectedNonce=${expectedNonceStr}; nonce=${nonceStr}`)
     return false
   }
@@ -160,7 +162,7 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
     return false
   }
   const aaguidStr = Buffer.from(parsedAuthData.aaguid).toString()
-  if (config.debug) {
+  if (config.allowDevelopAttestation) {
     if (aaguidStr !== 'appattestdevelop' && aaguidStr !== 'appattest\x00\x00\x00\x00\x00\x00\x00') {
       console.error(`bad aaguid: ${aaguidStr}; expected to be appattestdevelop or appattest\x00\x00\x00\x00\x00\x00\x00`)
       return false

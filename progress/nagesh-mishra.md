@@ -1,4 +1,16 @@
 
+2023-11-20 Mon: Added handling of decline permissions, Long Press "Tap to Speak" should trigger login. Long Press "New Session" should trigger In App Purchase. Currently, 1/10 times the review pops up. Remove review, update to 1/5 times In App Purchase pops up, but only when the user is not logged in or the user is logged in but doesn't have premium.
+
+---
+2023-11-17 Fri: Implemented where the payment modal is triggered immediately after user sign-in. Resolved all conflicts present in the pull request. Collaborated with Theo to integrate data.ai.
+
+2023-11-16 Thu: Updated server post-purchase to display a new expiration date on the settings page, assisted Artem with In-App Purchases, and helped Frank resolve unit testing build issues.
+
+2023-11-15 Wed: Implemented login prompt for long-press on "New Session", secure keychain storage, server API network manager, and in-app purchase offer for logged-in users.
+Added user creation with Apple login for 'Artem' on the server; facing issues with delegate not being called when users cancel login, preventing in-app purchase modal display.
+
+2023-11-14 Tue: SwiftLint was integrated into the project. Custom rules were established for coding standards, and issues identified by SwiftLint were resolved. Sentry uploads dsym file using the Xcode build script is in progress. (but using a sentry-cli command without Xcode is done)
+
 2023-11-13 Mon: Completed implementation of In-App Purchases compatible with iOS 14 and began integrating the logging of input and output tokens in the iOS local database.
 
 ---

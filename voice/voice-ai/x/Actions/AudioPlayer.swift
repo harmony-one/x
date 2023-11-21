@@ -12,7 +12,7 @@ class AVAudioSessionWrapper: AVAudioSessionProtocol {
     private let avAudioSession: AVAudioSession
 
     init() {
-        self.avAudioSession = AVAudioSession.sharedInstance()
+        avAudioSession = AVAudioSession.sharedInstance()
     }
 
     func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode, options: AVAudioSession.CategoryOptions) throws {

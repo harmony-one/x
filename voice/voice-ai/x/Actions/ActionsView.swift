@@ -1,19 +1,17 @@
+import AudioToolbox
 import Combine
+import CoreHaptics
 import Foundation
 import StoreKit
 import SwiftUI
+import UIKit
 
 struct ActionsView: View {
     let config = AppConfig.shared
-    
+
     @ObservedObject private var timerManager = TimerManager.shared
 
     @State var currentTheme: Theme = .init()
-
-    func changeTheme(name: String) {
-        let theme = AppThemeSettings.fromString(name)
-        currentTheme.setTheme(theme: theme)
-    }
 
     // var dismissAction: () -> Void
     let buttonSize: CGFloat = 100
@@ -23,10 +21,10 @@ struct ActionsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
-    
+
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-    
+
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
@@ -34,21 +32,26 @@ struct ActionsView: View {
 
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
-    
+
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
-    
+
     static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
-    
+
     @ObservedObject var speechRecognition = SpeechRecognition.shared
-    
-    let oneValue = "2111.01 ONE"
-    
+
+    let oneValue = "2111.01 ONE "
+
     var buttonsPortrait: [ButtonData] = []
     var buttonsLandscape: [ButtonData] = []
-    
+
     @State private var storage = Set<AnyCancellable>()
-    
+
+    @State private var keyWindow: UIWindow?
+
+    let maxResetClicks = 5
+    @State private var resetClickCounter = 0
+
     init() {
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
@@ -57,12 +60,12 @@ struct ActionsView: View {
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to Send", image: "\(themePrefix) - square", action: .speak)
+        let buttonTapSpeak = ButtonData(label: "Tap to SPEAK", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .surprise)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
-        
+
 //        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
@@ -72,9 +75,9 @@ struct ActionsView: View {
             buttonSurprise,
             buttonSpeak,
             buttonRepeat,
-            buttonPlay
+            buttonPlay,
         ]
-        
+
         // v2
 //        buttonsLandscape = [
 //            buttonRepeat,
@@ -84,7 +87,7 @@ struct ActionsView: View {
 //            buttonSpeak,
 //            buttonSkip,
 //        ]
-        
+
         // v1
         buttonsLandscape = [
             buttonReset,
@@ -94,10 +97,15 @@ struct ActionsView: View {
             buttonRepeat,
             buttonSurprise,
             buttonSpeak,
-            buttonPlay
+            buttonPlay,
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func changeTheme(name: String) {
+        let theme = AppThemeSettings.fromString(name)
+        currentTheme.setTheme(theme: theme)
     }
     
     var body: some View {
@@ -123,6 +131,11 @@ struct ActionsView: View {
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
+
+                    // This is simply to confirm and retrieve the userID. While the keychain contains the Apple ID, it lacks the server's user ID.
+                    if KeychainService.shared.isAppleIdAvailable() {
+                        UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
+                    }
                 }
             )
             .edgesIgnoringSafeArea(.all)
@@ -130,6 +143,22 @@ struct ActionsView: View {
                 switch newPhase {
                 case .active:
                     print("App became active")
+                    // SettingsBundleHelper.checkAndExecuteSettings()
+                    _ = AppSettings.shared
+                    if speechRecognition.checkContextChange() {
+                        speechRecognition.reset()
+                    }
+                    keyWindow = UIApplication.shared.connectedScenes
+                        .filter { $0.activationState == .foregroundActive }
+                        .compactMap { $0 as? UIWindowScene }
+                        .first?.windows
+                        .filter { $0.isKeyWindow }.first
+
+                    if AppleSignInManager.shared.isShowIAPFromSignIn {
+                        print("App isShowIAPFromSignIn active")
+                        showPurchaseDiglog()
+                        AppleSignInManager.shared.isShowIAPFromSignIn = false
+                    }
                 case .inactive:
                     print("App became inactive")
                     speechRecognition.pause(feedback: false)
@@ -157,7 +186,7 @@ struct ActionsView: View {
         //             if UIDevice.current.orientation != orientation {
         //                 if isRecording {
         //                     isRecordingContinued = true
-        
+
         //                     print("Recording stopSpeak...")
         //                     SpeechRecognition.shared.cancelSpeak()
         //                 }
@@ -165,17 +194,17 @@ struct ActionsView: View {
         //             }
         //         }
     }
-    
+
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
         return GeometryReader { geometry in
             let gridItem = GridItem(.flexible(minimum: 0, maximum: .infinity), spacing: 0)
             let columns = Array(repeating: gridItem, count: colums)
             let numOfRows: Int = .init(ceil(Double(buttons.count) / Double(colums)))
             let height = geometry.size.height / CGFloat(numOfRows)
-            
+
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -183,21 +212,28 @@ struct ActionsView: View {
         }
         .padding(0)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://testflight.apple.com/join/TXohwYOn")!
+            let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
             let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
-            
+
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
     }
-    
+
+    func vibration() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.prepare()
+        impactFeedbackGenerator.impactOccurred()
+    }
+
     @ViewBuilder
-    func viewButton(button: ButtonData) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
+                    self.vibration()
                     Task {
                         if !actionHandler.isTapToSpeakActive {
                             actionHandler.handle(actionType: ActionType.tapSpeak)
@@ -209,10 +245,6 @@ struct ActionsView: View {
                 .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                     Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
                         actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                        Task {
-                            let product = store.products[0]
-                            try await self.store.purchase(product)
-                        }
                     }
 //                    DispatchQueue.main.async {
 //                        let url = URL(string: "https://x.country/voice")
@@ -223,11 +255,14 @@ struct ActionsView: View {
 //                        }
 //                    }
                 })
+                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                    self.checkUserAuthentication()
+                })
             } else {
                 // Press & Hold
-
+                
                 let isPressed: Bool = true
-
+                
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -244,25 +279,27 @@ struct ActionsView: View {
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 DispatchQueue.main.async {
-                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp")
+                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
                     if UIApplication.shared.canOpenURL(url!) {
                         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                     } else {
                         print("Cannot open URL")
                     }
                 }
-            })
+            }).accessibilityIdentifier("button-repeatLast")
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
-            
+
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -277,7 +314,7 @@ struct ActionsView: View {
                 DispatchQueue.main.async {
                     openSettingsApp()
                 }
-            })
+            }).accessibilityIdentifier("button-play")
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -285,39 +322,53 @@ struct ActionsView: View {
 //                    print("Timer reset after long press.")
 //                }
 //            )
-            
+
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
+                    self.resetClickCounter += 1
+                    if self.resetClickCounter >= self.maxResetClicks {
+                        self.resetClickCounter = 0
+                        let number = Int.random(in: 0 ..< 4)
+                        if number == 1 {
+                           // ReviewRequester.shared.tryPromptForReview(forced: true)
+                            showInAppPurchasesIfNotLoggedIn()
+
+                        }
+                    }
                 }
-            }.simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                requestReview()
+            }
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                showPurchaseDiglog()
             })
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 self.showShareSheet = true
-            })
+            }).accessibilityIdentifier("randomfact")
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+                self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }
         }
     }
-    
+
     func openSettingsApp() {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
-    
+
     func requestReview() {
         DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.windows.first?.windowScene {
@@ -325,9 +376,46 @@ struct ActionsView: View {
             }
         }
     }
-    
+
     func handleOtherActions(actionType: ActionType) async {
         actionHandler.handle(actionType: actionType)
+    }
+
+    func checkUserAuthentication() {
+        if KeychainService.shared.isAppleIdAvailable() {
+            // User ID is available, proceed with automatic login or similar functionality
+            showPurchaseDiglog()
+        } else {
+            // User ID not found, prompt user to log in or register
+            if let keyWindow = keyWindow {
+                AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
+            }
+        }
+    }
+
+    func showPurchaseDiglog() {
+        
+        DispatchQueue.main.async {
+            Task {
+                if self.store.products.isEmpty {
+                    print("[AppleSignInManager] No products available")
+                } else {
+                    let product = self.store.products[0]
+                    do {
+                        try await self.store.purchase(product)
+                    } catch {
+                        print("[AppleSignInManager] Error during purchase")
+                    }
+                }
+            }
+        }
+    }
+    
+    func showInAppPurchasesIfNotLoggedIn() {
+        if KeychainService.shared.isAppleIdAvailable() == false || 
+            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            showPurchaseDiglog()
+        }
     }
 }
 

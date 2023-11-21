@@ -22,7 +22,14 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
-        let selectedLanguage = language ?? preferredLocale
+        var selectedLanguage: String!
+        
+        if language != "" {
+            selectedLanguage = language
+        } else {
+            selectedLanguage = preferredLocale
+        }
+        
         // Default language based on user settings
 //        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
@@ -33,7 +40,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
             // Print a message if the specified voice is not available and use the system's default language
             print("The specified voice is not available. Defaulting to the system's language.")
         }
-        
+                
         // Set the pitch of the speech utterance
         utterance.pitchMultiplier = pitch
         
@@ -58,7 +65,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         if synthesizer.isSpeaking {
             synthesizer.pauseSpeaking(at: .immediate)
             print("Speech paused.")
-            Thread.sleep(forTimeInterval: 1.0)
+//            Thread.sleep(forTimeInterval: 1.0)
         } else {
             print("Speech is not speaking.")
         }

@@ -22,6 +22,83 @@ final class xUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testPlayPause() throws {
+        
+        let app = XCUIApplication()
+        app.launch()
+        
+        let buttonSurpriseMe = app.buttons["randomfact"]
+        let buttonPlay = app.buttons["button-play"]
+        let playImage = "blackredTheme - play"
+        let pauseImage = "blackredTheme - pause play"
+        
+
+        // start play
+        buttonSurpriseMe.tap()
+        
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+        
+        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
+        // pause
+        buttonPlay.tap()
+        
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+        
+        expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: buttonPlay.images[playImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
+
+        // play
+        buttonPlay.tap()
+
+        XCTAssertFalse(buttonPlay.images[playImage].exists)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+    }
+    
+    func testRepeatLast() throws {
+        
+        let app = XCUIApplication()
+        app.launch()
+        
+        let buttonSurpriseMe = app.buttons["randomfact"]
+        let buttonPlay = app.buttons["button-play"]
+        let buttonRepeatLast = app.buttons["button-repeatLast"]
+        let playImage = "blackredTheme - play"
+        let pauseImage = "blackredTheme - pause play"
+        
+
+        // start play
+        buttonSurpriseMe.tap()
+        
+        let existsPredicate = NSPredicate(format: "exists == true")
+
+        // waiting for play starts
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        // is playing
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+
+        // pause audiot
+        buttonPlay.tap()
+        
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[playImage], handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        XCTAssertTrue(buttonPlay.images[playImage].exists)
+        
+        buttonRepeatLast.tap()
+        
+    
+        expectation(for: existsPredicate, evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+
+        XCTAssertTrue(buttonPlay.images[playImage].exists)
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
+    }
 
     func testActionButtons() throws {
         // UI tests must launch the application that they test.
@@ -67,4 +144,5 @@ final class xUITests: XCTestCase {
             }
         }
     }
+    
 }

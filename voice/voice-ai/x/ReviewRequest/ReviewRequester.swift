@@ -38,8 +38,11 @@ class ReviewRequester {
     
     func logSignificantEvent() {
         print("[ReviewRequester][logSignificantEvent]")
+        print("Initial significantEventsCount: \(self.significantEventsCount)")
         significantEventsCount += 1
+        print("After significantEventsCount: \(self.significantEventsCount)")
         tryPromptForReview()
+        print("Last significantEventsCount: \(self.significantEventsCount)")
     }
     
     func tryPromptForReview(forced: Bool = false) {
