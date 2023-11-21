@@ -204,7 +204,8 @@ struct ActionsView: View {
 
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler)
+                        .frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -394,7 +395,6 @@ struct ActionsView: View {
     }
 
     func showPurchaseDiglog() {
-        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
@@ -419,8 +419,8 @@ struct ActionsView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        ActionsView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        ActionsView()
+//    }
+//}
