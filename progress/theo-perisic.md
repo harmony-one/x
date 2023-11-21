@@ -1,3 +1,7 @@
+2023-11-20 Mon: Deployed 1.1120.18 public TestFlight build. Created and added full [Terms](https://x.country/terms), Privacy, and Copyright for Apple Pay build.
+
+---
+
 2023-11-19 Sun: Completed potential [Thanksgiving marketing campaign](https://harmonyone.notion.site/Thanksgiving-Marketing-Campaign-f4e2ff42dd7e4c78946722e4b64244f2?pvs=4).
 
 2023-11-18 Sat: Added and tested [6 scenarios](https://harmonyone.notion.site/AI-Driven-Conversation-d04d358c14ad42d68f35d4799314a838?pvs=4) for AI-driven conversations.
