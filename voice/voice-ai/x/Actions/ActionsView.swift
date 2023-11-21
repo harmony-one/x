@@ -24,6 +24,7 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
+    @State private var isTapToSpeakActive = false
 
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
@@ -60,7 +61,7 @@ struct ActionsView: View {
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonTapSpeak = ButtonData(label: "Tap to SPEAK", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .surprise)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
@@ -232,13 +233,16 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive, clickCounterStartOn: 100) {
+                    self.isTapToSpeakActive = !self.isTapToSpeakActive
                     self.vibration()
-                    Task {
-                        if !actionHandler.isTapToSpeakActive {
-                            actionHandler.handle(actionType: ActionType.tapSpeak)
-                        } else {
-                            actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                    DispatchQueue.main.async {
+                        Task {
+                            if !actionHandler.isTapToSpeakActive {
+                                actionHandler.handle(actionType: ActionType.tapSpeak)
+                            } else {
+                                actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                            }
                         }
                     }
                 }
