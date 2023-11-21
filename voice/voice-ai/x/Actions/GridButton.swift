@@ -7,6 +7,7 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
+    var clickCounterStartOn = 100
     var isButtonEnabled: Bool = true
     @State private var timeAtPress = Date()
     @State private var isDragActive = false
@@ -84,9 +85,9 @@ struct GridButton: View {
                     
                     self.debounce_timer?.invalidate()
                     
-                    print("self.clickCounter", self.clickCounter)
+                    // print("self.clickCounter", self.clickCounter)
                     
-                    if(self.clickCounter >= 100) {
+                    if(self.clickCounter >= self.clickCounterStartOn) {
                         self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                             action()
                         }
