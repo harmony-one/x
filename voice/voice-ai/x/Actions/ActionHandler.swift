@@ -22,13 +22,15 @@ struct ButtonData: Identifiable {
     let image: String
     let pressedImage: String?
     let action: ActionType
+    let testId: String
 
-    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType) {
+    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType, testId: String) {
         self.label = label
         self.pressedLabel = pressedLabel
         self.image = image
         self.pressedImage = pressedImage
         self.action = action
+        self.testId = testId
     }
 }
 

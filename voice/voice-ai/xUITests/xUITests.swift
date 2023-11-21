@@ -28,8 +28,8 @@ final class xUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
-        let buttonSurpriseMe = app.buttons["randomfact"]
-        let buttonPlay = app.buttons["button-play"]
+        let buttonSurpriseMe = app.buttons["button-surpriseMe"]
+        let buttonPlay = app.buttons["button-playPause"]
         let playImage = "blackredTheme - play"
         let pauseImage = "blackredTheme - pause play"
         
@@ -55,8 +55,8 @@ final class xUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
-        let buttonSurpriseMe = app.buttons["randomfact"]
-        let buttonPlay = app.buttons["button-play"]
+        let buttonSurpriseMe = app.buttons["button-surpriseMe"]
+        let buttonPlay = app.buttons["button-playPause"]
         let buttonRepeatLast = app.buttons["button-repeatLast"]
         let playImage = "blackredTheme - play"
         let pauseImage = "blackredTheme - pause play"
@@ -83,31 +83,38 @@ final class xUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
-        let buttonSurpriseMe = app.buttons["randomfact"]
-        let buttonPlay = app.buttons["button-play"]
+        let buttonSurpriseMe = app.buttons["button-surpriseMe"]
+        let buttonPlay = app.buttons["button-playPause"]
         let buttonRepeatLast = app.buttons["button-repeatLast"]
         let buttonNewSession = app.buttons["button-newSession"]
         let playImage = "blackredTheme - play"
         let pauseImage = "blackredTheme - pause play"
         
+        // run surprise me
         buttonSurpriseMe.tap()
         
         sleep(5)
-
+        
         // pause audio
         buttonPlay.tap()
         
-        expectation(for: NSPredicate(format: "exists == 1"), evaluatedWith: buttonPlay.images[playImage], handler: nil)
-        waitForExpectations(timeout: 3, handler: nil)
+        // run new session
+        buttonNewSession.tap();
         
+        sleep(2)
         
+        // expect: play pause button - has pause icon
+        XCTAssertTrue(buttonPlay.images[pauseImage].exists)
         
-        buttonRepeatLast.tap()
-    
-        expectation(for: NSPredicate(format: "exists == 1"), evaluatedWith: buttonPlay.images[pauseImage], handler: nil)
-        waitForExpectations(timeout: 3, handler: nil)
-
-        XCTAssertTrue(buttonPlay.images[playImage].exists)
+        // run repeat last
+        buttonRepeatLast.tap();
+        
+        sleep(1)
+        
+        // tap play / pause button
+        buttonPlay.tap()
+        
+        // expect: play pause button - has pause icon
         XCTAssertTrue(buttonPlay.images[pauseImage].exists)
     }
 
