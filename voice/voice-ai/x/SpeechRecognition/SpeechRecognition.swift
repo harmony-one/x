@@ -272,7 +272,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
-    func makeQuery(_ text: String, maxRetry: Int = 14) {
+    func makeQuery(_ text: String, maxRetry: Int = 14, rateLimit: Bool? = true) {
         if isRequestingOpenAI {
             print("RequestingOpenAI: skip")
             return
@@ -375,7 +375,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // for custom instruction changes
             conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
-            pendingOpenAIStream?.query(conversation: limitedConversation)
+            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
@@ -597,7 +597,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let query = "Summarize \(randomTitle) from Wikipedia"
 
             // Now make the query to fetch the fact.
-            self.makeQuery(query)
+            self.makeQuery(query, rateLimit: false)
         }
 
         // Any UI updates need to be performed on the main thread.
