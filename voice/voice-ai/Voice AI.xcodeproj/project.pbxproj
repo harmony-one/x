@@ -68,6 +68,7 @@
 		6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
+		6EA3DB642B07ADD30011EFEC /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA3DB632B07ADD30011EFEC /* AppConfig.plist */; };
 		6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
 		6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
 		6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
@@ -302,6 +303,7 @@
 		6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtilsTests.swift; sourceTree = "<group>"; };
 		6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
+		6EA3DB632B07ADD30011EFEC /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				6EA3DB632B07ADD30011EFEC /* AppConfig.plist */,
 				B91F05CD2B0613900029A32D /* AppSettings */,
 				B91F05B82B04BA060029A32D /* NetworkManager */,
 				B91F05AE2B049F5C0029A32D /* Apple */,
@@ -1039,8 +1042,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
-				B91F05D32B0645200029A32D /* Settings.bundle in Resources */,
-				B95CC9692B078AD800F3B27A /* AppConfig.plist in Resources */,
+				B3E5CDF52B0332B9003F4DC2 /* Settings.bundle in Resources */,
+				6EA3DB642B07ADD30011EFEC /* AppConfig.plist in Resources */,
 				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,

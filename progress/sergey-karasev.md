@@ -1,3 +1,7 @@
+2023-11-20 Mon: Working on Bluetooth support. I have checked all of my devices, and the app is functioning properly with AirPods, JBL earbuds, JBL Extreme 2, and a Xiaomi Bluetooth receiver. Also I have added [AirPlay support](https://github.com/harmony-one/x/pull/227).
+
+---
+
 2023-11-17 Fri: I removed the rate limit for the "surprise me" feature https://github.com/harmony-one/x/pull/210 and working on ui tests.
 
 2023-11-16 Thu: I'm working on UI testing, restoring the functionality of UI tests, [added dependencies and deleted non-functional and outdated tests](https://github.com/harmony-one/x/pull/198).

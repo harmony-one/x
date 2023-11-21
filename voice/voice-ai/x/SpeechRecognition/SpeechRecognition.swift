@@ -127,7 +127,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !isAudioSessionSetup else { return }
         
         do {
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             try audioSession.setMode(.spokenAudio)
               
@@ -142,7 +142,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func setupAudioEngine() {
         if !audioEngine.isRunning {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
                 try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
                 try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
@@ -272,7 +272,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
-    func makeQuery(_ text: String, maxRetry: Int = 14) {
+    func makeQuery(_ text: String, maxRetry: Int = 14, rateLimit: Bool? = true) {
         if isRequestingOpenAI {
             print("RequestingOpenAI: skip")
             return
@@ -375,7 +375,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // for custom instruction changes
             conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
-            pendingOpenAIStream?.query(conversation: limitedConversation)
+            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
@@ -518,7 +518,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard !audioEngine.isRunning else { return }
         audioEngine.mainMixerNode
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
             try AVAudioSession.sharedInstance().setMode(.spokenAudio)
             try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
@@ -597,7 +597,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let query = "Summarize \(randomTitle) from Wikipedia"
 
             // Now make the query to fetch the fact.
-            self.makeQuery(query)
+            self.makeQuery(query, rateLimit: false)
         }
 
         // Any UI updates need to be performed on the main thread.

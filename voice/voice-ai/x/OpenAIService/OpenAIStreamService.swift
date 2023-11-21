@@ -53,7 +53,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     // Function to send input text to OpenAI for processing
-    func query(conversation: [Message]) {
+    func query(conversation: [Message], rateLimit: Bool? = true) {
         guard let apiKey = AppConfig.shared.getOpenAIKey() else {
             completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "OpenAI API key is nil")
@@ -66,20 +66,25 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
 
-        Self.rateLimitCounterLock.wait()
-        let now = Int64(NSDate().timeIntervalSince1970 * 1000)
-        if Self.queryTimes.count < Self.QueryLimitPerMinute {
-            Self.queryTimes.append(now)
-        } else if Self.queryTimes.first! < now - 60000 {
-            Self.queryTimes.removeAll(where: { $0 < now - 60000 })
-            Self.queryTimes.append(now)
-        } else {
-            // rate limited
+        if rateLimit == true {
+            Self.rateLimitCounterLock.wait()
+            let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+            if Self.queryTimes.count < Self.QueryLimitPerMinute {
+                Self.queryTimes.append(now)
+            } else if Self.queryTimes.first! < now - 60000 {
+                Self.queryTimes.removeAll(where: { $0 < now - 60000 })
+                Self.queryTimes.append(now)
+            } else {
+                // rate limited
+                Self.rateLimitCounterLock.signal()
+                self.completion(nil, NSError(domain: "Rate limited", code: -3))
+                return
+            }
             Self.rateLimitCounterLock.signal()
             completion(nil, NSError(domain: "Rate limited", code: -3))
             return
         }
-        Self.rateLimitCounterLock.signal()
+        
 
         let headers = [
             "Content-Type": "application/json",
