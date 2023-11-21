@@ -20,12 +20,12 @@ class AppConfig {
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
     private var whitelist: [String]? = []
-    
+
     var themeName: String?
 
     init() {
-        self.loadConfiguration()
-        if self.openaiKey != nil, self.openaiKey != "" {
+        loadConfiguration()
+        if openaiKey != nil, openaiKey != "" {
             // if a local key is assigned (for debugging), do not request from server
             return
         }
@@ -38,15 +38,15 @@ class AppConfig {
             }
         }
     }
-    
+
     private func decrypt(base64EncodedEncryptedKey: String) throws -> String {
         let encryptedKey = Data(base64Encoded: base64EncodedEncryptedKey)
         guard let encryptedKey = encryptedKey else {
             throw NSError(domain: "Invalid encoded encrypted key", code: -1)
         }
-        
-        let iv = [UInt8](self.sharedEncryptionIV!.data(using: .utf8)!.sha256()[0..<16])
-        let sharedKey = [UInt8](self.sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0..<32])
+
+        let iv = [UInt8](sharedEncryptionIV!.data(using: .utf8)!.sha256()[0 ..< 16])
+        let sharedKey = [UInt8](sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0 ..< 32])
         let aes = try AES(key: sharedKey, blockMode: CBC(iv: iv))
         let dBytes = try aes.decrypt(encryptedKey.bytes)
         let dKey = String(data: Data(dBytes), encoding: .utf8)
@@ -55,9 +55,9 @@ class AppConfig {
         }
         return key
     }
-    
+
     private func requestOpenAIKey() async {
-        guard let relayBaseUrl = self.relayBaseUrl else {
+        guard let relayBaseUrl = relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return
@@ -105,13 +105,13 @@ class AppConfig {
         }
         t.resume()
     }
-    
+
     public func checkWhiteList() async -> Bool {
         guard let username = SettingsBundleHelper.getUserName() else {
             return false
         }
-        
-        guard let relayUrl = self.relayBaseUrl else {
+
+        guard let relayUrl = relayBaseUrl else {
             print("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return false
@@ -122,13 +122,13 @@ class AppConfig {
             SentrySDK.capture(message: "Invalid Relay URL")
             return false
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let body: [String: String] = ["username": username]
-        
+
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
@@ -136,10 +136,10 @@ class AppConfig {
             SentrySDK.capture(message: "[AppConfig][checkWhiteList] JSONSerialization \(error)")
             return false
         }
-        
+
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            
+
             let res = try JSON(data: data)
             guard let status = res["status"].bool else {
                 print("[AppConfig][checkWhiteList] status false \(res)")
@@ -152,100 +152,100 @@ class AppConfig {
             return false
         }
     }
-    
+
     private func loadConfiguration() {
         guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
             fatalError("Unable to locate plist file")
         }
-        
+
         let fileURL = URL(fileURLWithPath: path)
-        
+
         do {
             let data = try Data(contentsOf: fileURL)
             guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
                 fatalError("Unable to convert plist into dictionary")
             }
-            
-            self.sentryDSN = dictionary["SENTRY_DSN"] as? String
 
-            self.sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
-            self.sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
-            self.relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
-            self.relayMode = dictionary["RELAY_MODE"] as? String
+            sentryDSN = dictionary["SENTRY_DSN"] as? String
 
-            self.themeName = dictionary["THEME_NAME"] as? String
-            self.deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
-            self.openaiKey = dictionary["API_KEY"] as? String
-            self.openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
-            
+            sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
+            sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
+            relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
+            relayMode = dictionary["RELAY_MODE"] as? String
+
+            themeName = dictionary["THEME_NAME"] as? String
+            deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
+            openaiKey = dictionary["API_KEY"] as? String
+            openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
+
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
                let events = Int(eventsString)
             {
-                self.minimumSignificantEvents = events
+                minimumSignificantEvents = events
             }
-            
+
             if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"] as? String,
                let days = Int(daysString)
             {
-                self.daysBetweenPrompts = days
+                daysBetweenPrompts = days
             }
-            
+
             if let whitelistString = dictionary["WHITELIST"] as? [String] {
-                self.whitelist = whitelistString
+                whitelist = whitelistString
             }
-            
+
         } catch {
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
             fatalError(error.localizedDescription)
         }
     }
-    
+
     func getOpenAIKey() -> String? {
-        return self.openaiKey
+        return openaiKey
     }
-    
+
     func getOpenAIBaseUrl() -> String? {
-        return self.openaiBaseUrl
+        return openaiBaseUrl
     }
-    
+
     func getSentryDSN() -> String? {
-        return self.sentryDSN
+        return sentryDSN
     }
-    
+
     func getDeepgramKey() -> String? {
-        return self.deepgramKey
+        return deepgramKey
     }
-    
+
     // Getter methods for the review prompt configuration
     func getMinimumSignificantEvents() -> Int? {
-        return self.minimumSignificantEvents
+        return minimumSignificantEvents
     }
-    
+
     func getDaysBetweenPrompts() -> Int? {
-        return self.daysBetweenPrompts
+        return daysBetweenPrompts
     }
 
     func getThemeName() -> String {
-        return self.themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name
+        return themeName ?? AppThemeSettings.blackredTheme.settings.name // AppThemeSettings.defaultTheme.settings.name
     }
 
     func getSharedEncryptionSecret() -> String? {
-        return self.sharedEncryptionSecret
+        return sharedEncryptionSecret
     }
-    
+
     func getSharedEncryptionIV() -> String? {
-        return self.sharedEncryptionIV
+        return sharedEncryptionIV
     }
-    
+
     func getRelayUrl() -> String? {
-        return self.relayBaseUrl
+        return relayBaseUrl
     }
-    
+
     func getWhitelist() -> [String]? {
-        return self.whitelist
+        return whitelist
     }
-    
+
     func renewRelayAuth() {
         Task {
             if self.relayMode == "hard" {
