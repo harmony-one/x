@@ -1,9 +1,6 @@
 {
   "images" : [
-    {
-      "filename" : "press to speak.pdf",
-      "idiom" : "universal"
-    }
+
   ],
   "info" : {
     "author" : "xcode",
