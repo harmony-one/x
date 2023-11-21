@@ -24,7 +24,7 @@ class ActionsViewTests: XCTestCase {
     override func setUp() {
         super.setUp()
         actionsView = ActionsView()
-        _ = actionsView.environmentObject(Store())
+//        _ = actionsView.environmentObject(Store())
     }
     
     override func tearDown() {
@@ -60,22 +60,22 @@ class ActionsViewTests: XCTestCase {
     }
     
     
-    func testViewButtonClosure1() {
-        
-        let actionHandler = MockActionHandler()
-        let button = ButtonData(label: "Test Button", image: "", action: .repeatLast)
-        let expectedActionType: ActionType = .repeatLast
-        
-        actionHandler.handleCalled = false
-        
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: .repeatLast)
-        
-        XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, .repeatLast)
-        
-    }
+//    func testViewButtonClosure1() {
+//        
+//        let actionHandler = MockActionHandler()
+//        let button = ButtonData(label: "Test Button", image: "", action: .repeatLast)
+//        let expectedActionType: ActionType = .repeatLast
+//        
+//        actionHandler.handleCalled = false
+//        
+//        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+//        actionHandler.handle(actionType: .repeatLast)
+//        
+//        XCTAssertNotNil(viewButton)
+//        XCTAssertTrue(actionHandler.handleCalled)
+//        XCTAssertEqual(actionHandler.lastActionType, .repeatLast)
+//        
+//    }
     
     func testOpenSettingsApp() {
         actionsView.openSettingsApp()
