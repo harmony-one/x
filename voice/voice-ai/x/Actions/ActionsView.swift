@@ -24,7 +24,10 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
+    
     @State private var isTapToSpeakActive = false
+    @State private var tapToSpeakDebounceTimer: Timer?
+    
     @State private var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
@@ -234,15 +237,21 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive, clickCounterStartOn: 100) {
-                    self.isTapToSpeakActive = !self.isTapToSpeakActive
-                    self.vibration()
-                    DispatchQueue.main.async {
-                        Task {
-                            if !actionHandler.isTapToSpeakActive {
-                                actionHandler.handle(actionType: ActionType.tapSpeak)
-                            } else {
-                                actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {
+                   self.isTapToSpeakActive = !self.isTapToSpeakActive
+                   self.vibration()
+                    
+                   self.tapToSpeakDebounceTimer?.invalidate()
+                    
+                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                        self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                            
+                            Task {
+                                if !actionHandler.isTapToSpeakActive {
+                                    actionHandler.handle(actionType: ActionType.tapSpeak)
+                                } else {
+                                    actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                                }
                             }
                         }
                     }

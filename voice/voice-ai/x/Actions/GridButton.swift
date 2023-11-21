@@ -85,7 +85,7 @@ struct GridButton: View {
                     
                     self.debounce_timer?.invalidate()
                     
-                    print("self.clickCounter", self.clickCounter)
+                    // print("self.clickCounter", self.clickCounter)
                     
                     if(self.clickCounter >= self.clickCounterStartOn) {
                         self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
