@@ -36,6 +36,8 @@ struct ActionsView: View {
 
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
+    
+    static var generator: UIImpactFeedbackGenerator?
 
     static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
 
@@ -221,9 +223,11 @@ struct ActionsView: View {
     }
 
     func vibration() {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        impactFeedbackGenerator.prepare()
-        impactFeedbackGenerator.impactOccurred()
+        if ActionsView.generator == nil {
+            ActionsView.generator = UIImpactFeedbackGenerator(style: .medium)
+        }
+        ActionsView.generator?.prepare()
+        ActionsView.generator?.impactOccurred()
     }
 
     @ViewBuilder

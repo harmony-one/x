@@ -2,14 +2,21 @@ import XCTest
 @testable import Voice_AI
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
+    var appSettings: AppSettings!
+    var mockGenerator: MockGenerator!
 
     override func setUp() {
         super.setUp()
+        appSettings = AppSettings()
         actionsView = ActionsView()
+        mockGenerator = MockGenerator()
+        ActionsView.generator = mockGenerator
     }
 
     override func tearDown() {
         actionsView = nil
+        appSettings = nil
+        mockGenerator = nil
         super.tearDown()
     }
 
@@ -20,21 +27,29 @@ class ActionsViewTests: XCTestCase {
     }
 
     func testChangeTheme() {
-        let themeName = "blackredTheme"
+        let themeName = "defaultTheme"
+        XCTAssertNotEqual(actionsView.currentTheme.name, themeName)
         actionsView.changeTheme(name: themeName)
-        // Verify that the theme has been changed correctly, you can assert on properties or states
+        XCTAssertEqual(actionsView.currentTheme.name, themeName)
     }
-//
-//    func testVibration() {
-//        // Test the vibration function
-//        // You may need to mock or stub certain dependencies to fully test this function
-//        // For example, you can use XCTestExpectation to wait for an expected vibration
-//    }
-//
-//    func testOpenSettingsApp() {
-//        // Test the openSettingsApp function
-//        // You may need to mock or stub UIApplication functions to fully test this
-//    }
+
+    func testVibration() {
+        XCTAssertFalse(mockGenerator.prepareCalled)
+        XCTAssertFalse(mockGenerator.impactOccurredCalled)
+
+        actionsView.vibration()
+
+        XCTAssertTrue(mockGenerator.prepareCalled)
+        XCTAssertTrue(mockGenerator.impactOccurredCalled)
+    }
+
+    func testOpenSettingsApp() {
+        XCTAssertFalse(actionsView.appSettings.isOpened)
+
+        actionsView.openSettingsApp()
+
+        XCTAssertTrue(actionsView.appSettings.isOpened)
+    }
 //
 //    func testHandleOtherActions() async {
 //        // Test the handleOtherActions function
