@@ -23,9 +23,9 @@ class SettingsBundleHelper {
      }
     
     class func hasPremiumMode() -> Bool {
-        let whitelist = AppConfig.shared.getWhitelist()
+        let whiteLableList = AppConfig.shared.getwhiteLableListString()
         let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
-        if username != nil && whitelist!.contains(username!) {
+        if username != nil && whiteLableList!.contains(username!) {
             return true
         } else {
             return false

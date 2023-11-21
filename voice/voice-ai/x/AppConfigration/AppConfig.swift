@@ -19,7 +19,7 @@ class AppConfig {
     private var minimumSignificantEvents: Int?
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
-    private var whitelist: [String]?
+    private var whiteLabelList: [String]?
     
     var themeName: String?
 
@@ -105,7 +105,7 @@ class AppConfig {
         task.resume()
     }
     
-    public func checkWhiteList() async -> Bool {
+    public func checkWhiteLabelList() async -> Bool {
         guard let username = SettingsBundleHelper.getUserName() else {
             return false
         }
@@ -188,8 +188,8 @@ class AppConfig {
                 self.daysBetweenPrompts = days
             }
             
-            if let whitelistString = dictionary["WHITELIST"] as? [String] {
-                self.whitelist = whitelistString
+            if let whiteLableListString = dictionary["WHITELIST"] as? [String] {
+                self.whiteLabelList = whiteLableListString
             }
             
         } catch {
@@ -239,8 +239,8 @@ class AppConfig {
         return self.relayBaseUrl
     }
     
-    func getWhitelist() -> [String]? {
-        return self.whitelist
+    func getwhiteLableListString() -> [String]? {
+        return self.whiteLabelList
     }
     
     func renewRelayAuth() {

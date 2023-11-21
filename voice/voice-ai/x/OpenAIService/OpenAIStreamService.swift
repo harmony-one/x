@@ -96,7 +96,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
             Task {
-                let status = await AppConfig.shared.checkWhiteList()
+                let status = await AppConfig.shared.checkWhiteLabelList()
                 completion(.success(status))
             }
         }
