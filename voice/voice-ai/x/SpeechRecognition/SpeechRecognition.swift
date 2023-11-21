@@ -387,7 +387,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI Rate Limited")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 10 questions per minute at this time.")
+                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.")
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
                 

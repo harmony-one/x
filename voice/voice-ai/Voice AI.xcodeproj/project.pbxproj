@@ -256,6 +256,8 @@
 		F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */; };
 		F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */; };
 		F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */; };
+		F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */ = {isa = PBXBuildFile; fileRef = F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */; };
 		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */; };
@@ -398,6 +400,7 @@
 		F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelperTests.swift; sourceTree = "<group>"; };
 		F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManagerTests.swift; sourceTree = "<group>"; };
 		F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests_rika.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
@@ -805,6 +808,7 @@
 				B37D62542B0B23F0005B8C53 /* UserApiTests.swift */,
 				F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */,
 				F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */,
+				F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1253,6 +1257,7 @@
 				F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */,
+				F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
 				F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */,
 				F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
@@ -1269,6 +1274,7 @@
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
 				B37D62552B0B23F0005B8C53 /* UserApiTests.swift in Sources */,
 				6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */,
+				F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,

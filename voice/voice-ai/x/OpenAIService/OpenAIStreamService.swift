@@ -21,7 +21,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     // Limit 10 queries per minute
     static var queryTimes: [Int64] = []
     static var rateLimitCounterLock = DispatchSemaphore(value: 1)
-    static let QueryLimitPerMinute: Int = 10
+    static let QueryLimitPerMinute: Int = 100
     static let MaxGPT4DurationMinutes: Int = 45
 
     // URLSession should be lazy to ensure delegate can be set after super.init
