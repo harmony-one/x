@@ -77,9 +77,9 @@ class StoreTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Request Products")
 
         Task {
-                await store.requestProducts()
-                XCTAssertNotNil(store.products, "products array should not be empty")
-                expectation.fulfill()
+            await store.requestProducts()
+            XCTAssertFalse(store.products.isEmpty, "products array should not be empty")
+            expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 5.0)

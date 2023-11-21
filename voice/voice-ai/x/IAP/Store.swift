@@ -34,6 +34,7 @@ class Store: ObservableObject {
             print("[Store] Products:", products)
         } catch {
             print(error)
+            products = []
         }
     }
 
