@@ -1,4 +1,14 @@
-2023-11-13 Mon (3h): Technical interview and post-interview analysis; Implementing and testing in-app purchase for GPT-4 booster; Review #167, #168, #169, 170, #171, #173, #174, #175
+2023-11-17 Fri (8.5h): Debug issues that prevent some clients from obtaining relay tokens. Add structed errors and codes for relay client. Capture errors. Auto-retry at client side. Do not override token if failed to get one. Allow new session button to get a new relay token. Cache attestation and challenge at client side. Deterministic generation of relay token. Implemented banned list for relay token. Added ES integration and basic request and response measurement. Store attestationHash and ban user based on that, instead of auth token. Make auth token change every 30 minutes. Review #210, #181 conflicts, #217, #214, #213, #212, #211, #209, #208, #207, #206, #205, #204, #203, #202, #198, #197, #194, #193, #192, #190, #189, #187, #185.
+
+2023-11-16 Thu (2.5h): End-to-end debugging and testing for app attestation and relay-based OpenAI queries. Debug and fix issues related to verifying develop-environment attestation. Fix issues related to non-functioning app caused by multiple initialization of relayer authentication module. Review devops TODO list proposal. Review and discuss in-app purchase flows (#196) and integrations with server.
+
+2023-11-15 Wed (6h): Review in-app-purchase issues and existing implementations. Discuss key leakage issues and review logs. Implement RelayAuth client module for app attestation and relay token management. Debug and fix issues with relay app attestation verification and logging. Discussion on key protection. 
+
+2023-11-14 Tue (3.5h): Fixing SSL issues and domain registration issues. Review and implement EWS Substack anchor link sharing. Review implementation plan and issues for account signup, login, in-app purchase restoration. Review #179, #181, #183, #182, #184. GCP IAM setup for devops personnel, and ES operation instructions. Debug MetaMask mobile issues on multisig. Recovery security discussions. Research on and discuss OpenAI Assistant and threading APIs.
+
+2023-11-13 Mon (3h): Technical interview and post-interview analysis. Implementing and testing in-app purchase for GPT-4 booster. Review #167, #168, #169, 170, #171, #173, #174, #175.
+
+---
 
 2023-11-12 Sun (0.5h): Review app payment server and API design and discussions
 

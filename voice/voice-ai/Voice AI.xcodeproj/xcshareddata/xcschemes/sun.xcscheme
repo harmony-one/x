@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
-               BuildableName = "sun.app"
+               BuildableName = "Voice 2.app"
                BlueprintName = "sun"
                ReferencedContainer = "container:Voice AI.xcodeproj">
             </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
-            BuildableName = "sun.app"
+            BuildableName = "Voice 2.app"
             BlueprintName = "sun"
             ReferencedContainer = "container:Voice AI.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A46B5A492AE73B9D00C874ED"
-            BuildableName = "sun.app"
+            BuildableName = "Voice 2.app"
             BlueprintName = "sun"
             ReferencedContainer = "container:Voice AI.xcodeproj">
          </BuildableReference>

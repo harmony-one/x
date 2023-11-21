@@ -11,12 +11,17 @@ class Persistence {
         storage.set(currentValue + creditsAmount, forKey: Persistence.creditsCountKey)
     }
     
-    static func updateBooster3DayPurchaseTime(){
+    static func updateBooster3DayPurchaseTime() {
         storage.set(Date().timeIntervalSince1970, forKey: Self.booster3DayPurchaseTimeKey)
     }
     
     static func getBoosterPurchaseTime() -> Date {
-        let epoch = storage.double(forKey: Self.booster3DayPurchaseTimeKey)
-        return Date(timeIntervalSince1970: epoch)
+      //  let epoch = storage.double(forKey: Self.booster3DayPurchaseTimeKey)
+        
+        let dateString = KeychainService.shared.retrieveExpirationDate()
+        if let expirationDate =  AppSettings.getEpoch(dateString: dateString) {
+            return Date(timeIntervalSince1970: expirationDate)
+        }
+        return Date()
     }
 }
