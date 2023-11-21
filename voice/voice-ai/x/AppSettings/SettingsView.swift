@@ -1,44 +1,31 @@
 import SwiftUI
 import UIKit
 
-struct ContentView: View {
+struct SettingsView: View {
     @EnvironmentObject var store: Store
+    @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
-    @State private var showingActionSheet: Bool = false
+    @State private var showActionsSheet: Bool = true
 
     var body: some View {
         ZStack {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
         }
-//        ZStack {
-//            Color.black.opacity(0.4)
-//                .edgesIgnoringSafeArea(.all)
-//            VStack {
-//                Text("Please select an option")
-//                    .font(.title)
-//                    .foregroundColor(.white)
-//                    .padding()
-//            }
-//        }
-        .actionSheet(isPresented: $showingActionSheet) {
-            ActionSheet(title: Text("Select an Option"), buttons: [
-                .default(Text("Sign in")) { performSignIn() },
-                .default(Text("Purchase")) { showPurchaseDialog() },
-                .default(Text("Share")) { self.showShareSheet = true },
-                .default(Text("Tweet")) { /* Add Tweet action here */ },
-                .default(Text("System Settings")) { openSystemSettings() }
-            ])
-        }
-        .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
-            let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
+        .actionSheet(isPresented: $showActionsSheet, content: actionSheet)
+    }
 
-            ActivityView(activityItems: [shareLink.title, shareLink.url])
-        }
-        .onAppear {
-            self.showingActionSheet = true
-        }
+    func actionSheet() -> ActionSheet {
+        return ActionSheet(title: Text("Select an Option"), buttons: [
+            .cancel({
+                appSettings.showSettings(isOpened: false)
+            }),
+            .default(Text("Sign in")) { performSignIn() },
+            .default(Text("Purchase")) { showPurchaseDialog() },
+            .default(Text("Share")) { self.showShareSheet = true },
+            .default(Text("Tweet")) { /* Add Tweet action here */ },
+            .default(Text("System Settings")) { openSystemSettings() }
+        ])
     }
 
     func performSignIn() {

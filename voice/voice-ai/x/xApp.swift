@@ -34,8 +34,10 @@ struct xApp: App {
                     .environmentObject(store)
                     .environmentObject(appSettings)
                     .background(Color(hex: 0x1E1E1E).animation(.none))
-                    .sheet(isPresented: $appSettings.isOpened) {
-                        ContentView().environmentObject(store)
+                    .overlay {
+                        SettingsView()
+                            .environmentObject(store)
+                            .environmentObject(appSettings)
                     }
             }
         }
