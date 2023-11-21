@@ -5,6 +5,10 @@ struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
+    @State private var showTweet: Bool = false
+
+    private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
+    private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
 
     var body: some View {
         ZStack {
@@ -13,8 +17,8 @@ struct SettingsView: View {
         }
         .actionSheet(isPresented: $appSettings.isOpened, content: actionSheet)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896")!
-            let shareLink = ShareLink(title: "Check out Voice AI: Super-Intelligence app!", url: url)
+            let url = URL(string: self.appUrl)!
+            let shareLink = ShareLink(title: self.shareTitle, url: url)
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
     }
@@ -27,9 +31,16 @@ struct SettingsView: View {
             .default(Text("Sign in")) { performSignIn() },
             .default(Text("Purchase")) { showPurchaseDialog() },
             .default(Text("Share")) { self.showShareSheet = true },
-            .default(Text("Tweet")) { /* Add Tweet action here */ },
+            .default(Text("Tweet")) { tweet() },
             .default(Text("System Settings")) { openSystemSettings() }
         ])
+    }
+    
+    func tweet() {
+        let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: escapedShareString)
+        UIApplication.shared.open(url!)
     }
 
     func performSignIn() {
