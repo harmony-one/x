@@ -70,7 +70,6 @@
 		6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */; };
 		6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
-		6EA3DB642B07ADD30011EFEC /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EA3DB632B07ADD30011EFEC /* AppConfig.plist */; };
 		6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
 		6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
 		6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
@@ -82,6 +81,8 @@
 		A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
+		A44CFFB02B0D7200003D6822 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A44CFFAF2B0D7200003D6822 /* AppConfig.plist */; };
+		A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A44CFFAF2B0D7200003D6822 /* AppConfig.plist */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
@@ -214,7 +215,6 @@
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
-		E47F1A972B07F94200455617 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
 		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
 		E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
 		E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
@@ -316,8 +316,8 @@
 		6E35CB4A2AFE86130004D2D2 /* OpenAIUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtilsTests.swift; sourceTree = "<group>"; };
 		6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
-		6EA3DB632B07ADD30011EFEC /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
+		A44CFFAF2B0D7200003D6822 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* Voice 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
@@ -351,7 +351,6 @@
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		B95CC9682B078AD800F3B27A /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
@@ -736,7 +735,6 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
-				6EA3DB632B07ADD30011EFEC /* AppConfig.plist */,
 				B91F05CD2B0613900029A32D /* AppSettings */,
 				B91F05B82B04BA060029A32D /* NetworkManager */,
 				B91F05AE2B049F5C0029A32D /* Apple */,
@@ -761,8 +759,8 @@
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				22CC4D752AF3AC300072EC39 /* Products.storekit */,
 				22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */,
-				B95CC9682B078AD800F3B27A /* AppConfig.plist */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
+				A44CFFAF2B0D7200003D6822 /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -1033,8 +1031,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */,
 				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
-				E47F1A972B07F94200455617 /* AppConfig.plist in Resources */,
 				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
 				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
 				E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */,
@@ -1073,8 +1071,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
-				6EA3DB642B07ADD30011EFEC /* AppConfig.plist in Resources */,
 				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
+				A44CFFB02B0D7200003D6822 /* AppConfig.plist in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
