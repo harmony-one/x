@@ -1,3 +1,7 @@
+2023-11-20 Mon: Finalized the attestation issue (since we were requesting one from App store each time, some users were rate limited) and solved it using caching from the relayer server. Measured the new perceived [latency](https://imgur.com/a/ExTJbIt) using proxy server, which is around ~900ms median with up to ~1500ms as max.
+
+---
+
 2023-11-19 Sun: Refactored [OpenAI](https://github.com/harmony-one/x/commit/ef517118beaaa57bdbe9ede53b37072e47f519b5) and [Actions](https://github.com/harmony-one/x/commit/8f7220effd080dbcf01fb73933b302c053f4e4dd) module.
 
 2023-11-18 Sat: Reviewed over updates made for the [relayer](https://github.com/harmony-one/x/tree/main/voice/relay).
