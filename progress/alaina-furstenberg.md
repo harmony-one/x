@@ -1,3 +1,5 @@
+2023-11-20 Mon: Remade and uploaded iPad app store screenshots, resolved blurry press to speak icon. Corresponded with Kratos & sent a questionaire about his user feedback for VoiceAI. Synced with Theo P on Thanksgiving marketing efforts, generated some [posts](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4#69f5fda9ce534b07ac8f6b38c490fdac) in DALLE3, which still need refining.
+
 -----
 
 2023-11-19 Sun: Animated a graphic with mockups for twitter. Wrote & tweeted 2 threads: A user guide [thread](https://twitter.com/harmonyprotocol/status/1726409136328544438?s=20) & a [thread](https://twitter.com/harmonyprotocol/status/1726411171694317894?s=20) answering "How does VoiceAI compare to whisper?". Sent a message to the Harmony community on telegram promoting VoiceAI's launch. Tested VoiceAI & noticed font color changes (looks lighter than it's supposed to be) and also noticed the "Tap to Speak" button is a different color than the Press and Hold. Messaged Frank to correct these issues.
