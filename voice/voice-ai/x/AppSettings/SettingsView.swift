@@ -1,49 +1,55 @@
 import SwiftUI
 import UIKit
 
-struct SettingsView: View {
+struct ContentView: View {
     @EnvironmentObject var store: Store
-    @Environment(\.presentationMode) var presentationMode
     @State private var showShareSheet: Bool = false
+    @State private var showingActionSheet: Bool = false
 
     var body: some View {
-        NavigationView {
-                    Form {
-                        Button("3-Day ChatGPT4 Use") {
-                            self.showPurchaseDialog()
-                            print("Settings: showPurchaseDialog clicked")
-                        }
-                        Button("Sign In") {
-                            let keyWindow = UIApplication.shared.connectedScenes
-                                .filter { $0.activationState == .foregroundActive }
-                                .compactMap { $0 as? UIWindowScene }
-                                .first?.windows
-                                .filter { $0.isKeyWindow }.first
-                            if let keyWindow = keyWindow {
-                                AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
-                            }
-                        }
-                        Button("Share") {
-                            self.showShareSheet = true
-                            print("Settings: share clicked")
-                        }
-                        Button("Open System Settings") {
-                            if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url)
-                            }
-                            print("Settings: system settings clicked")
-                        }
-                    }
-                    .navigationBarTitle("Settings")
-                    .navigationBarItems(trailing: Button("Close") {
-                        presentationMode.wrappedValue.dismiss()
-                    })
-                }.sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-                    let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
-                    let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
+        ZStack {
+            Color.clear
+                .edgesIgnoringSafeArea(.all)
+        }
+//        ZStack {
+//            Color.black.opacity(0.4)
+//                .edgesIgnoringSafeArea(.all)
+//            VStack {
+//                Text("Please select an option")
+//                    .font(.title)
+//                    .foregroundColor(.white)
+//                    .padding()
+//            }
+//        }
+        .actionSheet(isPresented: $showingActionSheet) {
+            ActionSheet(title: Text("Select an Option"), buttons: [
+                .default(Text("Sign in")) { performSignIn() },
+                .default(Text("Purchase")) { showPurchaseDialog() },
+                .default(Text("Share")) { self.showShareSheet = true },
+                .default(Text("Tweet")) { /* Add Tweet action here */ },
+                .default(Text("System Settings")) { openSystemSettings() }
+            ])
+        }
+        .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
+            let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
+            let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
 
-                    ActivityView(activityItems: [shareLink.title, shareLink.url])
-                }
+            ActivityView(activityItems: [shareLink.title, shareLink.url])
+        }
+        .onAppear {
+            self.showingActionSheet = true
+        }
+    }
+
+    func performSignIn() {
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .filter { $0.isKeyWindow }.first
+        if let keyWindow = keyWindow {
+            AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
+        }
     }
     
     func showPurchaseDialog() {
@@ -61,5 +67,12 @@ struct SettingsView: View {
                 }
             }
         }
+    }
+    
+    func openSystemSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+        print("Settings: system settings clicked")
     }
 }
