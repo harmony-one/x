@@ -1,4 +1,9 @@
-2023-11-12 Sat - 2023-11-19 Sun: Days off.
+2023-11-20 Mon: [Updated](https://github.com/harmony-one/x/commit/7efbe822df80d1100b10cbc6218d58b43fb00855) topArticles list to remove some footballers, content with adult themes, and potentially repetitive titles. Total topics reduced from 1182 to 1158. 
+[Added](https://github.com/harmony-one/x/commit/bf345dc969fc34fbdc2e43f35e3d2e5ecd50e146) action sheet for long press on Pause/Play button. TODO: remove white background and replace with darkened app screen. [Updated](https://github.com/harmony-one/x/commit/b0c79a60bf77a7bdbe846c8a22c72afe46a700a2) object name. 
+
+---
+
+2023-11-12 Sat - 2023-11-19 Sun: OOO
 
 ---
 
