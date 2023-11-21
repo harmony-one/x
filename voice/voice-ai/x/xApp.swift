@@ -6,6 +6,7 @@ import SwiftUI
 @main
 struct xApp: App {
     @StateObject var store = Store()
+    @StateObject var appSettings = AppSettings()
     let appConfig = AppConfig.shared
     init() {
         // Initialize ReviewRequester with values from AppConfig
@@ -29,7 +30,15 @@ struct xApp: App {
             // Currently we are displaying only buttons
             //  DashboardView()
             SentryTracedView("ActionsView") {
-                ActionsView().environmentObject(store).background(Color(hex: 0x1E1E1E).animation(.none))
+                ActionsView()
+                    .environmentObject(store)
+                    .environmentObject(appSettings)
+                    .background(Color(hex: 0x1E1E1E).animation(.none))
+                    .overlay {
+                        SettingsView()
+                            .environmentObject(store)
+                            .environmentObject(appSettings)
+                    }
             }
         }
     }

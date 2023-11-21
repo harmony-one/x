@@ -24,10 +24,11 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-
+    @State private var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
+    @EnvironmentObject var appSettings: AppSettings
     @State private var skipPressedTimer: Timer? = nil
 
     @State private var buttonFrame: CGRect = .zero
@@ -344,10 +345,15 @@ struct ActionsView: View {
                 showPurchaseDiglog()
             })
         } else if button.action == .surprise {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
-                self.vibration()
-                Task {
-                    await handleOtherActions(actionType: button.action)
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
+              self.vibration()
+                if (self.isSurpriseButtonPressed) {
+                    self.isSurpriseButtonPressed = false
+                    Task {
+                        await handleOtherActions(actionType: button.action)
+                        await Task.sleep(1 * 500_000_000)
+                        self.isSurpriseButtonPressed = true
+                    }
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
@@ -364,9 +370,11 @@ struct ActionsView: View {
     }
 
     func openSettingsApp() {
-        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        self.appSettings.isOpened = true
+        print("Show settings")
+//        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+//            UIApplication.shared.open(url)
+//        }
     }
 
     func requestReview() {
