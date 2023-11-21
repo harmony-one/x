@@ -1,4 +1,4 @@
-2023-11-20 Mon: Working on Bluetooth support. I have checked all of my devices, and the app is functioning properly with AirPods, JBL earbuds, JBL Extreme 2, and a Xiaomi Bluetooth receiver. Also I have added [AirPlay support](https://github.com/harmony-one/x/pull/227).
+2023-11-20 Mon: Working on Bluetooth support. I have checked all of my devices, and the app is functioning properly with AirPods, JBL earbuds, JBL Extreme 2, and a Xiaomi Bluetooth receiver. Also I have added [AirPlay support](https://github.com/harmony-one/x/pull/227). I have added ["repeat last" button test](https://github.com/harmony-one/x/pull/229).
 
 ---
 
