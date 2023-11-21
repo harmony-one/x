@@ -28,7 +28,6 @@ class AppSettings: ObservableObject {
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
         
         // Register default values after initialization
-        print("*******************************")
         registerDefaultValues()
         
         // Listen to UserDefaults changes
