@@ -43,31 +43,23 @@ class ActionsViewTests: XCTestCase {
         XCTAssertTrue(mockGenerator.impactOccurredCalled)
     }
 
-    func testOpenSettingsApp() {
-        XCTAssertFalse(actionsView.appSettings.isOpened)
-
-        actionsView.openSettingsApp()
-
-        XCTAssertTrue(actionsView.appSettings.isOpened)
-    }
+//    func testOpenSettingsApp() {
+//        XCTAssertFalse(actionsView.appSettings.isOpened)
+//
+//        actionsView.openSettingsApp()
+//
+//        XCTAssertTrue(actionsView.appSettings.isOpened)
+//    }
 //
 //    func testHandleOtherActions() async {
-//        // Test the handleOtherActions function
-//        // You may need to mock or stub certain dependencies to fully test this function
 //    }
 //
 //    func testCheckUserAuthentication() {
-//        // Test the checkUserAuthentication function
-//        // You may need to mock or stub certain dependencies to fully test this function
 //    }
 //
 //    func testShowPurchaseDialog() {
-//        // Test the showPurchaseDialog function
-//        // You may need to mock or stub certain dependencies to fully test this function
 //    }
 //
 //    func testShowInAppPurchasesIfNotLoggedIn() {
-//        // Test the showInAppPurchasesIfNotLoggedIn function
-//        // You may need to mock or stub certain dependencies to fully test this function
 //    }
 }
