@@ -317,7 +317,6 @@
 		6EA3DB632B07ADD30011EFEC /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
-		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* Voice 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
 		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -378,7 +377,7 @@
 		CD0D133D2ADA73B400031EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = x/Info.plist; sourceTree = SOURCE_ROOT; };
+		CD0D13432ADA73B400031EDD /* Info_shared.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info_shared.plist; path = x/Info_shared.plist; sourceTree = SOURCE_ROOT; };
 		CD0D13482ADA73B400031EDD /* Voice AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandlerTests.swift; sourceTree = "<group>"; };
 		CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -498,7 +497,6 @@
 		A46B5A4B2AE73B9D00C874ED /* sun */ = {
 			isa = PBXGroup;
 			children = (
-				A4680DA02AE9CA7200F5F8ED /* Info.plist */,
 				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
 				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
 				A46B5A522AE73B9D00C874ED /* Preview Content */,
@@ -756,7 +754,7 @@
 				B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */,
 				CD0D136A2ADB28CE00031EDD /* logo.png */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
-				CD0D13432ADA73B400031EDD /* Info.plist */,
+				CD0D13432ADA73B400031EDD /* Info_shared.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				22CC4D752AF3AC300072EC39 /* Products.storekit */,
 				22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */,
@@ -1391,7 +1389,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sun/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
@@ -1429,7 +1427,7 @@
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sun/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
@@ -1670,7 +1668,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = x/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
@@ -1716,7 +1714,7 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = x/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
