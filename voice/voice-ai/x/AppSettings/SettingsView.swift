@@ -5,14 +5,13 @@ struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
-    @State private var showActionsSheet: Bool = true
 
     var body: some View {
         ZStack {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
         }
-        .actionSheet(isPresented: $showActionsSheet, content: actionSheet)
+        .actionSheet(isPresented: $appSettings.isOpened, content: actionSheet)
     }
 
     func actionSheet() -> ActionSheet {
