@@ -45,19 +45,37 @@ class AppSettings: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func convertDateStringToLocalFormat(inputDateString: String, inputFormat: String = "yyyy-MM-dd HH:mm:ss", outputFormat: String = "yyyyMMdd") -> String? { // "MMM d, yyyy"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = inputFormat
+        
+        guard let inputDate = dateFormatter.date(from: inputDateString) else {
+            // Handle invalid input date string
+            return nil
+        }
+        
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: outputFormat, options: 0, locale: Locale.current)
+        dateFormatter.timeZone = TimeZone.current
+        
+        let outputDateString = dateFormatter.string(from: inputDate)
+        return outputDateString
+    }
+
+    
     private func registerDefaultValues() {
+        let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let defaults = [
-            "EXPIRE_AT": "2023-12-14 22:15:00",
+            "EXPIRE_AT": localDate,
             "custom_instruction_preference": """
             We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
             """,
             "USER_NAME": "User"
         ]
-        UserDefaults.standard.register(defaults: defaults)
     }
     
     private func loadSettings() {
-        premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "2023-12-14 22:15:00"
+        let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
+        premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam."
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
     }
