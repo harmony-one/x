@@ -12,6 +12,11 @@ struct SettingsView: View {
                 .edgesIgnoringSafeArea(.all)
         }
         .actionSheet(isPresented: $appSettings.isOpened, content: actionSheet)
+        .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
+            let url = URL(string: "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896")!
+            let shareLink = ShareLink(title: "Check out Voice AI: Super-Intelligence app!", url: url)
+            ActivityView(activityItems: [shareLink.title, shareLink.url])
+        }
     }
 
     func actionSheet() -> ActionSheet {
