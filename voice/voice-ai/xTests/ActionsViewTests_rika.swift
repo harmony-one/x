@@ -1,6 +1,7 @@
 import XCTest
 @testable import Voice_AI
-class ActionsViewTests: XCTestCase {
+
+class ActionsViewTests2: XCTestCase {
     var actionsView: ActionsView!
     var appSettings: AppSettings!
     var mockGenerator: MockGenerator!

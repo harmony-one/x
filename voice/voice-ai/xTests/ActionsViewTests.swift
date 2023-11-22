@@ -24,7 +24,6 @@ class MockActionHandler: ActionHandler {
 
 
 class ActionsViewTests: XCTestCase {
-    
     var actionsView: ActionsView!
     var store: Store!
     
@@ -32,7 +31,7 @@ class ActionsViewTests: XCTestCase {
         super.setUp()
         store = Store()
         actionsView = ActionsView()
-//        _ = actionsView.environmentObject(Store())
+
     }
     
     override func tearDown() {
@@ -88,14 +87,18 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
         
     }
-    func testVewButtonClosures(actionType: ActionType) {
-        
+    
+    func testVewButtonPlay () {
+        let actionType: ActionType = .play
+//        let isPressed = Bool.random()
+
         let actionHandler = MockActionHandler()
         let button = ButtonData(label: "Test Button", image: "", action: actionType)
         let expectedActionType: ActionType = actionType
         
         actionHandler.handleCalled = false
         XCTAssertFalse(actionHandler.handleCalled)
+        actionsView.vibration()
         
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         actionHandler.handle(actionType: actionType)
@@ -105,103 +108,35 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
         
     }
+    
+    func testVewButtonReset () {
+        let actionType: ActionType = .reset
+        let showInAppPurchases = Bool.random()
 
-    
-//    func testVewButtonSpeakClosures() {
-//        let actionType: ActionType = .speak
-//        
-//        if (actionType == .speak) {
-//            
-//        }
-//        let actionHandler = MockActionHandler()
-//        let button = ButtonData(label: "Test Button", image: "", action: actionType)
-//        let expectedActionType: ActionType = actionType
-//        
-//        actionHandler.handleCalled = false
-//        XCTAssertFalse(actionHandler.handleCalled)
-//        
-//        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-//        actionHandler.handle(actionType: actionType)
-//        
-//        XCTAssertNotNil(viewButton)
-//        XCTAssertTrue(actionHandler.handleCalled)
-//        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
-//        
-//    }
-    
-    if button.action == .speak {
-        if button.pressedLabel != nil {
-            // Press to Speak & Press to Send
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
-                self.vibration()
-                Task {
-                    if !actionHandler.isTapToSpeakActive {
-                        actionHandler.handle(actionType: ActionType.tapSpeak)
-                    } else {
-                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                    }
-                }
-            }
-    
-    
-    func testViewButtonClosure10() {
-        testVewButtonClosures(actionType: .reset)
-        testVewButtonClosures(actionType: .repeatLast)
-        testVewButtonClosures(actionType: .speak)
-        testVewButtonClosures(actionType: .play)
-        testVewButtonClosures(actionType: .stopSpeak)
-        testVewButtonClosures(actionType: .tapSpeak)
-//        let actionHandler = MockActionHandler()
-//        let button = ButtonData(label: "Test Button", image: "", action: .reset)
-//        let expectedActionType: ActionType = .reset
-//        
-//        actionHandler.handleCalled = false
-//        XCTAssertFalse(actionHandler.handleCalled)
-//        
-//        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-//        actionHandler.handle(actionType: .reset)
-//        
-//        XCTAssertNotNil(viewButton)
-//        XCTAssertTrue(actionHandler.handleCalled)
-//        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+        let actionHandler = MockActionHandler()
+        let button = ButtonData(label: "Test Button", image: "", action: actionType)
+        let expectedActionType: ActionType = actionType
+        
+        actionHandler.handleCalled = false
+        XCTAssertFalse(actionHandler.handleCalled)
+        actionsView.vibration()
+        if (showInAppPurchases) {
+            
+        }
+        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+        actionHandler.handle(actionType: actionType)
+        
+        XCTAssertNotNil(viewButton)
+        XCTAssertTrue(actionHandler.handleCalled)
+        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
         
     }
 
-    
-    
-//    func testViewButtonClosure1() {
-//            
-//        let actionHandler = MockActionHandler()
-//        let button = ButtonData(label: "Test Button", image: "", action: .repeatLast)
-//        let expectedActionType: ActionType = .repeatLast
-//        
-//        actionHandler.handleCalled = false
-//        
-//        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-//        // Create a hosting controller to display the SwiftUI View
-//        let hostingController = UIHostingController(rootView: viewButton)
-//        
-//        // Access the view hierarchy and test any assertions you need
-//        if let buttonLabel = hostingController.view.findView(ofType: Text.self) {
-//            XCTAssertEqual(buttonLabel.text, "Test Button")
-//        }
-//        
-//        // For example, you can tap the button if it's interactive
-//        if let button = hostingController.view.findView(ofType: Button.self) {
-//            button.tap()
-//            // Perform assertions based on the button's action
-//            actionHandler.handle(actionType: .repeatLast)
-//            XCTAssertNotNil(viewButton)
-//            XCTAssertTrue(actionHandler.handleCalled)
-//            XCTAssertEqual(actionHandler.lastActionType, .repeatLast)
-//        }
+//    func testOpenSettingsApp() {
+//        actionsView.openSettingsApp()
+//        // Test that the openSettingsApp function does not throw any errors
 //    }
-
-    func testOpenSettingsApp() {
-        actionsView.openSettingsApp()
-        // Test that the openSettingsApp function does not throw any errors
-    }
-    
+//    
     func testRequestReview() {
         actionsView.requestReview()
         // Test that the requestReview function does not throw any errors
@@ -217,15 +152,93 @@ class ActionsViewTests: XCTestCase {
         // Test that the checkUserAuthentication function does not throw any errors
     }
     
-    func testShowPurchaseDiglog() {
-        actionsView.showPurchaseDiglog()
-        // Test that the showPurchaseDiglog function does not throw any errors
-    }
+//    func testShowPurchaseDiglog() {
+//        actionsView.showPurchaseDiglog()
+//        // Test that the showPurchaseDiglog function does not throw any errors
+//    }
     
     // Add more test cases for other functions and properties in the ActionsView struct
     
 }
 
 
-
-
+//func testVewButtonClosures(actionType: ActionType) {
+//    
+//    let actionHandler = MockActionHandler()
+//    let button = ButtonData(label: "Test Button", image: "", action: actionType)
+//    let expectedActionType: ActionType = actionType
+//    
+//    actionHandler.handleCalled = false
+//    XCTAssertFalse(actionHandler.handleCalled)
+//    
+//    let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+//    actionHandler.handle(actionType: actionType)
+//    
+//    XCTAssertNotNil(viewButton)
+//    XCTAssertTrue(actionHandler.handleCalled)
+//    XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+//    
+//}
+//
+//
+////    func testVewButtonSpeakClosures() {
+////        let actionType: ActionType = .speak
+////
+////        if (actionType == .speak) {
+////
+////        }
+////        let actionHandler = MockActionHandler()
+////        let button = ButtonData(label: "Test Button", image: "", action: actionType)
+////        let expectedActionType: ActionType = actionType
+////
+////        actionHandler.handleCalled = false
+////        XCTAssertFalse(actionHandler.handleCalled)
+////
+////        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+////        actionHandler.handle(actionType: actionType)
+////
+////        XCTAssertNotNil(viewButton)
+////        XCTAssertTrue(actionHandler.handleCalled)
+////        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+////
+////    }
+//
+////    if button.action == .speak {
+////        if button.pressedLabel != nil {
+////            // Press to Speak & Press to Send
+////            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
+////                self.vibration()
+////                Task {
+////                    if !actionHandler.isTapToSpeakActive {
+////                        actionHandler.handle(actionType: ActionType.tapSpeak)
+////                    } else {
+////                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
+////                    }
+////                }
+////            }
+//
+//
+//func testViewButtonClosure10() {
+//    testVewButtonClosures(actionType: .reset)
+//    testVewButtonClosures(actionType: .repeatLast)
+//    testVewButtonClosures(actionType: .speak)
+//    testVewButtonClosures(actionType: .play)
+//    testVewButtonClosures(actionType: .stopSpeak)
+//    testVewButtonClosures(actionType: .tapSpeak)
+////        let actionHandler = MockActionHandler()
+////        let button = ButtonData(label: "Test Button", image: "", action: .reset)
+////        let expectedActionType: ActionType = .reset
+////
+////        actionHandler.handleCalled = false
+////        XCTAssertFalse(actionHandler.handleCalled)
+////
+////        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+////        actionHandler.handle(actionType: .reset)
+////
+////        XCTAssertNotNil(viewButton)
+////        XCTAssertTrue(actionHandler.handleCalled)
+////        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+//    
+//}
+//
+//

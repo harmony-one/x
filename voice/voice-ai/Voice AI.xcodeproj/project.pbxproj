@@ -110,6 +110,10 @@
 		B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
+		B33EE43E2B0DA1A6007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
+		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
+		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
+		B33EE4412B0E6585007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
@@ -633,8 +637,8 @@
 				B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */,
 				B9C4A8262AEE861C00327529 /* ActionHandler.swift */,
 				B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */,
-				B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */,
 				6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */,
+				B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */,
 				6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */,
 			);
 			path = Actions;
@@ -1078,6 +1082,7 @@
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
+				B33EE43E2B0DA1A6007D0052 /* Settings.bundle in Resources */,
 				22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
@@ -1101,6 +1106,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */,
 				B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1228,6 +1234,7 @@
 				6EC2F6292B067E91002EFADD /* KeychainService.swift in Sources */,
 				22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */,
 				6E6D53252AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
+				B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */,
 				F73ABDBF2B0C25BC0073AF33 /* ReviewRequesterTests.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
 				B91F05CA2B05F7260029A32D /* APIEnvironment.swift in Sources */,
@@ -1318,6 +1325,7 @@
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
+				B33EE4412B0E6585007D0052 /* xApp.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
 				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
