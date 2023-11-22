@@ -1,3 +1,5 @@
+2023-11-22 Wed: I'm working on expanding the [tests for the OpenAI service](https://github.com/harmony-one/x/pull/248).
+
 2023-11-21 Tue: Working on [UI tests](https://github.com/harmony-one/x/pull/236): Fixed the test for the "Pause / Play" button, fixed the test for the "Surprise ME!" button, and started work on the test for the "New Session" button.
 
 2023-11-20 Mon: Working on Bluetooth support. I have checked all of my devices, and the app is functioning properly with AirPods, JBL earbuds, JBL Extreme 2, and a Xiaomi Bluetooth receiver. Also I have added [AirPlay support](https://github.com/harmony-one/x/pull/227). I have added ["repeat last" button test](https://github.com/harmony-one/x/pull/229).
