@@ -1,6 +1,6 @@
 2023-11-21 Tue: Voice 2 experienced two sudden crashes, rendering it non-functional and impeding my communication attempts. I was unable to get a response from any of the buttons beyond the initial "Hey" when opening the app. 
 
-Regarding Voice AI, upon selecting the "Surprise Me" option, the app did not respond. Upon reopening the application later, the Voice AI started reciting a fun fact immediately, as if the app hadn't been closed.
+Regarding Voice AI, when selecting the "Surprise Me" option, the app did not respond. Upon reopening the application later, the Voice AI started reciting a fun fact immediately, as if the app hadn't been closed.
 
 2023-11-20 Mon: When I asked my friend to use the app, they didn't immediately grasp that "Tap to Speak" could substitute for the conventional method of pressing and holding. Incorporating a concise "how-to" tutorial upon app launch, featuring clear arrows and brief explanations, would significantly enhance user understanding. 
 
