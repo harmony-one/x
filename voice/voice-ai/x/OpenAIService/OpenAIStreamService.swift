@@ -21,7 +21,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     // Limit 10 queries per minute
     static var queryTimes: [Int64] = []
     static var rateLimitCounterLock = DispatchSemaphore(value: 1)
-    static let QueryLimitPerMinute: Int = 100
+    static var QueryLimitPerMinute: Int = 100
     static let MaxGPT4DurationMinutes: Int = 45
 
     // URLSession should be lazy to ensure delegate can be set after super.init
@@ -243,6 +243,10 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             print("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
+    }
+
+    func getTemperature() -> Double {
+        return temperature
     }
 
 //     static func setConversationContext() -> Message {

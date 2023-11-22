@@ -3,14 +3,23 @@ import XCTest
 
 class OpenAIServiceTests: XCTestCase {
     var openAIStreamService: OpenAIStreamService!
-
+    
     func testQuery() {
         var testConversation: [Message] = []
         testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         testConversation.append(Message(role: "user", content: "Hello"))
         // print(testConversation)
         let mockNetworkService = MockNetworkService()
-        let openAIStreamService = OpenAIStreamService(networkService: mockNetworkService, completion: { response, error in
+        
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+        
+        
+        let session: NetworkService = StubURLSession(data: nil, response: nil, error: nil)
+        
+        
+        // put API_KEY=somestring for test
+        let openAIStreamService = OpenAIStreamService(networkService: session, completion: { response, error in
+            expectation.fulfill()
             XCTAssertNotNil(response, "Response should not be nil")
             XCTAssertNil(error, "Error should be nil")
             // Check if both context messages exist in the conversation
@@ -21,7 +30,69 @@ class OpenAIServiceTests: XCTestCase {
         })
 
         openAIStreamService.query(conversation: testConversation)
+        wait(for: [expectation], timeout: 10)
     }
+    
+    
+    func testRateLimit() {
+        var testConversation: [Message] = []
+        testConversation.append(Message(role: "user", content: "Hello"))
+        let mockNetworkService = MockNetworkService()
+        
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+        
+        let session = StubURLSession(data: nil, response: nil, error: nil)
+        // put API_KEY=somestring for test
+        let service = OpenAIStreamService(networkService: session, completion: { response, error in
+            XCTAssertNil(response, "Response should not be nil")
+            XCTAssertNotNil(error, "Error should be nil")
+            
+            if let err = error as? NSError {
+                XCTAssertEqual(err.code, -3)
+                XCTAssertEqual(err.domain, "Rate limited")
+            } else {
+                XCTFail("should be NSError type")
+            }
+            
+            XCTAssertTrue(true)
+            expectation.fulfill()
+        })
+    
+        wait(for: [expectation], timeout: 20)
+        
+        OpenAIStreamService.QueryLimitPerMinute = 0;
+        OpenAIStreamService.queryTimes.append(Int64(NSDate().timeIntervalSince1970 * 1000))
+
+        service.query(conversation: testConversation)
+    }
+    
+    
+//    func testConstructor() {
+//        let openAIStreamService = OpenAIStreamService { response, error in }
+//        
+//        XCTAssertNotNil(openAIStreamService, "service should not be nil")
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.7, "should have default value")
+//    }
+    
+//    func testSetTemperature() {
+//        let mockNetworkService = MockNetworkService()
+//        let openAIStreamService = OpenAIStreamService(networkService: mockNetworkService, completion: { response, error in
+//            
+//        })
+////        
+//        openAIStreamService.setTemperature(0.1)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.1)
+//        openAIStreamService.setTemperature(0.9)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.9)
+//        openAIStreamService.setTemperature(1.0)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 1.0)
+//        openAIStreamService.setTemperature(0.0)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
+//        openAIStreamService.setTemperature(-0.1)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
+//        openAIStreamService.setTemperature(1.1)
+//        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
+//    }
 }
 
 final class OpenAIUtilsTests: XCTestCase {
