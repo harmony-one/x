@@ -71,7 +71,7 @@ struct ActionsView: View {
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
+        let buttonRepeat = ButtonData(label: "More Actions", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
 //        changeTheme(name: config.getThemeName())
@@ -265,22 +265,23 @@ struct ActionsView: View {
                         }
                     }
                 }
-                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
-                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                    }
-//                    DispatchQueue.main.async {
-//                        let url = URL(string: "https://x.country/voice")
-//                        if UIApplication.shared.canOpenURL(url!) {
-//                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//                        } else {
-//                            print("Cannot open URL")
-//                        }
+//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
+//                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
 //                    }
-                })
-                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                    self.checkUserAuthentication()
-                }).accessibilityIdentifier(button.testId)
+////                    DispatchQueue.main.async {
+////                        let url = URL(string: "https://x.country/voice")
+////                        if UIApplication.shared.canOpenURL(url!) {
+////                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+////                        } else {
+////                            print("Cannot open URL")
+////                        }
+////                    }
+//                })
+//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                    self.checkUserAuthentication()
+//                })
+                .accessibilityIdentifier(button.testId)
             } else {
                 // Press & Hold
                 
@@ -311,20 +312,24 @@ struct ActionsView: View {
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 self.vibration()
-                Task {
-                    await handleOtherActions(actionType: button.action)
-                }
-            }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 DispatchQueue.main.async {
-                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
-                    if UIApplication.shared.canOpenURL(url!) {
-                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                    } else {
-                        print("Cannot open URL")
-                    }
+                    openSettingsApp()
                 }
-            }).accessibilityIdentifier(button.testId)
+//                Task {
+//                    await handleOtherActions(actionType: button.action)
+//                }
+            }
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                DispatchQueue.main.async {
+//                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
+//                    if UIApplication.shared.canOpenURL(url!) {
+//                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//                    } else {
+//                        print("Cannot open URL")
+//                    }
+//                }
+//            })
+            .accessibilityIdentifier(button.testId)
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
@@ -341,11 +346,12 @@ struct ActionsView: View {
                     buttonFrame = geometry.frame(in: .local)
                 }
             })
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                DispatchQueue.main.async {
-                    openSettingsApp()
-                }
-            }).accessibilityIdentifier(button.testId)
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                DispatchQueue.main.async {
+//                    openSettingsApp()
+//                }
+//            })
+            .accessibilityIdentifier(button.testId)
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -371,9 +377,10 @@ struct ActionsView: View {
                     }
                 }
             }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                showPurchaseDiglog()
-            }).accessibilityIdentifier(button.testId)
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                showPurchaseDiglog()
+//            })
+            .accessibilityIdentifier(button.testId)
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
               self.vibration()
@@ -386,9 +393,10 @@ struct ActionsView: View {
                     }
                 }
             }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                self.showShareSheet = true
-            }).accessibilityIdentifier(button.testId)
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                self.showShareSheet = true
+//            })
+            .accessibilityIdentifier(button.testId)
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 self.vibration()
