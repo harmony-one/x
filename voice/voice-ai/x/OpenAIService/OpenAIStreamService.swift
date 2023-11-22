@@ -69,6 +69,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         if rateLimit == true {
             Self.rateLimitCounterLock.wait()
             let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+            print("##### QUERY TIMES", Self.queryTimes)
             if Self.queryTimes.count < Self.QueryLimitPerMinute {
                 Self.queryTimes.append(now)
             } else if Self.queryTimes.first! < now - 60000 {
@@ -81,8 +82,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
                 return
             }
             Self.rateLimitCounterLock.signal()
-            completion(nil, NSError(domain: "Rate limited", code: -3))
-            return
         }
         
 
