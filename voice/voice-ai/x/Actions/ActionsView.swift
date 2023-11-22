@@ -24,7 +24,8 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-
+    @State private var speakButtonDebounceTimer: Timer?
+    
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
 
@@ -288,14 +289,22 @@ struct ActionsView: View {
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
+                            self.speakButtonDebounceTimer?.invalidate()
+                            
                             if self.isSpeakButtonPressed == false {
-                                actionHandler.handle(actionType: ActionType.speak)
+                                self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                                    actionHandler.handle(actionType: ActionType.speak)
+                                }
                             }
                             self.isSpeakButtonPressed = true
                         }
                         .onEnded { _ in
+                            self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
-                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                            
+                            if(actionHandler.isPressAndHoldActive) {
+                                actionHandler.handle(actionType: ActionType.stopSpeak)
+                            }
                         }
                 ).accessibilityIdentifier(button.testId)
             }
