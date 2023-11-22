@@ -120,7 +120,11 @@ struct ActionsView: View {
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
-            baseView(colums: colums, buttons: buttons)
+            if store.isPurchasing {
+                ProgressViewComponent(isShowing: $store.isPurchasing)
+            } else {
+                baseView(colums: colums, buttons: buttons)
+            }
         }.background(Color(hex: 0x1E1E1E).animation(.none))
             .onAppear(
                 perform: {
