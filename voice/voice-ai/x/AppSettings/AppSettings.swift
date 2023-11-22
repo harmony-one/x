@@ -7,7 +7,7 @@ class AppSettings: ObservableObject {
     
     @Published var premiumUseExpires: String {
         didSet {
-            updateUserDefaultsIfNeeded(forKey: "EXPIRE_AT", newValue: premiumUseExpires)
+            updateUserDefaultsIfNeeded(forKey: "EXPIRE_AT", newValue: convertDateStringToLocalFormat(inputDateString: premiumUseExpires, inputFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? premiumUseExpires)
         }
     }
     @Published var customInstructions: String {
