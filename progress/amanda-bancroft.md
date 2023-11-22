@@ -1,3 +1,17 @@
+2023-11-21 Tue: Voice 2 experienced two sudden crashes, rendering it non-functional and impeding my communication attempts. I was unable to get a response from any of the buttons beyond the initial "Hey" when opening the app. 
+
+Regarding Voice AI, upon selecting the "Surprise Me" option, the app did not respond. Upon reopening the application later, the Voice AI started reciting a fun fact immediately, as if the app hadn't been closed.
+
+2023-11-20 Mon: When I asked my friend to use the app, they didn't immediately grasp that "Tap to Speak" could substitute for the conventional method of pressing and holding. Incorporating a concise "how-to" tutorial upon app launch, featuring clear arrows and brief explanations, would significantly enhance user understanding. 
+
+During my interaction with the device and app, an issue arose when the app claimed a lack of internet connectivity despite the device maintaining a stable connection. After reinitiating the prompt, the app finally delivered a response.
+
+---
+
+2023-11-17 Fri: The app offers notably more functional responses in contrast to Siri. However, it does lack in certain areas such as HomeKit functionality and the provision of current data such as weather. 
+
+The visual elements of both the app icon and its internal design aesthetics possess a slightly industrial quality, which might impact user perception. A refinement in these visual aspects could contribute to a more harmonious and user-friendly interface.
+
 2023-11-16 Thu: The app's recall has shown noticeable improvements, and it seems that the "Surprise Me!" feature no longer prompts the start of a new session. However, the longer you speak with the app the more the recall weakens. 
 
 I requested the app to craft a grocery list with specific details, after discussing various topics and revisiting the list a few minutes later, the app initially recalled the items in their precise initial order. As our conversation continued and I circled back to the grocery list, it no longer maintained the correct order and eventually presented an entirely different list instead of recalling the original one.
