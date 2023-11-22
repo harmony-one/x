@@ -1,3 +1,5 @@
+2023-11-22 Wed: 'Sign in' to 'Sign In', show user ID/email when signed in, added 'Save Transcript' in settings, and implemented a loading icon on 'Purchase'. PR: https://github.com/harmony-one/x/pull/244
+
 2023-11-21 Tue: I have resolved all conflicts for the Pull Request:https://github.com/harmony-one/x/pull/181, implemented some of the SwiftLint rules, and assisted Frank with unit testing.
 
 2023-11-20 Mon: Added handling of decline permissions, Long Press "Tap to Speak" should trigger login. Long Press "New Session" should trigger In App Purchase. Currently, 1/10 times the review pops up. Remove review, update to 1/5 times In App Purchase pops up, but only when the user is not logged in or the user is logged in but doesn't have premium.
