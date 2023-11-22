@@ -1,4 +1,6 @@
-2023-11-17 Mon: We finally received approval after 4 days for v1.1120.13. We have submitted a new build with in-App Purchase to solicit feedback from Apple.
+2023-11-21 Tue: We will be launching v1.1122.9 to the app store tomorrow morning after button handling is satisfied. Many of the functionality still hangs when under stress testing, especially when multiple buttons are pressed simultaneously.
+
+2023-11-20 Mon: We finally received approval after 4 days for v1.1120.13. We have submitted a new build with in-App Purchase to solicit feedback from Apple.
 
 ---
 
