@@ -1,3 +1,5 @@
+2023-11-22 Wed: [added](https://github.com/harmony-one/x/pull/247) UI test for Settings modal, fixed actions buttons test; working on relay service latency measurements.
+
 2023-11-21 Tue: worked on Settings modal: fixed black overlay issue, fixed close settings handler, updated link to a new "Voice AI: Super-Intelligence" app in Share button, added Tweet. Pushed al changes into `dev_1.1120.9` branch, PR [#225](https://github.com/harmony-one/x/pull/225).
 
 2023-11-20 Mon: [helped](https://github.com/harmony-one/explorer-v2-frontend/pull/283) Aaron to track Explorer visits for specific address pages, configured Google Tag Manager and Fingerprint.com. [Implemented](https://github.com/harmony-one/x/pull/221) Settings modal with 3 buttons in VoiceAI, created PR.
