@@ -32,7 +32,7 @@ class ActionsViewTests: XCTestCase {
         super.setUp()
         store = Store()
         actionsView = ActionsView()
-        _ = actionsView.environmentObject(Store())
+//        _ = actionsView.environmentObject(Store())
     }
     
     override func tearDown() {
@@ -68,6 +68,7 @@ class ActionsViewTests: XCTestCase {
     }
     
     
+
     func testVewButtonRepeatLast () {
         let actionType: ActionType = .repeatLast
         
@@ -104,6 +105,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
         
     }
+
     
 //    func testVewButtonSpeakClosures() {
 //        let actionType: ActionType = .speak

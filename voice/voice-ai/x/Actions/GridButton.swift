@@ -7,7 +7,8 @@ struct GridButton: View {
     var foregroundColor: Color
     var active: Bool = false
     var isPressed: Bool = false
-
+    var clickCounterStartOn = 100
+    var isButtonEnabled: Bool = true
     @State private var timeAtPress = Date()
     @State private var isDragActive = false
 
@@ -72,25 +73,27 @@ struct GridButton: View {
             .exclusively(before: hackyPress)
 
         Button(action: {
-            let elapsed = Date().timeIntervalSince(self.timeAtPress)
-
-            if elapsed < 1.5 {
-                self.clickCounter += 1
-
-                Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                    self.clickCounter -= 1
-                }
-
-                self.debounce_timer?.invalidate()
-
-                print("self.clickCounter", self.clickCounter)
-
-                if self.clickCounter >= 100 {
-                    self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            if self.isButtonEnabled {
+                let elapsed = Date().timeIntervalSince(self.timeAtPress)
+                
+                if(elapsed < 1.5) {
+                    self.clickCounter += 1
+                    
+                    Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                        self.clickCounter -= 1
+                    }
+                    
+                    self.debounce_timer?.invalidate()
+                    
+                    // print("self.clickCounter", self.clickCounter)
+                    
+                    if(self.clickCounter >= self.clickCounterStartOn) {
+                        self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                            action()
+                        }
+                    } else {
                         action()
                     }
-                } else {
-                    action()
                 }
             }
         }) {
@@ -109,7 +112,7 @@ struct GridButton: View {
             .cornerRadius(0)
             .alignmentGuide(.bottom) { _ in 0.5 }
         }
-        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak && button.pressedLabel == nil))
+        .buttonStyle(PressEffectButtonStyle(theme: currentTheme, active: active, invertColors: button.action == .speak && button.pressedLabel == nil, isButtonEnabled: self.isButtonEnabled))
         .simultaneousGesture(combinedGesture)
     }
 
@@ -145,12 +148,14 @@ struct PressEffectButtonStyle: ButtonStyle {
     var background: Color?
     var active: Bool = false
     var invertColors: Bool = false
-
-    init(theme: Theme, background: Color? = nil, active: Bool = false, invertColors: Bool = false) {
+    var isButtonEnabled: Bool = true
+    
+    init(theme: Theme, background: Color? = nil, active: Bool = false, invertColors: Bool = false, isButtonEnabled: Bool = true) {
         self.background = background
         self.active = active
         self.invertColors = invertColors
         self.theme = theme
+        self.isButtonEnabled = isButtonEnabled
     }
 
     func makeBody(configuration: Configuration) -> some View {
@@ -161,6 +166,7 @@ struct PressEffectButtonStyle: ButtonStyle {
                 configuration.label
                     .foregroundColor(determineForegroundColor(configuration: configuration)))
             .animation(.easeInOut(duration: 0.08), value: configuration.isPressed)
+            .opacity(isButtonEnabled ? 1.0 : 1.0) // 0.3
     }
 
     // .speak button should have inverted colors

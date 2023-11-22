@@ -24,10 +24,15 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-
+    
+    @State private var isTapToSpeakActive = false
+    @State private var tapToSpeakDebounceTimer: Timer?
+    
+    @State private var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
+    @EnvironmentObject var appSettings: AppSettings
     @State private var skipPressedTimer: Timer? = nil
 
     @State private var buttonFrame: CGRect = .zero
@@ -35,6 +40,8 @@ struct ActionsView: View {
 
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
+    
+    static var generator: UIImpactFeedbackGenerator?
 
     static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
 
@@ -60,8 +67,8 @@ struct ActionsView: View {
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonTapSpeak = ButtonData(label: "Tap to SPEAK", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
-        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - random fact", action: .surprise)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
+        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise)
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
         let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
@@ -221,9 +228,11 @@ struct ActionsView: View {
     }
 
     func vibration() {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        impactFeedbackGenerator.prepare()
-        impactFeedbackGenerator.impactOccurred()
+        if ActionsView.generator == nil {
+            ActionsView.generator = UIImpactFeedbackGenerator(style: .medium)
+        }
+        ActionsView.generator?.prepare()
+        ActionsView.generator?.impactOccurred()
     }
 
     @ViewBuilder
@@ -233,13 +242,22 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: actionHandler.isTapToSpeakActive, isPressed: actionHandler.isTapToSpeakActive) {
-                    self.vibration()
-                    Task {
-                        if !actionHandler.isTapToSpeakActive {
-                            actionHandler.handle(actionType: ActionType.tapSpeak)
-                        } else {
-                            actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {
+                   self.isTapToSpeakActive = !self.isTapToSpeakActive
+                   self.vibration()
+                    
+                   self.tapToSpeakDebounceTimer?.invalidate()
+                    
+                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                        self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                            
+                            Task {
+                                if !actionHandler.isTapToSpeakActive {
+                                    actionHandler.handle(actionType: ActionType.tapSpeak)
+                                } else {
+                                    actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                                }
+                            }
                         }
                     }
                 }
@@ -345,10 +363,15 @@ struct ActionsView: View {
                 showPurchaseDiglog()
             })
         } else if button.action == .surprise {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
-                self.vibration()
-                Task {
-                    await handleOtherActions(actionType: button.action)
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
+              self.vibration()
+                if (self.isSurpriseButtonPressed) {
+                    self.isSurpriseButtonPressed = false
+                    Task {
+                        await handleOtherActions(actionType: button.action)
+                        await Task.sleep(1 * 500_000_000)
+                        self.isSurpriseButtonPressed = true
+                    }
                 }
             }
             .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
@@ -365,9 +388,11 @@ struct ActionsView: View {
     }
 
     func openSettingsApp() {
-        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        self.appSettings.isOpened = true
+        print("Show settings")
+//        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+//            UIApplication.shared.open(url)
+//        }
     }
 
     func requestReview() {

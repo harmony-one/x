@@ -12,5 +12,13 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Dotrice-Bold-Expanded.otf</string>
+		<string>Dotrice-Bold.otf</string>
+		<string>Dotrice-Expanded.otf</string>
+		<string>Dotrice-Condensed.otf</string>
+		<string>Dotrice-Regular.otf</string>
+	</array>
 </dict>
 </plist>

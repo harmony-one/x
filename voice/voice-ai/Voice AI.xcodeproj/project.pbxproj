@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
+		22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
+		22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */; };
 		22CC4D742AF3AC0B0072EC39 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */; };
 		22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
@@ -78,6 +81,8 @@
 		A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
 		A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40CFCE22AF98BB700E02128 /* RandomFact.swift */; };
+		A44CFFB02B0D7200003D6822 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A44CFFAF2B0D7200003D6822 /* AppConfig.plist */; };
+		A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A44CFFAF2B0D7200003D6822 /* AppConfig.plist */; };
 		A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */; };
 		A46B5A512AE73B9D00C874ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A46B5A502AE73B9D00C874ED /* Assets.xcassets */; };
@@ -115,6 +120,12 @@
 		B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
 		B36C89D42B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */; };
 		B37D62552B0B23F0005B8C53 /* UserApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37D62542B0B23F0005B8C53 /* UserApiTests.swift */; };
+		B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
+		B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
+		B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
+		B3BA26752B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
+		B3BA26762B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
+		B3BA26772B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BC2CAD2B05F44C00A58477 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
 		B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
 		B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B52B04B3E00029A32D /* KeychainService.swift */; };
@@ -148,7 +159,6 @@
 		B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
-		B91F05D32B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B91F05D42B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B91F05D52B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
@@ -156,7 +166,6 @@
 		B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADE2ADE2DE5009F9F8C /* String.swift */; };
 		B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
-		B95CC9692B078AD800F3B27A /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
@@ -208,7 +217,6 @@
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
-		E47F1A972B07F94200455617 /* AppConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95CC9682B078AD800F3B27A /* AppConfig.plist */; };
 		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
 		E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
 		E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
@@ -250,6 +258,8 @@
 		F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */; };
 		F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */; };
 		F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */; };
+		F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */ = {isa = PBXBuildFile; fileRef = F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */; };
 		F7731A452B06F73A0000D3E9 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* APITests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */; };
@@ -298,6 +308,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22A7A81D2B0B703E0027679F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncedProducts.storekit; sourceTree = "<group>"; };
 		22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		22CC4D752AF3AC300072EC39 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
@@ -308,8 +319,8 @@
 		6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
+		A44CFFAF2B0D7200003D6822 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
-		A4680DA02AE9CA7200F5F8ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46B5A4A2AE73B9D00C874ED /* Voice 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A4C2AE73B9D00C874ED /* sunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunApp.swift; sourceTree = "<group>"; };
 		A46B5A502AE73B9D00C874ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -325,6 +336,7 @@
 		B36C89D02B0330CF0065DAF1 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		B37D62542B0B23F0005B8C53 /* UserApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiTests.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
@@ -341,7 +353,6 @@
 		B930AADE2ADE2DE5009F9F8C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B930AADF2ADE2DE5009F9F8C /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		B95CC9682B078AD800F3B27A /* AppConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechConverter.swift; sourceTree = "<group>"; };
 		B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
@@ -369,7 +380,7 @@
 		CD0D133D2ADA73B400031EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CD0D13432ADA73B400031EDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = x/Info.plist; sourceTree = SOURCE_ROOT; };
+		CD0D13432ADA73B400031EDD /* Info_shared.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info_shared.plist; path = x/Info_shared.plist; sourceTree = SOURCE_ROOT; };
 		CD0D13482ADA73B400031EDD /* Voice AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandlerTests.swift; sourceTree = "<group>"; };
 		CD0D13522ADA73B400031EDD /* Voice AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Voice AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,6 +401,7 @@
 		F73ABDC22B0C26210073AF33 /* SettingsBundleHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelperTests.swift; sourceTree = "<group>"; };
 		F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManagerTests.swift; sourceTree = "<group>"; };
 		F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
+		F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests_rika.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
@@ -489,7 +501,6 @@
 		A46B5A4B2AE73B9D00C874ED /* sun */ = {
 			isa = PBXGroup;
 			children = (
-				A4680DA02AE9CA7200F5F8ED /* Info.plist */,
 				A46B5A4C2AE73B9D00C874ED /* sunApp.swift */,
 				A46B5A502AE73B9D00C874ED /* Assets.xcassets */,
 				A46B5A522AE73B9D00C874ED /* Preview Content */,
@@ -570,6 +581,7 @@
 			isa = PBXGroup;
 			children = (
 				B91F05CE2B0613B10029A32D /* AppSettings.swift */,
+				22A7A81D2B0B703E0027679F /* SettingsView.swift */,
 			);
 			path = AppSettings;
 			sourceTree = "<group>";
@@ -742,14 +754,15 @@
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
+				B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */,
 				CD0D136A2ADB28CE00031EDD /* logo.png */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
-				CD0D13432ADA73B400031EDD /* Info.plist */,
+				CD0D13432ADA73B400031EDD /* Info_shared.plist */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				22CC4D752AF3AC300072EC39 /* Products.storekit */,
 				22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */,
-				B95CC9682B078AD800F3B27A /* AppConfig.plist */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
+				A44CFFAF2B0D7200003D6822 /* AppConfig.plist */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -795,6 +808,7 @@
 				B37D62542B0B23F0005B8C53 /* UserApiTests.swift */,
 				F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */,
 				F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */,
+				F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1019,8 +1033,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */,
 				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
-				E47F1A972B07F94200455617 /* AppConfig.plist in Resources */,
 				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
 				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
 				E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */,
@@ -1030,6 +1044,7 @@
 				F67EDE352B07C60200FDEA80 /* (null) in Resources */,
 				E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
+				B3BA26752B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 				B91F05D52B0645200029A32D /* Settings.bundle in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */,
@@ -1041,6 +1056,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3BA26762B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1048,6 +1064,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3BA26772B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1056,11 +1073,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
-				B91F05D32B0645200029A32D /* Settings.bundle in Resources */,
-				B95CC9692B078AD800F3B27A /* AppConfig.plist in Resources */,
 				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
+				A44CFFB02B0D7200003D6822 /* AppConfig.plist in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
+				B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 				22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
@@ -1076,6 +1093,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B91F05D42B0645200029A32D /* Settings.bundle in Resources */,
+				B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,6 +1101,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1139,7 @@
 				A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */,
 				B9CE36ED2AFD0365009999CF /* TimerManager.swift in Sources */,
 				A46B5A852AE73CFD00C874ED /* Message.swift in Sources */,
+				22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */,
 				A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */,
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
@@ -1183,6 +1203,7 @@
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
+				22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */,
 				B9CE36EA2AFD0365009999CF /* TimerManager.swift in Sources */,
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
@@ -1205,6 +1226,7 @@
 				B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */,
 				B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */,
 				6EC2F6292B067E91002EFADD /* KeychainService.swift in Sources */,
+				22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */,
 				6E6D53252AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				F73ABDBF2B0C25BC0073AF33 /* ReviewRequesterTests.swift in Sources */,
 				B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */,
@@ -1237,6 +1259,7 @@
 				F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				F73ABDC32B0C26210073AF33 /* SettingsBundleHelperTests.swift in Sources */,
+				F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
 				F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */,
 				F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
@@ -1253,6 +1276,7 @@
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
 				B37D62552B0B23F0005B8C53 /* UserApiTests.swift in Sources */,
 				6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */,
+				F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* TextToSpeechConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
@@ -1367,13 +1391,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sun/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
@@ -1387,7 +1411,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1118.9;
+				MARKETING_VERSION = 1.1120.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1406,12 +1430,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sun/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice 2";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Speech recognition is used to convert audio to text which is sent to a language model to generate a response for conversation.";
@@ -1425,7 +1449,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1118.9;
+				MARKETING_VERSION = 1.1120.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1645,14 +1669,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = x/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
@@ -1671,7 +1695,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1120.13;
+				MARKETING_VERSION = 1.1120.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1691,14 +1715,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = x/Info.plist;
+				INFOPLIST_FILE = x/Info_shared.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice AI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Microphone access is required for users to converse with AI. The audio is transcibed to speech and sent to a language model to generate a response.";
@@ -1717,7 +1741,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1120.13;
+				MARKETING_VERSION = 1.1120.18;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

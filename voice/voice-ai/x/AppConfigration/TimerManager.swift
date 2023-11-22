@@ -10,7 +10,7 @@ class TimerManager: ObservableObject {
     var timerCancellable: AnyCancellable?
 //    let fiveMinutes: TimeInterval = 5 * 60
     // TODO: for beta purpose, disable the timer
-    let minutes: TimeInterval = 10000000000000
+    let minutes: TimeInterval = 10_000_000_000_000
 
     func startTimer() {
         resetTimer()

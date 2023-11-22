@@ -1,4 +1,8 @@
-2023-11-16 Fri: We had 99 total downloads and ~80 total active devices! Unique addresses that called our auth server and received keys was 126. We have deployed 1.1117.9 internal build (“Voice 2”).
+2023-11-17 Mon: We finally received approval after 4 days for v1.1120.13. We have submitted a new build with in-App Purchase to solicit feedback from Apple.
+
+---
+
+2023-11-17 Fri: We had 99 total downloads and ~80 total active devices! Unique addresses that called our auth server and received keys was 126. We have deployed 1.1117.9 internal build (“Voice 2”).
 
 2023-11-16 Thu: iOS App Version 1.1115.18 is now available in the App Store, please share this with family, friends, & enemies, as we aim to reach 40 active users by Sunday! At the end of the day, we released 1.1116.18 which has been submitted to the app store for approval, there were 8 active users yesterday.
 
