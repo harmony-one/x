@@ -125,10 +125,10 @@ final class xUITests: XCTestCase {
 
         let labels = [
             "New Session",
-            "Skip 5 Seconds",
-            "Random Fact",
+            "Tap to Speak",
+            "Surprise ME!",
             "Press & Hold",
-            "Repeat Last",
+            "More Actions",
             "Pause / Play",
         ]
 
@@ -163,4 +163,22 @@ final class xUITests: XCTestCase {
         }
     }
     
+    func testSettingsView() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let pausePlayButton = app.staticTexts["More Actions"]
+        XCTAssertTrue(pausePlayButton.exists)
+
+        let buttonPlay = app.buttons["button-repeatLast"]
+        XCTAssertTrue(buttonPlay.exists)
+    
+        
+        buttonPlay.tap()
+        
+        sleep(2)
+        
+        let cancel = app.staticTexts["Cancel"]
+        XCTAssertTrue(cancel.exists)
+    }
 }
