@@ -26,9 +26,8 @@ struct SettingsView: View {
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
-            if let jsonString = convertMessagesToString(messages: SpeechRecognition.shared.conversation) {
+             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
                 ActivityView(activityItems: [jsonString])
-            }
         }
             .alert(isPresented: $showAlert) {
             Alert(title: Text(""),
@@ -116,16 +115,17 @@ struct SettingsView: View {
         }       
         isSaveTranscript = true
     }
-    
-    func convertMessagesToString(messages: [Message]) -> String? {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted // Optional: Makes the JSON output more readable
-        do {
-            let jsonData = try encoder.encode(messages)
-            return String(data: jsonData, encoding: .utf8)
-        } catch {
-            print("[AppleSignInManager] encoding messages: \(error)")
-            return nil
+  
+    func convertMessagesToTranscript(messages: [Message]) -> String {
+        var transcript = ""
+
+        for message in messages {
+            let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
+            if let content = message.content {
+                transcript += "\(label) \(content)\n"
+            }
         }
+
+        return transcript
     }
 }
