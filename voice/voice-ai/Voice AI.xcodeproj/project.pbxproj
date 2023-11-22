@@ -157,7 +157,6 @@
 		B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
-		B91F05D42B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B91F05D52B0645200029A32D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
 		B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADD2ADE2DE5009F9F8C /* Font.swift */; };
@@ -218,6 +217,7 @@
 		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		E45C23B22B0E5BAE00D7431E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
 		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
 		E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50642ADFEFDA006F18A1 /* Dotrice-Regular.otf */; };
@@ -1082,6 +1082,7 @@
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,
 				B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
+				E45C23B22B0E5BAE00D7431E /* Settings.bundle in Resources */,
 				22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
@@ -1096,7 +1097,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B91F05D42B0645200029A32D /* Settings.bundle in Resources */,
 				B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
