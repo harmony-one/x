@@ -36,6 +36,7 @@ class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
     @Published var isTapToSpeakActive = false
+    @Published var isPressAndHoldActive = false
     private var lastRecordingStateChangeTime: Int64 = 0
 
     var resetThrottler = PassthroughSubject<Void, Never>()
@@ -93,11 +94,13 @@ class ActionHandler: ObservableObject {
         case .repeatLast:
             speechRecognition.repeate()
         case .speak:
+            isPressAndHoldActive = true
             startRecording()
         case .tapSpeak:
             isTapToSpeakActive = true
             startRecording()
         case .stopSpeak, .tapStopSpeak:
+            isPressAndHoldActive = false
             isTapToSpeakActive = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
