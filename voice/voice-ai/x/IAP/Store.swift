@@ -3,22 +3,17 @@ import StoreKit
 class Store: ObservableObject {
 //    private var productIDs = ["com.country.app.purchase.3day"]
     private var productIDs = ["com.country.x.purchase.3day"]
-
     @Published var products = [Product]()
-
     @Published var purchasedNonConsumables = Set<Product>()
     @Published var purchasedNonRenewables = Set<Product>()
-
     @Published var purchasedConsumables = [Product]()
     @Published var purchasedSubscriptions = Set<Product>()
-
     @Published var entitlements = [Transaction]()
-
+    @Published var isPurchasing: Bool = false
     var transactionListener: Task<Void, Error>?
 
     init() {
         transactionListener = listenForTransactions()
-
         Task {
             await requestProducts()
             // Must be called after the products are already fetched
@@ -39,11 +34,13 @@ class Store: ObservableObject {
 
     @MainActor
     func purchase(_ product: Product) async throws {
+        isPurchasing = true
         let result = try await product.purchase()
-
         switch result {
         case .success(let transacitonVerification):
             await handle(transactionVerification: transacitonVerification)
+        case .userCancelled:
+            isPurchasing = false
         default:
             return
         }
@@ -60,6 +57,7 @@ class Store: ObservableObject {
     @MainActor
     @discardableResult
     private func handle(transactionVerification result: VerificationResult<Transaction>) async -> Transaction? {
+        isPurchasing = false
         switch result {
         case let .verified(transaction):
             guard let product = self.products.first(where: { $0.id == transaction.productID}) else { return transaction }

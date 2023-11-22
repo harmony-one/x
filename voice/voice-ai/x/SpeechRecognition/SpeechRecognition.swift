@@ -54,7 +54,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
    
     var pendingOpenAIStream: OpenAIStreamService?
     
-    private var conversation: [Message] = []
+    internal var conversation: [Message] = []
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
 
