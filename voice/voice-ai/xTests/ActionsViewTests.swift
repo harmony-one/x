@@ -26,12 +26,29 @@ class MockActionHandler: ActionHandler {
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
     var store: Store!
+    let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
+//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
+//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
+    let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
+    let buttonSurprise = ButtonData(label: "Surprise ME!", image: "surprise me", action: .surprise, testId: "button-surpriseMe")
+    let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak, testId: "button-press&hold")
+    let buttonRepeat = ButtonData(label: "More Actions", image: "repeat last", action: .repeatLast, testId: "button-repeatLast")
+    let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play, testId: "button-playPause")
+
+    var testButtons: [ButtonData] = []
     
     override func setUp() {
         super.setUp()
         store = Store()
         actionsView = ActionsView()
-
+        testButtons = [
+            buttonReset,
+            buttonTapSpeak,
+            buttonSurprise,
+            buttonSpeak,
+            buttonRepeat,
+            buttonPlay,
+        ]
     }
     
     override func tearDown() {
@@ -46,10 +63,7 @@ class ActionsViewTests: XCTestCase {
     
     func testBaseView() {
         let colums = 2
-        let buttons = [
-            ButtonData(label: "Button 1", image: "image1", action: .reset),
-            ButtonData(label: "Button 2", image: "image2", action: .speak)
-        ]
+        let buttons = [buttonReset, buttonTapSpeak]
         let baseView = actionsView.baseView(colums: colums, buttons: buttons)
         XCTAssertNotNil(baseView)
     }
@@ -60,7 +74,7 @@ class ActionsViewTests: XCTestCase {
     }
     
     func testViewButton() {
-        let button = ButtonData(label: "Button", image: "image", action: .reset)
+        let button = buttonReset
         let actionHandler = ActionHandler()
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         XCTAssertNotNil(viewButton)
@@ -72,7 +86,7 @@ class ActionsViewTests: XCTestCase {
         let actionType: ActionType = .repeatLast
         
         let actionHandler = MockActionHandler()
-        let button = ButtonData(label: "Test Button", image: "", action: actionType)
+        let button = testButtons.first(where: { $0.action == actionType })!
         let expectedActionType: ActionType = actionType
         
         actionHandler.handleCalled = false
@@ -93,7 +107,9 @@ class ActionsViewTests: XCTestCase {
 //        let isPressed = Bool.random()
 
         let actionHandler = MockActionHandler()
-        let button = ButtonData(label: "Test Button", image: "", action: actionType)
+        print("***********")
+        print(testButtons)
+        let button = testButtons.first(where: { $0.action == actionType })!
         let expectedActionType: ActionType = actionType
         
         actionHandler.handleCalled = false
@@ -114,7 +130,7 @@ class ActionsViewTests: XCTestCase {
         let showInAppPurchases = Bool.random()
 
         let actionHandler = MockActionHandler()
-        let button = ButtonData(label: "Test Button", image: "", action: actionType)
+        let button = testButtons.first(where: { $0.action == actionType })!
         let expectedActionType: ActionType = actionType
         
         actionHandler.handleCalled = false
