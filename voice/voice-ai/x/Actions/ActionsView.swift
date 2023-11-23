@@ -210,7 +210,7 @@ struct ActionsView: View {
     }
     
     func isButtonDisabled (action: ActionType) -> Bool {
-        return ((self.lastButtonPressed != nil) && self.lastButtonPressed != action) || (action != .tapSpeak && self.isTapToSpeakActive)
+        return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
     }
     
     func setLastButtonPressed (action: ActionType, event: EventType?) {
@@ -334,7 +334,7 @@ struct ActionsView: View {
                             }
                         }
                 ).accessibilityIdentifier(button.testId)
-                .disabled(self.isButtonDisabled(action: button.action))
+                .disabled(self.isButtonDisabled(action: button.action) || self.isTapToSpeakActive)
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
