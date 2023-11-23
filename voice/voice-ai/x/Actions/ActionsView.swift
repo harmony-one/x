@@ -71,7 +71,7 @@ struct ActionsView: View {
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonRepeat = ButtonData(label: "More Actions", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
+        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
 //        changeTheme(name: config.getThemeName())
@@ -82,7 +82,8 @@ struct ActionsView: View {
             buttonTapSpeak,
             buttonSurprise,
             buttonSpeak,
-            buttonRepeat,
+            /*buttonRepeat*/
+            buttonMore,
             buttonPlay,
         ]
 
@@ -102,7 +103,8 @@ struct ActionsView: View {
 //            buttonSayMore,
 //            buttonUserGuide,
             buttonTapSpeak,
-            buttonRepeat,
+            /*buttonRepeat*/
+            buttonMore,
             buttonSurprise,
             buttonSpeak,
             buttonPlay,
