@@ -85,3 +85,6 @@ class StoreTests: XCTestCase {
         wait(for: [expectation], timeout: 5.0)
     }
 }
+
+class ActivityIndicatorViewTests: XCTestCase {
+}

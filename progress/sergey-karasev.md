@@ -1,3 +1,5 @@
+2023-11-23 Thu: I expanded the OpenAIStreamService so that it can be tested using unittest. I have [added unittests](https://github.com/harmony-one/x/pull/248) for the stream processing from OpenAI, rate limiting, and other methods of OpenAIStreamService.
+
 2023-11-22 Wed: I'm working on expanding the [tests for the OpenAI service](https://github.com/harmony-one/x/pull/248).
 
 2023-11-21 Tue: Working on [UI tests](https://github.com/harmony-one/x/pull/236): Fixed the test for the "Pause / Play" button, fixed the test for the "Surprise ME!" button, and started work on the test for the "New Session" button.
