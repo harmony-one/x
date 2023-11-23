@@ -40,7 +40,7 @@ class AppSettings: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func convertDateStringToLocalFormat(inputDateString: String, inputFormat: String = "yyyy-MM-dd HH:mm:ss", outputFormat: String = "yyyyMMdd HH:mm") -> String? { // "MMM d, yyyy"
+    func convertDateStringToLocalFormat(inputDateString: String, inputFormat: String = "yyyy-MM-dd HH:mm:ss", outputFormat: String = "YYYY-MM-DD HH:mm") -> String? { // yyyyMMdd HH:mm
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = inputFormat
         
