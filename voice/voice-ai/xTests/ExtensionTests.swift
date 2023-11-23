@@ -1,7 +1,7 @@
 @testable import Voice_AI
 import XCTest
 
-class StringExtensionsTests: XCTestCase {
+class StringTests: XCTestCase {
     func testRangesOfString() {
         let inputString = "Hello, world! This is a test. Hello, world again."
         let substring = "Hello"
