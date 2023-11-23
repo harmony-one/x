@@ -75,3 +75,6 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertNil(keychainService.retrieveUserid())
         }
 }
+
+class AppleSignInManagerTests: XCTestCase {
+}
