@@ -1,4 +1,4 @@
-2023-11-23 Thu: Cleaned up test files for better structure and added all the missing test classes. Still nvestigating ActionsView unit test issues.
+2023-11-23 Thu: Cleaned up test files for better structure and added all the missing test classes. Still investigating ActionsView unit test issues.
 
 2023-11-22 Wed: Continued investigating resolutions for inability to access environment objects from a view during unit testing (issues pertaining to AppSettings and Store). Will look into frameworks for workarounds - StoreKit Testing and ViewInspector seems to be suggested.
 
