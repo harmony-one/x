@@ -1,4 +1,4 @@
-2023-11-22 Wed: [Removed](https://github.com/harmony-one/x/commit/bcafb1b131f8c82d066931c0dd486c3d5b2ac6df) the custom instructions from saved transcripts. 
+2023-11-22 Wed: [Removed](https://github.com/harmony-one/x/commit/bcafb1b131f8c82d066931c0dd486c3d5b2ac6df) the custom instructions from saved transcripts ([#250](https://github.com/harmony-one/x/pull/250)). Began working on liveliness check for GPT component (automated testing of hard coded intput and response). 
 
 2023-11-21 Tue: Worked on removing the white background from action sheet. Worked on saving the conversation transcript from Voice AI to notes.
 
