@@ -24,10 +24,11 @@ struct ActionsView: View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
+    @State private var speakButtonDebounceTimer: Timer?
     
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
-    
+
     @State private var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
@@ -40,7 +41,7 @@ struct ActionsView: View {
 
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
-    
+
     static var generator: UIImpactFeedbackGenerator?
 
     static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
@@ -64,14 +65,14 @@ struct ActionsView: View {
         currentTheme.setTheme(theme: theme)
 
         let themePrefix = currentTheme.name
-        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset)
+        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
 //        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
 //        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak)
-        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise)
-        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak)
-        let buttonRepeat = ButtonData(label: "Repeat Last", image: "\(themePrefix) - repeat last", action: .repeatLast)
-        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play)
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
+        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
+        let buttonRepeat = ButtonData(label: "More Actions", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
 //        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
@@ -120,7 +121,11 @@ struct ActionsView: View {
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
-            baseView(colums: colums, buttons: buttons)
+            if store.isPurchasing {
+                ProgressViewComponent(isShowing: $store.isPurchasing)
+            } else {
+                baseView(colums: colums, buttons: buttons)
+            }
         }.background(Color(hex: 0x1E1E1E).animation(.none))
             .onAppear(
                 perform: {
@@ -245,12 +250,12 @@ struct ActionsView: View {
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {
                    self.isTapToSpeakActive = !self.isTapToSpeakActive
                    self.vibration()
-                    
+
                    self.tapToSpeakDebounceTimer?.invalidate()
-                    
+
                     if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
-                            
+
                             Task {
                                 if !actionHandler.isTapToSpeakActive {
                                     actionHandler.handle(actionType: ActionType.tapSpeak)
@@ -261,22 +266,23 @@ struct ActionsView: View {
                         }
                     }
                 }
-                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
-                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                    }
-//                    DispatchQueue.main.async {
-//                        let url = URL(string: "https://x.country/voice")
-//                        if UIApplication.shared.canOpenURL(url!) {
-//                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//                        } else {
-//                            print("Cannot open URL")
-//                        }
+//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
+//                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
 //                    }
-                })
-                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                    self.checkUserAuthentication()
-                })
+////                    DispatchQueue.main.async {
+////                        let url = URL(string: "https://x.country/voice")
+////                        if UIApplication.shared.canOpenURL(url!) {
+////                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+////                        } else {
+////                            print("Cannot open URL")
+////                        }
+////                    }
+//                })
+//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                    self.checkUserAuthentication()
+//                })
+                .accessibilityIdentifier(button.testId)
             } else {
                 // Press & Hold
                 
@@ -285,34 +291,46 @@ struct ActionsView: View {
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
+                            self.speakButtonDebounceTimer?.invalidate()
+                            
                             if self.isSpeakButtonPressed == false {
-                                actionHandler.handle(actionType: ActionType.speak)
+                                self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                                    actionHandler.handle(actionType: ActionType.speak)
+                                }
                             }
                             self.isSpeakButtonPressed = true
                         }
                         .onEnded { _ in
+                            self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
-                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                            
+                            if(actionHandler.isPressAndHoldActive) {
+                                actionHandler.handle(actionType: ActionType.stopSpeak)
+                            }
                         }
-                )
+                ).accessibilityIdentifier(button.testId)
             }
         } else if button.action == .repeatLast {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 self.vibration()
-                Task {
-                    await handleOtherActions(actionType: button.action)
-                }
-            }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
                 DispatchQueue.main.async {
-                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
-                    if UIApplication.shared.canOpenURL(url!) {
-                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                    } else {
-                        print("Cannot open URL")
-                    }
+                    openSettingsApp()
                 }
-            }).accessibilityIdentifier("button-repeatLast")
+//                Task {
+//                    await handleOtherActions(actionType: button.action)
+//                }
+            }
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                DispatchQueue.main.async {
+//                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
+//                    if UIApplication.shared.canOpenURL(url!) {
+//                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//                    } else {
+//                        print("Cannot open URL")
+//                    }
+//                }
+//            })
+            .accessibilityIdentifier(button.testId)
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
@@ -329,11 +347,12 @@ struct ActionsView: View {
                     buttonFrame = geometry.frame(in: .local)
                 }
             })
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                DispatchQueue.main.async {
-                    openSettingsApp()
-                }
-            }).accessibilityIdentifier("button-play")
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                DispatchQueue.main.async {
+//                    openSettingsApp()
+//                }
+//            })
+            .accessibilityIdentifier(button.testId)
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -359,9 +378,10 @@ struct ActionsView: View {
                     }
                 }
             }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                showPurchaseDiglog()
-            })
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                showPurchaseDiglog()
+//            })
+            .accessibilityIdentifier(button.testId)
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
               self.vibration()
@@ -374,16 +394,17 @@ struct ActionsView: View {
                     }
                 }
             }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                self.showShareSheet = true
-            }).accessibilityIdentifier("randomfact")
+//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+//                self.showShareSheet = true
+//            })
+            .accessibilityIdentifier(button.testId)
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
-            }
+            }.accessibilityIdentifier(button.testId)
         }
     }
 

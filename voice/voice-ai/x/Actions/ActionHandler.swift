@@ -22,13 +22,15 @@ struct ButtonData: Identifiable {
     let image: String
     let pressedImage: String?
     let action: ActionType
+    let testId: String
 
-    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType) {
+    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType, testId: String) {
         self.label = label
         self.pressedLabel = pressedLabel
         self.image = image
         self.pressedImage = pressedImage
         self.action = action
+        self.testId = testId
     }
 }
 
@@ -36,6 +38,7 @@ class ActionHandler: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var isSynthesizing: Bool = false
     @Published var isTapToSpeakActive = false
+    @Published var isPressAndHoldActive = false
     private var lastRecordingStateChangeTime: Int64 = 0
 
     var resetThrottler = PassthroughSubject<Void, Never>()
@@ -93,11 +96,13 @@ class ActionHandler: ObservableObject {
         case .repeatLast:
             speechRecognition.repeate()
         case .speak:
+            isPressAndHoldActive = true
             startRecording()
         case .tapSpeak:
             isTapToSpeakActive = true
             startRecording()
         case .stopSpeak, .tapStopSpeak:
+            isPressAndHoldActive = false
             isTapToSpeakActive = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
