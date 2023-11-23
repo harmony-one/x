@@ -316,11 +316,19 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
+            let startDate = Date()
+            var isResponseReceived = false
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     return
+                }
+                
+                if(!isResponseReceived) {
+                    isResponseReceived = true
+                    let executionTime = Date().timeIntervalSince(startDate)
+                    print("[SpeechRecognition] Request latency: \(executionTime)")
                 }
                 
                 guard let res = res, !res.isEmpty else {
