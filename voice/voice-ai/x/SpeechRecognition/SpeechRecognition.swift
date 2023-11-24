@@ -320,7 +320,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     return
                 }
                 
-                if(!isResponseReceived) {
+                if !isResponseReceived {
                     isResponseReceived = true
                     let executionTime = Date().timeIntervalSince(startDate)
                     print("[SpeechRecognition] Request latency: \(executionTime)")

@@ -179,8 +179,7 @@ class AppConfig {
 
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
-               let events = Int(eventsString)
-            {
+               let events = Int(eventsString) {
                 minimumSignificantEvents = events
             }
 

@@ -79,7 +79,7 @@ struct ActionsView: View {
             buttonSpeak,
             /*buttonRepeat*/
             buttonMore,
-            buttonPlay,
+            buttonPlay
         ]
 
         // v1
@@ -238,7 +238,7 @@ struct ActionsView: View {
 
                    self.tapToSpeakDebounceTimer?.invalidate()
 
-                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                    if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                             Task {
@@ -289,7 +289,7 @@ struct ActionsView: View {
                             self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
                             
-                            if(actionHandler.isPressAndHoldActive) {
+                            if actionHandler.isPressAndHoldActive {
                                 actionHandler.handle(actionType: ActionType.stopSpeak)
                             }
                         }
@@ -370,7 +370,7 @@ struct ActionsView: View {
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
               self.vibration()
-                if (self.isSurpriseButtonPressed) {
+                if self.isSurpriseButtonPressed {
                     self.isSurpriseButtonPressed = false
                     Task {
                         await handleOtherActions(actionType: button.action)

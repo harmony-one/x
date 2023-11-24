@@ -84,7 +84,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             Self.rateLimitCounterLock.signal()
         }
         
-
         let headers = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(apiKey)"
