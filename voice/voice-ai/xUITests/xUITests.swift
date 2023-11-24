@@ -177,9 +177,13 @@ final class xUITests: XCTestCase {
         
         buttonPlay.tap()
         
-        sleep(2)
+        sleep(1)
         
         let cancel = app.buttons["Cancel"]
         XCTAssertTrue(cancel.exists)
+
+        cancel.tap()
+        sleep(1)
+        XCTAssertFalse(app.buttons["Cancel"].exists)
     }
 }
