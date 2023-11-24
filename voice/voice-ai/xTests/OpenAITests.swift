@@ -56,6 +56,51 @@ data:
         wait(for: [expectation], timeout: 5)
     }
     
+    func testCancelQuery() {
+        var testConversation: [Message] = []
+        testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+        testConversation.append(Message(role: "user", content: "Hello"))
+        // print(testConversation)
+
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+
+        let responseString = """
+data:
+[DONE]
+"""
+        let data = responseString.data(using: .utf8)
+
+
+        MockURLProtocol.requestHandler = { request in
+              guard let url = request.url else {
+                  throw NSError(domain: "error", code: -1)
+              }
+
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+        }
+
+        // put API_KEY=somestring for test
+        let openAIStreamService = OpenAIStreamService(completion: { response, error in
+            expectation.fulfill()
+            if let err = error as? NSError {
+                XCTAssertEqual(err.code, -999)
+                XCTAssertEqual(err.domain, "NSURLErrorDomain")
+            } else {
+                XCTFail("should be NSError type")
+            }
+        })
+
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
+        openAIStreamService.setNetworkService(urlSession: urlSession)
+
+        openAIStreamService.query(conversation: testConversation)
+        openAIStreamService.cancelOpenAICall()
+        wait(for: [expectation], timeout: 5)
+    }
+    
     func testChunks() {
         var testConversation: [Message] = []
         testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
@@ -150,6 +195,51 @@ data:
         OpenAIStreamService.queryTimes.append(Int64(NSDate().timeIntervalSince1970 * 1000))
 
         service.query(conversation: testConversation)
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    func testRateLimitFlag() {
+        var testConversation: [Message] = []
+        testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+        testConversation.append(Message(role: "user", content: "Hello"))
+        // print(testConversation)
+
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+
+        let responseString = """
+data:
+[DONE]
+"""
+        let data = responseString.data(using: .utf8)
+
+
+        MockURLProtocol.requestHandler = { request in
+              guard let url = request.url else {
+                  throw NSError(domain: "error", code: -1)
+              }
+
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+        }
+
+        // put API_KEY=somestring for test
+        let openAIStreamService = OpenAIStreamService(completion: { response, error in
+            expectation.fulfill()
+            XCTAssertNotNil(response, "Response should not be nil")
+            XCTAssertNil(error, "Error should be nil")
+            // Check if both context messages exist in the conversation
+            let hasContextMessages = testConversation.contains { message in
+                message.role == "system"
+            }
+            XCTAssertTrue(hasContextMessages, "Context messages should be in the conversation")
+        })
+
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
+        openAIStreamService.setNetworkService(urlSession: urlSession)
+
+        openAIStreamService.query(conversation: testConversation, rateLimit: false)
         wait(for: [expectation], timeout: 5)
     }
 

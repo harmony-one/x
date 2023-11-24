@@ -15,11 +15,11 @@ final class xUITestsLaunchTests: XCTestCase {
 
         let buttonLabels = [
             "New Session",
-            "Skip 5 Seconds",
-            "Random Fact",
+            "Tap to Speak",
+            "Surprise ME!",
             "Press & Hold",
-            "Repeat Last",
-            "Pause / Play"
+            "More Actions",
+            "Pause / Play",
         ]
 
         for label in buttonLabels {
