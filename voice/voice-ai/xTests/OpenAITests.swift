@@ -1,6 +1,13 @@
 @testable import Voice_AI
 import XCTest
 
+
+/*
+
+ data:
+ {"choices": [{"delta": {"content": "some complition"}}]}
+
+ */
 class OpenAIServiceTests: XCTestCase {
     var openAIStreamService: OpenAIStreamService!
 
@@ -9,8 +16,28 @@ class OpenAIServiceTests: XCTestCase {
         testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
         testConversation.append(Message(role: "user", content: "Hello"))
         // print(testConversation)
-        let mockNetworkService = MockNetworkService()
-        let openAIStreamService = OpenAIStreamService(networkService: mockNetworkService, completion: { response, error in
+
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+
+        let responseString = """
+data:
+[DONE]
+"""
+        let data = responseString.data(using: .utf8)
+
+
+        MockURLProtocol.requestHandler = { request in
+              guard let url = request.url else {
+                  throw NSError(domain: "error", code: -1)
+              }
+
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+        }
+
+        // put API_KEY=somestring for test
+        let openAIStreamService = OpenAIStreamService(completion: { response, error in
+            expectation.fulfill()
             XCTAssertNotNil(response, "Response should not be nil")
             XCTAssertNil(error, "Error should be nil")
             // Check if both context messages exist in the conversation
@@ -20,7 +47,137 @@ class OpenAIServiceTests: XCTestCase {
             XCTAssertTrue(hasContextMessages, "Context messages should be in the conversation")
         })
 
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
+        openAIStreamService.setNetworkService(urlSession: urlSession)
+
         openAIStreamService.query(conversation: testConversation)
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    func testChunks() {
+        var testConversation: [Message] = []
+        testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
+        testConversation.append(Message(role: "user", content: "Hello"))
+
+        let responseString = """
+data:
+{"choices": [{"delta": {"content": "some complition"}}]}
+
+data:
+[DONE]
+"""
+        let data = responseString.data(using: .utf8)
+
+
+        MockURLProtocol.requestHandler = { request in
+              guard let url = request.url else {
+                  throw NSError(domain: "error", code: -1)
+              }
+
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+        }
+
+        // put API_KEY=somestring for test
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+        let doneExpectection = XCTestExpectation(description: "DONE handler should be called")
+        let openAIStreamService = OpenAIStreamService(completion: { response, error in
+            
+            if(response == "some complition") {
+                expectation.fulfill()
+            }
+            
+            if(response == "[DONE]") {
+                doneExpectection.fulfill()
+            }
+            
+        })
+
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
+        openAIStreamService.setNetworkService(urlSession: urlSession)
+
+        openAIStreamService.query(conversation: testConversation)
+        wait(for: [expectation, doneExpectection], timeout: 5)
+    }
+
+
+    func testRateLimit() {
+        var testConversation: [Message] = []
+        testConversation.append(Message(role: "user", content: "Hello"))
+
+        let responseString = "data:\n[DONE]"
+        let data = responseString.data(using: .utf8)
+
+
+        MockURLProtocol.requestHandler = { request in
+              guard let url = request.url else {
+                  throw NSError(domain: "error", code: -1)
+              }
+
+              let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+        }
+
+
+        // put API_KEY=somestring for test
+        let expectation = XCTestExpectation(description: "Completion handler should be called")
+        let service = OpenAIStreamService(completion: { response, error in
+            expectation.fulfill()
+            XCTAssertNil(response, "Response should not be nil")
+            XCTAssertNotNil(error, "Error should be nil")
+
+            if let err = error as? NSError {
+                XCTAssertEqual(err.code, -3)
+                XCTAssertEqual(err.domain, "Rate limited")
+            } else {
+                XCTFail("should be NSError type")
+            }
+
+            XCTAssertTrue(true)
+        })
+
+
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
+        service.setNetworkService(urlSession: urlSession)
+
+        OpenAIStreamService.QueryLimitPerMinute = 0;
+        OpenAIStreamService.queryTimes.append(Int64(NSDate().timeIntervalSince1970 * 1000))
+
+        service.query(conversation: testConversation)
+        wait(for: [expectation], timeout: 5)
+    }
+
+
+    func testConstructor() {
+        let openAIStreamService = OpenAIStreamService { response, error in }
+
+        XCTAssertNotNil(openAIStreamService, "service should not be nil")
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.7, "should have default value")
+    }
+
+    func testSetTemperature() {
+        let openAIStreamService = OpenAIStreamService(completion: { response, error in
+
+        })
+//
+        openAIStreamService.setTemperature(0.1)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.1)
+        openAIStreamService.setTemperature(0.9)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.9)
+        openAIStreamService.setTemperature(1.0)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 1.0)
+        openAIStreamService.setTemperature(0.0)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
+        openAIStreamService.setTemperature(-0.1)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
+        openAIStreamService.setTemperature(1.1)
+        XCTAssertTrue(openAIStreamService.getTemperature() == 0.0)
     }
 }
 
