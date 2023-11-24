@@ -1,0 +1,58 @@
+disabled_rules: # rules that you don't want SwiftLint to enforce
+  - trailing_whitespace # ignore trailing whitespaces
+  - multiple_closures_with_trailing_closure
+  - line_length
+
+opt_in_rules: # rules that are not enabled by default but are good to have
+  - empty_count # prefer checking `isEmpty` over comparing `count` to zero
+  - missing_docs # ensure every public function/property is documented
+  - explicit_init # enforce explicit `.init()` for initializations
+  - closure_spacing # ensure that there is no space inside closure expressions
+
+file_length: # limit the number of lines in a file
+  warning: 1000
+  error: 1500
+
+type_body_length: # limit the length of a type's body
+  warning: 1000
+  error: 1500
+
+function_body_length: # limit the length of a function's body
+  warning: 260
+  error: 300
+
+cyclomatic_complexity: # limit the complexity of functions
+  warning: 12
+  error: 15
+
+identifier_name: # enforce minimum and maximum identifier lengths
+  min_length: 3
+  max_length:
+    warning: 40
+
+force_cast: # warn against using 'as!'
+  severity: warning
+
+force_try: # warn against using 'try!'
+  severity: warning
+
+function_parameter_count: # limit the number of parameters in a function
+  warning: 5
+  error: 7
+
+nesting: # limit nesting of types within types
+  type_level: 3
+  statement_level: 5
+
+type_name: # enforce maximum type name length
+  max_length:
+    warning: 50
+
+colon: # ensure no space before and one space after a colon
+  severity: warning
+
+comma: # ensure no space before and one space after a comma
+  severity: warning
+
+control_statement: # ensure that control statements (if/else/switch/for) have a space after their declarations
+  severity: warning

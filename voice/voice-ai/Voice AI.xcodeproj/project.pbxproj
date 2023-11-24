@@ -905,6 +905,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				B99E716C2B0CA3BB00F9D033 /* PBXTargetDependency */,
+				B977F8442B03987C00236729 /* PBXTargetDependency */,
 			);
 			name = "Voice AI";
 			packageProductDependencies = (
@@ -1009,6 +1011,7 @@
 				F67E43302AFAB71F001B72CD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				B99E716A2B0CA3A300F9D033 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1368,6 +1371,13 @@
 			isa = PBXTargetDependency;
 			target = A46B5A492AE73B9D00C874ED /* sun */;
 			targetProxy = A46B5A642AE73B9D00C874ED /* PBXContainerItemProxy */;
+		};
+		B977F8442B03987C00236729 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+		};
+		B99E716C2B0CA3BB00F9D033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = B99E716B2B0CA3BB00F9D033 /* SwiftLintPlugin */;
 		};
 		CD0D134A2ADA73B400031EDD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1918,6 +1928,14 @@
 				minimumVersion = 20.0.0;
 			};
 		};
+		B99E716A2B0CA3A300F9D033 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
 		CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
@@ -1974,6 +1992,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		B99E716B2B0CA3BB00F9D033 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B99E716A2B0CA3A300F9D033 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
 		};
 		CD8A1A642B0084C400A5B2CC /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;

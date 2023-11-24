@@ -114,8 +114,6 @@ class ActionHandler: ObservableObject {
             } else {
                 print("Cannot open URL")
             }
-//        case .sayMore:
-//            speechRecognition.sayMore()
         }
     }
 

@@ -34,7 +34,7 @@ struct ActionsView: View {
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
-    @State private var skipPressedTimer: Timer? = nil
+    @State private var skipPressedTimer: Timer?
 
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
@@ -66,48 +66,31 @@ struct ActionsView: View {
 
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
-//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,gi
             buttonTapSpeak,
             buttonSurprise,
             buttonSpeak,
             /*buttonRepeat*/
             buttonMore,
-            buttonPlay,
+            buttonPlay
         ]
-
-        // v2
-//        buttonsLandscape = [
-//            buttonRepeat,
-//            buttonRandom,
-//            buttonReset,
-//            buttonPlay,
-//            buttonSpeak,
-//            buttonSkip,
-//        ]
 
         // v1
         buttonsLandscape = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,
             buttonTapSpeak,
             /*buttonRepeat*/
             buttonMore,
             buttonSurprise,
             buttonSpeak,
-            buttonPlay,
+            buttonPlay
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
@@ -133,8 +116,8 @@ struct ActionsView: View {
                 perform: {
                     SpeechRecognition.shared.setup()
                     Timer.scheduledTimer(withTimeInterval: Self.DelayBeforeShowingAlert, repeats: true) { _ in
-                        let r = Double.random(in: 0.0 ..< 1.0)
-                        if r < 0.5 {
+                        let random = Double.random(in: 0.0 ..< 1.0)
+                        if random < 0.5 {
                             self.showShareAlert = true
                             return
                         }
@@ -255,7 +238,7 @@ struct ActionsView: View {
 
                    self.tapToSpeakDebounceTimer?.invalidate()
 
-                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                    if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                             Task {
@@ -306,7 +289,7 @@ struct ActionsView: View {
                             self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
                             
-                            if(actionHandler.isPressAndHoldActive) {
+                            if actionHandler.isPressAndHoldActive {
                                 actionHandler.handle(actionType: ActionType.stopSpeak)
                             }
                         }
@@ -387,7 +370,7 @@ struct ActionsView: View {
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
               self.vibration()
-                if (self.isSurpriseButtonPressed) {
+                if self.isSurpriseButtonPressed {
                     self.isSurpriseButtonPressed = false
                     Task {
                         await handleOtherActions(actionType: button.action)

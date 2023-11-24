@@ -1,19 +1,19 @@
 import Foundation
 struct Usage: Codable {
-    let prompt_tokens: Int?
-    let completion_tokens: Int?
-    let total_tokens: Int?
+    let promptTokens: Int?
+    let completionTokens: Int?
+    let totalTokens: Int?
 
     enum CodingKeys: String, CodingKey {
-        case prompt_tokens
-        case completion_tokens
-        case total_tokens
+        case promptTokens = "prompt_tokens"
+        case completionTokens = "completion_tokens"
+        case totalTokens = "total_tokens"
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        prompt_tokens = try values.decodeIfPresent(Int.self, forKey: .prompt_tokens)
-        completion_tokens = try values.decodeIfPresent(Int.self, forKey: .completion_tokens)
-        total_tokens = try values.decodeIfPresent(Int.self, forKey: .total_tokens)
+        promptTokens = try values.decodeIfPresent(Int.self, forKey: .promptTokens)
+        completionTokens = try values.decodeIfPresent(Int.self, forKey: .completionTokens)
+        totalTokens = try values.decodeIfPresent(Int.self, forKey: .totalTokens)
     }
 }

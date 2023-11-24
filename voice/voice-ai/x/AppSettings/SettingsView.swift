@@ -10,7 +10,6 @@ struct SettingsView: View {
     @State private var showAlert = false
     @State private var isSaveTranscript = false
 
-    
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
     
