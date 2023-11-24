@@ -1,6 +1,7 @@
 import XCTest
 @testable import Voice_AI
-class ActionsViewTests: XCTestCase {
+
+class ActionsViewTests2: XCTestCase {
     var actionsView: ActionsView!
     var appSettings: AppSettings!
     var mockGenerator: MockGenerator!
@@ -42,24 +43,4 @@ class ActionsViewTests: XCTestCase {
         XCTAssertTrue(mockGenerator.prepareCalled)
         XCTAssertTrue(mockGenerator.impactOccurredCalled)
     }
-
-//    func testOpenSettingsApp() {
-//        XCTAssertFalse(actionsView.appSettings.isOpened)
-//
-//        actionsView.openSettingsApp()
-//
-//        XCTAssertTrue(actionsView.appSettings.isOpened)
-//    }
-//
-//    func testHandleOtherActions() async {
-//    }
-//
-//    func testCheckUserAuthentication() {
-//    }
-//
-//    func testShowPurchaseDialog() {
-//    }
-//
-//    func testShowInAppPurchasesIfNotLoggedIn() {
-//    }
 }
