@@ -13,52 +13,46 @@ class MockURLSessionDataTask: URLSessionDataTask {
     }
 }
 
+class MockURLProtocol: URLProtocol {
+    // 1. Handler to test the request and return mock response.
+    static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
 
+    override func startLoading() {
+      guard let handler = MockURLProtocol.requestHandler else {
+        fatalError("Handler is unavailable.")
+      }
 
+      do {
+        // 2. Call handler with received request and capture the tuple of response and data.
+        let (response, data) = try handler(request)
 
-protocol URLSessionDataTaskProtocol {
-    func resume()
-    func cancel()
-}
+        // 3. Send received response to the client.
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
 
-class StubURLSession: NetworkService {
-    var data: Data?
-    var response: URLResponse?
-    var error: Error?
-    
-    init(data: Data?, response: URLResponse?, error: Error?) {
-        self.data = data
-        self.response = response
-        self.error = error
+        if let data = data {
+          // 4. Send received data to the client.
+          client?.urlProtocol(self, didLoad: data)
+        }
+
+        // 5. Notify request has been finished.
+        client?.urlProtocolDidFinishLoading(self)
+      } catch {
+        // 6. Notify received error.
+        client?.urlProtocol(self, didFailWithError: error)
+      }
     }
 
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let task = StubURLSessionDataTask()
-//        return MockURLSessionDataTask()
-        return task
+    override class func canInit(with request: URLRequest) -> Bool {
+        // To check if this protocol can handle the given request.
+        return true
     }
-}
 
-class StubURLSessionDataTask: URLSessionDataTask {
-//    private let data: Data?
-//    private let response: URLResponse?
-//    private let error: Error?
-//    private let completionHandler: (Data?, URLResponse?, Error?) -> Void
-    
-//    init(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-//        self.data = data
-//        self.response = response
-//        self.error = error
-//        self.completionHandler = completionHandler
-//    }
-    
-    override func resume() {
-//        completionHandler(nil, nil, nil)
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        // Here you return the canonical version of the request but most of the time you pass the orignal one.
+        return request
     }
-    
-    override func cancel() {
-        // Handle cancellation if needed
+
+    override func stopLoading() {
+        // This is called if the request gets canceled or completed.
     }
 }
-
-

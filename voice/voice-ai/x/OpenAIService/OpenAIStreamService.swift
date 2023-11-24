@@ -14,7 +14,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var completion: (String?, Error?) -> Void
     private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
-    private let networkService: NetworkService?
+    private var networkService: URLSession?
 
     static var lastStartTimeOfTheDay: Date?
 
@@ -34,7 +34,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         self.init(networkService: nil, completion: completion, temperature: temperature)
     }
 
-    init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
+    public func setNetworkService(urlSession: URLSession) {
+        self.networkService = urlSession
+    }
+
+    init(networkService: URLSession?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
@@ -158,9 +162,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
-            task = networkService.dataTask(with: request) { _, _, _ in
-                // Handle the data task completion
-            }
+            task = networkService.dataTask(with: request)
             task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
