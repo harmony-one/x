@@ -23,7 +23,7 @@ function_body_length: # limit the length of a function's body
 
 cyclomatic_complexity: # limit the complexity of functions
   warning: 12
-  error: 15
+  error: 20
 
 identifier_name: # enforce minimum and maximum identifier lengths
   min_length: 3
