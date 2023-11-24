@@ -179,7 +179,7 @@ final class xUITests: XCTestCase {
         
         sleep(2)
         
-        let cancel = app.staticTexts["Cancel"]
+        let cancel = app.buttons["Cancel"]
         XCTAssertTrue(cancel.exists)
     }
 }
