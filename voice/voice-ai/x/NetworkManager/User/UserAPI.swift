@@ -54,7 +54,7 @@ struct UserAPI {
     }
     
     func getUser(byType: String) {
-        NetworkManager.shared.requestData(from:byType , method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        NetworkManager.shared.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case .success(let response):
                 print("Status Code: \(response.statusCode)")
@@ -82,7 +82,6 @@ struct UserAPI {
         getUser(byType: APIEnvironment.getUser(byAppleID: appleId))
     }
     
-    
     func purchase(transactionId: String) {
         
         let commentData = TransactionBody(transactionId: transactionId)
@@ -90,7 +89,7 @@ struct UserAPI {
             SentrySDK.capture(message: "[UserAPI][Register] failed to encode data")
             return
         }
-        NetworkManager.shared.requestData(from: APIEnvironment.purchase(), method: .post, body: bodyData)  { (result: Result<NetworkResponse<User>, NetworkError>) in
+        NetworkManager.shared.requestData(from: APIEnvironment.purchase(), method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case .success(let response):
                 // Handle successful response

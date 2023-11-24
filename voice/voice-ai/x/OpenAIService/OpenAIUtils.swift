@@ -20,7 +20,7 @@ enum OpenAIUtils {
                 continue
             }
 
-            if content.count == 0 {
+            if content.isEmpty {
                 continue
             }
 

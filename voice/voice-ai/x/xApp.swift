@@ -4,7 +4,7 @@ import SwiftData
 import SwiftUI
 
 @main
-struct xApp: App {
+struct XApp: App {
     @StateObject var store = Store()
     @StateObject var appSettings = AppSettings()
     let appConfig = AppConfig.shared

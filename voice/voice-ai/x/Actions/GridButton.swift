@@ -17,7 +17,7 @@ struct GridButton: View {
     @State private var timeAtPress = Date()
     @State private var isDragActive = false
 
-    var image: String? = nil
+    var image: String?
     var colorExternalManage: Bool = false
     var action: (_ event: EventType?) -> Void
     
@@ -25,7 +25,7 @@ struct GridButton: View {
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State private var debounce_timer: Timer?
+    @State private var debounceTimer: Timer?
     @State private var clickCounter = 0
 
     func onDragEnded() {
@@ -86,20 +86,20 @@ struct GridButton: View {
             if self.isButtonEnabled {
                 let elapsed = Date().timeIntervalSince(self.timeAtPress)
                 
-                if(elapsed < 1.5) {
+                if elapsed < 1.5 {
                     self.clickCounter += 1
                     
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
                         self.clickCounter -= 1
                     }
                     
-                    self.debounce_timer?.invalidate()
+                    self.debounceTimer?.invalidate()
                     
                     // print("self.clickCounter", self.clickCounter)
                     
-                    if(self.clickCounter >= self.clickCounterStartOn) {
-                        self.debounce_timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
-                            action(nil)
+                    if self.clickCounter >= self.clickCounterStartOn {
+                        self.debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                            action()
                         }
                     } else {
                         action(nil)

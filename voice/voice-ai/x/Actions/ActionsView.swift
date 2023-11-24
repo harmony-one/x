@@ -36,7 +36,7 @@ struct ActionsView: View {
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
-    @State private var skipPressedTimer: Timer? = nil
+    @State private var skipPressedTimer: Timer?
 
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
@@ -68,46 +68,31 @@ struct ActionsView: View {
 
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonRepeat = ButtonData(label: "More Actions", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
+        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
-//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,gi
             buttonTapSpeak,
             buttonSurprise,
             buttonSpeak,
-            buttonRepeat,
-            buttonPlay,
+            /*buttonRepeat*/
+            buttonMore,
+            buttonPlay
         ]
-
-        // v2
-//        buttonsLandscape = [
-//            buttonRepeat,
-//            buttonRandom,
-//            buttonReset,
-//            buttonPlay,
-//            buttonSpeak,
-//            buttonSkip,
-//        ]
 
         // v1
         buttonsLandscape = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,
             buttonTapSpeak,
-            buttonRepeat,
+            /*buttonRepeat*/
+            buttonMore,
             buttonSurprise,
             buttonSpeak,
-            buttonPlay,
+            buttonPlay
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
@@ -133,8 +118,8 @@ struct ActionsView: View {
                 perform: {
                     SpeechRecognition.shared.setup()
                     Timer.scheduledTimer(withTimeInterval: Self.DelayBeforeShowingAlert, repeats: true) { _ in
-                        let r = Double.random(in: 0.0 ..< 1.0)
-                        if r < 0.5 {
+                        let random = Double.random(in: 0.0 ..< 1.0)
+                        if random < 0.5 {
                             self.showShareAlert = true
                             return
                         }
@@ -232,7 +217,8 @@ struct ActionsView: View {
 
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler)
+                        .frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -270,7 +256,7 @@ struct ActionsView: View {
 
                    self.tapToSpeakDebounceTimer?.invalidate()
 
-                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                    if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                             Task {
@@ -329,7 +315,7 @@ struct ActionsView: View {
                             self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
                             
-                            if(actionHandler.isPressAndHoldActive) {
+                            if actionHandler.isPressAndHoldActive {
                                 actionHandler.handle(actionType: ActionType.stopSpeak)
                             }
                         }
@@ -488,17 +474,17 @@ struct ActionsView: View {
     }
 
     func showPurchaseDiglog() {
-        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[AppleSignInManager] No products available")
+                    print("[ActionsView] No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[AppleSignInManager] Error during purchase")
+                        print("[ActionsView] Error during purchase")
+                        store.isPurchasing = false
                     }
                 }
             }
@@ -513,8 +499,8 @@ struct ActionsView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        ActionsView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        ActionsView()
+//    }
+//}

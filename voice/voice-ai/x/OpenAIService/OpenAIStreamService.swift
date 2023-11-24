@@ -69,6 +69,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         if rateLimit == true {
             Self.rateLimitCounterLock.wait()
             let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+            print("##### QUERY TIMES", Self.queryTimes)
             if Self.queryTimes.count < Self.QueryLimitPerMinute {
                 Self.queryTimes.append(now)
             } else if Self.queryTimes.first! < now - 60000 {
@@ -81,14 +82,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
                 return
             }
             Self.rateLimitCounterLock.signal()
-            completion(nil, NSError(domain: "Rate limited", code: -3))
-            return
         }
         
-
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey)",
+            "Authorization": "Bearer \(apiKey)"
         ]
 
         var model = "gpt-4"
@@ -101,7 +99,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
             Task {
-                let status = await AppConfig.shared.checkWhiteList()
+                let status = await AppConfig.shared.checkWhiteLabelList()
                 completion(.success(status))
             }
         }
@@ -132,7 +130,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "model": model,
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
             "temperature": temperature,
-            "stream": true,
+            "stream": true
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
@@ -238,9 +236,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         return contextMessage
     }
 
-    func setTemperature(_ t: Double) {
-        if t >= 0 && t <= 1 {
-            temperature = t
+    func setTemperature(_ temp: Double) {
+        if temp >= 0 && temp <= 1 {
+            temperature = temp
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")

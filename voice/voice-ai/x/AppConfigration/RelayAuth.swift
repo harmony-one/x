@@ -148,12 +148,12 @@ class RelayAuth {
             throw logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
-        let s = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
-        let r = s.base64EncodedString()
-        UserDefaults.standard.setValue(r, forKey: Self.attestationPath)
+        let attestService = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+        let encodedString = attestService.base64EncodedString()
+        UserDefaults.standard.setValue(encodedString, forKey: Self.attestationPath)
         UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
         UserDefaults.standard.setValue(challenge, forKey: Self.attestationChallengePath)
-        return (r, challenge)
+        return (encodedString, challenge)
     }
 
     func log(_ message: String) {
