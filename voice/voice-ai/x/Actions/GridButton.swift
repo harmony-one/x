@@ -1,6 +1,11 @@
 import Foundation
 import SwiftUI
 
+enum EventType {
+    case onStart
+    case onEnd
+}
+
 struct GridButton: View {
     var currentTheme: Theme
     var button: ButtonData
@@ -14,7 +19,8 @@ struct GridButton: View {
 
     var image: String?
     var colorExternalManage: Bool = false
-    var action: () -> Void
+    var action: (_ event: EventType?) -> Void
+    
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 40
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -24,6 +30,8 @@ struct GridButton: View {
 
     func onDragEnded() {
         isDragActive = false
+        
+        action(.onEnd)
     }
 
     func onDragStart() {
@@ -32,6 +40,8 @@ struct GridButton: View {
 
             timeAtPress = Date()
         }
+        
+        action(.onStart)
     }
 
     var body: some View {
@@ -89,10 +99,10 @@ struct GridButton: View {
                     
                     if self.clickCounter >= self.clickCounterStartOn {
                         self.debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
-                            action()
+                            action(nil)
                         }
                     } else {
-                        action()
+                        action(nil)
                     }
                 }
             }
