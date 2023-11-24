@@ -244,90 +244,77 @@ struct ActionsView: View {
         ActionsView.generator?.prepare()
         ActionsView.generator?.impactOccurred()
     }
-
+    
     @ViewBuilder
-    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
-        let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
+    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+        if button.pressedLabel != nil {
+            // Press to Speak & Press to Send
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
+               if((event) != nil) { return }
 
-        if button.action == .speak {
-            if button.pressedLabel != nil {
-                // Press to Speak & Press to Send
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
-                   if((event) != nil) { return }
+               self.isTapToSpeakActive = !self.isTapToSpeakActive
+               self.vibration()
 
-                   self.isTapToSpeakActive = !self.isTapToSpeakActive
-                   self.vibration()
+               self.tapToSpeakDebounceTimer?.invalidate()
 
-                   self.tapToSpeakDebounceTimer?.invalidate()
+                if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
+                    self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
-                    if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
-                        self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
-
-                            Task {
-                                if !actionHandler.isTapToSpeakActive {
-                                    actionHandler.handle(actionType: ActionType.tapSpeak)
-                                } else {
-                                    actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                                }
+                        Task {
+                            if !actionHandler.isTapToSpeakActive {
+                                actionHandler.handle(actionType: ActionType.tapSpeak)
+                            } else {
+                                actionHandler.handle(actionType: ActionType.tapStopSpeak)
                             }
                         }
                     }
                 }
-                .disabled(self.isButtonDisabled(action: .tapSpeak))
-//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
-//                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
-//                    }
-////                    DispatchQueue.main.async {
-////                        let url = URL(string: "https://x.country/voice")
-////                        if UIApplication.shared.canOpenURL(url!) {
-////                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-////                        } else {
-////                            print("Cannot open URL")
-////                        }
-////                    }
-//                })
-//                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                    self.checkUserAuthentication()
-//                })
-                .accessibilityIdentifier(button.testId)
-            } else {
-                // Press & Hold
-                
-                let isPressed: Bool = true
-                
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {event in
-                    self.setLastButtonPressed(action: button.action, event: event)
-                    if((event) != nil) { return }
-                }.simultaneousGesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { _ in
-                            self.setLastButtonPressed(action: button.action, event: .onStart)
-                            
-                            self.speakButtonDebounceTimer?.invalidate()
-                            
-                            if self.isSpeakButtonPressed == false {
-                                self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
-                                    actionHandler.handle(actionType: ActionType.speak)
-                                }
-                            }
-                            self.isSpeakButtonPressed = true
-                        }
-                        .onEnded { _ in
-                            self.setLastButtonPressed(action: button.action, event: .onEnd)
-                            
-                            self.speakButtonDebounceTimer?.invalidate()
-                            self.isSpeakButtonPressed = false
-                            
-                            if actionHandler.isPressAndHoldActive {
-                                actionHandler.handle(actionType: ActionType.stopSpeak)
-                            }
-                        }
-                ).accessibilityIdentifier(button.testId)
-                .disabled(self.isButtonDisabled(action: button.action))
             }
-        } else if button.action == .repeatLast {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+            .disabled(self.isButtonDisabled(action: .tapSpeak))
+            .accessibilityIdentifier(button.testId)
+        } else {
+            // Press & Hold
+            
+            let isPressed: Bool = true
+            
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {event in
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+            }.simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        self.setLastButtonPressed(action: button.action, event: .onStart)
+                        
+                        self.speakButtonDebounceTimer?.invalidate()
+                        
+                        if self.isSpeakButtonPressed == false {
+                            self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                                actionHandler.handle(actionType: ActionType.speak)
+                            }
+                        }
+                        self.isSpeakButtonPressed = true
+                    }
+                    .onEnded { _ in
+                        self.setLastButtonPressed(action: button.action, event: .onEnd)
+                        
+                        self.speakButtonDebounceTimer?.invalidate()
+                        self.isSpeakButtonPressed = false
+                        
+                        if actionHandler.isPressAndHoldActive {
+                            actionHandler.handle(actionType: ActionType.stopSpeak)
+                        }
+                    }
+            ).accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
+        }
+    }
+    
+    @ViewBuilder
+    private func createActionButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+        let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
+            
+        if button.action == .repeatLast {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if((event) != nil) { return }
                 
@@ -335,27 +322,14 @@ struct ActionsView: View {
                 DispatchQueue.main.async {
                     openSettingsApp()
                 }
-//                Task {
-//                    await handleOtherActions(actionType: button.action)
-//                }
             }
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                DispatchQueue.main.async {
-//                    let url = URL(string: "https://x.com/intent/tweet?text=hey+@voiceaiapp+")
-//                    if UIApplication.shared.canOpenURL(url!) {
-//                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-//                    } else {
-//                        print("Cannot open URL")
-//                    }
-//                }
-//            })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
 
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {event in 
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if((event) != nil) { return }
                 
@@ -370,23 +344,10 @@ struct ActionsView: View {
                     buttonFrame = geometry.frame(in: .local)
                 }
             })
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                DispatchQueue.main.async {
-//                    openSettingsApp()
-//                }
-//            })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
-//            .simultaneousGesture(
-//                LongPressGesture(minimumDuration: 5).onEnded { _ in
-//                    self.timerManager.resetTimer()
-//                    speechRecognition.isTimerDidFired = false
-//                    print("Timer reset after long press.")
-//                }
-//            )
-
         } else if button.action == .reset {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if((event) != nil) { return }
                 
@@ -405,13 +366,10 @@ struct ActionsView: View {
                     }
                 }
             }
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                showPurchaseDiglog()
-//            })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
         } else if button.action == .surprise {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {event in 
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if((event) != nil) { return }
                 
@@ -425,23 +383,36 @@ struct ActionsView: View {
                     }
                 }
             }
-//            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-//                self.showShareSheet = true
-//            })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
-            // .onStart: { self.lastActionPressed = .surprise }
-        } else {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
-                self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
-                self.vibration()
-                Task {
-                    await handleOtherActions(actionType: button.action)
-                }
-            }.accessibilityIdentifier(button.testId)
-            .disabled(self.isButtonDisabled(action: button.action))
+        }
+    }
+    
+    @ViewBuilder
+    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+        let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
+        
+        GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
+            self.setLastButtonPressed(action: button.action, event: event)
+            if((event) != nil) { return }
+            
+            self.vibration()
+            Task {
+                await handleOtherActions(actionType: button.action)
+            }
+        }.accessibilityIdentifier(button.testId)
+        .disabled(self.isButtonDisabled(action: button.action))
+    }
+
+    @ViewBuilder
+    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+        switch button.action {
+        case .speak:
+            self.createSpeakButton(button: button, actionHandler: actionHandler)
+        case .repeatLast,.play,.reset,.surprise:
+            self.createActionButton(button: button, actionHandler: actionHandler)
+        default:
+            self.createDefaultButton(button: button, actionHandler: actionHandler)
         }
     }
 
