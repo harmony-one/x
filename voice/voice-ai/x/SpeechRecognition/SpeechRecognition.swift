@@ -44,7 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
-    private var recognitionTaskCanceled: Bool? = nil
+    private var recognitionTaskCanceled: Bool?
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     let textToSpeechConverter = TextToSpeechConverter()
@@ -69,14 +69,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isRequestingOpenAI = false
     private var requestInitiatedTimestamp: Int64 = 0
     
-    private var resumeListeningTimer: Timer? = nil
+    private var resumeListeningTimer: Timer?
 //    private var silenceTimer: Timer?
     private var isCapturing = false
     
     // Upperbound for the number of words buffer can contain before triggering a flush
     private var initialCapacity = 10
     private var bufferCapacity = 50
-    private var retryWorkItem: DispatchWorkItem? = nil
+    private var retryWorkItem: DispatchWorkItem?
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -279,10 +279,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         // Ensure to cancel the previous retry before proceeding
-        cancelRetry();
+        cancelRetry()
         
         completeResponse = [String]()
-        
         var buf = [String]()
         
         func flushBuf() {
@@ -290,24 +289,20 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             guard !response.isEmpty else {
                 return
             }
-            
             registerTTS()
             
             if !isRepeatingCurrentSession {
                 textToSpeechConverter.convertTextToSpeech(text: response)
             }
-            
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
             buf.removeAll()
         }
         
         print("[SpeechRecognition] query: \(text)")
-        
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
-//        audioPlayer.playSound()
         pauseCapturing()
         isRequestingOpenAI = true
         
@@ -316,6 +311,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
+            let startDate = Date()
+            var isResponseReceived = false
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
@@ -323,10 +320,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     return
                 }
                 
+                if !isResponseReceived {
+                    isResponseReceived = true
+                    let executionTime = Date().timeIntervalSince(startDate)
+                    print("[SpeechRecognition] Request latency: \(executionTime)")
+                }
+                
                 guard let res = res, !res.isEmpty else {
                     return
                 }
-                
                 if res == "[DONE]" {
                     buf.append(currWord)
                     flushBuf()
@@ -338,13 +340,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     }
                     return
                 }
-                
                 print("[SpeechRecognition] OpenAI Response received: \(res)")
-                
                 // Append received streams to currWord instead of buf directly
                 if res.first == " " {
                     buf.append(currWord)
-                    
                     // buf should only contain complete words
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
@@ -357,17 +356,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                             flushBuf()
                         }
                     }
-                    
                     currWord = res
                     guard res.last != nil else {
                         return
                     }
-                    
                 } else {
                     currWord.append(res)
                 }
             }
-            
             
             var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
             // Important: Add an instruction at the beginning of the conversation
@@ -412,7 +408,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: "No network conditions.")
             }
         }
-        
         handleQuery(retryCount: maxRetry)
     }
     
@@ -499,13 +494,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func checkContextChange() -> Bool {
-        if (conversation.count == 0) {
+        if conversation.isEmpty {
             return false
         }
         if let contextMessage = conversation.first(where: { $0.role == "system" }) {
             let currentContext = contextMessage.content
             let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-            if (currentContext == newContext) {
+            if currentContext == newContext {
                 return false
             }
             return true
@@ -703,15 +698,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeateActiveSession(startPoint: Int? = 0) {
-        if(self.isRepeatingCurrentSession) {
+        if self.isRepeatingCurrentSession {
             let text = self.completeResponse.joined()
             var activeTextToRepeat = ""
             
-            if(text.count >= (startPoint ?? 0)) {
+            if text.count >= (startPoint ?? 0) {
                 let index = text.index(text.startIndex, offsetBy: startPoint ?? 0)
                 activeTextToRepeat = String(text[index...])
                 
-                if(activeTextToRepeat.count > 0) {
+                if !activeTextToRepeat.isEmpty {
                     self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
                 }
             }

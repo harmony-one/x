@@ -1,24 +1,22 @@
-
-
 import Foundation
-struct User : Codable {
-	let id : String?
-	let deviceId : String?
-	let appleId : String?
-	let balance : Int?
-	let createdAt : String?
-	let updatedAt : String?
-    let expirationDate : String?
+struct User: Codable {
+	let id: String?
+	let deviceId: String?
+	let appleId: String?
+	let balance: Int?
+	let createdAt: String?
+	let updatedAt: String?
+    let expirationDate: String?
 
 	enum CodingKeys: String, CodingKey {
 
-		case id = "id"
-		case deviceId = "deviceId"
-		case appleId = "appleId"
-		case balance = "balance"
-		case createdAt = "createdAt"
-		case updatedAt = "updatedAt"
-        case expirationDate = "expirationDate"
+		case id
+		case deviceId
+		case appleId
+		case balance
+		case createdAt
+		case updatedAt
+        case expirationDate
 	}
 
 	init(from decoder: Decoder) throws {

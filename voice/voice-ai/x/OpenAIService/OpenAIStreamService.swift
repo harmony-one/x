@@ -14,14 +14,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var completion: (String?, Error?) -> Void
     private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
-    private let networkService: NetworkService?
+    private var networkService: URLSession?
 
     static var lastStartTimeOfTheDay: Date?
 
     // Limit 10 queries per minute
     static var queryTimes: [Int64] = []
     static var rateLimitCounterLock = DispatchSemaphore(value: 1)
-    static let QueryLimitPerMinute: Int = 100
+    static var QueryLimitPerMinute: Int = 100
     static let MaxGPT4DurationMinutes: Int = 45
 
     // URLSession should be lazy to ensure delegate can be set after super.init
@@ -34,7 +34,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         self.init(networkService: nil, completion: completion, temperature: temperature)
     }
 
-    init(networkService: NetworkService?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
+    public func setNetworkService(urlSession: URLSession) {
+        self.networkService = urlSession
+    }
+
+    init(networkService: URLSession?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.networkService = networkService
         self.completion = completion
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
@@ -69,6 +73,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         if rateLimit == true {
             Self.rateLimitCounterLock.wait()
             let now = Int64(NSDate().timeIntervalSince1970 * 1000)
+            print("##### QUERY TIMES", Self.queryTimes)
             if Self.queryTimes.count < Self.QueryLimitPerMinute {
                 Self.queryTimes.append(now)
             } else if Self.queryTimes.first! < now - 60000 {
@@ -81,14 +86,11 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
                 return
             }
             Self.rateLimitCounterLock.signal()
-            completion(nil, NSError(domain: "Rate limited", code: -3))
-            return
         }
         
-
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(apiKey)",
+            "Authorization": "Bearer \(apiKey)"
         ]
 
         var model = "gpt-4"
@@ -101,7 +103,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         func performAsyncTask(completion: @escaping (Result<Bool, Error>) -> Void) {
             Task {
-                let status = await AppConfig.shared.checkWhiteList()
+                let status = await AppConfig.shared.checkWhiteLabelList()
                 completion(.success(status))
             }
         }
@@ -132,7 +134,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "model": model,
             "messages": conversation.map { ["role": $0.role ?? "system", "content": $0.content ?? ""] },
             "temperature": temperature,
-            "stream": true,
+            "stream": true
         ]
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
@@ -160,9 +162,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
-            task = networkService.dataTask(with: request) { _, _, _ in
-                // Handle the data task completion
-            }
+            task = networkService.dataTask(with: request)
             task!.resume()
         } else {
             // Handle the case where networkService is nil (no custom network service provided)
@@ -238,13 +238,17 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         return contextMessage
     }
 
-    func setTemperature(_ t: Double) {
-        if t >= 0 && t <= 1 {
-            temperature = t
+    func setTemperature(_ temp: Double) {
+        if temp >= 0 && temp <= 1 {
+            temperature = temp
         } else {
             print("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
+    }
+
+    func getTemperature() -> Double {
+        return temperature
     }
 
 //     static func setConversationContext() -> Message {

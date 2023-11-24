@@ -49,3 +49,7 @@ class APIEnvironmentTests: XCTestCase {
         XCTAssertEqual(purchasePath, "")
     }
 }
+
+class NetworkManagerTests: XCTestCase {
+    
+}

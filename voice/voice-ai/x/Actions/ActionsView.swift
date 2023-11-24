@@ -28,13 +28,15 @@ struct ActionsView: View {
     
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
+    
+    @State private var lastButtonPressed: ActionType?
 
     @State private var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
     @StateObject var actionHandler: ActionHandler = .init()
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
-    @State private var skipPressedTimer: Timer? = nil
+    @State private var skipPressedTimer: Timer?
 
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
@@ -66,46 +68,31 @@ struct ActionsView: View {
 
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-//        let buttonSayMore = ButtonData(label: "Say More", image: "\(themePrefix) say more", action: .sayMore)
-//        let buttonUserGuide = ButtonData(label: "User Guide", image: "\(themePrefix) - user guide", action: .userGuide)
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonRepeat = ButtonData(label: "More Actions", image: "\(themePrefix) - repeat last", action: .repeatLast, testId: "button-repeatLast")
+        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
-//        changeTheme(name: config.getThemeName())
         buttonsPortrait = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,gi
             buttonTapSpeak,
             buttonSurprise,
             buttonSpeak,
-            buttonRepeat,
-            buttonPlay,
+            /*buttonRepeat*/
+            buttonMore,
+            buttonPlay
         ]
-
-        // v2
-//        buttonsLandscape = [
-//            buttonRepeat,
-//            buttonRandom,
-//            buttonReset,
-//            buttonPlay,
-//            buttonSpeak,
-//            buttonSkip,
-//        ]
 
         // v1
         buttonsLandscape = [
             buttonReset,
-//            buttonSayMore,
-//            buttonUserGuide,
             buttonTapSpeak,
-            buttonRepeat,
+            /*buttonRepeat*/
+            buttonMore,
             buttonSurprise,
             buttonSpeak,
-            buttonPlay,
+            buttonPlay
         ]
         // Disable idle timer when the view is created
         UIApplication.shared.isIdleTimerDisabled = true
@@ -131,8 +118,8 @@ struct ActionsView: View {
                 perform: {
                     SpeechRecognition.shared.setup()
                     Timer.scheduledTimer(withTimeInterval: Self.DelayBeforeShowingAlert, repeats: true) { _ in
-                        let r = Double.random(in: 0.0 ..< 1.0)
-                        if r < 0.5 {
+                        let random = Double.random(in: 0.0 ..< 1.0)
+                        if random < 0.5 {
                             self.showShareAlert = true
                             return
                         }
@@ -206,6 +193,20 @@ struct ActionsView: View {
         //             }
         //         }
     }
+    
+    func isButtonDisabled (action: ActionType) -> Bool {
+        return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
+    }
+    
+    func setLastButtonPressed (action: ActionType, event: EventType?) {
+        if(event == .onStart) {
+            self.lastButtonPressed = action
+        }
+        
+        if(event == .onEnd) {
+            self.lastButtonPressed = nil
+        }
+    }
 
     func baseView(colums: Int, buttons: [ButtonData]) -> some View {
         return GeometryReader { geometry in
@@ -216,7 +217,8 @@ struct ActionsView: View {
 
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(buttons) { button in
-                    viewButton(button: button, actionHandler: self.actionHandler).frame(minHeight: height, maxHeight: .infinity)
+                    viewButton(button: button, actionHandler: self.actionHandler)
+                        .frame(minHeight: height, maxHeight: .infinity)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -246,13 +248,15 @@ struct ActionsView: View {
         if button.action == .speak {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
+                   if((event) != nil) { return }
+
                    self.isTapToSpeakActive = !self.isTapToSpeakActive
                    self.vibration()
 
                    self.tapToSpeakDebounceTimer?.invalidate()
 
-                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                    if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                             Task {
@@ -265,6 +269,7 @@ struct ActionsView: View {
                         }
                     }
                 }
+                .disabled(self.isButtonDisabled(action: .tapSpeak))
 //                .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
 //                    Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
 //                        actionHandler.handle(actionType: ActionType.tapStopSpeak)
@@ -287,9 +292,14 @@ struct ActionsView: View {
                 
                 let isPressed: Bool = true
                 
-                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {}.simultaneousGesture(
+                GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {event in
+                    self.setLastButtonPressed(action: button.action, event: event)
+                    if((event) != nil) { return }
+                }.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
+                            self.setLastButtonPressed(action: button.action, event: .onStart)
+                            
                             self.speakButtonDebounceTimer?.invalidate()
                             
                             if self.isSpeakButtonPressed == false {
@@ -300,17 +310,23 @@ struct ActionsView: View {
                             self.isSpeakButtonPressed = true
                         }
                         .onEnded { _ in
+                            self.setLastButtonPressed(action: button.action, event: .onEnd)
+                            
                             self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
                             
-                            if(actionHandler.isPressAndHoldActive) {
+                            if actionHandler.isPressAndHoldActive {
                                 actionHandler.handle(actionType: ActionType.stopSpeak)
                             }
                         }
                 ).accessibilityIdentifier(button.testId)
+                .disabled(self.isButtonDisabled(action: button.action) || self.isTapToSpeakActive)
             }
         } else if button.action == .repeatLast {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+                
                 self.vibration()
                 DispatchQueue.main.async {
                     openSettingsApp()
@@ -330,11 +346,15 @@ struct ActionsView: View {
 //                }
 //            })
             .accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
 
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {event in 
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+                
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -352,6 +372,7 @@ struct ActionsView: View {
 //                }
 //            })
             .accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
 //            .simultaneousGesture(
 //                LongPressGesture(minimumDuration: 5).onEnded { _ in
 //                    self.timerManager.resetTimer()
@@ -361,7 +382,10 @@ struct ActionsView: View {
 //            )
 
         } else if button.action == .reset {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+                
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -381,9 +405,13 @@ struct ActionsView: View {
 //                showPurchaseDiglog()
 //            })
             .accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
         } else if button.action == .surprise {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {
-              self.vibration()
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {event in 
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+                
+                self.vibration()
                 if (self.isSurpriseButtonPressed) {
                     self.isSurpriseButtonPressed = false
                     Task {
@@ -397,13 +425,19 @@ struct ActionsView: View {
 //                self.showShareSheet = true
 //            })
             .accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
+            // .onStart: { self.lastActionPressed = .surprise }
         } else {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+                self.setLastButtonPressed(action: button.action, event: event)
+                if((event) != nil) { return }
+                
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
             }.accessibilityIdentifier(button.testId)
+            .disabled(self.isButtonDisabled(action: button.action))
         }
     }
 
@@ -440,17 +474,17 @@ struct ActionsView: View {
     }
 
     func showPurchaseDiglog() {
-        
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[AppleSignInManager] No products available")
+                    print("[ActionsView] No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[AppleSignInManager] Error during purchase")
+                        print("[ActionsView] Error during purchase")
+                        store.isPurchasing = false
                     }
                 }
             }
@@ -465,8 +499,8 @@ struct ActionsView: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        ActionsView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        ActionsView()
+//    }
+//}

@@ -29,6 +29,7 @@ class Store: ObservableObject {
             print("[Store] Products:", products)
         } catch {
             print(error)
+            products = []
         }
     }
 
@@ -60,7 +61,11 @@ class Store: ObservableObject {
         isPurchasing = false
         switch result {
         case let .verified(transaction):
-            guard let product = self.products.first(where: { $0.id == transaction.productID}) else { return transaction }
+            guard let product = self.products.first(where: {
+                $0.id == transaction.productID
+            }) else {
+                return transaction
+            }
 
             guard !transaction.isUpgraded else { return nil }
   
