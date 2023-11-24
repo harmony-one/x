@@ -14,7 +14,6 @@ import SwiftUI
 //    //Then
 
 
-
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
     var appSettings: AppSettings!
@@ -29,7 +28,6 @@ class ActionsViewTests: XCTestCase {
 //    let buttonRepeat = ButtonData(label: "More Actions", image: "repeat last", action: .repeatLast, testId: "button-repeatLast")
     let buttonMore = ButtonData(label: "More Actions", image: "more action", action: .repeatLast, testId: "button-repeatLast")
     let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play, testId: "button-playPause")
-
     var testButtons: [ButtonData] = []
     
     override func setUp() {
@@ -78,6 +76,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertNotNil(viewButton)
     }
     
+
     func testVewButtonSurprise () {
         let actionType: ActionType = .surprise
         
@@ -88,7 +87,29 @@ class ActionsViewTests: XCTestCase {
         XCTAssertTrue(self.mockActionHandler.isSurprised)
 
     }
+
+//    func testOpenSettingsApp() {
+//        actionsView.openSettingsApp()
+//        // Test that the openSettingsApp function does not throw any errors
+//    }
+//    
+     
+    func testRequestReview() {
+        actionsView.requestReview()
+        // Test that the requestReview function does not throw any errors
+    }
     
+    func testHandleOtherActions() async {
+        await actionsView.handleOtherActions(actionType: .reset)
+        // Test that the handleOtherActions function does not throw any errors
+    }
+    
+    func testCheckUserAuthentication() {
+        actionsView.checkUserAuthentication()
+        // Test that the checkUserAuthentication function does not throw any errors
+    }
+}
+
 //    func testVewButtonRepeatSpeak () {
 //        let actionType: ActionType = .speak
 //        
@@ -132,7 +153,6 @@ class ActionsViewTests: XCTestCase {
 //        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
 //        
 //    }
-//    
 //    func testVewButtonPlay () {
 //        let actionType: ActionType = .play
 ////        let isPressed = Bool.random()
@@ -176,32 +196,3 @@ class ActionsViewTests: XCTestCase {
 //        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
 //        
 //    }
-
-//    func testOpenSettingsApp() {
-//        actionsView.openSettingsApp()
-//        // Test that the openSettingsApp function does not throw any errors
-//    }
-//    
-    func testRequestReview() {
-        actionsView.requestReview()
-        // Test that the requestReview function does not throw any errors
-    }
-    
-    func testHandleOtherActions() async {
-        await actionsView.handleOtherActions(actionType: .reset)
-        // Test that the handleOtherActions function does not throw any errors
-    }
-    
-    func testCheckUserAuthentication() {
-        actionsView.checkUserAuthentication()
-        // Test that the checkUserAuthentication function does not throw any errors
-    }
-    
-//    func testShowPurchaseDiglog() {
-//        actionsView.showPurchaseDiglog()
-//        // Test that the showPurchaseDiglog function does not throw any errors
-//    }
-    
-    // Add more test cases for other functions and properties in the ActionsView struct
-    
-}

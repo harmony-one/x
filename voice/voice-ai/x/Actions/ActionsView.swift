@@ -447,13 +447,14 @@ struct ActionsView: View {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[AppleSignInManager] No products available")
+                    print("[ActionsView] No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[AppleSignInManager] Error during purchase")
+                        print("[ActionsView] Error during purchase")
+                        store.isPurchasing = false
                     }
                 }
             }

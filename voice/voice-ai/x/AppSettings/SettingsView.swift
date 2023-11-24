@@ -99,7 +99,7 @@ struct SettingsView: View {
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
-            guard let email = keychain.retrieveEmail(), email.isEmpty else {
+            guard let email = keychain.retrieveEmail() else {
                 let userID =  keychain.retrieveUserid() ?? "User id not found"
                 return userID
             }
