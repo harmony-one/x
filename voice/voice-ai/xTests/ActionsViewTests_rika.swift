@@ -43,24 +43,4 @@ class ActionsViewTests2: XCTestCase {
         XCTAssertTrue(mockGenerator.prepareCalled)
         XCTAssertTrue(mockGenerator.impactOccurredCalled)
     }
-
-//    func testOpenSettingsApp() {
-//        XCTAssertFalse(actionsView.appSettings.isOpened)
-//
-//        actionsView.openSettingsApp()
-//
-//        XCTAssertTrue(actionsView.appSettings.isOpened)
-//    }
-//
-//    func testHandleOtherActions() async {
-//    }
-//
-//    func testCheckUserAuthentication() {
-//    }
-//
-//    func testShowPurchaseDialog() {
-//    }
-//
-//    func testShowInAppPurchasesIfNotLoggedIn() {
-//    }
 }
