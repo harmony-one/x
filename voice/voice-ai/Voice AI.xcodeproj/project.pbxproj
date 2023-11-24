@@ -110,7 +110,6 @@
 		B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
-		B33EE43E2B0DA1A6007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B33EE4412B0E6585007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
@@ -140,6 +139,7 @@
 		B3BC2CB52B05F4B200A58477 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
 		B3BC2CB62B05F4B200A58477 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
+		B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */; };
 		B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
@@ -347,6 +347,7 @@
 		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockActionHandler.swift; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
 		B91F05AF2B049F720029A32D /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
 		B91F05B52B04B3E00029A32D /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -819,6 +820,7 @@
 				F73ABDC42B0C2A930073AF33 /* AppleSignInManagerTests.swift */,
 				F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */,
 				F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */,
+				B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1269,6 +1271,7 @@
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
 				B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
+				B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */,
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				F73ABDC52B0C2A930073AF33 /* AppleSignInManagerTests.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,

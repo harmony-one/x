@@ -7,10 +7,10 @@ import SwiftUI
 import UIKit
 
 struct ActionsView: View {
+    var actionHandler: ActionHandlerProtocol
     let config = AppConfig.shared
 
     @ObservedObject private var timerManager = TimerManager.shared
-
     @State var currentTheme: Theme = .init()
 
     // var dismissAction: () -> Void
@@ -29,9 +29,9 @@ struct ActionsView: View {
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
 
-    @State private var isSurpriseButtonPressed = true
+    @State var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
-    @StateObject var actionHandler: ActionHandler = .init()
+    
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var skipPressedTimer: Timer? = nil
@@ -60,7 +60,8 @@ struct ActionsView: View {
     let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
-    init() {
+    init(actionHandler: ActionHandlerProtocol) {
+        self.actionHandler = actionHandler
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
@@ -243,7 +244,7 @@ struct ActionsView: View {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
 
         if button.action == .speak {
@@ -255,11 +256,11 @@ struct ActionsView: View {
 
                    self.tapToSpeakDebounceTimer?.invalidate()
 
-                    if(String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive)) {
+                    if(String(actionHandler.isTapToSpeakActive()) != String(self.isTapToSpeakActive)) {
                         self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                             Task {
-                                if !actionHandler.isTapToSpeakActive {
+                                if !actionHandler.isTapToSpeakActive() {
                                     actionHandler.handle(actionType: ActionType.tapSpeak)
                                 } else {
                                     actionHandler.handle(actionType: ActionType.tapStopSpeak)
@@ -306,7 +307,7 @@ struct ActionsView: View {
                             self.speakButtonDebounceTimer?.invalidate()
                             self.isSpeakButtonPressed = false
                             
-                            if(actionHandler.isPressAndHoldActive) {
+                            if(actionHandler.isPressAndHoldActive()) {
                                 actionHandler.handle(actionType: ActionType.stopSpeak)
                             }
                         }

@@ -34,11 +34,29 @@ struct ButtonData: Identifiable {
     }
 }
 
-class ActionHandler: ObservableObject {
-    @Published var isRecording: Bool = false
+protocol ActionHandlerProtocol {
+    func reset()
+    func syncTapToSpeakState(_ actionType: ActionType)
+    func handle(actionType: ActionType)
+    func startRecording()
+    func stopRecording(cancel: Bool)
+    func isTapToSpeakActive() -> Bool
+    func isPressAndHoldActive() -> Bool
+}
+
+class ActionHandler: ObservableObject, ActionHandlerProtocol {
     @Published var isSynthesizing: Bool = false
-    @Published var isTapToSpeakActive = false
-    @Published var isPressAndHoldActive = false
+    @Published var isRecording: Bool = false
+    
+    @Published var _isPressAndHoldActive = false
+    var isPressAndHoldActivePublisher: Published<Bool>.Publisher {
+        $_isPressAndHoldActive
+    }
+    @Published var _isTapToSpeakActive = false
+    var isTapToSpeakActivePublisher: Published<Bool>.Publisher {
+        $_isTapToSpeakActive
+    }
+    
     private var lastRecordingStateChangeTime: Int64 = 0
 
     var resetThrottler = PassthroughSubject<Void, Never>()
@@ -56,6 +74,14 @@ class ActionHandler: ObservableObject {
             }
     }
 
+    func isTapToSpeakActive() -> Bool {
+        return _isTapToSpeakActive
+    }
+    
+    func isPressAndHoldActive() -> Bool {
+        return _isPressAndHoldActive
+    }
+    
     func reset() {
         isRecording = false
         isSynthesizing = false
@@ -66,9 +92,9 @@ class ActionHandler: ObservableObject {
 
     func syncTapToSpeakState(_ actionType: ActionType) {
         let isItTapToSpeakAction = actionType == .tapSpeak && actionType == .tapStopSpeak
-        let resetTapSpeakState = isTapToSpeakActive && !isItTapToSpeakAction
+        let resetTapSpeakState = _isTapToSpeakActive && !isItTapToSpeakAction
         if resetTapSpeakState {
-            isTapToSpeakActive = false
+            _isTapToSpeakActive = false
             lastRecordingStateChangeTime = 0
             stopRecording(cancel: true)
         }
@@ -96,14 +122,14 @@ class ActionHandler: ObservableObject {
         case .repeatLast:
             speechRecognition.repeate()
         case .speak:
-            isPressAndHoldActive = true
+            _isPressAndHoldActive = true
             startRecording()
         case .tapSpeak:
-            isTapToSpeakActive = true
+            _isTapToSpeakActive = true
             startRecording()
         case .stopSpeak, .tapStopSpeak:
-            isPressAndHoldActive = false
-            isTapToSpeakActive = false
+            _isPressAndHoldActive = false
+            _isTapToSpeakActive = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 self.stopRecording()
             }
