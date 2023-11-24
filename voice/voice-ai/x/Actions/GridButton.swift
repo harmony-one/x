@@ -99,7 +99,7 @@ struct GridButton: View {
                     
                     if self.clickCounter >= self.clickCounterStartOn {
                         self.debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
-                            action()
+                            action(nil)
                         }
                     } else {
                         action(nil)
