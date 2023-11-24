@@ -1,3 +1,5 @@
+2023-11-21 Tue: Deployed 1.1121.18 to Voice 2 build. Added [Thanksgiving marketing copy](https://harmonyone.notion.site/Thanksgiving-Marketing-Campaign-f4e2ff42dd7e4c78946722e4b64244f2?pvs=4) to Alaina’s graphic. Tested processing logic for [Harmony specific information](https://harmonyone.notion.site/HarmonyGPT-b517a68bce564ac68cebd378b5d420e2?pvs=4) without the need of memory.
+
 2023-11-20 Mon: Deployed 1.1120.18 public TestFlight build. Created and added full [Terms](https://x.country/terms), Privacy, and Copyright for Apple Pay build.
 
 ---

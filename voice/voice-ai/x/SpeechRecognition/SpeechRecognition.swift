@@ -54,7 +54,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
    
     var pendingOpenAIStream: OpenAIStreamService?
     
-    private var conversation: [Message] = []
+    internal var conversation: [Message] = []
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
 
@@ -272,7 +272,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
-    func makeQuery(_ text: String, maxRetry: Int = 14) {
+    func makeQuery(_ text: String, maxRetry: Int = 14, rateLimit: Bool? = true) {
         if isRequestingOpenAI {
             print("RequestingOpenAI: skip")
             return
@@ -311,12 +311,21 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         var currWord = ""
         
         func handleQuery(retryCount: Int) {
+            let startDate = Date()
+            var isResponseReceived = false
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     return
                 }
+                
+                if(!isResponseReceived) {
+                    isResponseReceived = true
+                    let executionTime = Date().timeIntervalSince(startDate)
+                    print("[SpeechRecognition] Request latency: \(executionTime)")
+                }
+                
                 guard let res = res, !res.isEmpty else {
                     return
                 }
@@ -362,7 +371,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // for custom instruction changes
             conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
-            pendingOpenAIStream?.query(conversation: limitedConversation)
+            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
@@ -374,7 +383,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI Rate Limited")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 10 questions per minute at this time.")
+                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.")
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
                 
@@ -583,7 +592,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let query = "Summarize \(randomTitle) from Wikipedia"
 
             // Now make the query to fetch the fact.
-            self.makeQuery(query)
+            self.makeQuery(query, rateLimit: false)
         }
 
         // Any UI updates need to be performed on the main thread.

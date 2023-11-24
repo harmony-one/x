@@ -31,7 +31,7 @@ class KeychainService {
         }
         if let expirationDate = expirationDate {
             keychain.set(expirationDate, forKey: "expirationDate")
-            AppSettings.shared.premiumUseExpires = expirationDate
+            AppSettings.shared.premiumUseExpires = AppSettings.shared.convertDateStringToLocalFormat(inputDateString: expirationDate, inputFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? expirationDate
         }
     }
         
