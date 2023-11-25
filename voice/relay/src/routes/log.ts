@@ -49,4 +49,5 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     cancelled,
     relayMode
   })
+  res.json({ success: true })
 }

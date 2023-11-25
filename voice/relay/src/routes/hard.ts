@@ -124,6 +124,7 @@ router.post('/log', parseDeviceToken, validateDeviceToken, checkIpBan, deviceLim
     await log(req, res, 'hard')
   } catch (ex: any) {
     console.error(ex)
+    res.status(HttpStatusCode.InternalServerError).json({ error: 'internal error' })
   }
 })
 

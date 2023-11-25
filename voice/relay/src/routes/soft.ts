@@ -3,6 +3,7 @@ import { OpenAIDistributedKeys } from '../config/index.js'
 import { encrypt } from '../utils.js'
 import { log } from './log.js'
 import { parseDeviceToken, validateDeviceToken, checkIpBan, deviceLimiter, ipLimiter } from './common.js'
+import { HttpStatusCode } from 'axios'
 const router: Router = Router()
 
 router.get('/health', (req, res) => {
@@ -25,6 +26,7 @@ router.post('/log', parseDeviceToken, validateDeviceToken, checkIpBan, deviceLim
     await log(req, res, 'soft')
   } catch (ex: any) {
     console.error(ex)
+    res.status(HttpStatusCode.InternalServerError).json({ error: 'internal error' })
   }
 })
 
