@@ -1,3 +1,7 @@
+2023-11-25 Sat: Revised the code coverage to see tests that need more coverage. Observed that SpeechRecognitionTests was barely doing anything - saw that mocks had been implemented so far but they're not testing any of the actual functions. Started work on writing tests for this file, implemented tests for testGetCurrentTimestamp() and testRegisterTTS(), created MockTextToSpeechConverter. This file really needs refactoring for better organization as it is confusing to be using SpeechRecognition.swift for some test cases and others using MockSpeechRecognition.swift - will be working on this the next few days as solving the previous mentioned "View" SwiftUI issue seems a bit more complex.
+
+2023-11-24 Fri: Continued investigating issues for creating unit tests for SwiftUI Views.
+
 2023-11-23 Thu: Cleaned up test files for better structure and added all the missing test classes. Still investigating ActionsView unit test issues.
 
 2023-11-22 Wed: Continued investigating resolutions for inability to access environment objects from a view during unit testing (issues pertaining to AppSettings and Store). Will look into frameworks for workarounds - StoreKit Testing and ViewInspector seems to be suggested.
