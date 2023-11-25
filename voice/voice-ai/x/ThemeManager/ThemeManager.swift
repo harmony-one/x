@@ -44,14 +44,6 @@ class Theme: ObservableObject {
         self.fontActiveColor = defaultTheme.fontActiveColor
     }
 
-    init(theme: ThemeSettings) {
-        self.name = theme.name
-        self.bodyTextColor = theme.bodyTextColor
-        self.buttonActiveColor = theme.buttonActiveColor
-        self.buttonDefaultColor = theme.buttonDefaultColor
-        self.fontActiveColor = theme.fontActiveColor
-    }
-
     func setTheme(theme: ThemeSettings) {
         self.name = theme.name
         self.bodyTextColor = theme.bodyTextColor

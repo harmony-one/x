@@ -65,7 +65,7 @@ class AppConfigTests: XCTestCase {
     }
     
     func testWhiteListIsNotNil() {
-        XCTAssertNotNil(appConfig.getWhitelist(), "Whitelist should not be nil")
+        XCTAssertNotNil(appConfig.getwhiteLableListString(), "Whitelist should not be nil")
     }
     
     func testLoadingValidPlistFile() {

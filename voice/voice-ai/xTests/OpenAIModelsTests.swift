@@ -33,6 +33,7 @@ class OpenAIResponseTests: XCTestCase {
         // When
         let jsonData = Data(json.utf8)
         let response = try JSONDecoder().decode(OpenAIResponse.self, from: jsonData)
+        
 
         // Then
         XCTAssertEqual(response.id, "123")
@@ -44,10 +45,10 @@ class OpenAIResponseTests: XCTestCase {
         XCTAssertEqual(response.choices?[0].message?.role, "user")
         XCTAssertEqual(response.choices?[0].message?.content, "Hi")
 
-        XCTAssertNotNil(response.usage)
-        XCTAssertEqual(response.usage?.prompt_tokens, 10)
-        XCTAssertEqual(response.usage?.completion_tokens, 50)
-        XCTAssertEqual(response.usage?.total_tokens, 60)
+
+        XCTAssertEqual(response.usage?.promptTokens, 10)
+        XCTAssertEqual(response.usage?.completionTokens, 50)
+        XCTAssertEqual(response.usage?.totalTokens, 60)
     }
 
     // Add more test cases as needed
@@ -102,9 +103,9 @@ class UsageTests: XCTestCase {
             let data = json.data(using: .utf8)!
             let usage = try JSONDecoder().decode(Usage.self, from: data)
 
-            XCTAssertEqual(usage.prompt_tokens, 10, "Prompt tokens should be 10")
-            XCTAssertEqual(usage.completion_tokens, 20, "Completion tokens should be 20")
-            XCTAssertEqual(usage.total_tokens, 30, "Total tokens should be 30")
+            XCTAssertEqual(usage.promptTokens, 10, "Prompt tokens should be 10")
+            XCTAssertEqual(usage.completionTokens, 20, "Completion tokens should be 20")
+            XCTAssertEqual(usage.totalTokens, 30, "Total tokens should be 30")
         } catch {
             XCTFail("Failed to decode Usage from valid JSON: \(error)")
         }
