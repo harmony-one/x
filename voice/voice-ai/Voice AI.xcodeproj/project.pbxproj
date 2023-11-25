@@ -219,6 +219,10 @@
 		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		CDC137132B11B129003386E9 /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* Metric.swift */; };
+		CDC137142B11B129003386E9 /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* Metric.swift */; };
+		CDC137152B11B129003386E9 /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* Metric.swift */; };
+		CDC137162B11B129003386E9 /* Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* Metric.swift */; };
 		E45C23B22B0E5BAE00D7431E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
 		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
@@ -390,6 +394,7 @@
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
 		CDC1370F2B057DB6003386E9 /* RelayAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayAuth.swift; sourceTree = "<group>"; };
+		CDC137122B11B129003386E9 /* Metric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
 		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -672,6 +677,7 @@
 				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 				B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */,
 				6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */,
+				CDC137122B11B129003386E9 /* Metric.swift */,
 			);
 			path = OpenAIService;
 			sourceTree = "<group>";
@@ -1143,6 +1149,7 @@
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				CDC137162B11B129003386E9 /* Metric.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
@@ -1208,6 +1215,7 @@
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
+				CDC137132B11B129003386E9 /* Metric.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
 				B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
@@ -1280,6 +1288,7 @@
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
+				CDC137142B11B129003386E9 /* Metric.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				F7F115082AF8173300BC191C /* AudioPlayerTests.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
@@ -1334,6 +1343,7 @@
 				6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */,
 				6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */,
 				B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
+				CDC137152B11B129003386E9 /* Metric.swift in Sources */,
 				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
 				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
 				6E56C7BD2B067A8F00ED2296 /* KeychainService.swift in Sources */,

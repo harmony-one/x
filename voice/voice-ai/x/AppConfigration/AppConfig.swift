@@ -20,7 +20,7 @@ class AppConfig {
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
     private var whiteLabelList: [String]?
-    
+
     var themeName: String?
 
     init() {
@@ -44,9 +44,9 @@ class AppConfig {
         guard let encryptedKey = encryptedKey else {
             throw NSError(domain: "Invalid encoded encrypted key", code: -1)
         }
-        
-        let ivObject = [UInt8](self.sharedEncryptionIV!.data(using: .utf8)!.sha256()[0..<16])
-        let sharedKey = [UInt8](self.sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0..<32])
+
+        let ivObject = [UInt8](sharedEncryptionIV!.data(using: .utf8)!.sha256()[0..<16])
+        let sharedKey = [UInt8](sharedEncryptionSecret!.data(using: .utf8)!.sha256()[0..<32])
         let aes = try AES(key: sharedKey, blockMode: CBC(iv: ivObject))
         let dBytes = try aes.decrypt(encryptedKey.bytes)
         let dKey = String(data: Data(dBytes), encoding: .utf8)
@@ -68,14 +68,7 @@ class AppConfig {
             SentrySDK.capture(message: "Invalid Relay URL")
             return
         }
-        var token = ""
-        do {
-            let deviceToken = try await DCDevice.current.generateToken()
-            print("token", deviceToken)
-            token = deviceToken.base64EncodedString()
-        } catch {
-            SentrySDK.capture(message: "Error generating device token")
-            print(error)
+        guard let token = await relay.getDeviceToken() else {
             return
         }
         var request = URLRequest(url: url)
@@ -104,7 +97,7 @@ class AppConfig {
         }
         task.resume()
     }
-    
+
     public func checkWhiteLabelList() async -> Bool {
         guard let username = SettingsBundleHelper.getUserName() else {
             return false
@@ -179,17 +172,19 @@ class AppConfig {
 
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
-               let events = Int(eventsString) {
+               let events = Int(eventsString)
+            {
                 minimumSignificantEvents = events
             }
 
             if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"] as? String,
-               let days = Int(daysString) {
-                self.daysBetweenPrompts = days
+               let days = Int(daysString)
+            {
+                daysBetweenPrompts = days
             }
-            
+
             if let whiteLableListString = dictionary["WHITELIST"] as? [String] {
-                self.whiteLabelList = whiteLableListString
+                whiteLabelList = whiteLableListString
             }
 
         } catch {
@@ -238,9 +233,9 @@ class AppConfig {
     func getRelayUrl() -> String? {
         return relayBaseUrl
     }
-    
+
     func getwhiteLableListString() -> [String]? {
-        return self.whiteLabelList
+        return whiteLabelList
     }
 
     func renewRelayAuth() {
@@ -254,5 +249,9 @@ class AppConfig {
                 await self.requestOpenAIKey()
             }
         }
+    }
+
+    func getRelayMode() -> String? {
+        return relayMode
     }
 }

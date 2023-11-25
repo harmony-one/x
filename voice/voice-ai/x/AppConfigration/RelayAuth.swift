@@ -4,6 +4,18 @@ import Foundation
 import Sentry
 import SwiftyJSON
 
+struct ClientUsageLog {
+    var vendor: String
+    var endpoint: String
+    var firstResponseTime: Int64
+    var totalResponseTime: Int64
+    var requestNumMessages: Int32
+    var requestNumUserMessages: Int32
+    var requestMessage: String
+    var responseMessage: String
+    var cancelled: Bool
+}
+
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
     private static let keyIdPath = "AppAttestKeyId"
@@ -12,6 +24,7 @@ class RelayAuth {
     private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
+    private var deviceToken: String?
     private var keyId: String?
     private var token: String?
     private var autoRefreshTokenTimer: Timer?
@@ -48,7 +61,7 @@ class RelayAuth {
                     let delay = min(30000, Int(pow(2.0, Double(numRetries))) * 1000 + Int.random(in: 0 ... 1000))
                     do {
                         log("Refresh token error; Sleeping for \(delay)ms and try again (\(numRetries) attempts made)")
-                        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000))
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1000000))
                     } catch {
                         logError("auto-retry cancelled", -7)
                         return nil
@@ -232,6 +245,54 @@ class RelayAuth {
         } catch {
             logError(error, "exchangeAttestationForToken error")
             return nil
+        }
+    }
+
+    func getDeviceToken(_ regen: Bool = false) async -> String? {
+        if deviceToken != nil, !regen {
+            return deviceToken
+        }
+        do {
+            let deviceToken = try await DCDevice.current.generateToken()
+            self.deviceToken = deviceToken.base64EncodedString()
+            return self.deviceToken
+        } catch {
+            logError("Error generating device token", -9)
+            return nil
+        }
+    }
+
+    func log(_ record: ClientUsageLog) async {
+        guard let baseUrl = Self.baseUrl else {
+            logError("Invalid base URL", -4)
+            return
+        }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        guard let url = URL(string: "\(baseUrl)/\(AppConfig.shared.getRelayMode() ?? "soft")/log") else {
+            logError("Invalid Relay URL", -3)
+            return
+        }
+
+        guard let token = await getDeviceToken() else {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+
+        do {
+            let body = try JSON(record).rawData()
+            request.httpBody = body
+            print("[RelayAuth][log] sending \(body)")
+            let (data, _) = try await session.data(for: request)
+            let res = JSON(data)
+            let success = res["success"].bool
+            print("[RelayAuth][log] success: \(success ?? false)")
+        } catch {
+            logError(error, "log error")
+            return
         }
     }
 }
