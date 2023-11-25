@@ -16,6 +16,8 @@ class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
     var store: Store!
     var appSettings: AppSettings!
+    var mockGenerator: MockGenerator!
+    
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
     let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
     let buttonSurprise = ButtonData(label: "Surprise ME!", image: "surprise me", action: .surprise, testId: "button-surpriseMe")
@@ -29,6 +31,8 @@ class ActionsViewTests: XCTestCase {
         store = Store()
         actionsView = ActionsView()
         appSettings = AppSettings.shared
+        mockGenerator = MockGenerator()
+        ActionsView.generator = mockGenerator
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -41,11 +45,14 @@ class ActionsViewTests: XCTestCase {
     
     override func tearDown() {
         actionsView = nil
+        mockGenerator = nil
         super.tearDown()
     }
     
     func testChangeTheme() {
-        actionsView.changeTheme(name: "defaultTheme")
+        let themeName = "defaultTheme"
+        XCTAssertNotEqual(actionsView.currentTheme.name, themeName)
+        actionsView.changeTheme(name: themeName)
         XCTAssertEqual(actionsView.currentTheme.name, "defaultTheme")
     }
     
@@ -57,8 +64,13 @@ class ActionsViewTests: XCTestCase {
     }
     
     func testVibration() {
+        XCTAssertFalse(mockGenerator.prepareCalled)
+        XCTAssertFalse(mockGenerator.impactOccurredCalled)
+
         actionsView.vibration()
-        // Test that the vibration function does not throw any errors
+
+        XCTAssertTrue(mockGenerator.prepareCalled)
+        XCTAssertTrue(mockGenerator.impactOccurredCalled)
     }
     
     func testViewButton() {
@@ -68,7 +80,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertNotNil(viewButton)
     }
     
-    func testVewButtonSpeak () {
+    func testViewButtonSpeak () {
          let actionType: ActionType = .speak
  
          let actionHandler = MockActionHandler()
@@ -91,7 +103,7 @@ class ActionsViewTests: XCTestCase {
  
      }
     
-    func testVewButtonRepeatLast () {
+    func testViewButtonRepeatLast () {
         let actionType: ActionType = .repeatLast
         
         let actionHandler = MockActionHandler()
@@ -110,7 +122,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
-    func testVewButtonPlay () {
+    func testViewButtonPlay () {
         let actionType: ActionType = .play
         let actionHandler = MockActionHandler()
         let button = testButtons.first(where: { $0.action == actionType })!
@@ -128,7 +140,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
-    func testVewButtonReset () {
+    func testViewButtonReset () {
         let actionType: ActionType = .reset
         let showInAppPurchases = Bool.random()
         

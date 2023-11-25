@@ -261,7 +261,7 @@
 		F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */; };
 		F73AF5992B0FDE3800B98C0F /* OpenAIModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73AF5982B0FDE3800B98C0F /* OpenAIModelsTests.swift */; };
 		F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
-		F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */ = {isa = PBXBuildFile; fileRef = F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */; };
+		F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -398,7 +398,7 @@
 		F73ABDC02B0C25BF0073AF33 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		F73AF5982B0FDE3800B98C0F /* OpenAIModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIModelsTests.swift; sourceTree = "<group>"; };
-		F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests_rika.swift; sourceTree = "<group>"; };
+		F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextToSpeechConverter.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -798,8 +798,8 @@
 				F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */,
 				B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */,
 				F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */,
-				F754EA012B0D40440021AE89 /* ActionsViewTests_rika.swift */,
 				F73AF5982B0FDE3800B98C0F /* OpenAIModelsTests.swift */,
+				F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1256,6 +1256,7 @@
 				B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
+				F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */,
 				F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
 				F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */,
@@ -1272,7 +1273,6 @@
 				B9C4A8322AEE96B600327529 /* Usage.swift in Sources */,
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
 				6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */,
-				F754EA022B0D40440021AE89 /* ActionsViewTests_rika.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,

@@ -3,6 +3,7 @@ import AVFoundation
 class MockAVSpeechSynthesizer: AVSpeechSynthesizer {
     var isSpeakingStub: Bool = false
     var isPausedStub: Bool = false
+    var isDelegateSet: Bool = false
     var selectedVoiceLanguage: String?
 
     override var isSpeaking: Bool {
@@ -38,4 +39,14 @@ class MockAVSpeechSynthesizer: AVSpeechSynthesizer {
         isSpeakingStub = false
         return true // Return true to indicate success
     }
+    
+    override var delegate: AVSpeechSynthesizerDelegate? {
+        didSet {
+            isDelegateSet = true
+        }
+    }
+    
+    func reset() {
+       isDelegateSet = false
+   }
 }
