@@ -2,6 +2,7 @@ import Foundation
 import Sentry
 
 class TimeLogger {
+    // TODO: use ContinuousClock https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
     private let relay = RelayAuth.shared
     private var startTime: Int64
     private var firstCheckpointTime: Int64 = 0
