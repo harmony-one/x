@@ -4,7 +4,7 @@ import Foundation
 import Sentry
 import SwiftyJSON
 
-struct ClientUsageLog {
+struct ClientUsageLog: Encodable {
     var vendor: String
     var endpoint: String
     var requestTokens: Int32
@@ -189,7 +189,7 @@ class RelayAuth {
     }
 
     @discardableResult func logError(_ error: Error, _ detail: String = "") -> Error {
-        print("[RelayAuth][ERROR]", detail)
+        print("[RelayAuth][ERROR]", detail, error)
         SentrySDK.capture(error: error) { scope in
             scope.setExtra(value: detail, key: "detail")
             scope.setTag(value: "RelayAuth", key: "module")

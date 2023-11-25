@@ -5,7 +5,7 @@ import { type WriteResponseBase } from '@elastic/elasticsearch/lib/api/types.js'
 let client: Client | null = null
 
 export const Index = config.es.index ?? 'bot-token-usage'
-export const ClientUsageIndex = config.es.index ?? 'bot-client-usage'
+export const ClientUsageIndex = config.es.clientUsageIndex ?? 'bot-client-usage'
 
 export interface TokenUsageLogData {
   vendor: string

@@ -224,7 +224,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             let res = JSON(parseJSON: dataBody)
             let delta = res["choices"][0]["delta"]["content"].string
             if delta != nil {
-                responseMessage = responseMessage + delta!
+                responseMessage += delta!
             }
             if delta == nil {
                 continue
@@ -244,7 +244,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
                 responseMessage: responseMessage,
                 cancelled: false,
                 completed: false,
-                error: "\(error!)",
+                error: "\(error!)"
             )
         }
         if let response = task.response as? HTTPURLResponse {

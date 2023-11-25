@@ -192,7 +192,6 @@ class AppConfig {
             if let whiteLableListString = dictionary["WHITELIST"] as? [String] {
                 whiteLabelList = whiteLableListString
             }
-
         } catch {
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
             fatalError(error.localizedDescription)
