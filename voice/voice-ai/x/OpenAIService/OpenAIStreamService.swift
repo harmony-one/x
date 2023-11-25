@@ -147,7 +147,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         requestNumMessages = Int32(conversation.count)
         requestNumUserMessages = Int32(conversation.filter { $0.role == "user" }.count)
-        requestMessage = conversation.map { "\($0.role ?? "N/A"): \($0.content ?? "")" }.joined(separator: "\n")
+        requestMessage = conversation.filter { $0.role != "system" }.map { "\($0.role ?? "N/A"): \($0.content ?? "")" }.joined(separator: "\n")
         requestTokens = Int32(conversation.map { ($0.content ?? "").components(separatedBy: CharacterSet(charactersIn: " ,.!;?'\"$%")).count }.reduce(0, +))
 
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
