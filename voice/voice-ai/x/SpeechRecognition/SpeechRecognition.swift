@@ -299,6 +299,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
+        
         print("[SpeechRecognition] query: \(text)")
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()

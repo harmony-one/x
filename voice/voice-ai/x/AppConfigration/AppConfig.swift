@@ -10,6 +10,10 @@ class AppConfig {
     private var relay: RelayAuth = .shared
     private var relayBaseUrl: String?
     private var relayMode: String?
+    private var disableRelayLog: Bool?
+    private var enableTimeLoggerPrint: Bool?
+    
+    
     private var openaiBaseUrl: String?
     private var openaiKey: String?
 
@@ -164,6 +168,8 @@ class AppConfig {
             sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
             relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
             relayMode = dictionary["RELAY_MODE"] as? String
+            disableRelayLog = dictionary["DISABLE_RELAY_LOG"] as? Bool
+            enableTimeLoggerPrint = dictionary["ENABLE_TIME_LOGGER_PRINT"] as? Bool
 
             themeName = dictionary["THEME_NAME"] as? String
             deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
@@ -253,5 +259,13 @@ class AppConfig {
 
     func getRelayMode() -> String? {
         return relayMode
+    }
+    
+    func getDisableRelayLog() -> Bool {
+        return disableRelayLog ?? false
+    }
+    
+    func getEnableTimeLoggerPrint() -> Bool {
+        return enableTimeLoggerPrint ?? false
     }
 }

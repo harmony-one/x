@@ -15,7 +15,9 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     requestNumUserMessages,
     requestMessage,
     responseMessage,
-    cancelled
+    cancelled,
+    completed,
+    error
   } = req.body
   if (!vendor || !endpoint) {
     return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor })
@@ -30,9 +32,11 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
   responseTokens = Number(responseTokens ?? '0')
   requestNumMessages = Number(requestNumMessages ?? '0')
   requestNumUserMessages = Number(requestNumUserMessages ?? '0')
-  requestMessage = requestMessage ?? ''
-  responseMessage = responseMessage ?? ''
+  requestMessage = String(requestMessage ?? '')
+  responseMessage = String(responseMessage ?? '')
   cancelled = (cancelled === true || cancelled === 'true' || cancelled === '1')
+  completed = (completed === true || completed === 'true' || completed === '1')
+  error = String(error ?? '')
 
   await ES.addClientReportedData({
     deviceTokenHash: req.deviceTokenHash ?? 'N/A',
@@ -47,7 +51,9 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     requestMessage,
     responseMessage,
     cancelled,
-    relayMode
+    relayMode,
+    completed,
+    error
   })
   res.json({ success: true })
 }

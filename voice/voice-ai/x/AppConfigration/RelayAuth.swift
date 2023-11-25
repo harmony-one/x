@@ -7,6 +7,8 @@ import SwiftyJSON
 struct ClientUsageLog {
     var vendor: String
     var endpoint: String
+    var requestTokens: Int32
+    var responseTokens: Int32
     var firstResponseTime: Int64
     var totalResponseTime: Int64
     var requestNumMessages: Int32
@@ -14,10 +16,13 @@ struct ClientUsageLog {
     var requestMessage: String
     var responseMessage: String
     var cancelled: Bool
+    var completed: Bool
+    var error: String
 }
 
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
+    private static let disableLog = AppConfig.shared.getDisableRelayLog()
     private static let keyIdPath = "AppAttestKeyId"
     private static let attestationPath = "AppAttestationResult"
     private static let attestationChallengePath = "AppAttestationChallenge"
@@ -262,7 +267,10 @@ class RelayAuth {
         }
     }
 
-    func log(_ record: ClientUsageLog) async {
+    func record(_ record: ClientUsageLog) async {
+        if Self.disableLog {
+            return
+        }
         guard let baseUrl = Self.baseUrl else {
             logError("Invalid base URL", -4)
             return
@@ -291,7 +299,7 @@ class RelayAuth {
             let success = res["success"].bool
             print("[RelayAuth][log] success: \(success ?? false)")
         } catch {
-            logError(error, "log error")
+            logError(error, "error sending record")
             return
         }
     }

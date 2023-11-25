@@ -32,6 +32,8 @@ export interface ClientUsageLogData {
   totalResponseTime: string // from bigint
   firstResponseTime: string // from bigint
   cancelled: boolean
+  completed: boolean
+  error: string
 }
 
 export const ES = {
