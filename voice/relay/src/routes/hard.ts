@@ -7,6 +7,8 @@ import { hexView, now, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
 import config, { BannedTokens } from '../config/index.js'
 import { ES } from '../services/es.js'
+import { checkIpBan, deviceLimiter, ipLimiter, parseDeviceToken, validateDeviceToken } from './common.js'
+import { log } from './log.js'
 const ChallengeCache = new NodeCache({ stdTTL: 30 })
 const TokenCache = new NodeCache({ stdTTL: 60 * 30 })
 
@@ -114,6 +116,14 @@ router.post('/openai/chat/completions', authenticated, async (req, res, next) =>
       totalResponseTime: totalResponseTime.toString(),
       endpoint: 'chat/completions'
     }).catch(e => { console.error(e) })
+  }
+})
+
+router.post('/log', parseDeviceToken, validateDeviceToken, checkIpBan, deviceLimiter({ limit: 60 }), ipLimiter({ limit: 60 }), async (req, res) => {
+  try {
+    await log(req, res, 'hard')
+  } catch (ex: any) {
+    console.error(ex)
   }
 })
 

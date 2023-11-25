@@ -4,7 +4,8 @@ import { type WriteResponseBase } from '@elastic/elasticsearch/lib/api/types.js'
 
 let client: Client | null = null
 
-export const Index = config.es.index ?? 'bot-logs'
+export const Index = config.es.index ?? 'bot-token-usage'
+export const ClientUsageIndex = config.es.index ?? 'bot-client-usage'
 
 export interface TokenUsageLogData {
   vendor: string
@@ -14,7 +15,23 @@ export interface TokenUsageLogData {
   responseTokens: number
   attestationHash: string
   totalResponseTime: string // from bigint
-  firstResponseTime: string
+  firstResponseTime: string // from bigint
+}
+
+export interface ClientUsageLogData {
+  vendor: string
+  endpoint: string
+  relayMode: string
+  deviceTokenHash: string
+  requestTokens: number
+  responseTokens: number
+  requestNumMessages: number
+  requestNumUserMessages: number
+  requestMessage?: string
+  responseMessage?: string
+  totalResponseTime: string // from bigint
+  firstResponseTime: string // from bigint
+  cancelled: boolean
 }
 
 export const ES = {
@@ -34,7 +51,21 @@ export const ES = {
     if (!client) {
       return
     }
-    console.log('[ES]', props)
+    console.log('[ES][add]', props)
+    // return
+    return await client.index({
+      index,
+      document: {
+        time: Date.now(),
+        ...props
+      }
+    })
+  },
+  addClientReportedData: async ({ index = ClientUsageIndex, ...props }: ClientUsageLogData & { index?: string }): Promise<undefined | WriteResponseBase> => {
+    if (!client) {
+      return
+    }
+    console.log('[ES][addClientReportedData]', props)
     // return
     return await client.index({
       index,
