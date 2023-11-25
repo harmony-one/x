@@ -26,12 +26,48 @@ class RandomFactTests: XCTestCase {
 
 class SpeechRecognitionTests: XCTestCase {
     
-    var speechRecognition: MockSpeechRecognition!
+    var speechRecognition: SpeechRecognition!
 
-   override func setUp() {
-       super.setUp()
-       speechRecognition = MockSpeechRecognition()
-   }
+    override func setUpWithError() throws {
+            speechRecognition = SpeechRecognition.shared
+            speechRecognition.setup()
+        }
+
+        override func tearDownWithError() throws {
+            speechRecognition = nil
+        }
+    
+    func testGetCurrentTimestamp() {
+            let currentTimestamp = speechRecognition.getCurrentTimestamp()
+            let systemTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
+            let tolerance: Int64 = 1000
+            
+            XCTAssertTrue(abs(currentTimestamp - systemTimestamp) <= tolerance)
+        }
+    
+    func testRegisterTTS() {
+         let mockSynthesizer = MockAVSpeechSynthesizer()
+         speechRecognition.textToSpeechConverter.synthesizer = mockSynthesizer
+
+         speechRecognition.registerTTS()
+
+         XCTAssertTrue(mockSynthesizer.delegate === speechRecognition)
+
+         mockSynthesizer.reset()
+     }
+    
+//    func testPause() {
+//        let mockTextToSpeechConverter = MockTextToSpeechConverter()
+//        
+//        speechRecognition.textToSpeechConverter = mockTextToSpeechConverter
+//        speechRecognition._isPaused = false
+//        speechRecognition.pause()
+//        
+//        XCTAssertTrue(mockTextToSpeechConverter.pauseSpeechCalled)
+//        XCTAssertTrue(speechRecognition._isPaused)
+//
+//        mockTextToSpeechConverter.reset()
+//    }
     
     // Test the `isPaused()` function
     func testIsPaused() {
@@ -93,17 +129,17 @@ class SpeechRecognitionTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.continueSpeechCalled)
     }
 
-    // Test the `pause()` function
-    func testPause() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `pause()` function
-        mockSpeechRecognition.pause()
-
-        // Assert that the `pauseCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.pauseCalled)
-    }
+//    // Test the `pause()` function
+//    func testPause() {
+//        // Create a mock SpeechRecognition object
+//        let mockSpeechRecognition = MockSpeechRecognition()
+//
+//        // Call the `pause()` function
+//        mockSpeechRecognition.pause()
+//
+//        // Assert that the `pauseCalled` property is set to `true`
+//        XCTAssertTrue(mockSpeechRecognition.pauseCalled)
+//    }
 
 //    func testIsPlayingPublisher() {
 //        // Given
@@ -187,4 +223,5 @@ class SpeechRecognitionTests: XCTestCase {
         // Assert that the `repeateCalled` property is set to `true`
         XCTAssertTrue(mockSpeechRecognition.repeateCalled)
     }
+
 }

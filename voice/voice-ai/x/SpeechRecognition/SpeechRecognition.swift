@@ -47,7 +47,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var recognitionTaskCanceled: Bool?
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
-    let textToSpeechConverter = TextToSpeechConverter()
+    var textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     
     private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";")]
