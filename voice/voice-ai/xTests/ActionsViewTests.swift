@@ -15,6 +15,7 @@ class MockActionHandler: ActionHandler {
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
     var store: Store!
+    var appSettings: AppSettings!
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
     let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
     let buttonSurprise = ButtonData(label: "Surprise ME!", image: "surprise me", action: .surprise, testId: "button-surpriseMe")
@@ -27,6 +28,7 @@ class ActionsViewTests: XCTestCase {
         super.setUp()
         store = Store()
         actionsView = ActionsView()
+        appSettings = AppSettings.shared
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -65,6 +67,29 @@ class ActionsViewTests: XCTestCase {
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         XCTAssertNotNil(viewButton)
     }
+    
+    func testVewButtonSpeak () {
+         let actionType: ActionType = .speak
+ 
+         let actionHandler = MockActionHandler()
+         let button = testButtons.first(where: { $0.action == actionType })!
+         let expectedActionType: ActionType = actionType
+         if button.pressedLabel != nil {
+ 
+         }
+         actionHandler.handleCalled = false
+         XCTAssertFalse(actionHandler.handleCalled)
+         actionsView.vibration()
+ 
+         appSettings.isOpened = true
+         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+         actionHandler.handle(actionType: actionType)
+ 
+         XCTAssertNotNil(viewButton)
+         XCTAssertTrue(actionHandler.handleCalled)
+         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+ 
+     }
     
     func testVewButtonRepeatLast () {
         let actionType: ActionType = .repeatLast
