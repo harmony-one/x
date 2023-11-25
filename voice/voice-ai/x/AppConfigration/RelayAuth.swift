@@ -4,20 +4,20 @@ import Foundation
 import Sentry
 import SwiftyJSON
 
-struct ClientUsageLog: Encodable {
-    var vendor: String
-    var endpoint: String
-    var requestTokens: Int32
-    var responseTokens: Int32
-    var firstResponseTime: Int64
-    var totalResponseTime: Int64
-    var requestNumMessages: Int32
-    var requestNumUserMessages: Int32
-    var requestMessage: String
-    var responseMessage: String
-    var cancelled: Bool
-    var completed: Bool
-    var error: String
+struct ClientUsageLog: Codable {
+    let vendor: String
+    let endpoint: String
+    let requestTokens: Int32
+    let responseTokens: Int32
+    let firstResponseTime: Int64
+    let totalResponseTime: Int64
+    let requestNumMessages: Int32
+    let requestNumUserMessages: Int32
+    let requestMessage: String
+    let responseMessage: String
+    let cancelled: Bool
+    let completed: Bool
+    let error: String
 }
 
 class RelayAuth {
@@ -291,9 +291,9 @@ class RelayAuth {
 
 
         do {
-            let body = try JSON(record).rawData()
+            let body = try JSONEncoder().encode(record)
             request.httpBody = body
-            print("[RelayAuth][log] sending \(body)")
+//            print("[RelayAuth][log] sending \(String(data: body, encoding: .utf8)!)")
             let (data, _) = try await session.data(for: request)
             let res = JSON(data)
             let success = res["success"].bool

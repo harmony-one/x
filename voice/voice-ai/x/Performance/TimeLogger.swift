@@ -16,11 +16,11 @@ class TimeLogger {
         self.vendor = vendor
         self.endpoint = endpoint
         self.once = once
-        startTime = Int64(Date().timeIntervalSince1970 * 1000)
+        startTime = Int64(Date().timeIntervalSince1970 * 1000000)
     }
     
     func reset() {
-        startTime = Int64(Date().timeIntervalSince1970 * 1000)
+        startTime = Int64(Date().timeIntervalSince1970 * 1000000)
         firstCheckpointTime = 0
         finalCheckpointTime = 0
     }
@@ -33,11 +33,11 @@ class TimeLogger {
     }
     
     func check() {
-        firstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000)
+        firstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000000)
     }
     
     func stop() {
-        finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000)
+        finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000000)
     }
     
     func log(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
