@@ -20,7 +20,7 @@ struct ClientUsageLog: Codable {
     let error: String
 }
 
-struct RelaySetting: Codable{
+struct RelaySetting: Codable {
     let mode: String?
     let openaiBaseUrl: String?
 }
@@ -128,7 +128,7 @@ class RelayAuth {
             }
         }
     }
-    
+
     func getRelaySetting() async -> RelaySetting? {
         guard let baseUrl = Self.baseUrl else {
             logError("Invalid base URL", -4)
@@ -203,7 +203,7 @@ class RelayAuth {
                 throw error
             }
             logError(error, "[getAttestation] attestKey error")
-            if error.code == DCError.Code.invalidKey {
+            if error.code == DCError.Code.invalidKey || error.code == DCError.Code.serverUnavailable || error.code == DCError.Code.unknownSystemFailure {
                 try await initializeKeyId()
                 attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
             }
