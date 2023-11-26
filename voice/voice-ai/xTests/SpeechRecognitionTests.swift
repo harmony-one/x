@@ -3,13 +3,6 @@ import XCTest
 import StoreKit
 import SwiftUI
 
-// struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
-//
-// func testReset() {
-//    let test = SpeechRecognitionProtocolTest()
-//    XCTAssertEqual(true,test.reset())
-// }
-
 class RandomFactTests: XCTestCase {
     func testGetTitle() {
 
@@ -29,13 +22,13 @@ class SpeechRecognitionTests: XCTestCase {
     var speechRecognition: SpeechRecognition!
 
     override func setUpWithError() throws {
-            speechRecognition = SpeechRecognition.shared
-            speechRecognition.setup()
-        }
+        speechRecognition = SpeechRecognition.shared
+        speechRecognition.setup()
+    }
 
-        override func tearDownWithError() throws {
-            speechRecognition = nil
-        }
+    override func tearDownWithError() throws {
+        speechRecognition = nil
+    }
     
     func testGetCurrentTimestamp() {
             let currentTimestamp = speechRecognition.getCurrentTimestamp()
@@ -48,7 +41,6 @@ class SpeechRecognitionTests: XCTestCase {
     func testRegisterTTS() {
          let mockSynthesizer = MockAVSpeechSynthesizer()
          speechRecognition.textToSpeechConverter.synthesizer = mockSynthesizer
-
          speechRecognition.registerTTS()
 
          XCTAssertTrue(mockSynthesizer.delegate === speechRecognition)
@@ -56,31 +48,85 @@ class SpeechRecognitionTests: XCTestCase {
          mockSynthesizer.reset()
      }
     
-//    func testPause() {
-//        let mockTextToSpeechConverter = MockTextToSpeechConverter()
-//        
-//        speechRecognition.textToSpeechConverter = mockTextToSpeechConverter
-//        speechRecognition._isPaused = false
-//        speechRecognition.pause()
-//        
-//        XCTAssertTrue(mockTextToSpeechConverter.pauseSpeechCalled)
-//        XCTAssertTrue(speechRecognition._isPaused)
-//
-//        mockTextToSpeechConverter.reset()
-//    }
-    
-    // Test the `isPaused()` function
-    func testIsPaused() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
+    func testGetAudioEngine() {
+        let audioEngine = speechRecognition.getAudioEngine()
 
-        // Call the `isPaused()` function
-        _ = mockSpeechRecognition.isPaused()
-
-        // Assert that the `isPausedCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.isPausedCalled)
+        XCTAssertNotNil(audioEngine)
     }
+    
+    func testGetISAudioSessionSetup() {
+        speechRecognition.setupAudioSession()
 
+        XCTAssertTrue(speechRecognition.getISAudioSessionSetup())
+    }
+    
+    func testStartSpeechRecognition() {
+       speechRecognition.startSpeechRecognition()
+
+       XCTAssertTrue(speechRecognition.getAudioEngine().isRunning, "Audio engine should be running after starting speech recognition.")
+   }
+
+    func testIsPaused() {
+        speechRecognition.pause()
+        
+        XCTAssertTrue(speechRecognition.isPaused(), "isPaused should return true")
+    }
+    
+    func testCheckContextChangeTrue() {
+            let userDefaults = UserDefaults.standard
+            let customInstruction = "Custom instruction"
+        
+            speechRecognition.conversation = [Message(role: "system", content: "Initial context")]
+            userDefaults.set(customInstruction, forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+
+            XCTAssertTrue(speechRecognition.checkContextChange(), "checkContextChange should return true")
+
+//            userDefaults.removeObject(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        }
+    
+    func testCheckContextChangeFalse() {
+        let userDefaults = UserDefaults.standard
+
+        speechRecognition.conversation = []
+
+        userDefaults.set("Custom instruction", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+
+        XCTAssertFalse(speechRecognition.checkContextChange(), "checkContextChange should return false")
+    }
+    
+    func testCheckContextChangeFalseWithContextMatch() {
+        let userDefaults = UserDefaults.standard
+        let customInstruction = "Initial context"
+
+        speechRecognition.conversation = [Message(role: "system", content: customInstruction)]
+
+        userDefaults.set(customInstruction, forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+
+        XCTAssertFalse(speechRecognition.checkContextChange(), "checkContextChange should return false")
+    }
+    
+    //    func testPause() {
+    //        let mockTextToSpeechConverter = MockTextToSpeechConverter()
+    //
+    //        speechRecognition.textToSpeechConverter = mockTextToSpeechConverter
+    //        speechRecognition._isPaused = false
+    //        speechRecognition.pause()
+    //
+    //        XCTAssertTrue(mockTextToSpeechConverter.pauseSpeechCalled)
+    //        XCTAssertTrue(speechRecognition._isPaused)
+    //
+    //        mockTextToSpeechConverter.reset()
+    //    }
+    
+//    TODO: FIX-------
+
+    // struct SpeechRecognitionProtocolTest: SpeechRecognitionProtocol {}
+    //
+    // func testReset() {
+    //    let test = SpeechRecognitionProtocolTest()
+    //    XCTAssertEqual(true,test.reset())
+    // }
+    
     // Test the `reset()` function
     func testReset() {
         // Create a mock SpeechRecognition object
