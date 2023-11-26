@@ -38,4 +38,10 @@ export const SharedEncryptionSecret: string = process.env.SHARED_ENCRYPTION_SECR
 export const SharedEncryptionIV: string = process.env.SHARED_ENCRYPTION_IV ?? ''
 export const BannedTokens: string[] = JSON.parse(process.env.BANNED_TOKENS ?? '[]').map((e: string) => e.toLowerCase())
 
+export const AppleKeySettings = {
+  path: process.env.APPLE_KEY_PATH ?? './certs/apple.p8',
+  kid: process.env.APPLE_KEY_ID ?? '',
+  iss: process.env.TEAM_ID ?? ''
+}
+
 export default config
