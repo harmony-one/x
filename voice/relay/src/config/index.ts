@@ -27,8 +27,7 @@ const config = {
     password: process.env.ES_PASSWORD ?? '',
     index: process.env.ES_INDEX,
     clientUsageIndex: process.env.ES_CLIENT_USAGE_INDEX
-  },
-  relay
+  }
 }
 
 export const OpenAIDistributedKeys: string[] = JSON.parse(process.env.OPENAI_DISTRIBUTED_KEYS ?? '[]')

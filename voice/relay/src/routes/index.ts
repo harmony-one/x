@@ -7,4 +7,8 @@ router.get('/mode', (req, res) => {
   res.json({ mode: RelaySetting.mode, openaiBaseUrl: RelaySetting.openaiBaseUrl })
 })
 
+router.get('/health', (req, res) => {
+  res.send('OK')
+})
+
 export default router
