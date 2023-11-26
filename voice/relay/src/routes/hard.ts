@@ -9,7 +9,7 @@ import config, { BannedTokens, MinChallengeTime } from '../config/index.js'
 import { ES } from '../services/es.js'
 import { checkIpBan, deviceLimiter, ipLimiter, parseDeviceToken, validateDeviceToken } from './common.js'
 import { log } from './log.js'
-const ChallengeCache = new NodeCache({ stdTTL: 30 })
+const ChallengeCache = new NodeCache({ stdTTL: 0 })
 const TokenCache = new NodeCache({ stdTTL: 60 * 30 })
 
 const router: Router = Router()
@@ -53,6 +53,7 @@ router.post('/attestation', async (req, res) => {
   }
   const challengeTime = ChallengeCache.get<number>(challenge)
   if (MinChallengeTime > 0 && (!challengeTime || challengeTime < MinChallengeTime)) {
+    console.log('challengeTime, MinChallengeTime', challengeTime, MinChallengeTime)
     res.status(HttpStatusCode.Gone).json({ error: 'require new attestation', code: -11 })
     return
   }
