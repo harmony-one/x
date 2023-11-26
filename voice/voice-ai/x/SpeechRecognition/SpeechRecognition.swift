@@ -238,7 +238,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-    // TODO: remove
+    // TO-DO: remove
 //    private func handleFinalRecognition(inputNode: AVAudioNode, message: String) {
     ////        inputNode.removeTap(onBus: 0)
     ////        recognitionRequest = nil
@@ -550,13 +550,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func pause(feedback: Bool? = true) {
         print("[SpeechRecognition][pause]")
         if textToSpeechConverter.synthesizer.isSpeaking {
-            _isPaused = true
             textToSpeechConverter.pauseSpeech()
         } else {
             if !isRequestingOpenAI && feedback! {
 //                audioPlayer.playSound(false)
             }
         }
+        _isPaused = true
     }
     
     func continueSpeech() {
