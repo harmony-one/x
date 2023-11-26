@@ -175,17 +175,21 @@ class RelayAuth {
         }
     }
 
-    func getAttestation() async throws -> (String?, String?) {
+    func getAttestation(_ tryUseCached: Bool = true) async throws -> (String?, String?) {
         guard let keyId = keyId else {
             logError("No key id set", -5)
             return (nil, nil)
         }
-        // TODO: use keychain
-        let attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
-        let storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
-        if attestation != nil, storedChallenge != nil {
-            return (attestation, storedChallenge)
+        var attestation: String?, storedChallenge: String?
+        if tryUseCached {
+            // TODO: use keychain
+            attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
+            storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
+            if attestation != nil, storedChallenge != nil {
+                return (attestation, storedChallenge)
+            }
         }
+
         // try await initializeKeyId()
         let challenge = await getChallenge()
         guard let challenge = challenge else {
@@ -234,7 +238,7 @@ class RelayAuth {
         return error
     }
 
-    @discardableResult private func refreshToken() async throws -> String? {
+    @discardableResult private func refreshToken(_ useCache: Bool = true) async throws -> String? {
         let service = DCAppAttestService.shared
         guard service.isSupported else {
             throw logError("DCAppAttestService not supported", -1)
@@ -246,7 +250,7 @@ class RelayAuth {
         var attestation: String?
         var challenge: String?
         do {
-            (attestation, challenge) = try await getAttestation()
+            (attestation, challenge) = try await getAttestation(useCache)
         } catch {
             throw logError("temporary error for getting attestation", -6)
         }
@@ -267,9 +271,9 @@ class RelayAuth {
         } catch {
             let error = error as NSError
             if error.code == -10 {
-                try await Task.sleep(nanoseconds: 1_000_000_000)
+                try await Task.sleep(nanoseconds: 1000000000)
                 await tryInitializeKeyId()
-                return try await refreshToken()
+                return try await refreshToken(false)
             }
             throw error
         }
