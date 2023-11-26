@@ -20,6 +20,11 @@ struct ClientUsageLog: Codable {
     let error: String
 }
 
+struct RelaySetting: Codable{
+    let mode: String?
+    let openaiBaseUrl: String?
+}
+
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
     private static let disableLog = AppConfig.shared.getDisableRelayLog()
@@ -123,6 +128,30 @@ class RelayAuth {
             }
         }
     }
+    
+    func getRelaySetting() async -> RelaySetting? {
+        guard let baseUrl = Self.baseUrl else {
+            logError("Invalid base URL", -4)
+            return nil
+        }
+        let conf = URLSessionConfiguration.default
+        conf.timeoutIntervalForRequest = 3
+        let session = URLSession(configuration: conf)
+        guard let url = URL(string: "\(baseUrl)/mode") else {
+            logError("Invalid Relay URL", -3)
+            return nil
+        }
+
+        let req = URLRequest(url: url)
+        do {
+            let (data, _) = try await session.data(for: req)
+            let res = JSON(data)
+            return RelaySetting(mode: res["mode"].string, openaiBaseUrl: res["openaiBaseUrl"].string)
+        } catch {
+            logError(error, "failed to get relay setting")
+            return nil
+        }
+    }
 
     func getChallenge() async -> String? {
         guard let baseUrl = Self.baseUrl else {
@@ -166,8 +195,20 @@ class RelayAuth {
             throw logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
-        let attestService = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
-        let encodedString = attestService.base64EncodedString()
+        var attestationData: Data?
+        do {
+            attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+        } catch {
+            guard let error = error as? DCError else {
+                throw error
+            }
+            logError(error, "[getAttestation] attestKey error")
+            if error.code == DCError.Code.invalidKey {
+                try await initializeKeyId()
+                attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+            }
+        }
+        let encodedString = attestationData?.base64EncodedString()
         UserDefaults.standard.setValue(encodedString, forKey: Self.attestationPath)
         UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
         UserDefaults.standard.setValue(challenge, forKey: Self.attestationChallengePath)
@@ -288,7 +329,6 @@ class RelayAuth {
         request.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
 
         do {
             let body = try JSONEncoder().encode(record)

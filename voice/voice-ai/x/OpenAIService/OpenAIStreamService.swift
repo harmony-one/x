@@ -12,7 +12,6 @@ protocol NetworkService {
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
-    private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
     private var networkService: URLSession?
     private var timeLogger: TimeLogger?
@@ -72,7 +71,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
 
-        guard let baseUrl = baseUrl else {
+        guard let baseUrl = AppConfig.shared.getOpenAIBaseUrl() else {
             completion(nil, NSError(domain: "No base url", code: -4))
             SentrySDK.capture(message: "OpenAI base url is not set")
             return

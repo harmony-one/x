@@ -27,7 +27,8 @@ const config = {
     password: process.env.ES_PASSWORD ?? '',
     index: process.env.ES_INDEX,
     clientUsageIndex: process.env.ES_CLIENT_USAGE_INDEX
-  }
+  },
+  relay
 }
 
 export const OpenAIDistributedKeys: string[] = JSON.parse(process.env.OPENAI_DISTRIBUTED_KEYS ?? '[]')
@@ -42,6 +43,11 @@ export const AppleKeySettings = {
   path: process.env.APPLE_KEY_PATH ?? './certs/apple.p8',
   kid: process.env.APPLE_KEY_ID ?? '',
   iss: process.env.TEAM_ID ?? ''
+}
+
+export const RelaySetting = {
+  mode: process.env.RELAY_MODE ?? 'soft',
+  openaiBaseUrl: process.env.CLIENT_OPENAI_BASE_URL ?? 'https://api.openai.com/v1'
 }
 
 export default config
