@@ -22,7 +22,7 @@ class ActionsViewTests: XCTestCase {
     let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
     let buttonSurprise = ButtonData(label: "Surprise ME!", image: "surprise me", action: .surprise, testId: "button-surpriseMe")
     let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak, testId: "button-press&hold")
-    let buttonRepeat = ButtonData(label: "More Actions", image: "repeat last", action: .repeatLast, testId: "button-repeatLast")
+    let buttonMore = ButtonData(label: "More Actions", image: "repeat last", action: .openSettings, testId: "button-more")
     let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play, testId: "button-playPause")
     var testButtons: [ButtonData] = []
     
@@ -38,7 +38,7 @@ class ActionsViewTests: XCTestCase {
             buttonTapSpeak,
             buttonSurprise,
             buttonSpeak,
-            buttonRepeat,
+            buttonMore,
             buttonPlay,
         ]
     }
@@ -103,8 +103,8 @@ class ActionsViewTests: XCTestCase {
  
      }
     
-    func testViewButtonRepeatLast () {
-        let actionType: ActionType = .repeatLast
+    func testViewButtonMore () {
+        let actionType: ActionType = .openSettings
         
         let actionHandler = MockActionHandler()
         let button = testButtons.first(where: { $0.action == actionType })!
