@@ -31,7 +31,6 @@ class RelayAuth {
     private static let keyIdPath = "AppAttestKeyId"
     private static let attestationPath = "AppAttestationResult"
     private static let attestationChallengePath = "AppAttestationChallenge"
-    private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
     private var deviceToken: String?
@@ -183,13 +182,11 @@ class RelayAuth {
         }
         // TODO: use keychain
         let attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
-        let attestationTime = UserDefaults.standard.double(forKey: Self.attestationTimePath)
         let storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
-        let now = Double(Date().timeIntervalSince1970)
-        if attestationTime > now - 3600 * 24 * 8, attestation != nil, storedChallenge != nil {
+        if attestation != nil, storedChallenge != nil {
             return (attestation, storedChallenge)
         }
-
+        // try await initializeKeyId()
         let challenge = await getChallenge()
         guard let challenge = challenge else {
             throw logError("Unable to get challenge from server", -2)
@@ -210,7 +207,6 @@ class RelayAuth {
         }
         let encodedString = attestationData?.base64EncodedString()
         UserDefaults.standard.setValue(encodedString, forKey: Self.attestationPath)
-        UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
         UserDefaults.standard.setValue(challenge, forKey: Self.attestationChallengePath)
         return (encodedString, challenge)
     }
@@ -247,33 +243,45 @@ class RelayAuth {
             await tryInitializeKeyId()
         }
 
+        var attestation: String?
+        var challenge: String?
         do {
-            let (attestation, challenge) = try await getAttestation()
-            guard let attestation = attestation else {
-                throw logError("attestation is deliberately set to nil", -2)
-            }
-            guard let challenge = challenge else {
-                throw logError("challenge is deliberately set to nil", -8)
-            }
-            let token = await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
+            (attestation, challenge) = try await getAttestation()
+        } catch {
+            throw logError("temporary error for getting attestation", -6)
+        }
+
+        guard let attestation = attestation else {
+            throw logError("attestation is deliberately set to nil", -2)
+        }
+        guard let challenge = challenge else {
+            throw logError("challenge is deliberately set to nil", -8)
+        }
+
+        do {
+            let token = try await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             // throw NSError(domain:"testing", code: -6)
             self.token = token
             print("[RelayAuth] received token \(token ?? "N/A")")
             return token
         } catch {
-            throw logError("temporary error for getting attestation", -6)
+            let error = error as NSError
+            if error.code == -10 {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                await tryInitializeKeyId()
+                return try await refreshToken()
+            }
+            throw error
         }
     }
 
-    func exchangeAttestationForToken(attestation: String, challenge: String) async -> String? {
+    func exchangeAttestationForToken(attestation: String, challenge: String) async throws -> String? {
         guard let baseUrl = Self.baseUrl else {
-            logError("Invalid base URL", -4)
-            return nil
+            throw logError("Invalid base URL", -4)
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         guard let url = URL(string: "\(baseUrl)/hard/attestation") else {
-            logError("Invalid Relay URL", -3)
-            return nil
+            throw logError("Invalid Relay URL", -3)
         }
 
         let body = ["inputKeyId": keyId, "challenge": challenge, "attestation": attestation]
@@ -281,16 +289,19 @@ class RelayAuth {
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            req.httpBody = try JSON(body).rawData()
+        req.httpBody = try JSON(body).rawData()
 //            print("[RelayAuth][exchangeAttestationForToken] sending \(body)")
-            let (data, _) = try await session.data(for: req)
+        let (data, response) = try await session.data(for: req)
+        let httpResponse = response as? HTTPURLResponse
+        if httpResponse?.statusCode == 410 {
+            throw logError("new attestation and new key required", -10)
+        }
+        if httpResponse?.statusCode == 200 {
             let res = JSON(data)
             let token = res["token"].string
             return token
-        } catch {
-            logError(error, "exchangeAttestationForToken error")
-            return nil
+        } else {
+            throw logError("cannot get attestation from relay", -11)
         }
     }
 
