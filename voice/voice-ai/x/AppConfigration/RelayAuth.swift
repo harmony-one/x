@@ -42,6 +42,8 @@ class RelayAuth {
     private func initializeKeyId() async throws {
         keyId = try await DCAppAttestService.shared.generateKey()
         UserDefaults.standard.setValue(keyId, forKey: Self.keyIdPath)
+        UserDefaults.standard.removeObject(forKey: Self.attestationPath)
+        UserDefaults.standard.removeObject(forKey: Self.attestationChallengePath)
     }
 
     private func delayedRetry(on queue: DispatchQueue, retry: Int = 0, closure: @escaping () -> Void) {
@@ -272,7 +274,7 @@ class RelayAuth {
             let error = error as NSError
             if error.code == -10 {
                 try await Task.sleep(nanoseconds: 1000000000)
-                await tryInitializeKeyId()
+                try await initializeKeyId()
                 return try await refreshToken(false)
             }
             throw error
