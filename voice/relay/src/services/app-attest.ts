@@ -3,7 +3,7 @@ import jsrsasign from 'jsrsasign'
 import { parseAuthenticatorData } from '@simplewebauthn/server/helpers'
 import { hash as sha256 } from 'fast-sha256'
 import { chunkstr, hexView, stringToBytes } from '../utils.js'
-import config from '../config/index.js'
+import config, { PackageNames } from '../config/index.js'
 import NodeCache from 'node-cache'
 
 const PubKeyCache = new NodeCache()
@@ -143,11 +143,11 @@ export const validateAttestation = async (inputKeyId: string, challenge: string,
     return false
   }
   const hexRpIdHash = hexView(parsedAuthData.rpIdHash)
-  const appIdHash = hexView(sha256(stringToBytes(`${config.teamId}.${config.packageName}`)))
+  const appIdHashes = PackageNames.map(name => hexView(sha256(stringToBytes(`${config.teamId}.${name}`))))
 
   // step 6: Compute the SHA256 hash of your app’s App ID, and verify that it’s the same as the authenticator data’s RP ID hash.
-  if (hexRpIdHash !== appIdHash) {
-    console.error(`rpIdHash !== appIdHash: ${hexRpIdHash} | ${appIdHash}`)
+  if (!appIdHashes.includes(hexRpIdHash)) {
+    console.error(`rpIdHash not in appIdHashes: ${hexRpIdHash} | ${JSON.stringify(appIdHashes)}`)
     return false
   }
 

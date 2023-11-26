@@ -14,7 +14,6 @@ const config = {
   teamId: process.env.TEAM_ID ?? '',
   tokenSeed: process.env.TOKEN_SEED ?? '',
   allowDevelopAttestation: process.env.ALLOW_DEVELOP_ATTESTATION === 'true' || process.env.ALLOW_DEVELOP_ATTESTATION === '1',
-  packageName: process.env.PACKAGE_NAME ?? '',
   openai: { key: process.env.OPENAI_KEY ?? '' },
   deepgram: { key: process.env.DEEPGRAM_KEY ?? '' },
   playht: { key: process.env.PLAYHT_KEY ?? '' },
@@ -29,6 +28,8 @@ const config = {
     clientUsageIndex: process.env.ES_CLIENT_USAGE_INDEX
   }
 }
+
+export const PackageNames: string[] = JSON.parse(process.env.PACKAGE_NAME ?? '[]')
 
 export const OpenAIDistributedKeys: string[] = JSON.parse(process.env.OPENAI_DISTRIBUTED_KEYS ?? '[]')
 export const BlockedDeviceIds: string[] = JSON.parse(process.env.BLOCKED_DEVICE_IDS ?? '[]')
