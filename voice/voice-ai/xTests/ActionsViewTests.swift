@@ -152,7 +152,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertFalse(actionHandler.handleCalled)
         actionsView.vibration()
         if (showInAppPurchases) {
-            
+            actionsView.showInAppPurchasesIfNotLoggedIn()
         }
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         actionHandler.handle(actionType: actionType)
