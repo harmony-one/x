@@ -77,4 +77,5 @@ class KeychainServiceTests: XCTestCase {
 }
 
 class AppleSignInManagerTests: XCTestCase {
+    
 }

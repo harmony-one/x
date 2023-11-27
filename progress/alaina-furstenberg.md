@@ -1,3 +1,11 @@
+2023-11-24 Fri: Updated harmony.one community section. Rewriting Substack titles to be more click-worthy, specific, and informative. Tweeting about v1.1124.9 with new iPad mocks
+
+2023-11-23 Thu: Thanksgiving Holiday
+
+2023-11-22 Wed: Synced with Theo on VoiceAI feature updates, selected new icon for 'More Actions' command. Integrated the icon into a [new vertical mockup](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=454%3A2&mode=design&t=VHD9TygMOBGw9GNr-1). Shared Thanksgiving based promotions with Harmony community on Telegram and on ONE Bot love. User tested Voice AI with my family.
+
+2023-11-21 Tue: PTO
+
 2023-11-20 Mon: Remade and uploaded iPad app store screenshots, resolved blurry press to speak icon. Corresponded with Kratos & sent a questionaire about his user feedback for VoiceAI. Synced with Theo P on Thanksgiving marketing efforts, generated some [posts](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4#69f5fda9ce534b07ac8f6b38c490fdac) in DALLE3, which still need refining.
 
 -----

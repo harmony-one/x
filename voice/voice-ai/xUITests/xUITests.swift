@@ -41,8 +41,8 @@ final class xUITests: XCTestCase {
         // pause
         buttonPlay.tap()
         
-        expectation(for: NSPredicate(format: "exists == 1"), evaluatedWith: buttonPlay.images[playImage], handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        expectation(for: NSPredicate(format: "exists == 1"), evaluatedWith: buttonPlay, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         // play
         buttonPlay.tap()
@@ -125,10 +125,10 @@ final class xUITests: XCTestCase {
 
         let labels = [
             "New Session",
-            "Skip 5 Seconds",
-            "Random Fact",
+            "Tap to Speak",
+            "Surprise ME!",
             "Press & Hold",
-            "Repeat Last",
+            "More Actions",
             "Pause / Play",
         ]
 
@@ -136,9 +136,10 @@ final class xUITests: XCTestCase {
             let button = app.staticTexts[label]
             XCTAssertTrue(button.exists)
         }
+        let pressText = "blackredTheme - press & hold"
 
         let elementsQuery = XCUIApplication().scrollViews.otherElements
-        elementsQuery/*@START_MENU_TOKEN@*/ .images["press to speak"].press(forDuration: 5.1)/*[[".buttons[\"Press to Speak\"].images[\"press to speak\"]",".tap()",".press(forDuration: 5.1);",".images[\"press to speak\"]"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/
+        elementsQuery .images[pressText].press(forDuration: 5.1)
 
         let pausePlayImage = elementsQuery/*@START_MENU_TOKEN@*/ .images["pause play"]/*[[".buttons[\"Pause \/ Play\"].images[\"pause play\"]",".images[\"pause play\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         pausePlayImage.tap()
@@ -163,4 +164,26 @@ final class xUITests: XCTestCase {
         }
     }
     
+    func testSettingsView() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let pausePlayButton = app.staticTexts["More Actions"]
+        XCTAssertTrue(pausePlayButton.exists)
+
+        let buttonPlay = app.buttons["button-repeatLast"]
+        XCTAssertTrue(buttonPlay.exists)
+    
+        
+        buttonPlay.tap()
+        
+        sleep(1)
+        
+        let cancel = app.buttons["Cancel"]
+        XCTAssertTrue(cancel.exists)
+
+        cancel.tap()
+        sleep(1)
+        XCTAssertFalse(app.buttons["Cancel"].exists)
+    }
 }

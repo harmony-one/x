@@ -1,5 +1,7 @@
 import XCTest
 import StoreKit
+import SwiftUI
+@testable import Voice_AI
 
 class PersistenceTests: XCTestCase {
     override func tearDown() {
@@ -86,5 +88,20 @@ class StoreTests: XCTestCase {
     }
 }
 
-class ActivityIndicatorViewTests: XCTestCase {
-}
+//class ActivityIndicatorViewTests: XCTestCase {
+//    var app: XCUIApplication!
+//
+//        override func setUp() {
+//            super.setUp()
+//            app = XCUIApplication()
+//            app.launch()
+//        }
+//
+//        func testProgressViewIsVisibleWhenIsShowingIsTrue() {
+//            // Set isShowing to true
+//            app.switches["isShowingSwitch"].tap()
+//            
+//            // Verify that the ProgressView is visible
+//            XCTAssertTrue(app.progressIndicators["progressView"].exists)
+//        }
+//}

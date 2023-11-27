@@ -63,7 +63,7 @@ class CreateUserTests: XCTestCase {
 class UserAPITests: XCTestCase {
     var keychainService: KeychainService!
     var api: UserAPI!
-    
+ 
     override func setUp() {
         super.setUp()
         api = UserAPI()
@@ -92,15 +92,34 @@ class UserAPITests: XCTestCase {
     
     func testGetUserBy() {
         // Given
-        let api = UserAPI()
         let appleId = "testAppleId"
+        let fullName = "John Doe"
+        let email = "john@example.com"
+        keychainService.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
+        api.register(appleId: appleId)
         
         // When
         api.getUserBy(appleId: appleId)
-//        print(**************** \(user))
+        let storedUserID = KeychainService.shared.retrieveAppleID()
+        
         // Then
-        // Assert that the network request is made correctly
-        // Assert that the correct data is stored in KeychainService
+        XCTAssertEqual(storedUserID, "testAppleId", "Stored user ID should match the mock user ID")
+    }
+    
+    func testGetUserByID() {
+        // Given
+        let appleId = "testAppleId"
+        let fullName = "John Doe"
+        let email = "john@example.com"
+        keychainService.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
+        api.register(appleId: appleId)
+        
+        // When
+        api.getUserByID()
+        let storedUserID = KeychainService.shared.retrieveAppleID()
+        
+        // Then
+        XCTAssertEqual(storedUserID, "testAppleId", "Stored user ID should match the mock user ID")
     }
     
     func testPurchase() {

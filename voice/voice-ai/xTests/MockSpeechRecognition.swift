@@ -3,15 +3,7 @@ import Combine
 @testable import Voice_AI
 import XCTest
 
-// Mock class that mimics the behavior of our SpeechRecognition class.
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-    func cancelRetry() {
-        
-    }
-    
-    func stopSpeak(cancel: Bool?) {}
-    
-    func cancelSpeak() {}
     
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
@@ -92,4 +84,12 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
             pause()
         }
     }
+    
+    func cancelRetry() {
+        
+    }
+    
+    func stopSpeak(cancel: Bool?) {}
+    
+    func cancelSpeak() {}
 }

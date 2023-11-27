@@ -49,7 +49,6 @@ class ActionsViewTests: XCTestCase {
         appSettings = AppSettings.shared
         // Initialize actionsView with the mockActionHandler
         actionsView = ActionsView(actionHandler: mockActionHandler)
-
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -62,11 +61,14 @@ class ActionsViewTests: XCTestCase {
     
     override func tearDown() {
         actionsView = nil
+        mockGenerator = nil
         super.tearDown()
     }
     
     func testChangeTheme() {
-        actionsView.changeTheme(name: "defaultTheme")
+        let themeName = "defaultTheme"
+        XCTAssertNotEqual(actionsView.currentTheme.name, themeName)
+        actionsView.changeTheme(name: themeName)
         XCTAssertEqual(actionsView.currentTheme.name, "defaultTheme")
     }
     
@@ -78,8 +80,13 @@ class ActionsViewTests: XCTestCase {
     }
     
     func testVibration() {
+        XCTAssertFalse(mockGenerator.prepareCalled)
+        XCTAssertFalse(mockGenerator.impactOccurredCalled)
+
         actionsView.vibration()
-        // Test that the vibration function does not throw any errors
+
+        XCTAssertTrue(mockGenerator.prepareCalled)
+        XCTAssertTrue(mockGenerator.impactOccurredCalled)
     }
     
     func testViewButton() {

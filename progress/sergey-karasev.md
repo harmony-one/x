@@ -1,3 +1,5 @@
+2023-11-24 Fri: I have [added unit tests](https://github.com/harmony-one/x/pull/256) for the cancelOpenAICall and query call with the rate limit set to false.
+
 2023-11-23 Thu: I expanded the OpenAIStreamService so that it can be tested using unittest. I have [added unittests](https://github.com/harmony-one/x/pull/248) for the stream processing from OpenAI, rate limiting, and other methods of OpenAIStreamService.
 
 2023-11-22 Wed: I'm working on expanding the [tests for the OpenAI service](https://github.com/harmony-one/x/pull/248).

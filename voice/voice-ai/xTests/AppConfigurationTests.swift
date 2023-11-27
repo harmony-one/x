@@ -65,7 +65,7 @@ class AppConfigTests: XCTestCase {
     }
     
     func testWhiteListIsNotNil() {
-        XCTAssertNotNil(appConfig.getWhitelist(), "Whitelist should not be nil")
+        XCTAssertNotNil(appConfig.getwhiteLableListString(), "Whitelist should not be nil")
     }
     
     func testLoadingValidPlistFile() {
@@ -97,24 +97,33 @@ class AppConfigTests: XCTestCase {
 }
 
 class TimerManagerTests: XCTestCase {
+    var timerManager: TimerManager!
+    
+    override func setUp() {
+        super.setUp()
+        timerManager = TimerManager()
+    }
+    
+    override func tearDown() {
+        timerManager = nil
+        super.tearDown()
+    }
+    
     func testStartTimer() {
-        let timerManager = TimerManager()
         XCTAssertNil(timerManager.timerCancellable)
         timerManager.startTimer()
         sleep(2)
         XCTAssertNotNil(timerManager.timerCancellable)
     }
-
+    
     func testResetTimer() {
-        let timerManager = TimerManager()
         XCTAssertNil(timerManager.timerCancellable)
         timerManager.resetTimer()
         sleep(2)
         XCTAssertNotNil(timerManager.timerCancellable)
     }
-
+    
     func testStopTimer() {
-        let timerManager = TimerManager()
         XCTAssertNil(timerManager.timerCancellable)
         
         timerManager.startTimer()
