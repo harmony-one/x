@@ -1,3 +1,5 @@
+2023-11-27 Mon: [Updated](https://github.com/harmony-one/x/pull/271) user properties, added `isSubscriptionActive` field from Payments backend response to check is user subscribed, updated user API test.
+
 2023-11-24 Fri: Fixed test in [PR#247](https://github.com/harmony-one/x/pull/247), merged. [Refactored](https://github.com/harmony-one/x/pull/266) repeatButton type, refactored Action button tests, improved SettingsView test.
 
 2023-11-23 Thu: [measured](https://github.com/harmony-one/x/pull/252) relayer first response latency, average value is around 1.2 seconds until first response. [Added](https://github.com/harmony-one/stripe-payments-backend/commit/60778134b93620f52bbd8bba103917974f410d76) isSubscriptionActive field to user account in Payment service.
