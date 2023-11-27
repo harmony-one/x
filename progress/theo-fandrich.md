@@ -1,3 +1,15 @@
+2023-11-26 Mon:
+
+---
+
+2023-11-26 Sun: Version v1.1124.13 was rejected due to app incompleteness which was simply just oversight for the app store team. I have resubmitted an even more updated version with proper feedback.
+
+2023-11-25 Sat: Did minor product testing and resolved local issues regarding the linter we are using for static analysis.
+
+2023-11-24 Fri: Deployed v1.1124.13 to the app store which includes the new more actions button, disabled long press functionality, and resolved bugs related to button interactions. 
+
+2023-11-22 Wed: Deployed v1.1122.9 to both Voice AI and Voice 2 internal testflights for testing. 
+
 2023-11-21 Tue: We will be launching v1.1122.9 to the app store tomorrow morning after button handling is satisfied. Many of the functionality still hangs when under stress testing, especially when multiple buttons are pressed simultaneously.
 
 2023-11-20 Mon: We finally received approval after 4 days for v1.1120.13. We have submitted a new build with in-App Purchase to solicit feedback from Apple.
