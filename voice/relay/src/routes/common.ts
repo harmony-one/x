@@ -4,6 +4,9 @@ import { HttpStatusCode } from 'axios'
 import { hexView, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
 import { BlockedDeviceIds, BlockedIps } from '../config/index.js'
+import { deviceCheck } from '../services/device-check.js'
+import NodeCache from 'node-cache'
+const DeviceTokenCache = new NodeCache({ stdTTL: 0 })
 
 export const deviceLimiter = (args?: Partial<RLOptions>): RateLimitRequestHandler => rateLimit({
   windowMs: 1000 * 60,
@@ -42,7 +45,7 @@ export const checkIpBan = (req: Request, res: Response, next: NextFunction): any
   next()
 }
 
-export const validateDeviceToken = (req: Request, res: Response, next: NextFunction): any => {
+export const validateDeviceToken = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   if (!req.deviceToken || !req.deviceTokenHash) {
     res.status(HttpStatusCode.Forbidden).json({ error: 'device unsupported', code: 100 })
     return
@@ -51,7 +54,17 @@ export const validateDeviceToken = (req: Request, res: Response, next: NextFunct
     res.status(HttpStatusCode.Forbidden).json({ error: 'device banned', code: 101 })
     return
   }
-  // TODO: validate the device token, https://developer.apple.com/documentation/devicecheck/accessing_and_modifying_per-device_data
-  // Python example: https://blog.restlesslabs.com/john/ios-device-check
+  let validDevice = DeviceTokenCache.get<boolean>(req.deviceTokenHash)
+  if (validDevice) {
+    console.log(`[validateDeviceToken] skipped validation for cached deviceTokenHash ${req.deviceTokenHash}`)
+    next()
+    return
+  }
+  validDevice = await deviceCheck(req.deviceToken)
+  if (!validDevice) {
+    res.status(HttpStatusCode.Forbidden).json({ error: 'invalid device', code: 103 })
+    return
+  }
+  DeviceTokenCache.set(req.deviceTokenHash, true)
   next()
 }

@@ -17,6 +17,7 @@ router.get('/key', parseDeviceToken, validateDeviceToken, checkIpBan, deviceLimi
   const encryptedKey = encrypt(key)
   const encoded = encryptedKey.toString('base64')
 
+  // console.log(`[deviceToken=${req.deviceToken}][ip=${req.clientIp}] Provided encryptedKey ${encoded}`)
   console.log(`[deviceTokenHash=${req.deviceTokenHash}][ip=${req.clientIp}] Provided encryptedKey ${encoded}`)
   res.json({ key: encryptedKey.toString('base64') })
 })
