@@ -1,3 +1,7 @@
+2023-11-27 Mon:
+
+-----
+
 2023-11-25 Sun: User tested VoiceAI with friends, who found it useful for practicing pitching services to clients. Demoed more image generetaion in One Bot Love. Updated more Substack titles to read more interestingly, such as [the HIP 30v2 article](https://blog.harmony.one/p/hip30v2-update-announcement) and [Q3 Engineering Report](https://blog.harmony.one/publish/posts/detail/138024346/share-center).
 
 2023-11-24 Fri: Updated harmony.one community section. Rewriting Substack titles to be more click-worthy, specific, and informative. Updated [iphone/ipad mocks](https://www.figma.com/file/kpJTkfaECXMrPy6OF7HTx9/x.country?type=design&node-id=466%3A267&mode=design&t=QGGUGbxEsXLbhziu-1) for app store and uploaded to App Store Connect for next version release.
