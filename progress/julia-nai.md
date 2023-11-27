@@ -1,3 +1,11 @@
+2023-11-26 Sun: Tested app build to see if build issues from Friday were resolved. Ran a small feasability test through ChatGPT whisper. While the responses for debate partner could be good, the lack of recent information does limit the topic. Something like a more esoteric moral debate seems to work. Hallucinations make a fact based debate rather difficult. (In debate terms, a LD or old PF would work best). 
+
+2023-11-25 Sat: Migrated relevant private notes off of Notion pending my removal from Notion editing.
+
+2023-11-24 Fri: [Reviewed](https://github.com/harmony-one/x/pull/250) removal of ChatGPT custom instruction from Nagesh and Aaron. Worked on resolving issues with building. When attempting to run latest build, encountered build failiures as a result of recent changes. 
+
+2023-11-23 Thu: Thanksgiving
+
 2023-11-22 Wed: [Removed](https://github.com/harmony-one/x/commit/bcafb1b131f8c82d066931c0dd486c3d5b2ac6df) the custom instructions from saved transcripts ([#250](https://github.com/harmony-one/x/pull/250)). Began working on liveliness check for GPT component (automated testing of hard coded intput and response). 
 
 2023-11-21 Tue: Worked on removing the white background from action sheet. Worked on saving the conversation transcript from Voice AI to notes.

@@ -1,3 +1,13 @@
+2023-11-26 Sun: Worked with OpenAIs Assistants API, useful for incorporating our own information, Harmony specific, as well as performing tasks like sending a message or interacting with zappier. Insight: pricing is way too high for the lack of consistency of outputs. Focusing on mastering the quickest smart companion seems to be the best direction at the moment. Potential pivot to smaller LLM to distance from openai and fine tune for use cases specific to a low latency companion needs addressing based on pricing, speed, and dependency on openai.
+
+2023-11-25 Sat: Used the app and thought of different ways to increase user retention. Insight: Hand hold the user to a specific app interaction through a specific button. (Daily Trivia, Cooking Assistant, or Quick Ideation) these use cases must highlight the low latency capabilities of the app as this is the main value proposition at the moment.
+
+2023-11-24 Fri: Following discussions, drafted simple [gamification elements](https://harmonyone.notion.site/Gamification-for-Voice-AI-3ff4489eb71a42649073e2806a2f939c?pvs=4) and options to improve [user retention](https://harmonyone.notion.site/Improving-User-Retention-2f6b2f3c2c47466b82e93f0b92916e79?pvs=4) as active users has dropped significantly.
+
+2023-11-23 Thu: Thanksgiving, user testing for voice ai app with 20 people. App insight: (12) people were impressed with the speed, (17) don’t like the voice, (11) mentioned they would use it in the kitchen if there was a hands-free mode.
+
+2023-11-22 Wed: Deployed 1.1122.18 to TestFlight build. App insight: current app structure is too broad for user retention, internal users are the only users coming back.
+
 2023-11-21 Tue: Deployed 1.1121.18 to Voice 2 build. Added [Thanksgiving marketing copy](https://harmonyone.notion.site/Thanksgiving-Marketing-Campaign-f4e2ff42dd7e4c78946722e4b64244f2?pvs=4) to Alaina’s graphic. Tested processing logic for [Harmony specific information](https://harmonyone.notion.site/HarmonyGPT-b517a68bce564ac68cebd378b5d420e2?pvs=4) without the need of memory.
 
 2023-11-20 Mon: Deployed 1.1120.18 public TestFlight build. Created and added full [Terms](https://x.country/terms), Privacy, and Copyright for Apple Pay build.

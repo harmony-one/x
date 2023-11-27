@@ -1,0 +1,57 @@
+{
+  "mappings": {
+    "properties": {
+      "time": {
+        "type": "date"
+      },
+      "vendor": {
+        "type": "keyword"
+      },
+      "endpoint": {
+        "type": "keyword"
+      },
+      "relayMode": {
+        "type": "keyword"
+      },
+      "deviceTokenHash": {
+        "type": "keyword"
+      },
+      "requestTokens": {
+        "type": "integer"
+      },
+      "responseTokens": {
+        "type": "integer"
+      },
+      "requestNumMessages": {
+        "type": "integer"
+      },
+      "requestNumUserMessages": {
+        "type": "integer"
+      },
+      "requestMessage": {
+        "type": "text",
+        "fielddata": true
+      },
+      "responseMessage": {
+        "type": "text",
+        "fielddata": true
+      },
+      "firstResponseTime": {
+        "type": "long"
+      },
+      "totalResponseTime": {
+        "type": "long"
+      },
+      "cancelled": {
+        "type": "boolean"
+      },
+      "completed": {
+        "type": "boolean"
+      },
+      "error": {
+        "type": "text",
+        "fielddata": true
+      }
+    }
+  }
+}

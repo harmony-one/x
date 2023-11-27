@@ -31,7 +31,6 @@
 		6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
-		6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		6E53AF502AF012990022A8F2 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
 		6E53AF512AF012A40022A8F2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
@@ -97,7 +96,6 @@
 		A46B5A802AE73CEB00C874ED /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		A46B5A832AE73CF500C874ED /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
-		A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		A46B5A852AE73CFD00C874ED /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
 		A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
@@ -111,7 +109,6 @@
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
-		B33EE4412B0E6585007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
@@ -184,7 +181,6 @@
 		B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
 		B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
-		B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
@@ -195,7 +191,6 @@
 		B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
-		B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		B9C4A8302AEE96B100327529 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
@@ -219,6 +214,10 @@
 		CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD8A1A642B0084C400A5B2CC /* CryptoSwift */; };
 		CDC137102B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
+		CDC137132B11B129003386E9 /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* TimeLogger.swift */; };
+		CDC137142B11B129003386E9 /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* TimeLogger.swift */; };
+		CDC137152B11B129003386E9 /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* TimeLogger.swift */; };
+		CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC137122B11B129003386E9 /* TimeLogger.swift */; };
 		E45C23B22B0E5BAE00D7431E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		E47F1A962B07E51C00455617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
 		E47F1A982B07F94F00455617 /* Dotrice-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50662ADFEFDB006F18A1 /* Dotrice-Expanded.otf */; };
@@ -247,7 +246,6 @@
 		F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
-		F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE332B07C34100FDEA80 /* CryptoSwift */; };
 		F67EDE352B07C60200FDEA80 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -369,7 +367,6 @@
 		B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold.otf"; sourceTree = "<group>"; };
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		B9B331A22AFB849000F6A9C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -392,6 +389,7 @@
 		CD0D13682ADA74D100031EDD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CD0D136A2ADB28CE00031EDD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
 		CDC1370F2B057DB6003386E9 /* RelayAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayAuth.swift; sourceTree = "<group>"; };
+		CDC137122B11B129003386E9 /* TimeLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLogger.swift; sourceTree = "<group>"; };
 		F61049092AF02D820087F745 /* OpenAIStreamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIStreamService.swift; sourceTree = "<group>"; };
 		F65054FE2B05269200FFEA07 /* xUIDebounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xUIDebounceTests.swift; sourceTree = "<group>"; };
 		F67EDE272B07BE5000FDEA80 /* StoreKitTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKitTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/StoreKitTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -673,7 +671,6 @@
 			children = (
 				F61049092AF02D820087F745 /* OpenAIStreamService.swift */,
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
-				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 				B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */,
 				6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */,
 			);
@@ -740,6 +737,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				CDC137172B11DAE1003386E9 /* Performance */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				A44CFFAF2B0D7200003D6822 /* AppConfig.plist */,
@@ -833,6 +831,14 @@
 				CD0D13662ADA74C800031EDD /* CoreAudio.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDC137172B11DAE1003386E9 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				CDC137122B11B129003386E9 /* TimeLogger.swift */,
+			);
+			path = Performance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1124,7 +1130,6 @@
 				F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */,
 				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
 				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
-				F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
@@ -1149,6 +1154,7 @@
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
@@ -1156,7 +1162,6 @@
 				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
 				B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */,
-				A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1185,7 +1190,6 @@
 				F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */,
-				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
@@ -1214,6 +1218,7 @@
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */,
 				B930AAE12ADE2DE5009F9F8C /* Font.swift in Sources */,
+				CDC137132B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B9AD50512ADFE888006F18A1 /* TextToSpeechConverter.swift in Sources */,
 				B91F05B62B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B9AD50602ADFE9B7006F18A1 /* Choices.swift in Sources */,
@@ -1287,6 +1292,7 @@
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
+				CDC137142B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				F7F115082AF8173300BC191C /* AudioPlayerTests.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
@@ -1323,7 +1329,6 @@
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
-				B33EE4412B0E6585007D0052 /* xApp.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
 				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
@@ -1342,6 +1347,7 @@
 				6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */,
 				6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */,
 				B36C89D32B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
+				CDC137152B11B129003386E9 /* TimeLogger.swift in Sources */,
 				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
 				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
 				6E56C7BD2B067A8F00ED2296 /* KeychainService.swift in Sources */,
@@ -1352,7 +1358,6 @@
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
 				6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */,
-				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
 				6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */,
 				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,
 				B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */,
@@ -1683,7 +1688,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1709,7 +1714,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1124.9;
+				MARKETING_VERSION = 1.1127.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1729,7 +1734,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 59;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1755,7 +1760,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1124.9;
+				MARKETING_VERSION = 1.1127.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

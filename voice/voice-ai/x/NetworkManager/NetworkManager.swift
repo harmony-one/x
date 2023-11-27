@@ -35,11 +35,7 @@ class NetworkManager {
         return components?.url
     }
     
-    private func createRequestBody<T: Encodable>(from object: T) -> Data? {
-        return try? JSONEncoder().encode(object)
-    }
-    
-    private func setAuthorizationHeader(token: String, request: inout URLRequest) {
+    public func setAuthorizationHeader(token: String, request: inout URLRequest) {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     
