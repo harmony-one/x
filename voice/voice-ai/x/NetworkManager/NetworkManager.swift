@@ -35,7 +35,7 @@ class NetworkManager {
         return components?.url
     }
     
-    private func setAuthorizationHeader(token: String, request: inout URLRequest) {
+    public func setAuthorizationHeader(token: String, request: inout URLRequest) {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     
