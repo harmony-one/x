@@ -41,7 +41,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
                 print("Success: \(response)")
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
                
@@ -64,7 +64,7 @@ struct UserAPI {
                     return
                 }
                 
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
                 
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
             case .failure(let error):
@@ -98,7 +98,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][purchase] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
                 
                 SentrySDK.capture(message: "[UserAPI][purchase] Success")
             case .failure(let error):

@@ -16,7 +16,7 @@ class KeychainService {
         }
     }
     
-    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String? ) {
+    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String?, isSubscriptionActive: Bool? ) {
         if let id = id {
             keychain.set(id, forKey: "userID")
         }
@@ -32,6 +32,9 @@ class KeychainService {
         if let expirationDate = expirationDate {
             keychain.set(expirationDate, forKey: "expirationDate")
             AppSettings.shared.premiumUseExpires = AppSettings.shared.convertDateStringToLocalFormat(inputDateString: expirationDate, inputFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? expirationDate
+        }
+        if let isSubscriptionActive = isSubscriptionActive {
+            keychain.set(String(isSubscriptionActive), forKey: "isSubscriptionActive")
         }
     }
         
@@ -69,6 +72,11 @@ class KeychainService {
     
     func retrieveExpirationDate() -> String? {
         return keychain.get("expirationDate")
+    }
+
+    func retrieveIsSubscriptionActive() -> Bool? {
+        let value = keychain.get("isSubscriptionActive")
+        return value == "true"
     }
 
     func deleteUserCredentials() {
