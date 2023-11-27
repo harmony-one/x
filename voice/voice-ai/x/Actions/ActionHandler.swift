@@ -48,11 +48,12 @@ class ActionHandler: ObservableObject, ActionHandlerProtocol {
     @Published var isSynthesizing: Bool = false
     @Published var isRecording: Bool = false
     
-    @Published var _isPressAndHoldActive = false
+    @Published private var _isPressAndHoldActive = false
     var isPressAndHoldActivePublisher: Published<Bool>.Publisher {
         $_isPressAndHoldActive
     }
-    @Published var _isTapToSpeakActive = false
+
+    @Published private var _isTapToSpeakActive = false
     var isTapToSpeakActivePublisher: Published<Bool>.Publisher {
         $_isTapToSpeakActive
     }

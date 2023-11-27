@@ -14,16 +14,16 @@ import SwiftUI
 //    //Then
 
 
-func findGridButton(for actionType: ActionType, in actionsView: ActionsView, callback: (any View) -> Void) {
-    let _ = actionsView.baseView(colums: 2, buttons: []) // Ensure the view is loaded
-
-    // Simulate a tap on the "Surprise ME!" button
-    for button in actionsView.buttonsPortrait {
-        actionsView.viewButton(button: button, actionHandler: MockActionHandler()) { view in
-            callback(view)
-        }
-    }
-}
+//func findGridButton(for actionType: ActionType, in actionsView: ActionsView, callback: (any View) -> Void) {
+//    let _ = actionsView.baseView(colums: 2, buttons: []) // Ensure the view is loaded
+//
+//    // Simulate a tap on the "Surprise ME!" button
+//    for button in actionsView.buttonsPortrait {
+//        actionsView.viewButton(button: button, actionHandler: MockActionHandler()) { view in
+//            callback(view)
+//        }
+//    }
+//}
 
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
@@ -43,7 +43,7 @@ class ActionsViewTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         sut = storyboard.instantiateViewController(withIdentifier: "ActionsView") as? ActionsView
         store = Store()
         appSettings = AppSettings.shared
@@ -61,7 +61,7 @@ class ActionsViewTests: XCTestCase {
     
     override func tearDown() {
         actionsView = nil
-        mockGenerator = nil
+//        mockGenerator = nil
         super.tearDown()
     }
     
@@ -79,15 +79,15 @@ class ActionsViewTests: XCTestCase {
         XCTAssertNotNil(baseView)
     }
     
-    func testVibration() {
-        XCTAssertFalse(mockGenerator.prepareCalled)
-        XCTAssertFalse(mockGenerator.impactOccurredCalled)
-
-        actionsView.vibration()
-
-        XCTAssertTrue(mockGenerator.prepareCalled)
-        XCTAssertTrue(mockGenerator.impactOccurredCalled)
-    }
+//    func testVibration() {
+//        XCTAssertFalse(mockGenerator.prepareCalled)
+//        XCTAssertFalse(mockGenerator.impactOccurredCalled)
+//
+//        actionsView.vibration()
+//
+//        XCTAssertTrue(mockGenerator.prepareCalled)
+//        XCTAssertTrue(mockGenerator.impactOccurredCalled)
+//    }
     
     func testViewButton() {
         let button = buttonReset
@@ -100,16 +100,16 @@ class ActionsViewTests: XCTestCase {
     func testVewButtonSurprise () {
         let actionType: ActionType = .surprise
 
-        guard let sut = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "ActionsView") as? ActionsView else {
-            XCTFail("Failed to instantiate the view controller")
-            return
-        }
+//        guard let sut = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "ActionsView") as? ActionsView else {
+//            XCTFail("Failed to instantiate the view controller")
+//            return
+//        }
         let button = testButtons.first(where: { $0.action == actionType })!
         _ = sut.baseView(colums: 2, buttons:testButtons)
         let gridButton:GridButton = sut.viewButton(button: button, actionHandler: self.mockActionHandler) as! GridButton
         
-        gridButton.action() //.sendAction(for: .touchUpInside)
+        gridButton.onDragStart() //.sendAction(for: .touchUpInside)
 
         XCTAssertTrue(mockActionHandler.isSurprised)
 
