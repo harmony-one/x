@@ -140,6 +140,21 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
+    func testSetLastButtonPressed() {
+        let actionType: ActionType = .play
+        let actionHandler = MockActionHandler()
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let isOnStart = Bool.random()
+        actionHandler.handle(actionType: actionType)
+        if (isOnStart) {
+            actionsView.setLastButtonPressed(action: button.action, event: .onStart)
+            XCTAssertNotNil(actionsView.getLastButtonPressed(), "Last button pressed is not nil")
+        } else {
+            actionsView.setLastButtonPressed(action: button.action, event: .onStart)
+            XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        }
+    }
+    
     func testViewButtonReset () {
         let actionType: ActionType = .reset
         let showInAppPurchases = Bool.random()

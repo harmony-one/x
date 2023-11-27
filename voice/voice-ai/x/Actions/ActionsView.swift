@@ -198,6 +198,10 @@ struct ActionsView: View {
         return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
     }
     
+    func getLastButtonPressed() -> ActionType? {
+        return self.lastButtonPressed
+    }
+    
     func setLastButtonPressed (action: ActionType, event: EventType?) {
         if(event == .onStart) {
             self.lastButtonPressed = action
