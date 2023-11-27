@@ -5,11 +5,11 @@ import { HttpStatusCode } from 'axios'
 import { validateAttestation } from '../services/app-attest.js'
 import { hexView, now, stringToBytes } from '../utils.js'
 import { hash as sha256 } from 'fast-sha256'
-import config, { BannedTokens } from '../config/index.js'
+import config, { BannedTokens, MinChallengeTime } from '../config/index.js'
 import { ES } from '../services/es.js'
 import { checkIpBan, deviceLimiter, ipLimiter, parseDeviceToken, validateDeviceToken } from './common.js'
 import { log } from './log.js'
-const ChallengeCache = new NodeCache({ stdTTL: 30 })
+const ChallengeCache = new NodeCache({ stdTTL: 0 })
 const TokenCache = new NodeCache({ stdTTL: 60 * 30 })
 
 const router: Router = Router()
@@ -20,7 +20,7 @@ router.get('/health', (req, res) => {
 
 router.get('/challenge', (req, res) => {
   const challenge = Buffer.from(crypto.getRandomValues(new Uint8Array(16))).toString('hex')
-  ChallengeCache.set(challenge, true)
+  ChallengeCache.set(challenge, Date.now())
   res.json({ challenge })
 })
 
@@ -49,6 +49,12 @@ router.post('/attestation', async (req, res) => {
   const { inputKeyId, challenge, attestation } = req.body
   if (!inputKeyId || !challenge || !attestation) {
     res.status(HttpStatusCode.BadRequest).json({ error: 'missing body parameters', inputKeyId, challenge, attestation })
+    return
+  }
+  const challengeTime = ChallengeCache.get<number>(challenge)
+  if (MinChallengeTime > 0 && (!challengeTime || challengeTime < MinChallengeTime)) {
+    console.log('challengeTime, MinChallengeTime', challengeTime, MinChallengeTime)
+    res.status(HttpStatusCode.Gone).json({ error: 'require new attestation', code: -11 })
     return
   }
   try {

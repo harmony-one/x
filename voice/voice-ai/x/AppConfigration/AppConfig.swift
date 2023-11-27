@@ -12,8 +12,7 @@ class AppConfig {
     private var relayMode: String?
     private var disableRelayLog: Bool?
     private var enableTimeLoggerPrint: Bool?
-    
-    
+
     private var openaiBaseUrl: String?
     private var openaiKey: String?
 
@@ -29,15 +28,26 @@ class AppConfig {
 
     init() {
         loadConfiguration()
+
         if openaiKey != nil, openaiKey != "" {
             // if a local key is assigned (for debugging), do not request from server
             return
         }
         Task {
+            if self.relayMode == nil || self.relayMode == "server" {
+                var setting = await self.relay.getRelaySetting()
+                if setting == nil {
+                    setting = RelaySetting(mode: "soft", openaiBaseUrl: "https://api.openai.com/v1")
+                } else {
+                    self.relayMode = setting!.mode ?? "soft"
+                    if self.openaiBaseUrl == nil {
+                        self.openaiBaseUrl = setting!.openaiBaseUrl
+                    }
+                }
+            }
             if self.relayMode == "hard" {
                 self.openaiKey = await self.relay.setup()
             } else {
-                // DEPRECATED, TO BE REMOVED SOON
                 await self.requestOpenAIKey()
             }
         }
@@ -259,11 +269,11 @@ class AppConfig {
     func getRelayMode() -> String? {
         return relayMode
     }
-    
+
     func getDisableRelayLog() -> Bool {
         return disableRelayLog ?? false
     }
-    
+
     func getEnableTimeLoggerPrint() -> Bool {
         return enableTimeLoggerPrint ?? false
     }

@@ -44,4 +44,11 @@ export const AppleKeySettings = {
   iss: process.env.TEAM_ID ?? ''
 }
 
+export const RelaySetting = {
+  mode: process.env.RELAY_MODE ?? 'soft',
+  openaiBaseUrl: process.env.CLIENT_OPENAI_BASE_URL ?? 'https://api.openai.com/v1'
+}
+
+export const MinChallengeTime = new Date(process.env.MIN_CHALLENGE_TIME ?? '2023-11-25').getTime()
+
 export default config
