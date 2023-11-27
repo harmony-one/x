@@ -1,3 +1,7 @@
+2023-11-27 Mon: I have [added unit tests for the NetworkManager](https://github.com/harmony-one/x/pull/268), for the setAuthorizationHeader method and for the bad response case. I also deleted the unused code.
+
+---
+
 2023-11-24 Fri: I have [added unit tests](https://github.com/harmony-one/x/pull/256) for the cancelOpenAICall and query call with the rate limit set to false.
 
 2023-11-23 Thu: I expanded the OpenAIStreamService so that it can be tested using unittest. I have [added unittests](https://github.com/harmony-one/x/pull/248) for the stream processing from OpenAI, rate limiting, and other methods of OpenAIStreamService.
