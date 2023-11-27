@@ -15,6 +15,12 @@ class ThemeTests: XCTestCase {
 
     func testBlackredThemeInitialization() {
         let theme = Theme()
+        
+        let config = AppConfig.shared
+        let themeSettings = AppThemeSettings.fromString(AppThemeSettings.blackredTheme.settings.name)
+        
+        theme.setTheme(theme: themeSettings)
+        
         XCTAssertEqual(theme.name, "blackredTheme")
         XCTAssertEqual(theme.bodyTextColor, Color(hex: 0xD7303A))
         XCTAssertEqual(theme.buttonActiveColor, Color(hex: 0xD7303A))

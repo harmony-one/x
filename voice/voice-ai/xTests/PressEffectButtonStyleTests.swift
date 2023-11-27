@@ -2,7 +2,7 @@ import XCTest
 import SwiftUI
 @testable import Voice_AI
 
-struct Configuration {
+struct CustomConfiguration {
     var isPressed: Bool
 }
 
@@ -26,27 +26,23 @@ class PressEffectButtonStyleTests: XCTestCase {
         XCTAssertTrue(buttonStyle.invertColors)
         XCTAssertFalse(buttonStyle.isButtonEnabled)
     }
+    
+    func testDetermineBackgroundColorActiveTrue() {
+        let buttonStyle = PressEffectButtonStyle(theme: theme, background: backgroundColor, active: true, invertColors: false, isButtonEnabled: false)
 
-    func testDetermineBackgroundColor() {
-        let buttonStyle = PressEffectButtonStyle(theme: theme)
-        var configuration = Configuration(isPressed: false)
-
-//        // Test with isPressed = false
-//        XCTAssertEqual(buttonStyle.determineBackgroundColor(configuration: configuration), theme.buttonDefaultColor)
-//
-//        // Test with isPressed = true
-//        configuration.isPressed = true
-//        XCTAssertEqual(buttonStyle.determineBackgroundColor(configuration: configuration), theme.buttonActiveColor)
+        // Test with active = true
+        XCTAssertTrue(buttonStyle.active)
+        XCTAssertFalse(buttonStyle.invertColors)
+        XCTAssertEqual(buttonStyle.determineBackgroundColor(configuration: nil), theme.buttonActiveColor)
     }
+    
+    func testDetermineBackgroundColorActiveFalse() {
+        let buttonStyle = PressEffectButtonStyle(theme: theme, background: backgroundColor, active: false, invertColors: false, isButtonEnabled: false)
 
-    func testDetermineForegroundColor() {
-        let buttonStyle = PressEffectButtonStyle(theme: theme)
-        var configuration = Configuration(isPressed: false)
-    }
-
-    func testButtonAppearance() {
-        let buttonStyle = PressEffectButtonStyle(theme: theme, background: backgroundColor)
-        let configuration = Configuration(isPressed: false)
+        // Test with active = true
+        XCTAssertFalse(buttonStyle.active)
+        XCTAssertFalse(buttonStyle.invertColors)
+        XCTAssertEqual(buttonStyle.determineBackgroundColor(configuration: nil), theme.buttonDefaultColor)
     }
 
     override func tearDown() {
