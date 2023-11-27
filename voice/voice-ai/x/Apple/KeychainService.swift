@@ -74,7 +74,7 @@ class KeychainService {
         return keychain.get("expirationDate")
     }
 
-    func retrieveIsSubscriptionActive() -> Bool? {
+    func retrieveIsSubscriptionActive() -> Bool {
         let value = keychain.get("isSubscriptionActive")
         return value == "true"
     }

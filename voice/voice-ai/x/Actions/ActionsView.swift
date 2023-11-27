@@ -497,7 +497,7 @@ struct ActionsView: View {
     
     func showInAppPurchasesIfNotLoggedIn() {
         if KeychainService.shared.isAppleIdAvailable() == false || 
-            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            KeychainService.shared.retrieveIsSubscriptionActive() {
             showPurchaseDiglog()
         }
     }
