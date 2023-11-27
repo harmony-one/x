@@ -26,7 +26,7 @@ class MockActionHandler: ActionHandlerProtocol {
             // resetThrottler.send()
         case .surprise:
             print("*********** suprise ******")
-            isSurprised = false
+            isSurprised = true
         case .play:
             isPlayed = true
         case .repeatLast:
