@@ -731,7 +731,6 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
-				CDC137172B11DAE1003386E9 /* Performance */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				A44CFFAF2B0D7200003D6822 /* AppConfig.plist */,
@@ -752,6 +751,7 @@
 				22CC4D722AF3AB350072EC39 /* IAP */,
 				B91F05B82B04BA060029A32D /* NetworkManager */,
 				B9AD50582ADFE961006F18A1 /* OpenAIService */,
+				CDC137172B11DAE1003386E9 /* Performance */,
 				B9AD50552ADFE91C006F18A1 /* Permission */,
 				CD0D13402ADA73B400031EDD /* Preview Content */,
 				B930AACE2ADD4BAF009F9F8C /* Resources */,
