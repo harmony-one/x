@@ -71,7 +71,7 @@ struct ActionsView: View {
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
+        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
         buttonsPortrait = [
@@ -326,8 +326,8 @@ struct ActionsView: View {
                 ).accessibilityIdentifier(button.testId)
                 .disabled(self.isButtonDisabled(action: button.action))
             }
-        } else if button.action == .repeatLast {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+        } else if button.action == .openSettings {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if((event) != nil) { return }
                 

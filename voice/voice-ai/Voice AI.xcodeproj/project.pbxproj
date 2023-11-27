@@ -111,7 +111,6 @@
 		B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
 		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
-		B33EE4412B0E6585007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
@@ -251,7 +250,6 @@
 		F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC1370F2B057DB6003386E9 /* RelayAuth.swift */; };
 		F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
-		F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F67EDE342B07C34100FDEA80 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F67EDE332B07C34100FDEA80 /* CryptoSwift */; };
 		F67EDE352B07C60200FDEA80 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -1129,7 +1127,6 @@
 				F67EDE2E2B07C2E400FDEA80 /* RelayAuth.swift in Sources */,
 				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
 				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
-				F67EDE312B07C2E400FDEA80 /* xApp.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
@@ -1328,7 +1325,6 @@
 				CD0D13572ADA73B400031EDD /* xUITests.swift in Sources */,
 				6E53AF5B2AF0130E0022A8F2 /* OpenAIResponse.swift in Sources */,
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
-				B33EE4412B0E6585007D0052 /* xApp.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
 				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
