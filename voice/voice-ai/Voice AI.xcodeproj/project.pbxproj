@@ -31,7 +31,6 @@
 		6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E53AF4C2AF012760022A8F2 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
-		6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
 		6E53AF502AF012990022A8F2 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
 		6E53AF512AF012A40022A8F2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADC2ADE2DE5009F9F8C /* Color.swift */; };
@@ -97,7 +96,6 @@
 		A46B5A802AE73CEB00C874ED /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930AADF2ADE2DE5009F9F8C /* Text.swift */; };
 		A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		A46B5A832AE73CF500C874ED /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
-		A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		A46B5A852AE73CFD00C874ED /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
 		A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
@@ -184,7 +182,6 @@
 		B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
 		B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
 		B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */; };
-		B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
@@ -195,7 +192,6 @@
 		B9C4A82B2AEE966600327529 /* TextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50502ADFE888006F18A1 /* TextToSpeechConverter.swift */; };
 		B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
-		B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */; };
 		B9C4A82F2AEE96AE00327529 /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
 		B9C4A8302AEE96B100327529 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505E2ADFE9B7006F18A1 /* Message.swift */; };
 		B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
@@ -366,7 +362,6 @@
 		B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold.otf"; sourceTree = "<group>"; };
 		B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dotrice-Bold-Expanded.otf"; sourceTree = "<group>"; };
 		B9AD506F2ADFFDEC006F18A1 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		B9B331A22AFB849000F6A9C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -667,7 +662,6 @@
 			children = (
 				F61049092AF02D820087F745 /* OpenAIStreamService.swift */,
 				B9AD505B2ADFE9A2006F18A1 /* Models */,
-				B9AD50732AE02D4B006F18A1 /* OpenAIService.swift */,
 				B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */,
 				6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */,
 			);
@@ -1147,7 +1141,6 @@
 				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
 				B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */,
-				A46B5A842AE73CF900C874ED /* OpenAIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1176,7 +1169,6 @@
 				F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */,
-				B9AD50742AE02D4B006F18A1 /* OpenAIService.swift in Sources */,
 				B9AD50702ADFFDEC006F18A1 /* AppConfig.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
@@ -1264,7 +1256,6 @@
 				B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */,
 				F73ABDC12B0C25BF0073AF33 /* UserTests.swift in Sources */,
 				B3BC2CB32B05F4AF00A58477 /* NetworkManager.swift in Sources */,
-				B9C4A82E2AEE969100327529 /* OpenAIService.swift in Sources */,
 				B9C4A8342AEE96E300327529 /* AppConfig.swift in Sources */,
 				B91F05C82B05F6CA0029A32D /* AppleSignInManager.swift in Sources */,
 				B985BEFE2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
@@ -1340,7 +1331,6 @@
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
 				6E1FEC762B0BE351005EB346 /* RelayAuth.swift in Sources */,
-				6E53AF4E2AF012910022A8F2 /* OpenAIService.swift in Sources */,
 				6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */,
 				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,
 				B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */,
