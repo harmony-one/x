@@ -67,7 +67,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let audioPlayer = AudioPlayer()
     
     private var isRequestingOpenAI = false
-    private var requestInitiatedTimestamp: Int64 = 0
     
     private var resumeListeningTimer: Timer?
 //    private var silenceTimer: Timer?
@@ -267,10 +266,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
-    func getCurrentTimestamp() -> Int64 {
-        return Int64(NSDate().timeIntervalSince1970 * 1000)
-    }
-    
     // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
     func makeQuery(_ text: String, maxRetry: Int = 14, rateLimit: Bool? = true) {
         if isRequestingOpenAI {
@@ -299,9 +294,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
+        
         print("[SpeechRecognition] query: \(text)")
         conversation.append(Message(role: "user", content: text))
-        requestInitiatedTimestamp = getCurrentTimestamp()
         
         pauseCapturing()
         isRequestingOpenAI = true
@@ -312,18 +307,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         func handleQuery(retryCount: Int) {
             let startDate = Date()
-            var isResponseReceived = false
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     return
-                }
-                
-                if !isResponseReceived {
-                    isResponseReceived = true
-                    let executionTime = Date().timeIntervalSince(startDate)
-                    print("[SpeechRecognition] Request latency: \(executionTime)")
                 }
                 
                 guard let res = res, !res.isEmpty else {

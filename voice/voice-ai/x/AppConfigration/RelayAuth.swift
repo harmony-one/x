@@ -4,14 +4,32 @@ import Foundation
 import Sentry
 import SwiftyJSON
 
+struct ClientUsageLog: Codable {
+    let vendor: String
+    let endpoint: String
+    let requestTokens: Int32
+    let responseTokens: Int32
+    let firstResponseTime: Int64
+    let totalResponseTime: Int64
+    let requestNumMessages: Int32
+    let requestNumUserMessages: Int32
+    let requestMessage: String
+    let responseMessage: String
+    let cancelled: Bool
+    let completed: Bool
+    let error: String
+}
+
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
+    private static let disableLog = AppConfig.shared.getDisableRelayLog()
     private static let keyIdPath = "AppAttestKeyId"
     private static let attestationPath = "AppAttestationResult"
     private static let attestationChallengePath = "AppAttestationChallenge"
     private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
+    private var deviceToken: String?
     private var keyId: String?
     private var token: String?
     private var autoRefreshTokenTimer: Timer?
@@ -48,7 +66,7 @@ class RelayAuth {
                     let delay = min(30000, Int(pow(2.0, Double(numRetries))) * 1000 + Int.random(in: 0 ... 1000))
                     do {
                         log("Refresh token error; Sleeping for \(delay)ms and try again (\(numRetries) attempts made)")
-                        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000))
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1000000))
                     } catch {
                         logError("auto-retry cancelled", -7)
                         return nil
@@ -171,7 +189,7 @@ class RelayAuth {
     }
 
     @discardableResult func logError(_ error: Error, _ detail: String = "") -> Error {
-        print("[RelayAuth][ERROR]", detail)
+        print("[RelayAuth][ERROR]", detail, error)
         SentrySDK.capture(error: error) { scope in
             scope.setExtra(value: detail, key: "detail")
             scope.setTag(value: "RelayAuth", key: "module")
@@ -232,6 +250,57 @@ class RelayAuth {
         } catch {
             logError(error, "exchangeAttestationForToken error")
             return nil
+        }
+    }
+
+    func getDeviceToken(_ regen: Bool = false) async -> String? {
+        if deviceToken != nil, !regen {
+            return deviceToken
+        }
+        do {
+            let deviceToken = try await DCDevice.current.generateToken()
+            self.deviceToken = deviceToken.base64EncodedString()
+            return self.deviceToken
+        } catch {
+            logError("Error generating device token", -9)
+            return nil
+        }
+    }
+
+    func record(_ record: ClientUsageLog) async {
+        if Self.disableLog {
+            return
+        }
+        guard let baseUrl = Self.baseUrl else {
+            logError("Invalid base URL", -4)
+            return
+        }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        guard let url = URL(string: "\(baseUrl)/\(AppConfig.shared.getRelayMode() ?? "soft")/log") else {
+            logError("Invalid Relay URL", -3)
+            return
+        }
+
+        guard let token = await getDeviceToken() else {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+
+        do {
+            let body = try JSONEncoder().encode(record)
+            request.httpBody = body
+//            print("[RelayAuth][log] sending \(String(data: body, encoding: .utf8)!)")
+            let (data, _) = try await session.data(for: request)
+            let res = JSON(data)
+            let success = res["success"].bool
+            print("[RelayAuth][log] success: \(success ?? false)")
+        } catch {
+            logError(error, "error sending record")
+            return
         }
     }
 }

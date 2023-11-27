@@ -25,7 +25,8 @@ const config = {
     url: process.env.ES_URL ?? '',
     username: process.env.ES_USERNAME ?? '',
     password: process.env.ES_PASSWORD ?? '',
-    index: process.env.ES_INDEX
+    index: process.env.ES_INDEX,
+    clientUsageIndex: process.env.ES_CLIENT_USAGE_INDEX
   }
 }
 
