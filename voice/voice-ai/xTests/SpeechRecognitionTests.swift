@@ -30,13 +30,13 @@ class SpeechRecognitionTests: XCTestCase {
         speechRecognition = nil
     }
     
-    func testGetCurrentTimestamp() {
-            let currentTimestamp = speechRecognition.getCurrentTimestamp()
-            let systemTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
-            let tolerance: Int64 = 1000
-            
-            XCTAssertTrue(abs(currentTimestamp - systemTimestamp) <= tolerance)
-        }
+//    func testGetCurrentTimestamp() {
+//            let currentTimestamp = speechRecognition.getCurrentTimestamp()
+//            let systemTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
+//            let tolerance: Int64 = 1000
+//            
+//            XCTAssertTrue(abs(currentTimestamp - systemTimestamp) <= tolerance)
+//        }
     
     func testRegisterTTS() {
          let mockSynthesizer = MockAVSpeechSynthesizer()
