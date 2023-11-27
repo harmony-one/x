@@ -2,7 +2,7 @@
 
 ---
 
-2023-11-26 Sun: Version v1.1124.13 was rejected due to app incompleteness which was simply just oversight for the app store team. I have resubmitted an even more updated version with proper feedback.
+2023-11-26 Sun: Version v1.1124.13 was rejected due to app incompleteness which was simply just oversight from the app store team. I have resubmitted an even more updated version with proper feedback.
 
 2023-11-25 Sat: Did minor product testing and resolved local issues regarding the linter we are using for static analysis.
 
