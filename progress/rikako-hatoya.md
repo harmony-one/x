@@ -1,4 +1,4 @@
-2023-11-27 Mon: Raised the overall app test coverage from 60.7% to 73.6%. Worked on SpeechRecognition Tests [https://github.com/harmony-one/x/pull/272], raised its coverage from 39.9% to 89.8%. Investigating bugs for the SurpriseMe function when using the app in another language.
+2023-11-27 Mon: Raised the overall app test coverage from 61% to 74%. Worked on SpeechRecognition Tests [https://github.com/harmony-one/x/pull/272], raised its coverage from 40% to 90%. Investigating bugs for the SurpriseMe function when using the app in another language and updating Network Manager tests.
 
 ---
 
