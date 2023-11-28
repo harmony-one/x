@@ -1,3 +1,7 @@
+2023-11-27 Mon: Deployed 1.1127.18 to TestFlight build. Created [Voice AI demo questions](https://harmonyone.notion.site/Voice-AI-Demo-Questions-276e9075c0904d4997c6645557d1b10b?pvs=4) and engineered prompts to output various examples.
+
+---
+
 2023-11-26 Sun: Worked with OpenAIs Assistants API, useful for incorporating our own information, Harmony specific, as well as performing tasks like sending a message or interacting with zappier. Insight: pricing is way too high for the lack of consistency of outputs. Focusing on mastering the quickest smart companion seems to be the best direction at the moment. Potential pivot to smaller LLM to distance from openai and fine tune for use cases specific to a low latency companion needs addressing based on pricing, speed, and dependency on openai.
 
 2023-11-25 Sat: Used the app and thought of different ways to increase user retention. Insight: Hand hold the user to a specific app interaction through a specific button. (Daily Trivia, Cooking Assistant, or Quick Ideation) these use cases must highlight the low latency capabilities of the app as this is the main value proposition at the moment.
