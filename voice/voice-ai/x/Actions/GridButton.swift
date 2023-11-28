@@ -199,7 +199,7 @@ struct PressEffectButtonStyle: ButtonStyle {
     func determineForegroundColor(configuration: Configuration) -> Color {
         // Below logic causing colorway to switch
 //        let isPressed = active || ((configuration?.isPressed) != nil)
-        let isPressed = active || configquration.isPressed
+        let isPressed = active || configuration.isPressed
 
         
         if invertColors {
