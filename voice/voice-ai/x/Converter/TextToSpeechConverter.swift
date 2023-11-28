@@ -2,6 +2,7 @@ import AVFoundation
 import Foundation
 
 protocol TextToSpeechConverterProtocol {
+    var isSpeaking: Bool { get }
     func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?)
     func stopSpeech()
     func pauseSpeech()
@@ -14,6 +15,9 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
     let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+    var isSpeaking: Bool {
+        return synthesizer.isSpeaking
+    }
     
     private(set) var isDefaultVoiceUsed = false
     
@@ -30,8 +34,6 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
             selectedLanguage = preferredLocale
         }
         
-        // Default language based on user settings
-//        let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
             utterance.voice = voice
         } else {
