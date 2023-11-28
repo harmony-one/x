@@ -134,12 +134,13 @@ class ActionsViewTests: XCTestCase {
         
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         actionHandler.handle(actionType: actionType)
+        actionsView.setLastButtonPressed(action: button.action, event: .onStart)
         
         XCTAssertNotNil(viewButton)
         XCTAssertTrue(actionHandler.handleCalled)
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
-    
+        
     func testViewButtonReset () {
         let actionType: ActionType = .reset
         let showInAppPurchases = Bool.random()
@@ -152,11 +153,16 @@ class ActionsViewTests: XCTestCase {
         XCTAssertFalse(actionHandler.handleCalled)
         actionsView.vibration()
         if (showInAppPurchases) {
-            
+            actionsView.showInAppPurchasesIfNotLoggedIn()
         }
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         actionHandler.handle(actionType: actionType)
         
+        let isOnStart = Bool.random()
+        if (!isOnStart) {
+            actionsView.setLastButtonPressed(action: button.action, event: .onEnd)
+            XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is onEnd event")
+        }
         XCTAssertNotNil(viewButton)
         XCTAssertTrue(actionHandler.handleCalled)
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
