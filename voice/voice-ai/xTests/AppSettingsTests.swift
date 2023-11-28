@@ -35,6 +35,3 @@ class AppSettingsTests: XCTestCase {
     }
 
 }
-
-class SettingsViewTests: XCTestCase {
-}
