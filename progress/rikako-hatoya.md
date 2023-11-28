@@ -1,3 +1,7 @@
+2023-11-27 Mon: Raised the overall app test coverage from 60.7% to 73.6%. Worked on SpeechRecognition Tests [https://github.com/harmony-one/x/pull/272], raised its coverage from 39.9% to 89.8%. Investigating bugs for the SurpriseMe function when using the app in another language.
+
+---
+
 2023-11-26 Sun: Added some unit tests to speech recognition [https://github.com/harmony-one/x/pull/267]. Will need to implement mock text to speech converter and figure out how to oragnize the structure.
 
 2023-11-25 Sat: Revised the code coverage to see tests that need more coverage. Observed that SpeechRecognitionTests was barely doing anything - saw that mocks had been implemented so far but they're not testing any of the actual functions. Started work on writing tests for this file, implemented tests for testGetCurrentTimestamp() and testRegisterTTS(), created MockTextToSpeechConverter [https://github.com/harmony-one/x/pull/262]. This file really needs refactoring for better organization as it is confusing to be using SpeechRecognition.swift for some test cases and others using MockSpeechRecognition.swift - will be working on this the next few days as solving the previous mentioned "View" SwiftUI issue seems a bit more complex.
