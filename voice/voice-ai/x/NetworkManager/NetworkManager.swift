@@ -35,6 +35,10 @@ class NetworkManager {
         return components?.url
     }
     
+    /// Sets an Authorization Header.
+    ///
+    /// This method sets the bearer token in the authorization header.
+    /// It's used to authenticate requests by including the access token provided by the server.
     public func setAuthorizationHeader(token: String, request: inout URLRequest) {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
