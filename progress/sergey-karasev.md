@@ -1,3 +1,5 @@
+2023-11-28 Tue: I have [added a snapshot test for the ProgressView](https://github.com/harmony-one/x/pull/278) component and updated the AutoPlayer tests.
+
 2023-11-27 Mon: I have [added unit tests for the NetworkManager](https://github.com/harmony-one/x/pull/268), for the setAuthorizationHeader method and for the bad response case. I also deleted the unused code.
 
 ---
