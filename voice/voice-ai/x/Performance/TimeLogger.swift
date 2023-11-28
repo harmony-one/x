@@ -54,7 +54,7 @@ class TimeLogger {
         let firstResponseTime = firstCheckpointTime - startTime
         let totalResponseTime = finalCheckpointTime - startTime
         logged = true
-        let u = ClientUsageLog(
+        let logDetails = ClientUsageLog(
             vendor: vendor,
             endpoint: endpoint,
             requestTokens: requestTokens,
@@ -70,10 +70,10 @@ class TimeLogger {
             error: error
         )
         if printDebug {
-            print("[TimeLogger]", u)
+            print("[TimeLogger]", logDetails)
         }
         Task {
-            await RelayAuth.shared.record(u)
+            await RelayAuth.shared.record(logDetails)
         }
     }
 }

@@ -61,7 +61,6 @@ class AppSettings: ObservableObject {
         return outputDateString
     }
 
-    
     private func registerDefaultValues() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let defaults = [
