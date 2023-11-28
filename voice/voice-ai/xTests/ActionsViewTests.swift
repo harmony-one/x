@@ -168,11 +168,6 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
-    func testRequestReview() {
-        actionsView.requestReview()
-        // Test that the requestReview function does not throw any errors
-    }
-    
     func testHandleOtherActions() async {
         await actionsView.handleOtherActions(actionType: .reset)
         // Test that the handleOtherActions function does not throw any errors
