@@ -1,3 +1,6 @@
+2023-11-28 Mon: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
+
+---
 2023-11-24 Fri: Merged & resolved conflicts : https://github.com/harmony-one/x/pull/253, https://github.com/harmony-one/x/pull/251, https://github.com/harmony-one/x/pull/181. Added review comments on PRs: https://github.com/harmony-one/x/pull/250, https://github.com/harmony-one/x/pull/248, https://github.com/harmony-one/x/pull/247.
 
 2023-11-23 Thu: When a user logs into the application and encounters the in-app purchase process, if they choose to cancel the purchase, a blank screen appears. This issue has been resolved in a recent Pull Request: https://github.com/harmony-one/x/pull/251. However, there's an observation that if a question is asked quickly during this process, the response given pertains only to the previous question.
