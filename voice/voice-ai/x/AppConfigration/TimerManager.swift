@@ -40,3 +40,12 @@ class TimerManager: ObservableObject {
         NotificationCenter.default.post(name: .timerDidFireNotification, object: nil)
     }
 }
+
+// just for testing purpose
+#if DEBUG
+extension TimerManager {
+    func triggerTimerDidFire() {
+        timerDidFire()
+    }
+}
+#endif

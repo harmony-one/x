@@ -208,8 +208,6 @@ class SpeechRecognitionTests: XCTestCase {
         }
         waitForExpectations(timeout: 10, handler: nil)
     }
-
-
     
 //    TODO: FIX-------
 
@@ -219,7 +217,7 @@ class SpeechRecognitionTests: XCTestCase {
     //    let test = SpeechRecognitionProtocolTest()
     //    XCTAssertEqual(true,test.reset())
     // }
-//
+
 //    func testIsPlayingPublisher() {
 //        // Given
 //        var receivedIsPlayingValues: [Bool] = []
