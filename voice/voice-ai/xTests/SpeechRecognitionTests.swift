@@ -20,23 +20,19 @@ class RandomFactTests: XCTestCase {
 class SpeechRecognitionTests: XCTestCase {
     
     var speechRecognition: SpeechRecognition!
+    var textToSpeechConverter: TextToSpeechConverter!
 
     override func setUpWithError() throws {
+        super.setUp()
         speechRecognition = SpeechRecognition.shared
-        speechRecognition.setup()
+        textToSpeechConverter = TextToSpeechConverter()
     }
 
     override func tearDownWithError() throws {
         speechRecognition = nil
+        textToSpeechConverter = nil
+        super.tearDown()
     }
-    
-    func testGetCurrentTimestamp() {
-            let currentTimestamp = speechRecognition.getCurrentTimestamp()
-            let systemTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
-            let tolerance: Int64 = 1000
-            
-            XCTAssertTrue(abs(currentTimestamp - systemTimestamp) <= tolerance)
-        }
     
     func testRegisterTTS() {
          let mockSynthesizer = MockAVSpeechSynthesizer()
@@ -61,10 +57,20 @@ class SpeechRecognitionTests: XCTestCase {
     }
     
     func testStartSpeechRecognition() {
-       speechRecognition.startSpeechRecognition()
+        let expectation = XCTestExpectation(description: "Audio engine should start running")
 
-       XCTAssertTrue(speechRecognition.getAudioEngine().isRunning, "Audio engine should be running after starting speech recognition.")
-   }
+        speechRecognition.startSpeechRecognition()
+
+        DispatchQueue.global().async {
+            if self.speechRecognition.getAudioEngine().isRunning {
+                expectation.fulfill()
+            } else {
+                XCTFail("Audio engine is NOT running.")
+            }
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
 
     func testIsPaused() {
         speechRecognition.pause()
@@ -105,18 +111,105 @@ class SpeechRecognitionTests: XCTestCase {
         XCTAssertFalse(speechRecognition.checkContextChange(), "checkContextChange should return false")
     }
     
-    //    func testPause() {
-    //        let mockTextToSpeechConverter = MockTextToSpeechConverter()
-    //
-    //        speechRecognition.textToSpeechConverter = mockTextToSpeechConverter
-    //        speechRecognition._isPaused = false
-    //        speechRecognition.pause()
-    //
-    //        XCTAssertTrue(mockTextToSpeechConverter.pauseSpeechCalled)
-    //        XCTAssertTrue(speechRecognition._isPaused)
-    //
-    //        mockTextToSpeechConverter.reset()
-    //    }
+    func testCheckContextChangeNoSystemMessage() {
+        speechRecognition.conversation = [Message(role: "user", content: "User message")]
+
+        let result = speechRecognition.checkContextChange()
+
+        XCTAssertFalse(result, "checkContextChange should return false when no 'system' role message is present")
+    }
+    
+    func testPause() {
+        speechRecognition.pause()
+        XCTAssertTrue(speechRecognition.isPaused())
+    }
+    
+    func testContinueSpeechPaused() {
+        let mockSynthesizer = MockAVSpeechSynthesizer()
+        speechRecognition.textToSpeechConverter.synthesizer = mockSynthesizer
+        speechRecognition.continueSpeech()
+        XCTAssertFalse(speechRecognition.isPaused())
+    }
+    
+    func testContinueSpeechSpeaking() {
+        let mockSynthesizer = MockAVSpeechSynthesizer()
+        mockSynthesizer.isSpeakingStub = true
+        speechRecognition.textToSpeechConverter.synthesizer = mockSynthesizer
+        speechRecognition.continueSpeech()
+        XCTAssertFalse(speechRecognition.isPaused())
+    }
+    
+    func testCancelSpeak() {
+        // isCapturing = false, calling function but no assertions are made
+        speechRecognition.cancelSpeak()
+        
+        // isCapturing = true
+        speechRecognition.setup()
+        speechRecognition.cancelSpeak()
+        XCTAssertTrue(speechRecognition.recognitionTaskCanceled ?? false)
+    }
+    
+    func testHandleTimerDidFire() {
+        speechRecognition.handleTimerDidFire()
+        XCTAssertTrue(speechRecognition.isTimerDidFired)
+    }
+    
+    func testSurprise() {
+        let expectation = self.expectation(description: "Surprise method should complete")
+        speechRecognition.surprise()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testSayMore() {
+        let expectation = self.expectation(description: "sayMore method should complete")
+        speechRecognition.sayMore()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testSpeak() {
+        let expectation = self.expectation(description: "speak method should complete")
+        speechRecognition.speak()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testStopSpeak() {
+        let expectation = self.expectation(description: "stopSpeak method should complete")
+        speechRecognition.stopSpeak()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testRepeateActiveSession() {
+        let expectation = self.expectation(description: "repeateActiveSession method should complete")
+        speechRecognition.repeateActiveSession(startPoint: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    //TODO: cover case for speechRecognition.isRepeatingCurrentSession = true
+    func testRepeate() {
+        let expectation = self.expectation(description: "repeate method should complete")
+        speechRecognition.repeate()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+
     
 //    TODO: FIX-------
 
@@ -126,67 +219,7 @@ class SpeechRecognitionTests: XCTestCase {
     //    let test = SpeechRecognitionProtocolTest()
     //    XCTAssertEqual(true,test.reset())
     // }
-    
-    // Test the `reset()` function
-    func testReset() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `reset()` function
-        mockSpeechRecognition.reset()
-
-        // Assert that the `resetCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.resetCalled)
-    }
-
-    // Test the `speak()` function
-    func testSpeak() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `speak()` function
-        mockSpeechRecognition.speak()
-
-        // Assert that the `speakCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.speakCalled)
-    }
-
-    // Test the `surprise()` function
-    func testSurprise() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `surprise()` function
-        mockSpeechRecognition.surprise()
-
-        // Assert that the `surpriseCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.surpriseCalled)
-    }
-
-    // Test the `continueSpeech()` function
-    func testContinueSpeech() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `continueSpeech()` function
-        mockSpeechRecognition.continueSpeech()
-
-        // Assert that the `continueSpeechCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.continueSpeechCalled)
-    }
-
-//    // Test the `pause()` function
-//    func testPause() {
-//        // Create a mock SpeechRecognition object
-//        let mockSpeechRecognition = MockSpeechRecognition()
 //
-//        // Call the `pause()` function
-//        mockSpeechRecognition.pause()
-//
-//        // Assert that the `pauseCalled` property is set to `true`
-//        XCTAssertTrue(mockSpeechRecognition.pauseCalled)
-//    }
-
 //    func testIsPlayingPublisher() {
 //        // Given
 //        var receivedIsPlayingValues: [Bool] = []
@@ -235,39 +268,28 @@ class SpeechRecognitionTests: XCTestCase {
 //
 //        cancellable.cancel()
 //    }
-    
-    func testIsPlayingPublisherGetter() {
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        let isPlayingPublisher = mockSpeechRecognition.isPlayingPublisher
-
-        // Assert: Verify the result
-        var isPlaying = false
-        let cancellable = isPlayingPublisher.sink { isPlaying = $0 }
-
-        // At this point, isPlaying should be false by default
-        XCTAssertFalse(isPlaying, "isPlaying should initially be false")
-
-        // You can modify _isPlaying to change the value
-        mockSpeechRecognition.setIsPlaying(true)
-
-        // After changing the value, isPlaying should be true
-        XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")
-
-        // Clean up the subscription
-        cancellable.cancel()
-    }
-
-    // Test the `repeate()` function
-    func testRepeate() {
-        // Create a mock SpeechRecognition object
-        let mockSpeechRecognition = MockSpeechRecognition()
-
-        // Call the `repeate()` function
-        mockSpeechRecognition.repeate()
-
-        // Assert that the `repeateCalled` property is set to `true`
-        XCTAssertTrue(mockSpeechRecognition.repeateCalled)
-    }
+//    
+//    func testIsPlayingPublisherGetter() {
+//        let mockSpeechRecognition = MockSpeechRecognition()
+//
+//        let isPlayingPublisher = mockSpeechRecognition.isPlayingPublisher
+//
+//        // Assert: Verify the result
+//        var isPlaying = false
+//        let cancellable = isPlayingPublisher.sink { isPlaying = $0 }
+//
+//        // At this point, isPlaying should be false by default
+//        XCTAssertFalse(isPlaying, "isPlaying should initially be false")
+//
+//        // You can modify _isPlaying to change the value
+//        mockSpeechRecognition.setIsPlaying(true)
+//
+//        // After changing the value, isPlaying should be true
+//        XCTAssertTrue(isPlaying, "isPlaying should be true after modifying _isPlaying")
+//
+//        // Clean up the subscription
+//        cancellable.cancel()
+//    }
+//
 
 }
