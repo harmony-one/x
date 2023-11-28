@@ -1,4 +1,5 @@
-2023-11-26 Mon:
+2023-11-26 Mon: v11.24.13 was finally approved by the App store. This includes new button handling, share transcript button, and updating overall user experience.
+ 
 
 ---
 
