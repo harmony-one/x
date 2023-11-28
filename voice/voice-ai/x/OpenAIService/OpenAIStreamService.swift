@@ -12,9 +12,16 @@ protocol NetworkService {
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
-    private let baseUrl = AppConfig.shared.getOpenAIBaseUrl()
     private var temperature: Double
     private var networkService: URLSession?
+    private var timeLogger: TimeLogger?
+
+    private var requestNumMessages: Int32 = 0
+    private var requestNumUserMessages: Int32 = 0
+    private var requestMessage: String = ""
+    private var responseMessage: String = ""
+    private var requestTokens: Int32 = 0
+    private var responseTokens: Int32 = 0
 
     static var lastStartTimeOfTheDay: Date?
 
@@ -35,7 +42,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     public func setNetworkService(urlSession: URLSession) {
-        self.networkService = urlSession
+        networkService = urlSession
     }
 
     init(networkService: URLSession?, completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
@@ -64,7 +71,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
 
-        guard let baseUrl = baseUrl else {
+        guard let baseUrl = AppConfig.shared.getOpenAIBaseUrl() else {
             completion(nil, NSError(domain: "No base url", code: -4))
             SentrySDK.capture(message: "OpenAI base url is not set")
             return
@@ -82,12 +89,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             } else {
                 // rate limited
                 Self.rateLimitCounterLock.signal()
-                self.completion(nil, NSError(domain: "Rate limited", code: -3))
+                completion(nil, NSError(domain: "Rate limited", code: -3))
                 return
             }
             Self.rateLimitCounterLock.signal()
         }
-        
+
         let headers = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(apiKey)"
@@ -136,6 +143,12 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "temperature": temperature,
             "stream": true
         ]
+
+        requestNumMessages = Int32(conversation.count)
+        requestNumUserMessages = Int32(conversation.filter { $0.role == "user" }.count)
+        requestMessage = conversation.filter { $0.role != "system" }.map { "\($0.role ?? "N/A"): \($0.content ?? "")" }.joined(separator: "\n")
+        requestTokens = Int32(conversation.map { ($0.content ?? "").components(separatedBy: CharacterSet(charactersIn: " ,.!;?'\"$%")).count }.reduce(0, +))
+
         print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
         print("[OpenAI] sent \(body)")
@@ -159,6 +172,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             completion(nil, error)
             return
         }
+
+        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
@@ -186,18 +201,30 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             completion(nil, error)
             return
         }
+        timeLogger?.tryCheck()
 //        print("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        print("OpenAI: chunks", chunks)
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
+                timeLogger?.log(
+                    requestNumMessages: requestNumMessages,
+                    requestNumUserMessages: requestNumUserMessages,
+                    requestTokens: requestTokens,
+                    responseTokens: responseTokens,
+                    requestMessage: requestMessage,
+                    responseMessage: responseMessage
+                )
                 completion("[DONE]", nil)
                 continue
             }
+            responseTokens += 1
             let res = JSON(parseJSON: dataBody)
-
             let delta = res["choices"][0]["delta"]["content"].string
+            if delta != nil {
+                responseMessage += delta!
+            }
             if delta == nil {
                 continue
             }
@@ -206,6 +233,19 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if error != nil {
+            timeLogger?.log(
+                requestNumMessages: requestNumMessages,
+                requestNumUserMessages: requestNumUserMessages,
+                requestTokens: requestTokens,
+                responseTokens: responseTokens,
+                requestMessage: requestMessage,
+                responseMessage: responseMessage,
+                cancelled: false,
+                completed: false,
+                error: "\(error!)"
+            )
+        }
         if let response = task.response as? HTTPURLResponse {
             let statusCode = response.statusCode
             if statusCode == 401 {
@@ -230,6 +270,16 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     func cancelOpenAICall() {
         task?.cancel()
+        timeLogger?.log(
+            requestNumMessages: requestNumMessages,
+            requestNumUserMessages: requestNumUserMessages,
+            requestTokens: requestTokens,
+            responseTokens: responseTokens,
+            requestMessage: requestMessage,
+            responseMessage: responseMessage,
+            cancelled: true,
+            completed: false
+        )
     }
 
     static func setConversationContext() -> [Message] {

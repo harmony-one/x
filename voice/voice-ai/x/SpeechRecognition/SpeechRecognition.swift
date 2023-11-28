@@ -44,7 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let recognitionLock = DispatchSemaphore(value: 1)
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
-    private var recognitionTaskCanceled: Bool?
+    internal var recognitionTaskCanceled: Bool?
     private var isAudioSessionSetup = false
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     var textToSpeechConverter = TextToSpeechConverter()
@@ -313,6 +313,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         func handleQuery(retryCount: Int) {
             let startDate = Date()
             var isResponseReceived = false
+
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
@@ -425,6 +426,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][pauseCapturing]")
         
         if cancel == true {
+            print("[SpeechRecognition][cancelCalled]")
             recognitionTaskCanceled = true
         }
         
@@ -537,6 +539,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         recognitionTask?.cancel()
         recognitionTask = nil
         recognitionRequest?.endAudio()
+        audioEngine.inputNode.removeTap(onBus: 0)
     }
     
     func isPaused() -> Bool {
@@ -563,13 +566,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         print("[SpeechRecognition][continueSpeech]")
         
         if textToSpeechConverter.synthesizer.isSpeaking {
-            _isPaused = false
             textToSpeechConverter.continueSpeech()
         } else {
             if !isRequestingOpenAI {
 //                audioPlayer.playSound(false)
             }
         }
+        _isPaused = false
     }
         
     func surprise() {

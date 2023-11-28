@@ -39,3 +39,15 @@ export function encrypt (s: string): Buffer {
 export function now (): bigint {
   return BigInt(Math.round((performance.now() + performance.timeOrigin) * 1000))
 }
+
+export const isBigInt = (i: string | undefined): boolean => {
+  if (!i) {
+    return false
+  }
+  try {
+    BigInt(i)
+    return true
+  } catch (err) {
+    return false
+  }
+}

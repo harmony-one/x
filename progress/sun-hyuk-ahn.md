@@ -1,3 +1,7 @@
+2023-11-25 Mon: Fixed color switch bug on new context. Implemented perceived latency on client side. Measured latency to be average of 1.4 second. Testing different chunking sizes to improve latency. 
+
+---
+
 2023-11-24 Sun: Going over PRs 261-266. Will be testing them tomorrow and merging them in order.
 
 2023-11-25 Sat: Worked on resolving linter issue.

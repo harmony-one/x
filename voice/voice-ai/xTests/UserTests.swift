@@ -77,7 +77,6 @@ class UserAPITests: XCTestCase {
     }
     
     func testRegister() {
-
         let appleId = "testAppleId"
         let fullName = "John Doe"
         let email = "john@example.com"
@@ -87,7 +86,6 @@ class UserAPITests: XCTestCase {
         
         let isAvailable = self.keychainService.isAppleIdAvailable()
         XCTAssertTrue(isAvailable, "The correct data is stored in KeychainService")
-
     }
     
     func testGetUserBy() {
@@ -120,6 +118,26 @@ class UserAPITests: XCTestCase {
         
         // Then
         XCTAssertEqual(storedUserID, "testAppleId", "Stored user ID should match the mock user ID")
+    }
+    
+    func testIsSubscriptionActive() {
+        // Given
+        let id = "testId"
+        let appleId = "testAppleId"
+        let balance = "0"
+        let createdAt = "0"
+        let updatedAt = "0"
+        let expirationDate = "0"
+        let isSubscriptionActive = false
+        keychainService.storeUser(id: id, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: false)
+        api.register(appleId: appleId)
+        
+        // When
+        api.getUserByID()
+        let storedIsSubscriptionActive = KeychainService.shared.retrieveIsSubscriptionActive()
+        
+        // Then
+        XCTAssertEqual(storedIsSubscriptionActive, false, "Should be inactive by default")
     }
     
     func testPurchase() {

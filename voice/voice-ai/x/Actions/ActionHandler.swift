@@ -13,6 +13,7 @@ enum ActionType {
     case tapStopSpeak
     case stopSpeak
     case userGuide
+    case openSettings
 }
 
 struct ButtonData: Identifiable {
@@ -121,6 +122,8 @@ class ActionHandler: ObservableObject, ActionHandlerProtocol {
                 speechRecognition.pause()
             }
         case .repeatLast:
+            speechRecognition.repeate()
+        case .openSettings:
             speechRecognition.repeate()
         case .speak:
             _isPressAndHoldActive = true

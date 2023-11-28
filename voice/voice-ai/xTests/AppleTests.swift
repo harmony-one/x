@@ -35,8 +35,9 @@ class KeychainServiceTests: XCTestCase {
         let createdAt = "2023-01-01"
         let updatedAt = "2023-02-01"
         let expirationDate = "2023-03-01"
+        let isSuscriptionActive:Bool = true
 
-        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate)
+        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: isSuscriptionActive)
   
         XCTAssertEqual(keychainService.retrieveUserid(), userId)
         XCTAssertEqual(keychainService.retrieveBalance(), balance)
@@ -69,7 +70,7 @@ class KeychainServiceTests: XCTestCase {
         let key = "userID"
         let value = "testValue"
         keychainService.clearAll()
-        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil)
+        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive:  false)
  
         keychainService.delete(key: key)
         XCTAssertNil(keychainService.retrieveUserid())

@@ -14,6 +14,10 @@ class TextToSpeechConverterTests: XCTestCase {
         super.tearDown()
     }
 
+    func testIsSpeakingInitiallyFalse() {
+        XCTAssertFalse(textToSpeechConverter.isSpeaking, "isSpeaking should initially be false")
+    }
+    
     func testConvertTextToSpeech() {
         let text = "Hello, world!"
         let pitch: Float = 0.8

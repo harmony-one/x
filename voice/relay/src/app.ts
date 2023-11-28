@@ -2,6 +2,7 @@ import express, { type Response, type Request, type NextFunction } from 'express
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import createError from 'http-errors'
+import baseApiRouter from './routes/index.js'
 import hardKeyProtectionApiRouter from './routes/hard.js'
 import softRateLimitedApiRouter from './routes/soft.js'
 import whitelistApiRouter from './routes/whitelist.js'
@@ -82,6 +83,7 @@ if (config.debug) {
 
 ES.init()
 
+app.use('/', baseApiRouter)
 app.use('/soft', softRateLimitedApiRouter)
 app.use('/hard', hardKeyProtectionApiRouter)
 app.use('/whitelist', whitelistApiRouter)

@@ -4,14 +4,36 @@ import Foundation
 import Sentry
 import SwiftyJSON
 
+struct ClientUsageLog: Codable {
+    let vendor: String
+    let endpoint: String
+    let requestTokens: Int32
+    let responseTokens: Int32
+    let firstResponseTime: Int64
+    let totalResponseTime: Int64
+    let requestNumMessages: Int32
+    let requestNumUserMessages: Int32
+    let requestMessage: String
+    let responseMessage: String
+    let cancelled: Bool
+    let completed: Bool
+    let error: String
+}
+
+struct RelaySetting: Codable {
+    let mode: String?
+    let openaiBaseUrl: String?
+}
+
 class RelayAuth {
     private static let baseUrl = AppConfig.shared.getRelayUrl()
+    private static let disableLog = AppConfig.shared.getDisableRelayLog()
     private static let keyIdPath = "AppAttestKeyId"
     private static let attestationPath = "AppAttestationResult"
     private static let attestationChallengePath = "AppAttestationChallenge"
-    private static let attestationTimePath = "AppAttestationTime"
     static let shared = RelayAuth()
 
+    private var deviceToken: String?
     private var keyId: String?
     private var token: String?
     private var autoRefreshTokenTimer: Timer?
@@ -20,6 +42,8 @@ class RelayAuth {
     private func initializeKeyId() async throws {
         keyId = try await DCAppAttestService.shared.generateKey()
         UserDefaults.standard.setValue(keyId, forKey: Self.keyIdPath)
+        UserDefaults.standard.removeObject(forKey: Self.attestationPath)
+        UserDefaults.standard.removeObject(forKey: Self.attestationChallengePath)
     }
 
     private func delayedRetry(on queue: DispatchQueue, retry: Int = 0, closure: @escaping () -> Void) {
@@ -48,7 +72,7 @@ class RelayAuth {
                     let delay = min(30000, Int(pow(2.0, Double(numRetries))) * 1000 + Int.random(in: 0 ... 1000))
                     do {
                         log("Refresh token error; Sleeping for \(delay)ms and try again (\(numRetries) attempts made)")
-                        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000))
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1000000))
                     } catch {
                         logError("auto-retry cancelled", -7)
                         return nil
@@ -106,6 +130,30 @@ class RelayAuth {
         }
     }
 
+    func getRelaySetting() async -> RelaySetting? {
+        guard let baseUrl = Self.baseUrl else {
+            logError("Invalid base URL", -4)
+            return nil
+        }
+        let conf = URLSessionConfiguration.default
+        conf.timeoutIntervalForRequest = 3
+        let session = URLSession(configuration: conf)
+        guard let url = URL(string: "\(baseUrl)/mode") else {
+            logError("Invalid Relay URL", -3)
+            return nil
+        }
+
+        let req = URLRequest(url: url)
+        do {
+            let (data, _) = try await session.data(for: req)
+            let res = JSON(data)
+            return RelaySetting(mode: res["mode"].string, openaiBaseUrl: res["openaiBaseUrl"].string)
+        } catch {
+            logError(error, "failed to get relay setting")
+            return nil
+        }
+    }
+
     func getChallenge() async -> String? {
         guard let baseUrl = Self.baseUrl else {
             logError("Invalid base URL", -4)
@@ -129,29 +177,42 @@ class RelayAuth {
         }
     }
 
-    func getAttestation() async throws -> (String?, String?) {
+    func getAttestation(_ tryUseCached: Bool = true) async throws -> (String?, String?) {
         guard let keyId = keyId else {
             logError("No key id set", -5)
             return (nil, nil)
         }
-        // TODO: use keychain
-        let attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
-        let attestationTime = UserDefaults.standard.double(forKey: Self.attestationTimePath)
-        let storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
-        let now = Double(Date().timeIntervalSince1970)
-        if attestationTime > now - 3600 * 24 * 8, attestation != nil, storedChallenge != nil {
-            return (attestation, storedChallenge)
+        var attestation: String?, storedChallenge: String?
+        if tryUseCached {
+            // TODO: use keychain
+            attestation = UserDefaults.standard.string(forKey: Self.attestationPath)
+            storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
+            if attestation != nil, storedChallenge != nil {
+                return (attestation, storedChallenge)
+            }
         }
 
+        // try await initializeKeyId()
         let challenge = await getChallenge()
         guard let challenge = challenge else {
             throw logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
-        let attestService = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
-        let encodedString = attestService.base64EncodedString()
+        var attestationData: Data?
+        do {
+            attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+        } catch {
+            guard let error = error as? DCError else {
+                throw error
+            }
+            logError(error, "[getAttestation] attestKey error")
+            if error.code == DCError.Code.invalidKey || error.code == DCError.Code.serverUnavailable || error.code == DCError.Code.unknownSystemFailure {
+                try await initializeKeyId()
+                attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+            }
+        }
+        let encodedString = attestationData?.base64EncodedString()
         UserDefaults.standard.setValue(encodedString, forKey: Self.attestationPath)
-        UserDefaults.standard.setValue(now, forKey: Self.attestationTimePath)
         UserDefaults.standard.setValue(challenge, forKey: Self.attestationChallengePath)
         return (encodedString, challenge)
     }
@@ -171,7 +232,7 @@ class RelayAuth {
     }
 
     @discardableResult func logError(_ error: Error, _ detail: String = "") -> Error {
-        print("[RelayAuth][ERROR]", detail)
+        print("[RelayAuth][ERROR]", detail, error)
         SentrySDK.capture(error: error) { scope in
             scope.setExtra(value: detail, key: "detail")
             scope.setTag(value: "RelayAuth", key: "module")
@@ -179,7 +240,7 @@ class RelayAuth {
         return error
     }
 
-    @discardableResult private func refreshToken() async throws -> String? {
+    @discardableResult private func refreshToken(_ useCache: Bool = true) async throws -> String? {
         let service = DCAppAttestService.shared
         guard service.isSupported else {
             throw logError("DCAppAttestService not supported", -1)
@@ -188,33 +249,45 @@ class RelayAuth {
             await tryInitializeKeyId()
         }
 
+        var attestation: String?
+        var challenge: String?
         do {
-            let (attestation, challenge) = try await getAttestation()
-            guard let attestation = attestation else {
-                throw logError("attestation is deliberately set to nil", -2)
-            }
-            guard let challenge = challenge else {
-                throw logError("challenge is deliberately set to nil", -8)
-            }
-            let token = await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
+            (attestation, challenge) = try await getAttestation(useCache)
+        } catch {
+            throw logError("temporary error for getting attestation", -6)
+        }
+
+        guard let attestation = attestation else {
+            throw logError("attestation is deliberately set to nil", -2)
+        }
+        guard let challenge = challenge else {
+            throw logError("challenge is deliberately set to nil", -8)
+        }
+
+        do {
+            let token = try await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             // throw NSError(domain:"testing", code: -6)
             self.token = token
             print("[RelayAuth] received token \(token ?? "N/A")")
             return token
         } catch {
-            throw logError("temporary error for getting attestation", -6)
+            let error = error as NSError
+            if error.code == -10 {
+                try await Task.sleep(nanoseconds: 1000000000)
+                try await initializeKeyId()
+                return try await refreshToken(false)
+            }
+            throw error
         }
     }
 
-    func exchangeAttestationForToken(attestation: String, challenge: String) async -> String? {
+    func exchangeAttestationForToken(attestation: String, challenge: String) async throws -> String? {
         guard let baseUrl = Self.baseUrl else {
-            logError("Invalid base URL", -4)
-            return nil
+            throw logError("Invalid base URL", -4)
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         guard let url = URL(string: "\(baseUrl)/hard/attestation") else {
-            logError("Invalid Relay URL", -3)
-            return nil
+            throw logError("Invalid Relay URL", -3)
         }
 
         let body = ["inputKeyId": keyId, "challenge": challenge, "attestation": attestation]
@@ -222,16 +295,69 @@ class RelayAuth {
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            req.httpBody = try JSON(body).rawData()
+        req.httpBody = try JSON(body).rawData()
 //            print("[RelayAuth][exchangeAttestationForToken] sending \(body)")
-            let (data, _) = try await session.data(for: req)
+        let (data, response) = try await session.data(for: req)
+        let httpResponse = response as? HTTPURLResponse
+        if httpResponse?.statusCode == 410 {
+            throw logError("new attestation and new key required", -10)
+        }
+        if httpResponse?.statusCode == 200 {
             let res = JSON(data)
             let token = res["token"].string
             return token
+        } else {
+            throw logError("cannot get attestation from relay", -11)
+        }
+    }
+
+    func getDeviceToken(_ regen: Bool = false) async -> String? {
+        if deviceToken != nil, !regen {
+            return deviceToken
+        }
+        do {
+            let deviceToken = try await DCDevice.current.generateToken()
+            self.deviceToken = deviceToken.base64EncodedString()
+            return self.deviceToken
         } catch {
-            logError(error, "exchangeAttestationForToken error")
+            logError("Error generating device token", -9)
             return nil
+        }
+    }
+
+    func record(_ record: ClientUsageLog) async {
+        if Self.disableLog {
+            return
+        }
+        guard let baseUrl = Self.baseUrl else {
+            logError("Invalid base URL", -4)
+            return
+        }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        guard let url = URL(string: "\(baseUrl)/\(AppConfig.shared.getRelayMode() ?? "soft")/log") else {
+            logError("Invalid Relay URL", -3)
+            return
+        }
+
+        guard let token = await getDeviceToken() else {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            let body = try JSONEncoder().encode(record)
+            request.httpBody = body
+//            print("[RelayAuth][log] sending \(String(data: body, encoding: .utf8)!)")
+            let (data, _) = try await session.data(for: request)
+            let res = JSON(data)
+            let success = res["success"].bool
+            print("[RelayAuth][log] success: \(success ?? false)")
+        } catch {
+            logError(error, "error sending record")
+            return
         }
     }
 }

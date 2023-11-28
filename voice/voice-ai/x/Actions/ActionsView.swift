@@ -72,7 +72,7 @@ struct ActionsView: View {
         let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .repeatLast, testId: "button-repeatLast")
+        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
         let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
         buttonsPortrait = [
@@ -199,8 +199,12 @@ struct ActionsView: View {
         return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
     }
     
+    func getLastButtonPressed() -> ActionType? {
+        return self.lastButtonPressed
+    }
+    
     func setLastButtonPressed (action: ActionType, event: EventType?) {
-        if(event == .onStart) {
+        if event == .onStart {
             self.lastButtonPressed = action
             
             if self.isTapToSpeakActive {
@@ -208,7 +212,7 @@ struct ActionsView: View {
             }
         }
         
-        if(event == .onEnd) {
+        if event == .onEnd {
             self.lastButtonPressed = nil
         }
     }
@@ -254,7 +258,9 @@ struct ActionsView: View {
             if button.pressedLabel != nil {
                 // Press to Speak & Press to Send
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
-                    if((event) != nil) { return }
+                    if event != nil {
+                        return
+                    }
 
                     self.isTapToSpeakActive = !self.isTapToSpeakActive
                     self.vibration()
@@ -299,7 +305,9 @@ struct ActionsView: View {
                 
                 GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {event in
                     self.setLastButtonPressed(action: button.action, event: event)
-                    if((event) != nil) { return }
+                    if event != nil {
+                        return
+                    }
                 }.simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -326,11 +334,12 @@ struct ActionsView: View {
                 ).accessibilityIdentifier(button.testId)
                 .disabled(self.isButtonDisabled(action: button.action))
             }
-        } else if button.action == .repeatLast {
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
+        } else if button.action == .openSettings {
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
+                if event != nil {
+                    return
+                }
                 self.vibration()
                 DispatchQueue.main.async {
                     openSettingsApp()
@@ -357,8 +366,9 @@ struct ActionsView: View {
 
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {event in 
                 self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
+                if event != nil {
+                    return
+                }
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -388,8 +398,9 @@ struct ActionsView: View {
         } else if button.action == .reset {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
                 self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
+                if event != nil {
+                    return
+                }
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -413,14 +424,19 @@ struct ActionsView: View {
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {event in 
                 self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
+                if event != nil {
+                    return
+                }
                 self.vibration()
-                if (self.isSurpriseButtonPressed) {
+                if self.isSurpriseButtonPressed {
                     self.isSurpriseButtonPressed = false
                     Task {
                         await handleOtherActions(actionType: button.action)
-                        await Task.sleep(1 * 500_000_000)
+                        do {
+                            try await Task.sleep(nanoseconds: 1 * 500_000_000)
+                        } catch {
+                            print("Sleep failed")
+                        }
                         self.isSurpriseButtonPressed = true
                     }
                 }
@@ -434,8 +450,9 @@ struct ActionsView: View {
         } else {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in 
                 self.setLastButtonPressed(action: button.action, event: event)
-                if((event) != nil) { return }
-                
+                if event != nil {
+                    return
+                }
                 self.vibration()
                 Task {
                     await handleOtherActions(actionType: button.action)
@@ -451,14 +468,6 @@ struct ActionsView: View {
 //        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
 //            UIApplication.shared.open(url)
 //        }
-    }
-
-    func requestReview() {
-        DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.windows.first?.windowScene {
-                SKStoreReviewController.requestReview(in: windowScene)
-            }
-        }
     }
 
     func handleOtherActions(actionType: ActionType) async {
@@ -497,14 +506,14 @@ struct ActionsView: View {
     
     func showInAppPurchasesIfNotLoggedIn() {
         if KeychainService.shared.isAppleIdAvailable() == false || 
-            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            KeychainService.shared.retrieveIsSubscriptionActive() {
             showPurchaseDiglog()
         }
     }
 }
 
-//#Preview {
+// #Preview {
 //    NavigationView {
 //        ActionsView()
 //    }
-//}
+// }
