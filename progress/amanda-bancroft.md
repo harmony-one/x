@@ -1,6 +1,6 @@
 2023-11-27 Mon: I prompted the app with questions about Wyoming, where it brought up the topic of bison. However, when I asked about the total bison count in the US, the app repeatedly circled back to providing general information about Wyoming, consistently neglecting to address the query about the bison population. 
 
-I'm consistently encountering the app's unresponsiveness when I return to it after using other features on my phone. While the 'New Session' button effectively restarts the app, allowing me to receive a response, it replicates the same issue associated with closing and reopening the app because it wipes out the current session data.
+I'm consistently encountering the app's unresponsiveness when I return to it after using other features on my phone. The 'New Session' button and closing/reopening the app both serve as effective ways to fix this issue, however, both solutions share the drawback of erasing current session data.
 
 ---
 
