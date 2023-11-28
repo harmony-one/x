@@ -1,4 +1,8 @@
+2023-11-28 Tue: started working on SettingsView unit tests, [PR#281](https://github.com/harmony-one/x/pull/281/files)
+
 2023-11-27 Mon: [Updated](https://github.com/harmony-one/x/pull/271) user properties, added `isSubscriptionActive` field from Payments backend response to check is user subscribed, updated user API test.
+
+---
 
 2023-11-24 Fri: Fixed test in [PR#247](https://github.com/harmony-one/x/pull/247), merged. [Refactored](https://github.com/harmony-one/x/pull/266) repeatButton type, refactored Action button tests, improved SettingsView test.
 
