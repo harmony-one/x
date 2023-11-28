@@ -11,17 +11,20 @@ class MockActionHandler: ActionHandlerProtocol {
     var handleCalled = false
     var isRecording = false
     var showUserGuide = false
+    var resetCalled = false
     var _isPressAndHoldActive = false
     var _isTapToSpeakActive = false
     var isRepeated = false
-    var isPlayed = false
+    var isPlayed: Bool = false
     var isSurprised = false
+    var showOpenSettings = false
 
     func handle(actionType: ActionType) {
         print("*********** handle ******")
         handleCalled = true
         switch actionType {
         case .reset:
+            resetCalled = true
             print("reset")
             // resetThrottler.send()
         case .surprise:
@@ -43,6 +46,8 @@ class MockActionHandler: ActionHandlerProtocol {
             stopRecording()
         case .userGuide:
             showUserGuide = true
+        case .openSettings:
+            showOpenSettings = true
         }
     }
     

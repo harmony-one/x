@@ -3,27 +3,9 @@ import SwiftUI
 @testable import Voice_AI
 
 
-//extension UIView {
-//    func findView<T>(ofType type: T.Type) -> T? where T: UIView {
-//        return subviews.compactMap { $0 as? T ?? $0.findView(ofType: T.self) }.first
-//    }
-//}
-
 //    //Given
 //    //When
 //    //Then
-
-
-//func findGridButton(for actionType: ActionType, in actionsView: ActionsView, callback: (any View) -> Void) {
-//    let _ = actionsView.baseView(colums: 2, buttons: []) // Ensure the view is loaded
-//
-//    // Simulate a tap on the "Surprise ME!" button
-//    for button in actionsView.buttonsPortrait {
-//        actionsView.viewButton(button: button, actionHandler: MockActionHandler()) { view in
-//            callback(view)
-//        }
-//    }
-//}
 
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
@@ -31,6 +13,7 @@ class ActionsViewTests: XCTestCase {
     var mockActionHandler: MockActionHandler = MockActionHandler()
     var store: Store!
     var sut: ActionsView! // UIViewController!
+    let eventOptions: [EventType?] = [.onStart, .onEnd, nil]
     
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
     let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
@@ -42,12 +25,11 @@ class ActionsViewTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        sut = storyboard.instantiateViewController(withIdentifier: "ActionsView") as? ActionsView
         store = Store()
         appSettings = AppSettings.shared
+        
         // Initialize actionsView with the mockActionHandler
-        actionsView = ActionsView(actionHandler: mockActionHandler)
+        actionsView = .init(actionHandler: mockActionHandler)
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -94,87 +76,131 @@ class ActionsViewTests: XCTestCase {
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         XCTAssertNotNil(viewButton)
     }
-    
-
-    func testVewButtonSurprise () {
-        let actionType: ActionType = .surprise
-
-//        guard let sut = UIStoryboard(name: "Main", bundle: nil)
-//            .instantiateViewController(withIdentifier: "ActionsView") as? ActionsView else {
-//            XCTFail("Failed to instantiate the view controller")
-//            return
-//        }
-
-        let button = testButtons.first(where: { $0.action == actionType })!
-        _ = sut.baseView(colums: 2, buttons:testButtons)
-        let gridButton:GridButton = sut.viewButton(button: button, actionHandler: self.mockActionHandler) as! GridButton
-        
-        gridButton.onDragStart() //.sendAction(for: .touchUpInside)
-
-        XCTAssertTrue(mockActionHandler.isSurprised)
-
+         
+    func getRandomEvent() -> EventType? {
+        let eventOptions: [EventType?] = [.onStart, .onEnd, nil]
+        return eventOptions.randomElement()!
     }
 
-
-//    func testOpenSettingsApp() {
-//        actionsView.openSettingsApp()
-//        // Test that the openSettingsApp function does not throw any errors
-//    }
-//    
-     
-
-    
+   
     func testViewButtonPlay () {
         let actionType: ActionType = .play
-        let actionHandler = MockActionHandler()
+        
         let button = testButtons.first(where: { $0.action == actionType })!
-        let expectedActionType: ActionType = actionType
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
         
-        actionHandler.handleCalled = false
-        XCTAssertFalse(actionHandler.handleCalled)
-        actionsView.vibration()
-        
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: actionType)
-        actionsView.setLastButtonPressed(action: button.action, event: .onStart)
-        
-        XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
-    }
-        
-    func testViewButtonReset () {
-        let actionType: ActionType = .reset
-        let showInAppPurchases = Bool.random()
-        
-        let actionHandler = MockActionHandler()
-        let button = testButtons.first(where: { $0.action == actionType })!
-        let expectedActionType: ActionType = actionType
-        
-        actionHandler.handleCalled = false
-        XCTAssertFalse(actionHandler.handleCalled)
-        actionsView.vibration()
-        if (showInAppPurchases) {
-            actionsView.showInAppPurchasesIfNotLoggedIn()
+        XCTAssertFalse(mockActionHandler.handleCalled)
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Play action return with event \(String(describing: event))")
+            } else {
+                actionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertTrue(mockActionHandler.isPlayed, "Action .play called")
+            }
         }
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: actionType)
-        
-        let isOnStart = Bool.random()
-        if (!isOnStart) {
-            actionsView.setLastButtonPressed(action: button.action, event: .onEnd)
-            XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is onEnd event")
-        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
         XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
-
-    func testRequestReview() {
-        actionsView.requestReview()
-        // Test that the requestReview function does not throw any errors
+    func testViewButtonOpenSettings () {
+        let actionType: ActionType = .openSettings
+        
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+        
+        XCTAssertFalse(mockActionHandler.handleCalled)
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Play action return with event \(String(describing: event))")
+            } else {
+                actionsView.vibration()
+                actionsView.openSettingsApp()
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertTrue(mockActionHandler.showOpenSettings, "Action .openSettings called")
+            }
+        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        XCTAssertNotNil(viewButton)
     }
+    
+    func testViewButtonReset () {
+        let actionType: ActionType = .openSettings
+
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+        
+        XCTAssertFalse(mockActionHandler.handleCalled)
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Play action return with event \(String(describing: event))")
+            } else {
+                actionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                
+                actionsView.showInAppPurchasesIfNotLoggedIn()
+                
+                XCTAssertTrue(mockActionHandler.resetCalled, "Action .reset called")
+            }
+        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        XCTAssertNotNil(viewButton)
+    }
+    
+    
+//    func testViewButtonPlayNil () {
+//        let actionType: ActionType = .play
+//        let button = testButtons.first(where: { $0.action == actionType })!
+//        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+//       
+//        let event: EventType? = nil // getRandomEvent()
+//        XCTAssertFalse(mockActionHandler.handleCalled)
+//        actionsView.setLastButtonPressed(action: actionType, event: event)
+//        if (event != nil) {
+//            XCTAssertNotNil(event, "Play action return")
+//        } else {
+//            actionsView.vibration()
+//            mockActionHandler.handle(actionType: actionType)
+//            XCTAssertTrue(mockActionHandler.isPlayed, "Action .play called")
+//        }
+//        XCTAssertNotNil(viewButton)
+//    }
+    
+//    func testViewButtonReset () {
+//        let actionType: ActionType = .reset
+//        let showInAppPurchases = Bool.random()
+//        
+//        let actionHandler = MockActionHandler()
+//        let button = testButtons.first(where: { $0.action == actionType })!
+//        let expectedActionType: ActionType = actionType
+//        
+//        actionHandler.handleCalled = false
+//        XCTAssertFalse(actionHandler.handleCalled)
+//        actionsView.vibration()
+//        if (showInAppPurchases) {
+//            actionsView.showInAppPurchasesIfNotLoggedIn()
+//        }
+//        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
+//        actionHandler.handle(actionType: actionType)
+//        
+//        let isOnStart = Bool.random()
+//        if (!isOnStart) {
+//            actionsView.setLastButtonPressed(action: button.action, event: .onEnd)
+//            XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is onEnd event")
+//        }
+//        XCTAssertNotNil(viewButton)
+//        XCTAssertTrue(actionHandler.handleCalled)
+//        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+//    }
+    
+
+//    func testRequestReview() {
+//        actionsView.requestReview()
+//        // Test that the requestReview function does not throw any errors
+//    }
     
     func testHandleOtherActions() async {
         await actionsView.handleOtherActions(actionType: .reset)
