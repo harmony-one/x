@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22260D742B16806F00A4C522 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 22260D732B16806F00A4C522 /* ViewInspector */; };
 		22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
@@ -476,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E1ADB8B2B163EC500BA0F38 /* SnapshotTesting in Frameworks */,
+				22260D742B16806F00A4C522 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,6 +959,7 @@
 			name = "Voice AITests";
 			packageProductDependencies = (
 				6E1ADB8A2B163EC500BA0F38 /* SnapshotTesting */,
+				22260D732B16806F00A4C522 /* ViewInspector */,
 			);
 			productName = xTests;
 			productReference = CD0D13482ADA73B400031EDD /* Voice AITests.xctest */;
@@ -1037,6 +1040,7 @@
 				B91F05B22B04B3890029A32D /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				B99E716A2B0CA3A300F9D033 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				6E1ADB872B163BD400BA0F38 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				22260D722B167DEF00A4C522 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1948,6 +1952,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		22260D722B167DEF00A4C522 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.8;
+			};
+		};
 		6E1ADB872B163BD400BA0F38 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
@@ -1999,6 +2011,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		22260D732B16806F00A4C522 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22260D722B167DEF00A4C522 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
 		6E1ADB8A2B163EC500BA0F38 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6E1ADB872B163BD400BA0F38 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;

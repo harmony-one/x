@@ -1,5 +1,7 @@
 import XCTest
+import SwiftUI
 @testable import Voice_AI
+import ViewInspector
 
 class AppSettingsTests: XCTestCase {
     func testGetEpochWithValidDateString() {
@@ -37,4 +39,38 @@ class AppSettingsTests: XCTestCase {
 }
 
 class SettingsViewTests: XCTestCase {
+    var settingsView: SettingsView!
+    var appSettings: AppSettings!
+    var store: Store!
+    
+    override func setUp() {
+        super.setUp()
+        store = Store()
+        appSettings = AppSettings.shared
+        settingsView = SettingsView()
+    }
+    
+    override func tearDown() {
+        settingsView = nil
+        super.tearDown()
+    }
+    
+    func testExists() {
+        XCTAssertNotNil(settingsView)
+    }
+    
+    func testShare() {
+        let view = SettingsView().environmentObject(self.appSettings).environmentObject(store)
+        ViewHosting.host(view: view)
+        
+        do {
+            let actualView = try view.inspect()
+                .find(SettingsView.self)
+                .actualView()
+            let button = try view.inspect().find(button: "Share")
+            XCTAssertNotNil(button)
+        } catch {
+            print("Error: \(error)")
+        }
+    }
 }

@@ -4,11 +4,12 @@ import UIKit
 struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
-    @State private var showShareSheet: Bool = false
-    @State private var showTweet: Bool = false
-    @State private var userName: String?
-    @State private var showAlert = false
-    @State private var isSaveTranscript = false
+    @State public var showShareSheet: Bool = false
+    @State public var showTweet: Bool = false
+    @State public var userName: String?
+    @State public var showTranscriptAlert = false
+    @State public var isSaveTranscript = false
+    internal var didAppear: ((Self) -> Void)? // for ViewInspector testing purposes
 
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
@@ -18,6 +19,7 @@ struct SettingsView: View {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
         }
+        .onAppear { self.didAppear?(self) } // for ViewInspector testing purposes
         .actionSheet(isPresented: $appSettings.isOpened, content: actionSheet)
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: self.appUrl)!
@@ -28,7 +30,7 @@ struct SettingsView: View {
              let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
                 ActivityView(activityItems: [jsonString])
         }
-            .alert(isPresented: $showAlert) {
+        .alert(isPresented: $showTranscriptAlert) {
             Alert(title: Text(""),
                   message: Text("There is no transcript available to save."),
                   dismissButton: .default(Text("OK")))
@@ -42,12 +44,16 @@ struct SettingsView: View {
             }),
             .default(Text(getUserName())) { performSignIn() },
             .default(Text("Purchase")) { showPurchaseDialog() },
-            .default(Text("Share")) { self.showShareSheet = true },
+            .default(Text("Share")) { share() },
             .default(Text("Tweet")) { tweet() },
             .default(Text("System Settings")) { openSystemSettings() },
             .default(Text("Save Transcript")) { saveTranscript() }
             
         ])
+    }
+    
+    func share() {
+        self.showShareSheet = true
     }
     
     func tweet() {
@@ -109,7 +115,7 @@ struct SettingsView: View {
     
     func saveTranscript() {
         if SpeechRecognition.shared.conversation.isEmpty {
-            showAlert = true
+            showTranscriptAlert = true
             return
         }       
         isSaveTranscript = true
