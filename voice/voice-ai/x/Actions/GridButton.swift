@@ -200,7 +200,10 @@ struct PressEffectButtonStyle: ButtonStyle {
         // Below logic causing colorway to switch
 //        let isPressed = active || ((configuration?.isPressed) != nil)
         let isPressed = active || configuration.isPressed
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bfbc87 (progress + fix)
         
         if invertColors {
             return isPressed ? theme.buttonActiveColor : theme.fontActiveColor
