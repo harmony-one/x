@@ -29,13 +29,14 @@ class AudioPlayerTests: XCTestCase {
         XCTAssertNotNil(audioPlayer.timer, "Timer should not be nil when looping")
     }
 
-//    func testStopSound() {
-//        // Test stopping the sound
-//        audioPlayer.playSound(true, "beep")
-//        audioPlayer.stopSound()
-//        XCTAssertFalse(audioPlayer.audioPlayer!.isPlaying, "AudioPlayer should not be playing after stopping")
-//        XCTAssertNil(audioPlayer.timer, "Timer should be nil after stopping")
-//    }
+    func testStopSound() {
+        // Test stopping the sound
+        audioPlayer.playSound(true, "beep")
+        audioPlayer.stopSound()
+        
+        XCTAssertEqual(audioPlayer.audioPlayer!.isPlaying, false, "AudioPlayer should not be playing after stopping")
+        XCTAssertEqual(audioPlayer.timer?.isValid, false, "Timer should be invalid after stopping")
+    }
 
     func testPlaySoundWithDelay() {
         // Test playing sound with a delay
@@ -43,5 +44,11 @@ class AudioPlayerTests: XCTestCase {
         audioPlayer.playSoundWithDelay()
         XCTAssertEqual(audioPlayer.audioPlayer!.currentTime, 0, "AudioPlayer currentTime should be reset")
         XCTAssertTrue(audioPlayer.audioPlayer!.isPlaying, "AudioPlayer should be playing after delay")
+    }
+    
+    func testPlayOnexistentResource() {
+        audioPlayer.playSound(false, "onexistent resource")
+        
+        XCTAssertEqual(audioPlayer.audioPlayer, nil)
     }
 }
