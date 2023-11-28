@@ -198,6 +198,10 @@ struct ActionsView: View {
         return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
     }
     
+    func getLastButtonPressed() -> ActionType? {
+        return self.lastButtonPressed
+    }
+    
     func setLastButtonPressed (action: ActionType, event: EventType?) {
         if(event == .onStart) {
             self.lastButtonPressed = action
@@ -497,7 +501,7 @@ struct ActionsView: View {
     
     func showInAppPurchasesIfNotLoggedIn() {
         if KeychainService.shared.isAppleIdAvailable() == false || 
-            AppSettings.isDateStringInFuture(KeychainService.shared.retrieveExpirationDate() ?? "") == false {
+            KeychainService.shared.retrieveIsSubscriptionActive() {
             showPurchaseDiglog()
         }
     }

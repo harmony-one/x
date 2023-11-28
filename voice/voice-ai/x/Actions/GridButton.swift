@@ -184,7 +184,9 @@ struct PressEffectButtonStyle: ButtonStyle {
     // this is the only case as of now that uses self.active to determined the colors
     // all other buttons(including .speak) should be triggered through configuration.isPressed
 
-    private func determineBackgroundColor(configuration: Configuration) -> Color {
+    func determineBackgroundColor(configuration: Configuration) -> Color {
+        // Below logic causing colorway to switch
+//        let isPressed = active || ((configuration?.isPressed) != nil)
         let isPressed = active || configuration.isPressed
 
         if invertColors {
@@ -194,9 +196,12 @@ struct PressEffectButtonStyle: ButtonStyle {
         }
     }
 
-    private func determineForegroundColor(configuration: Configuration) -> Color {
-        let isPressed = active || configuration.isPressed
+    func determineForegroundColor(configuration: Configuration) -> Color {
+        // Below logic causing colorway to switch
+//        let isPressed = active || ((configuration?.isPressed) != nil)
+        let isPressed = active || configquration.isPressed
 
+        
         if invertColors {
             return isPressed ? theme.buttonActiveColor : theme.fontActiveColor
         } else {
