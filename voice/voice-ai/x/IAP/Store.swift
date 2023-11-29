@@ -38,7 +38,7 @@ class Store: ObservableObject {
         isPurchasing = true
         let result = try await product.purchase()
         switch result {
-        case .success(let transacitonVerification):
+        case let .success(transacitonVerification):
             await handle(transactionVerification: transacitonVerification)
         case .userCancelled:
             isPurchasing = false
@@ -61,17 +61,17 @@ class Store: ObservableObject {
         isPurchasing = false
         switch result {
         case let .verified(transaction):
-            guard let product = self.products.first(where: {
+            guard let product = products.first(where: {
                 $0.id == transaction.productID
             }) else {
                 return transaction
             }
 
             guard !transaction.isUpgraded else { return nil }
-  
+
             UserAPI().purchase(transactionId: String(transaction.id))
- 
-            self.addPurchased(product)
+
+            addPurchased(product)
 
             await transaction.finish()
 
@@ -84,7 +84,7 @@ class Store: ObservableObject {
     @MainActor
     private func updateCurrentEntitlements() async {
         for await result in Transaction.currentEntitlements {
-            if let transaction = await self.handle(transactionVerification: result) {
+            if let transaction = await handle(transactionVerification: result) {
                 entitlements.append(transaction)
             }
         }
@@ -94,7 +94,7 @@ class Store: ObservableObject {
         switch product.type {
         case .consumable:
             purchasedConsumables.append(product)
-         //   Persistence.updateBooster3DayPurchaseTime()
+        //   Persistence.updateBooster3DayPurchaseTime()
 //            Persistence.increaseConsumablesCount(creditsAmount: 500)
         case .nonConsumable:
             purchasedNonConsumables.insert(product)
