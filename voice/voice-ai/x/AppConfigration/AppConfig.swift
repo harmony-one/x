@@ -201,8 +201,8 @@ class AppConfig {
                 daysBetweenPrompts = days
             }
             
-            if let whiteLableListString = dictionary["WHITELIST"] as? [String] {
-                whiteLabelList = whiteLableListString
+            if let whiteLabelListString = dictionary["WHITELIST"] as? [String] {
+                whiteLabelList = whiteLabelListString
             }
         } catch {
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
@@ -251,7 +251,7 @@ class AppConfig {
         return relayBaseUrl
     }
     
-    func getwhiteLableListString() -> [String]? {
+    func getWhiteLabelListString() -> [String]? {
         return whiteLabelList
     }
     
