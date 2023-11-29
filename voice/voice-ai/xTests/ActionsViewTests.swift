@@ -225,7 +225,7 @@ class ActionsViewTests: XCTestCase {
         XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
         XCTAssertNotNil(viewButton)
     }
-    
+
     func testHandleOtherActions() async {
         await actionsView.handleOtherActions(actionType: .reset)
         // Test that the handleOtherActions function does not throw any errors

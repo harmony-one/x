@@ -1,3 +1,7 @@
+2023-11-27 Mon: Researched how to impliment component testing for liveliness check for GPT through app. Began implimenting testing in app.
+
+---
+
 2023-11-26 Sun: Tested app build to see if build issues from Friday were resolved. Ran a small feasability test through ChatGPT whisper. While the responses for debate partner could be good, the lack of recent information does limit the topic. Something like a more esoteric moral debate seems to work. Hallucinations make a fact based debate rather difficult. (In debate terms, a LD or old PF would work best). 
 
 2023-11-25 Sat: Migrated relevant private notes off of Notion pending my removal from Notion editing.

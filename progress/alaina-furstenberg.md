@@ -1,4 +1,4 @@
-2023-11-27 Mon:
+2023-11-27 Mon: Worked with Theo P to test ['golden paths' for YT shorts](https://harmonyone.notion.site/Voice-AI-Demo-Questions-276e9075c0904d4997c6645557d1b10b?pvs=4). VoiceAI was glitchy, not responding to queries, responding with irrelevant answers, making it difficult to film a cohesive short. Questions about Harmony protocol were also incorrect, tap to speak was delayed. I'm considering my older iphone may be causing issues, so I will refilm on my iPad.
 
 -----
 

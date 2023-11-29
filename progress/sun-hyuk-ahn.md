@@ -1,3 +1,5 @@
+2023-11-26 Tue: Benchmarked latencies for head vs subsequent, which came out ot 1.6s vs 1.3s (1hr session). The cause is due to the initial setup on the client (audio buffers and sockets) and server side (authorization).
+
 2023-11-25 Mon: Fixed color switch bug on new context. Implemented perceived latency on client side. Measured latency to be average of 1.4 second. Testing different chunking sizes to improve latency. 
 
 ---
