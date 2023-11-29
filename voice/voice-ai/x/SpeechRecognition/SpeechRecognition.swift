@@ -1,4 +1,5 @@
 import AVFoundation
+import Foundation
 import Combine
 import Sentry
 import Speech
@@ -33,7 +34,8 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
-    let preferredLanguage = Locale.preferredLanguages.first
+    let preferredLanguage = Locale.preferredLanguages[0]
+    let languageCode = NSLocale.current.localizedString(forLanguageCode: Locale.preferredLanguages[0])
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -486,7 +488,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 if feedback == true {
                     // Play the greeting text
-                    self.makeQuery("Say hey in the language: \(self.preferredLanguage)")
+//                    if let indexOfDash = self.languageCode.characters.indexOf("-") {
+//                        print("[Language] \(indexOfDash)")
+//                    }
+//                    print("[Language] \(self.preferredLanguage.characters.indexOf("-"))")
+//                    self.makeQuery("Say hey in the language: \(self.preferredLanguage)")
+                    let hey = getGreetingText(for: "ja")
+                    self.makeQuery("Say \(hey)")
 //                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
