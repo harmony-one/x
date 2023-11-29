@@ -279,4 +279,33 @@ class AppConfig {
     func getEnableTimeLoggerPrint() -> Bool {
         return enableTimeLoggerPrint ?? false
     }
+    
+    func checkApiLiveliness() {
+        guard let apiUrl = URL(string: (getRelayUrl() ?? <#default value#>) + "/health") else {
+            print("Invalid API URL")
+            // Handle invalid URlL case
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: apiUrl) { data, response, error in
+            if let error = error {
+                // API is not reachable
+                print("API Liveliness Check Failed: \(error.localizedDescription)")
+                // Trigger alert/notification
+                return
+            }
+
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                // API is live
+                print("API is live")
+            } else {
+                // API response is not as expected
+                print("API response is not as expected")
+                // Trigger alert/notification
+            }
+        }
+
+        task.resume()
+    }
+
 }
