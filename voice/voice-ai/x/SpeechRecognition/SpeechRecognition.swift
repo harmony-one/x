@@ -33,6 +33,7 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
+    let preferredLanguage = Locale.preferredLanguages.first
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -485,7 +486,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 if feedback == true {
                     // Play the greeting text
-                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                    self.makeQuery("Say hey in the language: \(self.preferredLanguage)")
+//                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
