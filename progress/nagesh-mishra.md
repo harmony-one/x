@@ -1,4 +1,6 @@
-2023-11-28 Mon: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
+2023-11-29 Wed: Implement Version Check and Alert System from the iOS side.
+
+2023-11-28 Tue: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
 
 ---
 2023-11-24 Fri: Merged & resolved conflicts : https://github.com/harmony-one/x/pull/253, https://github.com/harmony-one/x/pull/251, https://github.com/harmony-one/x/pull/181. Added review comments on PRs: https://github.com/harmony-one/x/pull/250, https://github.com/harmony-one/x/pull/248, https://github.com/harmony-one/x/pull/247.
