@@ -6,7 +6,14 @@ import StoreKit
 import SwiftUI
 import UIKit
 
-struct ActionsView: View {
+protocol ActionsViewProtocol {
+    func openSettingsApp()
+    func openPurchaseDialog()
+    func showInAppPurchasesIfNotLoggedIn()
+    func vibration()
+}
+ 
+struct ActionsView: View, ActionsViewProtocol {
     var actionHandler: ActionHandlerProtocol
     let config = AppConfig.shared
 
@@ -156,7 +163,7 @@ struct ActionsView: View {
 
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
                         print("App isShowIAPFromSignIn active")
-                        showPurchaseDiglog()
+                        openPurchaseDialog()
                         AppleSignInManager.shared.isShowIAPFromSignIn = false
                     }
                 case .inactive:
@@ -251,7 +258,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
@@ -268,7 +275,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         if button.pressedLabel != nil {
             // Press to Speak & Press to Send
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
@@ -280,11 +287,11 @@ struct ActionsView: View {
                self.vibration()
                self.tapToSpeakDebounceTimer?.invalidate()
 
-                if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
+                if String(actionHandler.isTapToSpeakActive()) != String(self.isTapToSpeakActive) {
                     self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
 
                         Task {
-                            if !actionHandler.isTapToSpeakActive {
+                            if !actionHandler.isTapToSpeakActive() {
                                 actionHandler.handle(actionType: ActionType.tapSpeak)
                             } else {
                                 actionHandler.handle(actionType: ActionType.tapStopSpeak)
@@ -325,7 +332,7 @@ struct ActionsView: View {
                         self.speakButtonDebounceTimer?.invalidate()
                         self.isSpeakButtonPressed = false
                         
-                        if actionHandler.isPressAndHoldActive {
+                        if actionHandler.isPressAndHoldActive() {
                             actionHandler.handle(actionType: ActionType.stopSpeak)
                         }
                     }
@@ -335,7 +342,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createActionButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createActionButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         if button.action == .openSettings {
@@ -424,7 +431,7 @@ struct ActionsView: View {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         switch button.action {
         case .speak:
             self.createSpeakButton(button: button, actionHandler: actionHandler)
@@ -450,7 +457,7 @@ struct ActionsView: View {
     func checkUserAuthentication() {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
-            showPurchaseDiglog()
+            openPurchaseDialog()
         } else {
             // User ID not found, prompt user to log in or register
             if let keyWindow = keyWindow {
@@ -459,7 +466,7 @@ struct ActionsView: View {
         }
     }
 
-    func showPurchaseDiglog() {
+    func openPurchaseDialog() {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
@@ -480,7 +487,7 @@ struct ActionsView: View {
     func showInAppPurchasesIfNotLoggedIn() {
         if KeychainService.shared.isAppleIdAvailable() == false || 
             KeychainService.shared.retrieveIsSubscriptionActive() {
-            showPurchaseDiglog()
+            openPurchaseDialog()
         }
     }
 }

@@ -7,6 +7,30 @@
 
 import Foundation
 
+
+class MockActionsView: ActionsViewProtocol {
+    var showOpenSetting: Bool = false
+    var showPurchaseDialog: Bool = false
+    var showInAppPurchases: Bool = false
+    var isVibrating: Bool = false
+    
+    func openSettingsApp() {
+        self.showOpenSetting = true
+    }
+    
+    func openPurchaseDialog() {
+        self.showPurchaseDialog = true
+    }
+    
+    func showInAppPurchasesIfNotLoggedIn() {
+        self.showInAppPurchases = true
+    }
+    
+    func vibration() {
+        self.isVibrating = true
+    }
+}
+
 class MockActionHandler: ActionHandlerProtocol {
     var handleCalled = false
     var isRecording = false
@@ -20,7 +44,6 @@ class MockActionHandler: ActionHandlerProtocol {
     var showOpenSettings = false
 
     func handle(actionType: ActionType) {
-        print("*********** handle ******")
         handleCalled = true
         switch actionType {
         case .reset:
@@ -39,6 +62,7 @@ class MockActionHandler: ActionHandlerProtocol {
             startRecording()
         case .tapSpeak:
             _isTapToSpeakActive = true
+            _isPressAndHoldActive = true
             startRecording()
         case .stopSpeak, .tapStopSpeak:
             _isPressAndHoldActive = false
