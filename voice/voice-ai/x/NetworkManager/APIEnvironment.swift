@@ -19,4 +19,11 @@ struct APIEnvironment {
     static func getUser(byAppleID id: String) -> String {
         return "users/appleId/\(id)"
     }
+    
+    static func getUserAppVersion() -> String {
+        guard let userid =  KeychainService.shared.retrieveUserid() else {
+            return ""
+        }
+        return "users/\(userid)/version"
+    }
 }

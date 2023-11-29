@@ -33,6 +33,7 @@ struct XApp: App {
                 ActionsView()
                     .environmentObject(store)
                     .environmentObject(appSettings)
+                    .environmentObject(VersionManager.shared)
                     .background(Color(hex: 0x1E1E1E).animation(.none))
                     .overlay {
                         SettingsView()

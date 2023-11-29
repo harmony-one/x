@@ -8,6 +8,7 @@ import UIKit
 
 struct ActionsView: View {
     let config = AppConfig.shared
+    @EnvironmentObject var versionManager: VersionManager
 
     @ObservedObject private var timerManager = TimerManager.shared
 
@@ -135,8 +136,12 @@ struct ActionsView: View {
                     if KeychainService.shared.isAppleIdAvailable() {
                         UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
                     }
+                    versionManager.checkForUpdates()
                 }
             )
+            .alert(isPresented: $versionManager.updateAvailable) {
+                versionManager.presentUpdateAlert()
+            }
             .edgesIgnoringSafeArea(.all)
             .onChange(of: scenePhase) { newPhase in
                 switch newPhase {
