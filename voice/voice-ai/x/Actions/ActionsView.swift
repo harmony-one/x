@@ -69,8 +69,9 @@ struct ActionsView: View, ActionsViewProtocol {
     let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
-    init(actionHandler: ActionHandlerProtocol) {
-        self.actionHandler = actionHandler
+    
+    init(actionHandler: ActionHandlerProtocol?) {
+        self.actionHandler = actionHandler ?? ActionHandler()
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
@@ -435,7 +436,10 @@ struct ActionsView: View, ActionsViewProtocol {
         switch button.action {
         case .speak:
             self.createSpeakButton(button: button, actionHandler: actionHandler)
-        case .openSettings,.play,.reset,.surprise:
+        case .openSettings,
+                .play,
+                .reset,
+                .surprise:
             self.createActionButton(button: button, actionHandler: actionHandler)
         default:
             self.createDefaultButton(button: button, actionHandler: actionHandler)
@@ -492,8 +496,8 @@ struct ActionsView: View, ActionsViewProtocol {
     }
 }
 
-// #Preview {
-//    NavigationView {
-//        ActionsView()
-//    }
-// }
+ #Preview {
+    NavigationView {
+        ActionsView(actionHandler: nil)
+    }
+ }
