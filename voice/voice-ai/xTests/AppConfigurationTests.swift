@@ -116,32 +116,32 @@ class TimerManagerTests: XCTestCase {
         XCTAssertNotNil(timerManager.timerCancellable)
     }
     
-    func testResetTimer() {
-        XCTAssertNil(timerManager.timerCancellable)
-        timerManager.resetTimer()
-        sleep(2)
-        XCTAssertNotNil(timerManager.timerCancellable)
-    }
-    
-//TODO: In TimerManager.swift, the timer is currently set to: TimeInterval = 10_000_000_000_000 for beta purpose and the duration for expectation should be much shorter. As that TODO is solved, modify this.
 //    func testResetTimer() {
 //        XCTAssertNil(timerManager.timerCancellable)
-//        
-//        var timerDidFireCalled = false
-//        let timerDidFireExpectation = expectation(description: "timerDidFire called")
-//
-//        NotificationCenter.default.addObserver(forName: .timerDidFireNotification, object: nil, queue: nil) { _ in
-//            timerDidFireCalled = true
-//            timerDidFireExpectation.fulfill()
-//        }
-//
 //        timerManager.resetTimer()
-//
-//        waitForExpectations(timeout: 5.0, handler: nil)
-//
+//        sleep(2)
 //        XCTAssertNotNil(timerManager.timerCancellable)
-//        XCTAssertTrue(timerDidFireCalled)
 //    }
+    
+//TODO: In TimerManager.swift, the timer is currently set to: TimeInterval = 10_000_000_000_000 for beta purpose and the duration for expectation should be much shorter. As that TODO is solved, modify this.
+    func testResetTimer() {
+        XCTAssertNil(timerManager.timerCancellable)
+        
+        var timerDidFireCalled = false
+        let timerDidFireExpectation = expectation(description: "timerDidFire called")
+
+        NotificationCenter.default.addObserver(forName: .timerDidFireNotification, object: nil, queue: nil) { _ in
+            timerDidFireCalled = true
+            timerDidFireExpectation.fulfill()
+        }
+
+        timerManager.resetTimer()
+
+        waitForExpectations(timeout: 5.0, handler: nil)
+
+        XCTAssertNotNil(timerManager.timerCancellable)
+        XCTAssertTrue(timerDidFireCalled)
+    }
     
     func testStopTimer() {
         XCTAssertNil(timerManager.timerCancellable)
@@ -218,6 +218,18 @@ class SettingsBundleHelperTests: XCTestCase {
 
 
 class RelayAuthTests: XCTestCase {
+    
+    var relayAuth: RelayAuth!
+    
+    override func setUp() {
+        super.setUp()
+        relayAuth = RelayAuth.shared
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+    }
+
 }
 
 
