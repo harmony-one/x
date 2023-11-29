@@ -158,12 +158,12 @@ class ActionsViewTests: XCTestCase {
                 mockActionsView.vibration()
                 mockActionHandler.handle(actionType: actionType)
                 XCTAssertTrue(mockActionHandler.isPressAndHoldActive(), "Action .tapSpeak press and hold active")
-                XCTAssertTrue(mockActionHandler._isTapToSpeakActive, "Action .tapSpeak tap to speak active")
+                XCTAssertTrue(mockActionHandler.isTapToSpeakActive(), "Action .tapSpeak tap to speak active")
                 XCTAssertTrue(mockActionHandler.isRecording, "Start recording")
                 actionType = .stopSpeak
                 mockActionHandler.handle(actionType: actionType)
                 XCTAssertFalse(mockActionHandler.isPressAndHoldActive(), "Action .stopSpeak press and hold inactive")
-                XCTAssertFalse(mockActionHandler._isTapToSpeakActive, "Action .stopSpeak called")
+                XCTAssertFalse(mockActionHandler.isTapToSpeakActive(), "Action .stopSpeak called")
                 XCTAssertFalse(mockActionHandler.isRecording, "Stop recording")
                 XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
             }

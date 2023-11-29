@@ -36,8 +36,8 @@ class MockActionHandler: ActionHandlerProtocol {
     var isRecording = false
     var showUserGuide = false
     var resetCalled = false
-    var _isPressAndHoldActive = false
-    var _isTapToSpeakActive = false
+    private var _isPressAndHoldActive = false
+    private var _isTapToSpeakActive = false
     var isRepeated = false
     var isPlayed: Bool = false
     var isSurprised = false
@@ -51,7 +51,6 @@ class MockActionHandler: ActionHandlerProtocol {
             print("reset")
             // resetThrottler.send()
         case .surprise:
-            print("*********** suprise ******")
             isSurprised = true
         case .play:
             isPlayed = true

@@ -112,6 +112,7 @@
 		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
+		B3582D7F2B17A425006D8879 /* MockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */; };
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
@@ -1233,6 +1234,7 @@
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
+				B3582D7F2B17A425006D8879 /* MockActionHandler.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */,
 				B9CE36EA2AFD0365009999CF /* TimerManager.swift in Sources */,
