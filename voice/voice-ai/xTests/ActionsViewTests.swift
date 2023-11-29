@@ -157,13 +157,13 @@ class ActionsViewTests: XCTestCase {
                 actionType = .tapSpeak
                 mockActionsView.vibration()
                 mockActionHandler.handle(actionType: actionType)
-                XCTAssertTrue(mockActionHandler.isPressAndHoldActive(), "Action .tapSpeak press and hold active")
-                XCTAssertTrue(mockActionHandler.isTapToSpeakActive(), "Action .tapSpeak tap to speak active")
+                XCTAssertTrue(mockActionHandler.isPressAndHoldActive, "Action .tapSpeak press and hold active")
+                XCTAssertTrue(mockActionHandler.isTapToSpeakActive, "Action .tapSpeak tap to speak active")
                 XCTAssertTrue(mockActionHandler.isRecording, "Start recording")
                 actionType = .stopSpeak
                 mockActionHandler.handle(actionType: actionType)
-                XCTAssertFalse(mockActionHandler.isPressAndHoldActive(), "Action .stopSpeak press and hold inactive")
-                XCTAssertFalse(mockActionHandler.isTapToSpeakActive(), "Action .stopSpeak called")
+                XCTAssertFalse(mockActionHandler.isPressAndHoldActive, "Action .stopSpeak press and hold inactive")
+                XCTAssertFalse(mockActionHandler.isTapToSpeakActive, "Action .stopSpeak called")
                 XCTAssertFalse(mockActionHandler.isRecording, "Stop recording")
                 XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
             }
@@ -176,13 +176,13 @@ class ActionsViewTests: XCTestCase {
             if (event == .onStart) {
                 actionsView.setLastButtonPressed(action: actionType, event: event)
                 mockActionHandler.handle(actionType: actionType)
-                XCTAssertTrue(mockActionHandler.isPressAndHoldActive(), "Action .speak press and hold active")
+                XCTAssertTrue(mockActionHandler.isPressAndHoldActive, "Action .speak press and hold active")
                 XCTAssertTrue(mockActionHandler.isRecording, "Start recording")
             } else if (event == .onEnd) {
                 actionsView.setLastButtonPressed(action: actionType, event: event)
                 actionType = .stopSpeak
                 mockActionHandler.handle(actionType: actionType)
-                XCTAssertFalse(mockActionHandler.isPressAndHoldActive(), "Action .stopSpeak press and hold inactive")
+                XCTAssertFalse(mockActionHandler.isPressAndHoldActive, "Action .stopSpeak press and hold inactive")
                 XCTAssertFalse(mockActionHandler.isRecording, "Stop recording")
             }
         }
