@@ -1,3 +1,5 @@
+2023-11-28 Tue: Worked on Timer Manager tests (90%) [https://github.com/harmony-one/x/pull/280] and RelayAuth tests. Investigated how to make some functions (surprise, etc) available in other languages.
+
 2023-11-27 Mon: Raised the overall app test coverage from 61% to 74%. Worked on SpeechRecognition Tests [https://github.com/harmony-one/x/pull/272], raised its coverage from 40% to 90%. Investigating bugs for the SurpriseMe function when using the app in another language and updating Network Manager tests.
 
 ---
