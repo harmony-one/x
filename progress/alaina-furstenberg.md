@@ -1,3 +1,9 @@
+2023-11-30 Thu:
+
+2023-11-29 Wed: Wrote [Twitter thread](https://x.com/harmonyprotocol/status/1729942794612150510?s=20) promoting 'More Actions'. Filmed demos for Youtube shorts, but noticed VoiceAI was still not working on my iPhone11. Sent all my demos to eng team to understand the bugs. I attempted to record one in Spanish, but Apple's text to speech did not provide an impressive response. Installed local version on my iPhone & continued testing. 
+
+2023-11-28 Tue: Resolving image to image issues on ONE Bot with engineering team, ONE Bot was auto refunding payments. Wrote a twitter thread on image to image generation that will be published following the fix. Did a user testing session with Rika, found that users would appreciate if ONE Bot could teach them how to use the app. Currently, the app says it can handle tasks like "managing calendars and setting reminders" which isn't true. 
+
 2023-11-27 Mon: Worked with Theo P to test ['golden paths' for YT shorts](https://harmonyone.notion.site/Voice-AI-Demo-Questions-276e9075c0904d4997c6645557d1b10b?pvs=4). VoiceAI was glitchy, not responding to queries, responding with irrelevant answers, making it difficult to film a cohesive short. Questions about Harmony protocol were also incorrect, tap to speak was delayed. I'm considering my older iphone may be causing issues, so I will refilm on my iPad.
 
 -----
