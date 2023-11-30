@@ -35,14 +35,23 @@ struct ButtonData: Identifiable {
     }
 }
 
-protocol ActionHandlerProtocol: ObservableObject {
+protocol ActionHandlerProtocol {
+
+    var isSynthesizing: Bool { get }
+    var isSynthesizingPublished: Published<Bool> { get }
+    var isSynthesizingPublisher: Published<Bool>.Publisher { get }
+    
+    var isRecording: Bool { get }
+    var isRecordingPublished: Published<Bool> { get }
+    var isRecordingPublisher: Published<Bool>.Publisher { get }
+    
     var isTapToSpeakActive: Bool { get }
-    var isTapToSpeakActivePublised: Published<Bool> { get }
-    var isTapToSpeakActivePubliser: Published<Bool>.Publisher { get }
+    var isTapToSpeakActivePublished: Published<Bool> { get }
+    var isTapToSpeakActivePublisher: Published<Bool>.Publisher { get }
     
     var isPressAndHoldActive: Bool { get }
-    var isPressAndHoldActivePublised: Published<Bool> { get }
-    var isPressAndHoldActivePubliser: Published<Bool>.Publisher { get }
+    var isPressAndHoldActivePublished: Published<Bool> { get }
+    var isPressAndHoldActivePublisher: Published<Bool>.Publisher { get }
     
     func reset()
     func syncTapToSpeakState(_ actionType: ActionType)
@@ -54,16 +63,21 @@ protocol ActionHandlerProtocol: ObservableObject {
 
 class ActionHandler: ActionHandlerProtocol, ObservableObject {
     @Published var isSynthesizing: Bool = false
+    var isSynthesizingPublished: Published<Bool> { _isSynthesizing }
+    var isSynthesizingPublisher: Published<Bool>.Publisher { $isSynthesizing }
+    
     @Published var isRecording: Bool = false
+    var isRecordingPublished: Published<Bool> { _isRecording }
+    var isRecordingPublisher: Published<Bool>.Publisher { $isRecording }
     
-    @Published private(set) var isPressAndHoldActive = false
-    var isPressAndHoldActivePublised: Published<Bool> { _isPressAndHoldActive }
-    var isPressAndHoldActivePubliser: Published<Bool>.Publisher { $isPressAndHoldActive }
+    @Published var isTapToSpeakActive: Bool = false
+    var isTapToSpeakActivePublished: Published<Bool> { _isTapToSpeakActive }
+    var isTapToSpeakActivePublisher: Published<Bool>.Publisher { $isTapToSpeakActive }
+    
+    @Published var isPressAndHoldActive: Bool = false
+    var isPressAndHoldActivePublished: Published<Bool> { _isPressAndHoldActive }
+    var isPressAndHoldActivePublisher: Published<Bool>.Publisher { $isPressAndHoldActive }
 
-    @Published private(set) var isTapToSpeakActive = false
-    var isTapToSpeakActivePublised: Published<Bool> { _isTapToSpeakActive }
-    var isTapToSpeakActivePubliser: Published<Bool>.Publisher { $isTapToSpeakActive }
-    
     private var lastRecordingStateChangeTime: Int64 = 0
 
     var resetThrottler = PassthroughSubject<Void, Never>()

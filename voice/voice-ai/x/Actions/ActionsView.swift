@@ -12,9 +12,11 @@ protocol ActionsViewProtocol {
     func showInAppPurchasesIfNotLoggedIn()
     func vibration()
 }
- 
-struct ActionsView: View, ActionsViewProtocol {
-    var actionHandler: any ActionHandlerProtocol
+// ActionsViewProtocol,
+struct ActionsView: View {
+    
+    @StateObject var actionHandler: ActionHandler
+    
     let config = AppConfig.shared
 
     @ObservedObject private var timerManager = TimerManager.shared
@@ -69,8 +71,9 @@ struct ActionsView: View, ActionsViewProtocol {
     let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
-    init(actionHandler: (any ActionHandlerProtocol)?) {
-        self.actionHandler = actionHandler ?? ActionHandler()
+    init(actionHandler: ActionHandlerProtocol? = nil) {
+        _actionHandler = StateObject(wrappedValue: actionHandler as? ActionHandler ?? ActionHandler())
+
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
@@ -138,7 +141,7 @@ struct ActionsView: View, ActionsViewProtocol {
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
-
+                    
                     // This is simply to confirm and retrieve the userID. While the keychain contains the Apple ID, it lacks the server's user ID.
                     if KeychainService.shared.isAppleIdAvailable() {
                         UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
@@ -160,7 +163,7 @@ struct ActionsView: View, ActionsViewProtocol {
                         .compactMap { $0 as? UIWindowScene }
                         .first?.windows
                         .filter { $0.isKeyWindow }.first
-
+                    
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
                         print("App isShowIAPFromSignIn active")
                         openPurchaseDialog()
@@ -175,18 +178,18 @@ struct ActionsView: View, ActionsViewProtocol {
                     break
                 }
             }
-//            .alert(isPresented: $showShareAlert) {
-//                Alert(
-//                    title: Text("Share the app with friends?"),
-//                    message: Text("Send the link: x.country/app"),
-//                    primaryButton: .default(Text("Sure!")) {
-//                        showShareSheet = true
-//                    },
-//                    secondaryButton: .default(Text("Cancel")) {
-//                        showShareAlert = false
-//                    }
-//                )
-//            }
+        //            .alert(isPresented: $showShareAlert) {
+        //                Alert(
+        //                    title: Text("Share the app with friends?"),
+        //                    message: Text("Send the link: x.country/app"),
+        //                    primaryButton: .default(Text("Sure!")) {
+        //                        showShareSheet = true
+        //                    },
+        //                    secondaryButton: .default(Text("Cancel")) {
+        //                        showShareAlert = false
+        //                    }
+        //                )
+        //            }
 
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
@@ -258,7 +261,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
     
     @ViewBuilder
-    private func createDefaultButton(button: ButtonData, actionHandler: any ActionHandlerProtocol) -> some View {
+    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
@@ -275,7 +278,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
     
     @ViewBuilder
-    private func createSpeakButton(button: ButtonData, actionHandler: any ActionHandlerProtocol) -> some View {
+    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         if button.pressedLabel != nil {
             // Press to Speak & Press to Send
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
@@ -342,7 +345,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
     
     @ViewBuilder
-    private func createActionButton(button: ButtonData, actionHandler: any ActionHandlerProtocol) -> some View {
+    private func createActionButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         if button.action == .openSettings {
@@ -431,7 +434,7 @@ struct ActionsView: View, ActionsViewProtocol {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData, actionHandler: any ActionHandlerProtocol) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         switch button.action {
         case .speak:
             self.createSpeakButton(button: button, actionHandler: actionHandler)
@@ -497,6 +500,6 @@ struct ActionsView: View, ActionsViewProtocol {
 
  #Preview {
     NavigationView {
-        ActionsView(actionHandler: nil)
+        ActionsView() // actionHandler: nil)
     }
  }

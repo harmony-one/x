@@ -7,7 +7,7 @@ import SwiftUI
 struct XApp: App {
     @StateObject var store = Store()
     @StateObject var appSettings = AppSettings()
-    @StateObject var actionHandler: ActionHandler = .init()
+    var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
     init() {
         // Initialize ReviewRequester with values from AppConfig
