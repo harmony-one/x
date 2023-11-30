@@ -65,6 +65,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
     private let letMeKnowText = getLetMeKnowText(for: "ja") ?? "Let me know what to say more about!"
     private let networkErrorText = getNetworkErrorText(for: "ja") ?? "No network conditions."
+    private let limitReachedText = getLimitReachedText(for: "ja") ?? "You have reached your limit, please wait 10 minutes"
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -771,7 +772,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isTimerDidFired = true
         
         DispatchQueue.main.async {
-            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait 10 minutes")
+            self.textToSpeechConverter.convertTextToSpeech(text: self.limitReachedText)
         }
     }
 }
