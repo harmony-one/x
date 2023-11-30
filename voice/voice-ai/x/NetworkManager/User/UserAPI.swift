@@ -106,6 +106,7 @@ struct UserAPI {
     }
     
     func deleteUserAccount(apiKey: String, completion: @escaping (Bool) -> Void) {
+        print("[UserAPI][deleteUserAccount] Deleting \(APIEnvironment.getUser())")
         NetworkManager.shared.requestData(from: APIEnvironment.getUser(), method: .delete, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):

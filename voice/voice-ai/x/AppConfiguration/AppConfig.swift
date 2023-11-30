@@ -25,6 +25,8 @@ class AppConfig {
     private var whiteLabelList: [String]?
     private var serverAPIKey: String?
     
+    private var paymentMode: String?
+    
     var themeName: String?
     
     init() {
@@ -191,6 +193,7 @@ class AppConfig {
             openaiKey = dictionary["API_KEY"] as? String
             openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
             serverAPIKey = dictionary["SERVER_API_KEY"] as? String
+            paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
@@ -284,5 +287,9 @@ class AppConfig {
     
     func getServerAPIKey() -> String? {
         return serverAPIKey
+    }
+    
+    func getPaymentMode() -> String? {
+        return paymentMode
     }
 }
