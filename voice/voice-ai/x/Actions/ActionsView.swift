@@ -10,8 +10,6 @@ struct ActionsView: View {
     let config = AppConfig.shared
     @EnvironmentObject var versionManager: VersionManager
 
-    @ObservedObject private var timerManager = TimerManager.shared
-
     @State var currentTheme: Theme = .init()
 
     // var dismissAction: () -> Void
