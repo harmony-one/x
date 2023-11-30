@@ -104,4 +104,26 @@ struct UserAPI {
             }
         }
     }
+    
+    func deleteUserAccount(apiKey: String, completion: @escaping (Bool) -> Void) {
+        NetworkManager.shared.requestData(from: APIEnvironment.getUser(), method: .delete, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
+            switch result {
+            case let .success(response):
+                // Handle successful response
+                if response.statusCode == 200 {
+                    // Call completion with true since the process is successful
+                    SentrySDK.capture(message: "[UserAPI][DeleteAccount] Success")
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            case let .failure(error):
+                // Handle error
+                print("Error: \(error)")
+                SentrySDK.capture(message: "[UserAPI][DeleteAccount] Error: \(error)")
+                // Call completion with false since the process failed
+                completion(false)
+            }
+        }
+    }
 }
