@@ -9,9 +9,11 @@ import SwiftUI
 
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
+    var store: Store!
+    var appSettings: AppSettings!
     
     var mockActionsView: MockActionsView!
-    var mockActionHandler: MockActionHandler = MockActionHandler()
+    var mockActionHandler: MockActionHandler!
 
     let eventOptions: [EventType?] = [.onStart, .onEnd, nil]
     
@@ -25,10 +27,14 @@ class ActionsViewTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-
+        store = Store()
+        appSettings = AppSettings()
+        mockActionHandler = MockActionHandler()
         mockActionsView = MockActionsView()
         // Initialize actionsView with the mockActionHandler
-        actionsView = .init(actionHandler: mockActionHandler)
+        actionsView = ActionsView(actionHandler: mockActionHandler)
+            .environmentObject(store)
+            .environmentObject(appSettings) as? ActionsView
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -99,7 +105,6 @@ class ActionsViewTests: XCTestCase {
         return eventOptions.randomElement()!
     }
 
-   
     func testViewButtonPlay () {
         let actionType: ActionType = .play
         
@@ -243,4 +248,6 @@ class ActionsViewTests: XCTestCase {
         actionsView.checkUserAuthentication()
         // Test that the checkUserAuthentication function does not throw any errors
     }
+    
+    
 }

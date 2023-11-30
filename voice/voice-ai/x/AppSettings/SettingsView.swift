@@ -128,3 +128,4 @@ struct SettingsView: View {
         return transcript
     }
 }
+

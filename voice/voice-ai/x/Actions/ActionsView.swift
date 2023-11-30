@@ -12,8 +12,8 @@ protocol ActionsViewProtocol {
     func showInAppPurchasesIfNotLoggedIn()
     func vibration()
 }
-// ActionsViewProtocol,
-struct ActionsView: View {
+
+struct ActionsView: ActionsViewProtocol, View {
     
     @StateObject var actionHandler: ActionHandler
     
@@ -497,6 +497,7 @@ struct ActionsView: View {
         }
     }
 }
+
 
  #Preview {
     NavigationView {
