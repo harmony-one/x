@@ -2,6 +2,25 @@ import SwiftUI
 import UIKit
 import Sentry
 
+struct PurchaseOptionsView: View {
+    var showPurchaseDialog: () -> Void
+    var performSignIn: () -> Void
+    var showDeleteAccountAlert: Binding<Bool>
+    var dismiss: () -> Void
+
+    var body: some View {
+        NavigationView {
+            List {
+                Button("Pay $5 via Apple", action: showPurchaseDialog)
+                Button("Restore purchase", action: { /* Add logic for restoring purchase */ })
+                Button("Sign-in account", action: performSignIn)
+                Button("Delete account", action: { showDeleteAccountAlert.wrappedValue = true })
+            }
+            .navigationBarTitle(Text("Purchase Options"), displayMode: .inline)
+        }
+    }
+}
+
 struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
@@ -11,6 +30,7 @@ struct SettingsView: View {
     @State private var showAlert = false
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
+    @State private var showPurchaseOptionsModal = false
 
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
@@ -25,6 +45,14 @@ struct SettingsView: View {
             let url = URL(string: self.appUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
             ActivityView(activityItems: [shareLink.title, shareLink.url])
+        }
+        .sheet(isPresented: $showPurchaseOptionsModal) {
+            PurchaseOptionsView(
+                showPurchaseDialog: showPurchaseDialog,
+                performSignIn: performSignIn,
+                showDeleteAccountAlert: $showDeleteAccountAlert,
+                dismiss: { self.showPurchaseOptionsModal = false }
+            )
         }
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
              let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
@@ -49,19 +77,29 @@ struct SettingsView: View {
     }
     
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Select an Option"), buttons: [
+        return ActionSheet(title: Text(""), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text(getUserName())) { performSignIn() },
-            .default(Text("Purchase")) { showPurchaseDialog() },
-            .default(Text("Share")) { self.showShareSheet = true },
-            .default(Text("Tweet")) { tweet() },
+            .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+            .default(Text("Tweet Feedback")) { tweet() },
+            .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Save Transcript")) { saveTranscript() },
-            .default(Text("Delete Account")) { self.showDeleteAccountAlert = true }
+            .default(Text("Purchase premium")) { self.showPurchaseOptionsModal = true }
         ])
     }
+
+    // TODO: Summon purchaseOptionsActionSheet with Purchase premium option
+//    func purchaseOptionsActionSheet() -> ActionSheet {
+//        return ActionSheet(title: Text(""), buttons: [
+//           .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
+//           .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+//           .default(Text("Sign-in account")) { performSignIn() },
+//           .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+//           .cancel()
+//        ])
+//    }
     
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
@@ -162,4 +200,3 @@ struct SettingsView: View {
         }
     }
 }
-
