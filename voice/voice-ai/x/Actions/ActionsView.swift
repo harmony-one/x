@@ -9,8 +9,6 @@ import UIKit
 struct ActionsView: View {
     let config = AppConfig.shared
 
-    @ObservedObject private var timerManager = TimerManager.shared
-
     @State var currentTheme: Theme = .init()
 
     // var dismissAction: () -> Void
