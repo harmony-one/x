@@ -1,3 +1,5 @@
+2023-11-30 Thu: [added](https://github.com/harmony-one/x-payments-backend/commit/5cb2a46900171b8fd05c2c833ffd4f1416a7982c) appVersion to user account in VoiceAI payments service, implemented new endpoint `/users/update`.
+
 2023-11-29 Wed: Updated [backend](https://x-payments-api.fly.dev/api) to support production in-App Purchase handling; [launched](https://x-payments-api-sandbox.fly.dev/api) second backend instance to support sandbox in-App purchases for TestFlight build. Working on adding app version control in user account on backend side (request from Nagesh).
 
 2023-11-28 Tue: started working on SettingsView unit tests, [PR#281](https://github.com/harmony-one/x/pull/281/files)
