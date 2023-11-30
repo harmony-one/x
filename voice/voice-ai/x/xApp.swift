@@ -23,6 +23,12 @@ struct XApp: App {
         SentrySDK.start { options in
             options.dsn = sentryDSN
             options.enableUIViewControllerTracing = true
+            
+            // Example uniform sample rate: capture 100% of transactions
+            // In Production you will probably want a smaller number such as 0.5 for 50%
+            options.tracesSampleRate = 1.0
+
+            
         }
     }
 
