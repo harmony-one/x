@@ -1,3 +1,5 @@
+2023-11-30 Thu: Add account deletion feature with API integration and keychain clearance PR: https://github.com/harmony-one/x/pull/287. Fixed missing files in master PR: https://github.com/harmony-one/x/pull/288.
+
 2023-11-29 Wed: Implement Version Check and Alert System from the iOS side.
 
 2023-11-28 Tue: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
