@@ -62,7 +62,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isRepeatingCurrentSession = false
 
     private let greetingText = getGreetingText(for: "ja") ?? "Hey"
-    private let sayMoreText = "Tell me more."
+    private let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
+    private let networkErrorText = getNetworkErrorText(for: "ja") ?? "No network conditions."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -409,7 +410,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "No network conditions.")
+                textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText)
             }
         }
         handleQuery(retryCount: maxRetry)
@@ -636,8 +637,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
 
             // Make the query for more information on a background thread
-            let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
-            self.makeQuery(sayMoreText)
+            self.makeQuery(self.sayMoreText)
         }
     }
 
