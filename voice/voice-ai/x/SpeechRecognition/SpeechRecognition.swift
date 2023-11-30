@@ -63,6 +63,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     private let greetingText = getGreetingText(for: "ja") ?? "Hey"
     private let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
+    private let letMeKnowText = getLetMeKnowText(for: "ja") ?? "Let me know what to say more about!"
     private let networkErrorText = getNetworkErrorText(for: "ja") ?? "No network conditions."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
@@ -631,7 +632,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // If there's no previous conversation, request the user to provide context
                 DispatchQueue.main.async {
                     self.registerTTS()
-                    self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.letMeKnowText)
                 }
                 return
             }

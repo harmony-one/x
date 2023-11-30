@@ -280,6 +280,10 @@
 		F76D13B62B180B1B0018F89B /* NetworkErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */; };
 		F76D13B72B180B1B0018F89B /* NetworkErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */; };
 		F76D13B82B180B1B0018F89B /* NetworkErrorText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */; };
+		F76D13BA2B180D7C0018F89B /* LetMeKnowText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */; };
+		F76D13BB2B180D7C0018F89B /* LetMeKnowText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */; };
+		F76D13BC2B180D7C0018F89B /* LetMeKnowText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */; };
+		F76D13BD2B180D7C0018F89B /* LetMeKnowText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -427,6 +431,7 @@
 		F76D13AA2B17F1CA0018F89B /* GreetingText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingText.swift; sourceTree = "<group>"; };
 		F76D13AF2B1805580018F89B /* SayMoreText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayMoreText.swift; sourceTree = "<group>"; };
 		F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorText.swift; sourceTree = "<group>"; };
+		F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetMeKnowText.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -682,6 +687,7 @@
 				F76D13AA2B17F1CA0018F89B /* GreetingText.swift */,
 				F76D13AF2B1805580018F89B /* SayMoreText.swift */,
 				F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */,
+				F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */,
 			);
 			path = SpeechRecognition;
 			sourceTree = "<group>";
@@ -1195,6 +1201,7 @@
 				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				F76D13B82B180B1B0018F89B /* NetworkErrorText.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
+				F76D13BD2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */,
@@ -1236,6 +1243,7 @@
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
 				B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
+				F76D13BA2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				B985BEFD2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
 				B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */,
 				B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */,
@@ -1305,6 +1313,7 @@
 				A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */,
 				B9A3ADF02B15CD3500C5FC66 /* ActivityViewTests.swift in Sources */,
 				6E53AF522AF012A40022A8F2 /* Font.swift in Sources */,
+				F76D13BB2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				F7F1150C2AF8173300BC191C /* DashboardTests.swift in Sources */,
 				6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */,
 				F7F115062AF8173300BC191C /* ExtensionTests.swift in Sources */,
@@ -1380,6 +1389,7 @@
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E53AF4F2AF012950022A8F2 /* AppConfig.swift in Sources */,
 				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
+				F76D13BC2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */,
 				6E53AF552AF012A50022A8F2 /* Color.swift in Sources */,
 				6EC2F6362B068508002EFADD /* CreateUser.swift in Sources */,

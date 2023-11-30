@@ -187,6 +187,6 @@ let networkErrorText: [String: String] = [
     "yo": "Kò sí ẹ̀tọ́ ọrọ́ àpapọ́ nínú àwọn nẹ́tíwọ̀kì.",
     "za": "没有网络条件。",
     "zh": "没有网络条件。",
-    "zu": "Akekhona izimo zethu zomthandazo.",
+    "zu": "Akekhona izimo zethu zomthandazo."
 ]
 
