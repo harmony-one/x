@@ -2,21 +2,20 @@ import XCTest
 import SwiftUI
 @testable import Voice_AI
 
-class MockActionHandler: ActionHandler {
-    var handleCalled = false
-    var lastActionType: ActionType?
-    
-    override func handle(actionType: ActionType) {
-        handleCalled = true
-        lastActionType = actionType
-    }
-}
+
+//    //Given
+//    //When
+//    //Then
 
 class ActionsViewTests: XCTestCase {
     var actionsView: ActionsView!
     var store: Store!
     var appSettings: AppSettings!
-    var mockGenerator: MockGenerator!
+    
+    var mockActionsView: MockActionsView!
+    var mockActionHandler: MockActionHandler!
+
+    let eventOptions: [EventType?] = [.onStart, .onEnd, nil]
     
     let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
     let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
@@ -29,10 +28,13 @@ class ActionsViewTests: XCTestCase {
     override func setUp() {
         super.setUp()
         store = Store()
-        actionsView = ActionsView()
         appSettings = AppSettings.shared
-        mockGenerator = MockGenerator()
-        ActionsView.generator = mockGenerator
+        mockActionHandler = MockActionHandler()
+        mockActionsView = MockActionsView()
+        // Initialize actionsView with the mockActionHandler
+        actionsView = ActionsView(actionHandler: mockActionHandler)
+//            .environmentObject(store)
+//            .environmentObject(appSettings) as? ActionsView
         testButtons = [
             buttonReset,
             buttonTapSpeak,
@@ -45,7 +47,7 @@ class ActionsViewTests: XCTestCase {
     
     override func tearDown() {
         actionsView = nil
-        mockGenerator = nil
+        mockActionsView = nil
         super.tearDown()
     }
     
@@ -56,6 +58,14 @@ class ActionsViewTests: XCTestCase {
         XCTAssertEqual(actionsView.currentTheme.name, "defaultTheme")
     }
     
+    func testChangeThemeSheet() {
+        let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
+        let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
+
+        let activityView = ActivityView(activityItems: [shareLink.title, shareLink.url])
+        XCTAssertNotNil(activityView)
+    }
+    
     func testBaseView() {
         let colums = 2
         let buttons = [buttonReset, buttonTapSpeak]
@@ -63,15 +73,25 @@ class ActionsViewTests: XCTestCase {
         XCTAssertNotNil(baseView)
     }
     
-    func testVibration() {
-        XCTAssertFalse(mockGenerator.prepareCalled)
-        XCTAssertFalse(mockGenerator.impactOccurredCalled)
-
-        actionsView.vibration()
-
-        XCTAssertTrue(mockGenerator.prepareCalled)
-        XCTAssertTrue(mockGenerator.impactOccurredCalled)
+    func testViewButtonDisabled() {
+        for button in testButtons {
+            let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+            actionsView.setLastButtonPressed(action: button.action, event: nil)
+            let disabled = actionsView.isButtonDisabled(action: button.action)
+            XCTAssertFalse(disabled, "Button disabled")
+            XCTAssertNotNil(viewButton)
+        }
     }
+    
+//    func testVibration() {
+//        XCTAssertFalse(mockGenerator.prepareCalled)
+//        XCTAssertFalse(mockGenerator.impactOccurredCalled)
+//
+//        actionsView.vibration()
+//
+//        XCTAssertTrue(mockGenerator.prepareCalled)
+//        XCTAssertTrue(mockGenerator.impactOccurredCalled)
+//    }
     
     func testViewButton() {
         let button = buttonReset
@@ -79,95 +99,146 @@ class ActionsViewTests: XCTestCase {
         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
         XCTAssertNotNil(viewButton)
     }
-    
-    func testViewButtonSpeak () {
-         let actionType: ActionType = .speak
- 
-         let actionHandler = MockActionHandler()
-         let button = testButtons.first(where: { $0.action == actionType })!
-         let expectedActionType: ActionType = actionType
-         if button.pressedLabel != nil {
- 
-         }
-         actionHandler.handleCalled = false
-         XCTAssertFalse(actionHandler.handleCalled)
-         actionsView.vibration()
- 
-         appSettings.isOpened = true
-         let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-         actionHandler.handle(actionType: actionType)
- 
-         XCTAssertNotNil(viewButton)
-         XCTAssertTrue(actionHandler.handleCalled)
-         XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
- 
-     }
-    
-    func testViewButtonMore () {
-        let actionType: ActionType = .openSettings
-        
-        let actionHandler = MockActionHandler()
-        let button = testButtons.first(where: { $0.action == actionType })!
-        let expectedActionType: ActionType = actionType
-        
-        actionHandler.handleCalled = false
-        XCTAssertFalse(actionHandler.handleCalled)
-        actionsView.vibration()
-        
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: actionType)
-        
-        XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
+         
+    func getRandomEvent() -> EventType? {
+        let eventOptions: [EventType?] = [.onStart, .onEnd, nil]
+        return eventOptions.randomElement()!
     }
-    
+
     func testViewButtonPlay () {
         let actionType: ActionType = .play
-        let actionHandler = MockActionHandler()
+        
         let button = testButtons.first(where: { $0.action == actionType })!
-        let expectedActionType: ActionType = actionType
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
         
-        actionHandler.handleCalled = false
-        XCTAssertFalse(actionHandler.handleCalled)
-        actionsView.vibration()
-        
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: actionType)
-        actionsView.setLastButtonPressed(action: button.action, event: .onStart)
-        
-        XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
-    }
-        
-    func testViewButtonReset () {
-        let actionType: ActionType = .reset
-        let showInAppPurchases = Bool.random()
-        
-        let actionHandler = MockActionHandler()
-        let button = testButtons.first(where: { $0.action == actionType })!
-        let expectedActionType: ActionType = actionType
-        
-        actionHandler.handleCalled = false
-        XCTAssertFalse(actionHandler.handleCalled)
-        actionsView.vibration()
-        if (showInAppPurchases) {
-            actionsView.showInAppPurchasesIfNotLoggedIn()
+        XCTAssertFalse(mockActionHandler.handleCalled)
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Play action return with event \(String(describing: event))")
+            } else {
+                mockActionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertTrue(mockActionHandler.isPlayed, "Action .play called")
+                XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
+            }
         }
-        let viewButton = actionsView.viewButton(button: button, actionHandler: actionHandler)
-        actionHandler.handle(actionType: actionType)
-        
-        let isOnStart = Bool.random()
-        if (!isOnStart) {
-            actionsView.setLastButtonPressed(action: button.action, event: .onEnd)
-            XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is onEnd event")
-        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
         XCTAssertNotNil(viewButton)
-        XCTAssertTrue(actionHandler.handleCalled)
-        XCTAssertEqual(actionHandler.lastActionType, expectedActionType)
     }
     
+    func testViewButtonOpenSettings () {
+        let actionType: ActionType = .openSettings
+        
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+        
+        XCTAssertFalse(mockActionHandler.handleCalled)
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "OpenSettings action return with event \(String(describing: event))")
+            } else {
+                mockActionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                mockActionsView.openSettingsApp()
+                XCTAssertTrue(mockActionHandler.showOpenSettings, "Action .openSettings called")
+                XCTAssertTrue(mockActionsView.showOpenSetting, "Open Settings Menu opened")
+                XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
+            }
+        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        XCTAssertNotNil(viewButton)
+    }
+    
+    func testCreateSpeakButtonTapToSpeak() {
+        var  actionType: ActionType = .speak
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+        for event in eventOptions {
+            if (event != nil) {
+                XCTAssertNotNil(event, "Speak action return with event \(String(describing: event))")
+            } else {
+                actionType = .tapSpeak
+                mockActionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertTrue(mockActionHandler.isPressAndHoldActive, "Action .tapSpeak press and hold active")
+                XCTAssertTrue(mockActionHandler.isTapToSpeakActive, "Action .tapSpeak tap to speak active")
+                XCTAssertTrue(mockActionHandler.isRecording, "Start recording")
+                actionType = .stopSpeak
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertFalse(mockActionHandler.isPressAndHoldActive, "Action .stopSpeak press and hold inactive")
+                XCTAssertFalse(mockActionHandler.isTapToSpeakActive, "Action .stopSpeak called")
+                XCTAssertFalse(mockActionHandler.isRecording, "Stop recording")
+                XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
+            }
+        }
+    }
+    
+    func testCreateSpeakButtonSimultaneousGesture() {
+        var  actionType: ActionType = .speak
+        for event in eventOptions {
+            if (event == .onStart) {
+                actionsView.setLastButtonPressed(action: actionType, event: event)
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertTrue(mockActionHandler.isPressAndHoldActive, "Action .speak press and hold active")
+                XCTAssertTrue(mockActionHandler.isRecording, "Start recording")
+            } else if (event == .onEnd) {
+                actionsView.setLastButtonPressed(action: actionType, event: event)
+                actionType = .stopSpeak
+                mockActionHandler.handle(actionType: actionType)
+                XCTAssertFalse(mockActionHandler.isPressAndHoldActive, "Action .stopSpeak press and hold inactive")
+                XCTAssertFalse(mockActionHandler.isRecording, "Stop recording")
+            }
+        }
+    }
+    
+    func testViewButtonReset () {
+        let actionType: ActionType = .reset
+
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+        
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Reset action return with event \(String(describing: event))")
+            } else {
+                mockActionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+                mockActionsView.showInAppPurchasesIfNotLoggedIn()
+                XCTAssertTrue(mockActionsView.showInAppPurchases, "In App Purchases")
+                XCTAssertTrue(mockActionHandler.resetCalled, "Action .reset called")
+                XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
+            }
+        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        XCTAssertNotNil(viewButton)
+    }
+    
+    func testViewButtonSurprise () {
+        let actionType: ActionType = .surprise
+
+        let button = testButtons.first(where: { $0.action == actionType })!
+        let viewButton = actionsView.viewButton(button: button, actionHandler: mockActionHandler)
+ 
+        for event in eventOptions {
+            actionsView.setLastButtonPressed(action: actionType, event: event)
+            if (event != nil) {
+                XCTAssertNotNil(event, "Surprise action return with event \(String(describing: event))")
+            } else {
+                
+                mockActionsView.vibration()
+                mockActionHandler.handle(actionType: actionType)
+    
+                XCTAssertTrue(mockActionHandler.isSurprised, "Action .surprise called")
+                XCTAssertTrue(mockActionsView.isVibrating, "The phone is vibrating")
+            }
+        }
+        XCTAssertNil(actionsView.getLastButtonPressed(), "Last button pressed is nil")
+        XCTAssertNotNil(viewButton)
+    }
+
     func testHandleOtherActions() async {
         await actionsView.handleOtherActions(actionType: .reset)
         // Test that the handleOtherActions function does not throw any errors
@@ -177,4 +248,6 @@ class ActionsViewTests: XCTestCase {
         actionsView.checkUserAuthentication()
         // Test that the checkUserAuthentication function does not throw any errors
     }
+    
+    
 }

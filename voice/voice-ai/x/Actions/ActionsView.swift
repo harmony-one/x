@@ -6,9 +6,18 @@ import StoreKit
 import SwiftUI
 import UIKit
 
-struct ActionsView: View {
-    let config = AppConfig.shared
+protocol ActionsViewProtocol {
+    func openSettingsApp()
+    func openPurchaseDialog()
+    func showInAppPurchasesIfNotLoggedIn()
+    func vibration()
+}
 
+struct ActionsView: ActionsViewProtocol, View {
+    
+    @StateObject var actionHandler: ActionHandler
+    
+    let config = AppConfig.shared
     @State var currentTheme: Theme = .init()
 
     // var dismissAction: () -> Void
@@ -29,9 +38,9 @@ struct ActionsView: View {
     
     @State private var lastButtonPressed: ActionType?
 
-    @State private var isSurpriseButtonPressed = true
+    @State var isSurpriseButtonPressed = true
     @State private var orientation = UIDevice.current.orientation
-    @StateObject var actionHandler: ActionHandler = .init()
+    
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var skipPressedTimer: Timer?
@@ -60,7 +69,9 @@ struct ActionsView: View {
     let maxResetClicks = 5
     @State private var resetClickCounter = 0
 
-    init() {
+    init(actionHandler: ActionHandlerProtocol? = nil) {
+        _actionHandler = StateObject(wrappedValue: actionHandler as? ActionHandler ?? ActionHandler())
+
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
@@ -128,7 +139,7 @@ struct ActionsView: View {
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
-
+                    
                     // This is simply to confirm and retrieve the userID. While the keychain contains the Apple ID, it lacks the server's user ID.
                     if KeychainService.shared.isAppleIdAvailable() {
                         UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
@@ -150,10 +161,10 @@ struct ActionsView: View {
                         .compactMap { $0 as? UIWindowScene }
                         .first?.windows
                         .filter { $0.isKeyWindow }.first
-
+                    
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
                         print("App isShowIAPFromSignIn active")
-                        showPurchaseDiglog()
+                        openPurchaseDialog()
                         AppleSignInManager.shared.isShowIAPFromSignIn = false
                     }
                 case .inactive:
@@ -165,18 +176,18 @@ struct ActionsView: View {
                     break
                 }
             }
-//            .alert(isPresented: $showShareAlert) {
-//                Alert(
-//                    title: Text("Share the app with friends?"),
-//                    message: Text("Send the link: x.country/app"),
-//                    primaryButton: .default(Text("Sure!")) {
-//                        showShareSheet = true
-//                    },
-//                    secondaryButton: .default(Text("Cancel")) {
-//                        showShareAlert = false
-//                    }
-//                )
-//            }
+        //            .alert(isPresented: $showShareAlert) {
+        //                Alert(
+        //                    title: Text("Share the app with friends?"),
+        //                    message: Text("Send the link: x.country/app"),
+        //                    primaryButton: .default(Text("Sure!")) {
+        //                        showShareSheet = true
+        //                    },
+        //                    secondaryButton: .default(Text("Cancel")) {
+        //                        showShareAlert = false
+        //                    }
+        //                )
+        //            }
 
         // TODO: Remove the orientation logic for now
         // .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
@@ -248,7 +259,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createDefaultButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive) {event in
@@ -265,7 +276,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createSpeakButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         if button.pressedLabel != nil {
             // Press to Speak & Press to Send
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: self.isTapToSpeakActive, isPressed: self.isTapToSpeakActive, clickCounterStartOn: 100) {event in
@@ -275,7 +286,6 @@ struct ActionsView: View {
 
                self.isTapToSpeakActive = !self.isTapToSpeakActive
                self.vibration()
-
                self.tapToSpeakDebounceTimer?.invalidate()
 
                 if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
@@ -333,7 +343,7 @@ struct ActionsView: View {
     }
     
     @ViewBuilder
-    private func createActionButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    private func createActionButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         let isActive = (button.action == .play && speechRecognition.isPlaying() && !isSpeakButtonPressed)
         
         if button.action == .openSettings {
@@ -422,11 +432,14 @@ struct ActionsView: View {
     }
 
     @ViewBuilder
-    func viewButton(button: ButtonData, actionHandler: ActionHandler) -> some View {
+    func viewButton(button: ButtonData, actionHandler: ActionHandlerProtocol) -> some View {
         switch button.action {
         case .speak:
             self.createSpeakButton(button: button, actionHandler: actionHandler)
-        case .openSettings, .play, .reset, .surprise:
+        case .openSettings,
+                .play,
+                .reset,
+                .surprise:
             self.createActionButton(button: button, actionHandler: actionHandler)
         default:
             self.createDefaultButton(button: button, actionHandler: actionHandler)
@@ -448,7 +461,7 @@ struct ActionsView: View {
     func checkUserAuthentication() {
         if KeychainService.shared.isAppleIdAvailable() {
             // User ID is available, proceed with automatic login or similar functionality
-            showPurchaseDiglog()
+            openPurchaseDialog()
         } else {
             // User ID not found, prompt user to log in or register
             if let keyWindow = keyWindow {
@@ -457,7 +470,7 @@ struct ActionsView: View {
         }
     }
 
-    func showPurchaseDiglog() {
+    func openPurchaseDialog() {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
@@ -478,13 +491,14 @@ struct ActionsView: View {
     func showInAppPurchasesIfNotLoggedIn() {
         if KeychainService.shared.isAppleIdAvailable() == false || 
             KeychainService.shared.retrieveIsSubscriptionActive() {
-            showPurchaseDiglog()
+            openPurchaseDialog()
         }
     }
 }
 
-// #Preview {
-//    NavigationView {
-//        ActionsView()
-//    }
-// }
+
+ #Preview {
+    NavigationView {
+        ActionsView() // actionHandler: nil)
+    }
+ }

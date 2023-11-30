@@ -35,11 +35,49 @@ struct ButtonData: Identifiable {
     }
 }
 
-class ActionHandler: ObservableObject {
-    @Published var isRecording: Bool = false
+protocol ActionHandlerProtocol {
+
+    var isSynthesizing: Bool { get }
+    var isSynthesizingPublished: Published<Bool> { get }
+    var isSynthesizingPublisher: Published<Bool>.Publisher { get }
+    
+    var isRecording: Bool { get }
+    var isRecordingPublished: Published<Bool> { get }
+    var isRecordingPublisher: Published<Bool>.Publisher { get }
+    
+    var isTapToSpeakActive: Bool { get }
+    var isTapToSpeakActivePublished: Published<Bool> { get }
+    var isTapToSpeakActivePublisher: Published<Bool>.Publisher { get }
+    
+    var isPressAndHoldActive: Bool { get }
+    var isPressAndHoldActivePublished: Published<Bool> { get }
+    var isPressAndHoldActivePublisher: Published<Bool>.Publisher { get }
+    
+    func reset()
+    func syncTapToSpeakState(_ actionType: ActionType)
+    func handle(actionType: ActionType)
+    func startRecording()
+    func stopRecording(cancel: Bool)
+
+}
+
+class ActionHandler: ActionHandlerProtocol, ObservableObject {
     @Published var isSynthesizing: Bool = false
-    @Published var isTapToSpeakActive = false
-    @Published var isPressAndHoldActive = false
+    var isSynthesizingPublished: Published<Bool> { _isSynthesizing }
+    var isSynthesizingPublisher: Published<Bool>.Publisher { $isSynthesizing }
+    
+    @Published var isRecording: Bool = false
+    var isRecordingPublished: Published<Bool> { _isRecording }
+    var isRecordingPublisher: Published<Bool>.Publisher { $isRecording }
+    
+    @Published var isTapToSpeakActive: Bool = false
+    var isTapToSpeakActivePublished: Published<Bool> { _isTapToSpeakActive }
+    var isTapToSpeakActivePublisher: Published<Bool>.Publisher { $isTapToSpeakActive }
+    
+    @Published var isPressAndHoldActive: Bool = false
+    var isPressAndHoldActivePublished: Published<Bool> { _isPressAndHoldActive }
+    var isPressAndHoldActivePublisher: Published<Bool>.Publisher { $isPressAndHoldActive }
+
     private var lastRecordingStateChangeTime: Int64 = 0
 
     var resetThrottler = PassthroughSubject<Void, Never>()
@@ -56,7 +94,7 @@ class ActionHandler: ObservableObject {
                 self.reset()
             }
     }
-
+    
     func reset() {
         isRecording = false
         isSynthesizing = false

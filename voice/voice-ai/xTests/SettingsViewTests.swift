@@ -5,10 +5,14 @@ import UIKit
 
 class SettingsViewTests: XCTestCase {
     var settingsView: SettingsView!
+    var store: Store = Store()
+    var appSettings: AppSettings = AppSettings()
 
     override func setUp() {
         super.setUp()
         settingsView = SettingsView()
+//            .environmentObject(Store()) as? SettingsView
+//            .environmentObject(appSettings) as? SettingsView
     }
 
     override func tearDown() {
