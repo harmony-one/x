@@ -136,6 +136,7 @@ struct ActionsView: ActionsViewProtocol, View {
                         if daysElapsed < 120 {
                             self.showShareAlert = true
                         } else {
+                            print("Days Elapsed \(daysElapsed)")
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
@@ -396,8 +397,8 @@ struct ActionsView: ActionsViewProtocol, View {
                         self.resetClickCounter = 0
                         let number = Int.random(in: 0 ..< 4)
                         if number == 1 {
-                           // ReviewRequester.shared.tryPromptForReview(forced: true)
-                            showInAppPurchasesIfNotLoggedIn()
+                           ReviewRequester.shared.tryPromptForReview(forced: true)
+//                            showInAppPurchasesIfNotLoggedIn()
 
                         }
                     }
