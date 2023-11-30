@@ -51,7 +51,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
     
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";")]
+    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";"), Character("。"), Character("、"), Character("！"), Character("？"), Character("ー"), Character("；")]
    
     var pendingOpenAIStream: OpenAIStreamService?
     
@@ -362,11 +362,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
                             flushBuf()
                             initialFlush = true
                         }
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
                             flushBuf()
                         }
                     }
