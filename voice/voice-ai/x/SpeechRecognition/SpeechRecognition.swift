@@ -61,7 +61,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
 
-    private let greetingText = "Hey!"
+    private let greetingText = getGreetingText(for: "ja") ?? "Hey"
     private let sayMoreText = "Tell me more."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
@@ -488,14 +488,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 if feedback == true {
                     // Play the greeting text
-//                    if let indexOfDash = self.languageCode.characters.indexOf("-") {
-//                        print("[Language] \(indexOfDash)")
-//                    }
-//                    print("[Language] \(self.preferredLanguage.characters.indexOf("-"))")
-//                    self.makeQuery("Say hey in the language: \(self.preferredLanguage)")
-                    let hey = getGreetingText(for: "ja") ?? "Hey"
-                    self.makeQuery("Say \(hey)")
-//                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
