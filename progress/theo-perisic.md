@@ -1,3 +1,7 @@
+2023-11-29 Wed: Deployed 1.1129.18, key change: In-App purchase backend handling improvements. Started [testing Mistral 7b](https://harmonyone.notion.site/Mistral-7b-Testing-4c0512d7106b41ed8321204268d79eb4?pvs=4) locally for upcoming complete on-device build for latency optimization and improved availability. 
+
+2023-11-28 Tue: Deployed 1.1128.18 to TestFlight build, key changes: (Sun) fixed expiration update [bug](https://github.com/harmony-one/x/commit/51c175aaa66b0e460e555d39972b74db1254732a) and (Yuriy) added refactoring [optimization](https://github.com/harmony-one/x/pull/277). Completed set of [3 predefined custom instructions](https://harmonyone.notion.site/3-Predefined-Custom-Instructions-b36546c4ee544aea8168c7f046c476c5?pvs=4).
+
 2023-11-27 Mon: Deployed 1.1127.18 to TestFlight build. Created [Voice AI demo questions](https://harmonyone.notion.site/Voice-AI-Demo-Questions-276e9075c0904d4997c6645557d1b10b?pvs=4) and engineered prompts to output various examples.
 
 ---

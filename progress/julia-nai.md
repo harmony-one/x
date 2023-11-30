@@ -1,3 +1,11 @@
+2023-11-29 Wed: [Implemented](https://github.com/harmony-one/x/commit/74f2753e7d696440765db255341103a3e7aebbe3) selection of custom modes detailed by Theo P [here](https://harmonyone.notion.site/3-Predefined-Custom-Instructions-b36546c4ee544aea8168c7f046c476c5?pvs=4) as a drop down in the [system settings page](https://github.com/harmony-one/x/commit/0a75eca8eea805767139e8784f45dcaa77aec2c3). The example interactions are added as user/agent. Needs to be tested. 
+
+2023-11-28 Tue: [Wrote](https://github.com/harmony-one/x/commit/c4055e2625f2f0e89f0d2084fb807bfb9509d0a2) a function to test how liveliness check may work. [Created](https://github.com/harmony-one/x/commit/58208f43f42f0e9558a48fb92e25a8e44e903911) framework for custom instructions test. This test will make sure that custom instructions are working by expecting certain outputs given fixed inputs (ex. name is Sam, no "Sorry" etc.). 
+
+2023-11-27 Mon: Researched how to impliment component testing for liveliness check for GPT through app. Began implimenting testing in app.
+
+---
+
 2023-11-26 Sun: Tested app build to see if build issues from Friday were resolved. Ran a small feasability test through ChatGPT whisper. While the responses for debate partner could be good, the lack of recent information does limit the topic. Something like a more esoteric moral debate seems to work. Hallucinations make a fact based debate rather difficult. (In debate terms, a LD or old PF would work best). 
 
 2023-11-25 Sat: Migrated relevant private notes off of Notion pending my removal from Notion editing.

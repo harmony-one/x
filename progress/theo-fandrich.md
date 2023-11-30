@@ -1,4 +1,6 @@
-2023-11-26 Mon:
+2023-11-28 Tue: Released v1.1128.9 in the morning with optimizations to button interactions and unit tests. More backend logic will need to be implemented to handle in-App Purchases in production and prompting the user to update to the newest version.
+
+2023-11-27 Mon: v1.1124.13 was finally approved by the App store. This includes new button handling, share transcript button, and updating overall user experience.
 
 ---
 
