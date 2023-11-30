@@ -109,7 +109,6 @@
 		B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B91F05D22B0645200029A32D /* Settings.bundle */; };
 		B33EE4402B0E62C1007D0052 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B346DF782AF562020023FC87 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B346DF772AF562020023FC87 /* ThemeManager.swift */; };
-		B3582D812B1853BB006D8879 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B3582D822B1853BB006D8879 /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
@@ -1172,9 +1171,7 @@
 				A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */,
 				A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */,
 				6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */,
-				A46B5A892AE73D0100C874ED /* AppConfig.swift in Sources */,
 				B3582D822B1853BB006D8879 /* xApp.swift in Sources */,
-				B9CE36ED2AFD0365009999CF /* TimerManager.swift in Sources */,
 				B9A3AE1F2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
 				A46B5A852AE73CFD00C874ED /* Message.swift in Sources */,
 				22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */,
@@ -1299,7 +1296,6 @@
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				B9A3AE1D2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
-				B36C89D22B0330CF0065DAF1 /* SettingsBundleHelper.swift in Sources */,
 				B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */,
 				6E1ADB892B163C2300BA0F38 /* ProgressViewComponentTests.swift in Sources */,
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
@@ -1445,7 +1441,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1465,7 +1461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1124.9;
+				MARKETING_VERSION = 1.1130.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1484,7 +1480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
@@ -1503,7 +1499,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1124.9;
+				MARKETING_VERSION = 1.1130.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1723,7 +1719,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1749,7 +1745,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1130.9;
+				MARKETING_VERSION = 1.1130.13;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1769,7 +1765,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1795,7 +1791,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1130.9;
+				MARKETING_VERSION = 1.1130.13;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

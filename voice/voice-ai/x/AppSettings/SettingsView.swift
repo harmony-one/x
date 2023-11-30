@@ -146,6 +146,8 @@ struct SettingsView: View {
             return
         }
         
+//        KeychainService.shared.clearAll()
+        
         print("[SettingsView][deleteUserAccount]")
         UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
             if success {
