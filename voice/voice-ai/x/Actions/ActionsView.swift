@@ -18,8 +18,6 @@ struct ActionsView: ActionsViewProtocol, View {
     @StateObject var actionHandler: ActionHandler
     
     let config = AppConfig.shared
-
-    @ObservedObject private var timerManager = TimerManager.shared
     @State var currentTheme: Theme = .init()
 
     // var dismissAction: () -> Void

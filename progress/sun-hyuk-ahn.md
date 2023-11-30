@@ -1,3 +1,5 @@
+2023-11-27 Wed: Fixed Network manager handling bug. Refactor and cleanup in app purchase process. In app purchase server side bug fix (hand off to Artem).
+
 2023-11-26 Tue: Benchmarked latencies for head vs subsequent, which came out to 1.6s vs 1.3s (1hr session). The cause is due to the initial setup on the client (audio buffers and sockets) and server-side (authorization). Fixed expiration update [bug](https://github.com/harmony-one/x/commit/51c175aaa66b0e460e555d39972b74db1254732a).
 
 2023-11-25 Mon: Fixed color switch bug on a new context. Implemented perceived latency on the client side. Measured latency to be an average of 1.4 seconds. Testing different chunking sizes to improve latency. 

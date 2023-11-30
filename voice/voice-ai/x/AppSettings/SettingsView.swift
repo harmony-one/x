@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Sentry
 
 struct SettingsView: View {
     @EnvironmentObject var store: Store
@@ -9,6 +10,7 @@ struct SettingsView: View {
     @State private var userName: String?
     @State private var showAlert = false
     @State private var isSaveTranscript = false
+    @State private var showDeleteAccountAlert = false
 
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
@@ -32,7 +34,18 @@ struct SettingsView: View {
             Alert(title: Text(""),
                   message: Text("There is no transcript available to save."),
                   dismissButton: .default(Text("OK")))
-        }
+            }
+            .alert(isPresented: $showDeleteAccountAlert) {
+                Alert(
+                    title: Text("Delete Account"),
+                    message: Text("Your account and any associated purchases will be permanently deleted."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        // Handle the deletion here
+                        deleteUserAccount()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
     }
     
     func actionSheet() -> ActionSheet {
@@ -45,8 +58,8 @@ struct SettingsView: View {
             .default(Text("Share")) { self.showShareSheet = true },
             .default(Text("Tweet")) { tweet() },
             .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Save Transcript")) { saveTranscript() }
-            
+            .default(Text("Save Transcript")) { saveTranscript() },
+            .default(Text("Delete Account")) { self.showDeleteAccountAlert = true }
         ])
     }
     
@@ -126,6 +139,24 @@ struct SettingsView: View {
         }
 
         return transcript
+    }
+    
+    func deleteUserAccount() {
+        guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
+            return
+        }
+        UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
+            
+            if success {
+                print("Account deletion successful.")
+                // Perform any additional tasks if the deletion is successful
+                SentrySDK.capture(message: "[UserAPI][DeleteAccount] Sucess")
+                KeychainService.shared.clearAll()
+                return
+            }
+            SentrySDK.capture(message: "[UserAPI][DeleteAccount] Account deletion failed.")
+            // Handle the failure case
+        }
     }
 }
 
