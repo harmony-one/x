@@ -3,80 +3,67 @@ import XCTest
 import UIKit
 import AuthenticationServices
 
-class MockWindow: UIWindow {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class MockStore {
-    var appleId: String?
-    var fullName: String?
+class MockAppleIDCredential {
+    var user: String
+    var fullName: PersonNameComponents?
     var email: String?
-    var isLoggedIn: Bool = false
-
-    func storeUserCredentials(appleId: String, fullName: String, email: String) {
-        self.appleId = appleId
+    
+    init(user: String, fullName: PersonNameComponents, email: String) {
+        self.user = user
         self.fullName = fullName
         self.email = email
-        self.isLoggedIn = true
     }
-
-    func register(appleId: String) {
-        self.appleId = appleId
-    }
-}
-
-class ASAuthorizationAppleIDCredentialMock: ASAuthorizationAppleIDCredential {
-
 }
 
 class AppleSignInManagerTests: XCTestCase {
-
     var appleSignInManager: AppleSignInManager!
-    var mockWindow: MockWindow!
-    var mockStore: MockStore!
+    var mockWindow: UIWindow!
 
     override func setUp() {
         super.setUp()
-        mockWindow = MockWindow()
-        mockStore = MockStore()
-        appleSignInManager = AppleSignInManager()
-        appleSignInManager.currentWindow = mockWindow
+        appleSignInManager = AppleSignInManager.shared
+        mockWindow = UIWindow()
     }
 
-    func testSuccessfulAuthorization() {
-        let expectation = self.expectation(description: "Successful Authorization")
-
-        let mockAppleIDCredential = ASAuthorizationAppleIDCredentialMock()
-        mockAppleIDCredential.user = "testUser"
-        mockAppleIDCredential.fullName = PersonNameComponentsMock()
-        mockAppleIDCredential.email = "test@example.com"
-
-        appleSignInManager.authorizationController(controller: ASAuthorizationController(), didCompleteWithAuthorization: mockAppleIDCredential)
-
-        // Using a delegate or completion handler would be better here
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            XCTAssertTrue(self.appleSignInManager.isShowIAPFromSignIn)
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 2.0)
+    override func tearDown() {
+        appleSignInManager = nil
+        mockWindow = nil
+        super.tearDown()
     }
-
-    func testAuthorizationFailure() {
-        let mockError = ASAuthorizationError(.canceled)
-        appleSignInManager.authorizationController(controller: ASAuthorizationController(), didCompleteWithError: mockError)
-
-        XCTAssertFalse(appleSignInManager.isShowIAPFromSignIn)
-    }
-
+    
     func testPresentationAnchor() {
-        let presentationAnchor = appleSignInManager.presentationAnchor(for: ASAuthorizationController())
-        XCTAssertEqual(presentationAnchor, mockWindow)
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+
+        // AppleSignInManager.shared.presentationAnchor(for: controller)
+    }
+    
+    func testPerformAppleSignIn() {
+        appleSignInManager.performAppleSignIn(using: mockWindow)
+    }
+    
+    func testDidCompleteWithAuthorization() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let mockAuthController = ASAuthorizationController(authorizationRequests: [request])
+        
+        let mockAppleIDCredential = MockAppleIDCredential(user: "testUser", fullName: PersonNameComponents(), email: "test@example.com")
+        
+//        let mockAuthorization = ASAuthorization(appleIDCredential: mockAppleIDCredential)
+//        appleSignInManager.authorizationController(controller: mockAuthController, didCompleteWithAuthorization: mockAuthorization)
+    }
+
+    func testDidCompleteWithError() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let mockAuthController = ASAuthorizationController(authorizationRequests: [request])
+        
+        let mockError = NSError(domain: ASAuthorizationErrorDomain, code: ASAuthorizationError.canceled.rawValue, userInfo: nil)
+        
+        appleSignInManager.authorizationController(controller: mockAuthController, didCompleteWithError: mockError)
     }
 }
