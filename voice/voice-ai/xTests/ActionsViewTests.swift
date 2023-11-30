@@ -28,13 +28,13 @@ class ActionsViewTests: XCTestCase {
     override func setUp() {
         super.setUp()
         store = Store()
-        appSettings = AppSettings()
+        appSettings = AppSettings.shared
         mockActionHandler = MockActionHandler()
         mockActionsView = MockActionsView()
         // Initialize actionsView with the mockActionHandler
         actionsView = ActionsView(actionHandler: mockActionHandler)
-            .environmentObject(store)
-            .environmentObject(appSettings) as? ActionsView
+//            .environmentObject(store)
+//            .environmentObject(appSettings) as? ActionsView
         testButtons = [
             buttonReset,
             buttonTapSpeak,
