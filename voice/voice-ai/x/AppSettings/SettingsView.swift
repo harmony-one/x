@@ -145,8 +145,9 @@ struct SettingsView: View {
         guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
             return
         }
+        
+        print("[SettingsView][deleteUserAccount]")
         UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
-            
             if success {
                 print("Account deletion successful.")
                 // Perform any additional tasks if the deletion is successful
