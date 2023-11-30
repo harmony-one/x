@@ -34,8 +34,6 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
-    let preferredLanguage = Locale.preferredLanguages[0]
-    let languageCode = NSLocale.current.localizedString(forLanguageCode: Locale.preferredLanguages[0])
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -60,12 +58,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     internal var conversation: [Message] = []
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
-
-    private let greetingText = getGreetingText(for: "ja") ?? "Hey"
-    private let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
-    private let letMeKnowText = getLetMeKnowText(for: "ja") ?? "Let me know what to say more about!"
-    private let networkErrorText = getNetworkErrorText(for: "ja") ?? "No network conditions."
-    private let limitReachedText = getLimitReachedText(for: "ja") ?? "You have reached your limit, please wait 10 minutes"
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -98,9 +90,24 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     var isTimerDidFired = false
         
-    // Current message being processed
-        
+    let preferredLanguage = Locale.preferredLanguages[0]
+    let languageCode: String
+    private let greetingText: String
+    private let sayMoreText: String
+    private let letMeKnowText: String
+    private let networkErrorText: String
+    private let limitReachedText: String
+    
     // MARK: - Initialization and Setup
+    
+    override init() {
+        self.languageCode = validateAndSetLanguageCode(String(Locale.preferredLanguages[0].prefix(2)))
+        self.greetingText = getGreetingText(for: languageCode) ?? "Hey"
+        self.sayMoreText = getSayMoreText(for: languageCode) ?? "Tell me more."
+        self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
+        self.networkErrorText = getNetworkErrorText(for: languageCode) ?? "No network conditions."
+        self.limitReachedText = getLimitReachedText(for: languageCode) ?? "You have reached your limit, please wait 10 minutes"
+    }
 
     func setup() {
         checkPermissionsAndSetupAudio()
@@ -492,7 +499,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if feedback == true {
                     // Play the greeting text
                     self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
-                    
+                    print("[langcode]\(self.languageCode)")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
                     }
