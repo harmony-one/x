@@ -1,5 +1,6 @@
 import XCTest
 import SwiftUI
+import SnapshotTesting
 @testable import Voice_AI
 
 class GridButtonTests: XCTestCase {
@@ -32,4 +33,47 @@ class GridButtonTests: XCTestCase {
         gridButton.onDragEnded()
         XCTAssertEqual(actionTriggered, .onEnd)
     }
+    
+    func testButtonParamsInverted() {
+        let buttonData = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(theme.name) - square", action: .speak, testId: "button-tapToSpeak")
+        
+        let button = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: false, isPressed: false, action: { eventType in }).frame(width: 250, height: 250)
+        assertSnapshot(matching: button, as: .image, named: "gridbutton-normal")
+        
+        let buttonActive = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: true, isPressed: false, action: { eventType in }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonActive, as: .image, named: "gridbutton-active")
+        
+        let buttonActivePressed = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: true, isPressed: true, action: { eventType in
+            
+        }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonActivePressed, as: .image, named: "gridbutton-active-and-pressed")
+        
+        let buttonPressed = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: false, isPressed: true, action: { eventType in
+            
+        }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonPressed, as: .image, named: "gridbutton-pressed")
+    }
+    
+    func testButtonParams() {
+        let buttonData = ButtonData(label: "Pause / Play", image: "\(theme.name) - pause play", pressedImage: "\(theme.name) - play", action: .play, testId: "button-playPause")
+        
+        let button = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: false, isPressed: false, action: { eventType in }).frame(width: 250, height: 250)
+        assertSnapshot(matching: button, as: .image, named: "gridbutton-normal")
+        
+        let buttonActive = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: true, isPressed: false, action: { eventType in }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonActive, as: .image, named: "gridbutton-active")
+        
+        
+        let buttonActivePressed = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: true, isPressed: true, action: { eventType in
+            
+        }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonActivePressed, as: .image, named: "gridbutton-active-and-pressed")
+        
+        let buttonPressed = GridButton(currentTheme: theme, button: buttonData, foregroundColor: Color.black, active: false, isPressed: true, action: { eventType in
+            
+        }).frame(width: 250, height: 250)
+        assertSnapshot(matching: buttonPressed, as: .image, named: "gridbutton-pressed")
+    }
+    
+    
 }
