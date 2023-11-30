@@ -426,7 +426,7 @@ struct ActionsView: View {
         switch button.action {
         case .speak:
             self.createSpeakButton(button: button, actionHandler: actionHandler)
-        case .openSettings,.play,.reset,.surprise:
+        case .openSettings, .play, .reset, .surprise:
             self.createActionButton(button: button, actionHandler: actionHandler)
         default:
             self.createDefaultButton(button: button, actionHandler: actionHandler)

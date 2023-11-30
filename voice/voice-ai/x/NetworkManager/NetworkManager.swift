@@ -41,16 +41,30 @@ class NetworkManager {
     public func setAuthorizationHeader(token: String, request: inout URLRequest) {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
+    /// Sets a custom header for the request.
+    ///
+    /// - Parameters:
+    ///   - field: The name of the header field to set.
+    ///   - value: The value for the header field.
+    ///   - request: The URLRequest to modify.
+    public func setCustomHeader(field: String, value: String, request: inout URLRequest) {
+        request.setValue(value, forHTTPHeaderField: field)
+    }
 
-    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, parameters: [String: String]? = nil, body: Data? = nil, token: String? = nil, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, parameters: [String: String]? = nil, body: Data? = nil, token: String? = nil, customHeaders: [String: String]? = nil, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
         guard let url = createURL(endpoint: endpoint, parameters: parameters) else {
             completion(.failure(.badURL))
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.httpBody = body
+        
+        // Set custom headers if any
+        customHeaders?.forEach { key, value in
+            setCustomHeader(field: key, value: value, request: &request)
+        }
 
         if body != nil {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")

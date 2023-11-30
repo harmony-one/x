@@ -23,6 +23,7 @@ class AppConfig {
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
     private var whiteLabelList: [String]?
+    private var serverAPIKey: String?
     
     var themeName: String?
     
@@ -189,6 +190,7 @@ class AppConfig {
             deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
             openaiKey = dictionary["API_KEY"] as? String
             openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
+            serverAPIKey = dictionary["SERVER_API_Key"] as? String
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
@@ -278,5 +280,9 @@ class AppConfig {
     
     func getEnableTimeLoggerPrint() -> Bool {
         return enableTimeLoggerPrint ?? false
+    }
+    
+    func getServerAPIKey() -> String? {
+        return serverAPIKey
     }
 }
