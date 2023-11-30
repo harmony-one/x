@@ -493,7 +493,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //                    }
 //                    print("[Language] \(self.preferredLanguage.characters.indexOf("-"))")
 //                    self.makeQuery("Say hey in the language: \(self.preferredLanguage)")
-                    let hey = getGreetingText(for: "ja")
+                    let hey = getGreetingText(for: "ja") ?? "Hey"
                     self.makeQuery("Say \(hey)")
 //                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
                     
@@ -643,7 +643,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
 
             // Make the query for more information on a background thread
-            let sayMoreText = "Tell me more."
+            let sayMoreText = getSayMoreText(for: "ja") ?? "Tell me more."
             self.makeQuery(sayMoreText)
         }
     }
