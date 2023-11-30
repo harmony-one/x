@@ -66,7 +66,7 @@ struct ActionsView: ActionsViewProtocol, View {
 
     @State private var keyWindow: UIWindow?
 
-    let maxResetClicks = 5
+    let maxResetClicks = 20
     @State private var resetClickCounter = 0
 
     init(actionHandler: ActionHandlerProtocol? = nil) {
