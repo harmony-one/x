@@ -17,3 +17,6 @@ let languageCodes = ["aa", "ab", "af", "ak", "am", "an", "ar", "as", "av", "ay",
     "si", "sk", "sl", "sm", "sn", "so", "sq", "sr", "ss", "st", "su", "sv", "sw", "ta", "te", "tg", "th", "ti", "tk", "tl",
     "tn", "to", "tr", "ts", "tt", "tw", "ty", "ug", "uk", "ur", "uz", "ve", "vi", "vo", "wa", "wo", "xh", "yi", "yo", "za",
     "zh", "zu"]
+
+// SFSpeechRecognizer supported locales:
+//[en-SG (fixed), fr-BE (fixed), en-CA (fixed), cs-CZ (fixed), nl-NL (fixed), th-TH (fixed), vi-VN (fixed), de-CH (fixed), pt-BR (fixed), uk-UA (fixed), en-AE (fixed), es-CO (fixed), fr-CA (fixed), fr-FR (fixed), en-ID (fixed), en-NZ (fixed), ms-MY (fixed), hi-IN (fixed), ca-ES (fixed), hu-HU (fixed), fi-FI (fixed), it-CH (fixed), de-DE (fixed), zh-CN (fixed), pt-PT (fixed), wuu-CN (fixed), en-IE (fixed), yue-CN (fixed), ko-KR (fixed), hi-IN-translit (fixed), en-GB (fixed), ro-RO (fixed), en-AU (fixed), es-CL (fixed), sk-SK (fixed), tr-TR (fixed), hi-Latn (fixed), fr-CH (fixed), es-MX (fixed), he-IL (fixed), en-IN (fixed), el-GR (fixed), it-IT (fixed), de-AT (fixed), nl-BE (fixed), en-PH (fixed), sv-SE (fixed), es-ES (fixed), ar-SA (fixed), ja-JP (fixed), hr-HR (fixed), zh-HK (fixed), es-US (fixed), nb-NO (fixed), pl-PL (fixed), da-DK (fixed), id-ID (fixed), es-419 (fixed), en-ZA (fixed), en-US (fixed), zh-TW (fixed), en-SA (fixed), ru-RU (fixed)]
