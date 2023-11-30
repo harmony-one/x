@@ -190,7 +190,7 @@ class AppConfig {
             deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
             openaiKey = dictionary["API_KEY"] as? String
             openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
-            serverAPIKey = dictionary["SERVER_API_Key"] as? String
+            serverAPIKey = dictionary["SERVER_API_KEY"] as? String
             
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
