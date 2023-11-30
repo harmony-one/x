@@ -74,7 +74,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // Upperbound for the number of words buffer can contain before triggering a flush
     private var initialCapacity = 10
 //    TODO: Adjust buffer capacity for each language (eg. Japanese takes too long before flush)
-    private var bufferCapacity = 10
+    private var bufferCapacity = 50
     private var retryWorkItem: DispatchWorkItem?
 
     @Published private var _isPaused = false
