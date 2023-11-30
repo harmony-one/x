@@ -1,3 +1,5 @@
+2023-11-30 Thu: I have started to explore how to perform fuzzing, but I couldn't find a testing fuzzing toolkit (the ones I found are over 4 years old), and I assume we will have to create our own tools.
+
 2023-11-29 Wed: I have [added snapshot tests for the GridButton](https://github.com/harmony-one/x/pull/286) component and updated the tests for the ProgressView component.
 
 2023-11-28 Tue: I have [added a snapshot test for the ProgressView](https://github.com/harmony-one/x/pull/278) component and updated the AutoPlayer tests.
