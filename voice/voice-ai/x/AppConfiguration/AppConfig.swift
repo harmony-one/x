@@ -12,10 +12,8 @@ class AppConfig {
     private var relayMode: String?
     private var disableRelayLog: Bool?
     private var enableTimeLoggerPrint: Bool?
-    
     private var openaiBaseUrl: String?
     private var openaiKey: String?
-    
     private var sharedEncryptionSecret: String?
     private var sharedEncryptionIV: String?
     private var deepgramKey: String?
@@ -24,11 +22,10 @@ class AppConfig {
     private var sentryDSN: String?
     private var whiteLabelList: [String]?
     private var serverAPIKey: String?
-    
     private var paymentMode: String?
-    
     var themeName: String?
-    
+    private var mixpanelToken: String?
+
     init() {
         loadConfiguration()
         
@@ -180,7 +177,6 @@ class AppConfig {
             }
             
             sentryDSN = dictionary["SENTRY_DSN"] as? String
-            
             sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
             sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
             relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
@@ -194,7 +190,8 @@ class AppConfig {
             openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
             serverAPIKey = dictionary["SERVER_API_KEY"] as? String
             paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
-            
+            mixpanelToken = (dictionary["MIXPANEL_TOKEN"] as? String)
+
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
                let events = Int(eventsString) {
@@ -291,5 +288,9 @@ class AppConfig {
     
     func getPaymentMode() -> String? {
         return paymentMode
+    }
+    
+    func getMixpanelToken() -> String? {
+        return mixpanelToken
     }
 }
