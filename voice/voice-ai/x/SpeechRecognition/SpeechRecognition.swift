@@ -281,6 +281,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
+        let transaction = SentrySDK.startTransaction(
+          name: "Request OpenAI", // give it a name
+          operation: "openai.request" // and a name for the operation
+        )
+        
         completeResponse = [String]()
         var buf = [String]()
         
@@ -318,6 +323,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
+                    transaction.finish()
                     return
                 }
                 
@@ -339,6 +345,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
+                    transaction.finish()
                     return
                 }
                 print("[SpeechRecognition] OpenAI Response received: \(res)")
@@ -359,6 +366,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     }
                     currWord = res
                     guard res.last != nil else {
+                        transaction.finish()
                         return
                     }
                 } else {
