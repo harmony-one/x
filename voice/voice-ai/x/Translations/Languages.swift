@@ -1,4 +1,7 @@
-func validateAndSetLanguageCode(_ code: String) -> String {
+import Foundation
+
+func getLanguageCode() -> String {
+    let code = String(Locale.preferredLanguages[0].prefix(2))
     if languageCodes.contains(code) {
         return code
     } else {

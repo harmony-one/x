@@ -63,16 +63,17 @@ struct ActionsView: View {
     @State private var resetClickCounter = 0
 
     init() {
+        let languageCode = getLanguageCode()
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
         let themePrefix = currentTheme.name
-        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
-        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
-        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
-        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
+        let buttonReset = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "reset"), image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
+        let buttonTapSpeak = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "tapToSpeak"), pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
+        let buttonSurprise = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSpeak = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "speak"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
+        let buttonMore = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
+        let buttonPlay = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
         buttonsPortrait = [
             buttonReset,

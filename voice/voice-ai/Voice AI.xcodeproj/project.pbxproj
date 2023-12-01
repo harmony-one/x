@@ -292,6 +292,10 @@
 		F76D13C52B18218C0018F89B /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C32B18218C0018F89B /* Languages.swift */; };
 		F76D13C62B18218C0018F89B /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C32B18218C0018F89B /* Languages.swift */; };
 		F76D13C72B18218C0018F89B /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C32B18218C0018F89B /* Languages.swift */; };
+		F76D13C92B1951F60018F89B /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C82B1951F60018F89B /* ButtonText.swift */; };
+		F76D13CA2B1951F60018F89B /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C82B1951F60018F89B /* ButtonText.swift */; };
+		F76D13CB2B1951F60018F89B /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C82B1951F60018F89B /* ButtonText.swift */; };
+		F76D13CC2B1951F60018F89B /* ButtonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13C82B1951F60018F89B /* ButtonText.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -442,6 +446,7 @@
 		F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetMeKnowText.swift; sourceTree = "<group>"; };
 		F76D13BE2B1816220018F89B /* LimitReachedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitReachedText.swift; sourceTree = "<group>"; };
 		F76D13C32B18218C0018F89B /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
+		F76D13C82B1951F60018F89B /* ButtonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonText.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -694,12 +699,6 @@
 			children = (
 				B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */,
 				A40CFCE22AF98BB700E02128 /* RandomFact.swift */,
-				F76D13AA2B17F1CA0018F89B /* GreetingText.swift */,
-				F76D13AF2B1805580018F89B /* SayMoreText.swift */,
-				F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */,
-				F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */,
-				F76D13BE2B1816220018F89B /* LimitReachedText.swift */,
-				F76D13C32B18218C0018F89B /* Languages.swift */,
 			);
 			path = SpeechRecognition;
 			sourceTree = "<group>";
@@ -783,6 +782,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				F76D13CD2B195C920018F89B /* Translations */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
 				A44CFFAF2B0D7200003D6822 /* AppConfig.plist */,
@@ -889,6 +889,20 @@
 				CDC137122B11B129003386E9 /* TimeLogger.swift */,
 			);
 			path = Performance;
+			sourceTree = "<group>";
+		};
+		F76D13CD2B195C920018F89B /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+				F76D13AA2B17F1CA0018F89B /* GreetingText.swift */,
+				F76D13AF2B1805580018F89B /* SayMoreText.swift */,
+				F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */,
+				F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */,
+				F76D13BE2B1816220018F89B /* LimitReachedText.swift */,
+				F76D13C82B1951F60018F89B /* ButtonText.swift */,
+				F76D13C32B18218C0018F89B /* Languages.swift */,
+			);
+			path = Translations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1214,6 +1228,7 @@
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
 				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				F76D13B82B180B1B0018F89B /* NetworkErrorText.swift in Sources */,
+				F76D13CC2B1951F60018F89B /* ButtonText.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				F76D13BD2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
@@ -1274,6 +1289,7 @@
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				F76D13AB2B17F1CA0018F89B /* GreetingText.swift in Sources */,
+				F76D13C92B1951F60018F89B /* ButtonText.swift in Sources */,
 				F76D13B52B180B1B0018F89B /* NetworkErrorText.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
@@ -1376,6 +1392,7 @@
 				B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */,
 				CDC137112B057DB6003386E9 /* RelayAuth.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
+				F76D13CA2B1951F60018F89B /* ButtonText.swift in Sources */,
 				F76D13C52B18218C0018F89B /* Languages.swift in Sources */,
 				F66BD7672B16836000C4134F /* SettingsViewTests.swift in Sources */,
 				B91F05CB2B05F72A0029A32D /* CreateUser.swift in Sources */,
@@ -1396,6 +1413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76D13CB2B1951F60018F89B /* ButtonText.swift in Sources */,
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
 				B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */,
 				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,

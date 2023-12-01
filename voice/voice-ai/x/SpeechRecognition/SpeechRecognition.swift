@@ -101,7 +101,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Initialization and Setup
     
     override init() {
-        self.languageCode = validateAndSetLanguageCode(String(Locale.preferredLanguages[0].prefix(2)))
+        self.languageCode = getLanguageCode()
         self.greetingText = getGreetingText(for: languageCode) ?? "Hey"
         self.sayMoreText = getSayMoreText(for: languageCode) ?? "Tell me more."
         self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
@@ -501,7 +501,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if feedback == true {
                     // Play the greeting text
                     self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
-                    print("[langcode]\(self.languageCode)")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
                     }
@@ -607,7 +606,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
             let randomTitle = getTitle()
-            let query = "Summarize \(randomTitle) from Wikipedia"
+            let query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
 
             // Now make the query to fetch the fact.
             self.makeQuery(query, rateLimit: false)
