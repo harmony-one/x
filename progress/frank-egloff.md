@@ -1,3 +1,5 @@
+2023-11-30 Thu: Changed review [requester logic](https://github.com/harmony-one/x/commit/00c11beced436602f8d3a99b2d6c8cb1a4774b5e) for new session button action. Also, I have started to research fuzz testing for swift projects. There are not up to date tools on the market.
+
 2023-11-29 Wed: The PR review showed issues with published attributes that handle button actions, malfunctioning the app. [Fixed](https://github.com/harmony-one/x/pull/255) property published issues, refactored ActionsViewProtocol, ActionsView struct, and MockActionsView class.  
 
 2023-11-28 Tue: Worked on unit tests for [ActionsView struct](https://github.com/harmony-one/x/pull/255): adding reset, play, openSettings, and closures unit tests. Fixed merge issues with the main branch after ActionsView refactoring. The PR is currently in review. 
