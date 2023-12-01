@@ -1,5 +1,4 @@
 import Foundation
-import Sentry
 
 class TimeLogger {
     // TODO: use ContinuousClock https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
@@ -13,11 +12,14 @@ class TimeLogger {
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
     
+    private let elastciClient: Elastic!
+    
     init(vendor: String, endpoint: String, once: Bool = true) {
         self.vendor = vendor
         self.endpoint = endpoint
         self.once = once
         startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        elastciClient = Elastic()
     }
     
     func reset() {
@@ -69,6 +71,9 @@ class TimeLogger {
             completed: completed,
             error: error
         )
+        if(elastciClient != nil) {
+            elastciClient.index(value: String(totalResponseTime))
+        }
         if printDebug {
             print("[TimeLogger]", logDetails)
         }

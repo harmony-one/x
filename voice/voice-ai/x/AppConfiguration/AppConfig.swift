@@ -25,6 +25,10 @@ class AppConfig {
     private var whiteLabelList: [String]?
     private var serverAPIKey: String?
     
+    private var elasticUrl: String?
+    private var elasticLogin: String?
+    private var elasticPassword: String?
+    
     private var paymentMode: String?
     
     var themeName: String?
@@ -181,6 +185,10 @@ class AppConfig {
             
             sentryDSN = dictionary["SENTRY_DSN"] as? String
             
+            elasticUrl = dictionary["ELASTIC_URL"] as? String
+            elasticLogin = dictionary["ELASTIC_LOGIN"] as? String
+            elasticPassword = dictionary["ELASTIC_PASSWORD"] as? String
+            
             sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
             sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
             relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
@@ -291,5 +299,17 @@ class AppConfig {
     
     func getPaymentMode() -> String? {
         return paymentMode
+    }
+    
+    func getElasticUrl() -> String? {
+        return elasticUrl
+    }
+    
+    func getElasticLogin() -> String? {
+        return elasticLogin
+    }
+    
+    func getElasticPassword() -> String? {
+        return elasticPassword
     }
 }
