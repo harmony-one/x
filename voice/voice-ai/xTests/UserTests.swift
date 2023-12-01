@@ -12,7 +12,9 @@ class CreateUserTests: XCTestCase {
             "balance": 100,
             "createdAt": "2023-11-20T12:00:00Z",
             "updatedAt": "2023-11-20T13:00:00Z",
-            "expirationDate": "2023-11-30T23:59:59Z"
+            "expirationDate": "2023-11-30T23:59:59Z",
+            "isSubscriptionActive": false,
+            "appVersion": "1.0.0"
         }
         """.data(using: .utf8)!
 
@@ -25,6 +27,8 @@ class CreateUserTests: XCTestCase {
         XCTAssertEqual(user.createdAt, "2023-11-20T12:00:00Z")
         XCTAssertEqual(user.updatedAt, "2023-11-20T13:00:00Z")
         XCTAssertEqual(user.expirationDate, "2023-11-30T23:59:59Z")
+        XCTAssertEqual(user.isSubscriptionActive, false)
+        XCTAssertEqual(user.appVersion, "1.0.0")
     }
 
     func testUserDecodingWithMissingFields() throws {
@@ -44,6 +48,7 @@ class CreateUserTests: XCTestCase {
         XCTAssertNil(user.createdAt)
         XCTAssertNil(user.updatedAt)
         XCTAssertNil(user.expirationDate)
+        XCTAssertNil(user.appVersion)
     }
     
     func testUserDecodingWithInvalidData() {
