@@ -1,3 +1,5 @@
+2023-11-30 Thu: Deployed 1.1130.18 (Context increase 500 -> 8000, Language support now 183). Continued testing smaller models, Mistral and Llama 7b via Ollama. Insights: Llama 7b more verbose but unreliable. Mistral much more consistent at following instructions and fast outputs. GPT-3.5 still the clear winner, but for on-device efficiency and cost optimization, Mistral seems best suited.
+
 2023-11-29 Wed: Deployed 1.1129.18, key change: In-App purchase backend handling improvements. Started [testing Mistral 7b](https://harmonyone.notion.site/Mistral-7b-Testing-4c0512d7106b41ed8321204268d79eb4?pvs=4) locally for upcoming complete on-device build for latency optimization and improved availability. 
 
 2023-11-28 Tue: Deployed 1.1128.18 to TestFlight build, key changes: (Sun) fixed expiration update [bug](https://github.com/harmony-one/x/commit/51c175aaa66b0e460e555d39972b74db1254732a) and (Yuriy) added refactoring [optimization](https://github.com/harmony-one/x/pull/277). Completed set of [3 predefined custom instructions](https://harmonyone.notion.site/3-Predefined-Custom-Instructions-b36546c4ee544aea8168c7f046c476c5?pvs=4).
