@@ -56,7 +56,7 @@ struct SettingsView: View {
     }
     
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Actions"), buttons: [
+        return ActionSheet(title: Text("Options"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
