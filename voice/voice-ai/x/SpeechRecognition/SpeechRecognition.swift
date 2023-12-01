@@ -77,6 +77,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var initialCapacity = 10
     private var bufferCapacity = 50
     private var retryWorkItem: DispatchWorkItem?
+    
+    private var contextLimit = 8192
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -374,7 +376,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 8000)
+            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: contextLimit)
             // Important: Add an instruction at the beginning of the conversation
             limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             // for custom instruction changes
