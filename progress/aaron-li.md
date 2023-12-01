@@ -114,6 +114,8 @@ Review, test, and compare Swift websocket libraries and code; Code review #4 (au
 
 2023-10-03 Tue: (5h) Personalized task planning; Huggingface models and spaces experimentation (tortoise, coqui, others) ; Ad-hoc performance and latency measurements; Domain renewal and functionality technical discussions; ElasticSearch payment statistics code review and discussions; Discussions on voice related hugginface AI models, benchmark, and possible tasks; GCP Vertex AI permission settings and service account; Experiment with commercial XTTS and TTS models.
 
+2023-10-02 Mon (1h): Bot analytics reporting permission setup. Data export. Discussion and bot code review on payment amount capturing
+
 ---
 
 2023-09-29 Fri: (6h) Bug fixes on trasient bot state for analytics; End-to-end testing; Research and experiments on state of the art speech related models, performance metrics, pratical experience, and use cases; Analysis and discussion on Whatsapp business platform and bot feasibility.
