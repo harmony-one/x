@@ -2,36 +2,15 @@ import SwiftUI
 import UIKit
 import Sentry
 
-struct PurchaseOptionsView: View {
-    var showPurchaseDialog: () -> Void
-    var performSignIn: () -> Void
-    var showDeleteAccountAlert: Binding<Bool>
-    var dismiss: () -> Void
-
-    var body: some View {
-        NavigationView {
-            List {
-                Button("Pay $5 via Apple", action: showPurchaseDialog)
-                Button("Restore purchase", action: { /* Add logic for restoring purchase */ })
-                Button("Sign-in account", action: performSignIn)
-                Button("Delete account", action: { showDeleteAccountAlert.wrappedValue = true })
-            }
-            .navigationBarTitle(Text("Purchase Options"), displayMode: .inline)
-        }
-    }
-}
-
 struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
-    @State private var showTweet: Bool = false
     @State private var userName: String?
     @State private var showAlert = false
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
-    @State private var showPurchaseOptionsModal = false
-
+    
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
     
@@ -40,44 +19,44 @@ struct SettingsView: View {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
         }
-        .actionSheet(isPresented: $appSettings.isOpened, content: actionSheet)
+        .actionSheet(isPresented: $appSettings.isOpened) {
+            guard let actionSheetType = appSettings.type else { return ActionSheet(title: Text("")) }
+            switch actionSheetType {
+            case .settings:
+                return actionSheet()
+            case .purchaseOptions:
+                return purchaseOptionsActionSheet()
+            }
+        }
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: self.appUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
-        .sheet(isPresented: $showPurchaseOptionsModal) {
-            PurchaseOptionsView(
-                showPurchaseDialog: showPurchaseDialog,
-                performSignIn: performSignIn,
-                showDeleteAccountAlert: $showDeleteAccountAlert,
-                dismiss: { self.showPurchaseOptionsModal = false }
-            )
-        }
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
-             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
-                ActivityView(activityItems: [jsonString])
+            let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
+            ActivityView(activityItems: [jsonString])
         }
-            .alert(isPresented: $showAlert) {
+        .alert(isPresented: $showAlert) {
             Alert(title: Text(""),
                   message: Text("There is no transcript available to save."),
                   dismissButton: .default(Text("OK")))
-            }
-            .alert(isPresented: $showDeleteAccountAlert) {
-                Alert(
-                    title: Text("Delete Account"),
-                    message: Text("Your account and any associated purchases will be permanently deleted."),
-                    primaryButton: .destructive(Text("Delete")) {
-                        // Handle the deletion here
-                        deleteUserAccount()
-                    },
-                    secondaryButton: .cancel()
-                )
-            }
+        }
+        .alert(isPresented: $showDeleteAccountAlert) {
+            Alert(
+                title: Text("Delete Account"),
+                message: Text("Your account and any associated purchases will be permanently deleted."),
+                primaryButton: .destructive(Text("Delete")) {
+                    // Handle the deletion here
+                    deleteUserAccount()
+                },
+                secondaryButton: .cancel()
+            )
+        }
     }
     
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text(""), buttons: [
+        return ActionSheet(title: Text("Actions"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
@@ -86,20 +65,25 @@ struct SettingsView: View {
             .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Purchase premium")) { self.showPurchaseOptionsModal = true }
+            .default(Text("Purchase premium")) {
+                appSettings.type = .purchaseOptions
+                appSettings.isOpened = false // Close the current sheet first
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    appSettings.isOpened = true // Then open the new sheet
+                }
+            }
         ])
     }
-
-    // TODO: Summon purchaseOptionsActionSheet with Purchase premium option
-//    func purchaseOptionsActionSheet() -> ActionSheet {
-//        return ActionSheet(title: Text(""), buttons: [
-//           .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
-//           .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
-//           .default(Text("Sign-in account")) { performSignIn() },
-//           .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
-//           .cancel()
-//        ])
-//    }
+    
+    func purchaseOptionsActionSheet() -> ActionSheet {
+        return ActionSheet(title: Text("Purchase Options"), buttons: [
+            .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
+            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+            .default(Text(getUserName())) { performSignIn() },
+            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+            .cancel()
+        ])
+    }
     
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
@@ -133,6 +117,7 @@ struct SettingsView: View {
                         try await self.store.purchase(product)
                     } catch {
                         print("[AppleSignInManager] Error during purchase")
+                        self.store.isPurchasing = false
                     }
                 }
             }
@@ -155,37 +140,35 @@ struct SettingsView: View {
             }
             return email
         }
-        return "Sign In"
+        return "Sign-in account"
     }
     
     func saveTranscript() {
         if SpeechRecognition.shared.conversation.isEmpty {
             showAlert = true
             return
-        }       
+        }
         isSaveTranscript = true
     }
-  
+    
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
-
+        
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
                 transcript += "\(label) \(content)\n"
             }
         }
-
+        
         return transcript
     }
     
     func deleteUserAccount() {
         guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
+            SentrySDK.capture(message: "[UserAPI][DeleteAccount] serverAPIKey missing.")
             return
         }
-        
-//        KeychainService.shared.clearAll()
-        
         print("[SettingsView][deleteUserAccount]")
         UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
             if success {
