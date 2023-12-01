@@ -1,7 +1,6 @@
 import Combine
 import Foundation
 import UIKit
-import Mixpanel
 
 enum ActionType {
     case reset
