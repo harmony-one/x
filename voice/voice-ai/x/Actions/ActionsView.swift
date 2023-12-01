@@ -69,7 +69,7 @@ struct ActionsView: View {
 
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "reset"), image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-        let buttonTapSpeak = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "tapToSpeak"), pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
+        let buttonTapSpeak = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "tapToSpeak"), pressedLabel: getButtonLabel(for: languageCode, buttonName: "tapToSend"), image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "speak"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: getButtonLabel(for: languageCode, buttonName: "more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")

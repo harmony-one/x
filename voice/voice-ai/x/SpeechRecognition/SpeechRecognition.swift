@@ -50,8 +50,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     var textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";"), Character("。"), Character("、"), Character("！"), Character("？"), Character("ー"), Character("；")]
    
     var pendingOpenAIStream: OpenAIStreamService?
     
@@ -92,6 +90,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var isTimerDidFired = false
         
     let languageCode: String
+    private let speechDelimitingPunctuations: [Character]
     private let greetingText: String
     private let sayMoreText: String
     private let letMeKnowText: String
@@ -102,6 +101,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     override init() {
         self.languageCode = getLanguageCode()
+        
+        self.speechDelimitingPunctuations = getDelimitingPunctuations(for: languageCode) ?? []
+        
         self.greetingText = getGreetingText(for: languageCode) ?? "Hey"
         self.sayMoreText = getSayMoreText(for: languageCode) ?? "Tell me more."
         self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
