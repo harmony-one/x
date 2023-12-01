@@ -61,7 +61,7 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("Share transcript")) { saveTranscript() },
-            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+//            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
             .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
