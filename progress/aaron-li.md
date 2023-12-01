@@ -1,18 +1,22 @@
-2023-12-01 Fri (1h+): Review #273, #274, #275, #277, #278, #279 (comment on sign-in test coverage), #280, #282, #285 (comment on nil-able variables), #286, #287, #288, #289 (comment on configurable variable), #283 (draft), #284 (draft, comment on mock benchmark purposes), #290, #291 (comment on language code as setting)
+2023-12-01 Fri (1h): Review #273, #274, #275, #277, #278, #279 (comment on sign-in test coverage), #280, #282, #285 (comment on nil-able variables), #286, #287, #288, #289 (comment on configurable variable), #283 (draft), #284 (draft, comment on mock benchmark purposes), #290, #291 (comment on language code as setting).
 
-2023-11-30 Thu (1.5h): Review and debug multisig 422 error and signing issues from some devices. Review #266, #267, #268, #269, #270 (questions on deterministic test issue), #271, #272 (questions on audio tap removal, comment on whether actual functionalities are tested and need for more advanced action simulation)
+2023-11-30 Thu (1.5h): Review and debug multisig 422 error and signing issues from some devices. Review #266, #267, #268, #269, #270 (questions on deterministic test issue), #271, #272 (questions on audio tap removal, comment on whether actual functionalities are tested and need for more advanced action simulation).
 
-2023-11-28 Tue (1h): Research and discuss benchmarking options and metrics. Research scalable benchmarking and user testing tools (Mechanical Turk, Sofy, Usertesting, and others)
+2023-11-28 Tue (1h): Research and discuss benchmarking options and metrics. Research scalable benchmarking and user testing tools (Mechanical Turk, Sofy, Usertesting, and others).
 
-2023-11-25 Sat (6.5h): Review #260, #262. Devops role and user setup for Kibana and ES. End-to-end testing and cluster management for voice app client performance and metric analysis. Perform Apple device check on relay using client submitted device token. Retrieve relay mode and OpenAI base URL from server; Fix attestation caching, key regeneration mechanisms and triggers; Add ways on server to expire an attested key. Allow multiple package ids for hard attestation verification. Bug fixes and end-to-end testing, deployment
+---
+
+2023-11-25 Sat (6.5h): Review #260, #262. Devops role and user setup for Kibana and ES. End-to-end testing and cluster management for voice app client performance and metric analysis. Perform Apple device check on relay using client submitted device token. Retrieve relay mode and OpenAI base URL from server; Fix attestation caching, key regeneration mechanisms and triggers; Add ways on server to expire an attested key. Allow multiple package ids for hard attestation verification. Bug fixes and end-to-end testing, deployment.
 
 2023-11-24 Fri (7.5h): Review #235, #236, #237, #238, #239, #240, #241, #242, #243, #244 (commented on concern over use of trademark terms and proposed alternative), #245 (press and hold delayed processing - commented on concern over missing input word), #246, #247, #248 (tests on OpenAI streaming - commented on possible improvements on using mock server instead of states that are only useful for tests), #249 (multi-button tap - commented on complexity concern), #251, #252 (performance metric measurements - commented with TODO), #253 (UI action tests - requested additional tests with more depth), #254, #256, #257, #258, #250 (open, transcript export - commented on concern over ineffective filtering), #255 (open). Relay API for performance times and metrics. Refactoring relay APIs and utilities. Client side implementation for TimeLogger. Refactoring device token generation. Creating generic time and performance metric logging and measurement utility.
 
-2023-11-20 Mon (2h): Analysis of first response time; Kibana quick setup for Voice AI app. Research on latency improvement plans and alternatives to OpenAI. Review #221, #222, #223, #224, #227, #229, #230, #232, #233, #234
+2023-11-20 Mon (2h): Analysis of first response time; Kibana quick setup for Voice AI app. Research on latency improvement plans and alternatives to OpenAI. Review #221, #222, #223, #224, #227, #229, #230, #232, #233, #234.
+
+---
 
 2023-11-19 Sun (1.5h): Research on Azure compute, AI support, and Anthropic; Wallet theft analysis; New Burner mechanisms through WONE, end-to-end testing, production deployment.
 
-2023-11-18 Sat (N/A): Technical research on state-of-the-art and recovery community service
+2023-11-18 Sat (N/A): Technical research on state-of-the-art and recovery community service.
 
 2023-11-17 Fri (8.5h): Debug issues that prevent some clients from obtaining relay tokens. Add structed errors and codes for relay client. Capture errors. Auto-retry at client side. Do not override token if failed to get one. Allow new session button to get a new relay token. Cache attestation and challenge at client side. Deterministic generation of relay token. Implemented banned list for relay token. Added ES integration and basic request and response measurement. Store attestationHash and ban user based on that, instead of auth token. Make auth token change every 30 minutes. Review #210, #181 conflicts, #217, #214, #213, #212, #211, #209, #208, #207, #206, #205, #204, #203, #202, #198, #197, #194, #193, #192, #190, #189, #187, #185.
 
@@ -26,19 +30,21 @@
 
 ---
 
-2023-11-12 Sun (0.5h): Review app payment server and API design and discussions
+2023-11-12 Sun (0.5h): Review app payment server and API design and discussions.
 
-2023-11-11 Sat (6h): Implement basic key protection in relay with AES encryption, multi-key rotation, device id and ip tracking, ban list, and key retrieval API with rate limit; Implement client side decryption and initialization; Client side bug fixes, end-to-end testing; Deployment on GCP and systemd service with instance metadata as parameter; Setup and build guide; Allow local key override
+2023-11-11 Sat (6h): Implement basic key protection in relay with AES encryption, multi-key rotation, device id and ip tracking, ban list, and key retrieval API with rate limit; Implement client side decryption and initialization; Client side bug fixes, end-to-end testing; Deployment on GCP and systemd service with instance metadata as parameter; Setup and build guide; Allow local key override.
 
-2023-11-10 Fri (1.5h): Review #141, #157, #159, #160; Research on GPT chat session, context compression and effects; Interview preparation and discussion on technical problems 
+2023-11-10 Fri (1.5h): Review #141, #157, #159, #160; Research on GPT chat session, context compression and effects; Interview preparation and discussion on technical problems.
 
-2023-11-09 Thu (5h): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Test end-to-end; Research and analysis on iOS market shares by versions, and minimally required versions for key features; Code refactor and applying universal formatting; Implement GPT model switch based on GPT usage time; Implement random alert to share and review based on app usage time; Test end-to-end and fix bugs
+2023-11-09 Thu (5h): Review #144, #145, #146, #148, #149, #150, #151, #152; Implement QPM limit on streaming services, and rate-limit error handling; Test end-to-end; Research and analysis on iOS market shares by versions, and minimally required versions for key features; Code refactor and applying universal formatting; Implement GPT model switch based on GPT usage time; Implement random alert to share and review based on app usage time; Test end-to-end and fix bugs.
 
-2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings;
+2023-11-08 Wed (4h): Review #138, #139; Testing for bugs in complex audio conditions; Update production checklist; Review language requirement, support channel integration, built-in analytics; Review and discussion on checklist suggestions; Technical interview preparation; Extend production checklist with audio bugs, UI bugs, and customer support features; Cleanup and backup Notion data; Fix issues on mail aliases services, implemented pagination; Update checklist on version control issues; Review deep links into settings.
 
 2023-11-07 Tue (2.5h): Make initial production checklist; Research on app analytic systems and integration complexity; End-to-end testing of the app; Fix SSL issue and document steps for future incident resolution; Fix Tweet embedding issues, CSS issues for notion embedding, and research on tweet libraries.
 
 2023-11-06 Mon (2h): Review #114, #115, #117 update, #118, #119, #120, #121, #123, #125; Review OpenAI new offerings and ways of integrations.
+
+---
 
 2023-11-03 Fri (0.5h): Review #117; New domain and DNS configuration; Review Linux ML development portability to iOS.
 
@@ -50,21 +56,25 @@
 
 2023-10-30 Mon (5.5h): Review code updates and errors related to OpenAI streaming (#82, #83, #88, #87, #86, #84, 81); Fix OpenAI streaming implementation and integrations, graceful error handling, crash issues in classic Speech Recognition crash issues, various button failures and unexpected responses; End-to-end debugging and testing, and publishing new deployment in Hey Sam; Discuss findings and tasks related to key protection and attestation; Live discussions related to OpenAI streaming issues.
 
+---
+
 2023-10-29 Sun (1h): Code review and discussions on alternative OpenAI and Deepgram streaming implementations, recent pull requests and versions, product updates;
 
-2023-10-27 Fri (4.5h+): Deploy and setup relay server instance with domain and certificates; Implement certificate chain verification and binary to PEM conversion; Revise and fix bugs on attestation verification; Implement client side examples for using Relay with TODOs;
+2023-10-27 Fri (4.5h): Deploy and setup relay server instance with domain and certificates; Implement certificate chain verification and binary to PEM conversion; Revise and fix bugs on attestation verification; Implement client side examples for using Relay with TODOs;
 
 2023-10-26 Thu (6.5h): Documenting, testing implementation and TODOs; Implementation of Relay and integration with attestation verification; Code review on recent PRs #70, #73; Review attestation formats, WebAuthn libraries, research on DER encoding, Octet string, ASN.1 sequence, and the maximal use of jsrsasign library; Revise attestation verification implementaiton on missing steps (nonce verification, certificate chain); Research on X.509 custom extension field retrieval, jsrsasign library inner working and utility functions, and past issues and solutions
 
-2023-10-25 Wed (5.5h): Research on OpenAI key generation process, security recommendations; Research on Apple app attestation and integrity services, verification algorithm and reference implementations; Research on CBOR and WebAuthn standards and related libraries, and app attestation design and format; Step by step implementation of attestation verification; Verify reference implementation on public key construction
+2023-10-25 Wed (5.5h): Research on OpenAI key generation process, security recommendations; Research on Apple app attestation and integrity services, verification algorithm and reference implementations; Research on CBOR and WebAuthn standards and related libraries, and app attestation design and format; Step by step implementation of attestation verification; Verify reference implementation on public key construction.
 
-2023-10-24 Tue (9h): Fix issues with streaming ASR error handling, payload parsing, keep-alive, auto-resuming, and closing; Implementing OpenAI streaming response handling, piping ASR to OpenAI, streamed toke nresponse processing; Piping to Speech synthesizer for end-to-end demo; UI Button integration and implementation based on streamed components; Debugging, end-to-end testing of streaming ASR (Deepgram) + LM (OpenAI); Debugging capturing activation for AVCaptureSession and implementing workarounds; Implement basic measures to counter self-interference (pause listening while speaking), fine-tune parameters and sentence delimiting to compare model performance, deploy to TestFlight; Review PlayHT streaming implementation, documentations, models and styles; Resolve merge conflicts; Implement TTS streaming skeleton; Review latest code commits, package dependency sizes; PlayHT basic partial integration, with TODO instructions; Evalaute and experiment with PlayHT models and parameters
+2023-10-24 Tue (9h): Fix issues with streaming ASR error handling, payload parsing, keep-alive, auto-resuming, and closing; Implementing OpenAI streaming response handling, piping ASR to OpenAI, streamed toke nresponse processing; Piping to Speech synthesizer for end-to-end demo; UI Button integration and implementation based on streamed components; Debugging, end-to-end testing of streaming ASR (Deepgram) + LM (OpenAI); Debugging capturing activation for AVCaptureSession and implementing workarounds; Implement basic measures to counter self-interference (pause listening while speaking), fine-tune parameters and sentence delimiting to compare model performance, deploy to TestFlight; Review PlayHT streaming implementation, documentations, models and styles; Resolve merge conflicts; Implement TTS streaming skeleton; Review latest code commits, package dependency sizes; PlayHT basic partial integration, with TODO instructions; Evalaute and experiment with PlayHT models and parameters.
 
-2023-10-23 Tue (6h): Complete Deepgram integraiton; Research on audio buffer splitting and joining; Implement and debug stream ASR end-to-end; Research, debug, and fix issues related to native websocket continuous receiving errors, reconnects, and sending errors for various payloads (keepalive, data); Simplify JSON payload parsing and encoding; Research and implementations on audio buffer merging, splitting, metadata retrieval and computation, and raw buffer parsing and manipulation; Debug x.country preview issues, app store app internal user access issues; Discussion on development process, concurrent implementation structure, forks, and merges
+2023-10-24 Tue (6h): Complete Deepgram integraiton; Research on audio buffer splitting and joining; Implement and debug stream ASR end-to-end; Research, debug, and fix issues related to native websocket continuous receiving errors, reconnects, and sending errors for various payloads (keepalive, data); Simplify JSON payload parsing and encoding; Research and implementations on audio buffer merging, splitting, metadata retrieval and computation, and raw buffer parsing and manipulation; Debug x.country preview issues, app store app internal user access issues; Discussion on development process, concurrent implementation structure, forks, and merges.
 
-2023-10-22 Mon (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing
+2023-10-23 Mon (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing.
 
-2023-10-21 Sun (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing; Complete Deepgram integration;
+---
+
+2023-10-22 Sun (5h): Deepdive on Deepgram API option and experiemtnation; OpenAI streaming API research and issue review; Building websocket messaging around Deepgram streaming integration and error handling; Research on low level header files for settings related to audio encoding, sample rate, and others for configuring output buffer; Research on audio buffer manipulation and experimentation; Implementation of audio buffer data conversion; Review simjilar issues reported online related to merging and splitting audio buffer; debugging and testing; Complete Deepgram integration;
 
 2023-10-21 Sat (2.5h): Implementing ASR websocket integration, functions for basic commands and controls; Revisiting documentation on Core Audio streaming methods and determine the best implementation approach; Review AudioToolBox and related alternatives and evaluate; Reviewing and implementing AVCaptureSession and AVCaptureAudioDataOutput
 
@@ -80,6 +90,8 @@
 Review and test Swift UI mockup fixes; Review code updates (#26 willow e2e, #28 Safari support, #10 error handling, deployment fixes), recent demos
 Review, test, and compare Swift websocket libraries and code; Code review #4 (audio player base, elevenlabs), #25 (gpt4 context and deepgram), #26 (voice detection), #27 (willow e2e) and related components; Test commercial TTS provider APIs.
 
+---
+
 2023-10-14 Sat: (2h) TestFlight build, launch, bug fixes, and configurations; Review Deepgram benchmark and documentations.
 
 2023-10-13 Fri: (7h) Research and analysis on audio libraries and frameworks under react native and iOS native system (CoreAudio, AVFoundation), [write ups](https://github.com/harmony-one/x/blob/main/doc/audio.md), [boilerplate app setup](https://github.com/harmony-one/x/pull/21), and code review; Progress review; X app configuration, framework imports, permission updates; Manual x.country domain management, maintainer updates; Long-term renewal, and bug fixes.
@@ -92,6 +104,8 @@ Review, test, and compare Swift websocket libraries and code; Code review #4 (au
 
 2023-10-09 Mon: (0.5h) General code review; Research note and documentation reivew; React native app setup and Test Flight configuration.
 
+---
+
 2023-10-08 Sun: (2h) Research, analysis and discussion on model size, distribution mode, hybrid deployment, performance trade off, edge device benchmark, and real-time factors; Research on Whisper streaming workaround; Analysis of performance and practicality of wav2vec2.
 
 2023-10-06 Fri: (1h) Voice cloning and synthesis experimentation, note review; Revisiting Huggingface experiments.
@@ -101,6 +115,8 @@ Review, test, and compare Swift websocket libraries and code; Code review #4 (au
 2023-10-04 Wed: (2.5h) Discussion and analysis on voice product, tech stacks, and use cases; Task planning and work allocation; Speech model performance review; Research on Twilio voice streaming.
 
 2023-10-03 Tue: (5h) Personalized task planning; Huggingface models and spaces experimentation (tortoise, coqui, others) ; Ad-hoc performance and latency measurements; Domain renewal and functionality technical discussions; ES payment statistics code review and discussions; Discussions on voice related hugginface AI models, benchmark, and possible tasks; GCP Vertex AI permission settings and service account; Experiment with commercial XTTS and TTS models.
+
+---
 
 2023-09-29 Fri: (6h) Bug fixes on trasient bot state for analytics; End-to-end testing; Research and experiments on state of the art speech related models, performance metrics, pratical experience, and use cases; Analysis and discussion on Whatsapp business platform and bot feasibility.
 
