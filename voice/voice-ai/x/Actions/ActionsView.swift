@@ -448,7 +448,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
 
     func openSettingsApp() {
-        self.appSettings.isOpened = true
+        self.appSettings.showActionSheet(type: .settings)
         print("Show settings")
 //        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
 //            UIApplication.shared.open(url)
@@ -496,7 +496,6 @@ struct ActionsView: ActionsViewProtocol, View {
         }
     }
 }
-
 
  #Preview {
     NavigationView {

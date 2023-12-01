@@ -1,11 +1,17 @@
 import Foundation
 import Combine
 
+enum ActionSheetType {
+        case settings, purchaseOptions
+        // Other cases if needed
+    }
+
 class AppSettings: ObservableObject {
     @Published var isOpened: Bool = false
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
-    
+    @Published var type: ActionSheetType?
+
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
     }
@@ -25,7 +31,13 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "USER_NAME", newValue: userName)
         }
     }
-
+    
+    // Function to show specific action sheet
+    func showActionSheet(type: ActionSheetType) {
+        self.type = type
+        self.isOpened = true
+    }
+    
     public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
