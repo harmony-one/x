@@ -86,6 +86,7 @@ struct SettingsView: View {
     }
     
     func tweet() {
+        MixpanelManager.shared.trackEvent(name: "Tweet", properties: nil)
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
@@ -93,6 +94,7 @@ struct SettingsView: View {
     }
     
     func performSignIn() {
+        MixpanelManager.shared.trackEvent(name: "Sign In", properties: nil)
         if KeychainService.shared.isAppleIdAvailable() {
             return
         }
@@ -107,6 +109,7 @@ struct SettingsView: View {
     }
     
     func showPurchaseDialog() {
+        MixpanelManager.shared.trackEvent(name: "Purchase Dialog", properties: nil)
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
@@ -125,6 +128,7 @@ struct SettingsView: View {
     }
     
     func openSystemSettings() {
+        MixpanelManager.shared.trackEvent(name: "System Settings", properties: nil)
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
@@ -144,6 +148,7 @@ struct SettingsView: View {
     }
     
     func saveTranscript() {
+        MixpanelManager.shared.trackEvent(name: "Save Transcripte", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
             showAlert = true
             return
@@ -165,6 +170,7 @@ struct SettingsView: View {
     }
     
     func deleteUserAccount() {
+        MixpanelManager.shared.trackEvent(name: "Delete Account", properties: nil)
         guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
             SentrySDK.capture(message: "[UserAPI][DeleteAccount] serverAPIKey missing.")
             return
