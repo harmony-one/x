@@ -28,15 +28,6 @@
       }
     },
     {
-      "identity" : "mixpanel-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mixpanel/mixpanel-swift",
-      "state" : {
-        "branch" : "master",
-        "revision" : "c6336881a077d283db6f6d6e2f242977250230bd"
-      }
-    },
-    {
       "identity" : "sentry-cocoa",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
