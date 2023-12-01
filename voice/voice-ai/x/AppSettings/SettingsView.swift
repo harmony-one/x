@@ -13,6 +13,8 @@ struct SettingsView: View {
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
     
+    var languageCode = getLanguageCode()
+    
     var body: some View {
         ZStack {
             Color.clear
@@ -41,11 +43,11 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text(getUserName())) { performSignIn() },
-            .default(Text("Purchase")) { showPurchaseDialog() },
-            .default(Text("Share")) { self.showShareSheet = true },
-            .default(Text("Tweet")) { tweet() },
-            .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Save Transcript")) { saveTranscript() }
+            .default(Text(getSettingsText(for: languageCode, buttonName: "purchase"))) { showPurchaseDialog() },
+            .default(Text(getSettingsText(for: languageCode, buttonName: "share"))) { self.showShareSheet = true },
+            .default(Text(getSettingsText(for: languageCode, buttonName: "tweet"))) { tweet() },
+            .default(Text(getSettingsText(for: languageCode, buttonName: "systemSettings"))) { openSystemSettings() },
+            .default(Text(getSettingsText(for: languageCode, buttonName: "saveTranscript"))) { saveTranscript() }
             
         ])
     }
@@ -104,7 +106,7 @@ struct SettingsView: View {
             }
             return email
         }
-        return "Sign In"
+        return getSettingsText(for: languageCode, buttonName: "signIn")
     }
     
     func saveTranscript() {

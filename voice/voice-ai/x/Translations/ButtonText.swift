@@ -2,7 +2,7 @@
 
 import Foundation
 
-func getButtonLabel(for languageCode: String, buttonName: String) -> String {
+func getButtonText(for languageCode: String, buttonName: String) -> String {
     if let languageDictionary = buttonTranslations[languageCode], let translatedText = languageDictionary[buttonName] {
         return translatedText
     } else {
