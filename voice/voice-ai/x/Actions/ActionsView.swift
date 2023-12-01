@@ -496,9 +496,9 @@ struct ActionsView: ActionsViewProtocol, View {
         }
     }
 }
-
- #Preview {
-    NavigationView {
-        ActionsView() // actionHandler: nil)
-    }
- }
+//
+// #Preview {
+//    NavigationView {
+//        ActionsView() // actionHandler: nil)
+//    }
+// }
