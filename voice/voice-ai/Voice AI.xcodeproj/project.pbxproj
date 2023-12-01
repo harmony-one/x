@@ -113,6 +113,10 @@
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
+		B39505A72B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */; };
+		B39505A82B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */; };
+		B39505A92B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */; };
+		B39505AA2B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */; };
 		B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
@@ -342,6 +346,7 @@
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests.swift; sourceTree = "<group>"; };
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomsInstuctionView.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
@@ -652,6 +657,7 @@
 				6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */,
 				B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */,
 				6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */,
+				B39505A62B1A9C790058C673 /* CustomsInstuctionView.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1152,6 +1158,7 @@
 				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
 				B9A3AE272B18CC7900C5FC66 /* AppConfig.swift in Sources */,
 				F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */,
+				B39505AA2B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */,
 				F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */,
 				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
 				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
@@ -1217,6 +1224,7 @@
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				B9A3AE242B18CC7900C5FC66 /* AppConfig.swift in Sources */,
 				22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */,
+				B39505A72B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
 				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
 				B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */,
@@ -1295,6 +1303,7 @@
 				F7F115062AF8173300BC191C /* ExtensionTests.swift in Sources */,
 				B31CDCE42AFC565400AB39EE /* ThemeManager.swift in Sources */,
 				B9A3AE1D2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
+				B39505A82B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
 				B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */,
 				6E1ADB892B163C2300BA0F38 /* ProgressViewComponentTests.swift in Sources */,
@@ -1376,6 +1385,7 @@
 				6E53AF472AF0121E0022A8F2 /* AudioPlayer.swift in Sources */,
 				6E56C7BF2B067A9C00ED2296 /* ReviewRequester.swift in Sources */,
 				CD0D13592ADA73B400031EDD /* xUITestsLaunchTests.swift in Sources */,
+				B39505A92B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */,
 				6E56C7B62B06787000ED2296 /* ThemeManager.swift in Sources */,
 				6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */,
 				CDC137152B11B129003386E9 /* TimeLogger.swift in Sources */,

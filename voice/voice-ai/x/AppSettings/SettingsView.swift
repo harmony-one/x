@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var showAlert = false
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
+    @State private var showCustomInstructionViewSheet = false
     
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
@@ -19,6 +20,7 @@ struct SettingsView: View {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
         }
+        .customInstructionsViewSheet(isPresented: $showCustomInstructionViewSheet)
         .actionSheet(isPresented: $appSettings.isOpened) {
             guard let actionSheetType = appSettings.type else { return ActionSheet(title: Text("")) }
             switch actionSheetType {
@@ -61,7 +63,7 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("Share transcript")) { saveTranscript() },
-//            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+            .default(Text("Custom instructions")) { self.showCustomInstructionViewSheet = true },
             .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
@@ -74,6 +76,49 @@ struct SettingsView: View {
             }
         ])
     }
+    
+//    func customInstructionsActionSheet() -> {
+//        return ActionSheet(title: Text("Custom Instructions"), buttons: [
+//            .default(Text(<#T##input: Equatable##Equatable#>, format: FormatStyle)),
+//            .cancel()
+//        ])
+//    }
+    
+    func showDropdownActionSheet() {
+        let dropdownActionSheet = UIAlertController(title: "Dropdown & Text", message: nil, preferredStyle: .actionSheet)
+        
+        // Add your dropdown list options as actions
+        let option1Action = UIAlertAction(title: "Option 1", style: .default) { _ in
+            // Handle option 1 selection
+        }
+        dropdownActionSheet.addAction(option1Action)
+        
+        let option2Action = UIAlertAction(title: "Option 2", style: .default) { _ in
+            // Handle option 2 selection
+        }
+        dropdownActionSheet.addAction(option2Action)
+        
+        // Add a text field for input
+        dropdownActionSheet.addTextField { textField in
+            textField.placeholder = "Enter your text"
+        }
+        
+        // Add a submit action
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+            // Handle submit action
+            if let text = dropdownActionSheet.textFields?.first?.text {
+                // Access the entered text
+            }
+        }
+        dropdownActionSheet.addAction(submitAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        dropdownActionSheet.addAction(cancelAction)
+        
+        // Present the action sheet
+        UIApplication.shared.windows.first?.rootViewController?.present(dropdownActionSheet, animated: true, completion: nil)
+    }
+    
     
     func purchaseOptionsActionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
@@ -106,6 +151,16 @@ struct SettingsView: View {
         }
     }
     
+    
+    func showCustomInstrucionMenu() {
+
+        let alertController = UIAlertController(title: "Alert", message: "This is a UIAlertController", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        // Use the UIViewControllerRepresentable wrapper to present the UIAlertController
+        UIApplication.shared.windows.first?.rootViewController?.present(alertController, animated: true, completion: nil)
+
+    }
     func showPurchaseDialog() {
         DispatchQueue.main.async {
             Task {
