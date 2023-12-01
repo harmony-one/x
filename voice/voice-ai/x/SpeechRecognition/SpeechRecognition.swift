@@ -96,6 +96,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let letMeKnowText: String
     private let networkErrorText: String
     private let limitReachedText: String
+    private let answerLimitText: String
     
     // MARK: - Initialization and Setup
     
@@ -109,6 +110,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
         self.networkErrorText = getNetworkErrorText(for: languageCode) ?? "No network conditions."
         self.limitReachedText = getLimitReachedText(for: languageCode) ?? "You have reached your limit, please wait 10 minutes"
+        self.answerLimitText = getAnswerLimitText(for: languageCode) ?? "I can only answer 100 questions per minute at this time."
     }
 
     func setup() {
