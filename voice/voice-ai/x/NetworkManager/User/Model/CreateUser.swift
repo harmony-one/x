@@ -8,6 +8,7 @@ struct User: Codable {
     let updatedAt: String?
     let expirationDate: String?
     let isSubscriptionActive: Bool?
+    let appVersion: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -18,6 +19,7 @@ struct User: Codable {
         case updatedAt
         case expirationDate
         case isSubscriptionActive
+        case appVersion
     }
 
     init(from decoder: Decoder) throws {
@@ -30,5 +32,6 @@ struct User: Codable {
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         expirationDate = try values.decodeIfPresent(String.self, forKey: .expirationDate)
         isSubscriptionActive = try values.decodeIfPresent(Bool.self, forKey: .isSubscriptionActive)
+        appVersion = try values.decodeIfPresent(String.self, forKey: .appVersion)
     }
 }
