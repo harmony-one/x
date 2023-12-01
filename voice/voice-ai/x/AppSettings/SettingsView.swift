@@ -79,7 +79,7 @@ struct SettingsView: View {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
             .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
-            .default(Text("Sign-in account")) { performSignIn() },
+            .default(Text(getUserName())) { performSignIn() },
             .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
@@ -140,7 +140,7 @@ struct SettingsView: View {
             }
             return email
         }
-        return "Sign In"
+        return "Sign-in account"
     }
     
     func saveTranscript() {
