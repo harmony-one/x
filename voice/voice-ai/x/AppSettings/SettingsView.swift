@@ -122,12 +122,12 @@ struct SettingsView: View {
         }
 
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Actions"), buttons: [
+        return ActionSheet(title: Text("Options"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("Share transcript")) { saveTranscript() },
-            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+//            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
             .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
@@ -145,7 +145,7 @@ struct SettingsView: View {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
             .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
-            .default(Text("Sign-in account")) { performSignIn() },
+            .default(Text(getUserName())) { performSignIn() },
             .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
@@ -206,7 +206,7 @@ struct SettingsView: View {
             }
             return email
         }
-        return "Sign In"
+        return "Sign-in account"
     }
     
     func saveTranscript() {
