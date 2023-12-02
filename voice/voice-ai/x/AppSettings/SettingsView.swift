@@ -13,11 +13,18 @@ struct SettingsView: View {
     
     private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
-    
+       
+
     var body: some View {
         ZStack {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
+            // This could be an invisible view or integrated naturally into your UI
+                     .frame(width: 0, height: 0)
+                            .sheet(isPresented: $appSettings.isPopoverPresented) {
+                                popoverContent()
+                                    .background(Color.clear)
+                            }
         }
         .actionSheet(isPresented: $appSettings.isOpened) {
             guard let actionSheetType = appSettings.type else { return ActionSheet(title: Text("")) }
@@ -28,6 +35,7 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
+                       
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: self.appUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -54,18 +62,84 @@ struct SettingsView: View {
             )
         }
     }
+
+
+     func popoverContent() -> some View {
+            VStack {
+                switch appSettings.type {
+                case .settings:
+                    settingsPopoverContent()
+                case .purchaseOptions:
+                    purchaseOptionsPopoverContent()
+                default:
+                    EmptyView()
+                }
+            }
+            .padding()
+            .background(Color.white)
+        }
     
+    private func settingsPopoverContent() -> some View {
+            VStack(spacing: 32) {
+                Text("Actions").font(.title)
+                Divider()
+                Button("Share Transcript") {
+                    self.appSettings.isPopoverPresented = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        saveTranscript()
+                    }
+                }.font(.title2)
+//                Button("Custom instructions") { /* Add logic for custom instructions */ }
+                Button("Tweet Feedback") {
+                    tweet()
+                }.font(.title2)
+                Button("Share App") {
+                    self.appSettings.isPopoverPresented = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.showShareSheet = true
+                    }
+                }.font(.title2)
+                Button("System Settings") { 
+                    openSystemSettings()
+                }.font(.title2)
+                Button("Purchase Premium") {
+                    appSettings.type = .purchaseOptions
+                    appSettings.isPopoverPresented = true
+                }.font(.title2)
+                Button("Cancel", role: .cancel) {
+                    appSettings.isPopoverPresented = false
+                }.font(.title2)
+            }
+            .padding()
+        }
+    
+    private func purchaseOptionsPopoverContent() -> some View {
+            VStack {
+                Text("Purchase Options").font(.headline)
+                Divider()
+                Button("Pay $5 via Apple") { showPurchaseDialog() }
+                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
+                Button("Sign-in Account") { performSignIn() }
+                Button("Delete Account") { self.showDeleteAccountAlert = true }
+                Button("Cancel", role: .cancel) {
+                    appSettings.isPopoverPresented = false
+                }
+            }
+            .padding()
+        }
+
     func actionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Options"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("Share Transcript")) { saveTranscript() },
 //            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
             .default(Text("Tweet Feedback")) { tweet() },
-            .default(Text("Share app link")) { self.showShareSheet = true },
+            .default(Text("Share App")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Purchase premium")) {
+            .default(Text("Purchase Premium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -78,9 +152,9 @@ struct SettingsView: View {
     func purchaseOptionsActionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
-            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+            .default(Text("Restore Purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) { performSignIn() },
-            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+            .default(Text("Delete Account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
     }
