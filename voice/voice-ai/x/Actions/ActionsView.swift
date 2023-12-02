@@ -314,7 +314,7 @@ struct ActionsView: ActionsViewProtocol, View {
                 if event != nil {
                     return
                 }
-//                self.vibration()
+                self.vibration()
             }.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
