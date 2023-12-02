@@ -1,3 +1,5 @@
+2023-12-01 Fri: Deployed 1.1201.18 (Updated action sheets, iPad misconfiguration resolved). Created script for finding “[canned responses](https://harmonyone.notion.site/Canned-Responses-08c2a748e67b4da0bf8c05c817c17911?pvs=4)” throughout codebase. 
+
 2023-11-30 Thu: Deployed 1.1130.18 (Context increase 500 -> 8000, Language support now 183). Continued testing smaller models, Mistral and Llama 7b via Ollama. Insights: Llama 7b more verbose but unreliable. Mistral much more consistent at following instructions and fast outputs. GPT-3.5 still the clear winner, but for on-device efficiency and cost optimization, Mistral seems best suited.
 
 2023-11-29 Wed: Deployed 1.1129.18, key change: In-App purchase backend handling improvements. Started [testing Mistral 7b](https://harmonyone.notion.site/Mistral-7b-Testing-4c0512d7106b41ed8321204268d79eb4?pvs=4) locally for upcoming complete on-device build for latency optimization and improved availability. 
