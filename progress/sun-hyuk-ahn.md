@@ -1,3 +1,9 @@
+2023-12-04 Mon: Out of office
+
+---
+
+2023-11-29 Fri - 2023-12-03 Sun: Out of office
+
 2023-11-28 Thu: Fixed user deletion and creation flow bug. Updated context length from 500 to 8000. Updated setting fields to have matching format.
 
 2023-11-27 Wed: Fixed Network manager handling bug. Refactor and cleanup in app purchase process. In app purchase server side bug fix (hand off to Artem).
