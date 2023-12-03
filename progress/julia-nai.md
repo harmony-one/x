@@ -1,6 +1,6 @@
 2023-12-02 Sat: There are multiple instances of the custom mode text in the app, so I am working on identifying which are still needed and which are extraneous. Worked on getting local build working again with new API key.
 
-2023-12-01 Fri: Tested the app and identified some issues with custom mode selector. aThe original implimentation of custom instructions through the system seems does not seem to be connected entirely so overriding that with custom modes does not produce the intended results. 
+2023-12-01 Fri: Tested the app and identified some issues with custom mode selector. The original implementation of custom instructions through the system seems does not seem to be connected entirely so overriding that with custom modes does not produce the intended results. 
 
 2023-11-30 Thu: [Changed](https://github.com/harmony-one/x/commit/685e963c17facf4cec04549d8bde487e58c97c37) wording and capitalization of action sheet options in line with specifications. Moved account related options to a sub-page of "Purchase premium" option in action sheet. 
 
