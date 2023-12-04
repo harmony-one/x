@@ -1,3 +1,8 @@
+2024-01-03 - 2024-01-05 Fri: Paid time off.
+
+---
+
+
 2023-12-01 Fri: Released version v1.1201.18 which we had to patch together after app store rejection. iPad menu is not complete, but was necessary to receive app store approval.
 
 2023-11-30 Thu: Released v1.1130.18 to testflight and submitted to app store. We have added a new submenu and reconfigured delete account functionality to receive app store approval.
