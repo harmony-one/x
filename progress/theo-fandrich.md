@@ -1,3 +1,5 @@
+2023-12-01 Fri: Released version v1.1201.18 which we had to patch together after app store rejection. iPad menu is not complete, but was necessary to receive app store approval.
+
 2023-11-30 Thu: Released v1.1130.18 to testflight and submitted to app store. We have added a new submenu and reconfigured delete account functionality to receive app store approval.
 
 2023-11-29 Wed: Released v1.1130.9 which now handles account deletion which should resolve App Store approval. Mixpanel should be integrated by Monday so that we can have full behavioral tracking of app. Data.ai and Sensor Tower only repackage the data that is shared within App Connect, so it doesn't provide any granular detail to the user experience.
