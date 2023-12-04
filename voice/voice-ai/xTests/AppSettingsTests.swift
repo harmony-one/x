@@ -35,3 +35,7 @@ class AppSettingsTests: XCTestCase {
     }
 
 }
+
+class MixpanelManagerTests: XCTestCase {
+    
+}
