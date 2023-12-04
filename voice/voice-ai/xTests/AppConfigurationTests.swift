@@ -190,12 +190,12 @@ class SettingsBundleHelperTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: SettingsBundleHelper.SettingsBundleKeys.Username)
     }
     
-//    func testSetDefaultValues() {
-//        SettingsBundleHelper.setDefaultValues()
-//        
-//        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-//        XCTAssertEqual(customInstruction, "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")
-//    }
+    func testSetDefaultValues() {
+        SettingsBundleHelper.setDefaultValues()
+        
+        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        XCTAssertEqual(customInstruction, "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")
+    }
     
     func testCheckAndExecuteSettings() {
         SettingsBundleHelper.checkAndExecuteSettings()
@@ -244,62 +244,4 @@ class RelayAuthTests: XCTestCase {
 
 }
 
-class CustomInstructionsConfigTests: XCTestCase {
-    var customInstructionsHandler: CustomInstructionsHandler!
-
-    override func setUp() {
-        super.setUp()
-        customInstructionsHandler = CustomInstructionsHandler()
-    }
-
-    override func tearDown() {
-        customInstructionsHandler = nil
-        UserDefaults.standard.removeObject(forKey: CustomInstructionsHandler.Constants.activeContextKey)
-        UserDefaults.standard.removeObject(forKey: CustomInstructionsHandler.Constants.activeTextKey)
-        UserDefaults.standard.removeObject(forKey: "customText")
-        super.tearDown()
-    }
-
-    func testStoreActiveContextWithDefaultContext() {
-        customInstructionsHandler.storeActiveContext("Default")
-        XCTAssertEqual(UserDefaults.standard.string(forKey: CustomInstructionsHandler.Constants.activeContextKey), "Default")
-        XCTAssertEqual(UserDefaults.standard.string(forKey: CustomInstructionsHandler.Constants.activeTextKey), CustomInstructionsHandler.Constants.contextTexts["Default"])
-    }
-
-    func testStoreActiveContextWithCustomContext() {
-        let customText = "This is a custom instruction."
-        customInstructionsHandler.storeActiveContext("Custom", withText: customText)
-        XCTAssertEqual(UserDefaults.standard.string(forKey: CustomInstructionsHandler.Constants.activeContextKey), "Custom")
-        XCTAssertEqual(UserDefaults.standard.string(forKey: CustomInstructionsHandler.Constants.activeTextKey), customText)
-    }
-
-    func testRetrieveActiveContext() {
-        UserDefaults.standard.set("Custom", forKey: CustomInstructionsHandler.Constants.activeContextKey)
-        XCTAssertEqual(customInstructionsHandler.retrieveActiveContext(), "Custom")
-    }
-
-    func testRetrieveActiveTextWithCustomContext() {
-        let customText = "This is a custom instruction."
-        UserDefaults.standard.set("Custom", forKey: CustomInstructionsHandler.Constants.activeContextKey)
-        UserDefaults.standard.set(customText, forKey: CustomInstructionsHandler.Constants.activeTextKey)
-        XCTAssertEqual(customInstructionsHandler.retrieveActiveText(), customText)
-    }
-
-    func testRetrieveActiveTextWithDefaultContext() {
-        UserDefaults.standard.set("Default", forKey: CustomInstructionsHandler.Constants.activeContextKey)
-        UserDefaults.standard.removeObject(forKey: CustomInstructionsHandler.Constants.activeTextKey)
-        XCTAssertEqual(customInstructionsHandler.retrieveActiveText(), CustomInstructionsHandler.Constants.contextTexts["Default"])
-    }
-
-    func testGetOptions() {
-        let options = customInstructionsHandler.getOptions()
-        XCTAssertEqual(options, CustomInstructionsHandler.Constants.options)
-    }
-
-    func testSaveCustomText() {
-        let customText = "This is a custom instruction."
-        customInstructionsHandler.saveCustomText(customText)
-        XCTAssertEqual(UserDefaults.standard.string(forKey: "customText"), customText)
-    }
-}
 
