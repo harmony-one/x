@@ -19,7 +19,7 @@ struct CustomInstructionsViewModifier: ViewModifier {
                     VStack {
                         Spacer()
 
-                        CustomInstructionsView()
+                        CustomInstructionsView(isPresented: $isPresented)
                             .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 10)
                             .padding(.horizontal)
 //                            .padding(.top, 20)
@@ -36,6 +36,7 @@ struct CustomInstructionsViewModifier: ViewModifier {
 }
 
 struct CustomInstructionsView: View {
+    @Binding var isPresented: Bool
     @State private var inputText = ""
     @State private var selectedOption = "Default"
     @State var showTextField: Bool = false
@@ -71,6 +72,7 @@ struct CustomInstructionsView: View {
             }
             Button("Submit") {
                 saveSelectedOption()
+                isPresented = false
             }
             .padding()
             .background(theme.buttonActiveColor)
