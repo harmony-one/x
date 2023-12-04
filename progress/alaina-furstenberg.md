@@ -1,4 +1,6 @@
-2023-12-1 Fri:
+2023-12-3 Sun: Updated [community section](https://www.notion.so/harmonyone/Harmony-ONE-211747cea4e240248d941496ee203be8?pvs=4#48bdedabbb904005a4949a4c92b107cd) on harmony.one website, and shared links with TGI group. Followed up with Kratos regarding my user test, he's yet to answer the questions I sent. Retweeted NowNode's [thread](https://x.com/NOWNodes/status/1731670991481286764?s=20).
+
+2023-12-1 Fri: Synced with NowNodes, helped them to refine copy for a thread they're tweeting next week. Synced with DappRadar about the update to our subscription. Press and Hold was not functional on VoiceAI, so I filmed user tests using solely 'tap to speak'. I was able to film [videos](https://www.notion.so/harmonyone/VoiceAI-Demos-586e43d0cfbc414f94e38b5974104c2a?pvs=4) without highlighting 'surprise me' but the responses were still lengthy and subpar. I worked with Theo to draft custom instructions & noticed it's inconvenient to input/delete instructions in the settings. You can't view all the custom instructions and secondly the automatic custom instructions don't autofill after changing. 
 
 2023-11-30 Thu: Wrote thread to promote ONE Bots image to image logo generations, but noticed the feature /image --c 3 was no longer workiing. Forwarded issues to Frank and Yuriy for review. Experimented more golden paths for demos, yet unfortunately the local version of VoiceAI wasn't working on my phone. I wrote scripts to showcase musical history, Harmony knowledge, cooking knowledge, and a language learning version.
 
