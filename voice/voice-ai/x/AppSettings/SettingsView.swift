@@ -2,6 +2,31 @@ import SwiftUI
 import UIKit
 import Sentry
 
+struct CustomAlertView<Content: View>: View {
+    let content: Content
+    
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+    var body: some View {
+        // Transparent background that covers the entire screen
+        Color.black.opacity(0.4)
+            .edgesIgnoringSafeArea(.all)
+        // The alert content
+            .overlay(
+                VStack {
+                    content
+                }
+                    .padding()
+                    .frame(width: 400, height: 500) // Adjust the size as needed
+                    .background(Color(hex: 0x1E1E1E).animation(.none))
+                    .cornerRadius(15)
+                    .shadow(radius: 10),
+                alignment: .center
+            )
+    }
+}
+
 struct SettingsView: View {
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
@@ -13,17 +38,21 @@ struct SettingsView: View {
     
     private var shareTitle = "hey @voiceaiapp "
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
-       
+    
     var body: some View {
         ZStack {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
             // This could be an invisible view or integrated naturally into your UI
-                     .frame(width: 0, height: 0)
-                            .sheet(isPresented: $appSettings.isPopoverPresented) {
-                                popoverContent()
-                                    .background(Color.clear)
-                            }
+            if appSettings.isPopoverPresented {
+                CustomAlertView {
+                    popoverContent()
+                }
+                .transition(.scale) // Optional: Add a transition
+                .onTapGesture {
+                    appSettings.isPopoverPresented = false // Dismiss the custom alert
+                }
+            }
         }
         .actionSheet(isPresented: $appSettings.isOpened) {
             guard let actionSheetType = appSettings.type else { return ActionSheet(title: Text("")) }
@@ -34,7 +63,7 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
-                       
+        
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: self.appUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -61,78 +90,114 @@ struct SettingsView: View {
             )
         }
     }
-
-     func popoverContent() -> some View {
-            VStack {
-                switch appSettings.type {
-                case .settings:
-                    settingsPopoverContent()
-                case .purchaseOptions:
-                    purchaseOptionsPopoverContent()
-                default:
-                    EmptyView()
-                }
-            }
-            .padding()
-            .background(Color.white)
+    
+    @ViewBuilder
+    func popoverContent() -> some View {
+        switch appSettings.type {
+        case .settings:
+            settingsPopoverContent()
+        case .purchaseOptions:
+            purchaseOptionsPopoverContent()
+        default:
+            EmptyView()
         }
+    }
     
     private func settingsPopoverContent() -> some View {
-            VStack(spacing: 32) {
-                Text("Actions").font(.title)
-                Divider()
-                Button("Share Transcript") {
-                    self.appSettings.isPopoverPresented = false
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        saveTranscript()
-                    }
-                }.font(.title2)
-//                Button("Custom instructions") { /* Add logic for custom instructions */ }
-                Button("Tweet Feedback") {
-                    tweet()
-                }.font(.title2)
-                Button("Share App") {
-                    self.appSettings.isPopoverPresented = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.showShareSheet = true
-                    }
-                }.font(.title2)
-                Button("System Settings") { 
-                    openSystemSettings()
-                }.font(.title2)
-                Button("Purchase Premium") {
-                    appSettings.type = .purchaseOptions
-                    appSettings.isPopoverPresented = true
-                }.font(.title2)
-                Button("Cancel", role: .cancel) {
-                    appSettings.isPopoverPresented = false
-                }.font(.title2)
-            }
-            .padding()
+        
+        return VStack {
+            
+            Spacer()
+            Text("Voice AI - Super-Intelligence").font(.title2)
+                .foregroundColor(.white)
+            Spacer()
+            Button("Share Transcript") {
+                appSettings.isOpened = false
+                self.appSettings.isPopoverPresented = false
+                saveTranscript()
+            }.font(.title3)
+                .foregroundColor(.red)
+            Spacer()
+            Button("Tweet Feedback") {
+                tweet()
+                self.appSettings.isPopoverPresented = false
+            }.font(.title3)
+                .foregroundColor(.red)
+            Spacer()
+            Button("Share App") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.showShareSheet = true
+                }
+            }.font(.title3)
+                .foregroundColor(.red)
+            Spacer()
+            Button("System Settings") {
+                openSystemSettings()
+                self.appSettings.isPopoverPresented = false
+            }.font(.title3)
+                .foregroundColor(.red)
+            
+            Spacer()
+            Button("Purchase Premium") {
+                appSettings.type = .purchaseOptions
+                appSettings.isPopoverPresented = true
+            }.font(.title3)
+                .foregroundColor(.red)
+            Spacer()
+            Button("Cancel", role: .cancel) {
+                appSettings.isPopoverPresented = false
+            }.font(.title3)
+                .foregroundColor(.red)
+            Spacer()
         }
+        .padding()
+        .background(Color(hex: 0x1E1E1E).animation(.none))
+    }
     
     private func purchaseOptionsPopoverContent() -> some View {
-            VStack {
-                Text("Purchase Options").font(.headline)
-                Divider()
-                Button("Pay $5 via Apple") { showPurchaseDialog() }
-                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
-                Button("Sign-in Account") { performSignIn() }
-                Button("Delete Account") { self.showDeleteAccountAlert = true }
-                Button("Cancel", role: .cancel) {
-                    appSettings.isPopoverPresented = false
-                }
-            }
-            .padding()
+        VStack {
+            Spacer()
+            Text("Voice AI - Super-Intelligence")
+                .font(.title2).foregroundColor(.white)
+            Spacer()
+            Button("Pay $5 via Apple") {
+                showPurchaseDialog()
+                appSettings.isPopoverPresented = true
+            }.font(.title3).foregroundColor(.red)
+            Spacer()
+            Button("Restore Purchase") { /* Add logic for restoring purchase */
+            }.font(.title3).foregroundColor(.red)
+            Spacer()
+            Button("Sign-in Account") {
+                performSignIn()
+                appSettings.isPopoverPresented = true
+                appSettings.isPopoverPresented = false
+            }.font(.title3).foregroundColor(.red)
+            Spacer()
+            Button("Delete Account") {
+                //                appSettings.isOpened = false
+                //                self.appSettings.isPopoverPresented = false
+                self.showDeleteAccountAlert = true
+            }.font(.title3).foregroundColor(.red)
+            Spacer()
+            Button("Cancel", role: .cancel) {
+                appSettings.isPopoverPresented = false
+            }.font(.title3).foregroundColor(.red)
+            Spacer()
         }
-
+        .padding()
+    }
+    
     func actionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("Share transcript")) {
+                appSettings.isOpened = false
+                saveTranscript()
+            },
             .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("Tweet Feedback")) { tweet() },
@@ -217,7 +282,9 @@ struct SettingsView: View {
     
     func saveTranscript() {
         if SpeechRecognition.shared.conversation.isEmpty {
-            showAlert = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                showAlert = true
+            }
             return
         }
         isSaveTranscript = true
@@ -229,13 +296,12 @@ struct SettingsView: View {
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
-                        if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
-                            continue
-                        }
-                        transcript += "\(label) \(content)\n"
-                    }
+                if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
+                    continue
+                }
+                transcript += "\(label) \(content)\n"
+            }
         }
-        
         return transcript
     }
     
