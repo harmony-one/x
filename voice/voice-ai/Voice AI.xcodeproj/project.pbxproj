@@ -102,7 +102,6 @@
 		A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
 		A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
-		A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
 		B31CDCE32AFC561C00AB39EE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3BA792AFB40A300D8F8C6 /* Theme.swift */; };
@@ -225,7 +224,6 @@
 		B9C4A8322AEE96B600327529 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD50562ADFE91C006F18A1 /* Permission.swift */; };
 		CD0D13382ADA73B300031EDD /* xApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13372ADA73B300031EDD /* xApp.swift */; };
-		CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D13392ADA73B300031EDD /* DashboardView.swift */; };
 		CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D133D2ADA73B400031EDD /* Assets.xcassets */; };
 		CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */; };
 		CD0D134D2ADA73B400031EDD /* ActionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0D134C2ADA73B400031EDD /* ActionHandlerTests.swift */; };
@@ -410,7 +408,6 @@
 		B9C4A8262AEE861C00327529 /* ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* Voice AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0D13372ADA73B300031EDD /* xApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xApp.swift; sourceTree = "<group>"; };
-		CD0D13392ADA73B300031EDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CD0D133D2ADA73B400031EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD0D133F2ADA73B400031EDD /* x.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = x.entitlements; sourceTree = "<group>"; };
 		CD0D13412ADA73B400031EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -658,14 +655,6 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		B930AAD12ADD4BAF009F9F8C /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				CD0D13392ADA73B300031EDD /* DashboardView.swift */,
-			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
 		B930AADB2ADE2DA1009F9F8C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -805,7 +794,6 @@
 				B91F05AE2B049F5C0029A32D /* Apple */,
 				B91F05CD2B0613900029A32D /* AppSettings */,
 				B9AD504F2ADFE888006F18A1 /* Converter */,
-				B930AAD12ADD4BAF009F9F8C /* Dashboard */,
 				B930AADB2ADE2DA1009F9F8C /* Extension */,
 				22CC4D722AF3AB350072EC39 /* IAP */,
 				B91F05B82B04BA060029A32D /* NetworkManager */,
@@ -1222,7 +1210,6 @@
 				22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */,
 				A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */,
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
-				A46B5A8C2AE73D5C00C874ED /* DashboardView.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
 				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
@@ -1264,7 +1251,6 @@
 				22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */,
 				B39505A72B1A9C790058C673 /* CustomsInstuctionView.swift in Sources */,
 				B930AAE22ADE2DE5009F9F8C /* String.swift in Sources */,
-				CD0D133A2ADA73B300031EDD /* DashboardView.swift in Sources */,
 				B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B930AAE02ADE2DE5009F9F8C /* Color.swift in Sources */,
 				B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */,
