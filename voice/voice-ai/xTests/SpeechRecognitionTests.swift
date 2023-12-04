@@ -6,6 +6,9 @@ import SwiftUI
 class RandomFactTests: XCTestCase {
     func testGetTitle() {
         
+        XCTAssertFalse(ArticleManager.topArticles.isEmpty, "The topArticles array should not be empty.")
+        XCTAssertTrue(ArticleManager.topArticles.count > 1000, "The topArticles array should have more than 1000 entries.")
+        
         // Initialize the title variable with a default value
         var title: String = ""
 
