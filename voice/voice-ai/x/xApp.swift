@@ -9,6 +9,7 @@ struct XApp: App {
     @StateObject var appSettings = AppSettings()
     var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
+    var mixpanel = MixpanelManager.shared
     init() {
         // Initialize ReviewRequester with values from AppConfig
         ReviewRequester.initialize(
