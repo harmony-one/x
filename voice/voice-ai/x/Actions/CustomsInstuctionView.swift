@@ -43,7 +43,7 @@ struct CustomInstructionsView: View {
     @State private var handler = CustomInstructionsHandler()
     let theme = AppThemeSettings.fromString(AppConfig.shared.getThemeName())
     
-    private let selectedOptionKey = "CustomInstructionMode"
+    private let selectedOptionKey = CustomInstructionsHandler.Constants.activeCustomInstructionModeKey
             
     var body: some View {
         VStack { // (spacing: 0)
@@ -58,6 +58,7 @@ struct CustomInstructionsView: View {
             }
             .pickerStyle(WheelPickerStyle())
             .onChange(of: selectedOption, perform: { value in
+                saveSelectedOption()
                 if (value == "Custom") {
                     self.showTextField = true
                 } else {
@@ -66,11 +67,15 @@ struct CustomInstructionsView: View {
             })
             
             if showTextField {
-                TextField("Enter your Custom Instruction", text: $inputText)
+                Text("Enter your Custom Instruction")
+                TextEditor(text: $inputText)
+                    .navigationTitle("Enter your Custom Instruction")
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(height: 200)
                     .padding(.top, -80)
+//                    .lineLimit(3)
             }
-            Button("Submit") {
+            Button("Close") {
                 saveSelectedOption()
                 isPresented = false
             }

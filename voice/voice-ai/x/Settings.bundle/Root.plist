@@ -20,6 +20,24 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>Custom Instructions</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Key</key>
+			<string>USER_CUSTOM_INSTRUCTION</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>Your Twitter</string>
 			<key>Key</key>
 			<string>USER_NAME</string>

@@ -1,15 +1,11 @@
-//
-//  CustomInstructionsConfig.swift
-//  Voice AI
-//
-//  Created by Francisco Egloff on 3/12/23.
-//
-
 import Foundation
 
 class CustomInstructionsHandler {
     
     struct Constants {
+        static let activeCustomInstructionModeKey = "ACTIVE_CUSTOM_INSTRUCTIONS_MODE"
+        static let activeCustomInstructionKey = "ACTIVE_CUSTOM_INSTRUCTION"
+        
         static let contextTexts = [
             "Default": """
     We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
@@ -24,26 +20,24 @@ class CustomInstructionsHandler {
         
         static let options = Array(contextTexts.keys) + ["Custom"]
         
-        static let activeContextKey = "activeInstructionsMode"
-        static let activeTextKey = "activeInstructionsText"
     }
     
     func storeActiveContext(_ context: String, withText text: String? = nil) {
         if context == "Custom", let customText = text {
-            UserDefaults.standard.set(context, forKey: Constants.activeContextKey)
-            UserDefaults.standard.set(customText, forKey: Constants.activeTextKey)
+            UserDefaults.standard.set(context, forKey: Constants.activeCustomInstructionModeKey)
+            UserDefaults.standard.set(customText, forKey: Constants.activeCustomInstructionKey)
         } else if let defaultText = Constants.contextTexts[context] {
-            UserDefaults.standard.set(context, forKey: Constants.activeContextKey)
-            UserDefaults.standard.set(defaultText, forKey: Constants.activeTextKey)
+            UserDefaults.standard.set(context, forKey: Constants.activeCustomInstructionModeKey)
+            UserDefaults.standard.set(defaultText, forKey: Constants.activeCustomInstructionKey)
         }
     }
     
-    func retrieveActiveContext() -> String? {
-        return UserDefaults.standard.string(forKey: Constants.activeContextKey)
+    func retrieveActiveCustomInstructionMode() -> String? {
+        return UserDefaults.standard.string(forKey: Constants.activeCustomInstructionModeKey)
     }
     
-    func retrieveActiveText() -> String? {
-        if let text = UserDefaults.standard.string(forKey: Constants.activeTextKey) {
+    func retrieveActiveCustomInstruction() -> String? {
+        if let text = UserDefaults.standard.string(forKey: Constants.activeCustomInstructionKey) {
             return text
         } else {
             storeActiveContext("Default")
@@ -57,6 +51,10 @@ class CustomInstructionsHandler {
     }
     
     func saveCustomText(_ text: String) {
-        UserDefaults.standard.set(text, forKey: "customText")
+        storeActiveContext("Custom", withText: text)
+    }
+    
+    func getDefaultText() -> String {
+        return Constants.contextTexts["Default"] ?? ""
     }
 }

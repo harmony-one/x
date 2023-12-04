@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import UIKit
 import Combine
 
@@ -10,10 +11,10 @@ enum ActionSheetType {
 class AppSettings: ObservableObject {
     @Published var isOpened: Bool = false
     @Published var isPopoverPresented = false
-
+    @Published var type: ActionSheetType?
+    @State private var handler = CustomInstructionsHandler()
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
-    @Published var type: ActionSheetType?
 
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
@@ -26,7 +27,7 @@ class AppSettings: ObservableObject {
     }
     @Published var customInstructions: String {
         didSet {
-            updateUserDefaultsIfNeeded(forKey: "custom_instruction_preference", newValue: customInstructions)
+            updateUserDefaultsIfNeeded(forKey: "USER_CUSTOM_INSTRUCTION", newValue: customInstructions)
         }
     }
     @Published var userName: String {
@@ -54,7 +55,7 @@ class AppSettings: ObservableObject {
     public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
-        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
+        customInstructions = UserDefaults.standard.string(forKey: "USER_CUSTOM_INSTRUCTION") ?? "N/A"
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
         
         // Register default values after initialization
@@ -87,26 +88,31 @@ class AppSettings: ObservableObject {
     }
 
     private func registerDefaultValues() {
+        print("ACTIVE_CUSTOM_INSTRUCTION registerDefaultValues")
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let defaults = [
             "EXPIRE_AT": localDate,
-            "custom_instruction_preference": """
-            We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
-            """,
+            "USER_CUSTOM_INSTRUCTION": "",
             "USER_NAME": "User"
         ]
         UserDefaults.standard.register(defaults: defaults)
     }
     
     private func loadSettings() {
+//        print("ACTIVE_CUSTOM_INSTRUCTION loadSetting")
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
-        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam."
+        customInstructions = UserDefaults.standard.string(forKey: "USER_CUSTOM_INSTRUCTION") ?? ""// handler.getDefaultText()
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
     }
     
     private func updateUserDefaultsIfNeeded(forKey key: String, newValue: String) {
         if UserDefaults.standard.string(forKey: key) != newValue {
+            if (key == "USER_CUSTOM_INSTRUCTION") {
+                print("HELLOOOOOOOOO  ")
+                UserDefaults.standard.set("Custom", forKey: CustomInstructionsHandler.Constants.activeCustomInstructionModeKey)
+                UserDefaults.standard.set(newValue, forKey: CustomInstructionsHandler.Constants.activeCustomInstructionKey)
+            }
             UserDefaults.standard.set(newValue, forKey: key)
         }
     }

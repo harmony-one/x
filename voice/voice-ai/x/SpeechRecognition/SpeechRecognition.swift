@@ -511,7 +511,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         if let contextMessage = conversation.first(where: { $0.role == "system" }) {
             let currentContext = contextMessage.content
-            let newContext = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+            let newContext = UserDefaults.standard.string(forKey: CustomInstructionsHandler.Constants.activeCustomInstructionKey) // SettingsBundleHelper.SettingsBundleKeys. .CustomInstruction)
             if currentContext == newContext {
                 return false
             }
