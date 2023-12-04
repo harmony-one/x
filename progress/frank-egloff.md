@@ -1,3 +1,5 @@
+2023-12-01 Fri: Worked on fuzz test research. Also, worked on [Custom Instructions View](https://github.com/harmony-one/x/pull/299). Users can choose between Interactive Tour, Quick Facts, Default Context, or Custom on an Active Sheet look-like view. On Monday, I will work on styling issues and User Interface behavior. 
+
 2023-11-30 Thu: Changed review [requester logic](https://github.com/harmony-one/x/commit/00c11beced436602f8d3a99b2d6c8cb1a4774b5e) for new session button action. Also, I have started to research fuzz testing for swift projects. There are not up to date tools on the market.
 
 2023-11-29 Wed: The PR review showed issues with published attributes that handle button actions, malfunctioning the app. [Fixed](https://github.com/harmony-one/x/pull/255) property published issues, refactored ActionsViewProtocol, ActionsView struct, and MockActionsView class.  
