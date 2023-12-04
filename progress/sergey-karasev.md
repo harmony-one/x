@@ -1,3 +1,7 @@
+2023-12-04 Mon: I have started working on the iPhone 15 action button that triggers the "Surprise Me!" feature, and I am researching how to implement metrics for the signing key proxy, and subsequent requests.
+
+---
+
 2023-12-01 Fri: I am working on a bug in the server-side user whitelist checker.  
 
 2023-11-30 Thu: I have started to explore how to perform fuzzing, but I couldn't find a testing fuzzing toolkit (the ones I found are over 4 years old), and I assume we will have to create our own tools.
