@@ -91,7 +91,7 @@ struct SettingsView: View {
                     }
                 }.font(.title2)
 //                Button("Custom instructions") { /* Add logic for custom instructions */ }
-                Button("Tweet Feedback") {
+                Button("Tweet feedback") {
                     tweet()
                 }.font(.title2)
                 Button("Share App") {
@@ -136,9 +136,8 @@ struct SettingsView: View {
             }),
             .default(Text("Share transcript")) { saveTranscript() },
             .default(Text("Custom instructions")) { self.showCustomInstructionViewSheet = true },
-            .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
-            .default(Text("Tweet Feedback")) { tweet() },
+            .default(Text("Tweet feedback")) { tweet() },
             .default(Text("System Settings")) { openSystemSettings() },
             .default(Text("Purchase premium")) {
                 appSettings.type = .purchaseOptions
