@@ -16,7 +16,7 @@ class KeychainService {
         }
     }
     
-    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String?, isSubscriptionActive: Bool? ) {
+    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String?, isSubscriptionActive: Bool?, appVersion: String?) {
         if let id = id {
             keychain.set(id, forKey: "userID")
         }
@@ -35,6 +35,9 @@ class KeychainService {
         }
         if let isSubscriptionActive = isSubscriptionActive {
             keychain.set(String(isSubscriptionActive), forKey: "isSubscriptionActive")
+        }
+        if let appVersion = appVersion {
+            keychain.set(appVersion, forKey: "appVersion")
         }
     }
         
@@ -77,6 +80,10 @@ class KeychainService {
     func retrieveIsSubscriptionActive() -> Bool {
         let value = keychain.get("isSubscriptionActive")
         return value == "true"
+    }
+
+    func retrieveAppVersion() -> String? {
+        return keychain.get("appVersion")
     }
 
     func deleteUserCredentials() {
