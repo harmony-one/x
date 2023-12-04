@@ -601,8 +601,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             self.pauseCapturing()
 
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
-            let randomTitle = getTitle()
-            let query = "Summarize \(randomTitle) from Wikipedia"
+            var query: String
+            if let randomTitle = ArticleManager.getRandomArticleTitle() {
+                query = "Summarize \(randomTitle) from Wikipedia"
+            // Failure to return a title will result in a summary of the Wikipedia page for cat.
+            } else {
+                query = "Sumamarize cat from Wikipedia"
+            }
 
             // Now make the query to fetch the fact.
             self.makeQuery(query, rateLimit: false)
