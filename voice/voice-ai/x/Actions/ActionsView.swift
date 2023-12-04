@@ -288,6 +288,7 @@ struct ActionsView: ActionsViewProtocol, View {
                self.isTapToSpeakActive = !self.isTapToSpeakActive
                self.vibration()
                self.tapToSpeakDebounceTimer?.invalidate()
+                MixpanelManager.shared.trackEvent(name: "Tap to Speak", properties: nil)
 
                 if String(actionHandler.isTapToSpeakActive) != String(self.isTapToSpeakActive) {
                     self.tapToSpeakDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
@@ -315,6 +316,8 @@ struct ActionsView: ActionsViewProtocol, View {
                     return
                 }
                 self.vibration()
+                MixpanelManager.shared.trackEvent(name: "Press & Hold", properties: nil)
+
             }.simultaneousGesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
@@ -371,6 +374,8 @@ struct ActionsView: ActionsViewProtocol, View {
                     return
                 }
                 self.vibration()
+                MixpanelManager.shared.trackEvent(name: "Play", properties: nil)
+
                 Task {
                     await handleOtherActions(actionType: button.action)
                 }
@@ -392,6 +397,7 @@ struct ActionsView: ActionsViewProtocol, View {
                 }
                 self.vibration()
                 Task {
+                    MixpanelManager.shared.trackEvent(name: "New Session", properties: nil)
                     await handleOtherActions(actionType: button.action)
                     self.resetClickCounter += 1
                     if self.resetClickCounter >= self.maxResetClicks {
@@ -414,6 +420,8 @@ struct ActionsView: ActionsViewProtocol, View {
                     return
                 }
                 self.vibration()
+                MixpanelManager.shared.trackEvent(name: "Surprise Me", properties: nil)
+
                 if self.isSurpriseButtonPressed {
                     self.isSurpriseButtonPressed = false
                     Task {
@@ -449,6 +457,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
 
     func openSettingsApp() {
+        MixpanelManager.shared.trackEvent(name: "More Actions", properties: nil)
         self.appSettings.showActionSheet(type: .settings)
         print("Show settings")
 //        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
