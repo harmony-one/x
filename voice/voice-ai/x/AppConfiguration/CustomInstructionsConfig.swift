@@ -1,3 +1,10 @@
+//
+//  CustomInstructionsConfig.swift
+//  Voice AI
+//
+//  Created by Francisco Egloff on 3/12/23.
+//
+
 import Foundation
 
 class CustomInstructionsHandler {
