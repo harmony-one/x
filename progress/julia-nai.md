@@ -1,4 +1,4 @@
-2023-12-03 Sun: Tested and merged [PR#250](https://github.com/harmony-one/x/pull/250) first pass removal of custom instructions from saved transcripts. Finally got API key working on local build. Worked with Rikako to plan getting test coverage to 100%. 
+2023-12-03 Sun: Tested and merged [PR#250](https://github.com/harmony-one/x/pull/250) first pass removal of custom instructions from saved transcripts. Finally got API key working on local build. Worked with Rikako to plan getting test coverage to 99%. 
 
 2023-12-02 Sat: There are multiple instances of the custom mode text in the app, so I am working on identifying which are still needed and which are extraneous. Worked on getting local build working again with new API key.
 
