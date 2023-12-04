@@ -5,14 +5,20 @@ import SwiftUI
 
 class RandomFactTests: XCTestCase {
     func testGetTitle() {
+        
+        // Initialize the title variable with a default value
+        var title: String = ""
 
-        let title = getTitle()
+        if let fetchedTitle = ArticleManager.getRandomArticleTitle() {
+            // Use the fetched title
+            title = fetchedTitle
 
-        // Check if the title is not empty
-        XCTAssertFalse(title.isEmpty, "The title should not be empty")
+            // Check if the title is not empty
+            XCTAssertFalse(title.isEmpty, "The title should not be empty")
+        }
 
         // Check if the title is one of the top articles
-        XCTAssertTrue(topArticles.contains(title),
+        XCTAssertTrue(ArticleManager.topArticles.contains(title),
                       "The title should be one of the top articles")
     }
 }
