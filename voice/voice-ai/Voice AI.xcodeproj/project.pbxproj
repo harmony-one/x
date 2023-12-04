@@ -275,6 +275,8 @@
 		F6D5F54F2B150C730078907F /* ThemeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D5F54C2B150C730078907F /* ThemeManagerTests.swift */; };
 		F6D5F5502B150C730078907F /* GridButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D5F54D2B150C730078907F /* GridButtonTests.swift */; };
 		F6D5F5512B150C730078907F /* PressEffectButtonStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D5F54E2B150C730078907F /* PressEffectButtonStyleTests.swift */; };
+		F6EEF2842B1E4E9400174CED /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = F6EEF2832B1E4E9400174CED /* Mixpanel */; };
+		F6EEF2852B1E4F1300174CED /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93580F92B1DCCDD00CC31E2 /* MixpanelManager.swift */; };
 		F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* ConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
 		F73ABDBF2B0C25BC0073AF33 /* ReviewRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDBE2B0C25BB0073AF33 /* ReviewRequestTests.swift */; };
@@ -458,6 +460,7 @@
 				F67EDE252B07BE3500FDEA80 /* AVFoundation.framework in Frameworks */,
 				F61049122AF02DF50087F745 /* SwiftyJSON in Frameworks */,
 				F67EDE222B07BD6E00FDEA80 /* SentrySwiftUI in Frameworks */,
+				F6EEF2842B1E4E9400174CED /* Mixpanel in Frameworks */,
 				F67EDE242B07BE1C00FDEA80 /* KeychainSwift in Frameworks */,
 				F67EDE202B07BD6700FDEA80 /* Sentry in Frameworks */,
 			);
@@ -903,6 +906,7 @@
 				F67EDE212B07BD6E00FDEA80 /* SentrySwiftUI */,
 				F67EDE232B07BE1C00FDEA80 /* KeychainSwift */,
 				F67EDE332B07C34100FDEA80 /* CryptoSwift */,
+				F6EEF2832B1E4E9400174CED /* Mixpanel */,
 			);
 			productName = sun;
 			productReference = A46B5A4A2AE73B9D00C874ED /* Voice 2.app */;
@@ -1168,6 +1172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6EEF2852B1E4F1300174CED /* MixpanelManager.swift in Sources */,
 				F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */,
 				F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */,
 				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
@@ -2142,6 +2147,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CD8A1A632B0084A900A5B2CC /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
+		};
+		F6EEF2832B1E4E9400174CED /* Mixpanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93580FD2B1DCCFD00CC31E2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
+			productName = Mixpanel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
