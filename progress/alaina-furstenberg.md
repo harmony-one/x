@@ -1,4 +1,6 @@
-2023-11-30 Thu:
+2023-12-1 Fri:
+
+2023-11-30 Thu: Wrote thread to promote ONE Bots image to image logo generations, but noticed the feature /image --c 3 was no longer workiing. Forwarded issues to Frank and Yuriy for review. Experimented more golden paths for demos, yet unfortunately the local version of VoiceAI wasn't working on my phone. I wrote scripts to showcase musical history, Harmony knowledge, cooking knowledge, and a language learning version.
 
 2023-11-29 Wed: Wrote [Twitter thread](https://x.com/harmonyprotocol/status/1729942794612150510?s=20) promoting 'More Actions'. Filmed demos for Youtube shorts, but noticed VoiceAI was still not working on my iPhone11. Sent all my demos to eng team to understand the bugs. I attempted to record one in Spanish, but Apple's text to speech did not provide an impressive response. Installed local version on my iPhone & continued testing. 
 
