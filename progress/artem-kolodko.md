@@ -1,3 +1,7 @@
+2023-12-04 Mon: [added](https://github.com/harmony-one/x/pull/301) user appVersion field in iOS app; update appVersion on app init
+
+---
+
 2023-12-01 Fri: [added](https://github.com/harmony-one/x/commit/92b91981e0981a10538dc3081be7f2dd28ceca02) new appVersion and isSubscriber fields to user account; tested VoiceAI app. [Updated](https://github.com/harmony-one/x-payments-backend/commit/36de1a1a13f15f455365712d443ddd5c8523fce7) Payments api typings.
 
 2023-11-30 Thu: [added](https://github.com/harmony-one/x-payments-backend/commit/5cb2a46900171b8fd05c2c833ffd4f1416a7982c) appVersion to user account in VoiceAI payments service, implemented new endpoint `/users/update`.
