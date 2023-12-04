@@ -11,10 +11,9 @@ struct SettingsView: View {
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
     
-    private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
+    private var shareTitle = "hey @voiceaiapp "
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
        
-
     var body: some View {
         ZStack {
             Color.clear
@@ -62,7 +61,6 @@ struct SettingsView: View {
             )
         }
     }
-
 
      func popoverContent() -> some View {
             VStack {
@@ -134,12 +132,12 @@ struct SettingsView: View {
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share Transcript")) { saveTranscript() },
-//            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+            .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("Custom instructions")) { /* Add logic for custom instructions */ },
+            .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("Tweet Feedback")) { tweet() },
-            .default(Text("Share App")) { self.showShareSheet = true },
             .default(Text("System Settings")) { openSystemSettings() },
-            .default(Text("Purchase Premium")) {
+            .default(Text("Purchase premium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -152,15 +150,15 @@ struct SettingsView: View {
     func purchaseOptionsActionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
-            .default(Text("Restore Purchase")) { /* Add logic for restoring purchase */ },
+            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) { performSignIn() },
-            .default(Text("Delete Account")) { self.showDeleteAccountAlert = true },
+            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
     }
     
     func tweet() {
-        let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
+        let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
