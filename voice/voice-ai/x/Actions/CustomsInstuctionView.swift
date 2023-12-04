@@ -46,8 +46,9 @@ struct CustomInstructionsView: View {
             
     var body: some View {
         VStack { // (spacing: 0)
-            Text("Choose Context Instruction:")
-            .padding(.top, 15)
+            Text("Choose Context Instruction")
+                .padding(.top, 15)
+                .foregroundColor(theme.bodyTextColor)
             Picker(selection: $selectedOption, label: Text("")) {
                 ForEach(handler.getOptions(), id: \.self) { option in
                     Text(option)
