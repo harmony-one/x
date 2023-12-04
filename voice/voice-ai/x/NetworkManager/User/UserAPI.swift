@@ -59,7 +59,7 @@ struct UserAPI {
         NetworkManager.shared.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
-                print("[UserAPI][GetUser] Status Code: \(response.statusCode)")
+                print("[UserAPI][GetUser] Status Code: \(response.statusCode), data: \(response.data)")
                 // Handle successful response
                 guard let userID = response.data.id else {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")

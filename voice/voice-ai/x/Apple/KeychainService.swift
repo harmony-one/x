@@ -81,6 +81,10 @@ class KeychainService {
         let value = keychain.get("isSubscriptionActive")
         return value == "true"
     }
+    
+    func isAppVersionAvailable() -> Bool {
+        return keychain.get("appVersion") != nil
+    }
 
     func retrieveAppVersion() -> String? {
         return keychain.get("appVersion")

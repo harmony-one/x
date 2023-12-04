@@ -145,6 +145,20 @@ struct ActionsView: ActionsViewProtocol, View {
                     if KeychainService.shared.isAppleIdAvailable() {
                         UserAPI().getUserBy(appleId: KeychainService.shared.retrieveAppleID() ?? "")
                     }
+                    
+                    if KeychainService.shared.isAppVersionAvailable() {
+                        var appVersionFromKeyChain = KeychainService.shared.retrieveAppVersion()
+                        if let appVersionFromBundle = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                           print("App version from bundle: \(appVersionFromBundle), app version from key chain: \(appVersionFromKeyChain)")
+                            if appVersionFromBundle != appVersionFromKeyChain {
+                                guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
+                                    print("Cannot get payments service API key")
+                                    return
+                                }
+                                UserAPI().updateUser(apiKey: serverAPIKey, appVersion: appVersionFromBundle)
+                            }
+                        }
+                    }
                 }
             )
             .edgesIgnoringSafeArea(.all)
