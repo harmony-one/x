@@ -283,10 +283,10 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     static func setConversationContext() -> [Message] {
-        let content = CustomInstructionsHandler().retrieveActiveText() // UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        let contextMessage: [Message] = [Message(role: "system", content: content)]
-        return contextMessage
-    }
+         let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+         let contextMessage: [Message] = [Message(role: "system", content: content)]
+         return contextMessage
+     }
 
     func setTemperature(_ temp: Double) {
         if temp >= 0 && temp <= 1 {

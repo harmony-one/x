@@ -3,22 +3,62 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
-	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+ 	<string>Root</string>
+ 	<key>PreferenceSpecifiers</key>
+ 	<array>
+ 		<dict>
+ 			<key>Type</key>
+ 			<string>PSMultiValueSpecifier</string>
+ 			<key>Title</key>
+ 			<string>Custom Modes</string>
+ 			<key>Key</key>
+ 			<string>custom_mode</string>
+ 			<key>DefaultValue</key>
+ 			<string>mode_default</string>
+ 			<key>Values</key>
+ 			<array>
+                 <string>mode_default</string>
+                 <string>mode_quick_facts</string>
+                 <string>mode_interactive_tutor</string>
+             </array>
+ 			<key>Titles</key>
+ 			<array>
+                 <string>Default</string>
+                 <string>Quick Facts</string>
+                 <string>Interactive tutor</string>
+             </array>
+ 		</dict>
+ 		<dict>
+ 			<key>Type</key>
+ 			<string>PSTitleValueSpecifier</string>
 			<key>Title</key>
 			<string>Premium Use Expires</string>
 			<key>Key</key>
 			<string>EXPIRE_AT</string>
-			<key>DefaultValue</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
+ 			<key>DefaultValue</key>
+ 			<string></string>
+ 		</dict>
+ 		<dict>
+ 			<key>Type</key>
+ 			<string>PSTextFieldSpecifier</string>
+ 			<key>Title</key>
+ 			<string>Custom Instructions</string>
+ 			<key>DefaultValue</key>
+ 			<string>We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.</string>
+ 			<key>Key</key>
+ 			<string>custom_instruction_preference</string>
+ 			<key>IsSecure</key>
+ 			<false/>
+ 			<key>KeyboardType</key>
+ 			<string>Alphabet</string>
+ 			<key>AutocapitalizationType</key>
+ 			<string>None</string>
+ 			<key>AutocorrectionType</key>
+ 			<string>No</string>
+ 		</dict>
+ 		<dict>
+ 			<key>Type</key>
+ 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Your Twitter</string>
 			<key>Key</key>
