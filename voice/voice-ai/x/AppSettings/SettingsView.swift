@@ -130,7 +130,7 @@ struct SettingsView: View {
         }
 
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Options"), buttons: [
+        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
