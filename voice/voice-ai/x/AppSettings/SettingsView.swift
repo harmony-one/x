@@ -12,13 +12,19 @@ struct SettingsView: View {
     @State private var showDeleteAccountAlert = false
     @State private var showCustomInstructionViewSheet = false
     
-    private var shareTitle = "Check out Voice AI: Super-Intelligence app!"
+    private var shareTitle = "hey @voiceaiapp "
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
-    
+       
     var body: some View {
         ZStack {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
+            // This could be an invisible view or integrated naturally into your UI
+                     .frame(width: 0, height: 0)
+                            .sheet(isPresented: $appSettings.isPopoverPresented) {
+                                popoverContent()
+                                    .background(Color.clear)
+                            }
         }
         .customInstructionsViewSheet(isPresented: $showCustomInstructionViewSheet)
         .actionSheet(isPresented: $appSettings.isOpened) {
@@ -30,6 +36,7 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
+                       
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: self.appUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -56,9 +63,74 @@ struct SettingsView: View {
             )
         }
     }
+
+     func popoverContent() -> some View {
+            VStack {
+                switch appSettings.type {
+                case .settings:
+                    settingsPopoverContent()
+                case .purchaseOptions:
+                    purchaseOptionsPopoverContent()
+                default:
+                    EmptyView()
+                }
+            }
+            .padding()
+            .background(Color.white)
+        }
     
+    private func settingsPopoverContent() -> some View {
+            VStack(spacing: 32) {
+                Text("Actions").font(.title)
+                Divider()
+                Button("Share Transcript") {
+                    self.appSettings.isPopoverPresented = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        saveTranscript()
+                    }
+                }.font(.title2)
+//                Button("Custom instructions") { /* Add logic for custom instructions */ }
+                Button("Tweet Feedback") {
+                    tweet()
+                }.font(.title2)
+                Button("Share App") {
+                    self.appSettings.isPopoverPresented = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.showShareSheet = true
+                    }
+                }.font(.title2)
+                Button("System Settings") { 
+                    openSystemSettings()
+                }.font(.title2)
+                Button("Purchase Premium") {
+                    appSettings.type = .purchaseOptions
+                    appSettings.isPopoverPresented = true
+                }.font(.title2)
+                Button("Cancel", role: .cancel) {
+                    appSettings.isPopoverPresented = false
+                }.font(.title2)
+            }
+            .padding()
+        }
+    
+    private func purchaseOptionsPopoverContent() -> some View {
+            VStack {
+                Text("Purchase Options").font(.headline)
+                Divider()
+                Button("Pay $5 via Apple") { showPurchaseDialog() }
+                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
+                Button("Sign-in Account") { performSignIn() }
+                Button("Delete Account") { self.showDeleteAccountAlert = true }
+                Button("Cancel", role: .cancel) {
+                    appSettings.isPopoverPresented = false
+                }
+            }
+            .padding()
+        }
+
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Options"), buttons: [
+        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
@@ -66,6 +138,7 @@ struct SettingsView: View {
             .default(Text("Custom instructions")) { self.showCustomInstructionViewSheet = true },
             .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("Share app link")) { self.showShareSheet = true },
+            .default(Text("Tweet Feedback")) { tweet() },
             .default(Text("System Settings")) { openSystemSettings() },
             .default(Text("Purchase premium")) {
                 appSettings.type = .purchaseOptions
@@ -131,7 +204,7 @@ struct SettingsView: View {
     }
     
     func tweet() {
-        let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle) \(self.appUrl)"
+        let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
@@ -202,8 +275,11 @@ struct SettingsView: View {
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
-                transcript += "\(label) \(content)\n"
-            }
+                        if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
+                            continue
+                        }
+                        transcript += "\(label) \(content)\n"
+                    }
         }
         
         return transcript
