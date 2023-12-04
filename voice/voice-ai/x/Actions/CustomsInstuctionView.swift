@@ -3,13 +3,13 @@ import Foundation
 
 struct CustomInstructionsViewModifier: ViewModifier {
     @Binding var isPresented: Bool
-
+    let theme = AppThemeSettings.fromString(AppConfig.shared.getThemeName())
     func body(content: Content) -> some View {
         ZStack {
             content
 
             if isPresented {
-                Color.black.opacity(0.1)
+                Color.black.opacity(0.3)
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
                         isPresented = false
@@ -23,7 +23,7 @@ struct CustomInstructionsViewModifier: ViewModifier {
                             .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 10)
                             .padding(.horizontal)
 //                            .padding(.top, 20)
-                            .background(Color(UIColor.systemBackground))
+                            .background(theme.buttonDefaultColor) //  Color(UIColor.systemBackground))
                             .cornerRadius(25)
 
                     }
@@ -40,6 +40,7 @@ struct CustomInstructionsView: View {
     @State private var selectedOption = "Default"
     @State var showTextField: Bool = false
     @State private var handler = CustomInstructionsHandler()
+    let theme = AppThemeSettings.fromString(AppConfig.shared.getThemeName())
     
     private let selectedOptionKey = "CustomInstructionMode"
             
@@ -71,8 +72,8 @@ struct CustomInstructionsView: View {
                 saveSelectedOption()
             }
             .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
+            .background(theme.buttonActiveColor)
+            .foregroundColor(theme.fontActiveColor)
             .cornerRadius(5)
         }
         .onAppear {
