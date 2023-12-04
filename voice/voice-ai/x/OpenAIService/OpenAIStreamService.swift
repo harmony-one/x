@@ -283,7 +283,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     static func setConversationContext() -> [Message] {
-        let content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
+        let content = CustomInstructionsHandler().retrieveActiveText() // UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
         let contextMessage: [Message] = [Message(role: "system", content: content)]
         return contextMessage
     }

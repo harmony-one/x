@@ -9,54 +9,87 @@ struct CustomInstructionsViewModifier: ViewModifier {
             content
 
             if isPresented {
-                CustomInstructionsView()
-                    .padding()
+                Color.black.opacity(0.1)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isPresented = false
+                    }
+
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer()
+
+                        CustomInstructionsView()
+                            .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 10)
+                            .padding(.horizontal)
+//                            .padding(.top, 20)
+                            .background(Color(UIColor.systemBackground))
+                            .cornerRadius(25)
+
+                    }
+                    .frame(maxWidth: .infinity)
+                    .animation(.easeInOut)
+                }
             }
         }
     }
 }
 
 struct CustomInstructionsView: View {
-    @State private var selectedOption = 0
     @State private var inputText = ""
+    @State private var selectedOption = "Default"
+    @State var showTextField: Bool = false
+    @State private var handler = CustomInstructionsHandler()
     
-    let options = ["Default", "Quick Facts", "Interactive Tour", "Custom"]
-    
-    var showTextField: Bool {
-        return selectedOption == 3 // Show the TextField when Option 3 is selected
-    }
-    
+    private let selectedOptionKey = "CustomInstructionMode"
+            
     var body: some View {
-        VStack(spacing: 15) {
-            Picker(selection: $selectedOption, label: Text("Options")) {
-                ForEach(0..<options.count) { index in
-                    Text(self.options[index])
+        VStack { // (spacing: 0)
+            Text("Choose Context Instruction:")
+            .padding(.top, 15)
+            Picker(selection: $selectedOption, label: Text("")) {
+                ForEach(handler.getOptions(), id: \.self) { option in
+                    Text(option)
+                        .tag(option)
                 }
             }
-            .pickerStyle(DefaultPickerStyle())
+            .pickerStyle(WheelPickerStyle())
+            .onChange(of: selectedOption, perform: { value in
+                if (value == "Custom") {
+                    self.showTextField = true
+                } else {
+                    self.showTextField = false
+                }
+            })
             
             if showTextField {
                 TextField("Enter your Custom Instruction", text: $inputText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.top, -80)
             }
-            
-            // Add additional views or actions as needed
-            
             Button("Submit") {
-                // Handle submit action
-                print("Selected option: \(self.options[self.selectedOption])")
-                print("Input text: \(self.inputText)")
+                saveSelectedOption()
             }
             .padding()
             .background(Color.blue)
             .foregroundColor(.white)
             .cornerRadius(5)
         }
-        .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 10)
-        .padding(.horizontal)
-        .padding(.top,60)
-        .background(Color(UIColor.systemBackground))
-        .cornerRadius(25)
+        .onAppear {
+            loadSelectedOption()
+        }
+    }
+    
+    func saveSelectedOption() {
+        handler.storeActiveContext(selectedOption, withText: inputText)
+    }
+    
+    func loadSelectedOption() {
+        if let selectedOption = UserDefaults.standard.string(forKey: selectedOptionKey) {
+            self.selectedOption = selectedOption
+        } else {
+            self.selectedOption = "Custom" // .defaultInstruction
+        }
     }
 }
 
