@@ -12,10 +12,8 @@ class AppConfig {
     private var relayMode: String?
     private var disableRelayLog: Bool?
     private var enableTimeLoggerPrint: Bool?
-    
     private var openaiBaseUrl: String?
     private var openaiKey: String?
-    
     private var sharedEncryptionSecret: String?
     private var sharedEncryptionIV: String?
     private var deepgramKey: String?
@@ -23,8 +21,10 @@ class AppConfig {
     private var daysBetweenPrompts: Int?
     private var sentryDSN: String?
     private var whiteLabelList: [String]?
-    
+    private var serverAPIKey: String?
+    private var paymentMode: String?
     var themeName: String?
+    private var mixpanelToken: String?
     
     init() {
         loadConfiguration()
@@ -189,7 +189,10 @@ class AppConfig {
             deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
             openaiKey = dictionary["API_KEY"] as? String
             openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
-            
+            serverAPIKey = dictionary["SERVER_API_KEY"] as? String
+            paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
+            mixpanelToken = (dictionary["MIXPANEL_TOKEN"] as? String)
+
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
                let events = Int(eventsString) {
@@ -201,8 +204,8 @@ class AppConfig {
                 daysBetweenPrompts = days
             }
             
-            if let whiteLableListString = dictionary["WHITELIST"] as? [String] {
-                whiteLabelList = whiteLableListString
+            if let whiteLabelListString = dictionary["WHITELIST"] as? [String] {
+                whiteLabelList = whiteLabelListString
             }
         } catch {
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
@@ -251,7 +254,7 @@ class AppConfig {
         return relayBaseUrl
     }
     
-    func getwhiteLableListString() -> [String]? {
+    func getWhiteLabelListString() -> [String]? {
         return whiteLabelList
     }
     
@@ -278,5 +281,17 @@ class AppConfig {
     
     func getEnableTimeLoggerPrint() -> Bool {
         return enableTimeLoggerPrint ?? false
+    }
+    
+    func getServerAPIKey() -> String? {
+        return serverAPIKey
+    }
+    
+    func getPaymentMode() -> String? {
+        return paymentMode
+    }
+    
+    func getMixpanelToken() -> String? {
+        return mixpanelToken
     }
 }

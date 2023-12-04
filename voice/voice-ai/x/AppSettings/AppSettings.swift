@@ -1,11 +1,20 @@
 import Foundation
+import UIKit
 import Combine
+
+enum ActionSheetType {
+        case settings, purchaseOptions
+        // Other cases if needed
+    }
 
 class AppSettings: ObservableObject {
     @Published var isOpened: Bool = false
+    @Published var isPopoverPresented = false
+
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
-    
+    @Published var type: ActionSheetType?
+
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
     }
@@ -25,7 +34,23 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "USER_NAME", newValue: userName)
         }
     }
-
+    
+    // Function to show specific action sheet
+    func showActionSheet(type: ActionSheetType) {
+        self.type = type
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            self.isPopoverPresented = true
+        } else {
+            self.isOpened = true
+        }
+    }
+    
+//    // Function to present popover with specific content
+//        private func presentPopover(with content: PopoverContent) {
+//            popoverContent = content
+//            isPopoverPresented = true
+//        }
+    
     public init() {
         // Initialize properties with default values
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"

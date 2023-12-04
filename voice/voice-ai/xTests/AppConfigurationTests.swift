@@ -64,8 +64,20 @@ class AppConfigTests: XCTestCase {
         XCTAssertNotNil(appConfig.getRelayUrl(), "RelayURL should not be nil")
     }
     
-    func testWhiteListIsNotNil() {
-        XCTAssertNotNil(appConfig.getwhiteLableListString(), "Whitelist should not be nil")
+    func testWhiteLabelListStringIsNotNil() {
+        XCTAssertNotNil(appConfig.getWhiteLabelListString(), "Whitelist should not be nil")
+    }
+    
+    func testRelayModeIsNotNil() {
+        XCTAssertNotNil(appConfig.getRelayMode(), "RelayMode should not be nil")
+    }
+    
+    func testDisableRelayLogIsNotNil() {
+        XCTAssertNotNil(appConfig.getDisableRelayLog(), "DisableRelayLog should not be nil")
+    }
+    
+    func testEnableTimeLoggerPrintIsNotNil() {
+        XCTAssertNotNil(appConfig.getEnableTimeLoggerPrint(), "DisableRelayLog should not be nil")
     }
     
     func testLoadingValidPlistFile() {

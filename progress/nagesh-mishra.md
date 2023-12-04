@@ -1,4 +1,10 @@
-2023-11-28 Mon: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
+2023-12-01 Fri: Implemented an action sheet for the "Purchase Premium" feature PR: https://github.com/harmony-one/x/pull/292, along with the integration of Mixpanel analytics. Additionally, events for button actions have been set up PR: https://github.com/harmony-one/x/pull/293. The development of an iPad popover view is currently underway.
+
+2023-11-30 Thu: Add account deletion feature with API integration and keychain clearance PR: https://github.com/harmony-one/x/pull/287. Fixed missing files in master PR: https://github.com/harmony-one/x/pull/288.
+
+2023-11-29 Wed: Implement Version Check and Alert System from the iOS side.
+
+2023-11-28 Tue: Unit tests for share link and activity view. Addressed the SwiftLint warnings as well. PR: https://github.com/harmony-one/x/pull/275. 
 
 ---
 2023-11-24 Fri: Merged & resolved conflicts : https://github.com/harmony-one/x/pull/253, https://github.com/harmony-one/x/pull/251, https://github.com/harmony-one/x/pull/181. Added review comments on PRs: https://github.com/harmony-one/x/pull/250, https://github.com/harmony-one/x/pull/248, https://github.com/harmony-one/x/pull/247.

@@ -1,3 +1,15 @@
+2023-12-02 Sat: Added haptics to "press and hold" button. Currently working on speech recognition test coverage.
+
+2023-12-01 Fri: Tested and investigated issues for the flush rate + speech text delimiter for different languages (may rely on built-in libraries for NLP methods as given advice by Aaron, though still figuring out what's the best way for translations if we intend on adding more text). Investigated making speech recognition tests more comprehensive.
+
+2023-11-30 Thu: Updated language support for button label text, added translations settings menu, answer limit warning text and delimiting punctuations for all languages. Replaced all warning messages given to the user through convertTextToSpeech()from just Strings to Strings returned from getFunctions() created in Language translation files [https://github.com/harmony-one/x/pull/291]. TO-DO: 1. test delimiting punctuations + flushing speed, translations of messages for different languages. 2. Investigate if manual translations is the best approach compared to API.
+
+2023-11-29 Wed: Updated [AppConfig tests](https://github.com/harmony-one/x/commit/f6be1d1f759ebd4f764fa70d9e9f6552f6f6880b) to match new API key requirements. 
+Made voice overs available in all iOS supported languages by creating dictionaries of translations. Fixed unavailable voice folder issue for some of the language-region codes passed to AVSpeechSynthesizer. Created a function to verify if language was supported otherwise default to English. Modified app to only take in language instead of language and region to ensure language support in textToSpeechConverter. Progress made in [branch](https://github.com/harmony-one/x/commits/rika-languages).
+TO-DOs - 1. Buffer capacity needs to be modified for each language, since some languages such as Japanese have characters with longer pronounication and it takes time to flush the OpenAI response. 2. Currently, translations for basic messages are stored in a dictionary in order to reduce latency of requesting translation to OpenAI. However the main latency issue might just be due to buffer+flush rate. Investigate this so that if any other messages are added, we don't have to manually translate each message for each language.
+
+2023-11-28 Tue: Worked on Timer Manager tests (90%) [https://github.com/harmony-one/x/pull/280] and RelayAuth tests. Investigated how to make some functions (surprise, etc) available in other languages.
+
 2023-11-27 Mon: Raised the overall app test coverage from 61% to 74%. Worked on SpeechRecognition Tests [https://github.com/harmony-one/x/pull/272], raised its coverage from 40% to 90%. Investigating bugs for the SurpriseMe function when using the app in another language and updating Network Manager tests.
 
 ---

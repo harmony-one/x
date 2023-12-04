@@ -7,7 +7,9 @@ import SwiftUI
 struct XApp: App {
     @StateObject var store = Store()
     @StateObject var appSettings = AppSettings()
+    var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
+    var mixpanel = MixpanelManager.shared
     init() {
         // Initialize ReviewRequester with values from AppConfig
         ReviewRequester.initialize(
@@ -22,6 +24,12 @@ struct XApp: App {
         SentrySDK.start { options in
             options.dsn = sentryDSN
             options.enableUIViewControllerTracing = true
+            
+            // Example uniform sample rate: capture 100% of transactions
+            // In Production you will probably want a smaller number such as 0.5 for 50%
+            options.tracesSampleRate = 1.0
+
+            
         }
     }
 
@@ -30,7 +38,7 @@ struct XApp: App {
             // Currently we are displaying only buttons
             //  DashboardView()
             SentryTracedView("ActionsView") {
-                ActionsView()
+                ActionsView(actionHandler: actionHandler)
                     .environmentObject(store)
                     .environmentObject(appSettings)
                     .background(Color(hex: 0x1E1E1E).animation(.none))

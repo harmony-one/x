@@ -74,6 +74,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //    TODO: Adjust buffer capacity for each language (eg. Japanese takes too long before flush)
     private var bufferCapacity = 50
     private var retryWorkItem: DispatchWorkItem?
+    
+    private var contextLimit = 8192
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
@@ -298,6 +300,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
+        let transaction = SentrySDK.startTransaction(
+          name: "Request OpenAI", // give it a name
+          operation: "openai.request" // and a name for the operation
+        )
+        
         completeResponse = [String]()
         var buf = [String]()
         
@@ -335,6 +342,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
+                    transaction.finish()
                     return
                 }
                 
@@ -356,6 +364,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
+                    transaction.finish()
                     return
                 }
                 print("[SpeechRecognition] OpenAI Response received: \(res)")
@@ -378,6 +387,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     }
                     currWord = res
                     guard res.last != nil else {
+                        transaction.finish()
                         return
                     }
                 } else {
@@ -385,7 +395,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
             }
             
-            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: 512)
+            var limitedConversation = OpenAIUtils.limitConversationContext(conversation, charactersCount: contextLimit)
             // Important: Add an instruction at the beginning of the conversation
             limitedConversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             // for custom instruction changes
@@ -609,8 +619,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             self.pauseCapturing()
 
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
-            let randomTitle = getTitle()
-            let query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
+            var query: String
+            if let randomTitle = ArticleManager.getRandomArticleTitle() {
+                query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
+            // Failure to return a title will result in a summary of the Wikipedia page for cat.
+            } else {
+                query = "Sumamarize cat from Wikipedia"
+            }
 
             // Now make the query to fetch the fact.
             self.makeQuery(query, rateLimit: false)
