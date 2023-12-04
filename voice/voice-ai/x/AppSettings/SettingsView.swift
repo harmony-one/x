@@ -229,8 +229,11 @@ struct SettingsView: View {
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
-                transcript += "\(label) \(content)\n"
-            }
+                        if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
+                            continue
+                        }
+                        transcript += "\(label) \(content)\n"
+                    }
         }
         
         return transcript
