@@ -138,7 +138,7 @@ struct SettingsView: View {
             .default(Text("Custom instructions")) { self.showCustomInstructionViewSheet = true },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("Tweet feedback")) { tweet() },
-            .default(Text("System Settings")) { openSystemSettings() },
+            .default(Text("System settings")) { openSystemSettings() },
             .default(Text("Purchase premium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
