@@ -12,6 +12,7 @@ struct SettingsView: View {
     @State private var showDeleteAccountAlert = false
     @State private var showCustomInstructionViewSheet = false
     
+    var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
     private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
        
@@ -197,6 +198,14 @@ struct SettingsView: View {
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
             .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) { performSignIn() },
+// <<<<<<< rika-languages
+//             .default(Text(getSettingsText(for: languageCode, buttonName: "purchase"))) { showPurchaseDialog() },
+//             .default(Text(getSettingsText(for: languageCode, buttonName: "share"))) { self.showShareSheet = true },
+//             .default(Text(getSettingsText(for: languageCode, buttonName: "tweet"))) { tweet() },
+//             .default(Text(getSettingsText(for: languageCode, buttonName: "systemSettings"))) { openSystemSettings() },
+//             .default(Text(getSettingsText(for: languageCode, buttonName: "saveTranscript"))) { saveTranscript() }
+            
+// =======
             .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
@@ -260,7 +269,10 @@ struct SettingsView: View {
             }
             return email
         }
-        return "Sign-in account"
+        return getSettingsText(for: languageCode, buttonName: "signIn")
+// =======
+//         return "Sign-in account"
+// >>>>>>> main
     }
     
     func saveTranscript() {

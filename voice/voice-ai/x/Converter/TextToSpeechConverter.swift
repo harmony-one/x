@@ -14,7 +14,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
-    let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
+    let languageCode = getLanguageCode()
     var isSpeaking: Bool {
         return synthesizer.isSpeaking
     }
@@ -31,10 +31,11 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         if language != "" {
             selectedLanguage = language
         } else {
-            selectedLanguage = preferredLocale
+            selectedLanguage = languageCode
         }
         
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
+            print("[selectedLanguage] \(selectedLanguage)")
             utterance.voice = voice
         } else {
             // this is used just for the unit tests

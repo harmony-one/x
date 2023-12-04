@@ -1,4 +1,5 @@
 import AVFoundation
+import Foundation
 import Combine
 import Sentry
 import Speech
@@ -49,17 +50,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     var textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-    
-    private var speechDelimitingPunctuations = [Character("."), Character("?"), Character("!"), Character(","), Character("-"), Character(";")]
    
     var pendingOpenAIStream: OpenAIStreamService?
     
     internal var conversation: [Message] = []
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
-
-    private let greetingText = "Hey!"
-    private let sayMoreText = "Tell me more."
 
     // TODO: to be used later to distinguish didFinish event triggered by greeting v.s. others
     //    private var isGreatingFinished = false
@@ -75,6 +71,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     // Upperbound for the number of words buffer can contain before triggering a flush
     private var initialCapacity = 10
+//    TODO: Adjust buffer capacity for each language (eg. Japanese takes too long before flush)
     private var bufferCapacity = 50
     private var retryWorkItem: DispatchWorkItem?
     
@@ -94,9 +91,29 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     var isTimerDidFired = false
         
-    // Current message being processed
-        
+    let languageCode: String
+    private let speechDelimitingPunctuations: [Character]
+    private let greetingText: String
+    private let sayMoreText: String
+    private let letMeKnowText: String
+    private let networkErrorText: String
+    private let limitReachedText: String
+    private let answerLimitText: String
+    
     // MARK: - Initialization and Setup
+    
+    override init() {
+        self.languageCode = getLanguageCode()
+        
+        self.speechDelimitingPunctuations = getDelimitingPunctuations(for: languageCode) ?? []
+        
+        self.greetingText = getGreetingText(for: languageCode) ?? "Hey"
+        self.sayMoreText = getSayMoreText(for: languageCode) ?? "Tell me more."
+        self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
+        self.networkErrorText = getNetworkErrorText(for: languageCode) ?? "No network conditions."
+        self.limitReachedText = getLimitReachedText(for: languageCode) ?? "You have reached your limit, please wait 10 minutes"
+        self.answerLimitText = getAnswerLimitText(for: languageCode) ?? "I can only answer 100 questions per minute at this time."
+    }
 
     func setup() {
         checkPermissionsAndSetupAudio()
@@ -358,11 +375,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
+                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
                             flushBuf()
                             initialFlush = true
                         }
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
+                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
                             flushBuf()
                         }
                     }
@@ -416,7 +435,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "No network conditions.")
+                textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText)
             }
         }
         handleQuery(retryCount: maxRetry)
@@ -496,7 +515,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if feedback == true {
                     // Play the greeting text
                     self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
                     }
@@ -603,7 +621,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
             var query: String
             if let randomTitle = ArticleManager.getRandomArticleTitle() {
-                query = "Summarize \(randomTitle) from Wikipedia"
+                query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
             // Failure to return a title will result in a summary of the Wikipedia page for cat.
             } else {
                 query = "Sumamarize cat from Wikipedia"
@@ -642,14 +660,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // If there's no previous conversation, request the user to provide context
                 DispatchQueue.main.async {
                     self.registerTTS()
-                    self.textToSpeechConverter.convertTextToSpeech(text: "Let me know what to say more about!")
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.letMeKnowText)
                 }
                 return
             }
 
             // Make the query for more information on a background thread
-            let sayMoreText = "Tell me more."
-            self.makeQuery(sayMoreText)
+            self.makeQuery(self.sayMoreText)
         }
     }
 
@@ -782,7 +799,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isTimerDidFired = true
         
         DispatchQueue.main.async {
-            self.textToSpeechConverter.convertTextToSpeech(text: "You have reached your limit, please wait 10 minutes")
+            self.textToSpeechConverter.convertTextToSpeech(text: self.limitReachedText)
         }
     }
 }

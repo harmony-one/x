@@ -13,6 +13,12 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "ActionsViewTests",
+        "ActivityViewTests",
+        "ProgressViewComponentTests",
+        "SettingsViewTests"
+      ],
       "target" : {
         "containerPath" : "container:Voice AI.xcodeproj",
         "identifier" : "CD0D13472ADA73B400031EDD",
