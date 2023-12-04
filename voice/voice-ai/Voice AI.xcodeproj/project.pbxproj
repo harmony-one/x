@@ -755,7 +755,6 @@
 			isa = PBXGroup;
 			children = (
 				B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */,
-				A40CFCE22AF98BB700E02128 /* RandomFact.swift */,
 			);
 			path = SpeechRecognition;
 			sourceTree = "<group>";
@@ -828,7 +827,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
-				F76D13CD2B195C920018F89B /* Translations */,
+				F76D13CD2B195C920018F89B /* Texts */,
 				6E95F22C2B1E65F300260BCA /* Intents */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
 				CD0D133F2ADA73B400031EDD /* x.entitlements */,
@@ -940,21 +939,22 @@
 			path = Performance;
 			sourceTree = "<group>";
 		};
-		F76D13CD2B195C920018F89B /* Translations */ = {
+		F76D13CD2B195C920018F89B /* Texts */ = {
 			isa = PBXGroup;
 			children = (
+				F76D13C32B18218C0018F89B /* Languages.swift */,
+				A40CFCE22AF98BB700E02128 /* RandomFact.swift */,
 				F76D13AA2B17F1CA0018F89B /* GreetingText.swift */,
 				F76D13AF2B1805580018F89B /* SayMoreText.swift */,
 				F76D13B42B180B1B0018F89B /* NetworkErrorText.swift */,
 				F76D13B92B180D7C0018F89B /* LetMeKnowText.swift */,
 				F76D13BE2B1816220018F89B /* LimitReachedText.swift */,
 				F76D13C82B1951F60018F89B /* ButtonText.swift */,
-				F76D13C32B18218C0018F89B /* Languages.swift */,
 				F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */,
 				F76D13D32B196ABB0018F89B /* AnswerLimitText.swift */,
 				F76D13D82B1972B20018F89B /* SettingsText.swift */,
 			);
-			path = Translations;
+			path = Texts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
