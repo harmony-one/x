@@ -185,15 +185,6 @@ struct SettingsView: View {
         }
     }
     
-    func showCustomInstrucionMenu() {
-         let alertController = UIAlertController(title: "Alert", message: "This is a UIAlertController", preferredStyle: .alert)
-         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-         // Use the UIViewControllerRepresentable wrapper to present the UIAlertController
-         UIApplication.shared.windows.first?.rootViewController?.present(alertController, animated: true, completion: nil)
-
-     }
-    
     func showPurchaseDialog() {
         MixpanelManager.shared.trackEvent(name: "Purchase Dialog", properties: nil)
         DispatchQueue.main.async {
