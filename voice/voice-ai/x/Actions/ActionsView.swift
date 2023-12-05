@@ -50,6 +50,8 @@ struct ActionsView: ActionsViewProtocol, View {
 
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
+    @State private var showNewAppVersionAlert: Bool = false
+    @State private var newAppVersion: String?
 
     static var generator: UIImpactFeedbackGenerator?
 
@@ -160,6 +162,17 @@ struct ActionsView: ActionsViewProtocol, View {
                             }
                         }
                     }
+                    try? appSettings.isUpdateAvailable { (updateAvailable, version, error) in
+                        if let error = error {
+                            print("[isUpdateAvailable]: error", error)
+                        } else if let updateAvailable = updateAvailable {
+                            print("[isUpdateAvailable]: ", updateAvailable, version)
+                            if updateAvailable {
+                                self.showNewAppVersionAlert = true
+                                self.newAppVersion = version
+                            }
+                        }
+                    }
                 }
             )
             .edgesIgnoringSafeArea(.all)
@@ -192,6 +205,21 @@ struct ActionsView: ActionsViewProtocol, View {
                     break
                 }
             }
+                    .alert(isPresented: $showNewAppVersionAlert) {
+                        Alert(
+                            title: Text("New version is now available"),
+                            message: Text("\(self.newAppVersion ?? "")"),
+                            primaryButton: .default(Text("Open App Store")) {
+                                showNewAppVersionAlert = false
+                                if let url = URL(string: appSettings.appStoreUrl) {
+                                    UIApplication.shared.open(url)
+                                }
+                            },
+                            secondaryButton: .default(Text("Cancel")) {
+                                showNewAppVersionAlert = false
+                            }
+                        )
+                    }
         //            .alert(isPresented: $showShareAlert) {
         //                Alert(
         //                    title: Text("Share the app with friends?"),

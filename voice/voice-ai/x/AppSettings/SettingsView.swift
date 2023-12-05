@@ -13,7 +13,6 @@ struct SettingsView: View {
     
     var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
-    private var appUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
        
     var body: some View {
         ZStack {
@@ -37,7 +36,7 @@ struct SettingsView: View {
         }
                        
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
-            let url = URL(string: self.appUrl)!
+            let url = URL(string: appSettings.appStoreUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
             ActivityView(activityItems: [shareLink.title, shareLink.url])
         }
