@@ -8,9 +8,9 @@ struct AppSettingsIntent: AppIntent {
 
     static var openAppWhenRun: Bool = true
     
-    func perform() async throws -> some IntentResult & ProvidesDialog {
-//        IntentManager.shared.handleAction(action: .openSettings)
-        AppSettings.shared.showActionSheet(type: .settings)
-        return .result(dialog: "Open settings")
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        IntentManager.shared.showSettings()
+        return .result()
     }
 }

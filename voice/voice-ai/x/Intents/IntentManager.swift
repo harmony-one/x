@@ -15,4 +15,8 @@ class IntentManager {
             self.actionHandler?.handle(actionType: action)
         }
     }
+    
+    public func showSettings() {
+        AppSettings.shared.showActionSheet(type: .settings)
+    }
 }
