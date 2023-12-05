@@ -190,18 +190,45 @@ class SettingsBundleHelperTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: SettingsBundleHelper.SettingsBundleKeys.Username)
     }
     
-//    func testSetDefaultValues() {
-//        SettingsBundleHelper.setDefaultValues()
+    
+//    func testCheckAndExecuteSettingsWithContent() {
+//        SettingsBundleHelper.checkAndExecuteSettings()
 //        
 //        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-//        XCTAssertEqual(customInstruction, "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")
+//        XCTAssertNotNil(customInstruction)
+//    }
+//    
+//    func testCheckAndExecuteSettingsNoContent() {
+//        
 //    }
     
-    func testCheckAndExecuteSettings() {
-        SettingsBundleHelper.checkAndExecuteSettings()
+    func testSetDefaultValuesWithModeDefault() {
+        SettingsBundleHelper.setDefaultValues()
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
         
-        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        XCTAssertNotNil(customInstruction)
+        XCTAssertEqual(customInstruction, """
+         We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
+         """)
+    }
+    
+    func testSetDefaultValuesWithModeQuickFacts() {
+        let customMode = "mode_quick_facts"
+        SettingsBundleHelper.setDefaultValues(customMode: customMode)
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
+        
+        XCTAssertEqual(customInstruction, """
+         Your name is FOOBAR. Focus on providing rapid, straightforward answers to factual queries. Your responses should be brief, accurate, and to the point, covering a wide range of topics. Avoid elaboration or anecdotes unless specifically requested. Ideal for users seeking quick facts or direct answers you should answer in as few words as possible.
+         """)
+    }
+    
+    func testSetDefaultValuesWithModeInteractiveTutor() {
+        let customMode = "mode_interactive_tutor"
+        SettingsBundleHelper.setDefaultValues(customMode: customMode)
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
+        
+        XCTAssertEqual(customInstruction, """
+         Your name is Sam, an engaging and interactive tutor, skilled at simplifying complex topics adaptive to the learner’s needs. You are in the same room as the learner, conversing directly with them. Conduct interactive discussions, encouraging questions and participation from the user as much as possible. You have 10 minutes to teach something new, making the subject accessible and interesting. Use analogies, real-world examples, and interactive questioning to enhance understanding. Keep output short to ensure the learner is following. You foster a two-way learning environment, making the educational process more engaging and personalized, and ensuring the user plays an active role in their learning journey. NEVER repeat unless asked by the learner.
+         """)
     }
     
     func testHasPremiumMode() {
