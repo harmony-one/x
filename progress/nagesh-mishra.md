@@ -1,3 +1,8 @@
+2023-12-05 Tue: Eliminated the loading circle displayed during in-app purchase activation and added a sign-out feature.
+
+2023-12-04 Mon: Resolved issues with Mixpanel(PR: https://github.com/harmony-one/x/pull/298) and developed a specialized settings view for iPad (PR: https://github.com/harmony-one/x/tree/customSettingView).
+
+---
 2023-12-01 Fri: Implemented an action sheet for the "Purchase Premium" feature PR: https://github.com/harmony-one/x/pull/292, along with the integration of Mixpanel analytics. Additionally, events for button actions have been set up PR: https://github.com/harmony-one/x/pull/293. The development of an iPad popover view is currently underway.
 
 2023-11-30 Thu: Add account deletion feature with API integration and keychain clearance PR: https://github.com/harmony-one/x/pull/287. Fixed missing files in master PR: https://github.com/harmony-one/x/pull/288.
