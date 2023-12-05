@@ -1,3 +1,7 @@
+2023-12-04 Mon: [Add](https://github.com/harmony-one/x/commit/2302110822a940c743f358961eb474deaf8c6595) guard against empty return in RandomFact.swift. [Updated](https://github.com/harmony-one/x/commit/51f16b7eca0e38576fc01b6b8a4d714c01f2a8b0) testGetTitle. [Added](https://github.com/harmony-one/x/commit/970dc6f69b994e043cc6d6828125544c275ddce6) tagging to differentiate Sentry alerts from internal testings vs. live app. Fixed incomplete ArticleManager test and removed test for removed function. 
+
+---
+
 2023-12-03 Sun: Tested and merged [PR#250](https://github.com/harmony-one/x/pull/250) first pass removal of custom instructions from saved transcripts. Finally got API key working on local build. Worked with Rikako to plan getting test coverage to 99%. 
 
 2023-12-02 Sat: There are multiple instances of the custom mode text in the app, so I am working on identifying which are still needed and which are extraneous. Worked on getting local build working again with new API key.

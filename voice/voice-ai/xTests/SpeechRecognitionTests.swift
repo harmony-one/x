@@ -3,19 +3,28 @@ import XCTest
 import StoreKit
 import SwiftUI
 
-//class RandomFactTests: XCTestCase {
-//    func testGetTitle() {
-//
-//        let title = getTitle()
-//
-//        // Check if the title is not empty
-//        XCTAssertFalse(title.isEmpty, "The title should not be empty")
-//
-//        // Check if the title is one of the top articles
-//        XCTAssertTrue(topArticles.contains(title),
-//                      "The title should be one of the top articles")
-//    }
-//}
+class RandomFactTests: XCTestCase {
+    func testGetTitle() {
+        
+        XCTAssertFalse(ArticleManager.topArticles.isEmpty, "The topArticles array should not be empty.")
+        XCTAssertTrue(ArticleManager.topArticles.count > 1000, "The topArticles array should have more than 1000 entries.")
+        
+        // Initialize the title variable with a default value
+        var title: String = ""
+
+        if let fetchedTitle = ArticleManager.getRandomArticleTitle() {
+            // Use the fetched title
+            title = fetchedTitle
+
+            // Check if the title is not empty
+            XCTAssertFalse(title.isEmpty, "The title should not be empty")
+        }
+
+        // Check if the title is one of the top articles
+        XCTAssertTrue(ArticleManager.topArticles.contains(title),
+                      "The title should be one of the top articles")
+    }
+}
 
 class SpeechRecognitionTests: XCTestCase {
     

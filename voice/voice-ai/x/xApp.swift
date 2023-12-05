@@ -29,7 +29,11 @@ struct XApp: App {
             // In Production you will probably want a smaller number such as 0.5 for 50%
             options.tracesSampleRate = 1.0
 
-            
+        #if DEBUG
+        options.environment = "testing"
+        #else
+        options.environment = "production"
+        #endif
         }
     }
 
