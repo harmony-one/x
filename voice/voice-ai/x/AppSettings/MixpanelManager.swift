@@ -3,6 +3,7 @@ import Sentry
 
 class MixpanelManager {
     static let shared = MixpanelManager()
+    private var lastTrackedEvent: String?
     
     private init() {
         guard let mixpanelToken = AppConfig.shared.getMixpanelToken() else {
@@ -20,6 +21,11 @@ class MixpanelManager {
     func trackEvent(name: String, properties: [String: MixpanelType]?) {
         DispatchQueue.global(qos: .background).async {
             Mixpanel.mainInstance().track(event: name, properties: properties)
+            self.lastTrackedEvent = name
         }
     }
+    
+    func getLastTrackedEvent() -> String? {
+        return lastTrackedEvent
+   }
 }
