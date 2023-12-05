@@ -37,4 +37,10 @@ enum APIEnvironment {
         return "users/appleId/\(id)"
     }
     
+    static func updateUser() -> String {
+        guard let userid = KeychainService.shared.retrieveUserid() else {
+            return ""
+        }
+        return "users/\(userid)/update"
+    }
 }

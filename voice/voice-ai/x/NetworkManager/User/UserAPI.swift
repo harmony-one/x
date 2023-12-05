@@ -13,6 +13,10 @@ struct CreateUserBody: Codable {
     var deviceId: String
 }
 
+struct CreateUserUpdateBody: Codable {
+    var appVersion: String
+}
+
 struct TransactionBody: Codable {
     var transactionId: String
 }
@@ -39,7 +43,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
                 print("Success: \(response)")
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
 
@@ -55,18 +59,18 @@ struct UserAPI {
         NetworkManager.shared.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
-                print("Status Code: \(response.statusCode)")
+                print("[UserAPI][GetUser] Status Code: \(response.statusCode), data: \(response.data)")
                 // Handle successful response
                 guard let userID = response.data.id else {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
 
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
 
-                SentrySDK.capture(message: "[UserAPI][Register] Success")
+                SentrySDK.capture(message: "[UserAPI][GetUser] Success")
             case let .failure(error):
-                print("Error: \(error)")
+                print("[UserAPI][GetUser] byType: \(byType) Error: \(error)")
             }
         }
     }
@@ -82,25 +86,25 @@ struct UserAPI {
     func purchase(transactionId: String) {
         let commentData = TransactionBody(transactionId: transactionId)
         guard let bodyData = try? JSONEncoder().encode(commentData) else {
-            SentrySDK.capture(message: "[UserAPI][Register] failed to encode data")
+            SentrySDK.capture(message: "[UserAPI][Purchase] failed to encode data")
             return
         }
         NetworkManager.shared.requestData(from: APIEnvironment.purchase(), method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 // Handle successful response
-                print("Success: \(response)")
+                print("[UserAPI][Purchase] Success: \(response)")
                 guard let userID = response.data.id else {
-                    SentrySDK.capture(message: "[UserAPI][purchase] userID not created")
+                    SentrySDK.capture(message: "[UserAPI][Purchase] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive)
+                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
 
-                SentrySDK.capture(message: "[UserAPI][purchase] Success")
+                SentrySDK.capture(message: "[UserAPI][Purchase] Success")
             case let .failure(error):
                 // Handle error
-                print("Error: \(error)")
-                SentrySDK.capture(message: "[UserAPI][purchase] Error: \(error)")
+                print("[UserAPI][Purchase] Error: \(error)")
+                SentrySDK.capture(message: "[UserAPI][Purchase] Error: \(error)")
             }
         }
     }
@@ -124,6 +128,29 @@ struct UserAPI {
                 SentrySDK.capture(message: "[UserAPI][DeleteAccount] Error: \(error)")
                 // Call completion with false since the process failed
                 completion(false)
+            }
+        }
+    }
+
+    func updateUser(apiKey: String, appVersion: String) {
+        var methodName = "[UserAPI][updateUser]"
+        print("\(methodName) appVersion: \(appVersion)")
+        
+        let updateData = CreateUserUpdateBody(appVersion: appVersion)
+        guard let bodyData = try? JSONEncoder().encode(updateData) else {
+            SentrySDK.capture(message: "[UserAPI][Register] failed to encode data")
+            return
+        }
+
+        NetworkManager.shared.requestData(from: APIEnvironment.updateUser(), method: .post, body: bodyData, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
+            switch result {
+            case let .success(response):
+                if response.statusCode == 200 {
+                    SentrySDK.capture(message: "\(methodName) Success")
+                }
+            case let .failure(error):
+                print("Error: \(error)")
+                SentrySDK.capture(message: "\(methodName) Error: \(error)")
             }
         }
     }
