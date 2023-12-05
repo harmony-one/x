@@ -179,14 +179,13 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-// <<<<<<< rika-languages
+
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "purchase"))) { showPurchaseDialog() },
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "share"))) { self.showShareSheet = true },
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "tweet"))) { tweet() },
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "systemSettings"))) { openSystemSettings() },
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "saveTranscript"))) { saveTranscript() }
             
-// =======
             .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
@@ -243,12 +242,11 @@ struct SettingsView: View {
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
-            return getSettingsText(for: languageCode, buttonName: "signOut")
+//            return getSettingsText(for: languageCode, buttonName: "signOut")
+            return "Sign Out"
         }
-        return getSettingsText(for: languageCode, buttonName: "signIn")
-// =======
-//         return "Sign-in account"
-// >>>>>>> main
+//        return getSettingsText(for: languageCode, buttonName: "signIn")
+         return "Sign-in account"
     }
     
     func saveTranscript() {

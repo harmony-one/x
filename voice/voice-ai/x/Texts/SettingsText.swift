@@ -2,29 +2,30 @@
 
 import Foundation
 
-func getSettingsText(for languageCode: String, buttonName: String) -> String {
-    if let languageDictionary = settingsTranslations[languageCode], let translatedText = languageDictionary[buttonName] {
-        return translatedText
-    } else {
-        if buttonName == "purchase" {
-            return "Purchase"
-        } else if buttonName == "share" {
-            return "Share"
-        } else if buttonName == "tweet" {
-            return "Tweet"
-        } else if buttonName == "systemSettings" {
-            return "System Settings"
-        } else if buttonName == "saveTranscript" {
-            return "Save Transcript"
-        } else if buttonName == "signIn" {
-            return "Sign In"
-        } else if buttonName == "signOut" {
-            return "Sign Out"
-        } else {
-            return buttonName
-        }
-    }
-}
+//func getSettingsText(for languageCode: String, buttonName: String) -> String {
+//    if let languageDictionary = settingsTranslations[languageCode], let translatedText = languageDictionary[buttonName] {
+//        return translatedText
+//    } else {
+//        if buttonName == "purchase" {
+//            return "Purchase"
+//        } else if buttonName == "share" {
+//            return "Share"
+//        } else if buttonName == "tweet" {
+//            return "Tweet"
+//        } else if buttonName == "systemSettings" {
+//            return "System Settings"
+//        } else if buttonName == "saveTranscript" {
+//            return "Save Transcript"
+//        } else if buttonName == "signIn" {
+//            return "Sign In"
+//        } else if buttonName == "signOut" {
+//            return "Sign Out"
+//        } else {
+//            return buttonName
+//        }
+//    }
+//}
+
 
 var settingsTranslations: [String: [String: String]] = [
     "aa": [
