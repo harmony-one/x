@@ -15,7 +15,6 @@
 		22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 22CC4D752AF3AC300072EC39 /* Products.storekit */; };
 		22CC4D7A2AF3AD900072EC39 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
 		22CC4D7E2AF3C1C10072EC39 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
-		6E1ADB892B163C2300BA0F38 /* ProgressViewComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1ADB882B163C2300BA0F38 /* ProgressViewComponentTests.swift */; };
 		6E1ADB8B2B163EC500BA0F38 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 6E1ADB8A2B163EC500BA0F38 /* SnapshotTesting */; };
 		6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
 		6E1CF29B2AEC421B00A1CBB0 /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */; };
@@ -166,10 +165,6 @@
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
-		B985BEFD2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */; };
-		B985BEFE2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */; };
-		B985BEFF2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */; };
-		B985BF002B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */; };
 		B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */; };
 		B9A3ADF02B15CD3500C5FC66 /* ActivityViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */; };
 		B9A3AE182B18CC7900C5FC66 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */; };
@@ -372,7 +367,6 @@
 		22CC4D752AF3AC300072EC39 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		22CC4D792AF3AD900072EC39 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		22CC4D7D2AF3C1C10072EC39 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		6E1ADB882B163C2300BA0F38 /* ProgressViewComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewComponentTests.swift; sourceTree = "<group>"; };
 		6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButton.swift; sourceTree = "<group>"; };
 		6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
@@ -413,7 +407,6 @@
 		B93580F92B1DCCDD00CC31E2 /* MixpanelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixpanelManager.swift; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
-		B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkTests.swift; sourceTree = "<group>"; };
 		B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewTests.swift; sourceTree = "<group>"; };
 		B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
@@ -572,7 +565,6 @@
 			isa = PBXGroup;
 			children = (
 				22CC4D792AF3AD900072EC39 /* Persistence.swift */,
-				B985BEFC2B0E252F00BC86DA /* ActivityIndicatorView.swift */,
 				22CC4D7D2AF3C1C10072EC39 /* Store.swift */,
 			);
 			path = IAP;
@@ -889,7 +881,6 @@
 				B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */,
 				F73AF5982B0FDE3800B98C0F /* OpenAIModelsTests.swift */,
 				F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */,
-				6E1ADB882B163C2300BA0F38 /* ProgressViewComponentTests.swift */,
 				B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */,
 				B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */,
 				F66BD7662B16836000C4134F /* SettingsViewTests.swift */,
@@ -1253,7 +1244,6 @@
 				F76D13B32B1805580018F89B /* SayMoreText.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
-				B985BF002B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
 				6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
@@ -1326,7 +1316,6 @@
 				F76D13CF2B195EB00018F89B /* DelimitingPunctuations.swift in Sources */,
 				F76D13BA2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				6E95F2302B1E6FE400260BCA /* VoiceAIShortcuts.swift in Sources */,
-				B985BEFD2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
 				B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */,
 				B93580FA2B1DCCDD00CC31E2 /* MixpanelManager.swift in Sources */,
 				B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */,
@@ -1411,7 +1400,6 @@
 				B9A3AE1D2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
 				F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */,
 				B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */,
-				6E1ADB892B163C2300BA0F38 /* ProgressViewComponentTests.swift in Sources */,
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */,
@@ -1427,7 +1415,6 @@
 				B3BC2CB32B05F4AF00A58477 /* NetworkManager.swift in Sources */,
 				F6D5F5502B150C730078907F /* GridButtonTests.swift in Sources */,
 				B91F05C82B05F6CA0029A32D /* AppleSignInManager.swift in Sources */,
-				B985BEFE2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
 				6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */,
 				6E53AF542AF012A40022A8F2 /* Text.swift in Sources */,
 				F6D5F54F2B150C730078907F /* ThemeManagerTests.swift in Sources */,
@@ -1499,7 +1486,6 @@
 				F76D13B72B180B1B0018F89B /* NetworkErrorText.swift in Sources */,
 				B9A3AE1E2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
 				6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */,
-				B985BEFF2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
 				F76D13C12B1816220018F89B /* LimitReachedText.swift in Sources */,
 				F65054FF2B05269200FFEA07 /* xUIDebounceTests.swift in Sources */,
 				6E56C7C02B067AF100ED2296 /* AppleSignInManager.swift in Sources */,

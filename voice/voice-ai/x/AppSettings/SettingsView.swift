@@ -227,7 +227,6 @@ struct SettingsView: View {
                         try await self.store.purchase(product)
                     } catch {
                         print("[AppleSignInManager] Error during purchase")
-                        self.store.isPurchasing = false
                     }
                 }
             }
