@@ -12,7 +12,13 @@ struct VoiceAIShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: AppSettingsIntent(),
             phrases: [
-                "Open Settings"
+                "Open settings"
+            ]
+        ),
+        AppShortcut(
+            intent: NewSessionIntent(),
+            phrases: [
+                "New session"
             ]
         )
       ]
