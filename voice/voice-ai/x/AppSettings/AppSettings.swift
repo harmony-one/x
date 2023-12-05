@@ -3,13 +3,18 @@ import UIKit
 import Combine
 
 enum ActionSheetType {
-        case settings, purchaseOptions
-        // Other cases if needed
-    }
+    case settings, purchaseOptions
+    // Other cases if needed
+}
+
+enum VersionError: Error {
+    case invalidResponse, invalidBundleInfo
+}
 
 class AppSettings: ObservableObject {
     @Published var isOpened: Bool = false
     @Published var isPopoverPresented = false
+    @Published var appStoreUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
 
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
@@ -137,5 +142,43 @@ class AppSettings: ObservableObject {
         }
 
         return date > Date()
+    }
+
+    func isUpdateAvailable(completion: @escaping (Bool?, String?, Error?) -> Void) throws -> URLSessionDataTask {
+        guard let info = Bundle.main.infoDictionary,
+            let currentVersion = info["CFBundleShortVersionString"] as? String,
+            let identifier = info["CFBundleIdentifier"] as? String,
+            let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(identifier)") else {
+                throw VersionError.invalidBundleInfo
+            }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let error = error { throw error }
+                guard let data = data else { throw VersionError.invalidResponse }
+                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
+                    throw VersionError.invalidResponse
+                }
+                let versionArray = version.split(separator: ".").compactMap { Int($0) }
+                let localVersionArray = currentVersion.split(separator: ".").compactMap { Int($0) }
+                
+                if localVersionArray.count != versionArray.count {
+                    completion(true, version, nil) // different versioning system
+                    return
+                }
+                
+                for (localSegment, storeSegment) in zip(localVersionArray, versionArray) {
+                          if localSegment < storeSegment {
+                              completion(true, version, nil)
+                              return
+                          }
+                        }
+                completion(false, version, nil)
+            } catch {
+                completion(nil, nil, error)
+            }
+        }
+        task.resume()
+        return task
     }
 }
