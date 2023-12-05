@@ -20,6 +20,13 @@ struct VoiceAIShortcuts: AppShortcutsProvider {
             phrases: [
                 "New session"
             ]
+        ),
+        AppShortcut(
+            intent: PlayPauseIntent(),
+            phrases: [
+                "Play",
+                "Pause"
+            ]
         )
       ]
   }

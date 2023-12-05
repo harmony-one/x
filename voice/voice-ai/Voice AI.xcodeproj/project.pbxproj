@@ -22,6 +22,7 @@
 		6E1FEC772B0BE3B6005EB346 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		6E1FEC782B0BE3D3005EB346 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05CE2B0613B10029A32D /* AppSettings.swift */; };
 		6E207AF82B1FA5B000C9123A /* NewSessionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */; };
+		6E207AFA2B1FA6DB00C9123A /* PlayPauseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */; };
 		6E35CB4D2AFE87E80004D2D2 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
 		6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -378,6 +379,7 @@
 		6E1ADB882B163C2300BA0F38 /* ProgressViewComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewComponentTests.swift; sourceTree = "<group>"; };
 		6E1CF2992AEC421B00A1CBB0 /* GridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButton.swift; sourceTree = "<group>"; };
 		6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSessionIntent.swift; sourceTree = "<group>"; };
+		6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayPauseIntent.swift; sourceTree = "<group>"; };
 		6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
 		6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurpriseIntent.swift; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 				6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */,
 				6E95F2332B1F6B1E00260BCA /* IntentManager.swift */,
 				6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */,
+				6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */,
 			);
 			path = Intents;
 			sourceTree = "<group>";
@@ -1335,6 +1338,7 @@
 				B91F05BA2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				B930AAE32ADE2DE5009F9F8C /* Text.swift in Sources */,
 				F76D13CF2B195EB00018F89B /* DelimitingPunctuations.swift in Sources */,
+				6E207AFA2B1FA6DB00C9123A /* PlayPauseIntent.swift in Sources */,
 				F76D13BA2B180D7C0018F89B /* LetMeKnowText.swift in Sources */,
 				6E95F2302B1E6FE400260BCA /* VoiceAIShortcuts.swift in Sources */,
 				B985BEFD2B0E252F00BC86DA /* ActivityIndicatorView.swift in Sources */,
