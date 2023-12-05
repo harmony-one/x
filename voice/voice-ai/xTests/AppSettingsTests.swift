@@ -1,5 +1,6 @@
 import XCTest
 @testable import Voice_AI
+import Mixpanel
 
 class AppSettingsTests: XCTestCase {
     func testGetEpochWithValidDateString() {
@@ -35,3 +36,29 @@ class AppSettingsTests: XCTestCase {
     }
 
 }
+
+class MixpanelManagerTests: XCTestCase {
+//    
+//    override func setUp() {
+//        super.setUp()
+//        // Initialize Mixpanel for testing (You may need to set up a test token)
+//        Mixpanel.initialize(token: "your_test_mixpanel_token", trackAutomaticEvents: false)
+//    }
+//
+//    override func tearDown() {
+//        // Clean up any Mixpanel state after each test
+//        Mixpanel.mainInstance().reset()
+//        super.tearDown()
+//    }
+    
+    func testTrackEvent() {
+        let mixpanelManager = MixpanelManager.shared
+        let eventName = "Test Event"
+        let eventProperties: [String: MixpanelType] = ["Key1": "Value1", "Key2": 42]
+        
+        mixpanelManager.trackEvent(name: eventName, properties: eventProperties)
+
+        
+    }
+}
+

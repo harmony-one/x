@@ -10,8 +10,12 @@ class MixpanelManager {
             print("[MixpanelManager] Missing Mixpanel Token")
             return
         }
-        Mixpanel.initialize(token: mixpanelToken, trackAutomaticEvents: true)
+        initializeMixpanel(withToken: mixpanelToken)
     }
+    
+    func initializeMixpanel(withToken mixpanelToken: String) {
+            Mixpanel.initialize(token: mixpanelToken, trackAutomaticEvents: true)
+        }
     
     func trackEvent(name: String, properties: [String: MixpanelType]?) {
         DispatchQueue.global(qos: .background).async {

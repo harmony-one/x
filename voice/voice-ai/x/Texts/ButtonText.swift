@@ -2,29 +2,29 @@
 
 import Foundation
 
-func getButtonText(for languageCode: String, buttonName: String) -> String {
-    if let languageDictionary = buttonTranslations[languageCode], let translatedText = languageDictionary[buttonName] {
-        return translatedText
-    } else {
-        if buttonName == "reset" {
-            return "New Session"
-        } else if buttonName == "tapToSpeak" {
-            return "Tap to Speak"
-        } else if buttonName == "tapToSend" {
-            return "Tap to SEND"
-        } else if buttonName == "surprise" {
-            return "Surprise ME!"
-        } else if buttonName == "speak" {
-            return "Press & Hold"
-        } else if buttonName == "more" {
-            return "More Actions"
-        } else if buttonName == "play" {
-            return "Pause / Play"
-        } else {
-            return buttonName
-        }
-    }
-}
+//func getButtonText(for languageCode: String, buttonName: String) -> String {
+//    if let languageDictionary = buttonTranslations[languageCode], let translatedText = languageDictionary[buttonName] {
+//        return translatedText
+//    } else {
+//        if buttonName == "reset" {
+//            return "New Session"
+//        } else if buttonName == "tapToSpeak" {
+//            return "Tap to Speak"
+//        } else if buttonName == "tapToSend" {
+//            return "Tap to SEND"
+//        } else if buttonName == "surprise" {
+//            return "Surprise ME!"
+//        } else if buttonName == "speak" {
+//            return "Press & Hold"
+//        } else if buttonName == "more" {
+//            return "More Actions"
+//        } else if buttonName == "play" {
+//            return "Pause / Play"
+//        } else {
+//            return buttonName
+//        }
+//    }
+//}
 
 var buttonTranslations: [String: [String: String]] = [
     "aa": [
