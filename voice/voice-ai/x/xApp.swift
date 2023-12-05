@@ -16,6 +16,8 @@ struct XApp: App {
             minimumSignificantEvents: appConfig.getMinimumSignificantEvents() ?? 5,
             daysBetweenPrompts: appConfig.getDaysBetweenPrompts() ?? 120
         )
+        
+        IntentManager.shared.setActionHandler(actionHandler: self.actionHandler)
 
         guard let sentryDSN = appConfig.getSentryDSN() else {
             return

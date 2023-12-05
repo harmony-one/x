@@ -70,6 +70,8 @@
 		6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */; };
 		6E95F22E2B1E665200260BCA /* SurpriseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */; };
 		6E95F2302B1E6FE400260BCA /* VoiceAIShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */; };
+		6E95F2322B1F687200260BCA /* AppSettingsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */; };
+		6E95F2342B1F6B1E00260BCA /* IntentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2332B1F6B1E00260BCA /* IntentManager.swift */; };
 		6EC2F6262B067E61002EFADD /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05BD2B04BFEB0029A32D /* UserAPI.swift */; };
 		6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05B92B04BA250029A32D /* NetworkManager.swift */; };
 		6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
@@ -378,6 +380,8 @@
 		6E8D0BDD2AFE759E00556927 /* OpenAIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIUtils.swift; sourceTree = "<group>"; };
 		6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurpriseIntent.swift; sourceTree = "<group>"; };
 		6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAIShortcuts.swift; sourceTree = "<group>"; };
+		6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsIntent.swift; sourceTree = "<group>"; };
+		6E95F2332B1F6B1E00260BCA /* IntentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentManager.swift; sourceTree = "<group>"; };
 		A40CFCE22AF98BB700E02128 /* RandomFact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFact.swift; sourceTree = "<group>"; };
 		A44CFFAF2B0D7200003D6822 /* AppConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppConfig.plist; sourceTree = "<group>"; };
 		A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
@@ -583,6 +587,8 @@
 			children = (
 				6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */,
 				6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */,
+				6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */,
+				6E95F2332B1F6B1E00260BCA /* IntentManager.swift */,
 			);
 			path = Intents;
 			sourceTree = "<group>";
@@ -1313,7 +1319,9 @@
 			files = (
 				B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */,
 				F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
+				6E95F2322B1F687200260BCA /* AppSettingsIntent.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
+				6E95F2342B1F6B1E00260BCA /* IntentManager.swift in Sources */,
 				F76D13C42B18218C0018F89B /* Languages.swift in Sources */,
 				F76D13D92B1972B20018F89B /* SettingsText.swift in Sources */,
 				B9A3AE242B18CC7900C5FC66 /* AppConfig.swift in Sources */,
