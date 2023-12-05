@@ -80,7 +80,7 @@ struct ActionsView: ActionsViewProtocol, View {
 
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: getButtonText(for: languageCode, buttonName: "Tap to SEND"), image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
         let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
