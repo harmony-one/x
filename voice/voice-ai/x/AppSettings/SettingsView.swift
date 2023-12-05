@@ -129,7 +129,7 @@ struct SettingsView: View {
                 Text("Purchase Options").font(.headline)
                 Divider()
                 Button("Pay $5 via Apple") { showPurchaseDialog() }
-                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
+//                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
                 Button("Sign-in Account") { performSignIn() }
                 Button("Delete Account") { self.showDeleteAccountAlert = true }
                 Button("Cancel", role: .cancel) {
@@ -168,7 +168,7 @@ struct SettingsView: View {
     func purchaseOptionsActionSheet() -> ActionSheet {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
-            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+//            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) {
                 if KeychainService.shared.isAppleIdAvailable() {
                     appSettings.isOpened = false // Close the current sheet first
