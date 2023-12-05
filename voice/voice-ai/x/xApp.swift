@@ -6,7 +6,7 @@ import SwiftUI
 @main
 struct XApp: App {
     @StateObject var store = Store()
-    @StateObject var appSettings = AppSettings()
+    @StateObject var appSettings = AppSettings.shared
     var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
     var mixpanel = MixpanelManager.shared
