@@ -1,4 +1,4 @@
-2023-12-04 Mon: I have started working on the iPhone 15 action button that triggers the "Surprise Me!" feature, and I am researching how to implement metrics for the signing key proxy, and subsequent requests.
+2023-12-04 Mon: I have started working on the iPhone 15 [action button that triggers the "Surprise Me!" feature](https://github.com/harmony-one/x/pull/303), and I am researching how to implement metrics for the signing key proxy, and subsequent requests.
 
 ---
 
