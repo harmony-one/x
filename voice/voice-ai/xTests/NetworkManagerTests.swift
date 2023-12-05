@@ -16,14 +16,14 @@ class APIEnvironmentTests: XCTestCase {
     }
 
     func testGetUser() {
-        keychainService.storeUser(id: "123", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil)
+        keychainService.storeUser(id: "123", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil, appVersion: nil)
 
         let userPath = APIEnvironment.getUser()
         XCTAssertEqual(userPath, "users/123")
     }
 
     func testPurchase() {
-        keychainService.storeUser(id: "456", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil)
+        keychainService.storeUser(id: "456", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil, appVersion: nil)
 
         let purchasePath = APIEnvironment.purchase()
         XCTAssertEqual(purchasePath, "users/456/purchase")

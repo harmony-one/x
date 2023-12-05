@@ -36,14 +36,16 @@ class KeychainServiceTests: XCTestCase {
         let updatedAt = "2023-02-01"
         let expirationDate = "2023-03-01"
         let isSuscriptionActive:Bool = true
+        let appVersion = "16.0"
 
-        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: isSuscriptionActive)
+        keychainService.storeUser(id: userId, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: isSuscriptionActive, appVersion: appVersion)
   
         XCTAssertEqual(keychainService.retrieveUserid(), userId)
         XCTAssertEqual(keychainService.retrieveBalance(), balance)
         XCTAssertEqual(keychainService.retrieveCreatedAt(), createdAt)
         XCTAssertEqual(keychainService.retrieveUpdatedAt(), updatedAt)
         XCTAssertEqual(keychainService.retrieveExpirationDate(), expirationDate)
+        XCTAssertEqual(keychainService.retrieveAppVersion(), appVersion)
     }
     
     func testIsAppleIdAvailable() {
@@ -70,7 +72,7 @@ class KeychainServiceTests: XCTestCase {
         let key = "userID"
         let value = "testValue"
         keychainService.clearAll()
-        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive:  false)
+        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive:  false, appVersion: nil)
  
         keychainService.delete(key: key)
         XCTAssertNil(keychainService.retrieveUserid())

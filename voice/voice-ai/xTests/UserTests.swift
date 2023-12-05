@@ -134,7 +134,8 @@ class UserAPITests: XCTestCase {
         let updatedAt = "0"
         let expirationDate = "0"
         let isSubscriptionActive = false
-        keychainService.storeUser(id: id, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: false)
+        let appVersion = "16.0"
+        keychainService.storeUser(id: id, balance: balance, createdAt: createdAt, updatedAt: updatedAt, expirationDate: expirationDate, isSubscriptionActive: isSubscriptionActive, appVersion: appVersion)
         api.register(appleId: appleId)
         
         // When
