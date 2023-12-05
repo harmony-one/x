@@ -3,7 +3,7 @@
 
 ---
 
-2023-12-04 Tue: Submitted version v1.1205.9 to app store; updates included adding action button shortcuts, adding Sign Out functionality, and reorganizing "More Actions" menu.
+2023-12-05 Tue: Submitted version v1.1205.9 to app store; updates included adding action button shortcuts, adding Sign Out functionality, and reorganizing "More Actions" menu.
 
 2023-12-04 Mon: Released version v1.1204.9 and v1.1204.18 with significant progress on general UI interaction. Major bugs that we hope to resolve by Friday 12-08 are first-word mic cut off and sporadic behaviors from "Press & Hold" button.
 
