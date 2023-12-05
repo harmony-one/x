@@ -9,7 +9,6 @@ class Store: ObservableObject {
     @Published var purchasedConsumables = [Product]()
     @Published var purchasedSubscriptions = Set<Product>()
     @Published var entitlements = [Transaction]()
-    @Published var isPurchasing: Bool = false
     var transactionListener: Task<Void, Error>?
 
     init() {
@@ -35,13 +34,10 @@ class Store: ObservableObject {
 
     @MainActor
     func purchase(_ product: Product) async throws {
-        isPurchasing = true
         let result = try await product.purchase()
         switch result {
         case let .success(transacitonVerification):
             await handle(transactionVerification: transacitonVerification)
-        case .userCancelled:
-            isPurchasing = false
         default:
             return
         }
@@ -58,7 +54,6 @@ class Store: ObservableObject {
     @MainActor
     @discardableResult
     private func handle(transactionVerification result: VerificationResult<Transaction>) async -> Transaction? {
-        isPurchasing = false
         switch result {
         case let .verified(transaction):
             guard let product = products.first(where: {

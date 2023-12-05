@@ -18,6 +18,8 @@ func getSettingsText(for languageCode: String, buttonName: String) -> String {
             return "Save Transcript"
         } else if buttonName == "signIn" {
             return "Sign In"
+        } else if buttonName == "signOut" {
+            return "Sign Out"
         } else {
             return buttonName
         }
@@ -31,7 +33,8 @@ var settingsTranslations: [String: [String: String]] = [
         "tweet": "Twiit",
         "systemSettings": "Haggooyyi Sittiinsii",
         "saveTranscript": "Taageera Karraa",
-        "signIn": "Log In"
+        "signIn": "Log In",
+        "signOut": "Sign Out"
     ],
     "ab": [
         "purchase": "Ақыҭ",
@@ -39,7 +42,8 @@ var settingsTranslations: [String: [String: String]] = [
         "tweet": "Туҩатыр",
         "systemSettings": "Имкәысқәа арбыҟара",
         "saveTranscript": "Ирҳарцара азақышарцара",
-        "signIn": "Ауыстыру"
+        "signIn": "Ауыстыру",
+        "signOut": "Sign Out"
     ],
     "af": [
         "purchase": "Aankoop",

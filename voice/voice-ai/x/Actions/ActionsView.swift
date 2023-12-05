@@ -120,11 +120,7 @@ struct ActionsView: ActionsViewProtocol, View {
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
-            if store.isPurchasing {
-                ProgressViewComponent(isShowing: $store.isPurchasing)
-            } else {
                 baseView(colums: colums, buttons: buttons)
-            }
         }.background(Color(hex: 0x1E1E1E).animation(.none))
             .onAppear(
                 perform: {
@@ -535,7 +531,6 @@ struct ActionsView: ActionsViewProtocol, View {
                         try await self.store.purchase(product)
                     } catch {
                         print("[ActionsView] Error during purchase")
-                        store.isPurchasing = false
                     }
                 }
             }

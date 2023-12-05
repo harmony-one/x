@@ -10,7 +10,8 @@ struct SettingsView: View {
     @State private var showAlert = false
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
-    
+    @State private var showingSignOutAlert = false
+
     var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
        
@@ -56,6 +57,17 @@ struct SettingsView: View {
                 primaryButton: .destructive(Text("Delete")) {
                     // Handle the deletion here
                     deleteUserAccount()
+                },
+                secondaryButton: .cancel()
+            )
+        }
+        .alert(isPresented: $showingSignOutAlert) {
+            Alert(
+                title: Text("Sign Out"),
+                message: Text("Are you sure you want to sign out?"),
+                primaryButton: .destructive(Text("Sign Out")) {
+                    // Handle sign out action here
+                    KeychainService.shared.clearAll()
                 },
                 secondaryButton: .cancel()
             )
@@ -157,7 +169,16 @@ struct SettingsView: View {
         return ActionSheet(title: Text("Purchase Options"), buttons: [
             .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
             .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
-            .default(Text(getUserName())) { performSignIn() },
+            .default(Text(getUserName())) {
+                if KeychainService.shared.isAppleIdAvailable() {
+                    appSettings.isOpened = false // Close the current sheet first
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.showingSignOutAlert = true
+                    }
+                } else {
+                    performSignIn()
+                }
+            },
 // <<<<<<< rika-languages
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "purchase"))) { showPurchaseDialog() },
 //             .default(Text(getSettingsText(for: languageCode, buttonName: "share"))) { self.showShareSheet = true },
@@ -205,7 +226,6 @@ struct SettingsView: View {
                         try await self.store.purchase(product)
                     } catch {
                         print("[AppleSignInManager] Error during purchase")
-                        self.store.isPurchasing = false
                     }
                 }
             }
@@ -223,11 +243,7 @@ struct SettingsView: View {
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
-            guard let email = keychain.retrieveEmail() else {
-                let userID =  keychain.retrieveUserid() ?? "User id not found"
-                return userID
-            }
-            return email
+            return getSettingsText(for: languageCode, buttonName: "signOut")
         }
         return getSettingsText(for: languageCode, buttonName: "signIn")
 // =======
