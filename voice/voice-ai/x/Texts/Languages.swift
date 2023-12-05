@@ -1,7 +1,7 @@
 import Foundation
 
-func getLanguageCode() -> String {
-    let code = String(Locale.preferredLanguages[0].prefix(2))
+func getLanguageCode(preferredLanguage: String? = nil) -> String {
+    let code = preferredLanguage ?? String(Locale.preferredLanguages[0].prefix(2))
     if languageCodes.contains(code) {
         return code
     } else {
