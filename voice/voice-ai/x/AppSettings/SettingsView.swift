@@ -8,9 +8,9 @@ struct SettingsView: View {
     @State private var showShareSheet: Bool = false
     @State private var userName: String?
     @State private var isSaveTranscript = false
-    var languageCode = getLanguageCode()
+    
     private var shareTitle = "hey @voiceaiapp "
-       
+    
     var body: some View {
         ZStack {
             Color.clear
@@ -31,7 +31,7 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
-                       
+        
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: appSettings.appStoreUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -42,84 +42,83 @@ struct SettingsView: View {
             ActivityView(activityItems: [jsonString])
         }
     }
-
-     func popoverContent() -> some View {
-            VStack {
-                switch appSettings.type {
-                case .settings:
-                    settingsPopoverContent()
-                case .purchaseOptions:
-                    purchaseOptionsPopoverContent()
-                default:
-                    EmptyView()
-                }
+    
+    func popoverContent() -> some View {
+        VStack {
+            switch appSettings.type {
+            case .settings:
+                settingsPopoverContent()
+            case .purchaseOptions:
+                purchaseOptionsPopoverContent()
+            default:
+                EmptyView()
             }
-            .padding()
-            .background(Color.white)
         }
+        .padding()
+        .background(Color.white)
+    }
     
     private func settingsPopoverContent() -> some View {
-            VStack(spacing: 32) {
-                Text("Actions").font(.title)
-                Divider()
-                Button("Share Transcript") {
-                    self.appSettings.isPopoverPresented = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        saveTranscript()
-                    }
-                }.font(.title2)
-//                Button("Custom instructions") { /* Add logic for custom instructions */ }
-                Button("Tweet feedback") {
-                    tweet()
-                }.font(.title2)
-                Button("Share App") {
-                    self.appSettings.isPopoverPresented = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.showShareSheet = true
-                    }
-                }.font(.title2)
-                Button("System Settings") { 
-                    openSystemSettings()
-                }.font(.title2)
-                Button("Purchase Premium") {
-                    appSettings.type = .purchaseOptions
-                    appSettings.isPopoverPresented = true
-                }.font(.title2)
-                Button("Cancel", role: .cancel) {
-                    appSettings.isPopoverPresented = false
-                }.font(.title2)
-            }
-            .padding()
+        VStack(spacing: 32) {
+            Text("settingsView.view.title").font(.title)
+            Divider()
+            Button("settingsView.mainMenu.shareTranscript") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    saveTranscript()
+                }
+            }.font(.title2)
+            //                Button("Custom instructions") { /* Add logic for custom instructions */ }
+            Button("settingsView.mainMenu.TweetFeedback") {
+                tweet()
+            }.font(.title2)
+            Button("settingsView.mainMenu.shareAppLink") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.showShareSheet = true
+                }
+            }.font(.title2)
+            Button("settingsView.mainMenu.customInstructions") {
+                openSystemSettings()
+            }.font(.title2)
+            Button("settingsView.mainMenu.PurchasePremium") {
+                appSettings.type = .purchaseOptions
+                appSettings.isPopoverPresented = true
+            }.font(.title2)
+            Button("button.cancel", role: .cancel) {
+                appSettings.isPopoverPresented = false
+            }.font(.title2)
         }
+        .padding()
+    }
     
     private func purchaseOptionsPopoverContent() -> some View {
-            VStack {
-                Text("Purchase Options").font(.headline)
-                Divider()
-                Button("Pay $5 via Apple") { showPurchaseDialog() }
-//                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
-                Button("Sign-in Account") { performSignIn() }
-                Button("Delete Account") {
-                    appSettings.isPopoverPresented = false
-                    showDeleteAccountAlert()
-                }
-                Button("Cancel", role: .cancel) {
-                    appSettings.isPopoverPresented = false
-                }
+        VStack {
+            Text("settingsView.purchaseMenu.title").font(.headline)
+            Divider()
+            Button("settingsView.purchaseMenu.pay5viaApple") { showPurchaseDialog() }
+            //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
+            Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
+            Button("settingsView.purchaseMenu.deleteAccount") { 
+                appSettings.isPopoverPresented = false
+                showDeleteAccountAlert()                     }
+            Button("button.cancel", role: .cancel) {
+                appSettings.isPopoverPresented = false
             }
-            .padding()
         }
-
+        .padding()
+    }
+    
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
+        return ActionSheet(title: Text("settingsView.mainMenu.title"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
-            .default(Text("Custom instructions")) { openSystemSettings() },
-            .default(Text("Share app link")) { self.showShareSheet = true },
-            .default(Text("Tweet feedback")) { tweet() },
-            .default(Text("Purchase premium")) {
+            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
+            .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
+            .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
+            .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
+            .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -129,17 +128,17 @@ struct SettingsView: View {
         ])
     }
     
-//    func customInstructionsActionSheet() -> {
-//        return ActionSheet(title: Text("Custom Instructions"), buttons: [
-//            .default(Text(<#T##input: Equatable##Equatable#>, format: FormatStyle)),
-//            .cancel()
-//        ])
-//    }
+    //    func customInstructionsActionSheet() -> {
+    //        return ActionSheet(title: Text("Custom Instructions"), buttons: [
+    //            .default(Text(<#T##input: Equatable##Equatable#>, format: FormatStyle)),
+    //            .cancel()
+    //        ])
+    //    }
     
     func purchaseOptionsActionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Purchase Options"), buttons: [
-            .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
-//            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+        return ActionSheet(title: Text("settingsView.purchaseMenu.title"), buttons: [
+            .default(Text("settingsView.purchaseMenu.pay5viaApple")) { showPurchaseDialog() },
+            //            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) {
                 if KeychainService.shared.isAppleIdAvailable() {
                     appSettings.isOpened = false // Close the current sheet first
@@ -150,7 +149,7 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-            .default(Text("Delete account")) {
+            .default(Text("settingsView.purchaseMenu.deleteAccount")) { 
                 showDeleteAccountAlert()
             },
             .cancel()
@@ -208,11 +207,11 @@ struct SettingsView: View {
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
-//            return getSettingsText(for: languageCode, buttonName: "signOut")
+            //            return getSettingsText(for: languageCode, buttonName: "signOut")
             return "Sign Out"
         }
-//        return getSettingsText(for: languageCode, buttonName: "signIn")
-         return "Sign-in account"
+        //        return getSettingsText(for: languageCode, buttonName: "signIn")
+        return "Sign-in account"
     }
     
     func saveTranscript() {
@@ -231,11 +230,11 @@ struct SettingsView: View {
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
-                        if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
-                            continue
-                        }
-                        transcript += "\(label) \(content)\n"
-                    }
+                if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
+                    continue
+                }
+                transcript += "\(label) \(content)\n"
+            }
         }
         
         return transcript
@@ -261,14 +260,14 @@ struct SettingsView: View {
         }
     }
     
-  func showSignOutAlert() {
-      
-      let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-      let deleteAction = UIAlertAction(title: "Sign Out", style: .destructive) { _ in
-          // Handle sign out action here
-          KeychainService.shared.clearAll()
-      }
-      showAlertForSettings(title: "Sign Ou", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
+    func showSignOutAlert() {
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Sign Out", style: .destructive) { _ in
+            // Handle sign out action here
+            KeychainService.shared.clearAll()
+        }
+        showAlertForSettings(title: "Sign Ou", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
     }
     
     func showDeleteAccountAlert() {
@@ -281,25 +280,25 @@ struct SettingsView: View {
     }
     
     func showAlertForSettings(title: String, message: String, actions: [UIAlertAction]) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                DispatchQueue.main.async {
-                    guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-                        print("No active window scene found")
-                        return
-                    }
-                    
-                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    
-                    for action in actions {
-                        alert.addAction(action)
-                    }
-                    
-                    if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
-                        rootViewController.present(alert, animated: true, completion: nil)
-                    } else {
-                        print("No root view controller found to present the alert")
-                    }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.async {
+                guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+                    print("No active window scene found")
+                    return
+                }
+                
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                
+                for action in actions {
+                    alert.addAction(action)
+                }
+                
+                if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                    rootViewController.present(alert, animated: true, completion: nil)
+                } else {
+                    print("No root view controller found to present the alert")
                 }
             }
         }
+    }
 }

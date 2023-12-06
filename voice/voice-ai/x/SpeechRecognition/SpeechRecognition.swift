@@ -100,12 +100,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         self.speechDelimitingPunctuations = getDelimitingPunctuations(for: languageCode) ?? []
         
-        self.greetingText = getGreetingText(for: languageCode) ?? "Hey"
-        self.sayMoreText = getSayMoreText(for: languageCode) ?? "Tell me more."
-        self.letMeKnowText = getLetMeKnowText(for: languageCode) ?? "Let me know what to say more about!"
-        self.networkErrorText = getNetworkErrorText(for: languageCode) ?? "No network conditions."
-        self.limitReachedText = getLimitReachedText(for: languageCode) ?? "You have reached your limit, please wait 10 minutes"
-        self.answerLimitText = getAnswerLimitText(for: languageCode) ?? "I can only answer 100 questions per minute at this time."
+        self.greetingText = String(localized: "speechRecognition.text.greeting")
+        self.sayMoreText = String(localized: "speechRecognition.text.sayMore")
+        self.letMeKnowText = String(localized: "speechRecognition.text.letMeKnow")
+        self.networkErrorText = String(localized: "speechRecognition.text.networkError")
+        self.limitReachedText = String(localized: "speechRecognition.text.limitReached")
+        self.answerLimitText = String(localized: "speechRecognition.text.answerLimit")
     }
 
     func setup() {

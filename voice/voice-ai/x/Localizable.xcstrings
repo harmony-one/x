@@ -1,0 +1,397 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@" : {
+
+    },
+    "actionsView.alert.newAppVersion.button1" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open App Store"
+          }
+        }
+      }
+    },
+    "actionsView.alert.newAppVersion.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New version is now available"
+          }
+        }
+      }
+    },
+    "actionView.button.more" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More Actions"
+          }
+        }
+      }
+    },
+    "actionView.button.play" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause / Play"
+          }
+        }
+      }
+    },
+    "actionView.button.reset" : {
+      "comment" : "actionView.button.reset",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Session"
+          }
+        }
+      }
+    },
+    "actionView.button.speak.hold" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press & Hold"
+          }
+        }
+      }
+    },
+    "actionView.button.surprise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surprise ME!"
+          }
+        }
+      }
+    },
+    "actionView.button.tapSpeak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to Speak"
+          }
+        }
+      }
+    },
+    "actionView.button.tapSpeak.send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to SEND"
+          }
+        }
+      }
+    },
+    "button.cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "button.ok" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+
+    },
+    "New Session" : {
+
+    },
+    "Open settings" : {
+
+    },
+    "Play / Pause" : {
+
+    },
+    "settingsView.alert.deleteAccount.button" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "settingsView.alert.deleteAccount.message" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account and any associated purchases will be permanently deleted."
+          }
+        }
+      }
+    },
+    "settingsView.alert.deleteAccount.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        }
+      }
+    },
+    "settingsView.alert.noTranscriptAvailable.message" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no transcript available to save."
+          }
+        }
+      }
+    },
+    "settingsView.alert.signOut.button" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
+    },
+    "settingsView.alert.signOut.message" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to sign out?"
+          }
+        }
+      }
+    },
+    "settingsView.alert.signOut.title" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.customInstructions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom instructions"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.PurchasePremium" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase premium"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.shareAppLink" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share app link"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.shareTranscript" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share transcript"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice AI - Super-Intelligence"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.TweetFeedback" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tweet feedback"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.deleteAccount" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.pay5viaApple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pay $5 via Apple"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.signInAccount" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in Account"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase Options"
+          }
+        }
+      }
+    },
+    "settingsView.view.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions"
+          }
+        }
+      }
+    },
+    "Sign Out" : {
+
+    },
+    "speechRecognition.text.answerLimit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I can only answer 100 questions per minute at this time."
+          }
+        }
+      }
+    },
+    "speechRecognition.text.greeting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hey"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.letMeKnow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let me know what to say more about!"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.limitReached" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have reached your limit, please wait 10 minutes"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.networkError" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No network conditions."
+          }
+        }
+      }
+    },
+    "speechRecognition.text.sayMore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell me more."
+          }
+        }
+      }
+    },
+    "Surpise ME!" : {
+
+    },
+    "Surprise ME!" : {
+
+    },
+    "System Settings" : {
+
+    }
+  },
+  "version" : "1.0"
+}
