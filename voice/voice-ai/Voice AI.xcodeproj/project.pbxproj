@@ -265,6 +265,8 @@
 		F6EEF2842B1E4E9400174CED /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = F6EEF2832B1E4E9400174CED /* Mixpanel */; };
 		F6EEF2852B1E4F1300174CED /* MixpanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93580F92B1DCCDD00CC31E2 /* MixpanelManager.swift */; };
 		F6EEF28F2B1E735900174CED /* CustomInstructionsHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEF28E2B1E735900174CED /* CustomInstructionsHandlerTests.swift */; };
+		F6EEF2992B20C14800174CED /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = F6EEF2982B20C14800174CED /* Collections */; };
+		F6EEF2A32B20E80300174CED /* DeepgramASR.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EEF2A22B20E80300174CED /* DeepgramASR.swift */; };
 		F712228E2B1EB885005A5602 /* TextsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F712228C2B1EB885005A5602 /* TextsTests.swift */; };
 		F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC1E2AFECE2000B2A23A /* ConverterTests.swift */; };
 		F723CC212AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */; };
@@ -454,6 +456,7 @@
 		F6D5F54D2B150C730078907F /* GridButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridButtonTests.swift; sourceTree = "<group>"; };
 		F6D5F54E2B150C730078907F /* PressEffectButtonStyleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PressEffectButtonStyleTests.swift; sourceTree = "<group>"; };
 		F6EEF28E2B1E735900174CED /* CustomInstructionsHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInstructionsHandlerTests.swift; sourceTree = "<group>"; };
+		F6EEF2A22B20E80300174CED /* DeepgramASR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepgramASR.swift; sourceTree = "<group>"; };
 		F712228C2B1EB885005A5602 /* TextsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsTests.swift; sourceTree = "<group>"; };
 		F723CC1E2AFECE2000B2A23A /* ConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterTests.swift; sourceTree = "<group>"; };
 		F723CC202AFEFFA400B2A23A /* MockAVSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVSpeechSynthesizer.swift; sourceTree = "<group>"; };
@@ -526,6 +529,7 @@
 				F61049102AF02DEE0087F745 /* SwiftyJSON in Frameworks */,
 				CD8A1A652B0084C400A5B2CC /* CryptoSwift in Frameworks */,
 				F67E43322AFAC166001B72CD /* SentrySwiftUI in Frameworks */,
+				F6EEF2992B20C14800174CED /* Collections in Frameworks */,
 				CD0D13692ADA74D100031EDD /* AVFoundation.framework in Frameworks */,
 				B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */,
 				B93580FF2B1DCD0700CC31E2 /* Mixpanel in Frameworks */,
@@ -809,6 +813,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				F6EEF2A12B20E7D800174CED /* ASR */,
 				F76D13CD2B195C920018F89B /* Texts */,
 				6E95F22C2B1E65F300260BCA /* Intents */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
@@ -921,6 +926,14 @@
 			path = Performance;
 			sourceTree = "<group>";
 		};
+		F6EEF2A12B20E7D800174CED /* ASR */ = {
+			isa = PBXGroup;
+			children = (
+				F6EEF2A22B20E80300174CED /* DeepgramASR.swift */,
+			);
+			path = ASR;
+			sourceTree = "<group>";
+		};
 		F76D13CD2B195C920018F89B /* Texts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1025,6 +1038,7 @@
 				CD8A1A642B0084C400A5B2CC /* CryptoSwift */,
 				B91F05B32B04B3960029A32D /* KeychainSwift */,
 				B93580FE2B1DCD0700CC31E2 /* Mixpanel */,
+				F6EEF2982B20C14800174CED /* Collections */,
 			);
 			productName = x;
 			productReference = CD0D13342ADA73B300031EDD /* Voice AI.app */;
@@ -1127,6 +1141,7 @@
 				B99E716A2B0CA3A300F9D033 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				6E1ADB872B163BD400BA0F38 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				B93580FD2B1DCCFD00CC31E2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				F6EEF2972B20C11C00174CED /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = CD0D13352ADA73B300031EDD /* Products */;
 			projectDirPath = "";
@@ -1337,6 +1352,7 @@
 				F76D13B52B180B1B0018F89B /* NetworkErrorText.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				F76D13D42B196ABB0018F89B /* AnswerLimitText.swift in Sources */,
+				F6EEF2A32B20E80300174CED /* DeepgramASR.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */,
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
@@ -2139,6 +2155,14 @@
 				minimumVersion = 8.15.0;
 			};
 		};
+		F6EEF2972B20C11C00174CED /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2236,6 +2260,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B93580FD2B1DCCFD00CC31E2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		F6EEF2982B20C14800174CED /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6EEF2972B20C11C00174CED /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

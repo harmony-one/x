@@ -47,6 +47,8 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
     private let greating = "Hello!"
     var resumeListeningTimer: Timer? = nil
     
+    public var completionHandler: ((_ text: String) -> Void)?
+    
     // IMPORTANT: must use valid query parameters and values, otherwise socket send / receive would fail, and no reason would be given for debugging
     func buildWsUrl() -> String {
         let queryItems = [
@@ -106,12 +108,10 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
     }
     
     func setup() {
-        
         Permission().setup()
         self.tts.synthesizer.delegate = self
         start()
         tts.convertTextToSpeech(text: greating)
-        
     }
     
     func setupWs() {
@@ -267,7 +267,10 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
         
         let text = unsafeConsumeResultsToBuildSingleSentence()
         resultsLock.signal()
-        makeQuery(text)
+        
+        if((self.completionHandler) != nil) {
+            self.completionHandler!(text)
+        }
     }
     
     func unsafeConsumeResultsToBuildSingleSentence() -> String {
@@ -289,7 +292,9 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
         
         print("makeQuery", text)
         
-        makeQuery(text)
+        if((self.completionHandler) != nil) {
+            self.completionHandler!(text)
+        }
     }
     
     func unsafeConsumeAllResults() -> String {
@@ -298,43 +303,6 @@ class DeepgramASR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate, URLSe
             text += results.popFirst()!.text + " "
         }
         return text
-    }
-
-    func makeQuery(_ text: String) {
-        var buf = [String]()
-        func flushBuf() {
-            let response = buf.joined()
-            self.tts.convertTextToSpeech(text: response)
-            self.capturing = false
-            print("Stopped capturing")
-            if self.tts.synthesizer.delegate == nil {
-                self.tts.synthesizer.delegate = self
-            }
-            self.responses.append(response)
-            buf.removeAll()
-        }
-        let service = OpenAIStreamService { res, err in
-            guard err == nil else {
-                print("ASR: OpenAI error: \(err!)")
-                //                self.textToSpeechConverter.convertTextToSpeech(text: "An issue is currently preventing the action. Please try again after some time.")
-                return
-            }
-            guard let res = res else {
-//                print("ASR: OpenAI Response completed. Flushing buffer")
-//                flushBuf()
-                return
-            }
-            print("ASR: OpenAI Response received: \(res)")
-            buf.append(res)
-            guard res.last != nil else {
-                return
-            }
-            if self.speechDelimitingPunctuations.contains(res.last!) {
-                flushBuf()
-                return
-            }
-        }
-        service.query(prompt: text)
     }
     
     func pause() {

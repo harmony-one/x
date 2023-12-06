@@ -113,6 +113,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         self.networkErrorText = getNetworkErrorText(for: languageCode) ?? "No network conditions."
         self.limitReachedText = getLimitReachedText(for: languageCode) ?? "You have reached your limit, please wait 10 minutes"
         self.answerLimitText = getAnswerLimitText(for: languageCode) ?? "I can only answer 100 questions per minute at this time."
+        
+        DeepgramASR.shared.setup()
+        
+        func completionHandler(_ text: String) {
+            self.makeQuery(text)
+        }
+        
+        DeepgramASR.shared.completionHandler = completionHandler
     }
 
     func setup() {
