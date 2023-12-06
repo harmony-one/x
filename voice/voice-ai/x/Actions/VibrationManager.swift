@@ -5,9 +5,9 @@ import UIKit
 // VibrationManager class to handle vibration operations
 class VibrationManager {
     static let shared = VibrationManager() // Singleton instance
-    private var isVibrating = false // Flag to track vibration status
-    private var timer: Timer? // Timer for scheduled vibration
-    private var generator: UIImpactFeedbackGenerator?
+    internal var isVibrating = false // Flag to track vibration status
+    internal var timer: Timer? // Timer for scheduled vibration
+    internal var generator: UIImpactFeedbackGenerator?
     
     // Private initializer to prevent external instantiation
         private init() {}
@@ -27,7 +27,7 @@ class VibrationManager {
     }
     
     // Selector method to trigger vibration
-    @objc private func vibrate() {
+    @objc internal func vibrate() {
         // Check if the vibration should continue
         if isVibrating {
             initiateVibration()
