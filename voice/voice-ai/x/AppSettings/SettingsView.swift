@@ -52,9 +52,9 @@ struct SettingsView: View {
         }
         .alert(isPresented: $showDeleteAccountAlert) {
             Alert(
-                title: Text("Delete Account"),
-                message: Text("Your account and any associated purchases will be permanently deleted."),
-                primaryButton: .destructive(Text("Delete")) {
+                title: Text("alert.deleteAccount.title"),
+                message: Text("alert.deleteAccount.message"),
+                primaryButton: .destructive(Text("alert.deleteAccount.button")) {
                     // Handle the deletion here
                     deleteUserAccount()
                 },
@@ -63,9 +63,9 @@ struct SettingsView: View {
         }
         .alert(isPresented: $showingSignOutAlert) {
             Alert(
-                title: Text("Sign Out"),
-                message: Text("Are you sure you want to sign out?"),
-                primaryButton: .destructive(Text("Sign Out")) {
+                title: Text("alert.signOut.title"),
+                message: Text("alert.signOut.message"),
+                primaryButton: .destructive(Text("alert.signOut.button")) {
                     // Handle sign out action here
                     KeychainService.shared.clearAll()
                 },
@@ -140,15 +140,15 @@ struct SettingsView: View {
         }
 
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
+        return ActionSheet(title: Text("settingsView.mainMenu.title"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
-            .default(Text("Custom instructions")) { openSystemSettings() },
-            .default(Text("Share app link")) { self.showShareSheet = true },
-            .default(Text("Tweet feedback")) { tweet() },
-            .default(Text("Purchase premium")) {
+            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
+            .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
+            .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
+            .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
+            .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {

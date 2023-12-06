@@ -1,0 +1,252 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@" : {
+
+    },
+    "Actions" : {
+
+    },
+    "actionView.button.more" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More Actions"
+          }
+        }
+      }
+    },
+    "actionView.button.play" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause / Play"
+          }
+        }
+      }
+    },
+    "actionView.button.reset" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Session"
+          }
+        }
+      }
+    },
+    "actionView.button.speak.hold" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press & Hold"
+          }
+        }
+      }
+    },
+    "actionView.button.surprise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surprise ME!"
+          }
+        }
+      }
+    },
+    "actionView.button.tapSpeak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to Speak"
+          }
+        }
+      }
+    },
+    "actionView.button.tapSpeak.send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to SEND"
+          }
+        }
+      }
+    },
+    "alert.deleteAccount.button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "alert.deleteAccount.message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your account and any associated purchases will be permanently deleted."
+          }
+        }
+      }
+    },
+    "alert.deleteAccount.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        }
+      }
+    },
+    "alert.signOut.button" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
+    },
+    "alert.signOut.message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to sign out?"
+          }
+        }
+      }
+    },
+    "alert.signOut.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+
+    },
+    "Delete account" : {
+
+    },
+    "Delete Account" : {
+
+    },
+    "New version is now available" : {
+
+    },
+    "OK" : {
+
+    },
+    "Open App Store" : {
+
+    },
+    "Pay $5 via Apple" : {
+
+    },
+    "Purchase Options" : {
+
+    },
+    "Purchase Premium" : {
+
+    },
+    "settingsView.mainMenu.customInstructions" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom instructions"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.PurchasePremium" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase premium"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.shareAppLink" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share app link"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.shareTranscript" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share transcript"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.title" : {
+
+    },
+    "settingsView.mainMenu.TweetFeedback" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tweet feedback"
+          }
+        }
+      }
+    },
+    "Share App" : {
+
+    },
+    "Share Transcript" : {
+
+    },
+    "Sign Out" : {
+
+    },
+    "Sign-in Account" : {
+
+    },
+    "Surpise ME!" : {
+
+    },
+    "Surprise ME!" : {
+
+    },
+    "System Settings" : {
+
+    },
+    "There is no transcript available to save." : {
+
+    },
+    "Tweet feedback" : {
+
+    }
+  },
+  "version" : "1.0"
+}

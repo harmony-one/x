@@ -72,19 +72,18 @@ struct ActionsView: ActionsViewProtocol, View {
     @State private var resetClickCounter = 0
 
     init(actionHandler: ActionHandlerProtocol? = nil) {
-        let languageCode = getLanguageCode()
         _actionHandler = StateObject(wrappedValue: actionHandler as? ActionHandler ?? ActionHandler())
 
         let theme = AppThemeSettings.fromString(config.getThemeName())
         currentTheme.setTheme(theme: theme)
 
         let themePrefix = currentTheme.name
-        let buttonReset = ButtonData(label: "New Session", image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
-        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
-        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
-        let buttonSpeak = ButtonData(label: "Press & Hold", image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
-        let buttonMore = ButtonData(label: "More Actions", image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
-        let buttonPlay = ButtonData(label: "Pause / Play", image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
+        let buttonReset = ButtonData(label: String(localized: "actionView.button.reset"), image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
+        let buttonTapSpeak = ButtonData(label: String(localized: "actionView.button.tapSpeak"), pressedLabel: String(localized: "actionView.button.tapSpeak.send"), image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
+        let buttonSurprise = ButtonData(label: String(localized: "actionView.button.surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSpeak = ButtonData(label: String(localized: "actionView.button.speak.hold"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
+        let buttonMore = ButtonData(label: String(localized: "actionView.button.more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
+        let buttonPlay = ButtonData(label: String(localized: "actionView.button.play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
 
         buttonsPortrait = [
             buttonReset,
