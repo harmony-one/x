@@ -6,7 +6,7 @@ import SwiftUI
 @main
 struct XApp: App {
     @StateObject var store = Store()
-    @StateObject var appSettings = AppSettings()
+    @StateObject var appSettings = AppSettings.shared
     var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
     var mixpanel = MixpanelManager.shared
@@ -16,6 +16,8 @@ struct XApp: App {
             minimumSignificantEvents: appConfig.getMinimumSignificantEvents() ?? 5,
             daysBetweenPrompts: appConfig.getDaysBetweenPrompts() ?? 120
         )
+        
+        IntentManager.shared.setActionHandler(actionHandler: self.actionHandler)
 
         guard let sentryDSN = appConfig.getSentryDSN() else {
             return
