@@ -224,13 +224,13 @@ struct SettingsView: View {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[AppleSignInManager] No products available")
+                    logger.log("[AppleSignInManager] No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[AppleSignInManager] Error during purchase")
+                        logger.log("[AppleSignInManager] Error during purchase")
                     }
                 }
             }
@@ -291,10 +291,10 @@ struct SettingsView: View {
             SentrySDK.capture(message: "[UserAPI][DeleteAccount] serverAPIKey missing.")
             return
         }
-        print("[SettingsView][deleteUserAccount]")
+        logger.log("[SettingsView][deleteUserAccount]")
         UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
             if success {
-                print("Account deletion successful.")
+                logger.log("Account deletion successful.")
                 // Perform any additional tasks if the deletion is successful
                 SentrySDK.capture(message: "[UserAPI][DeleteAccount] Sucess")
                 KeychainService.shared.clearAll()
