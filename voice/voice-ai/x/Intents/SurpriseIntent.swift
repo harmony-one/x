@@ -9,7 +9,7 @@ struct SurpriseIntent: AppIntent {
     static var openAppWhenRun: Bool = true
     
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        SpeechRecognition.shared.surprise()
+        IntentManager.shared.handleAction(action: .surprise)
         return .result(dialog: "Surpise ME!")
     }
 }

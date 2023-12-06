@@ -20,9 +20,8 @@ struct SettingsView: View {
     @State private var showingSignOutAlert = false
     @State private var isShareLogs = false
 
-    var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
-       
+
     var body: some View {
         ZStack {
             Color.clear
@@ -43,7 +42,7 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
-                       
+
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: appSettings.appStoreUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -57,17 +56,15 @@ struct SettingsView: View {
             ActivityView(activityItems: logStore.entries)
         }
         .alert(isPresented: $showTranscriptAlert) {
-            Alert(
-                title: Text(""),
-                message: Text("There is no transcript available to save."),
-                dismissButton: .default(Text("OK"))
-            )
+            Alert(title: Text(""),
+                  message: Text("settingsView.alert.noTranscriptAvailable.message"),
+                  dismissButton: .default(Text("button.ok")))
         }
         .alert(isPresented: $showDeleteAccountAlert) {
             Alert(
-                title: Text("Delete Account"),
-                message: Text("Your account and any associated purchases will be permanently deleted."),
-                primaryButton: .destructive(Text("Delete")) {
+                title: Text("settingsView.alert.deleteAccount.title"),
+                message: Text("settingsView.alert.deleteAccount.message"),
+                primaryButton: .destructive(Text("settingsView.alert.deleteAccount.button")) {
                     // Handle the deletion here
                     deleteUserAccount()
                 },
@@ -76,9 +73,9 @@ struct SettingsView: View {
         }
         .alert(isPresented: $showingSignOutAlert) {
             Alert(
-                title: Text("Sign Out"),
-                message: Text("Are you sure you want to sign out?"),
-                primaryButton: .destructive(Text("Sign Out")) {
+                title: Text("settingsView.alert.signOut.title"),
+                message: Text("settingsView.alert.signOut.message"),
+                primaryButton: .destructive(Text("settingsView.alert.signOut.button")) {
                     // Handle sign out action here
                     KeychainService.shared.clearAll()
                 },
@@ -101,50 +98,50 @@ struct SettingsView: View {
             .padding()
             .background(Color.white)
         }
-    
+
     private func settingsPopoverContent() -> some View {
             VStack(spacing: 32) {
-                Text("Actions").font(.title)
+                Text("settingsView.view.title").font(.title)
                 Divider()
-                Button("Share Transcript") {
+                Button("settingsView.mainMenu.shareTranscript") {
                     self.appSettings.isPopoverPresented = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         saveTranscript()
                     }
                 }.font(.title2)
 //                Button("Custom instructions") { /* Add logic for custom instructions */ }
-                Button("Tweet feedback") {
+                Button("settingsView.mainMenu.TweetFeedback") {
                     tweet()
                 }.font(.title2)
-                Button("Share App") {
+                Button("settingsView.mainMenu.shareAppLink") {
                     self.appSettings.isPopoverPresented = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         self.showShareSheet = true
                     }
                 }.font(.title2)
-                Button("System Settings") { 
+                Button("settingsView.mainMenu.customInstructions") {
                     openSystemSettings()
                 }.font(.title2)
-                Button("Purchase Premium") {
+                Button("settingsView.mainMenu.PurchasePremium") {
                     appSettings.type = .purchaseOptions
                     appSettings.isPopoverPresented = true
                 }.font(.title2)
-                Button("Cancel", role: .cancel) {
+                Button("button.cancel", role: .cancel) {
                     appSettings.isPopoverPresented = false
                 }.font(.title2)
             }
             .padding()
         }
-    
+
     private func purchaseOptionsPopoverContent() -> some View {
             VStack {
-                Text("Purchase Options").font(.headline)
+                Text("settingsView.purchaseMenu.title").font(.headline)
                 Divider()
-                Button("Pay $5 via Apple") { showPurchaseDialog() }
+                Button("settingsView.purchaseMenu.pay5viaApple") { showPurchaseDialog() }
 //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
-                Button("Sign-in Account") { performSignIn() }
-                Button("Delete Account") { self.showDeleteAccountAlert = true }
-                Button("Cancel", role: .cancel) {
+                Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
+                Button("settingsView.purchaseMenu.deleteAccount") { self.showDeleteAccountAlert = true }
+                Button("button.cancel", role: .cancel) {
                     appSettings.isPopoverPresented = false
                 }
             }
@@ -152,16 +149,16 @@ struct SettingsView: View {
         }
 
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
+        return ActionSheet(title: Text("settingsView.mainMenu.title"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
             .default(Text("Share logs")) { shareLogs() },
-            .default(Text("Custom instructions")) { openSystemSettings() },
-            .default(Text("Share app link")) { self.showShareSheet = true },
-            .default(Text("Tweet feedback")) { tweet() },
-            .default(Text("Purchase premium")) {
+            .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
+            .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
+            .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
+            .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -170,17 +167,17 @@ struct SettingsView: View {
             }
         ])
     }
-    
+
 //    func customInstructionsActionSheet() -> {
 //        return ActionSheet(title: Text("Custom Instructions"), buttons: [
 //            .default(Text(<#T##input: Equatable##Equatable#>, format: FormatStyle)),
 //            .cancel()
 //        ])
 //    }
-    
+
     func purchaseOptionsActionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Purchase Options"), buttons: [
-            .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
+        return ActionSheet(title: Text("settingsView.purchaseMenu.title"), buttons: [
+            .default(Text("settingsView.purchaseMenu.pay5viaApple")) { showPurchaseDialog() },
 //            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) {
                 if KeychainService.shared.isAppleIdAvailable() {
@@ -192,18 +189,18 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+            .default(Text("settingsView.purchaseMenu.deleteAccount")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
     }
-    
+
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
     }
-    
+
     func performSignIn() {
         MixpanelManager.shared.trackEvent(name: "Sign In", properties: nil)
         if KeychainService.shared.isAppleIdAvailable() {
@@ -218,7 +215,7 @@ struct SettingsView: View {
             AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
         }
     }
-    
+
     func showPurchaseDialog() {
         MixpanelManager.shared.trackEvent(name: "Purchase Dialog", properties: nil)
         DispatchQueue.main.async {
@@ -236,7 +233,7 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     func openSystemSettings() {
         MixpanelManager.shared.trackEvent(name: "System Settings", properties: nil)
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
@@ -244,7 +241,7 @@ struct SettingsView: View {
         }
         logger.log("Settings: system settings clicked")
     }
-    
+
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
@@ -254,7 +251,7 @@ struct SettingsView: View {
 //        return getSettingsText(for: languageCode, buttonName: "signIn")
          return "Sign-in account"
     }
-    
+
     func saveTranscript() {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
@@ -263,15 +260,15 @@ struct SettingsView: View {
         }
         isSaveTranscript = true
     }
-    
+
     func shareLogs() {
         logStore.export()
         isShareLogs = true
     }
-    
+
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
-        
+
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
@@ -281,10 +278,10 @@ struct SettingsView: View {
                         transcript += "\(label) \(content)\n"
                     }
         }
-        
+
         return transcript
     }
-    
+
     func deleteUserAccount() {
         MixpanelManager.shared.trackEvent(name: "Delete Account", properties: nil)
         guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {

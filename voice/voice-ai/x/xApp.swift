@@ -6,8 +6,8 @@ import SwiftUI
 @main
 struct XApp: App {
     @StateObject var store = Store()
-    @StateObject var appSettings = AppSettings()
     @StateObject var logStore = LogStore()
+    @StateObject var appSettings = AppSettings.shared
     var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
     var mixpanel = MixpanelManager.shared
@@ -18,6 +18,8 @@ struct XApp: App {
             daysBetweenPrompts: appConfig.getDaysBetweenPrompts() ?? 120
         )
 
+        IntentManager.shared.setActionHandler(actionHandler: self.actionHandler)
+
         guard let sentryDSN = appConfig.getSentryDSN() else {
             return
         }
@@ -25,7 +27,7 @@ struct XApp: App {
         SentrySDK.start { options in
             options.dsn = sentryDSN
             options.enableUIViewControllerTracing = true
-            
+
             // Example uniform sample rate: capture 100% of transactions
             // In Production you will probably want a smaller number such as 0.5 for 50%
             options.tracesSampleRate = 1.0
