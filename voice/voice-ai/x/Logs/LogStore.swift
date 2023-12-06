@@ -18,7 +18,7 @@ import Foundation
                 .compactMap { $0 as? OSLogEntryLog }
                 .filter { $0.subsystem == Bundle.main.bundleIdentifier! }
                 .map { "[\($0.date.formatted())] [\($0.category)] \($0.composedMessage)" }
-            print("entries \(entries)")
+            print("Logs export entries count: \(entries.count)")
         } catch {
             logger.warning("\(error.localizedDescription, privacy: .public)")
         }
