@@ -1,6 +1,7 @@
 import Foundation
 import Sentry
 import SwiftyJSON
+import OSLog
 
 protocol NetworkService {
     func dataTask(
@@ -10,6 +11,10 @@ protocol NetworkService {
 }
 
 class OpenAIStreamService: NSObject, URLSessionDataDelegate {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "[OpenAIStreamService]")
+    )
     private var task: URLSessionDataTask?
     private var completion: (String?, Error?) -> Void
     private var temperature: Double
@@ -51,13 +56,13 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         self.temperature = (temperature >= 0 && temperature <= 1) ? temperature : 0.7
         if Self.lastStartTimeOfTheDay == nil {
             Self.lastStartTimeOfTheDay = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "OpenAILastStartTime"))
-            print("[OpenAI] Read last start time to be \(Self.lastStartTimeOfTheDay!)")
+            self.logger.log("[OpenAI] Read last start time to be \(Self.lastStartTimeOfTheDay!)")
             let now = Date()
             let daysElapsed = Calendar.current.dateComponents([.day], from: Self.lastStartTimeOfTheDay!, to: Date()).day!
             if daysElapsed >= 1 {
                 UserDefaults.standard.set(now.timeIntervalSince1970, forKey: "OpenAILastStartTime")
                 Self.lastStartTimeOfTheDay = now
-                print("[OpenAI] Setting new last start time to be \(Self.lastStartTimeOfTheDay!)")
+                self.logger.log("[OpenAI] Setting new last start time to be \(Self.lastStartTimeOfTheDay!)")
             }
         }
         super.init()
@@ -80,7 +85,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         if rateLimit == true {
             Self.rateLimitCounterLock.wait()
             let now = Int64(NSDate().timeIntervalSince1970 * 1000)
-            print("##### QUERY TIMES", Self.queryTimes)
+            self.logger.log("##### QUERY TIMES \(Self.queryTimes)")
             if Self.queryTimes.count < Self.QueryLimitPerMinute {
                 Self.queryTimes.append(now)
             } else if Self.queryTimes.first! < now - 60000 {
@@ -149,9 +154,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         requestMessage = conversation.filter { $0.role != "system" }.map { "\($0.role ?? "N/A"): \($0.content ?? "")" }.joined(separator: "\n")
         requestTokens = Int32(conversation.map { ($0.content ?? "").components(separatedBy: CharacterSet(charactersIn: " ,.!;?'\"$%")).count }.reduce(0, +))
 
-        print("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
+        self.logger.log("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
-        print("[OpenAI] sent \(body)")
+        self.logger.log("[OpenAI] sent \(body)")
         // Validate the URL
         guard let url = URL(string: "\(baseUrl)/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
@@ -194,7 +199,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     // https://stackoverflow.com/questions/72630702/how-to-open-http-stream-on-ios-using-ndjson
     func urlSession(_: URLSession, dataTask _: URLSessionDataTask, didReceive data: Data) {
-//        print("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
+//        self.logger.log("Raw response from OpenAI: \(String(data: data, encoding: .utf8) ?? "Unable to decode response")")
         let str = String(data: data, encoding: .utf8)
         guard let str = str else {
             let error = NSError(domain: "Unable to decode string", code: -5, userInfo: ["body": str ?? ""])
@@ -202,9 +207,9 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
         timeLogger?.tryCheck()
-//        print("[OpenAI] raw response:", str)
+//        self.logger.log("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
-//        print("OpenAI: chunks", chunks)
+//        self.logger.log("OpenAI: chunks", chunks)
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
@@ -292,7 +297,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         if temp >= 0 && temp <= 1 {
             temperature = temp
         } else {
-            print("Invalid temperature value. It should be between 0 and 1.")
+            self.logger.log("Invalid temperature value. It should be between 0 and 1.")
             SentrySDK.capture(message: "Invalid temperature value. It should be between 0 and 1.")
         }
     }
