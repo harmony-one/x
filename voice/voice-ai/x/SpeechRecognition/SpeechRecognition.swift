@@ -232,7 +232,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             if nsError.code == 1110 {
                 vibration.stopVibration()
-                vibration.vibrateOnce()
+                audioPlayer.playSound(false)
             }
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
@@ -511,6 +511,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.main.async {
             self.isThinking = false
         }
+        audioPlayer.playSound(false)
         // Perform all UI updates on the main thread
         DispatchQueue.main.async {
             self.textToSpeechConverter.stopSpeech()
