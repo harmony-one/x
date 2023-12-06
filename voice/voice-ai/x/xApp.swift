@@ -7,6 +7,7 @@ import SwiftUI
 struct XApp: App {
     @StateObject var store = Store()
     @StateObject var appSettings = AppSettings()
+    @StateObject var logStore = LogStore()
     var actionHandler: ActionHandler = .init()
     let appConfig = AppConfig.shared
     var mixpanel = MixpanelManager.shared
@@ -50,6 +51,7 @@ struct XApp: App {
                         SettingsView()
                             .environmentObject(store)
                             .environmentObject(appSettings)
+                            .environmentObject(logStore)
                     }
             }
         }

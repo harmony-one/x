@@ -1,8 +1,15 @@
 import SwiftUI
 import UIKit
 import Sentry
+import OSLog
+
 
 struct SettingsView: View {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "main")
+    )
+    @EnvironmentObject var logStore: LogStore
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
@@ -11,6 +18,7 @@ struct SettingsView: View {
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
     @State private var showingSignOutAlert = false
+    @State private var isShareLogs = false
 
     var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
@@ -44,6 +52,9 @@ struct SettingsView: View {
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
             ActivityView(activityItems: [jsonString])
+        }
+        .sheet(isPresented: $isShareLogs, onDismiss: { isShareLogs = false }) {
+            ActivityView(activityItems: logStore.entries)
         }
         .alert(isPresented: $showTranscriptAlert) {
             Alert(
@@ -146,6 +157,7 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("Share transcript")) { saveTranscript() },
+            .default(Text("Share logs")) { shareLogs() },
             .default(Text("Custom instructions")) { openSystemSettings() },
             .default(Text("Share app link")) { self.showShareSheet = true },
             .default(Text("Tweet feedback")) { tweet() },
@@ -230,7 +242,7 @@ struct SettingsView: View {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-        print("Settings: system settings clicked")
+        logger.log("Settings: system settings clicked")
     }
     
     func getUserName() -> String {
@@ -250,6 +262,11 @@ struct SettingsView: View {
             return
         }
         isSaveTranscript = true
+    }
+    
+    func shareLogs() {
+        logStore.export()
+        isShareLogs = true
     }
     
     func convertMessagesToTranscript(messages: [Message]) -> String {
