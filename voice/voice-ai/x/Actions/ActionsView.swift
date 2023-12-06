@@ -202,15 +202,15 @@ struct ActionsView: ActionsViewProtocol, View {
             }
                     .alert(isPresented: $showNewAppVersionAlert) {
                         Alert(
-                            title: Text("New version is now available"),
+                            title: Text("actionsView.alert.newAppVersion.title"),
                             message: Text("\(self.newAppVersion ?? "")"),
-                            primaryButton: .default(Text("Open App Store")) {
+                            primaryButton: .default(Text("actionsView.alert.newAppVersion.button1")) {
                                 showNewAppVersionAlert = false
                                 if let url = URL(string: appSettings.appStoreUrl) {
                                     UIApplication.shared.open(url)
                                 }
                             },
-                            secondaryButton: .default(Text("Cancel")) {
+                            secondaryButton: .default(Text("button.cancel")) {
                                 showNewAppVersionAlert = false
                             }
                         )
@@ -222,7 +222,7 @@ struct ActionsView: ActionsViewProtocol, View {
         //                    primaryButton: .default(Text("Sure!")) {
         //                        showShareSheet = true
         //                    },
-        //                    secondaryButton: .default(Text("Cancel")) {
+        //                    secondaryButton: .default(Text("button.cancel")) {
         //                        showShareAlert = false
         //                    }
         //                )

@@ -7,8 +7,25 @@
     "%@" : {
 
     },
-    "Actions" : {
-
+    "actionsView.alert.newAppVersion.button1" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open App Store"
+          }
+        }
+      }
+    },
+    "actionsView.alert.newAppVersion.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New version is now available"
+          }
+        }
+      }
     },
     "actionView.button.more" : {
       "localizations" : {
@@ -31,6 +48,7 @@
       }
     },
     "actionView.button.reset" : {
+      "comment" : "actionView.button.reset",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -80,7 +98,30 @@
         }
       }
     },
-    "alert.deleteAccount.button" : {
+    "button.cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "button.ok" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+
+    },
+    "settingsView.alert.deleteAccount.button" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -90,7 +131,7 @@
         }
       }
     },
-    "alert.deleteAccount.message" : {
+    "settingsView.alert.deleteAccount.message" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -100,7 +141,7 @@
         }
       }
     },
-    "alert.deleteAccount.title" : {
+    "settingsView.alert.deleteAccount.title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -110,7 +151,17 @@
         }
       }
     },
-    "alert.signOut.button" : {
+    "settingsView.alert.noTranscriptAvailable.message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no transcript available to save."
+          }
+        }
+      }
+    },
+    "settingsView.alert.signOut.button" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -120,7 +171,7 @@
         }
       }
     },
-    "alert.signOut.message" : {
+    "settingsView.alert.signOut.message" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -130,7 +181,7 @@
         }
       }
     },
-    "alert.signOut.title" : {
+    "settingsView.alert.signOut.title" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -139,33 +190,6 @@
           }
         }
       }
-    },
-    "Cancel" : {
-
-    },
-    "Delete account" : {
-
-    },
-    "Delete Account" : {
-
-    },
-    "New version is now available" : {
-
-    },
-    "OK" : {
-
-    },
-    "Open App Store" : {
-
-    },
-    "Pay $5 via Apple" : {
-
-    },
-    "Purchase Options" : {
-
-    },
-    "Purchase Premium" : {
-
     },
     "settingsView.mainMenu.customInstructions" : {
       "localizations" : {
@@ -208,7 +232,14 @@
       }
     },
     "settingsView.mainMenu.title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice AI - Super-Intelligence"
+          }
+        }
+      }
     },
     "settingsView.mainMenu.TweetFeedback" : {
       "localizations" : {
@@ -220,17 +251,118 @@
         }
       }
     },
-    "Share App" : {
-
+    "settingsView.purchaseMenu.deleteAccount" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        }
+      }
     },
-    "Share Transcript" : {
-
+    "settingsView.purchaseMenu.pay5viaApple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pay $5 via Apple"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.signInAccount" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in Account"
+          }
+        }
+      }
+    },
+    "settingsView.purchaseMenu.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase Options"
+          }
+        }
+      }
+    },
+    "settingsView.view.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actions"
+          }
+        }
+      }
     },
     "Sign Out" : {
 
     },
-    "Sign-in Account" : {
-
+    "speechRecognition.text.answerLimit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I can only answer 100 questions per minute at this time."
+          }
+        }
+      }
+    },
+    "speechRecognition.text.greeting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hey"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.letMeKnow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let me know what to say more about!"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.limitReached" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have reached your limit, please wait 10 minutes"
+          }
+        }
+      }
+    },
+    "speechRecognition.text.networkError" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No network conditions."
+          }
+        }
+      }
+    },
+    "speechRecognition.text.sayMore" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tell me more."
+          }
+        }
+      }
     },
     "Surpise ME!" : {
 
@@ -239,12 +371,6 @@
 
     },
     "System Settings" : {
-
-    },
-    "There is no transcript available to save." : {
-
-    },
-    "Tweet feedback" : {
 
     }
   },

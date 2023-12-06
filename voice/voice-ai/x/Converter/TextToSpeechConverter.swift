@@ -35,7 +35,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         }
         
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
-            print("[selectedLanguage] \(selectedLanguage)")
+            print("[selectedLanguage] \(String(describing: selectedLanguage))")
             utterance.voice = voice
         } else {
             // this is used just for the unit tests
