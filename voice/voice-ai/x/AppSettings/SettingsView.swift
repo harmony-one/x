@@ -7,7 +7,7 @@ import OSLog
 struct SettingsView: View {
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: "main")
+        category: String(describing: "[SettingsView]")
     )
     @EnvironmentObject var logStore: LogStore
     @EnvironmentObject var store: Store
