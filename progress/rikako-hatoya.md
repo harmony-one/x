@@ -1,3 +1,11 @@
+2023-12-05 Tue: Raised tests for SettingsBundleHelper to 100% [https://github.com/harmony-one/x/pull/315], APIEnvironment to 100% [https://github.com/harmony-one/x/pull/316], MixpanelManager Tests to 90% [https://github.com/harmony-one/x/pull/314], and cleaned/refactored AppConfig tests + original file [https://github.com/harmony-one/x/pull/317] (currently still updating).
+
+2023-12-04 Mon: Resolved conflicts and merged language updates [https://github.com/harmony-one/x/pull/306] [https://github.com/harmony-one/x/pull/291], wrote some tests for CustomInstructionsConfig [https://github.com/harmony-one/x/pull/302] and language [https://github.com/harmony-one/x/pull/307].
+
+---
+
+2023-12-03 Sun: Investigated Speech Recognition tests and some of the test code issues regarding dispatch queues.
+
 2023-12-02 Sat: Added haptics to "press and hold" button. Currently working on speech recognition test coverage.
 
 2023-12-01 Fri: Tested and investigated issues for the flush rate + speech text delimiter for different languages (may rely on built-in libraries for NLP methods as given advice by Aaron, though still figuring out what's the best way for translations if we intend on adding more text). Investigated making speech recognition tests more comprehensive.
