@@ -7,11 +7,7 @@ struct SettingsView: View {
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
     @State private var userName: String?
-    @State private var showTranscriptAlert = false
     @State private var isSaveTranscript = false
-    @State private var showDeleteAccountAlert = false
-    @State private var showingSignOutAlert = false
-
     var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
        
@@ -20,11 +16,11 @@ struct SettingsView: View {
             Color.clear
                 .edgesIgnoringSafeArea(.all)
             // This could be an invisible view or integrated naturally into your UI
-                     .frame(width: 0, height: 0)
-                            .sheet(isPresented: $appSettings.isPopoverPresented) {
-                                popoverContent()
-                                    .background(Color.clear)
-                            }
+                .frame(width: 0, height: 0)
+                .sheet(isPresented: $appSettings.isPopoverPresented) {
+                    popoverContent()
+                        .background(Color.clear)
+                }
         }
         .actionSheet(isPresented: $appSettings.isOpened) {
             guard let actionSheetType = appSettings.type else { return ActionSheet(title: Text("")) }
@@ -44,35 +40,6 @@ struct SettingsView: View {
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
             ActivityView(activityItems: [jsonString])
-        }
-        .alert(isPresented: $showTranscriptAlert) {
-            Alert(
-                title: Text(""),
-                message: Text("There is no transcript available to save."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
-        .alert(isPresented: $showDeleteAccountAlert) {
-            Alert(
-                title: Text("Delete Account"),
-                message: Text("Your account and any associated purchases will be permanently deleted."),
-                primaryButton: .destructive(Text("Delete")) {
-                    // Handle the deletion here
-                    deleteUserAccount()
-                },
-                secondaryButton: .cancel()
-            )
-        }
-        .alert(isPresented: $showingSignOutAlert) {
-            Alert(
-                title: Text("Sign Out"),
-                message: Text("Are you sure you want to sign out?"),
-                primaryButton: .destructive(Text("Sign Out")) {
-                    // Handle sign out action here
-                    KeychainService.shared.clearAll()
-                },
-                secondaryButton: .cancel()
-            )
         }
     }
 
@@ -132,7 +99,10 @@ struct SettingsView: View {
                 Button("Pay $5 via Apple") { showPurchaseDialog() }
 //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
                 Button("Sign-in Account") { performSignIn() }
-                Button("Delete Account") { self.showDeleteAccountAlert = true }
+                Button("Delete Account") {
+                    appSettings.isPopoverPresented = false
+                    showDeleteAccountAlert()
+                }
                 Button("Cancel", role: .cancel) {
                     appSettings.isPopoverPresented = false
                 }
@@ -174,13 +144,15 @@ struct SettingsView: View {
                 if KeychainService.shared.isAppleIdAvailable() {
                     appSettings.isOpened = false // Close the current sheet first
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.showingSignOutAlert = true
+                        showSignOutAlert()
                     }
                 } else {
                     performSignIn()
                 }
             },
-            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+            .default(Text("Delete account")) {
+                showDeleteAccountAlert()
+            },
             .cancel()
         ])
     }
@@ -246,7 +218,8 @@ struct SettingsView: View {
     func saveTranscript() {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
-            self.showTranscriptAlert = true
+            let okAction = UIAlertAction(title: "Ok", style: .default)
+            showAlertForSettings(title: "", message: "There is no transcript available to save.", actions: [okAction])
             return
         }
         isSaveTranscript = true
@@ -287,4 +260,46 @@ struct SettingsView: View {
             // Handle the failure case
         }
     }
+    
+  func showSignOutAlert() {
+      
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+      let deleteAction = UIAlertAction(title: "Sign Out", style: .destructive) { _ in
+          // Handle sign out action here
+          KeychainService.shared.clearAll()
+      }
+      showAlertForSettings(title: "Sign Ou", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
+    }
+    
+    func showDeleteAccountAlert() {
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            // Handle the deletion here
+            deleteUserAccount()
+        }
+        showAlertForSettings(title: "Delete Account", message: "Your account and any associated purchases will be permanently deleted.", actions: [cancel, deleteAction])
+    }
+    
+    func showAlertForSettings(title: String, message: String, actions: [UIAlertAction]) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.async {
+                    guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+                        print("No active window scene found")
+                        return
+                    }
+                    
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    
+                    for action in actions {
+                        alert.addAction(action)
+                    }
+                    
+                    if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+                        rootViewController.present(alert, animated: true, completion: nil)
+                    } else {
+                        print("No root view controller found to present the alert")
+                    }
+                }
+            }
+        }
 }
