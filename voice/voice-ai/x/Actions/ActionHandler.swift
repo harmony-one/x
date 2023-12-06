@@ -24,14 +24,16 @@ struct ButtonData: Identifiable {
     let pressedImage: String?
     let action: ActionType
     let testId: String
+    let thinking: String?
 
-    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType, testId: String) {
+    init(label: String, pressedLabel: String? = nil, image: String, pressedImage: String? = nil, action: ActionType, testId: String, thinking: String? = nil) {
         self.label = label
         self.pressedLabel = pressedLabel
         self.image = image
         self.pressedImage = pressedImage
         self.action = action
         self.testId = testId
+        self.thinking = thinking
     }
 }
 
@@ -115,9 +117,7 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
 
     func handle(actionType: ActionType) {
         syncTapToSpeakState(actionType)
-
         print("Run action \(actionType)")
-
         switch actionType {
         case .reset:
             resetThrottler.send()
@@ -178,6 +178,7 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
         if isRecording {
             isRecording = false
             print("Stopped Recording")
+            VibrationManager.shared.startVibration()
             speechRecognition.stopSpeak(cancel: cancel)
             // Simulating delay before triggering a synthesizing state change
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

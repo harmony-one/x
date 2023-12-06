@@ -14,6 +14,7 @@ struct GridButton: View {
     var isPressed: Bool = false
     var clickCounterStartOn = 100
     var isButtonEnabled: Bool = true
+    var isThinking = false
     @State private var timeAtPress = Date()
     @State private var isDragActive = false
 
@@ -130,7 +131,11 @@ struct GridButton: View {
         if image != nil {
             return image ?? button.image
         }
-
+        
+        if isThinking {
+            return button.thinking ?? button.image
+        }
+        
         if button.pressedImage == nil {
             return button.image
         }
