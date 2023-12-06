@@ -95,9 +95,7 @@ class AppSettings: ObservableObject {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let defaults = [
             "EXPIRE_AT": localDate,
-            "custom_instruction_preference": """
-            We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
-            """,
+            "custom_instruction_preference": String(localized: "customInstruction.default"),
             "USER_NAME": "User"
         ]
         UserDefaults.standard.register(defaults: defaults)
@@ -106,7 +104,7 @@ class AppSettings: ObservableObject {
     private func loadSettings() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
-        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam."
+        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
     }
     

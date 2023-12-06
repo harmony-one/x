@@ -4,7 +4,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct AppSettingsIntent: AppIntent {
   
-    static let title: LocalizedStringResource = "Open settings"
+    static let title: LocalizedStringResource = "intent.openSettings.title" // Open settings"
 
     static var openAppWhenRun: Bool = true
     
