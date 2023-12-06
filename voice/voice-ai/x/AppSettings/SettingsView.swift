@@ -267,7 +267,7 @@ struct SettingsView: View {
             // Handle sign out action here
             KeychainService.shared.clearAll()
         }
-        showAlertForSettings(title: "Sign Ou", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
+        showAlertForSettings(title: "Sign Out", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
     }
     
     func showDeleteAccountAlert() {

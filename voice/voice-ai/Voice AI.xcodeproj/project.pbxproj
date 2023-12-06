@@ -281,6 +281,7 @@
 		F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73ABDC62B0C437F0073AF33 /* AppSettingsTests.swift */; };
 		F73AF5992B0FDE3800B98C0F /* OpenAIModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73AF5982B0FDE3800B98C0F /* OpenAIModelsTests.swift */; };
 		F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
+		F76AE4962B21333E002CA57E /* IntentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2332B1F6B1E00260BCA /* IntentManager.swift */; };
 		F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */; };
 		F76D13AB2B17F1CA0018F89B /* GreetingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13AA2B17F1CA0018F89B /* GreetingText.swift */; };
 		F76D13AC2B17F1CA0018F89B /* GreetingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13AA2B17F1CA0018F89B /* GreetingText.swift */; };
@@ -1452,6 +1453,7 @@
 				F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
 				F76D13DA2B1972B20018F89B /* SettingsText.swift in Sources */,
+				F76AE4962B21333E002CA57E /* IntentManager.swift in Sources */,
 				CDC137142B11B129003386E9 /* TimeLogger.swift in Sources */,
 				F76D13B12B1805580018F89B /* SayMoreText.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
