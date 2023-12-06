@@ -235,9 +235,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
-                DispatchQueue.main.async {
-                    self.isThinking = false
-                }
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
@@ -319,6 +316,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
+            DispatchQueue.main.async {
+                self.isThinking = false
+            }
             buf.removeAll()
         }
         
@@ -340,9 +340,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
                 self.vibration.stopVibration()
-                DispatchQueue.main.async {
-                    self.isThinking = false
-                }
+              
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
