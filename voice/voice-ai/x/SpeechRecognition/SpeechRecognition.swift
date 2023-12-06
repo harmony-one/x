@@ -422,7 +422,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
                 VibrationManager.shared.stopVibration()
-                audioPlayer.playSound(false)
+                // Commented for now since we were receiving arbitrary -999 that was causing beeping.
+//                audioPlayer.playSound(false)
+                
             } else if nsError.code == -3 {
                 print("[SpeechRecognition] OpenAI Rate Limited")
                 audioPlayer.playSound(false)
