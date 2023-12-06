@@ -15,11 +15,42 @@ class APIEnvironmentTests: XCTestCase {
         keychainService.clearAll()
     }
 
+    func testGetBaseURLDefault() {
+        let basePath = APIEnvironment.getBaseURL()
+        if AppConfig.shared.getPaymentMode() == "production" {
+            XCTAssertEqual(basePath, "https://x-payments-api.fly.dev/")
+        } else {
+            XCTAssertEqual(basePath, "https://x-payments-api-sandbox.fly.dev/")
+        }
+    }
+    
+    func testGetBaseURLUnrecognized() {
+        let basePath = APIEnvironment.getBaseURL(paymentMode: "unrecognized")
+        XCTAssertEqual(basePath, "https://x-payments-api-sandbox.fly.dev/")
+    }
+    
+    func testGetBaseURLSandbox() {
+        let basePath = APIEnvironment.getBaseURL(paymentMode: "sandbox")
+        XCTAssertEqual(basePath, "https://x-payments-api-sandbox.fly.dev/")
+    }
+    
+    func testGetBaseURLProduction() {
+        let basePath = APIEnvironment.getBaseURL(paymentMode: "production")
+        XCTAssertEqual(basePath, "https://x-payments-api.fly.dev/")
+    }
+    
     func testGetUser() {
         keychainService.storeUser(id: "123", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil, appVersion: nil)
 
         let userPath = APIEnvironment.getUser()
         XCTAssertEqual(userPath, "users/123")
+    }
+    
+    func testGetUserEmpty() {
+        keychainService.deleteUserCredentials()
+
+        let userPath = APIEnvironment.getUser()
+        XCTAssertEqual(userPath, "")
     }
 
     func testPurchase() {
@@ -28,24 +59,31 @@ class APIEnvironmentTests: XCTestCase {
         let purchasePath = APIEnvironment.purchase()
         XCTAssertEqual(purchasePath, "users/456/purchase")
     }
+    
+    func testPurchaseEmpty() {
+        keychainService.deleteUserCredentials()
+
+        let purchasePath = APIEnvironment.purchase()
+        XCTAssertEqual(purchasePath, "")
+    }
 
     func testGetUserByAppleID() {
         let appleID = "testAppleID"
         let userPath = APIEnvironment.getUser(byAppleID: appleID)
         XCTAssertEqual(userPath, "users/appleId/\(appleID)")
     }
+    
+    func testUpdateUser() {
+        keychainService.storeUser(id: "456", balance: nil, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive: nil, appVersion: nil)
 
-    func testGetUserEmpty() {
-        keychainService.deleteUserCredentials()
-
-        let userPath = APIEnvironment.getUser()
-        XCTAssertEqual(userPath, "")
+        let purchasePath = APIEnvironment.updateUser()
+        XCTAssertEqual(purchasePath, "users/456/update")
     }
-
-    func testPurchaseEmpty() {
+    
+    func testUpdateUserEmpty() {
         keychainService.deleteUserCredentials()
 
-        let purchasePath = APIEnvironment.purchase()
+        let purchasePath = APIEnvironment.updateUser()
         XCTAssertEqual(purchasePath, "")
     }
 }
