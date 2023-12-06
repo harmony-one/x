@@ -29,7 +29,7 @@ class NetworkManager {
     }
 
     private func createURL(endpoint: String, parameters: [String: String]?) -> URL? {
-        var components = URLComponents(string: APIEnvironment.baseURL + endpoint)
+        var components = URLComponents(string: APIEnvironment.getBaseURL() + endpoint)
         components?.queryItems = parameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
         return components?.url
     }
