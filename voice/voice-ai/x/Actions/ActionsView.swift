@@ -83,7 +83,7 @@ struct ActionsView: ActionsViewProtocol, View {
         let buttonSurprise = ButtonData(label: String(localized: "actionView.button.surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: String(localized: "actionView.button.speak.hold"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: String(localized: "actionView.button.more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
-        let buttonPlay = ButtonData(label: String(localized: "actionView.button.play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause")
+        let buttonPlay = ButtonData(label: String(localized: "actionView.button.play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause", thinking: "\(themePrefix) - thinking")
 
         buttonsPortrait = [
             buttonReset,
@@ -358,6 +358,7 @@ struct ActionsView: ActionsViewProtocol, View {
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isSpeakButtonPressed, isPressed: isPressed) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
+                speechRecognition.isThinking = false
                 if event != nil {
                     return
                 }
@@ -413,8 +414,7 @@ struct ActionsView: ActionsViewProtocol, View {
 
         } else if button.action == .play {
             let isPressed: Bool = isActive && speechRecognition.isPaused()
-
-            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isPressed: isPressed) {event in
+            GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: speechRecognition.isThinking ? true : isActive, isPressed: isPressed, isThinking: speechRecognition.isThinking) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
                 if event != nil {
                     return

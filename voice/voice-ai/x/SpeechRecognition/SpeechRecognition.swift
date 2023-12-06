@@ -50,9 +50,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var audioSession: AVAudioSessionProtocol = AVAudioSessionWrapper()
     var textToSpeechConverter = TextToSpeechConverter()
     static let shared = SpeechRecognition()
-   
     var pendingOpenAIStream: OpenAIStreamService?
-    
     internal var conversation: [Message] = []
     private var completeResponse: [String] = []
     private var isRepeatingCurrentSession = false
@@ -61,10 +59,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     //    private var isGreatingFinished = false
     
     private let audioPlayer = AudioPlayer()
-    
-    private var isRequestingOpenAI = false
+    internal var isRequestingOpenAI = false
     private var requestInitiatedTimestamp: Int64 = 0
-    
     private var resumeListeningTimer: Timer?
 //    private var silenceTimer: Timer?
     private var isCapturing = false
@@ -74,23 +70,19 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //    TODO: Adjust buffer capacity for each language (eg. Japanese takes too long before flush)
     private var bufferCapacity = 50
     private var retryWorkItem: DispatchWorkItem?
-    
     private var contextLimit = 8192
 
     @Published private var _isPaused = false
     var isPausedPublisher: Published<Bool>.Publisher {
         $_isPaused
     }
-    
     @Published private var _isPlaying = false
     var isPlayingPublisher: Published<Bool>.Publisher {
         $_isPlaying
     }
     
     private var isPlayingWorkItem: DispatchWorkItem?
-    
     var isTimerDidFired = false
-        
     let languageCode: String
     private let speechDelimitingPunctuations: [Character]
     private let greetingText: String
@@ -99,7 +91,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let networkErrorText: String
     private let limitReachedText: String
     private let answerLimitText: String
-    
+    private let vibration = VibrationManager.shared
+    @Published var isThinking: Bool = false
     // MARK: - Initialization and Setup
     
     override init() {
@@ -237,9 +230,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("[SpeechRecognition][handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
             
+            if nsError.code == 1110 {
+                vibration.stopVibration()
+            }
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
-//                audioPlayer.playSound(false)
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
@@ -295,7 +290,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             print("RequestingOpenAI: skip")
             return
         }
-        
+        DispatchQueue.main.async {
+            self.isThinking = true
+        }
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
@@ -319,6 +316,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")
+            DispatchQueue.main.async {
+                self.isThinking = false
+            }
             buf.removeAll()
         }
         
@@ -339,6 +339,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
+                self.vibration.stopVibration()
+              
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
@@ -412,12 +414,18 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         func handleError(_ error: Error, retryCount: Int) {
+            DispatchQueue.main.async {
+                self.isThinking = false
+            }
             isRequestingOpenAI = false
             let nsError = error as NSError
             if nsError.code == -999 {
                 print("[SpeechRecognition] OpenAI Cancelled")
+                VibrationManager.shared.stopVibration()
+                audioPlayer.playSound(false)
             } else if nsError.code == -3 {
                 print("[SpeechRecognition] OpenAI Rate Limited")
+                audioPlayer.playSound(false)
                 buf.removeAll()
                 registerTTS()
                 textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.")
@@ -457,21 +465,23 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         guard isCapturing else {
             return
         }
-        isCapturing = false
-        _isPaused = false
+        // Perform all UI updates on the main thread
+        DispatchQueue.main.async {
+            self.isCapturing = false
+            self._isPaused = false
+        }
         print("[SpeechRecognition][pauseCapturing]")
         
         if cancel == true {
             print("[SpeechRecognition][cancelCalled]")
             recognitionTaskCanceled = true
         }
-        
-        recognitionTask?.finish()
-        recognitionTask?.cancel()
-        recognitionTask = nil
-        recognitionRequest?.endAudio()
-        audioEngine.inputNode.removeTap(onBus: 0)
-        audioEngine.stop()
+        self.recognitionTask?.finish()
+        self.recognitionTask?.cancel()
+        self.recognitionTask = nil
+        self.recognitionRequest?.endAudio()
+        self.audioEngine.inputNode.removeTap(onBus: 0)
+        self.audioEngine.stop()
         print("stop")
     }
     
@@ -494,7 +504,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
-        
+        DispatchQueue.main.async {
+            self.isThinking = false
+        }
+        audioPlayer.playSound(false)
         // Perform all UI updates on the main thread
         DispatchQueue.main.async {
             self.textToSpeechConverter.stopSpeech()
@@ -677,6 +690,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func speak() {
+        DispatchQueue.main.async {
+            self.isThinking = false
+        }
         DispatchQueue.global(qos: .userInitiated).async {
             print("[SpeechRecognition][speak]")
 
