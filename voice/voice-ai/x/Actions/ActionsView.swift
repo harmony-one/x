@@ -209,21 +209,21 @@ struct ActionsView: ActionsViewProtocol, View {
                     break
                 }
             }
-                    .alert(isPresented: $showNewAppVersionAlert) {
-                        Alert(
-                            title: Text("New version is now available"),
-                            message: Text("\(self.newAppVersion ?? "")"),
-                            primaryButton: .default(Text("Open App Store")) {
-                                showNewAppVersionAlert = false
-                                if let url = URL(string: appSettings.appStoreUrl) {
-                                    UIApplication.shared.open(url)
-                                }
-                            },
-                            secondaryButton: .default(Text("Cancel")) {
-                                showNewAppVersionAlert = false
-                            }
-                        )
-                    }
+//                    .alert(isPresented: $showNewAppVersionAlert) {
+//                        Alert(
+//                            title: Text("New version is now available"),
+//                            message: Text("\(self.newAppVersion ?? "")"),
+//                            primaryButton: .default(Text("Open App Store")) {
+//                                showNewAppVersionAlert = false
+//                                if let url = URL(string: appSettings.appStoreUrl) {
+//                                    UIApplication.shared.open(url)
+//                                }
+//                            },
+//                            secondaryButton: .default(Text("Cancel")) {
+//                                showNewAppVersionAlert = false
+//                            }
+//                        )
+//                    }
         //            .alert(isPresented: $showShareAlert) {
         //                Alert(
         //                    title: Text("Share the app with friends?"),
