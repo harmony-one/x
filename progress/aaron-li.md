@@ -1,3 +1,11 @@
+2023-12-05 Tue (3h): Debug MetaMask mobile signing issues on Gnosis and Multisig, replicate signature issues in version 7.12.0. Inspect Gnosis backend service code for potential workarounds, and review MetaMask code changes and version history. Discussion on ways of audio capturing improvements. Review MetaMask mobile reported issues, debug underlying cause, create a workaround and demo. Research on edge models and Apple Silicon ML frameworks. Review #298, #299, #300, #301 (comment on API key's access and safety, and sentry capturing tags), #302, #303, #304, #305, #306, #307, #308, #309, #310, #311 (request for version alert extra content), #313, #314 (comment on silent failure), #315, #316, #317, #312 (open, question on integration with Siri, watch, and apps)
+
+2023-12-04 Mon (1h): Debug and fix tweet embedding issues. Further analysis on pull requests and commits
+
+2023-12-03 Sun (1h): Demonstration and discussions on Kibana client metrics and raw log. Analysis on pull requests and commits.
+
+2023-12-02 Sat (0.5h): Research and discussions on sheet popup sizing and layout control options, limitations prior to iOS 16, alternative libraries and potential impact to build. Review logs and events captured during end-to-end testing of apps
+
 2023-12-01 Fri (3.5h): Review #273, #274, #275, #277, #278, #279 (comment on sign-in test coverage), #280, #282, #285 (comment on nil-able variables), #286, #287, #288, #289 (comment on configurable variable), #283 (draft), #284 (draft, comment on mock benchmark purposes), #290, #291 (comment on language code as setting). Review iPad actionsheet issue. Discuss ElasticSearch charting issues and tasks. Discuss NLP pipeline and processing of other languages. Review #296 (concern on redundant ElasticSearch implementation at client), #292, #294, #293, #295. Research options for multi-action popups for iPad actions and compatibility, experiment, debug, and fix issues 
 
 2023-11-30 Thu (1.5h): Review and debug multisig 422 error and signing issues from some devices. Review #266, #267, #268, #269, #270 (questions on deterministic test issue), #271, #272 (questions on audio tap removal, comment on whether actual functionalities are tested and need for more advanced action simulation).
