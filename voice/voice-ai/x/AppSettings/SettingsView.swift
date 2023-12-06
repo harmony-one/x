@@ -12,7 +12,6 @@ struct SettingsView: View {
     @State private var showDeleteAccountAlert = false
     @State private var showingSignOutAlert = false
 
-    var languageCode = getLanguageCode()
     private var shareTitle = "hey @voiceaiapp "
        
     var body: some View {
@@ -46,17 +45,15 @@ struct SettingsView: View {
             ActivityView(activityItems: [jsonString])
         }
         .alert(isPresented: $showTranscriptAlert) {
-            Alert(
-                title: Text(""),
-                message: Text("There is no transcript available to save."),
-                dismissButton: .default(Text("OK"))
-            )
+            Alert(title: Text(""),
+                  message: Text("settingsView.alert.noTranscriptAvailable.message"),
+                  dismissButton: .default(Text("button.ok")))
         }
         .alert(isPresented: $showDeleteAccountAlert) {
             Alert(
-                title: Text("Delete Account"),
-                message: Text("Your account and any associated purchases will be permanently deleted."),
-                primaryButton: .destructive(Text("Delete")) {
+                title: Text("settingsView.alert.deleteAccount.title"),
+                message: Text("settingsView.alert.deleteAccount.message"),
+                primaryButton: .destructive(Text("settingsView.alert.deleteAccount.button")) {
                     // Handle the deletion here
                     deleteUserAccount()
                 },
@@ -65,9 +62,9 @@ struct SettingsView: View {
         }
         .alert(isPresented: $showingSignOutAlert) {
             Alert(
-                title: Text("Sign Out"),
-                message: Text("Are you sure you want to sign out?"),
-                primaryButton: .destructive(Text("Sign Out")) {
+                title: Text("settingsView.alert.signOut.title"),
+                message: Text("settingsView.alert.signOut.message"),
+                primaryButton: .destructive(Text("settingsView.alert.signOut.button")) {
                     // Handle sign out action here
                     KeychainService.shared.clearAll()
                 },
@@ -93,32 +90,32 @@ struct SettingsView: View {
     
     private func settingsPopoverContent() -> some View {
             VStack(spacing: 32) {
-                Text("Actions").font(.title)
+                Text("settingsView.view.title").font(.title)
                 Divider()
-                Button("Share Transcript") {
+                Button("settingsView.mainMenu.shareTranscript") {
                     self.appSettings.isPopoverPresented = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         saveTranscript()
                     }
                 }.font(.title2)
 //                Button("Custom instructions") { /* Add logic for custom instructions */ }
-                Button("Tweet feedback") {
+                Button("settingsView.mainMenu.TweetFeedback") {
                     tweet()
                 }.font(.title2)
-                Button("Share App") {
+                Button("settingsView.mainMenu.shareAppLink") {
                     self.appSettings.isPopoverPresented = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         self.showShareSheet = true
                     }
                 }.font(.title2)
-                Button("System Settings") { 
+                Button("settingsView.mainMenu.customInstructions") {
                     openSystemSettings()
                 }.font(.title2)
-                Button("Purchase Premium") {
+                Button("settingsView.mainMenu.PurchasePremium") {
                     appSettings.type = .purchaseOptions
                     appSettings.isPopoverPresented = true
                 }.font(.title2)
-                Button("Cancel", role: .cancel) {
+                Button("button.cancel", role: .cancel) {
                     appSettings.isPopoverPresented = false
                 }.font(.title2)
             }
@@ -127,13 +124,13 @@ struct SettingsView: View {
     
     private func purchaseOptionsPopoverContent() -> some View {
             VStack {
-                Text("Purchase Options").font(.headline)
+                Text("settingsView.purchaseMenu.title").font(.headline)
                 Divider()
-                Button("Pay $5 via Apple") { showPurchaseDialog() }
+                Button("settingsView.purchaseMenu.pay5viaApple") { showPurchaseDialog() }
 //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
-                Button("Sign-in Account") { performSignIn() }
-                Button("Delete Account") { self.showDeleteAccountAlert = true }
-                Button("Cancel", role: .cancel) {
+                Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
+                Button("settingsView.purchaseMenu.deleteAccount") { self.showDeleteAccountAlert = true }
+                Button("button.cancel", role: .cancel) {
                     appSettings.isPopoverPresented = false
                 }
             }
@@ -141,15 +138,15 @@ struct SettingsView: View {
         }
 
     func actionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Voice AI - Super-Intelligence"), buttons: [
+        return ActionSheet(title: Text("settingsView.mainMenu.title"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("Share transcript")) { saveTranscript() },
-            .default(Text("Custom instructions")) { openSystemSettings() },
-            .default(Text("Share app link")) { self.showShareSheet = true },
-            .default(Text("Tweet feedback")) { tweet() },
-            .default(Text("Purchase premium")) {
+            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
+            .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
+            .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
+            .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
+            .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -167,8 +164,8 @@ struct SettingsView: View {
 //    }
     
     func purchaseOptionsActionSheet() -> ActionSheet {
-        return ActionSheet(title: Text("Purchase Options"), buttons: [
-            .default(Text("Pay $5 via Apple")) { showPurchaseDialog() },
+        return ActionSheet(title: Text("settingsView.purchaseMenu.title"), buttons: [
+            .default(Text("settingsView.purchaseMenu.pay5viaApple")) { showPurchaseDialog() },
 //            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
             .default(Text(getUserName())) {
                 if KeychainService.shared.isAppleIdAvailable() {
@@ -180,7 +177,7 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-            .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
+            .default(Text("settingsView.purchaseMenu.deleteAccount")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
     }

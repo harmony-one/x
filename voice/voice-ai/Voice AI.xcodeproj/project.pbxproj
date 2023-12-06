@@ -130,6 +130,10 @@
 		B3BC2CB62B05F4B200A58477 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05C42B04C99B0029A32D /* APIEnvironment.swift */; };
 		B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */; };
 		B3E202FE2B1010C000A6DD49 /* MockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */; };
+		B3E8D1522B201E450041B82B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B3E8D1512B201E450041B82B /* Localizable.xcstrings */; };
+		B3E8D1532B201E450041B82B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B3E8D1512B201E450041B82B /* Localizable.xcstrings */; };
+		B3E8D1542B201E450041B82B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B3E8D1512B201E450041B82B /* Localizable.xcstrings */; };
+		B3E8D1552B201E450041B82B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B3E8D1512B201E450041B82B /* Localizable.xcstrings */; };
 		B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */; };
 		B91F05B02B049F720029A32D /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F05AF2B049F720029A32D /* AppleSignInManager.swift */; };
@@ -391,6 +395,7 @@
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
 		B3D0A3432AF29B1B00E8B0DA /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
 		B3E202FD2B1010C000A6DD49 /* MockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockActionHandler.swift; sourceTree = "<group>"; };
+		B3E8D1512B201E450041B82B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B919B7BE2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineAndSessionTests.swift; sourceTree = "<group>"; };
 		B91F05AF2B049F720029A32D /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
 		B91F05B52B04B3E00029A32D /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -821,6 +826,7 @@
 				CD0D13372ADA73B300031EDD /* xApp.swift */,
 				CD0D133D2ADA73B400031EDD /* Assets.xcassets */,
 				B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */,
+				B3E8D1512B201E450041B82B /* Localizable.xcstrings */,
 				B9A3AE0E2B18CC7900C5FC66 /* AppConfiguration */,
 				B95B4D7C2AE2D16100DFE2EB /* Actions */,
 				B91F05AE2B049F5C0029A32D /* Apple */,
@@ -1148,6 +1154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */,
+				B3E8D1552B201E450041B82B /* Localizable.xcstrings in Resources */,
 				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
 				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
 				F67EDE372B07C62E00FDEA80 /* Products.storekit in Resources */,
@@ -1197,6 +1204,7 @@
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
+				B3E8D1522B201E450041B82B /* Localizable.xcstrings in Resources */,
 				A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
 				B9AD506B2ADFEFDB006F18A1 /* Dotrice-Expanded.otf in Resources */,
 				B9AD506C2ADFEFDB006F18A1 /* Dotrice-Bold.otf in Resources */,
@@ -1207,6 +1215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E8D1532B201E450041B82B /* Localizable.xcstrings in Resources */,
 				B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1217,6 +1226,7 @@
 			files = (
 				B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */,
 				B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
+				B3E8D1542B201E450041B82B /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1775,6 +1785,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1829,6 +1840,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
