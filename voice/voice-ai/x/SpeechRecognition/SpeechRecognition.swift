@@ -237,7 +237,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
                 DispatchQueue.main.async {
-                    self.isThinking = true
+                    self.isThinking = false
                 }
 //                audioPlayer.playSound(false)
 //                self.registerTTS()
