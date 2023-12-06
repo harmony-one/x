@@ -2,23 +2,23 @@ import XCTest
 import Combine
 @testable import Voice_AI
 
-//protocol Decryptor {
-//    func decrypt(base64EncodedEncryptedKey: String) throws -> String
-//}
-//
-//class MockDecryptor: Decryptor {
-//    func decrypt(base64EncodedEncryptedKey: String) throws -> String {
-//        return "MockDecryptionKey"
-//    }
-//}
-
 class AppConfigTests: XCTestCase {
     
     var appConfig: AppConfig!
     
     override func setUp() {
         super.setUp()
+
+        let initializationExpectation = expectation(description: "AppConfig initialization")
+
         appConfig = AppConfig.shared
+        DispatchQueue.global().async {
+            // This will ensure that the init() method has finished before proceeding with the tests.
+            initializationExpectation.fulfill()
+        }
+
+        // Wait for the initialization to complete before running tests.
+        waitForExpectations(timeout: 5) // Adjust the timeout as needed.
     }
 
     override func tearDown() {
@@ -26,86 +26,24 @@ class AppConfigTests: XCTestCase {
         super.tearDown()
     }
     
-    func testDeepgramKeyIsNotNil() {
-        XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
-    }
-    
-    func testSentryDSNIsNotNil() {
+    func testGetterMethods() {
+        XCTAssertNotNil(appConfig.getOpenAIKey(), "OpenAIKey should not be nil")
+        XCTAssertNotNil(appConfig.getOpenAIBaseUrl(), "OpenAIBaseUrl should not be nil")
         XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
-    }
-
-    func testThemeNameIsNotNilWhenDefined() {
-        appConfig.themeName = "CustomTheme"
-        XCTAssertEqual(appConfig.getThemeName(), "CustomTheme", "Theme name should be equal to 'CustomTheme'")
-    }
-    
-    func testThemeNameIsNotNilWhenUndefined() {
-        appConfig.themeName = nil
-        XCTAssertEqual(appConfig.getThemeName(), AppThemeSettings.blackredTheme.settings.name, "Theme name should be the default theme")
-    }
-    
-    func testMinimumSignificantEventsIsNotNil() {
         XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents should not be nil")
-    }
-    
-    func testDaysBetweenPromptsIsNotNil() {
         XCTAssertNotNil(appConfig.getDaysBetweenPrompts(), "DaysBetweenPrompts should not be nil")
-    }
-    
-    func testSharedEncryptionSecretIsNotNil() {
+        XCTAssertNotNil(appConfig.getThemeName(), "ThemeName should not be nil")
         XCTAssertNotNil(appConfig.getSharedEncryptionSecret(), "SharedEncryptionSecret should not be nil")
-    }
-    
-    func testSharedEncryptionIVIsNotNil() {
         XCTAssertNotNil(appConfig.getSharedEncryptionIV(), "SharedEncryptionIV should not be nil")
-    }
-    
-    func testRelayUrlIsNotNil() {
-        XCTAssertNotNil(appConfig.getRelayUrl(), "RelayURL should not be nil")
-    }
-    
-    func testWhiteLabelListStringIsNotNil() {
-        XCTAssertNotNil(appConfig.getWhiteLabelListString(), "Whitelist should not be nil")
-    }
-    
-    func testRelayModeIsNotNil() {
+        XCTAssertNotNil(appConfig.getRelayUrl(), "RelayUrl should not be nil")
         XCTAssertNotNil(appConfig.getRelayMode(), "RelayMode should not be nil")
-    }
-    
-    func testDisableRelayLogIsNotNil() {
+        XCTAssertNotNil(appConfig.getWhiteLabelListString(), "WhiteLabelListString should not be nil")
         XCTAssertNotNil(appConfig.getDisableRelayLog(), "DisableRelayLog should not be nil")
+        XCTAssertNotNil(appConfig.getEnableTimeLoggerPrint(), "EnableTimeLoggerPrint should not be nil")
+        XCTAssertNotNil(appConfig.getServerAPIKey(), "ServerAPIKey should not be nil")
+        XCTAssertNotNil(appConfig.getPaymentMode(), "PaymentMode should not be nil")
+        XCTAssertNotNil(appConfig.getMixpanelToken(), "MixpanelToken should not be nil")
     }
-    
-    func testEnableTimeLoggerPrintIsNotNil() {
-        XCTAssertNotNil(appConfig.getEnableTimeLoggerPrint(), "DisableRelayLog should not be nil")
-    }
-    
-    func testLoadingValidPlistFile() {
-        XCTAssertNotNil(appConfig.getDeepgramKey(), "Deepgram Key should not be nil")
-        XCTAssertNotNil(appConfig.getThemeName(), "Theme Name should not be nil")
-        XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
-        XCTAssertNotNil(appConfig.getDaysBetweenPrompts(), "DaysBetweenPrompts should not be nil")
-        XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents should not be nil")
-        XCTAssertNotNil(appConfig.getSharedEncryptionSecret(), "SharedEncryptionSecret should not be nil")
-        XCTAssertNotNil(appConfig.getSharedEncryptionIV(), "SharedEncryptionIV should not be nil")
-    }
-    
-    func testDefaultThemeName() {
-            XCTAssertEqual(appConfig.getThemeName(), AppThemeSettings.blackredTheme.settings.name, "Default theme name should be blackredTheme")
-        }
-    
-//    func testDecryptFunction() {
-//            // Create an instance of AppConfig with the mock decryptor
-//            let mockDecryptor = MockDecryptor()
-//
-//            do {
-//                let encryptedKey = "your_base64_encoded_key_here"
-//                let decryptedKey = try mockDecryptor.decrypt(base64EncodedEncryptedKey: encryptedKey)
-//                XCTAssertEqual(decryptedKey, "MockDecryptionKey", "Decryption should return the mock key")
-//            } catch {
-//                XCTFail("Decryption should not throw an error")
-//            }
-//        }
 }
 
 class TimerManagerTests: XCTestCase {
@@ -190,18 +128,33 @@ class SettingsBundleHelperTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: SettingsBundleHelper.SettingsBundleKeys.Username)
     }
     
-//    func testSetDefaultValues() {
-//        SettingsBundleHelper.setDefaultValues()
-//        
-//        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-//        XCTAssertEqual(customInstruction, "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.")
-//    }
-    
-    func testCheckAndExecuteSettings() {
-        SettingsBundleHelper.checkAndExecuteSettings()
+    func testSetDefaultValuesWithModeDefault() {
+        SettingsBundleHelper.setDefaultValues()
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
         
-        let customInstruction = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
-        XCTAssertNotNil(customInstruction)
+        XCTAssertEqual(customInstruction, """
+         We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam.
+         """)
+    }
+    
+    func testSetDefaultValuesWithModeQuickFacts() {
+        let customMode = "mode_quick_facts"
+        SettingsBundleHelper.setDefaultValues(customMode: customMode)
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
+        
+        XCTAssertEqual(customInstruction, """
+         Your name is FOOBAR. Focus on providing rapid, straightforward answers to factual queries. Your responses should be brief, accurate, and to the point, covering a wide range of topics. Avoid elaboration or anecdotes unless specifically requested. Ideal for users seeking quick facts or direct answers you should answer in as few words as possible.
+         """)
+    }
+    
+    func testSetDefaultValuesWithModeInteractiveTutor() {
+        let customMode = "mode_interactive_tutor"
+        SettingsBundleHelper.setDefaultValues(customMode: customMode)
+        let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
+        
+        XCTAssertEqual(customInstruction, """
+         Your name is Sam, an engaging and interactive tutor, skilled at simplifying complex topics adaptive to the learner’s needs. You are in the same room as the learner, conversing directly with them. Conduct interactive discussions, encouraging questions and participation from the user as much as possible. You have 10 minutes to teach something new, making the subject accessible and interesting. Use analogies, real-world examples, and interactive questioning to enhance understanding. Keep output short to ensure the learner is following. You foster a two-way learning environment, making the educational process more engaging and personalized, and ensuring the user plays an active role in their learning journey. NEVER repeat unless asked by the learner.
+         """)
     }
     
     func testHasPremiumMode() {

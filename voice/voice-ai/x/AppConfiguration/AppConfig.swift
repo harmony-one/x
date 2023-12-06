@@ -112,6 +112,56 @@ class AppConfig {
         task.resume()
     }
     
+    private func loadConfiguration() {
+        guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
+            fatalError("Unable to locate plist file")
+        }
+        
+        let fileURL = URL(fileURLWithPath: path)
+        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
+                fatalError("Unable to convert plist into dictionary")
+            }
+            
+            sentryDSN = dictionary["SENTRY_DSN"] as? String
+            
+            sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
+            sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
+            relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
+            relayMode = dictionary["RELAY_MODE"] as? String
+            disableRelayLog = dictionary["DISABLE_RELAY_LOG"] as? Bool
+            enableTimeLoggerPrint = dictionary["ENABLE_TIME_LOGGER_PRINT"] as? Bool
+            
+            themeName = dictionary["THEME_NAME"] as? String
+            deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
+            openaiKey = dictionary["API_KEY"] as? String
+            openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
+            serverAPIKey = dictionary["SERVER_API_KEY"] as? String
+            paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
+            mixpanelToken = (dictionary["MIXPANEL_TOKEN"] as? String)
+
+            // Convert the string values to Int
+            if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
+               let events = Int(eventsString) {
+                minimumSignificantEvents = events
+            }
+            
+            if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"] as? String,
+               let days = Int(daysString) {
+                daysBetweenPrompts = days
+            }
+            
+            if let whiteLabelListString = dictionary["WHITELIST"] as? [String] {
+                whiteLabelList = whiteLabelListString
+            }
+        } catch {
+            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
+            fatalError(error.localizedDescription)
+        }
+    }
+    
     /// Checks the whitelist.
     ///
     /// This method retrieves the `USER_NAME` from the settings, validates the user against a whitelist,
@@ -163,53 +213,16 @@ class AppConfig {
         }
     }
     
-    private func loadConfiguration() {
-        guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
-            fatalError("Unable to locate plist file")
-        }
-        
-        let fileURL = URL(fileURLWithPath: path)
-        
-        do {
-            let data = try Data(contentsOf: fileURL)
-            guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
-                fatalError("Unable to convert plist into dictionary")
+    func renewRelayAuth() {
+        Task {
+            if self.relayMode == "hard" {
+                let newToken = await self.relay.refresh()
+                if newToken != nil {
+                    self.openaiKey = newToken
+                }
+            } else {
+                await self.requestOpenAIKey()
             }
-            
-            sentryDSN = dictionary["SENTRY_DSN"] as? String
-            
-            sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
-            sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
-            relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String
-            relayMode = dictionary["RELAY_MODE"] as? String
-            disableRelayLog = dictionary["DISABLE_RELAY_LOG"] as? Bool
-            enableTimeLoggerPrint = dictionary["ENABLE_TIME_LOGGER_PRINT"] as? Bool
-            
-            themeName = dictionary["THEME_NAME"] as? String
-            deepgramKey = dictionary["DEEPGRAM_KEY"] as? String
-            openaiKey = dictionary["API_KEY"] as? String
-            openaiBaseUrl = dictionary["OPENAI_BASE_URL"] as? String
-            serverAPIKey = dictionary["SERVER_API_KEY"] as? String
-            paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
-            mixpanelToken = (dictionary["MIXPANEL_TOKEN"] as? String)
-
-            // Convert the string values to Int
-            if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
-               let events = Int(eventsString) {
-                minimumSignificantEvents = events
-            }
-            
-            if let daysString = dictionary["DAYS_BETWEEN_PROMPTS"] as? String,
-               let days = Int(daysString) {
-                daysBetweenPrompts = days
-            }
-            
-            if let whiteLabelListString = dictionary["WHITELIST"] as? [String] {
-                whiteLabelList = whiteLabelListString
-            }
-        } catch {
-            SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
-            fatalError(error.localizedDescription)
         }
     }
     
@@ -223,10 +236,6 @@ class AppConfig {
     
     func getSentryDSN() -> String? {
         return sentryDSN
-    }
-    
-    func getDeepgramKey() -> String? {
-        return deepgramKey
     }
     
     // Getter methods for the review prompt configuration
@@ -254,25 +263,12 @@ class AppConfig {
         return relayBaseUrl
     }
     
-    func getWhiteLabelListString() -> [String]? {
-        return whiteLabelList
-    }
-    
-    func renewRelayAuth() {
-        Task {
-            if self.relayMode == "hard" {
-                let newToken = await self.relay.refresh()
-                if newToken != nil {
-                    self.openaiKey = newToken
-                }
-            } else {
-                await self.requestOpenAIKey()
-            }
-        }
-    }
-    
     func getRelayMode() -> String? {
         return relayMode
+    }
+    
+    func getWhiteLabelListString() -> [String]? {
+        return whiteLabelList
     }
     
     func getDisableRelayLog() -> Bool {

@@ -3,8 +3,9 @@ enum APIEnvironment {
     private static let sandboxBaseURL = "https://x-payments-api-sandbox.fly.dev/"
     private static let productionBaseURL = "https://x-payments-api.fly.dev/"
 
-    static var baseURL: String {
-        switch AppConfig.shared.getPaymentMode() {
+    static func getBaseURL(paymentMode: String? = nil) -> String {
+        let selectedPaymentMode = paymentMode ?? AppConfig.shared.getPaymentMode()
+        switch selectedPaymentMode {
         case "sandbox":
             return sandboxBaseURL
         case "production":

@@ -1,3 +1,5 @@
+2023-12-05 Tue: Discussed and assigned tasks, as well as their ETAs to engineers with Theo F. Fixed a bug that threw nil pointer when transcription was empty. Began setting up haptic feedback for "Press & Hold" (handoff to Nagesh).
+
 2023-12-04 Mon: Out of office
 
 ---

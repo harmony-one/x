@@ -1,3 +1,5 @@
+2023-12-05 Tue: [Created](https://github.com/harmony-one/x/commit/fe6f76f2e3365e77d210f9265bc40b632544ff8c) and [updated](https://github.com/harmony-one/x/commit/17396077f1c767298d73017e858eff7b4b3ebaa6) test for CreateUser.swift. [Expanded](https://github.com/harmony-one/x/commit/da8686567602b4aebc7b80b68e3e2d5da56e96fe) testing for buttons in ActionViewTests. [Resolved](https://github.com/harmony-one/x/commit/e8f32dd2170059616a65923fbd5911173f7f9b25) some lint issues. 
+
 2023-12-04 Mon: [Add](https://github.com/harmony-one/x/commit/2302110822a940c743f358961eb474deaf8c6595) guard against empty return in RandomFact.swift. [Updated](https://github.com/harmony-one/x/commit/51f16b7eca0e38576fc01b6b8a4d714c01f2a8b0) testGetTitle. [Added](https://github.com/harmony-one/x/commit/970dc6f69b994e043cc6d6828125544c275ddce6) tagging to differentiate Sentry alerts from internal testings vs. live app. Fixed incomplete ArticleManager test and removed test for removed function. 
 
 ---

@@ -249,5 +249,26 @@ class ActionsViewTests: XCTestCase {
         // Test that the checkUserAuthentication function does not throw any errors
     }
     
+    func testIsButtonDisabled() {
+        // Test cases for isButtonDisabled
+        actionsView.setLastButtonPressed(action: .speak, event: .onStart)
+        XCTAssertTrue(actionsView.isButtonDisabled(action: .reset))
+        XCTAssertFalse(actionsView.isButtonDisabled(action: .speak))
+    }
+
+    func testGetLastButtonPressed() {
+        // Test cases for getLastButtonPressed
+        XCTAssertNil(actionsView.getLastButtonPressed())
+        actionsView.setLastButtonPressed(action: .speak, event: .onStart)
+        XCTAssertEqual(actionsView.getLastButtonPressed(), .speak)
+    }
+
+    func testSetLastButtonPressed() {
+        // Test cases for setLastButtonPressed
+        actionsView.setLastButtonPressed(action: .speak, event: .onStart)
+        XCTAssertEqual(actionsView.getLastButtonPressed(), .speak)
+        actionsView.setLastButtonPressed(action: .speak, event: .onEnd)
+        XCTAssertNil(actionsView.getLastButtonPressed())
+    }
     
 }
