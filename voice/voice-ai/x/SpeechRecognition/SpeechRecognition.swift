@@ -509,7 +509,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func reset(feedback: Bool? = true) {
         print("[SpeechRecognition][reset]")
         DispatchQueue.main.async {
-            self.isThinking = true
+            self.isThinking = false
         }
         // Perform all UI updates on the main thread
         DispatchQueue.main.async {
