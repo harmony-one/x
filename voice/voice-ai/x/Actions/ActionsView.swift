@@ -148,7 +148,11 @@ struct ActionsView: ActionsViewProtocol, View {
                     if KeychainService.shared.isAppVersionAvailable() {
                         var appVersionFromKeyChain = KeychainService.shared.retrieveAppVersion()
                         if let appVersionFromBundle = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                           print("App version from bundle: \(appVersionFromBundle), app version from key chain: \(appVersionFromKeyChain)")
+                            if let keyChainVersion = appVersionFromKeyChain {
+                                print("App version from bundle: \(appVersionFromBundle), app version from key chain: \(keyChainVersion)")
+                            } else {
+                                print("App version from bundle: \(appVersionFromBundle), app version from key chain: nil")
+                            }
                             if appVersionFromBundle != appVersionFromKeyChain {
                                 guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
                                     print("Cannot get payments service API key")
@@ -162,7 +166,11 @@ struct ActionsView: ActionsViewProtocol, View {
                         if let error = error {
                             print("[isUpdateAvailable]: error", error)
                         } else if let updateAvailable = updateAvailable {
-                            print("[isUpdateAvailable]: ", updateAvailable, version)
+                            if let version = version {
+                                print("[isUpdateAvailable]: ", updateAvailable, version)
+                            } else {
+                                print("[isUpdateAvailable]: ", updateAvailable, "nil")
+                            }
                             if updateAvailable {
                                 self.showNewAppVersionAlert = true
                                 self.newAppVersion = version

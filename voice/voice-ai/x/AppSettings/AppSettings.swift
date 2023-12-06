@@ -167,12 +167,10 @@ class AppSettings: ObservableObject {
                     return
                 }
                 
-                for (localSegment, storeSegment) in zip(localVersionArray, versionArray) {
-                          if localSegment < storeSegment {
-                              completion(true, version, nil)
-                              return
-                          }
-                        }
+                for (localSegment, storeSegment) in zip(localVersionArray, versionArray) where localSegment < storeSegment {
+                    completion(true, version, nil)
+                    return
+                }
                 completion(false, version, nil)
             } catch {
                 completion(nil, nil, error)

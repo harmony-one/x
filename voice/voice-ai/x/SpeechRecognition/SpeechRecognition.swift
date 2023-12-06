@@ -275,7 +275,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
-        audioEngine.mainMixerNode
         do {
             audioEngine.prepare()
             try audioEngine.start()
@@ -375,13 +374,21 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     // ensure streams that do not have a whitespace in front are appended to the previous one (part of the previous stream)
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
-                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
+                            if let lastChar = currWord.last {
+                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                            } else {
+                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                            }
                             flushBuf()
                             initialFlush = true
                         }
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
-                            print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(currWord.last)")
+                            if let lastChar = currWord.last {
+                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                            } else {
+                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                            }
                             flushBuf()
                         }
                     }
@@ -541,7 +548,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func setupAudioEngineIfNeeded() {
         guard !audioEngine.isRunning else { return }
-        audioEngine.mainMixerNode
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
