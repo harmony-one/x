@@ -111,6 +111,7 @@
       }
     },
     "button.ok" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -123,7 +124,17 @@
     "Cancel" : {
 
     },
+    "New Session" : {
+
+    },
+    "Open settings" : {
+
+    },
+    "Play / Pause" : {
+
+    },
     "settingsView.alert.deleteAccount.button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -134,6 +145,7 @@
       }
     },
     "settingsView.alert.deleteAccount.message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -144,6 +156,7 @@
       }
     },
     "settingsView.alert.deleteAccount.title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -154,6 +167,7 @@
       }
     },
     "settingsView.alert.noTranscriptAvailable.message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -164,6 +178,7 @@
       }
     },
     "settingsView.alert.signOut.button" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -174,6 +189,7 @@
       }
     },
     "settingsView.alert.signOut.message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -184,6 +200,7 @@
       }
     },
     "settingsView.alert.signOut.title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
