@@ -7,7 +7,7 @@ struct SettingsView: View {
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
     @State private var userName: String?
-    @State private var showAlert = false
+    @State private var showTranscriptAlert = false
     @State private var isSaveTranscript = false
     @State private var showDeleteAccountAlert = false
     @State private var showingSignOutAlert = false
@@ -45,10 +45,12 @@ struct SettingsView: View {
             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
             ActivityView(activityItems: [jsonString])
         }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text(""),
-                  message: Text("There is no transcript available to save."),
-                  dismissButton: .default(Text("OK")))
+        .alert(isPresented: $showTranscriptAlert) {
+            Alert(
+                title: Text(""),
+                message: Text("There is no transcript available to save."),
+                dismissButton: .default(Text("OK"))
+            )
         }
         .alert(isPresented: $showDeleteAccountAlert) {
             Alert(
@@ -95,7 +97,6 @@ struct SettingsView: View {
                 Divider()
                 Button("Share Transcript") {
                     self.appSettings.isPopoverPresented = false
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         saveTranscript()
                     }
@@ -179,13 +180,6 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-
-//             .default(Text(getSettingsText(for: languageCode, buttonName: "purchase"))) { showPurchaseDialog() },
-//             .default(Text(getSettingsText(for: languageCode, buttonName: "share"))) { self.showShareSheet = true },
-//             .default(Text(getSettingsText(for: languageCode, buttonName: "tweet"))) { tweet() },
-//             .default(Text(getSettingsText(for: languageCode, buttonName: "systemSettings"))) { openSystemSettings() },
-//             .default(Text(getSettingsText(for: languageCode, buttonName: "saveTranscript"))) { saveTranscript() }
-            
             .default(Text("Delete account")) { self.showDeleteAccountAlert = true },
             .cancel()
         ])
@@ -250,9 +244,9 @@ struct SettingsView: View {
     }
     
     func saveTranscript() {
-        MixpanelManager.shared.trackEvent(name: "Save Transcripte", properties: nil)
+        MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
-            showAlert = true
+            self.showTranscriptAlert = true
             return
         }
         isSaveTranscript = true
