@@ -1,3 +1,5 @@
+2023-12-05 Tue: Researched language localization for iOS Swift. Finally, implemented a [String Catalog](https://github.com/harmony-one/x/pull/318/) to handle language localization in a single file location. Still need to figure out what to do with the texts-related function on the Texts folder. 
+
 2023-12-04 Mon: Finished working on [Custom Instructions View](https://github.com/harmony-one/x/pull/299). Solved user experience and styling issues, updated the logic to move the user's custom instruction input to System Settings and left Default, Quick Facts, and Interactive Tutor logic on the View. Finally, reverted [Custom Instruction View Unit Test PR](https://github.com/harmony-one/x/pull/305), manually [reverted Custom Instruction View PR](https://github.com/harmony-one/x/pull/308) and updated the More Actions menu.
 
 ---
