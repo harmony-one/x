@@ -15,8 +15,6 @@ struct SettingsView: View {
     @State private var showShareSheet: Bool = false
     @State private var userName: String?
     @State private var isSaveTranscript = false
-    @State private var showDeleteAccountAlert = false
-    @State private var showingSignOutAlert = false
     @State private var isShareLogs = false
 
 
@@ -106,6 +104,7 @@ struct SettingsView: View {
         }
         .padding()
     }
+
     private func purchaseOptionsPopoverContent() -> some View {
         VStack {
             Text("settingsView.purchaseMenu.title").font(.headline)
@@ -115,7 +114,8 @@ struct SettingsView: View {
             Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
             Button("settingsView.purchaseMenu.deleteAccount") {
                 appSettings.isPopoverPresented = false
-                showDeleteAccountAlert()                     }
+                showDeleteAccountAlert()
+            }
             Button("button.cancel", role: .cancel) {
                 appSettings.isPopoverPresented = false
             }
