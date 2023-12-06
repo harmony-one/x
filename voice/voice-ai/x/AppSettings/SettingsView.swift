@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 import Sentry
 import OSLog
+import Darwin.sys.sysctl
 
 
 struct SettingsView: View {
@@ -245,6 +246,9 @@ struct SettingsView: View {
 
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
+        
+        // include settings here
+        transcript = settingsToTranscript(transcript: transcript)
 
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
@@ -257,6 +261,54 @@ struct SettingsView: View {
         }
 
         return transcript
+    }
+    
+    func settingsToTranscript(transcript: String) -> String {
+        var updatedTranscript = transcript
+        
+        func getAppVersion() -> String? {
+            guard let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+                return nil
+            }
+            return appVersion
+        }
+        
+        if let versionNumber = getAppVersion() {
+            updatedTranscript += "App Version: \(versionNumber)\n"
+        } else {
+            updatedTranscript += "App Version: Unknown\n"
+        }
+
+        // specific hardware model identifier
+        func getHardwareModel() -> String? {
+            var size: Int = 0
+            if sysctlbyname("hw.machine", nil, &size, nil, 0) != 0 {
+                print("Error: Could not determine size of hardware model string")
+                return nil
+            }
+
+            var machine = [CChar](repeating: 0, count: size)
+            if sysctlbyname("hw.machine", &machine, &size, nil, 0) != 0 {
+                print("Error: Could not retrieve hardware model string")
+                return nil
+            }
+
+            return String(cString: machine)
+        }
+
+        if let deviceModel = getHardwareModel() {
+            updatedTranscript += "Device: \(deviceModel)\n"
+        } else {
+            updatedTranscript += "Device: Unknown\n"
+        }
+        
+        let iosVersion = UIDevice.current.systemVersion
+        updatedTranscript += "iOS Version: \(iosVersion)\n"
+        
+        // new line for readability
+        updatedTranscript += "\n"
+        
+        return updatedTranscript
     }
 
     func deleteUserAccount() {
