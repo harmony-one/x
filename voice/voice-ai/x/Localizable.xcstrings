@@ -8,6 +8,7 @@
 
     },
     "actionsView.alert.newAppVersion.button1" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -18,6 +19,7 @@
       }
     },
     "actionsView.alert.newAppVersion.title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
