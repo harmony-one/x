@@ -692,6 +692,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func sayMore() {
         logger.log("[sayMore]")
+        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
         
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
@@ -716,6 +718,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 }
                 return
             }
+            
+            let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
+            self.timeLogger?.logSTT(sttTime: endTime - startTime)
 
             // Make the query for more information on a background thread
             self.makeQuery(self.sayMoreText)
