@@ -1,3 +1,5 @@
+2023-12-06 Wed: v1.1206.18 (10MB limit for sharing transcription, “Pause/Play” font alignment and icons update). Updated quickfacts custom instruction [#322](https://github.com/harmony-one/x/pull/322). Reviewed Sudoswap amm nft platform. [Tweeted](https://x.com/harmonyprotocol/status/1732482500482789880?s=20) weekly protocol updates. 
+
 2023-12-05 Tue: v1.1205.18 (Improved haptic feedback for “Press & Hold”). Worked with Alaina for the social media videos.
 
 2023-12-04 Mon: v1.1204.18 (iPhone 15 Action Button support for "Surprise Me!", check implemented for empty "Surprise Me!" result). Completed new x code review.

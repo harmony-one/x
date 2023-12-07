@@ -20,7 +20,7 @@ struct SettingsView: View {
 
 
     private var shareTitle = "hey @voiceaiapp "
-    
+
     private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
 
     var body: some View {
@@ -224,17 +224,17 @@ struct SettingsView: View {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
             //            return getSettingsText(for: languageCode, buttonName: "signOut")
-            return "Sign Out"
+            return String(localized: "settingsView.purchaseOptions.button.signOut")
         }
         //        return getSettingsText(for: languageCode, buttonName: "signIn")
-        return "Sign-in account"
+        return String(localized: "settingsView.purchaseOptions.button.signInAccountOut")
     }
 
     func saveTranscript() {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
-            let okAction = UIAlertAction(title: "Ok", style: .default)
-            showAlertForSettings(title: "", message: "There is no transcript available to save.", actions: [okAction])
+            let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
+            showAlertForSettings(title: "", message: String(localized: "settingsView.alert.noTranscriptAvailable.message"), actions: [okAction])
             return
         }
         isSaveTranscript = true
@@ -247,7 +247,7 @@ struct SettingsView: View {
 
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
-        
+
         // include settings here
         transcript = settingsToTranscript(transcript: transcript)
         var currentSize = transcript.data(using: .utf8)?.count ?? 0
@@ -255,10 +255,10 @@ struct SettingsView: View {
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
-                if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
+                if label == "GPT:" && content == String(localized: "customInstruction.default") {
                     continue
                 }
-                
+
                 let newEntry = "\(label) \(content)\n"
                 let newEntrySize = newEntry.data(using: .utf8)?.count ?? 0
 
@@ -273,17 +273,17 @@ struct SettingsView: View {
 
         return transcript
     }
-    
+
     func settingsToTranscript(transcript: String) -> String {
         var updatedTranscript = transcript
-        
+
         func getAppVersion() -> String? {
             guard let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
                 return nil
             }
             return appVersion
         }
-        
+
         if let versionNumber = getAppVersion() {
             updatedTranscript += "App Version: \(versionNumber)\n"
         } else {
@@ -312,13 +312,13 @@ struct SettingsView: View {
         } else {
             updatedTranscript += "Device: Unknown\n"
         }
-        
+
         let iosVersion = UIDevice.current.systemVersion
         updatedTranscript += "iOS Version: \(iosVersion)\n"
-        
+
         // new line for readability
         updatedTranscript += "\n"
-        
+
         return updatedTranscript
     }
 
@@ -344,21 +344,21 @@ struct SettingsView: View {
 
     func showSignOutAlert() {
 
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-        let deleteAction = UIAlertAction(title: "Sign Out", style: .destructive) { _ in
+        let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
+        let deleteAction = UIAlertAction(title: String(localized: "settingsView.alert.signOut.button"), style: .destructive) { _ in
             // Handle sign out action here
             KeychainService.shared.clearAll()
         }
-        showAlertForSettings(title: "Sign Ou", message: "Are you sure you want to sign out?", actions: [cancel, deleteAction])
+        showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
     }
 
     func showDeleteAccountAlert() {
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
+        let deleteAction = UIAlertAction(title: String(localized: "settingsView.alert.deleteAccount.button"), style: .destructive) { _ in
             // Handle the deletion here
             deleteUserAccount()
         }
-        showAlertForSettings(title: "Delete Account", message: "Your account and any associated purchases will be permanently deleted.", actions: [cancel, deleteAction])
+        showAlertForSettings(title: String(localized: "settingsView.alert.deleteAccount.title"), message: String(localized: "settingsView.alert.deleteAccount.message"), actions: [cancel, deleteAction])
     }
 
     func showAlertForSettings(title: String, message: String, actions: [UIAlertAction]) {

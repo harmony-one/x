@@ -14,8 +14,6 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "ActionsViewTests",
-        "ActivityViewTests",
         "CustomInstructionsHandlerTests",
         "ProgressViewComponentTests",
         "SettingsViewTests"
