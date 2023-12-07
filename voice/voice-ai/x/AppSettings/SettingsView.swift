@@ -250,6 +250,7 @@ struct SettingsView: View {
         
         // include settings here
         transcript = settingsToTranscript(transcript: transcript)
+        var currentSize = transcript.data(using: .utf8)?.count ?? 0
 
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
@@ -259,9 +260,11 @@ struct SettingsView: View {
                 }
                 
                 let newEntry = "\(label) \(content)\n"
+                let newEntrySize = newEntry.data(using: .utf8)?.count ?? 0
 
-                if let data = (transcript + newEntry).data(using: .utf8), data.count <= maxByteSize {
+                if currentSize + newEntrySize <= maxByteSize {
                     transcript += newEntry
+                    currentSize += newEntrySize
                 } else {
                     break
                 }
