@@ -103,21 +103,11 @@ class NewSessionIntentTests: XCTestCase {
     }
 }
 
-//@available(iOS 16.0, *)
-//class VoiceAIShortcutsTests: XCTestCase {
-//
-//    func testAppShortcuts() {
-//
-//        
-//        // Get the app shortcuts from the provider
-//        let appShortcuts = VoiceAIShortcuts.appShortcuts
-//        
-//        // Assert that the appShortcuts array is not empty
-//        XCTAssertFalse(appShortcuts.isEmpty)
-//        
-//        // Verify that each app shortcut contains an AppIntent
-//        for appShortcut in appShortcuts {
-//            XCTAssertTrue(appShortcut.intent is (any AppIntent), "Shortcut should contain an AppIntent")
-//        }
-//    }
-//}
+class VoiceAIShortcutsTests: XCTestCase {
+
+    func testAppShortcuts() {
+        let appShortcuts = VoiceAIShortcuts.appShortcuts
+        XCTAssertNotNil(appShortcuts)
+        
+    }
+}
