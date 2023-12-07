@@ -4,7 +4,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct NewSessionIntent: AppIntent {
   
-    static let title: LocalizedStringResource = "New Session"
+    static let title: LocalizedStringResource = "intent.newSession.title"
 
     static var openAppWhenRun: Bool = true
     

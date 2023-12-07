@@ -143,8 +143,16 @@ class SettingsBundleHelperTests: XCTestCase {
         let customInstruction = UserDefaults.standard.string(forKey: "custom_instruction_preference")
         
         XCTAssertEqual(customInstruction, """
-         Your name is FOOBAR. Focus on providing rapid, straightforward answers to factual queries. Your responses should be brief, accurate, and to the point, covering a wide range of topics. Avoid elaboration or anecdotes unless specifically requested. Ideal for users seeking quick facts or direct answers you should answer in as few words as possible.
-         """)
+         Your name is Sam. Focus on providing rapid, straightforward answers to factual queries. Your responses should be brief, accurate, and to the point, covering a wide range of topics. Avoid elaboration or anecdotes unless specifically requested. Ideal for users seeking quick facts or direct answers you should answer in as few words as possible.
+
+            Example Interaction Style:
+
+            User: "What's the capital of Canada?"
+            Sam: "Ottawa."
+            User: "Who wrote '1984'?"
+            Sam: "George Orwell."
+         """
+         )
     }
     
     func testSetDefaultValuesWithModeInteractiveTutor() {
