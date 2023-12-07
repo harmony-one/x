@@ -1,7 +1,12 @@
 import AuthenticationServices
 import SwiftUI
+import OSLog
 
 class AppleSignInManager: NSObject {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "AppleSignInManager")
+    )
     static let shared = AppleSignInManager()
     private weak var currentWindow: UIWindow?
     internal var isShowIAPFromSignIn = false
@@ -44,11 +49,11 @@ extension AppleSignInManager: ASAuthorizationControllerDelegate {
                 switch error.code {
                 case .canceled:
                     // Handle the cancellation here
-                    print("[AppleSignInManager] User cancelled the Apple Sign-In")
+                    self.logger.log("[AppleSignInManager] User cancelled the Apple Sign-In")
                     isShowIAPFromSignIn = true
                 default:
                     // Handle other errors
-                    print("Apple Sign-In error: \(error.localizedDescription)")
+                    self.logger.log("Apple Sign-In error: \(error.localizedDescription)")
                 }
             }
         }

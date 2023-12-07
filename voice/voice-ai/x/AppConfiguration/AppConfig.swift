@@ -3,8 +3,13 @@ import DeviceCheck
 import Foundation
 import Sentry
 import SwiftyJSON
+import OSLog
 
 class AppConfig {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "AppConfig")
+    )
     // Shared singleton instance
     static let shared = AppConfig()
     private var relay: RelayAuth = .shared
@@ -72,13 +77,13 @@ class AppConfig {
     
     private func requestOpenAIKey() async {
         guard let relayBaseUrl = relayBaseUrl else {
-            print("Relay URL not set")
+            self.logger.log("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return
         }
         let session = URLSession(configuration: .default)
         guard let url = URL(string: "\(relayBaseUrl)/soft/key") else {
-            print("Invalid Relay URL")
+            self.logger.log("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return
         }
@@ -89,7 +94,7 @@ class AppConfig {
         request.setValue(token, forHTTPHeaderField: "X-DEVICE-TOKEN")
         let task = session.dataTask(with: request) { data, _, err in
             if let err = err {
-                print("[AppConfig][requestOpenAIKey] cannot get key", err)
+                self.logger.log("[AppConfig][requestOpenAIKey] cannot get key \(err)")
                 SentrySDK.capture(message: "Cannot get key. Error: \(err)")
                 return
             }
@@ -97,7 +102,7 @@ class AppConfig {
                 let res = try JSON(data: data!)
                 let eeKey = res["key"].string
                 guard let eeKey = eeKey else {
-                    print("[AppConfig][requestOpenAIKey] response has no key", res)
+                    self.logger.log("[AppConfig][requestOpenAIKey] response has no key \(res)")
                     SentrySDK.capture(message: "[AppConfig][requestOpenAIKey]  response has no key")
                     return
                 }
@@ -105,7 +110,7 @@ class AppConfig {
                 let key = try self.decrypt(base64EncodedEncryptedKey: eeKey)
                 self.openaiKey = key
             } catch {
-                print("[AppConfig][requestOpenAIKey] error processing key response", error)
+                self.logger.log("[AppConfig][requestOpenAIKey] error processing key response \(error)")
                 SentrySDK.capture(message: "[AppConfig][requestOpenAIKey] error processing key response \(error)")
             }
         }
@@ -172,13 +177,13 @@ class AppConfig {
         }
         
         guard let relayUrl = relayBaseUrl else {
-            print("Relay URL not set")
+            self.logger.log("Relay URL not set")
             SentrySDK.capture(message: "Relay URL not set")
             return false
         }
         
         guard let url = URL(string: "\(relayUrl)/whitelist") else {
-            print("Invalid Relay URL")
+            self.logger.log("Invalid Relay URL")
             SentrySDK.capture(message: "Invalid Relay URL")
             return false
         }
@@ -192,7 +197,7 @@ class AppConfig {
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         } catch {
-            print("[AppConfig][checkWhiteList] error JSONSerialization", error)
+            self.logger.log("[AppConfig][checkWhiteList] error JSONSerialization \(error)")
             SentrySDK.capture(message: "[AppConfig][checkWhiteList] JSONSerialization \(error)")
             return false
         }
@@ -202,12 +207,12 @@ class AppConfig {
             
             let res = try JSON(data: data)
             guard let status = res["status"].bool else {
-                print("[AppConfig][checkWhiteList] status false \(res)")
+                self.logger.log("[AppConfig][checkWhiteList] status false \(res)")
                 return false
             }
             return status
         } catch {
-            print("[AppConfig][checkWhiteList] error processing whitelist response", error)
+            self.logger.log("[AppConfig][checkWhiteList] error processing whitelist response \(error)")
             SentrySDK.capture(message: "[AppConfig][checkWhiteList] error processing whitelist response \(error)")
             return false
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224BECD72B20AC9100C84602 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BECD62B20AC9100C84602 /* LogStore.swift */; };
 		22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
@@ -339,6 +340,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		224BECD62B20AC9100C84602 /* LogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 		22A7A81D2B0B703E0027679F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncedProducts.storekit; sourceTree = "<group>"; };
 		22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -537,6 +539,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		224BECD52B20AC7F00C84602 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				224BECD62B20AC9100C84602 /* LogStore.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
 		22CC4D722AF3AB350072EC39 /* IAP */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +799,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				224BECD52B20AC7F00C84602 /* Logs */,
 				F76D13CD2B195C920018F89B /* Texts */,
 				6E95F22C2B1E65F300260BCA /* Intents */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
@@ -1302,6 +1313,7 @@
 				B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */,
 				6E6D53242AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				224BECD72B20AC9100C84602 /* LogStore.swift in Sources */,
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,

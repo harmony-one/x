@@ -1,6 +1,11 @@
 import StoreKit
+import OSLog
 
 class Store: ObservableObject {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "ProductsStore")
+    )
 //    private var productIDs = ["com.country.app.purchase.3day"]
     private var productIDs = ["com.country.x.purchase.3day"]
     @Published var products = [Product]()
@@ -23,11 +28,11 @@ class Store: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
-            print("[Store] ", productIDs)
+            self.logger.log("[Store] \(self.productIDs)")
             products = try await Product.products(for: productIDs)
-            print("[Store] Products:", products)
+            self.logger.log("[Store] Products: \(self.products)")
         } catch {
-            print(error)
+            self.logger.log("requestProducts error: \(error)")
             products = []
         }
     }
