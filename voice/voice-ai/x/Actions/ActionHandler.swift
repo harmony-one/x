@@ -178,7 +178,6 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
         if isRecording {
             isRecording = false
             print("Stopped Recording")
-            VibrationManager.shared.startVibration()
             speechRecognition.stopSpeak(cancel: cancel)
             // Simulating delay before triggering a synthesizing state change
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
