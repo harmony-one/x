@@ -1,8 +1,8 @@
 import Foundation
 
-func getLimitReachedText(for languageCode: String) -> String? {
-    return limitReachedText[languageCode]
-}
+//func getLimitReachedText(for languageCode: String) -> String? {
+//    return limitReachedText[languageCode]
+//}
 
 let limitReachedText: [String: String] = [
     "aa": "Qof walba wuxuu gaaray go'aankaaga, fadlan sug 10 daqiiqo",

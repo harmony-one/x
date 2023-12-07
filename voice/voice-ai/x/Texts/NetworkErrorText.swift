@@ -1,8 +1,8 @@
 import Foundation
 
-func getNetworkErrorText(for languageCode: String) -> String? {
-    return networkErrorText[languageCode]
-}
+//func getNetworkErrorText(for languageCode: String) -> String? {
+//    return networkErrorText[languageCode]
+//}
 
 let networkErrorText: [String: String] = [
     "aa": "Maal jira internettaa.",

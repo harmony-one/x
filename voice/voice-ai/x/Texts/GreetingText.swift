@@ -1,8 +1,8 @@
 import Foundation
 
-func getGreetingText(for languageCode: String) -> String? {
-    return greetingText[languageCode]
-}
+//func getGreetingText(for languageCode: String) -> String? {
+//    return greetingText[languageCode]
+//}
 
 let greetingText: [String: String] = [
     "aa": "Hey",

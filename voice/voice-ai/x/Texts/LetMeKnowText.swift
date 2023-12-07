@@ -1,8 +1,8 @@
 import Foundation
 
-func getLetMeKnowText(for languageCode: String) -> String? {
-    return letMeKnowText[languageCode]
-}
+//func getLetMeKnowText(for languageCode: String) -> String? {
+//    return letMeKnowText[languageCode]
+//}
 
 let letMeKnowText: [String: String] = [
     "aa": "Fainyie ŋmɛ anaa m'asan de akyi",

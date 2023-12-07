@@ -1,8 +1,8 @@
 import Foundation
-
-func getAnswerLimitText(for languageCode: String) -> String? {
-    return letMeKnowText[languageCode]
-}
+//
+//func getAnswerLimitText(for languageCode: String) -> String? {
+//    return letMeKnowText[languageCode]
+//}
 
 var answerLimitText: [String: String] = [
     "aa": "Mi gudu wadata 100 su'ali na minti kan wannan lokaci.",

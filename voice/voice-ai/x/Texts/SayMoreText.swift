@@ -1,8 +1,8 @@
 import Foundation
 
-func getSayMoreText(for languageCode: String) -> String? {
-    return sayMoreText[languageCode]
-}
+//func getSayMoreText(for languageCode: String) -> String? {
+//    return sayMoreText[languageCode]
+//}
 
 let sayMoreText: [String: String] = [
     "aa": "Haddii aad i sheegto",
