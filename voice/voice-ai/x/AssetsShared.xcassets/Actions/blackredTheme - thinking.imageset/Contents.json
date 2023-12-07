@@ -1,15 +1,21 @@
 {
   "images" : [
     {
-      "filename" : "blackredTheme - thinking.pdf",
-      "idiom" : "universal"
+      "filename" : "thinking icon 80 x 80 (1).svg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }

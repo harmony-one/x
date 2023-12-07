@@ -14,11 +14,8 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "ActionsViewTests",
-        "ActivityViewTests",
         "CustomInstructionsHandlerTests",
-        "ProgressViewComponentTests",
-        "SettingsViewTests"
+        "ProgressViewComponentTests"
       ],
       "target" : {
         "containerPath" : "container:Voice AI.xcodeproj",

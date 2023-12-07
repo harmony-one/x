@@ -20,7 +20,14 @@ class SettingsViewTests: XCTestCase {
         super.tearDown()
     }
     
-    func testGetUserNameWithEmail() {
+    func testGetUserNameSignIn() {
+        let keychainService = KeychainService.shared
+        keychainService.clearAll()
+        
+        XCTAssertEqual(settingsView.getUserName(), "Sign-in account")
+    }
+    
+    func testGetUserNameSignOut() {
         let keychainService = KeychainService.shared
         keychainService.clearAll()
         
@@ -31,27 +38,7 @@ class SettingsViewTests: XCTestCase {
         keychainService.storeUserCredentials(appleId: appleId, fullName: fullName, email: email)
 
         let userName = settingsView.getUserName()
-        XCTAssertEqual(userName, "john@example.com", "Username should be retrieved email")
-    }
-    
-    func testGetUserNameWithoutEmail() {
-        let keychainService = KeychainService.shared
-        keychainService.clearAll()
-        
-        let appleId = "testUserId"
-        let fullName = "Jane Doe"
-        
-        keychainService.storeUserCredentials(appleId: appleId, fullName: fullName, email: nil)
-
-        let userName = settingsView.getUserName()
-        XCTAssertEqual(userName, "User id not found")
-    }
-
-    func testGetUserNameSignIn() {
-        let keychainService = KeychainService.shared
-        keychainService.clearAll()
-        
-        XCTAssertEqual(settingsView.getUserName(), "Sign In")
+        XCTAssertEqual(userName, "Sign Out")
     }
     
     func testConvertEmptyMessagesToTranscript() {
