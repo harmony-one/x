@@ -4,7 +4,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct PlayPauseIntent: AppIntent {
   
-    static let title: LocalizedStringResource = "Play / Pause"
+    static let title: LocalizedStringResource = "intent.playPause.title"
 
     static var openAppWhenRun: Bool = true
     
