@@ -218,7 +218,7 @@ struct SettingsView: View {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
             let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
-            showAlertForSettings(title: "", message: String(localized: "settingsView.alert.noTranscriptAvailable.message"), actions: [okAction])
+            AlertManager.showAlertForSettings(title: "", message: String(localized: "settingsView.alert.noTranscriptAvailable.message"), actions: [okAction])
             return
         }
         isSaveTranscript = true
@@ -267,7 +267,7 @@ struct SettingsView: View {
             // Handle sign out action here
             KeychainService.shared.clearAll()
         }
-        showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
+        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
     }
     
     func showDeleteAccountAlert() {
@@ -276,29 +276,6 @@ struct SettingsView: View {
             // Handle the deletion here
             deleteUserAccount()
         }
-        showAlertForSettings(title: String(localized: "settingsView.alert.deleteAccount.title"), message: String(localized: "settingsView.alert.deleteAccount.message"), actions: [cancel, deleteAction])
-    }
-    
-    func showAlertForSettings(title: String, message: String, actions: [UIAlertAction]) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            DispatchQueue.main.async {
-                guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-                    print("No active window scene found")
-                    return
-                }
-                
-                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                
-                for action in actions {
-                    alert.addAction(action)
-                }
-                
-                if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
-                    rootViewController.present(alert, animated: true, completion: nil)
-                } else {
-                    print("No root view controller found to present the alert")
-                }
-            }
-        }
+        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.deleteAccount.title"), message: String(localized: "settingsView.alert.deleteAccount.message"), actions: [cancel, deleteAction])
     }
 }
