@@ -307,8 +307,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
-        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        
         let transaction = SentrySDK.startTransaction(
           name: "Request OpenAI", // give it a name
           operation: "openai.request" // and a name for the operation
@@ -322,11 +320,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             guard !response.isEmpty else {
                 return
             }
+            
+            let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
             registerTTS()
             
             if !isRepeatingCurrentSession {
-                let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
-                
                 textToSpeechConverter.convertTextToSpeech(text: response)
                 
                 let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
@@ -653,6 +651,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
     func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
+            self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+            let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+            
             self.logger.log("[surprise]")
 
             // Stop any ongoing interactions and speech.
@@ -676,6 +677,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
 
             // Now make the query to fetch the fact.
+            let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
+            self.timeLogger?.logSTT(sttTime: endTime - startTime)
+            
             self.makeQuery(query, rateLimit: false)
         }
 
@@ -748,6 +752,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
+        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        
         DispatchQueue.global(qos: .userInitiated).async {
             self.logger.log("[stopSpeak]")
             
@@ -764,6 +771,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 self.recognitionLock.signal()
                 
                 // Make the query on the background thread
+                let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
+                self.timeLogger?.logSTT(sttTime: endTime - startTime)
+                
                 self.makeQuery(message)
             } else {
                 // Handle the lack of recognized text

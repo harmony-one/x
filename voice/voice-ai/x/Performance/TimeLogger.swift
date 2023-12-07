@@ -61,7 +61,7 @@ class TimeLogger {
     }
     
     func logTTS(ttsTime: Int64) {
-        if ttsTime > 0 {
+        if self.ttsTime > 0 {
             return
         }
         
@@ -69,6 +69,10 @@ class TimeLogger {
     }
     
     func logSTT(sttTime: Int64) {
+        if self.sttTime > 0 {
+            return
+        }
+        
         self.sttTime = sttTime
     }
     
