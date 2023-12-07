@@ -65,6 +65,9 @@ class CreateUserTests: XCTestCase {
     }
 }
 
+
+
+
 class UserAPITests: XCTestCase {
     var keychainService: KeychainService!
     var api: UserAPI!
@@ -158,6 +161,14 @@ class UserAPITests: XCTestCase {
         // Assert that the network request is made correctly
         // Assert that the correct data is stored in KeychainService
 
+    }
+    
+    func testGetDeviceID() {
+        let deviceID = DeviceInfo.getDeviceID()
+        print("****** \(deviceID)")
+        XCTAssertNotNil(deviceID)
+        XCTAssertNotEqual(deviceID, "Not available", "Device Info found")
+        XCTAssertTrue(deviceID.count > 0)
     }
     
 }
