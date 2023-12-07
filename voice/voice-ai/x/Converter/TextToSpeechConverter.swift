@@ -4,14 +4,14 @@ import OSLog
 
 protocol TextToSpeechConverterProtocol {
     var isSpeaking: Bool { get }
-    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?)
+    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?) -> Int64
     func stopSpeech()
     func pauseSpeech()
     func continueSpeech()
 }
 
 // TextToSpeechConverter class responsible for converting text to speech
-class TextToSpeechConverter: TextToSpeechConverterProtocol {
+class TextToSpeechConverter: TextToSpeechConverterProtocol {    
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "TextToSpeechConverter")
