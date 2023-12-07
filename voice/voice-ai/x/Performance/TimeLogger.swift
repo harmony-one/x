@@ -1,7 +1,12 @@
 import Foundation
 import Sentry
+import OSLog
 
 class TimeLogger {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "TimeLogger")
+    )
     // TODO: use ContinuousClock https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
     private let relay = RelayAuth.shared
     private var startTime: Int64
@@ -115,7 +120,7 @@ class TimeLogger {
             error: error
         )
         if printDebug {
-            print("[TimeLogger]", logDetails)
+            self.logger.log("[TimeLogger] \(String(describing: logDetails))")
         }
         Task {
             await RelayAuth.shared.record(logDetails)
