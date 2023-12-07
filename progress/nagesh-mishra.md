@@ -1,3 +1,8 @@
+2023-12-07 Thu: Modified the "Press & Hold" feature to provide haptic feedback only upon finger release and added a vibration every second during the wait for a response.
+Evaluated the MobSF security framework and implemented a check for user access to premium voice features, with a alert for those without access.
+
+2023-12-06 Web: Implemented a 'Thinking' image with a play button that activates on press and hold, enhancing user interaction. Resolved alert-related issues in settings for improved UI stability. Integrated a beep sound for failed API calls for better user feedback and fixed vibration manager unit test cases.
+
 2023-12-05 Tue: Eliminated the loading circle displayed during in-app purchase activation and added a sign-out feature.
 
 2023-12-04 Mon: Resolved issues with Mixpanel(PR: https://github.com/harmony-one/x/pull/298) and developed a specialized settings view for iPad (branch: https://github.com/harmony-one/x/tree/customSettingView).
