@@ -11,7 +11,6 @@ protocol TextToSpeechConverterProtocol {
 
 // TextToSpeechConverter class responsible for converting text to speech
 class TextToSpeechConverter: TextToSpeechConverterProtocol {
-    
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
     let languageCode = getLanguageCode()
@@ -22,7 +21,9 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     private(set) var isDefaultVoiceUsed = false
     
     // Function to convert text to speech with customizable pitch and volume parameters
-    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") {
+    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") -> Int64 {
+        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
@@ -56,6 +57,10 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         
         // Speak the provided utterance using the AVSpeechSynthesizer
         synthesizer.speak(utterance)
+        
+        let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        
+        return startTime - endTime
     }
     
     // Function to stop ongoing speech

@@ -316,7 +316,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             registerTTS()
             
             if !isRepeatingCurrentSession {
-                textToSpeechConverter.convertTextToSpeech(text: response)
+                let ttsTime = textToSpeechConverter.convertTextToSpeech(text: response)
+                self.timeLogger?.logTTS(ttsTime: ttsTime)
             }
             completeResponse.append(response)
             print("[SpeechRecognition] flush response: \(response)")

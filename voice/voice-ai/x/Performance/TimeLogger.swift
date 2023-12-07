@@ -55,6 +55,14 @@ class TimeLogger {
         finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000000)
     }
     
+    func logTTS(ttsTime: Int64) {
+        self.ttsTime = ttsTime
+    }
+    
+    func logSTT(sttTime: Int64) {
+        self.sttTime = sttTime
+    }
+    
     func log(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
         if once, logged {
             return
