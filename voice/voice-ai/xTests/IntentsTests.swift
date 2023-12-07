@@ -1,4 +1,6 @@
 import Foundation
+import AppIntents
+
 import XCTest
 @testable import Voice_AI
 
@@ -35,4 +37,20 @@ class IntentManagerTests: XCTestCase {
         intentManager.showSettings()
         XCTAssertEqual(AppSettings.shared.type, .settings)
     }
+}
+
+class AppSettingsIntentTests: XCTestCase {
+    func testPerform() async {
+            let appSettingsIntent = AppSettingsIntent()
+            let expectation = expectation(description: "AppSettingsIntent perform completed")
+            
+            do {
+                let intentResult = try await appSettingsIntent.perform()
+                XCTAssertNotNil(intentResult)
+                expectation.fulfill()
+            } catch {
+                XCTFail("AppSettingsIntent perform threw an error: \(error)")
+            }
+            await waitForExpectations(timeout: 5)
+        }
 }
