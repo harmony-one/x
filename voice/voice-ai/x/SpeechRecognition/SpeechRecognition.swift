@@ -325,8 +325,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             registerTTS()
             
             if !isRepeatingCurrentSession {
-                let ttsTime = textToSpeechConverter.convertTextToSpeech(text: response)
-                self.timeLogger?.logTTS(ttsTime: ttsTime)
+                let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+                
+                textToSpeechConverter.convertTextToSpeech(text: response)
+                
+                let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
+                self.timeLogger?.logTTS(ttsTime: endTime - startTime)
             }
             completeResponse.append(response)
             logger.log("flush response: \(response)")

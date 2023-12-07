@@ -4,14 +4,14 @@ import OSLog
 
 protocol TextToSpeechConverterProtocol {
     var isSpeaking: Bool { get }
-    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?) -> Int64
+    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?)
     func stopSpeech()
     func pauseSpeech()
     func continueSpeech()
 }
 
 // TextToSpeechConverter class responsible for converting text to speech
-class TextToSpeechConverter: TextToSpeechConverterProtocol {    
+class TextToSpeechConverter: TextToSpeechConverterProtocol {
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "TextToSpeechConverter")
@@ -26,9 +26,7 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     private(set) var isDefaultVoiceUsed = false
     
     // Function to convert text to speech with customizable pitch and volume parameters
-    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") -> Int64 {
-        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
-        
+    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") {
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
@@ -62,10 +60,6 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         
         // Speak the provided utterance using the AVSpeechSynthesizer
         synthesizer.speak(utterance)
-        
-        let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
-        
-        return startTime - endTime
     }
     
     // Function to stop ongoing speech
