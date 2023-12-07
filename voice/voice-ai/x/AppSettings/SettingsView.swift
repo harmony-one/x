@@ -20,7 +20,8 @@ struct SettingsView: View {
 
 
     private var shareTitle = "hey @voiceaiapp "
-
+    
+    private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
 
     var body: some View {
         ZStack {
@@ -256,7 +257,14 @@ struct SettingsView: View {
                 if label == "GPT:" && content == "We are having a face-to-face voice conversation. Be concise, direct and certain. Avoid apologies, interjections, disclaimers, pleasantries, confirmations, remarks, suggestions, chitchats, thankfulness, acknowledgements. Never end with questions. Never mention your being AI or knowledge cutoff. Your name is Sam." {
                     continue
                 }
-                transcript += "\(label) \(content)\n"
+                
+                let newEntry = "\(label) \(content)\n"
+
+                if let data = (transcript + newEntry).data(using: .utf8), data.count <= maxByteSize {
+                    transcript += newEntry
+                } else {
+                    break
+                }
             }
         }
 
