@@ -235,11 +235,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             logger.log("[handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
             
-            if nsError.code == 1110 {
-                vibration.stopVibration()
-            }
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
+
                 logger.log("No speech was detected. Please speak again.")
+
+                if !self.isThinking {
+                    vibration.stopVibration()
+                }
+
 //                self.registerTTS()
 //                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
@@ -299,6 +302,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.main.async {
             self.isThinking = true
         }
+        vibration.startVibration()
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
@@ -325,6 +329,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 self.isThinking = false
             }
+            vibration.stopVibration()
             buf.removeAll()
         }
         
@@ -345,8 +350,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
-                self.vibration.stopVibration()
-              
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
@@ -423,11 +426,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 self.isThinking = false
             }
+            vibration.stopVibration()
+
             isRequestingOpenAI = false
             let nsError = error as NSError
             if nsError.code == -999 {
+
                 logger.log("OpenAI Cancelled")
                 VibrationManager.shared.stopVibration()
+
                 // Commented for now since we were receiving arbitrary -999 that was causing beeping.
 //                audioPlayer.playSound(false)
                 
@@ -515,6 +522,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         DispatchQueue.main.async {
             self.isThinking = false
         }
+        vibration.stopVibration()
         audioPlayer.playSound(false)
         // Perform all UI updates on the main thread
         DispatchQueue.main.async {

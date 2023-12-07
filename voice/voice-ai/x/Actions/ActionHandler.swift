@@ -182,8 +182,10 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
     func stopRecording(cancel: Bool = false) {
         if isRecording {
             isRecording = false
+
             self.logger.log("Stopped Recording")
             VibrationManager.shared.startVibration()
+
             speechRecognition.stopSpeak(cancel: cancel)
             // Simulating delay before triggering a synthesizing state change
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
