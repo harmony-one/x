@@ -10,6 +10,15 @@ import Foundation
     @Published private(set) var entries: [String] = []
 
     func export() {
+        let dateFormatStyle = Date.FormatStyle()
+            .year(.defaultDigits)
+            .month(.twoDigits)
+            .day(.twoDigits)
+            .hour(.twoDigits(amPM: .abbreviated))
+            .minute(.twoDigits)
+            .second(.twoDigits)
+            .secondFraction(.fractional(3))
+
         do {
             let store = try OSLogStore(scope: .currentProcessIdentifier)
             let position = store.position(timeIntervalSinceLatestBoot: 1)
@@ -17,7 +26,7 @@ import Foundation
                 .getEntries(at: position)
                 .compactMap { $0 as? OSLogEntryLog }
                 .filter { $0.subsystem == Bundle.main.bundleIdentifier! }
-                .map { "[\($0.date.formatted())] [\($0.category)] \($0.composedMessage)" }
+                .map { "[\($0.date.formatted(dateFormatStyle))] \($0.composedMessage)" }
         } catch {
             logger.warning("\(error.localizedDescription, privacy: .public)")
         }

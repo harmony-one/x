@@ -130,8 +130,7 @@ struct SettingsView: View {
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
-            .default(Text("Share logs")) { shareLogs() },
+            .default(Text("settingsView.mainMenu.shareTranscript")) { shareLogs() },
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
