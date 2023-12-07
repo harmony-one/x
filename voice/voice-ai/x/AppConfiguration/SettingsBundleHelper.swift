@@ -6,6 +6,7 @@ class SettingsBundleHelper {
         static let Username = "USER_NAME"
         static let CustomMode = "custom_mode"
     }
+    
     // TODO: Not beig used -- I believe this is work in progress?
 //     class func checkAndExecuteSettings() {
 //         var content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
@@ -31,7 +32,7 @@ class SettingsBundleHelper {
          UserDefaults.standard.set(defaultCustomInstruction, forKey: "custom_instruction_preference")
      }
     
-     class func hasPremiumMode() -> Bool {
+    class func hasPremiumMode() -> Bool {
          if let whiteLabelList = AppConfig.shared.getWhiteLabelListString(),
            let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username),
            whiteLabelList.contains(username) {
@@ -40,6 +41,7 @@ class SettingsBundleHelper {
             return false
         }
     }
+    
     class func getUserName() -> String? {
         let username = UserDefaults.standard.string(forKey: SettingsBundleKeys.Username)
         return username

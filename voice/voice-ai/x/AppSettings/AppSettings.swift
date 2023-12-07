@@ -34,6 +34,7 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "custom_instruction_preference", newValue: customInstructions)
         }
     }
+
     @Published var userName: String {
         didSet {
             updateUserDefaultsIfNeeded(forKey: "USER_NAME", newValue: userName)
@@ -96,16 +97,27 @@ class AppSettings: ObservableObject {
         let defaults = [
             "EXPIRE_AT": localDate,
             "custom_instruction_preference": String(localized: "customInstruction.default"),
-            "USER_NAME": "User"
+            "USER_NAME": "User",
         ]
         UserDefaults.standard.register(defaults: defaults)
     }
     
     private func loadSettings() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
+        let modeToUse = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
-        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
+//        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
+    
+        switch modeToUse {
+            case "mode_quick_facts":
+                customInstructions = String(localized: "customInstruction.quickFacts")
+            case "mode_interactive_tutor":
+                customInstructions = String(localized: "customInstruction.interactiveTutor")
+            default:
+                customInstructions = String(localized: "customInstruction.default")
+        }
     }
     
     private func updateUserDefaultsIfNeeded(forKey key: String, newValue: String) {
