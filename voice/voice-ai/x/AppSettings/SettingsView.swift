@@ -294,13 +294,13 @@ struct SettingsView: View {
         func getHardwareModel() -> String? {
             var size: Int = 0
             if sysctlbyname("hw.machine", nil, &size, nil, 0) != 0 {
-                print("Error: Could not determine size of hardware model string")
+                self.logger.log("Error: Could not determine size of hardware model string")
                 return nil
             }
 
             var machine = [CChar](repeating: 0, count: size)
             if sysctlbyname("hw.machine", &machine, &size, nil, 0) != 0 {
-                print("Error: Could not retrieve hardware model string")
+                self.logger.log("Error: Could not retrieve hardware model string")
                 return nil
             }
 
@@ -365,7 +365,7 @@ struct SettingsView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             DispatchQueue.main.async {
                 guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-                    print("No active window scene found")
+                    self.logger.log("No active window scene found")
                     return
                 }
 
@@ -378,7 +378,7 @@ struct SettingsView: View {
                 if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
                     rootViewController.present(alert, animated: true, completion: nil)
                 } else {
-                    print("No root view controller found to present the alert")
+                    self.logger.log("No root view controller found to present the alert")
                 }
             }
         }

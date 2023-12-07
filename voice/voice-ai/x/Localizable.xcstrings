@@ -396,6 +396,9 @@
         }
       }
     },
+    "Share logs" : {
+
+    },
     "speechRecognition.text.answerLimit" : {
       "localizations" : {
         "en" : {

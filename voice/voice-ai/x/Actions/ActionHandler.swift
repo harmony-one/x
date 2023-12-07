@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import UIKit
+import OSLog
 
 enum ActionType {
     case reset
@@ -64,6 +65,10 @@ protocol ActionHandlerProtocol {
 }
 
 class ActionHandler: ActionHandlerProtocol, ObservableObject {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "ActionHandler")
+    )
     @Published var isSynthesizing: Bool = false
     var isSynthesizingPublished: Published<Bool> { _isSynthesizing }
     var isSynthesizingPublisher: Published<Bool>.Publisher { $isSynthesizing }
@@ -117,7 +122,7 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
 
     func handle(actionType: ActionType) {
         syncTapToSpeakState(actionType)
-        print("Run action \(actionType)")
+        self.logger.log("Run action: \(actionType.hashValue)")
         switch actionType {
         case .reset:
             resetThrottler.send()
@@ -153,7 +158,7 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
             if UIApplication.shared.canOpenURL(url!) {
                 UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             } else {
-                print("Cannot open URL")
+                self.logger.log("Cannot open URL: \(url!)")
             }
         }
     }
@@ -170,14 +175,14 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
         }
         lastRecordingStateChangeTime = Int64(NSDate().timeIntervalSince1970 * 1000)
         isRecording = true
-        print("Started Recording...")
+        self.logger.log("Started Recording...")
         SpeechRecognition.shared.speak()
     }
 
     func stopRecording(cancel: Bool = false) {
         if isRecording {
             isRecording = false
-            print("Stopped Recording")
+            self.logger.log("Stopped Recording")
             VibrationManager.shared.startVibration()
             speechRecognition.stopSpeak(cancel: cancel)
             // Simulating delay before triggering a synthesizing state change
