@@ -51,6 +51,15 @@
       "error": {
         "type": "text",
         "fielddata": true
+      },
+      "ttsTime": {
+        "type": "long"
+      },
+      "sttTime": {
+        "type": "long"
+      },
+      "audioCapturingDelay": {
+        "type": "long"
       }
     }
   }

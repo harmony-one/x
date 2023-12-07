@@ -31,6 +31,9 @@ export interface ClientUsageLogData {
   responseMessage?: string
   totalResponseTime: string // from bigint
   firstResponseTime: string // from bigint
+  ttsTime: string // from bigint
+  sttTime: string // from bigint
+  audioCapturingDelay: string // from bigint
   cancelled: boolean
   completed: boolean
   error: string
