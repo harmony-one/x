@@ -103,20 +103,49 @@ Additionally, if `APP-ERROR` or `APP-CANCEL` occurs in between any of the above 
 
 ### Metadata
 
-We need a unique, consistent id to identify a user that we can associate with the measurements. We are using two values to achieve this purpose:
+First, we need a unique, consistent id to identify a user that we can associate with the measurements. We are using two values to achieve this purpose:
 
 1. `attestationHash`: The hash of the app attestation signed by Apple (based on key id generated at client, and randomly generated challenge value provided by Relay). This value is persisted at the app and is unlikely to change unless the user clears all app data, or when the user's device changes, or the user upgrades its iOS version. The attestation is verified by Relay when it issues a temporary authentication to the app. Whenever the app sends API requests (such as OpenAI completion call) to the Relay using the authentication token, the corresponding `attestationHash` value would be retrieved by Relay and added to the request.  
 2. `deviceTokenHash`: The hash of device token, signed by Apple and verified by Relay at each request (with a long duration memory-based cache). The device token is unique to a device. The token is attached to every request for recording the measurements when they are sent from the app to the Relay. 
 
-As a result, `attestationHash` is used to identify the user for 
+As a result, `attestationHash` is used to identify the user for Relay-vendor measurements (as used in `bot-token-usage-v1` index), and `deviceTokenHash` is used to identify the user for app client-side measurements (as used in `bot-client-usage-v1` index). At present this creates some difficulty aligning the records and measurements. In the near future we may include `deviceTokenHash` in Relay-vendor measurements as well, by making the app include device token in API calls to the Relay, and to have Relay associate `deviceTokenHash` and `attestationHash` at the server side as well
 
-Longer requests and responses likely lead to longer delay and overall decreased user experience. Because of that, we should measure the length of the request and response along with each recorded event. 
+Secondly, longer requests and responses likely lead to longer delay and overall decreased user experience. Because of that, we should measure the length of the request and response along with the recorded measurements.
 
+Relevant values are:
 
+1. `requestTokens`: The number of tokens present in the current inference request (e.g. for OpenAI chat completion call), including the context. In English the number of tokens roughly equal to the number of words (plus punctuations), but it is more nuanced in other languages. Moreover, this value is much less than `prompt_tokens` provided by OpenAI, since OpenAI tokenize words at a more granular level.
+2. `responseTokens`: The number of tokens in the response. This value should equal to the value provided by OpenAI, since it can be accurately and efficiently calculated (OpenAI streaming produces one token for each chunk)
+3. `requestNumMessages`: Total number of chat messages in the current request, including the context
+4. `requestNumUserMessages`: Total number of chat messages from the user in the current request
 
+In addition, we also record the text content in the request and response. The text is automatically analyzed by ElasticSearch, so we may later use the field to identify top words and phrases in queries.
 
 ## Client-side Implementation
 
+See [TimeLogger](https://github.com/harmony-one/x/blob/a9ab785279a76b558b4e6b5c06ddac259082f6eb/voice/voice-ai/x/Performance/TimeLogger.swift) and how it is used in [OpenAIStreamService](https://github.com/harmony-one/x/blob/a9ab785279a76b558b4e6b5c06ddac259082f6eb/voice/voice-ai/x/OpenAIService/OpenAIStreamService.swift#L17C40-L17C40). To add more fields, both the `log` function and `struct ClientUsageLog` in `RelayAuth` need to be extended. More functions need to be added to hold temporary measurements, and `log` function can be transformed into a function without parameter that acts as a "final action" to write the record. 
 
+Tips: After TimeLogger is extended and made stateful, an instance of TimeLogger can be created and passed around in different classes such as SpeechRecognition, ActionView, and other modules. An id could be added to each end-to-end user interaction and used across classes to alleviate concurrency issues.    
 
-## ElasticSearch Roles, Users, Access
+## ElasticSearch Indexes, Roles, Users, Access
+
+### Indexes
+
+See [client-usage.json](https://github.com/harmony-one/x/blob/a9ab785279a76b558b4e6b5c06ddac259082f6eb/voice/relay/src/services/schemas/client-usage.json) and [token-usage.sjon](https://github.com/harmony-one/x/blob/a9ab785279a76b558b4e6b5c06ddac259082f6eb/voice/relay/src/services/schemas/token-usage.json) for current ElasticSearch index mapping definitions.
+
+The corresponding indexes in production are `bot-client-usage-v1` and `bot-token-usage-v1`
+
+**IMPORTANT**: Please update the mapping with more fields before indexing new data (with new fields) to ElasticSearch. See [Update Mapping API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html). Failure to do so would make ElasticSearch automatically infer the type of the new field when new data is indexed, and most of the time the inference is wrong and the index would be stuck with an incorrectly typed field.
+
+Please also update the json files as mapping fields get updated 
+
+### Roles
+
+### Users
+
+### Access
+TBD. Please request for access manually at this time.
+
+## Kibana Dashboards and Visualizations
+
+TBD
