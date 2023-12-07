@@ -196,6 +196,17 @@
     "New Session" : {
 
     },
+    "referral_account_id" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0x179Da8B4b01aEF1BE2da1824164524Be946dbf51"
+          }
+        }
+      }
+    },
     "settingsView.alert.deleteAccount.button" : {
       "localizations" : {
         "en" : {

@@ -2,8 +2,13 @@ import AVFoundation
 import UIKit
 import Sentry
 import Speech
+import OSLog
 
 class Permission {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "RelayAuth")
+    )
     var handleMicrophoneAccessDeniedCalled = false
     var speechRecognitionPermissionStatus = "default"
     
@@ -20,7 +25,7 @@ class Permission {
     
     func handleMicrophoneAccessDenied() {
         self.handleMicrophoneAccessDeniedCalled = true
-        print("Microphone access denied")
+        self.logger.log("Microphone access denied")
         SentrySDK.capture(message: "Microphone access denied")
         self.showAlertForSettings("Microphone")
     }
@@ -52,7 +57,7 @@ class Permission {
             try audioSession.setMode(.spokenAudio)
             try audioSession.setAllowHapticsAndSystemSoundsDuringRecording(true)
         } catch {
-            print("Error setting up audio engine: \(error.localizedDescription)")
+            self.logger.log("Error setting up audio engine: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
         switch audioSession.recordPermission {
@@ -61,7 +66,7 @@ class Permission {
         case .denied:
             permissionCheck = false
         case .undetermined:
-            print("Request permission here")
+            self.logger.log("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ granted in
                 if granted {
                     permissionCheck = true
@@ -88,20 +93,20 @@ class Permission {
         switch authStatus {
         case .authorized:
             self.speechRecognitionPermissionStatus = "authorized"
-            print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
         case .denied:
             self.speechRecognitionPermissionStatus = "denied"
-            print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
             SentrySDK.capture(message: "User denied speech recognition permission")
             self.showAlertForSettings("Speech Recognition")
             
         case .notDetermined:
             self.speechRecognitionPermissionStatus = "not determined"
-            print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
             SentrySDK.capture(message: "Speech recognition not determined")
         case .restricted:
             self.speechRecognitionPermissionStatus = "restricted"
-            print("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
             SentrySDK.capture(message: "Speech recognition restricted")
         @unknown default:
             SentrySDK.capture(message: "Fatal error: New case for speech recognition authorization is available")
@@ -110,12 +115,12 @@ class Permission {
     }
     
     private func showAlertForSettings(_ permissionType: String) {
-        print("Attempting to show alert for \(permissionType) permission")
+        self.logger.log("Attempting to show alert for \(permissionType) permission")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             
             DispatchQueue.main.async {
                 guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-                    print("No active window scene found")
+                    self.logger.log("No active window scene found")
                     return
                 }
                 
@@ -137,9 +142,9 @@ class Permission {
                 
                 if let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
                     rootViewController.present(alert, animated: true, completion: nil)
-                    print("Alert presented for \(permissionType) permission")
+                    self.logger.log("Alert presented for \(permissionType) permission")
                 } else {
-                    print("No root view controller found to present the alert")
+                    self.logger.log("No root view controller found to present the alert")
                 }
             }
         }

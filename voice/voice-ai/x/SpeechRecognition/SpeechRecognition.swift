@@ -3,6 +3,7 @@ import Foundation
 import Combine
 import Sentry
 import Speech
+import OSLog
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -34,6 +35,10 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "SpeechRecognition")
+    )
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -145,7 +150,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
               
             isAudioSessionSetup = true
         } catch {
-            print("Error setting up audio session: \(error.localizedDescription)")
+            logger.log("Error setting up audio session: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
         }
     }
@@ -159,7 +164,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 try AVAudioSession.sharedInstance().setMode(.spokenAudio)
                 try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
             } catch {
-                print("Error setting up audio engine: \(error.localizedDescription)")
+                logger.log("Error setting up audio engine: \(error.localizedDescription)")
                 SentrySDK.capture(message: "Error setting up audio session: \(error.localizedDescription)")
             }
         }
@@ -177,7 +182,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // MARK: - Speech Recognition
     
     func startSpeechRecognition() {
-        print("[SpeechRecognition][startSpeechRecognition]")
+        logger.log("[SpeechRecognition][startSpeechRecognition]")
         
         setupAudioSession()
         cleanupRecognition()
@@ -196,8 +201,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             let message = result.bestTranscription.formattedString
-            print("[SpeechRecognition][handleRecognition] \(message)")
-            print("[SpeechRecognition][handleRecognition] isFinal: \(result.isFinal)")
+            self.logger.log("[handleRecognition] \(message)")
+            self.logger.log("[handleRecognition] isFinal: \(result.isFinal)")
             
             if !message.isEmpty {
                 self.recognitionLock.wait()
@@ -227,14 +232,17 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     private func handleRecognitionError(_ error: Error?) {
         if let error = error {
-            print("[SpeechRecognition][handleRecognitionError][ERROR]: \(error)")
+            logger.log("[handleRecognitionError][ERROR]: \(error)")
             let nsError = error as NSError
             
-            if nsError.code == 1110 {
-                vibration.stopVibration()
-            }
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
                 print("No speech was detected. Please speak again.")
+                logger.log("No speech was detected. Please speak again.")
+
+                if !self.isThinking {
+                    vibration.stopVibration()
+                }
+
                 return
             }
             
@@ -272,9 +280,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         do {
             audioEngine.prepare()
             try audioEngine.start()
-            print("[SpeechRecognition] Audio engine started")
+            logger.log("Audio engine started")
         } catch {
-            print("Error starting audio engine: \(error.localizedDescription)")
+            logger.log("Error starting audio engine: \(error.localizedDescription)")
             SentrySDK.capture(message: "Error starting audio engine: \(error.localizedDescription)")
         }
     }
@@ -286,12 +294,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // 14 retries with exponential back off from 2 (cap at 64) would give total of ~10 minute retries
     func makeQuery(_ text: String, maxRetry: Int = 14, rateLimit: Bool? = true) {
         if isRequestingOpenAI {
-            print("RequestingOpenAI: skip")
+            logger.log("RequestingOpenAI: skip")
             return
         }
         DispatchQueue.main.async {
             self.isThinking = true
         }
+        vibration.startVibration()
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
@@ -314,14 +323,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: response)
             }
             completeResponse.append(response)
-            print("[SpeechRecognition] flush response: \(response)")
+            logger.log("flush response: \(response)")
             DispatchQueue.main.async {
                 self.isThinking = false
             }
+            vibration.stopVibration()
             buf.removeAll()
         }
         
-        print("[SpeechRecognition] query: \(text)")
+        logger.log("query: \(text)")
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
@@ -338,8 +348,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
             // Make sure to pass the retriesLeft parameter through to your OpenAIStreamService
             pendingOpenAIStream = OpenAIStreamService { res, err in
-                self.vibration.stopVibration()
-              
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
@@ -349,7 +357,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 if !isResponseReceived {
                     isResponseReceived = true
                     let executionTime = Date().timeIntervalSince(startDate)
-                    print("[SpeechRecognition] Request latency: \(executionTime)")
+                    self.logger.log("Request latency: \(executionTime)")
                 }
                 
                 guard let res = res, !res.isEmpty else {
@@ -359,15 +367,15 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     buf.append(currWord)
                     flushBuf()
                     self.isRequestingOpenAI = false
-                    print("[SpeechRecognition] OpenAI Response Complete")
-                    print("[SpeechRecognition] Complete Response text", self.completeResponse.joined())
+                    self.logger.log("OpenAI Response Complete")
+                    self.logger.log("Complete Response text \(self.completeResponse.joined())")
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     transaction.finish()
                     return
                 }
-                print("[SpeechRecognition] OpenAI Response received: \(res)")
+                self.logger.log("OpenAI Response received: \(res)")
                 // Append received streams to currWord instead of buf directly
                 if res.first == " " {
                     buf.append(currWord)
@@ -376,9 +384,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
                             if let lastChar = currWord.last {
-                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
                             } else {
-                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
                             }
                             flushBuf()
                             initialFlush = true
@@ -386,9 +394,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
                             if let lastChar = currWord.last {
-                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
                             } else {
-                                print("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
                             }
                             flushBuf()
                         }
@@ -416,16 +424,20 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 self.isThinking = false
             }
+            vibration.stopVibration()
+
             isRequestingOpenAI = false
             let nsError = error as NSError
             if nsError.code == -999 {
-                print("[SpeechRecognition] OpenAI Cancelled")
+
+                logger.log("OpenAI Cancelled")
                 VibrationManager.shared.stopVibration()
+
                 // Commented for now since we were receiving arbitrary -999 that was causing beeping.
 //                audioPlayer.playSound(false)
                 
             } else if nsError.code == -3 {
-                print("[SpeechRecognition] OpenAI Rate Limited")
+                logger.log("OpenAI Rate Limited")
                 audioPlayer.playSound(false)
                 buf.removeAll()
                 registerTTS()
@@ -438,7 +450,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 let attempt = maxRetry - retryCount + 1
                 // cap the delay at 64 seconds
                 let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
-                print("[SpeechRecognition] OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
+                logger.log("OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
                 self.retryWorkItem = DispatchWorkItem {
                     buf.removeAll()
                     currWord = ""
@@ -448,7 +460,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: self.retryWorkItem!)
             } else {
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
-                print("[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
+                logger.log("OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
                 textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText)
@@ -458,7 +470,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func cancelRetry() {
-        print("[SpeechRecognition][cancelRetry]")
+        logger.log("[cancelRetry]")
         self.retryWorkItem?.cancel()
     }
     
@@ -471,10 +483,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             self.isCapturing = false
             self._isPaused = false
         }
-        print("[SpeechRecognition][pauseCapturing]")
+        logger.log("[pauseCapturing]")
         
         if cancel == true {
-            print("[SpeechRecognition][cancelCalled]")
+            logger.log("[cancelCalled]")
             recognitionTaskCanceled = true
         }
         self.recognitionTask?.finish()
@@ -483,7 +495,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         self.recognitionRequest?.endAudio()
         self.audioEngine.inputNode.removeTap(onBus: 0)
         self.audioEngine.stop()
-        print("stop")
+        logger.log("stop")
     }
     
     func resumeCapturing() {
@@ -491,7 +503,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             return
         }
         isCapturing = true
-        print("[SpeechRecognition][resumeCapturing]")
+        logger.log("[resumeCapturing]")
         setupAudioSession()
         setupAudioEngine()
         startSpeechRecognition()
@@ -504,10 +516,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func reset(feedback: Bool? = true) {
-        print("[SpeechRecognition][reset]")
+        logger.log("[reset]")
         DispatchQueue.main.async {
             self.isThinking = false
         }
+        vibration.stopVibration()
         audioPlayer.playSound(false)
         // Perform all UI updates on the main thread
         DispatchQueue.main.async {
@@ -572,7 +585,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             audioEngine.prepare()
             try audioEngine.start()
         } catch {
-            print("Error setting up audio engine: \(error.localizedDescription)")
+            logger.log("Error setting up audio engine: \(error.localizedDescription)")
             
             SentrySDK.capture(message: "Error setting up audio engine: \(error.localizedDescription)")
         }
@@ -600,7 +613,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func pause(feedback: Bool? = true) {
-        print("[SpeechRecognition][pause]")
+        logger.log("[pause]")
         if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.pauseSpeech()
         } else {
@@ -612,7 +625,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func continueSpeech() {
-        print("[SpeechRecognition][continueSpeech]")
+        logger.log("[continueSpeech]")
         
         if textToSpeechConverter.synthesizer.isSpeaking {
             textToSpeechConverter.continueSpeech()
@@ -626,7 +639,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
     func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][surprise]")
+            self.logger.log("[surprise]")
 
             // Stop any ongoing interactions and speech.
             self.stopGPT()
@@ -660,7 +673,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func sayMore() {
-        print("[SpeechRecognition][sayMore]")
+        logger.log("[sayMore]")
         
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
@@ -696,7 +709,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             self.isThinking = false
         }
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][speak]")
+            self.logger.log("[speak]")
 
             // Stop any ongoing OpenAI requests and text-to-speech conversion
             self.stopGPT()
@@ -722,7 +735,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
         DispatchQueue.global(qos: .userInitiated).async {
-            print("[SpeechRecognition][stopSpeak]")
+            self.logger.log("[stopSpeak]")
             
             // Finalize the recognition task if the audio engine is running
             if self.audioEngine.isRunning {
@@ -817,7 +830,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     @objc func handleTimerDidFire() {
         // Handle the timer firing
-        print("The timer in TimerManager has fired.")
+        logger.log("The timer in TimerManager has fired.")
         
         reset(feedback: false)
         isTimerDidFired = true
@@ -835,7 +848,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         isPlayingWorkItem?.cancel()
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if (self?._isPlaying) != nil {
-                print("[SpeechRecognition][synthesizeFinish]")
+                self?.logger.log("[synthesizeFinish]")
                 self?._isPlaying = false
             }
         }
@@ -843,7 +856,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
         //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-        //            print("[SpeechRecognition][speechSynthesizer][didFinish] Starting capturing again")
+        //            logger.log("[speechSynthesizer][didFinish] Starting capturing again")
         //            DispatchQueue.main.async {
         //                if self.isGreatingFinished {
         //                    self.resumeCapturing()
@@ -857,7 +870,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         isPlayingWorkItem?.cancel()
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if self?._isPlaying == false {
-                print("[SpeechRecognition][synthesizeStart]")
+                self?.logger.log("[synthesizeStart]")
                 self?._isPlaying = true
             }
         }

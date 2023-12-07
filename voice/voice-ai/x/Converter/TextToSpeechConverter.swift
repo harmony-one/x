@@ -1,5 +1,6 @@
 import AVFoundation
 import Foundation
+import OSLog
 
 protocol TextToSpeechConverterProtocol {
     var isSpeaking: Bool { get }
@@ -11,7 +12,10 @@ protocol TextToSpeechConverterProtocol {
 
 // TextToSpeechConverter class responsible for converting text to speech
 class TextToSpeechConverter: TextToSpeechConverterProtocol {
-    
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "TextToSpeechConverter")
+    )
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
     let languageCode = getLanguageCode()
@@ -36,16 +40,16 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
             if let language = selectedLanguage {
-                print("[selectedLanguage] \(language)")
+                self.logger.log("[selectedLanguage] \(language)")
             } else {
-                print("[selectedLanguage] nil")
+                self.logger.log("[selectedLanguage] nil")
             }
             utterance.voice = voice
         } else {
             // this is used just for the unit tests
             isDefaultVoiceUsed = true
-            // Print a message if the specified voice is not available and use the system's default language
-            print("The specified voice is not available. Defaulting to the system's language.")
+            // self.logger.log a message if the specified voice is not available and use the system's default language
+            self.logger.log("The specified voice is not available. Defaulting to the system's language.")
         }
                 
         // Set the pitch of the speech utterance
@@ -71,10 +75,10 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         // Check if the synthesizer is currently speaking and pause it immediately
         if synthesizer.isSpeaking {
             synthesizer.pauseSpeaking(at: .immediate)
-            print("Speech paused.")
+            self.logger.log("Speech paused.")
 //            Thread.sleep(forTimeInterval: 1.0)
         } else {
-            print("Speech is not speaking.")
+            self.logger.log("Speech is not speaking.")
         }
     }
     

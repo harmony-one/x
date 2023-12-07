@@ -100,10 +100,20 @@ class NetworkManagerTests: XCTestCase {
         XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer XTOKEN")
     }
     
+    func testSetCustomHeader() {
+        let newtworkManager = NetworkManager.shared
+        let url = URL(string: "https://x.country")!
+        var request = URLRequest(url: url)
+        
+        newtworkManager.setCustomHeader(field: "X-Header", value: "x-header-value", request: &request)
+        
+        XCTAssertEqual(request.value(forHTTPHeaderField: "X-Header"), "x-header-value")
+    }
+    
     func testInvalidResponse() {
         let expectation = XCTestExpectation(description: "Completion handler should be called")
         
-        NetworkManager.shared.requestData(from: "/some/random/endpoint", method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        NetworkManager.shared.requestData(from: "/some/random/endpoint", method: .get, customHeaders: ["x-header": "x-value"]) { (result: Result<NetworkResponse<User>, NetworkError>) in
             
             switch result {
             case .failure(let error):

@@ -5,6 +5,7 @@ import Foundation
 import StoreKit
 import SwiftUI
 import UIKit
+import OSLog
 
 protocol ActionsViewProtocol {
     func openSettingsApp()
@@ -14,7 +15,10 @@ protocol ActionsViewProtocol {
 }
 
 struct ActionsView: ActionsViewProtocol, View {
-    
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "[ActionsView]")
+    )
     @StateObject var actionHandler: ActionHandler
     
     let config = AppConfig.shared
@@ -134,7 +138,7 @@ struct ActionsView: ActionsViewProtocol, View {
                         if daysElapsed < 120 {
                             self.showShareAlert = true
                         } else {
-                            print("Days Elapsed \(daysElapsed)")
+                            self.logger.log("Days Elapsed \(daysElapsed)")
                             ReviewRequester.shared.tryPromptForReview(forced: true)
                         }
                     }
@@ -148,13 +152,13 @@ struct ActionsView: ActionsViewProtocol, View {
                         var appVersionFromKeyChain = KeychainService.shared.retrieveAppVersion()
                         if let appVersionFromBundle = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
                             if let keyChainVersion = appVersionFromKeyChain {
-                                print("App version from bundle: \(appVersionFromBundle), app version from key chain: \(keyChainVersion)")
+                                self.logger.log("App version from bundle: \(appVersionFromBundle), app version from key chain: \(keyChainVersion)")
                             } else {
-                                print("App version from bundle: \(appVersionFromBundle), app version from key chain: nil")
+                                self.logger.log("App version from bundle: \(appVersionFromBundle), app version from key chain: nil")
                             }
                             if appVersionFromBundle != appVersionFromKeyChain {
                                 guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
-                                    print("Cannot get payments service API key")
+                                    self.logger.log("Cannot get payments service API key")
                                     return
                                 }
                                 UserAPI().updateUser(apiKey: serverAPIKey, appVersion: appVersionFromBundle)
@@ -163,12 +167,12 @@ struct ActionsView: ActionsViewProtocol, View {
                     }
                     try? appSettings.isUpdateAvailable { (updateAvailable, version, error) in
                         if let error = error {
-                            print("[isUpdateAvailable]: error", error)
+                            self.logger.log("[isUpdateAvailable]: error \(error)")
                         } else if let updateAvailable = updateAvailable {
                             if let version = version {
-                                print("[isUpdateAvailable]: ", updateAvailable, version)
+                                self.logger.log("[isUpdateAvailable]: \(updateAvailable), version from AppStore: \(version)")
                             } else {
-                                print("[isUpdateAvailable]: ", updateAvailable, "nil")
+                                self.logger.log("[isUpdateAvailable]: \(updateAvailable)")
                             }
                             if updateAvailable {
                                 self.showNewAppVersionAlert = true
@@ -182,7 +186,7 @@ struct ActionsView: ActionsViewProtocol, View {
             .onChange(of: scenePhase) { newPhase in
                 switch newPhase {
                 case .active:
-                    print("App became active")
+                    self.logger.log("App became active")
                     // SettingsBundleHelper.checkAndExecuteSettings()
                     _ = AppSettings.shared
                     if speechRecognition.checkContextChange() {
@@ -195,15 +199,15 @@ struct ActionsView: ActionsViewProtocol, View {
                         .filter { $0.isKeyWindow }.first
                     
                     if AppleSignInManager.shared.isShowIAPFromSignIn {
-                        print("App isShowIAPFromSignIn active")
+                        self.logger.log("App isShowIAPFromSignIn active")
                         openPurchaseDialog()
                         AppleSignInManager.shared.isShowIAPFromSignIn = false
                     }
                 case .inactive:
-                    print("App became inactive")
+                    self.logger.log("App became inactive")
                     speechRecognition.pause(feedback: false)
                 case .background:
-                    print("App moved to the background")
+                    self.logger.log("App moved to the background")
                 @unknown default:
                     break
                 }
@@ -242,7 +246,7 @@ struct ActionsView: ActionsViewProtocol, View {
         //                 if isRecording {
         //                     isRecordingContinued = true
 
-        //                     print("Recording stopSpeak...")
+        //                     self.logger.log("Recording stopSpeak...")
         //                     SpeechRecognition.shared.cancelSpeak()
         //                 }
         //                 orientation = UIDevice.current.orientation
@@ -475,7 +479,7 @@ struct ActionsView: ActionsViewProtocol, View {
                         do {
                             try await Task.sleep(nanoseconds: 1 * 500_000_000)
                         } catch {
-                            print("Sleep failed")
+                            self.logger.log("Sleep failed")
                         }
                         self.isSurpriseButtonPressed = true
                     }
@@ -505,7 +509,7 @@ struct ActionsView: ActionsViewProtocol, View {
     func openSettingsApp() {
         MixpanelManager.shared.trackEvent(name: "More Actions", properties: nil)
         self.appSettings.showActionSheet(type: .settings)
-        print("Show settings")
+        self.logger.log("Show settings")
 //        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
 //            UIApplication.shared.open(url)
 //        }
@@ -531,13 +535,13 @@ struct ActionsView: ActionsViewProtocol, View {
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[ActionsView] No products available")
+                    self.logger.log("No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[ActionsView] Error during purchase")
+                        self.logger.log("Error during purchase")
                     }
                 }
             }
