@@ -45,5 +45,24 @@ import XCTest
             XCTAssertTrue(mockGenerator.impactOccurredCalled, "impactOccured() should have been called")
             XCTAssertTrue(mockGenerator.prepareCalled, "prepare() should have been called")
         }
+        
+        func testVibrateOnce() {
+            // Check if generator is created when it's nil
+            vibrationManager.isVibrating = true
+            vibrationManager.generator = nil // Simulate a nil generator
+            vibrationManager.vibrate()
+
+            XCTAssertNotNil(vibrationManager.generator, "generator should have been created")
+            
+            // Check is impactOccurred() and prepare() are called when generator is created
+            let mockGenerator = MockGenerator(style: .medium)
+            vibrationManager.generator = mockGenerator
+
+            vibrationManager.isVibrating = true
+            vibrationManager.vibrateOnce()
+
+            XCTAssertTrue(mockGenerator.impactOccurredCalled, "impactOccured() should have been called")
+            XCTAssertTrue(mockGenerator.prepareCalled, "prepare() should have been called")
+        }
     }
 

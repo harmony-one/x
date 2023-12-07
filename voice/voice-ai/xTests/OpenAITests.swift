@@ -35,7 +35,8 @@ data:
               return (response, data)
         }
 
-        // put API_KEY=somestring for test
+        AppConfig.shared.setOpenAIKey(key: "testkey")
+        AppConfig.shared.setOpenaiBaseUrl(url: "testurl")
         let openAIStreamService = OpenAIStreamService(completion: { response, error in
             expectation.fulfill()
             XCTAssertNotNil(response, "Response should not be nil")
@@ -71,6 +72,7 @@ data:
         let data = responseString.data(using: .utf8)
 
 
+        
         MockURLProtocol.requestHandler = { request in
               guard let url = request.url else {
                   throw NSError(domain: "error", code: -1)
@@ -81,6 +83,8 @@ data:
         }
 
         // put API_KEY=somestring for test
+        AppConfig.shared.setOpenAIKey(key: "testkey")
+        AppConfig.shared.setOpenaiBaseUrl(url: "testurl")
         let openAIStreamService = OpenAIStreamService(completion: { response, error in
             expectation.fulfill()
             if let err = error as? NSError {
@@ -126,6 +130,8 @@ data:
         }
 
         // put API_KEY=somestring for test
+        AppConfig.shared.setOpenAIKey(key: "testkey")
+        AppConfig.shared.setOpenaiBaseUrl(url: "testurl")
         let expectation = XCTestExpectation(description: "Completion handler should be called")
         let doneExpectection = XCTestExpectation(description: "DONE handler should be called")
         let openAIStreamService = OpenAIStreamService(completion: { response, error in
@@ -169,6 +175,8 @@ data:
 
 
         // put API_KEY=somestring for test
+        AppConfig.shared.setOpenAIKey(key: "testkey")
+        AppConfig.shared.setOpenaiBaseUrl(url: "testurl")
         let expectation = XCTestExpectation(description: "Completion handler should be called")
         let service = OpenAIStreamService(completion: { response, error in
             expectation.fulfill()
@@ -223,6 +231,8 @@ data:
         }
 
         // put API_KEY=somestring for test
+        AppConfig.shared.setOpenAIKey(key: "testkey")
+        AppConfig.shared.setOpenaiBaseUrl(url: "testurl")
         let openAIStreamService = OpenAIStreamService(completion: { response, error in
             expectation.fulfill()
             XCTAssertNotNil(response, "Response should not be nil")

@@ -235,6 +235,15 @@ class AppConfig {
         return openaiKey
     }
     
+    // Only for test environment
+    func setOpenAIKey(key: String) {
+        openaiKey = key
+    }
+    
+    func setOpenaiBaseUrl(url: String) {
+        openaiBaseUrl = url
+    }
+    
     func getOpenAIBaseUrl() -> String? {
         return openaiBaseUrl
     }
