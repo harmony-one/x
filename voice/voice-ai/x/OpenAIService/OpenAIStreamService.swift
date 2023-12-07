@@ -64,7 +64,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
     }
 
     // Function to send input text to OpenAI for processing
-    func query(conversation: [Message], rateLimit: Bool? = true) {
+    func query(conversation: [Message], rateLimit: Bool? = true, timeLogger: TimeLogger?) {
         guard let apiKey = AppConfig.shared.getOpenAIKey() else {
             completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "OpenAI API key is nil")
@@ -173,7 +173,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             return
         }
 
-        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        self.timeLogger = timeLogger
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {

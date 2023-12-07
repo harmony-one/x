@@ -34,6 +34,7 @@ extension SpeechRecognitionProtocol {
 }
 
 class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
+    private var timeLogger: TimeLogger?
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
@@ -297,6 +298,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Ensure to cancel the previous retry before proceeding
         cancelRetry()
         
+        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        
         let transaction = SentrySDK.startTransaction(
           name: "Request OpenAI", // give it a name
           operation: "openai.request" // and a name for the operation
@@ -345,6 +348,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
+                    self.timeLogger?.sendLog()
                     return
                 }
                 
@@ -367,6 +371,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     transaction.finish()
+                    self.timeLogger?.sendLog()
                     return
                 }
                 print("[SpeechRecognition] OpenAI Response received: \(res)")
@@ -398,6 +403,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     currWord = res
                     guard res.last != nil else {
                         transaction.finish()
+                        self.timeLogger?.sendLog()
                         return
                     }
                 } else {
@@ -411,7 +417,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // for custom instruction changes
             conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
-            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit)
+            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit, timeLogger: self.timeLogger)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
@@ -582,6 +588,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     private func stopGPT() {
         pendingOpenAIStream?.cancelOpenAICall()
+        timeLogger?.sendLog()
         pendingOpenAIStream = nil
         audioPlayer.stopSound()
     }

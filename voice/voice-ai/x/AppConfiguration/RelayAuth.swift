@@ -9,6 +9,9 @@ struct ClientUsageLog: Codable {
     let endpoint: String
     let requestTokens: Int32
     let responseTokens: Int32
+    let ttsTime: Int64
+    let sttTime: Int64
+    let audioCapturingDelay: Int64
     let firstResponseTime: Int64
     let totalResponseTime: Int64
     let requestNumMessages: Int32

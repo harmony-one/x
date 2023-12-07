@@ -10,8 +10,22 @@ class TimeLogger {
     private let vendor: String
     private let endpoint: String
     private var logged = false
+    private var logSent = false
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
+    
+    private var requestNumMessages: Int32 = 0
+    private var requestNumUserMessages: Int32 = 0
+    private var  requestTokens: Int32 = 0
+    private var responseTokens: Int32 = 0
+    private var requestMessage: String = ""
+    private var responseMessage: String = ""
+    private var cancelled: Bool = false
+    private var completed: Bool = true
+    private var error: String = ""
+    private var ttsTime: Int64 = 0
+    private var sttTime: Int64 = 0
+    private var audioCapturingDelay: Int64 = 0
     
     init(vendor: String, endpoint: String, once: Bool = true) {
         self.vendor = vendor
@@ -51,14 +65,37 @@ class TimeLogger {
         if firstCheckpointTime == 0 {
             firstCheckpointTime = finalCheckpointTime
         }
+        logged = true
+        
+        self.requestNumMessages = requestNumMessages
+        self.requestNumUserMessages = requestNumUserMessages
+        self.requestTokens = requestTokens
+        self.responseTokens = responseTokens
+        self.requestMessage = requestMessage
+        self.responseMessage = responseMessage
+        self.cancelled = cancelled
+        self.completed = completed
+        self.error = error
+    }
+    
+    func sendLog() {
+        if logSent {
+            return
+        }
+        
+        logSent = true
+        
         let firstResponseTime = firstCheckpointTime - startTime
         let totalResponseTime = finalCheckpointTime - startTime
-        logged = true
+        
         let logDetails = ClientUsageLog(
             vendor: vendor,
             endpoint: endpoint,
             requestTokens: requestTokens,
             responseTokens: responseTokens,
+            ttsTime: ttsTime,
+            sttTime: sttTime,
+            audioCapturingDelay: audioCapturingDelay,
             firstResponseTime: firstResponseTime,
             totalResponseTime: totalResponseTime,
             requestNumMessages: requestNumMessages,
