@@ -119,6 +119,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isCapturing = true
 //        startSpeechRecognition()
         setupTimer()
+        
+        // TODO: Place this method at right place
+        textToSpeechConverter.checkAndPromptForPremiumVoice()
     }
     
     private func setupTimer() {
