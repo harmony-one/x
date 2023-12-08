@@ -31,6 +31,18 @@ extension NetworkManagerProtocol {
     func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
         requestData(from: endpoint, method: method, parameters: nil, body: nil, token: nil, customHeaders: nil, completion: completion)
     }
+    
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, body: Data, customHeaders: [String: String], completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
+        requestData(from: endpoint, method: method, parameters: nil, body: body, token: nil, customHeaders: customHeaders, completion: completion)
+    }
+    
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, customHeaders: [String: String], completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
+        requestData(from: endpoint, method: method, parameters: nil, body: nil, token: nil, customHeaders: customHeaders, completion: completion)
+    }
+    
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, body: Data, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
+        requestData(from: endpoint, method: method, parameters: nil, body: nil, token: nil, customHeaders: nil, completion: completion)
+    }
 }
 
 

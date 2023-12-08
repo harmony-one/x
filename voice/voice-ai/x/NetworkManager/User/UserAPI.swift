@@ -34,40 +34,44 @@ struct UserAPI {
         self.networkManager = networkManager
     }
     
-    func register(appleId: String) {
+    func register(appleId: String, completion: ((Result<Bool, Error>) -> Void)? = nil) {
         let commentData = CreateUserBody(appleId: appleId, deviceId: DeviceInfo.getDeviceID())
         guard let bodyData = try? JSONEncoder().encode(commentData) else {
             SentrySDK.capture(message: "[UserAPI][Register] failed to encode data")
             return
         }
-        NetworkManager.shared.requestData(from: APIEnvironment.createUser, method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(from: APIEnvironment.createUser, method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 if response.statusCode == 400 {
                     self.logger.log("User already created")
                     self.getUserBy(appleId: appleId)
+                    completion?(.success(true))
                     return
                 }
 
                 // Handle successful response
                 guard let userID = response.data.id else {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
+                    completion?(.failure(NSError(domain: "UserID not created", code: -2)))
                     return
                 }
                 KeychainService.shared.storeUser(user: response.data)
                 
                 self.logger.log("Success")
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
+                completion?(.success(true))
 
             case let .failure(error):
                 // Handle error
                 self.logger.log("Error: \(error)")
                 SentrySDK.capture(message: "[UserAPI][Register] Error: \(error)")
+                completion?(.failure(error))
             }
         }
     }
 
-    func getUser(byType: String) {
+    func getUser(byType: String, completion: ((Result<Bool, Error>) -> Void)? = nil) {
         self.networkManager.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
@@ -75,12 +79,15 @@ struct UserAPI {
                 // Handle successful response
                 guard let userID = response.data.id else {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
+                    completion?(.failure(NSError(domain: "UserID not created", code: -2)))
                     return
                 }
                 KeychainService.shared.storeUser(user: response.data)
                 SentrySDK.capture(message: "[UserAPI][GetUser] Success")
+                completion?(.success(true))
             case let .failure(error):
                 self.logger.log("[UserAPI][GetUser] byType: \(byType) Error: \(error)")
+                completion?(.failure(error))
             }
         }
     }
@@ -93,34 +100,37 @@ struct UserAPI {
         getUser(byType: APIEnvironment.getUser(byAppleID: appleId))
     }
 
-    func purchase(transactionId: String) {
+    func purchase(transactionId: String, completion: ((Result<Bool, Error>) -> Void)? = nil) {
         let commentData = TransactionBody(transactionId: transactionId)
         guard let bodyData = try? JSONEncoder().encode(commentData) else {
             SentrySDK.capture(message: "[UserAPI][Purchase] failed to encode data")
             return
         }
-        NetworkManager.shared.requestData(from: APIEnvironment.purchase(), method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(from: APIEnvironment.purchase(), method: .post, body: bodyData) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 // Handle successful response
                 self.logger.log("[UserAPI][Purchase] Success")
                 guard let userID = response.data.id else {
                     SentrySDK.capture(message: "[UserAPI][Purchase] userID not created")
+                    completion?(.failure(NSError(domain: "UserID not created", code: -2)))
                     return
                 }
                 KeychainService.shared.storeUser(user: response.data)
                 SentrySDK.capture(message: "[UserAPI][Purchase] Success")
+                completion?(.success(true))
             case let .failure(error):
                 // Handle error
                 self.logger.log("[UserAPI][Purchase] Error: \(error)")
                 SentrySDK.capture(message: "[UserAPI][Purchase] Error: \(error)")
+                completion?(.failure(error))
             }
         }
     }
     
     func deleteUserAccount(apiKey: String, completion: @escaping (Bool) -> Void) {
         self.logger.log("[UserAPI][deleteUserAccount] Deleting \(APIEnvironment.getUser())")
-        NetworkManager.shared.requestData(from: APIEnvironment.getUser(), method: .delete, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(from: APIEnvironment.getUser(), method: .delete, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 // Handle successful response
@@ -141,7 +151,7 @@ struct UserAPI {
         }
     }
 
-    func updateUser(apiKey: String, appVersion: String) {
+    func updateUser(apiKey: String, appVersion: String, completion: ((Result<Bool, Error>) -> Void)? = nil) {
         var methodName = "[UserAPI][updateUser]"
         self.logger.log("\(methodName) appVersion: \(appVersion)")
         
@@ -151,15 +161,17 @@ struct UserAPI {
             return
         }
 
-        NetworkManager.shared.requestData(from: APIEnvironment.updateUser(), method: .post, body: bodyData, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(from: APIEnvironment.updateUser(), method: .post, body: bodyData, customHeaders: ["X-API-KEY": apiKey]) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 if response.statusCode == 200 {
                     SentrySDK.capture(message: "\(methodName) Success")
+                    completion?(.success(true))
                 }
             case let .failure(error):
                 self.logger.log("Error: \(error)")
                 SentrySDK.capture(message: "\(methodName) Error: \(error)")
+                completion?(.failure(error))
             }
         }
     }

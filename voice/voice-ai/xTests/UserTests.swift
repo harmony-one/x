@@ -289,19 +289,24 @@ class UserAPITests: XCTestCase {
             networkManager.setResponseData(responseData: jsonString)
             networkManager.setStatusCode(code: 200)
 
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            
             let api = UserAPI(networkManager: networkManager)
-
-            api.getUser(byType: "some")
-            XCTAssert(true)
+            api.getUser(byType: "some") { result in
+                switch result {
+                case .success(_):
+                    expectation.fulfill()
+                    XCTAssert(true)
+                case .failure(_):
+                    XCTAssert(false)
+                }
+            }
+            wait(for: [expectation], timeout: 1)
         } catch {
             XCTAssert(false)
         }
-    }
 
-    func testGetUserCreateError() {
-        let networkManager = MockNetworkManager()
-
-        let dictionary: [String: Any] = [
+        let userWithoutID: [String: Any] = [
             "deviceId": "123",
             "appleId": "New York",
             "balance": 0,
@@ -313,18 +318,210 @@ class UserAPITests: XCTestCase {
         ]
 
         do {
-            let jsonString = try jsonSerialize(dictionary: dictionary)
+            let jsonString = try jsonSerialize(dictionary: userWithoutID)
 
             networkManager.setResponseData(responseData: jsonString)
             networkManager.setStatusCode(code: 200)
 
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
             let api = UserAPI(networkManager: networkManager)
+            api.getUser(byType: "some") { result in
+                switch result {
+                case .success(_):
+                    expectation.fulfill()
+                    XCTAssert(true)
+                case .failure(_):
+                    XCTAssert(false)
+                }
+            }
+            
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false)
+        }
 
-            api.getUser(byType: "some")
-            XCTAssert(true)
+        do {
+            networkManager.setResponseData(responseData: "")
+            networkManager.setStatusCode(code: 200)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            
+            let api = UserAPI(networkManager: networkManager)
+            api.getUser(byType: "some") { result in
+                switch result {
+                case .success(_):
+                    expectation.fulfill()
+                    XCTAssert(true)
+                case .failure(_):
+                    XCTAssert(false)
+                }
+            }
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false)
+        }
+
+    }
+
+    func testUpdateUser() {
+        let networkManager = MockNetworkManager()
+
+        let user: [String: Any] = [
+            "id": "123",
+            "deviceId": "123",
+            "appleId": "New York",
+            "balance": 0,
+            "createdAt": "Date",
+            "updatedAt": "Date",
+            "expirationDate": "date",
+            "isSubscriptionActive": false,
+            "appVersion": "1"
+        ]
+
+        do {
+            let jsonString = try jsonSerialize(dictionary: user)
+            networkManager.setResponseData(responseData: jsonString)
+            networkManager.setStatusCode(code: 200)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.updateUser(apiKey: "123", appVersion: "123") { result in
+                switch result {
+                case .success(_):
+                    expectation.fulfill()
+                    XCTAssert(true)
+                case .failure(_):
+                    XCTAssert(false)
+                }
+            }
+
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false)
+        }
+
+
+        do {
+            networkManager.setResponseData(responseData: "")
+            networkManager.setStatusCode(code: 200)
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.updateUser(apiKey: "123", appVersion: "123") { result in
+                switch result {
+                case .success(_):
+                    break
+                case .failure(_):
+                    XCTAssert(true, "parse error")
+                    expectation.fulfill()
+                }
+            }
+            wait(for: [expectation], timeout: 1)
         } catch {
             XCTAssert(false)
         }
     }
+
+    func testApiRegister() {
+        let networkManager = MockNetworkManager()
+
+        let user: [String: Any] = [
+            "id": "x123",
+            "deviceId": "123",
+            "appleId": "someAppleId",
+            "balance": 0,
+            "createdAt": "Date",
+            "updatedAt": "Date",
+            "expirationDate": "date",
+            "isSubscriptionActive": false,
+            "appVersion": "1"
+        ]
+
+        do {
+            let jsonString = try jsonSerialize(dictionary: user)
+
+            networkManager.setResponseData(responseData: jsonString)
+            networkManager.setStatusCode(code: 200)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.register(appleId: "someAppleId"){ result in
+                switch result {
+                case .success(_):
+                    expectation.fulfill()
+                    XCTAssertEqual(KeychainService.shared.retrieveUserid(), "x123")
+                    XCTAssert(true)
+                case .failure(_):
+                    XCTAssert(false)
+                }
+            }
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false)
+        }
+    }
+    
+    func testDeleteUserAccount() {
+        do {
+            let networkManager = MockNetworkManager()
+
+            let user: [String: Any] = [
+                "id": "123",
+            ]
+            let jsonString = try jsonSerialize(dictionary: user)
+            networkManager.setResponseData(responseData: jsonString)
+            networkManager.setStatusCode(code: 200)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.deleteUserAccount(apiKey: "123") { result in
+                expectation.fulfill()
+                XCTAssert(result, "user has been deleted")
+            }
+
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false, "unexpected error")
+        }
+        
+        do {
+            let networkManager = MockNetworkManager()
+
+            let user: [String: Any] = [
+                "id": "123",
+            ]
+            let jsonString = try jsonSerialize(dictionary: user)
+            networkManager.setResponseData(responseData: jsonString)
+            networkManager.setStatusCode(code: 404)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.deleteUserAccount(apiKey: "123") { result in
+                expectation.fulfill()
+                XCTAssertFalse(result, "user not found")
+            }
+
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false, "unexpected error")
+        }
+        
+        do {
+            let networkManager = MockNetworkManager()
+            networkManager.setResponseData(responseData: "")
+            networkManager.setStatusCode(code: 404)
+
+            let expectation = XCTestExpectation(description: "Completion handler should be called")
+            let api = UserAPI(networkManager: networkManager)
+            api.deleteUserAccount(apiKey: "123") { result in
+                expectation.fulfill()
+                XCTAssertFalse(result, "parse data error")
+            }
+
+            wait(for: [expectation], timeout: 1)
+        } catch {
+            XCTAssert(false, "unexpected error")
+        }
+    }
+    
 }
 
