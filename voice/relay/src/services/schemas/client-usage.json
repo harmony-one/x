@@ -52,13 +52,19 @@
         "type": "text",
         "fielddata": true
       },
-      "ttsTime": {
+      "sttEndTime": {
         "type": "long"
       },
-      "sttTime": {
+      "appSendTime": {
         "type": "long"
       },
-      "audioCapturingDelay": {
+      "ttsInitTime": {
+        "type": "long"
+      },
+      "ttsFirstTime": {
+        "type": "long"
+      },
+      "clickToSpeechTotalTime": {
         "type": "long"
       }
     }

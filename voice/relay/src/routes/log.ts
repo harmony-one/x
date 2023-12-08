@@ -17,9 +17,11 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     responseMessage,
     cancelled,
     completed,
-    ttsTime,
-    sttTime,
-    audioCapturingDelay,
+    sttEndTime,
+    appSendTime,
+    ttsInitTime,
+    ttsFirstTime,
+    clickToSpeechTotalTime,
     error
   } = req.body
   if (!vendor || !endpoint) {
@@ -31,13 +33,15 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     return res.status(HttpStatusCode.BadRequest).json({ error: 'bad times', endpoint, vendor })
   }
 
-  if (!isBigInt(ttsTime) || !isBigInt(sttTime) || !isBigInt(audioCapturingDelay)) {
+  if (!isBigInt(sttEndTime) || !isBigInt(appSendTime) || !isBigInt(ttsInitTime) || !isBigInt(ttsFirstTime) || !isBigInt(clickToSpeechTotalTime)) {
     return res.status(HttpStatusCode.BadRequest).json({ error: 'bad stt times', endpoint, vendor })
   }
 
-  ttsTime = ttsTime ?? '0'
-  sttTime = sttTime ?? '0'
-  audioCapturingDelay = audioCapturingDelay ?? '0'
+  sttEndTime = sttEndTime ?? '0'
+  appSendTime = appSendTime ?? '0'
+  ttsInitTime = ttsInitTime ?? '0'
+  ttsFirstTime = ttsFirstTime ?? '0'
+  clickToSpeechTotalTime = clickToSpeechTotalTime ?? '0'
 
   requestTokens = Number(requestTokens ?? '0')
   responseTokens = Number(responseTokens ?? '0')
@@ -64,9 +68,11 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     cancelled,
     relayMode,
     completed,
-    ttsTime,
-    sttTime,
-    audioCapturingDelay,
+    sttEndTime,
+    appSendTime,
+    ttsInitTime,
+    ttsFirstTime,
+    clickToSpeechTotalTime,
     error
   })
   res.json({ success: true })
