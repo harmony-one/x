@@ -116,7 +116,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     func setup() {
         checkPermissionsAndSetupAudio()
-        textToSpeechConverter.convertTextToSpeech(text: greetingText)
+        textToSpeechConverter.convertTextToSpeech(text: greetingText, timeLogger: nil)
         isCapturing = true
 //        startSpeechRecognition()
         setupTimer()
@@ -319,14 +319,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             
-            let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
             registerTTS()
             
             if !isRepeatingCurrentSession {
-                textToSpeechConverter.convertTextToSpeech(text: response)
-                
-                let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
-                self.timeLogger?.logTTS(ttsTime: endTime - startTime)
+                textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: self.timeLogger)
             }
             completeResponse.append(response)
             logger.log("flush response: \(response)")
@@ -450,7 +446,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 audioPlayer.playSound(false)
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.")
+                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.", timeLogger: nil)
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
                 
@@ -472,7 +468,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 logger.log("OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText)
+                textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText, timeLogger: nil)
             }
         }
         handleQuery(retryCount: maxRetry)
@@ -557,7 +553,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 if feedback == true {
                     // Play the greeting text
-                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText, timeLogger: nil)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
                     }
@@ -712,7 +708,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // If there's no previous conversation, request the user to provide context
                 DispatchQueue.main.async {
                     self.registerTTS()
-                    self.textToSpeechConverter.convertTextToSpeech(text: self.letMeKnowText)
+                    self.textToSpeechConverter.convertTextToSpeech(text: self.letMeKnowText, timeLogger: nil)
                 }
                 return
             }
@@ -806,7 +802,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 activeTextToRepeat = String(text[index...])
                 
                 if !activeTextToRepeat.isEmpty {
-                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat)
+                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat, timeLogger: nil)
                 }
             }
             
@@ -838,13 +834,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let textToRepeat = lastAssistantMessage?.content ?? ""
             
             if !textToRepeat.isEmpty {
-                self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat)
+                self.textToSpeechConverter.convertTextToSpeech(text: textToRepeat, timeLogger: nil)
             } else if self.isRequestingOpenAI && !self.completeResponse.isEmpty {
                 // starting repeateActiveSession
                 self.isRepeatingCurrentSession = true
                 self.repeateActiveSession(startPoint: 0)
             } else {
-                self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText)
+                self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText, timeLogger: nil)
             }
         }
 
@@ -863,7 +859,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isTimerDidFired = true
         
         DispatchQueue.main.async {
-            self.textToSpeechConverter.convertTextToSpeech(text: self.limitReachedText)
+            self.textToSpeechConverter.convertTextToSpeech(text: self.limitReachedText, timeLogger: nil)
         }
     }
 }

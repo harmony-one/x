@@ -19,6 +19,8 @@ class TimeLogger {
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
     
+    private var ttsStartTime: Int64 = 0
+    
     private var requestNumMessages: Int32 = 0
     private var requestNumUserMessages: Int32 = 0
     private var  requestTokens: Int32 = 0
@@ -60,12 +62,21 @@ class TimeLogger {
         finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
-    func logTTS(ttsTime: Int64) {
+    func ttsStart() {
+        if self.ttsStartTime > 0 {
+            return
+        }
+        
+        ttsStartTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+    }
+    
+    func ttsStop() {
         if self.ttsTime > 0 {
             return
         }
         
-        self.ttsTime = ttsTime
+        let ttsEndTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+        self.ttsTime = ttsEndTime - ttsStartTime
     }
     
     func logSTT(sttTime: Int64) {
