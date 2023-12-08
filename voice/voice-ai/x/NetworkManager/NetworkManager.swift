@@ -20,7 +20,21 @@ struct NetworkResponse<T> {
     let data: T
 }
 
-class NetworkManager {
+protocol NetworkManagerProtocol {
+    func createURL(endpoint: String, parameters: [String: String]?) -> URL?
+    func setAuthorizationHeader(token: String, request: inout URLRequest)
+    func setCustomHeader(field: String, value: String, request: inout URLRequest)
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, parameters: [String: String]?, body: Data?, token: String?, customHeaders: [String: String]?, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void)
+}
+
+extension NetworkManagerProtocol {
+    func requestData<T: Codable>(from endpoint: String, method: HTTPMethod, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) {
+        requestData(from: endpoint, method: method, parameters: nil, body: nil, token: nil, customHeaders: nil, completion: completion)
+    }
+}
+
+
+class NetworkManager: NetworkManagerProtocol {
     static let shared = NetworkManager()
     private let session: URLSession
 
@@ -28,7 +42,7 @@ class NetworkManager {
         session = URLSession(configuration: .default)
     }
 
-    private func createURL(endpoint: String, parameters: [String: String]?) -> URL? {
+    internal func createURL(endpoint: String, parameters: [String: String]?) -> URL? {
         var components = URLComponents(string: APIEnvironment.getBaseURL() + endpoint)
         components?.queryItems = parameters?.map { URLQueryItem(name: $0.key, value: $0.value) }
         return components?.url

@@ -27,6 +27,13 @@ struct UserAPI {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "[UserAPI]")
     )
+    
+    let networkManager: NetworkManagerProtocol
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+    
     func register(appleId: String) {
         let commentData = CreateUserBody(appleId: appleId, deviceId: DeviceInfo.getDeviceID())
         guard let bodyData = try? JSONEncoder().encode(commentData) else {
@@ -61,7 +68,7 @@ struct UserAPI {
     }
 
     func getUser(byType: String) {
-        NetworkManager.shared.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(from: byType, method: .get) { (result: Result<NetworkResponse<User>, NetworkError>) in
             switch result {
             case let .success(response):
                 self.logger.log("[UserAPI][GetUser] Status Code: \(response.statusCode)")
