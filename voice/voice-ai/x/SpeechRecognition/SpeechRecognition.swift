@@ -119,6 +119,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         isCapturing = true
 //        startSpeechRecognition()
         setupTimer()
+        
+        // TODO: Place this method at right place
+        textToSpeechConverter.checkAndPromptForPremiumVoice()
     }
     
     private func setupTimer() {
@@ -236,15 +239,13 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let nsError = error as NSError
             
             if recognitionTaskCanceled != true && nsError.domain == "kAFAssistantErrorDomain" && nsError.code == 1110 {
-
+                print("No speech was detected. Please speak again.")
                 logger.log("No speech was detected. Please speak again.")
 
                 if !self.isThinking {
                     vibration.stopVibration()
                 }
 
-//                self.registerTTS()
-//                self.textToSpeechConverter.convertTextToSpeech(text: "Say again.")
                 return
             }
             

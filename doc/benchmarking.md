@@ -29,11 +29,11 @@ We are interested in measuring the delay between when the user initiates a voice
 First, we define a few points of time in the lifetime of a user interaction
 
 1. `APP-REC`: When the user indicates they want to start a conversation. Based on the current app design, this is when the user tap the button "Press & Hold" or "Tap to Speak"
-2. `SST-REC`: When the app begins capturing audio signals that is supposedly containing the user's speech content
-3. `SST-STEP-N`: When the 1st, 2nd, 3rd, 4th, 5th, ... words the user have spoken are recognized and converted to text. They can be denominated as T3.0, T3.1, T3.2, T3.3, T3.4, ...
+2. `STT-REC`: When the app begins capturing audio signals that is supposedly containing the user's speech content
+3. `STT-STEP-N`: When the 1st, 2nd, 3rd, 4th, 5th, ... words the user have spoken are recognized and converted to text. They can be denominated as T3.0, T3.1, T3.2, T3.3, T3.4, ...
 4. `APP-REC-END`: When the user indicates they finished speaking. Based on the current app design, this is when the user releases the "Press & Hold" button, or when "Tap to SEND" is tapped
-5. `SST-REC-END`: When the app stops capturing audio signals
-6. `SST-END`: When all the user's input speech signals are converted to text
+5. `STT-REC-END`: When the app stops capturing audio signals
+6. `STT-END`: When all the user's input speech signals are converted to text
 7. `APP-SEND`: When the text and surrounding context are encapsulated in a request, and is sent to Relay for processing
 8. `RLY-ACK`: When the Relay receives the request from client
 9. `RLY-SEND`: When the Relay finishes validating the request and begins sending the request to an inference vendor such as OpenAI
@@ -50,16 +50,16 @@ First, we define a few points of time in the lifetime of a user interaction
 20. `APP-ERROR`: When the interaction is interrupted and terminated by some error in the app
 21. `APP-CANCEL`: When the interaction is cancelled by the user
 
-Note that the actual event sequence does not necessarily follow the above numerical order. For example, `APP-REC-END` could occur before `SST-STEP-N` occurs for some N. Below is table illustrating the concurrency between different components (`APP-ERROR` and `APP-CANCEL` could occur at any time):
+Note that the actual event sequence does not necessarily follow the above numerical order. For example, `APP-REC-END` could occur before `STT-STEP-N` occurs for some N. Below is table illustrating the concurrency between different components (`APP-ERROR` and `APP-CANCEL` could occur at any time):
 
-| App                         | SST          | Relay        | TTS          |
+| App                         | STT          | Relay        | TTS          |
 |-----------------------------|--------------|--------------|--------------|
 | APP-REC                     |              |              |              |
-|                             | SST-REC      |              |              |
-|                             | SST-STEP-1   |              |              |
-| APP-REC-END                 | SST-STEP-2   |              |              |
-|                             | SST-STEP-... |              |              |
-|                             | SST-END      |              |              |
+|                             | STT-REC      |              |              |
+|                             | STT-STEP-1   |              |              |
+| APP-REC-END                 | STT-STEP-2   |              |              |
+|                             | STT-STEP-... |              |              |
+|                             | STT-END      |              |              |
 | APP-SEND                    |              |              |              |
 |                             |              | RLY-ACK      |              |
 |                             |              | RLY-SEND     |              |
@@ -76,28 +76,29 @@ Note that the actual event sequence does not necessarily follow the above numeri
 
 With the timeline and notation established, we can define some metrics. We need not to get the timestamp for everything above and measure time elapsed for any two pairs. That would be too many metrics, mostly useless, and introduces challenging issues such as the lack of synchronization between server and client clock and timestamps. 
 
-Instead, time elapsed should be measured within the same component (App, SST, Relay, TTS). Note that under the present design, App, SST, and TTS are all on the client side, so time elapsed between different events can be measured across components. Only Relay is on the server side. 
+Instead, time elapsed should be measured within the same component (App, STT, Relay, TTS). Note that under the present design, App, STT, and TTS are all on the client side, so time elapsed between different events can be measured across components. Only Relay is on the server side. 
 
 The key measurements we need to look at are the following:
 
-1. `[APP-REC, SST-REC]`: time elapsed to set up audio and speech recognition for an interaction
-2. `[SST-REC, SST-END]`: time consumed by speech recognition
-3. `[SST-END, APP-SEND]`: time spent on preparing the data and the request to relay, this could include time spent on serializing the data, attaching keys, and signing the request (coming soon) 
-4. `[APP-SEND, APP-RES-1]`: time elapsed until the client receives the first response from Relay. 
+1. `[APP-REC, STT-REC]`: time elapsed to set up audio and speech recognition for an interaction
+2. `[STT-REC, STT-END]`: time consumed by speech recognition
+3. `[APP-REC-END, STT-END]`: time spent waiting for speech recognition to finish after the user already indicates that there is no more speech to be captured
+4. `[STT-END, APP-SEND]`: time spent on preparing the data and the request to relay, this could include time spent on serializing the data, attaching keys, and signing the request (coming soon)
+5. `[APP-SEND, APP-RES-1]`: time elapsed until the client receives the first response from Relay. 
    - As of now, this is measured as `firstResponseTime` in `bot-client-usage-v1` index. 
-5. `[RLY-ACK, RLY-SEND]`: time spent at the Relay to pre-process the request (such as validation, key verification), before sending it to inference vendor (e.g. OpenAI)
-6. `[RLY-SEND, RLY-STEP-1]`: time elapsed until Relay receives the first response from the inference vendor. 
+6. `[RLY-ACK, RLY-SEND]`: time spent at the Relay to pre-process the request (such as validation, key verification), before sending it to inference vendor (e.g. OpenAI)
+7. `[RLY-SEND, RLY-STEP-1]`: time elapsed until Relay receives the first response from the inference vendor. 
    - As of now, this is measured as `firstResponseTime` in `bot-token-usage-v1` index.
-7. `[RLY-SEND, RLY-END]`: time spent at the Relay to receive the entire response from the inference vendor. 
+8. `[RLY-SEND, RLY-END]`: time spent at the Relay to receive the entire response from the inference vendor. 
    - As of now, this is measured as `totalResponseTime` in `bot-token-usage-v1` index.
-8. `[APP-SEND, APP-RES-END]`: time elapsed until the client receives the entire response from Relay. 
+9. `[APP-SEND, APP-RES-END]`: time elapsed until the client receives the entire response from Relay. 
    - As of now, this is measured as `totalResponseTime` in `bot-client-usage-v1` index.
-9. `[APP-RES-1, TTS-INIT]`: time elapsed to set up speech synthesis and to prepare a sufficiently long chunk of words for initial synthesis
-10. `[TTS-INIT, TTS-STEP-1]`: time consumed by speech synthesizer to produce the first audio buffer
-11. `[TTS-STEP-1, APP-PLAY-1]`: time consumed by playback system to parse and begin playing the first audio buffer
-12. `[APP-RES-1, APP-PLAY-1]`: time elapsed between receiving server response to begin playing audio response. This is useful if the synthesizing system does not provide internal API to pinpoint `TTS-INIT` and `TTS-STEP-1`, otherwise it would be just the sum of `[APP-RES-1, TTS-INIT]`, `[TTS-INIT, TTS-STEP-1]`, and `[TTS-STEP-1, APP-PLAY-1]`
-13. `[TTS-INIT, TTS-END]`: total time consumed by speech synthesizer to process the entire response
-14. `[APP-RES-1, APP-PLAY-END]`: total time elapsed to synthesize the entire response as audio and play it
+10. `[APP-RES-1, TTS-INIT]`: time elapsed to set up speech synthesis and to prepare a sufficiently long chunk of words for initial synthesis
+11. `[TTS-INIT, TTS-STEP-1]`: time consumed by speech synthesizer to produce the first audio buffer
+12. `[TTS-STEP-1, APP-PLAY-1]`: time consumed by playback system to parse and begin playing the first audio buffer
+13. `[APP-RES-1, APP-PLAY-1]`: time elapsed between receiving server response to begin playing audio response. This is useful if the synthesizing system does not provide internal API to pinpoint `TTS-INIT` and `TTS-STEP-1`, otherwise it would be just the sum of `[APP-RES-1, TTS-INIT]`, `[TTS-INIT, TTS-STEP-1]`, and `[TTS-STEP-1, APP-PLAY-1]`
+14. `[TTS-INIT, TTS-END]`: total time consumed by speech synthesizer to process the entire response
+15. `[APP-RES-1, APP-PLAY-END]`: total time elapsed to synthesize the entire response as audio and play it
 
 Additionally, if `APP-ERROR` or `APP-CANCEL` occurs in between any of the above measurement, the measurement for time elapsed should be recorded with `APP-ERROR` or `APP-CANCEL` as the termination timestamp, with corresponding flags `completed` set to false and `cancalled` set to whether `APP-CANCEL` occurred, and `error` field set to an informative message explaining the error, if there is any.
 

@@ -19,10 +19,6 @@ class AppSettings: ObservableObject {
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
     @Published var type: ActionSheetType?
-
-    func showSettings(isOpened: Bool) {
-        self.isOpened = isOpened
-    }
     
     @Published var premiumUseExpires: String {
         didSet {
@@ -41,10 +37,19 @@ class AppSettings: ObservableObject {
         }
     }
     
+    @Published var address: String {
+        didSet {
+            updateUserDefaultsIfNeeded(forKey: "ADDRESS_KEY", newValue: address)
+        }
+    }
+    func showSettings(isOpened: Bool) {
+        self.isOpened = isOpened
+    }
+    
     // Function to show specific action sheet
-    func showActionSheet(type: ActionSheetType) {
+    func showActionSheet(type: ActionSheetType, deviceType: UIUserInterfaceIdiom? = (UIDevice.current.userInterfaceIdiom)) {
         self.type = type
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if deviceType == .pad {
             self.isPopoverPresented = true
         } else {
             self.isOpened = true
@@ -62,7 +67,8 @@ class AppSettings: ObservableObject {
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
-        
+        address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+
         // Register default values after initialization
         registerDefaultValues()
         
@@ -98,6 +104,7 @@ class AppSettings: ObservableObject {
             "EXPIRE_AT": localDate,
             "custom_instruction_preference": String(localized: "customInstruction.default"),
             "USER_NAME": "User",
+            "ADDRESS_KEY": "N/A"
         ]
         UserDefaults.standard.register(defaults: defaults)
     }
@@ -105,18 +112,21 @@ class AppSettings: ObservableObject {
     private func loadSettings() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let modeToUse = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        print("[modetouse]: \(modeToUse)")
         
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
+        address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
     
         switch modeToUse {
-            case "mode_quick_facts":
-                customInstructions = String(localized: "customInstruction.quickFacts")
-            case "mode_interactive_tutor":
-                customInstructions = String(localized: "customInstruction.interactiveTutor")
-            default:
-                customInstructions = String(localized: "customInstruction.default")
+        case "mode_quick_facts":
+            customInstructions = String(localized: "customInstruction.quickFacts")
+        case "mode_interactive_tutor":
+            customInstructions = String(localized: "customInstruction.interactiveTutor")
+        default:
+            customInstructions = String(localized: "customInstruction.default")
         }
     }
     

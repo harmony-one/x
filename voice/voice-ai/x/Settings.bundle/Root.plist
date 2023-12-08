@@ -74,7 +74,7 @@
 			<key>DefaultValue</key>
 			<string>0x179Da8B4b01aEF1BE2da1824164524Be946dbf51</string>
 			<key>Key</key>
-			<string>referral_account_id</string>
+			<string>ADDRESS_KEY</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>

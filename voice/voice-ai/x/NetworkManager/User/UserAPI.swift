@@ -47,7 +47,8 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
+                KeychainService.shared.storeUser(user: response.data)
+                
                 self.logger.log("Success")
                 SentrySDK.capture(message: "[UserAPI][Register] Success")
 
@@ -69,9 +70,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Register] userID not created")
                     return
                 }
-
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
-
+                KeychainService.shared.storeUser(user: response.data)
                 SentrySDK.capture(message: "[UserAPI][GetUser] Success")
             case let .failure(error):
                 self.logger.log("[UserAPI][GetUser] byType: \(byType) Error: \(error)")
@@ -102,8 +101,7 @@ struct UserAPI {
                     SentrySDK.capture(message: "[UserAPI][Purchase] userID not created")
                     return
                 }
-                KeychainService.shared.storeUser(id: userID, balance: String(response.data.balance ?? 0), createdAt: response.data.createdAt, updatedAt: response.data.updatedAt, expirationDate: response.data.expirationDate, isSubscriptionActive: response.data.isSubscriptionActive, appVersion: response.data.appVersion)
-
+                KeychainService.shared.storeUser(user: response.data)
                 SentrySDK.capture(message: "[UserAPI][Purchase] Success")
             case let .failure(error):
                 // Handle error

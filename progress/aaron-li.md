@@ -1,3 +1,9 @@
+2023-12-05 Fri (0.5h): Review #329 (comment on TTS measuring issues, branches with zero STT, and future TimeLogger structure). Fix benchmarking guideline typos
+
+2023-12-05 Thu (4.5h): Benchmarking guideline: measurement timelines, key metrics, metadata, client implementation notes. Investigate wallet theft and unusual fund flows
+
+2023-12-05 Wed (5.5h): Discussion and feedback on benchmarking and measurement. Research on locale and language settings for tests, and issues related to optional chaining and branch conditions in test coverage. Drafting benchmarking guideline: infrastructure details, and measurements
+
 2023-12-05 Tue (3h): Debug MetaMask mobile signing issues on Gnosis and Multisig, replicate signature issues in version 7.12.0. Inspect Gnosis backend service code for potential workarounds, and review MetaMask code changes and version history. Discussion on ways of audio capturing improvements. Review MetaMask mobile reported issues, debug underlying cause, create a workaround and demo. Research on edge models and Apple Silicon ML frameworks. Review #298, #299, #300, #301 (comment on API key's access and safety, and sentry capturing tags), #302, #303, #304, #305, #306, #307, #308, #309, #310, #311 (request for version alert extra content), #313, #314 (comment on silent failure), #315, #316, #317, #312 (open, question on integration with Siri, watch, and apps)
 
 2023-12-04 Mon (1h): Debug and fix tweet embedding issues. Further analysis on pull requests and commits

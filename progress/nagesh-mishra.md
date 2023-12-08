@@ -1,3 +1,5 @@
+2023-12-08 Fri: Update the "referral account" to include Artem's endpoint PR: https://github.com/harmony-one/x/pull/332. Complete the enhancement of the premium voice detection feature PR: https://github.com/harmony-one/x/pull/331.
+
 2023-12-07 Thu: Modified the "Press & Hold" feature to provide haptic feedback only upon finger release and added a vibration every second during the wait for a response.
 Evaluated the MobSF security framework and implemented a check for user access to premium voice features, with a alert for those without access.
 
