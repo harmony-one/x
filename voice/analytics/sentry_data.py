@@ -21,20 +21,23 @@ def get_prod_error_count(organization_slug, project_slug):
     now = datetime.utcnow()
     start_time = now - timedelta(days=1)
     start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S')
-    query = '!event.type:transaction !message:"handleRecognitionError: "'
+    query = '!event.type:transaction !message:"handleRecognitionError: " timestamp:-24h'
     endpoint = f"{sentry_api_base_url}/projects/{organization_slug}/{project_slug}/issues/"
     params = {
         'query': query,
-        'statsPeriod': '24h',
         'environment': 'production'
     }
 
     response = requests.get(endpoint, headers=headers, params=params)
+
     if response.status_code == 200:
-        return len(response.json())
+        error_count = 0
+        for error in response.json():
+            for period in error['stats']['24h']:
+                error_count += period[1]
+        return error_count
     else:
         raise Exception(f"Error: {response.status_code}")
-
 
 def get_project_issues(organization_slug, project_slug):
     """Get project issues from Sentry."""
