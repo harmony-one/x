@@ -1,3 +1,5 @@
+2023-12-08 Fri: I have [added the ability to implement test mocks](https://github.com/harmony-one/x/pull/334) for the NetworkManagerProtocol and added a test for the UserAPI.getuser method.
+
 2023-12-07 Thu: I am working on component testing and investigating how to increase code coverage, and [updated the tests](https://github.com/harmony-one/x/pull/328) for the following components: GridButton, NetworkManager, VibrationManager, and OpenAIService.
 
 2023-12-06 Wed: I'm working on test coverage and encountered an SSL problem in the development environment.
