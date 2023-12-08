@@ -1,3 +1,7 @@
+2023-12-07 Thu: Added tests and refactored code for LogStore (94%) and AppSettings (92%). Cleaned code for ConverterTests. Investigating how to provide coverage for code that dispatches notification (OSLog, warnings, NSNotification) - they seem better if covered in integration testing but finding a work around to bring their unit test coverage to 100%.
+
+2023-12-06 Wed: Solved threading error from SpeechRecognition.swift which was causing entire tests to fail. Cleaned code that wasn't being used. Updated tests for SettingsView, and all the Intents tests to 100% (SurpriseIntent, AppSettingsIntent, NewSessionIntent, PlayPauseIntent, IntentManager, VoiceAIShortcuts). Helping fix the unit tests for ActionsView, which require UI testing (still investigating issue).
+
 2023-12-05 Tue: Raised tests for SettingsBundleHelper to 100% [https://github.com/harmony-one/x/pull/315], APIEnvironment to 100% [https://github.com/harmony-one/x/pull/316], MixpanelManager Tests to 90% [https://github.com/harmony-one/x/pull/314], and cleaned/refactored AppConfig tests + original file [https://github.com/harmony-one/x/pull/317] (currently still updating).
 
 2023-12-04 Mon: Resolved conflicts and merged language updates [https://github.com/harmony-one/x/pull/306] [https://github.com/harmony-one/x/pull/291], wrote some tests for CustomInstructionsConfig [https://github.com/harmony-one/x/pull/302] and language [https://github.com/harmony-one/x/pull/307].
