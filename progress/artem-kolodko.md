@@ -1,3 +1,5 @@
+2023-12-08 Fri: [Added](https://github.com/harmony-one/x-payments-backend/pull/8) blockchain address associated with appleId in Payments backend, added DB migration. [Fixed](https://github.com/harmony-one/x/pull/333) exporting logs to Notes app, changed logs order.
+
 2023-12-07 Thu: completed logs refactoring: added custom logger to ActionHandler, RelayAuth, AppleSignInManager, TextToSpeechConverter, and more classes. Added formatted timestamp to logs export. [PR#309](https://github.com/harmony-one/x/pull/319) is merged into main branch.
 
 2023-12-06 Wed: working on exporting logs: implemented custom logs system, added export, started refactoring current logs to a new logger. Updated ActionsView, SettingsView, SpeechRecognition classes, working on the rest app. PR [#309](https://github.com/harmony-one/x/pull/319).
