@@ -31,18 +31,41 @@ class AppleSignInManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testPresentationAnchor() {
+    func testCreateAppleSignInRequest() {
+        let window = UIWindow()
+        let appleSignInManager = AppleSignInManager.shared
+
+        appleSignInManager.performAppleSignIn(using: window)
+
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
-
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-
-        // AppleSignInManager.shared.presentationAnchor(for: controller)
+        XCTAssertEqual(request.requestedScopes, [.fullName, .email])
     }
     
-    func testPerformAppleSignIn() {
-        appleSignInManager.performAppleSignIn(using: mockWindow)
+    func testCreateAuthorizationController() {
+        let window = UIWindow()
+        let appleSignInManager = AppleSignInManager.shared
+        
+        appleSignInManager.performAppleSignIn(using: window)
+        
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        XCTAssertEqual(controller.authorizationRequests.count, 1)
     }
+    
+    func testSetAuthorizationControllerDelegate() {
+        let window = UIWindow()
+        let appleSignInManager = AppleSignInManager.shared
+        
+        appleSignInManager.performAppleSignIn(using: window)
+        
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        XCTAssertFalse(controller.delegate === appleSignInManager)
+    }
+    
     
     func testDidCompleteWithAuthorization() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
