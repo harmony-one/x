@@ -37,6 +37,11 @@ class AppSettings: ObservableObject {
         }
     }
     
+    @Published var address: String {
+        didSet {
+            updateUserDefaultsIfNeeded(forKey: "ADDRESS_KEY", newValue: address)
+        }
+    }
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
     }
@@ -62,7 +67,8 @@ class AppSettings: ObservableObject {
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? "N/A"
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
-        
+        address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+
         // Register default values after initialization
         registerDefaultValues()
         
@@ -97,7 +103,8 @@ class AppSettings: ObservableObject {
         let defaults = [
             "EXPIRE_AT": localDate,
             "custom_instruction_preference": String(localized: "customInstruction.default"),
-            "USER_NAME": "User"
+            "USER_NAME": "User",
+            "ADDRESS_KEY": "N/A"
         ]
         UserDefaults.standard.register(defaults: defaults)
     }
@@ -109,6 +116,8 @@ class AppSettings: ObservableObject {
         
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
+        address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
     
         switch modeToUse {
