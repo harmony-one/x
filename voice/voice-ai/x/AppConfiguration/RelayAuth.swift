@@ -10,11 +10,6 @@ struct ClientUsageLog: Codable {
     let endpoint: String
     let requestTokens: Int32
     let responseTokens: Int32
-    let ttsTime: Int64
-    let sttTime: Int64
-    let audioCapturingDelay: Int64
-    let firstResponseTime: Int64
-    let totalResponseTime: Int64
     let requestNumMessages: Int32
     let requestNumUserMessages: Int32
     let requestMessage: String
@@ -22,7 +17,17 @@ struct ClientUsageLog: Codable {
     let cancelled: Bool
     let completed: Bool
     let error: String
+    
+    // measures
+    let sttEndTime: Int64 // STT-END step time
+    let appSendTime: Int64 // APP-SEND step time
+    let firstResponseTime: Int64 // APP-RES-1 step time
+    let ttsInitTime: Int64 // TTS-INIT step time
+    let ttsFirstTime: Int64 // TTS-STEP-1 step tome
+    let clickToSpeechTotalTime: Int64 // total time from click to voice
+    let totalResponseTime: Int64 // total ai request time
 }
+
 
 struct RelaySetting: Codable {
     let mode: String?

@@ -9,9 +9,6 @@ class TimeLogger {
     )
     // TODO: use ContinuousClock https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
     private let relay = RelayAuth.shared
-    private var startTime: Int64
-    private var firstCheckpointTime: Int64 = 0
-    private var finalCheckpointTime: Int64 = 0
     private let vendor: String
     private let endpoint: String
     private var logged = false
@@ -19,83 +16,98 @@ class TimeLogger {
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
     
-    private var ttsStartTime: Int64 = 0
-    
     private var requestNumMessages: Int32 = 0
     private var requestNumUserMessages: Int32 = 0
-    private var  requestTokens: Int32 = 0
+    private var requestTokens: Int32 = 0
     private var responseTokens: Int32 = 0
     private var requestMessage: String = ""
     private var responseMessage: String = ""
     private var cancelled: Bool = false
     private var completed: Bool = true
     private var error: String = ""
-    private var ttsTime: Int64 = 0
-    private var sttTime: Int64 = 0
-    private var audioCapturingDelay: Int64 = 0
+
+    // Checkpoints:
+    private var startTime: Int64 = 0
+    
+    private var sttEndCheckpointTime: Int64 = 0 // STT-END step completed
+    private var appSendCheckpointTime: Int64 = 0 // APP-SEND step completed
+    
+    private var aiFirsCheckpointTime: Int64 = 0 // APP-RES-1 step completed
+    private var aiFinalCheckpointTime: Int64 = 0 // APP-RES-END step completed
+    
+    private var ttsInitCheckpointTime: Int64 = 0 // TTS-INIT step completed
+    private var ttsFirstCheckpointTime: Int64 = 0 // TTS-STEP-1 step completed
     
     init(vendor: String, endpoint: String, once: Bool = true) {
         self.vendor = vendor
         self.endpoint = endpoint
         self.once = once
+    }
+
+    func start() {
+        if self.startTime != 0 {
+            return
+        }
+        
         startTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
-
-    func reset() {
-        startTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-        firstCheckpointTime = 0
-        finalCheckpointTime = 0
-    }
-
-    func tryCheck() {
-        if firstCheckpointTime != 0 {
-            return
-        }
-        check()
-    }
-
-    func check() {
-        firstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
-
-    func stop() {
-        finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
     
-    func ttsStart() {
-        if self.ttsStartTime > 0 {
+    func finishSTTEnd() {
+        if self.sttEndCheckpointTime != 0 {
             return
         }
         
-        ttsStartTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+        sttEndCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
-    func ttsStop() {
-        if self.ttsTime > 0 {
+    func finishAppSend() {
+        if self.appSendCheckpointTime != 0 {
             return
         }
         
-        let ttsEndTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-        self.ttsTime = ttsEndTime - ttsStartTime
+        appSendCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
-    func logSTT(sttTime: Int64) {
-        if self.sttTime > 0 {
+    func finishTTSInit() {
+        if self.ttsInitCheckpointTime != 0 {
             return
         }
         
-        self.sttTime = sttTime
+        ttsInitCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+    }
+    
+    func finishTTSFirst() {
+        if self.ttsFirstCheckpointTime != 0 {
+            return
+        }
+        
+        ttsFirstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+    }
+
+    func tryCheckAIReponse() {
+        if aiFirsCheckpointTime != 0 {
+            return
+        }
+        checkAIResponse()
+    }
+
+    func checkAIResponse() {
+        aiFirsCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+    }
+
+    func finishAIResponse() {
+        aiFinalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
     func log(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
         if once, logged {
             return
         }
-        if finalCheckpointTime == 0 {
-            stop()
+        if aiFinalCheckpointTime == 0 {
+            finishAIResponse()
         }
-        if firstCheckpointTime == 0 {
-            firstCheckpointTime = finalCheckpointTime
+        if aiFirsCheckpointTime == 0 {
+            aiFirsCheckpointTime = aiFinalCheckpointTime
         }
         logged = true
         
@@ -117,29 +129,36 @@ class TimeLogger {
         
         logSent = true
         
-        let firstResponseTime = firstCheckpointTime - startTime
-        let totalResponseTime = finalCheckpointTime - startTime
+        let sttEndTime = sttEndCheckpointTime - startTime
+        let appSendTime = appSendCheckpointTime - sttEndCheckpointTime
+        let firstResponseTime = aiFirsCheckpointTime - appSendCheckpointTime
+        let ttsInitTime = ttsInitCheckpointTime - aiFirsCheckpointTime
+        let ttsFirstTime = ttsFirstCheckpointTime - ttsInitCheckpointTime
+        let clickToSpeechTotalTime = ttsFirstCheckpointTime - startTime
+        let totalResponseTime = aiFinalCheckpointTime - appSendCheckpointTime
         
         let logDetails = ClientUsageLog(
             vendor: vendor,
             endpoint: endpoint,
             requestTokens: requestTokens,
             responseTokens: responseTokens,
-            ttsTime: ttsTime,
-            sttTime: sttTime,
-            audioCapturingDelay: audioCapturingDelay,
-            firstResponseTime: firstResponseTime,
-            totalResponseTime: totalResponseTime,
             requestNumMessages: requestNumMessages,
             requestNumUserMessages: requestNumUserMessages,
             requestMessage: requestMessage,
             responseMessage: responseMessage,
             cancelled: cancelled,
             completed: completed,
-            error: error
+            error: error,
+            sttEndTime: sttEndTime,
+            appSendTime: appSendTime,
+            firstResponseTime: firstResponseTime,
+            ttsInitTime: ttsInitTime,
+            ttsFirstTime: ttsFirstTime,
+            clickToSpeechTotalTime: clickToSpeechTotalTime,
+            totalResponseTime: totalResponseTime
         )
         if printDebug {
-            logger.log("[TimeLogger] \(String(describing: logDetails))")
+            logger.log("ym [TimeLogger] \(String(describing: logDetails))")
         }
         Task {
             await RelayAuth.shared.record(logDetails)
