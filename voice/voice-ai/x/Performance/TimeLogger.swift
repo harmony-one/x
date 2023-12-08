@@ -158,8 +158,13 @@ class TimeLogger {
             totalResponseTime: totalResponseTime
         )
         if printDebug {
-            logger.log("ym [TimeLogger] \(String(describing: logDetails))")
+            logger.log("[TimeLogger] \(String(describing: logDetails))")
         }
+        
+        let del: Int64 = 1000
+        
+        logger.log("[Benchmarks]: \(String(sttEndTime / del)) + \(String(appSendTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsInitTime / del)) + \(String(ttsFirstTime / del)) = \(String(clickToSpeechTotalTime / del)) ms")
+        
         Task {
             await RelayAuth.shared.record(logDetails)
         }

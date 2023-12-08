@@ -37,7 +37,7 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     
     // Function to convert text to speech with customizable pitch and volume parameters
     func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "", timeLogger: TimeLogger?) {
-        self.timeLogger = timeLogger;
+        self.timeLogger = timeLogger
         
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
