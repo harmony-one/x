@@ -1,3 +1,5 @@
+2023-12-07 Thu: Debugging tests suite not running. [Created](https://github.com/harmony-one/x/commit/eb6758a48f1f8047e3bb4b5a420419ba78207949) collection script for data from Elasticsearch and Sentry. [Fixed](https://github.com/harmony-one/x/commits/main) the error counter and verified against Sentry dashboard. Assisted Alaina in setting up and running collection scripts. 
+
 2023-12-06 Wed: [Created](https://github.com/harmony-one/x/commit/17e6e0f27a5b13cbd31d6311f312cde7484e551d) openAI API stat scraper. [Added](https://github.com/harmony-one/x/commit/d6be2635c595dc09e19fe1662682b565d93b1395) average first and total response times. Helped debug the tests not working. 
 
 2023-12-05 Tue: [Created](https://github.com/harmony-one/x/commit/fe6f76f2e3365e77d210f9265bc40b632544ff8c) and [updated](https://github.com/harmony-one/x/commit/17396077f1c767298d73017e858eff7b4b3ebaa6) test for CreateUser.swift. [Expanded](https://github.com/harmony-one/x/commit/da8686567602b4aebc7b80b68e3e2d5da56e96fe) testing for buttons in ActionViewTests. [Resolved](https://github.com/harmony-one/x/commit/e8f32dd2170059616a65923fbd5911173f7f9b25) some lint issues. 
