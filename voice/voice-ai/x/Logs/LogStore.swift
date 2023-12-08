@@ -10,6 +10,7 @@ import Foundation
     @Published private(set) var entries: [String] = []
 
     func export() {
+        print("[LogStore][export] Exporting Logs")
         let dateFormatStyle = Date.FormatStyle()
             .year(.defaultDigits)
             .month(.twoDigits)

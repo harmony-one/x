@@ -40,11 +40,11 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         }
         
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
-            if let language = selectedLanguage {
-                self.logger.log("[selectedLanguage] \(language)")
-            } else {
-                self.logger.log("[selectedLanguage] nil")
-            }
+//            if let language = selectedLanguage {
+//                self.logger.log("[selectedLanguage] \(language)")
+//            } else {
+//                self.logger.log("[selectedLanguage] nil")
+//            }
             utterance.voice = voice
         } else {
             // this is used just for the unit tests
@@ -58,6 +58,8 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         
         // Set the volume of the speech utterance
         utterance.volume = volume
+        
+        self.logger.log("[TTS] \(text)\n")
         
         // Speak the provided utterance using the AVSpeechSynthesizer
         synthesizer.speak(utterance)
