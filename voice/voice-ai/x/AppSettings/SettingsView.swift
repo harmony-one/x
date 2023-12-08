@@ -55,7 +55,7 @@ struct SettingsView: View {
             ActivityView(activityItems: [jsonString])
         }
         .sheet(isPresented: $isShareLogs, onDismiss: { isShareLogs = false }) {
-            ActivityView(activityItems: logStore.entries)
+            ActivityView(activityItems: [logStore.entries.joined(separator: " ")])
         }
     }
 
