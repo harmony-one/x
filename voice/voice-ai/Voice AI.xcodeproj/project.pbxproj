@@ -313,6 +313,7 @@
 		F76D13D02B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F76D13D12B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F76D13D22B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
+		F770F0412B22EA0300BC06B4 /* LogsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770F0402B22EA0300BC06B4 /* LogsTests.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -470,6 +471,7 @@
 		F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextToSpeechConverter.swift; sourceTree = "<group>"; };
 		F76D13C32B18218C0018F89B /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelimitingPunctuations.swift; sourceTree = "<group>"; };
+		F770F0402B22EA0300BC06B4 /* LogsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsTests.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -900,6 +902,7 @@
 				F6EEF28E2B1E735900174CED /* CustomInstructionsHandlerTests.swift */,
 				F712228C2B1EB885005A5602 /* TextsTests.swift */,
 				F76AE4972B213EE3002CA57E /* IntentsTests.swift */,
+				F770F0402B22EA0300BC06B4 /* LogsTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1409,6 +1412,7 @@
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */,
+				F770F0412B22EA0300BC06B4 /* LogsTests.swift in Sources */,
 				E4D0D8D72B2240DD00F717A2 /* SurpriseIntent.swift in Sources */,
 				F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
