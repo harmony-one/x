@@ -3,6 +3,12 @@
 
 ---
 
+2023-12-07 Fri: Deployed version v1.1208.9 which includes the full integration of the Referral Account to backend database per user id. Will submit v1.1208.18 to app store for approval.
+
+2023-12-07 Thu: Submitted version v1.1207.9 to the app store which included a new Referral Account in system settings to support potential future integration with web3 payment channels. Also included enhanced transcript which will be debugged by friday.
+
+2023-12-06 Wed: Deployed version v1.1206.9 to app store; updates included adding thinking icon, refactoring string constants, and adding additional shortcuts for action button ("Open Settings", "Play / Pause", "Tap to Speak", "New session").
+
 2023-12-05 Tue: Submitted version v1.1205.9 to app store; updates included adding action button shortcuts, adding Sign Out functionality, and reorganizing "More Actions" menu.
 
 2023-12-04 Mon: Released version v1.1204.9 and v1.1204.18 with significant progress on general UI interaction. Major bugs that we hope to resolve by Friday 12-08 are first-word mic cut off and sporadic behaviors from "Press & Hold" button.
