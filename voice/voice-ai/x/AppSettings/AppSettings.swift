@@ -19,10 +19,6 @@ class AppSettings: ObservableObject {
     static let shared = AppSettings()
     private var cancellables = Set<AnyCancellable>()
     @Published var type: ActionSheetType?
-
-    func showSettings(isOpened: Bool) {
-        self.isOpened = isOpened
-    }
     
     @Published var premiumUseExpires: String {
         didSet {
@@ -46,11 +42,14 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "ADDRESS_KEY", newValue: address)
         }
     }
+    func showSettings(isOpened: Bool) {
+        self.isOpened = isOpened
+    }
     
     // Function to show specific action sheet
-    func showActionSheet(type: ActionSheetType) {
+    func showActionSheet(type: ActionSheetType, deviceType: UIUserInterfaceIdiom? = (UIDevice.current.userInterfaceIdiom)) {
         self.type = type
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if deviceType == .pad {
             self.isPopoverPresented = true
         } else {
             self.isOpened = true
@@ -113,6 +112,7 @@ class AppSettings: ObservableObject {
     private func loadSettings() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let modeToUse = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        print("[modetouse]: \(modeToUse)")
         
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
@@ -121,12 +121,12 @@ class AppSettings: ObservableObject {
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
     
         switch modeToUse {
-            case "mode_quick_facts":
-                customInstructions = String(localized: "customInstruction.quickFacts")
-            case "mode_interactive_tutor":
-                customInstructions = String(localized: "customInstruction.interactiveTutor")
-            default:
-                customInstructions = String(localized: "customInstruction.default")
+        case "mode_quick_facts":
+            customInstructions = String(localized: "customInstruction.quickFacts")
+        case "mode_interactive_tutor":
+            customInstructions = String(localized: "customInstruction.interactiveTutor")
+        default:
+            customInstructions = String(localized: "customInstruction.default")
         }
     }
     
