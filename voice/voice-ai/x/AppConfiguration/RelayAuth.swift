@@ -3,6 +3,7 @@ import DeviceCheck
 import Foundation
 import Sentry
 import SwiftyJSON
+import OSLog
 
 struct ClientUsageLog: Codable {
     let vendor: String
@@ -26,6 +27,10 @@ struct RelaySetting: Codable {
 }
 
 class RelayAuth {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "RelayAuth")
+    )
     private static let baseUrl = AppConfig.shared.getRelayUrl()
     private static let disableLog = AppConfig.shared.getDisableRelayLog()
     private static let keyIdPath = "AppAttestKeyId"
@@ -58,7 +63,7 @@ class RelayAuth {
             return nil
         }
         nextAvailableCallTime = now + 5000
-        print("[RelayAuth][autoRetryRefreshToken] setting nextAvailableCallTime=\(nextAvailableCallTime)")
+        self.logger.log("[RelayAuth][autoRetryRefreshToken] setting nextAvailableCallTime=\(self.nextAvailableCallTime)")
 
         let maxRetry = 5
         var numRetries = 0
@@ -218,13 +223,13 @@ class RelayAuth {
     }
 
     func log(_ message: String) {
-        print("[RelayAuth]", message)
+        self.logger.log("[RelayAuth] \(message)")
         SentrySDK.capture(message: "[RelayAuth] \(message)")
     }
 
     @discardableResult func logError(_ msg: String, _ code: Int) -> NSError {
         let error = NSError(domain: msg, code: code)
-        print("[RelayAuth][ERROR]", code, msg)
+        self.logger.log("[RelayAuth][ERROR] \(code) \(msg)")
         SentrySDK.capture(error: error) { scope in
             scope.setTag(value: "RelayAuth", key: "module")
         }
@@ -232,7 +237,7 @@ class RelayAuth {
     }
 
     @discardableResult func logError(_ error: Error, _ detail: String = "") -> Error {
-        print("[RelayAuth][ERROR]", detail, error)
+        self.logger.log("[RelayAuth][ERROR] \(detail) \(error)")
         SentrySDK.capture(error: error) { scope in
             scope.setExtra(value: detail, key: "detail")
             scope.setTag(value: "RelayAuth", key: "module")
@@ -268,7 +273,7 @@ class RelayAuth {
             let token = try await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             // throw NSError(domain:"testing", code: -6)
             self.token = token
-            print("[RelayAuth] received token \(token ?? "N/A")")
+            self.logger.log("[RelayAuth] received token \(token ?? "N/A")")
             return token
         } catch {
             let error = error as NSError
@@ -296,7 +301,7 @@ class RelayAuth {
         req.httpMethod = "POST"
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSON(body).rawData()
-//            print("[RelayAuth][exchangeAttestationForToken] sending \(body)")
+//            self.logger.log("[RelayAuth][exchangeAttestationForToken] sending \(body)")
         let (data, response) = try await session.data(for: req)
         let httpResponse = response as? HTTPURLResponse
         if httpResponse?.statusCode == 410 {
@@ -350,11 +355,11 @@ class RelayAuth {
         do {
             let body = try JSONEncoder().encode(record)
             request.httpBody = body
-//            print("[RelayAuth][log] sending \(String(data: body, encoding: .utf8)!)")
+//            self.logger.log("[RelayAuth][log] sending \(String(data: body, encoding: .utf8)!)")
             let (data, _) = try await session.data(for: request)
             let res = JSON(data)
             let success = res["success"].bool
-            print("[RelayAuth][log] success: \(success ?? false)")
+            self.logger.log("[RelayAuth][log] success: \(success ?? false)")
         } catch {
             logError(error, "error sending record")
             return

@@ -1,7 +1,12 @@
 import Foundation
 import StoreKit
+import OSLog
 
 class ReviewRequester {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "ReviewRequester")
+    )
     static let shared = ReviewRequester()
     
     // Configuration
@@ -36,12 +41,12 @@ class ReviewRequester {
     }
     
     func logSignificantEvent() {
-        print("[ReviewRequester][logSignificantEvent]")
-        print("Initial significantEventsCount: \(self.significantEventsCount)")
+        self.logger.log("[ReviewRequester][logSignificantEvent]")
+        self.logger.log("Initial significantEventsCount: \(self.significantEventsCount)")
         significantEventsCount += 1
-        print("After significantEventsCount: \(self.significantEventsCount)")
+        self.logger.log("After significantEventsCount: \(self.significantEventsCount)")
         tryPromptForReview()
-        print("Last significantEventsCount: \(self.significantEventsCount)")
+        self.logger.log("Last significantEventsCount: \(self.significantEventsCount)")
     }
     
     func tryPromptForReview(forced: Bool = false) {

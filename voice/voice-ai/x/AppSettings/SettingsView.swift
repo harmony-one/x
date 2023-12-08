@@ -1,16 +1,28 @@
 import SwiftUI
 import UIKit
 import Sentry
+import OSLog
+import Darwin.sys.sysctl
+
 
 struct SettingsView: View {
+    var logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: "[SettingsView]")
+    )
+    @EnvironmentObject var logStore: LogStore
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
     @State private var showShareSheet: Bool = false
     @State private var userName: String?
     @State private var isSaveTranscript = false
-    
+    @State private var isShareLogs = false
+
+
     private var shareTitle = "hey @voiceaiapp "
-    
+
+    private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
+
     var body: some View {
         ZStack {
             Color.clear
@@ -31,7 +43,8 @@ struct SettingsView: View {
                 return purchaseOptionsActionSheet()
             }
         }
-        
+
+
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: appSettings.appStoreUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
@@ -41,8 +54,11 @@ struct SettingsView: View {
             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
             ActivityView(activityItems: [jsonString])
         }
+        .sheet(isPresented: $isShareLogs, onDismiss: { isShareLogs = false }) {
+            ActivityView(activityItems: logStore.entries)
+        }
     }
-    
+
     func popoverContent() -> some View {
         VStack {
             switch appSettings.type {
@@ -57,7 +73,6 @@ struct SettingsView: View {
         .padding()
         .background(Color.white)
     }
-    
     private func settingsPopoverContent() -> some View {
         VStack(spacing: 32) {
             Text("settingsView.view.title").font(.title)
@@ -91,7 +106,7 @@ struct SettingsView: View {
         }
         .padding()
     }
-    
+
     private func purchaseOptionsPopoverContent() -> some View {
         VStack {
             Text("settingsView.purchaseMenu.title").font(.headline)
@@ -99,22 +114,23 @@ struct SettingsView: View {
             Button("settingsView.purchaseMenu.pay5viaApple") { showPurchaseDialog() }
             //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
             Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
-            Button("settingsView.purchaseMenu.deleteAccount") { 
+            Button("settingsView.purchaseMenu.deleteAccount") {
                 appSettings.isPopoverPresented = false
-                showDeleteAccountAlert()                     }
+                showDeleteAccountAlert()
+            }
             Button("button.cancel", role: .cancel) {
                 appSettings.isPopoverPresented = false
             }
         }
         .padding()
     }
-    
+
     func actionSheet() -> ActionSheet {
         return ActionSheet(title: Text("settingsView.mainMenu.title"), buttons: [
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("settingsView.mainMenu.shareTranscript")) { saveTranscript() },
+            .default(Text("settingsView.mainMenu.shareTranscript")) { shareLogs() },
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
@@ -127,14 +143,13 @@ struct SettingsView: View {
             }
         ])
     }
-    
+
     //    func customInstructionsActionSheet() -> {
     //        return ActionSheet(title: Text("Custom Instructions"), buttons: [
     //            .default(Text(<#T##input: Equatable##Equatable#>, format: FormatStyle)),
     //            .cancel()
     //        ])
     //    }
-    
     func purchaseOptionsActionSheet() -> ActionSheet {
         return ActionSheet(title: Text("settingsView.purchaseMenu.title"), buttons: [
             .default(Text("settingsView.purchaseMenu.pay5viaApple")) { showPurchaseDialog() },
@@ -149,20 +164,20 @@ struct SettingsView: View {
                     performSignIn()
                 }
             },
-            .default(Text("settingsView.purchaseMenu.deleteAccount")) { 
+            .default(Text("settingsView.purchaseMenu.deleteAccount")) {
                 showDeleteAccountAlert()
             },
             .cancel()
         ])
     }
-    
+
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
     }
-    
+
     func performSignIn() {
         MixpanelManager.shared.trackEvent(name: "Sign In", properties: nil)
         if KeychainService.shared.isAppleIdAvailable() {
@@ -177,33 +192,33 @@ struct SettingsView: View {
             AppleSignInManager.shared.performAppleSignIn(using: keyWindow)
         }
     }
-    
+
     func showPurchaseDialog() {
         MixpanelManager.shared.trackEvent(name: "Purchase Dialog", properties: nil)
         DispatchQueue.main.async {
             Task {
                 if self.store.products.isEmpty {
-                    print("[AppleSignInManager] No products available")
+                    logger.log("[AppleSignInManager] No products available")
                 } else {
                     let product = self.store.products[0]
                     do {
                         try await self.store.purchase(product)
                     } catch {
-                        print("[AppleSignInManager] Error during purchase")
+                        logger.log("[AppleSignInManager] Error during purchase")
                     }
                 }
             }
         }
     }
-    
+
     func openSystemSettings() {
         MixpanelManager.shared.trackEvent(name: "System Settings", properties: nil)
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-        print("Settings: system settings clicked")
+        logger.log("Settings: system settings clicked")
     }
-    
+
     func getUserName() -> String {
         let keychain = KeychainService.shared
         if keychain.isAppleIdAvailable() {
@@ -213,7 +228,7 @@ struct SettingsView: View {
         //        return getSettingsText(for: languageCode, buttonName: "signIn")
         return String(localized: "settingsView.purchaseOptions.button.signInAccountOut")
     }
-    
+
     func saveTranscript() {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
@@ -223,33 +238,99 @@ struct SettingsView: View {
         }
         isSaveTranscript = true
     }
-    
+
+    func shareLogs() {
+        logStore.export()
+        isShareLogs = true
+    }
+
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
-        
+
+        // include settings here
+        transcript = settingsToTranscript(transcript: transcript)
+        var currentSize = transcript.data(using: .utf8)?.count ?? 0
+
         for message in messages {
             let label = message.role?.lowercased() == "user" ? "User:" : "GPT:"
             if let content = message.content {
                 if label == "GPT:" && content == String(localized: "customInstruction.default") {
                     continue
                 }
-                transcript += "\(label) \(content)\n"
+
+                let newEntry = "\(label) \(content)\n"
+                let newEntrySize = newEntry.data(using: .utf8)?.count ?? 0
+
+                if currentSize + newEntrySize <= maxByteSize {
+                    transcript += newEntry
+                    currentSize += newEntrySize
+                } else {
+                    break
+                }
             }
         }
-        
+
         return transcript
     }
-    
+
+    func settingsToTranscript(transcript: String) -> String {
+        var updatedTranscript = transcript
+
+        func getAppVersion() -> String? {
+            guard let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
+                return nil
+            }
+            return appVersion
+        }
+
+        if let versionNumber = getAppVersion() {
+            updatedTranscript += "App Version: \(versionNumber)\n"
+        } else {
+            updatedTranscript += "App Version: Unknown\n"
+        }
+
+        // specific hardware model identifier
+        func getHardwareModel() -> String? {
+            var size: Int = 0
+            if sysctlbyname("hw.machine", nil, &size, nil, 0) != 0 {
+                self.logger.log("Error: Could not determine size of hardware model string")
+                return nil
+            }
+
+            var machine = [CChar](repeating: 0, count: size)
+            if sysctlbyname("hw.machine", &machine, &size, nil, 0) != 0 {
+                self.logger.log("Error: Could not retrieve hardware model string")
+                return nil
+            }
+
+            return String(cString: machine)
+        }
+
+        if let deviceModel = getHardwareModel() {
+            updatedTranscript += "Device: \(deviceModel)\n"
+        } else {
+            updatedTranscript += "Device: Unknown\n"
+        }
+
+        let iosVersion = UIDevice.current.systemVersion
+        updatedTranscript += "iOS Version: \(iosVersion)\n"
+
+        // new line for readability
+        updatedTranscript += "\n"
+
+        return updatedTranscript
+    }
+
     func deleteUserAccount() {
         MixpanelManager.shared.trackEvent(name: "Delete Account", properties: nil)
         guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
             SentrySDK.capture(message: "[UserAPI][DeleteAccount] serverAPIKey missing.")
             return
         }
-        print("[SettingsView][deleteUserAccount]")
+        logger.log("[SettingsView][deleteUserAccount]")
         UserAPI().deleteUserAccount(apiKey: serverAPIKey) { success in
             if success {
-                print("Account deletion successful.")
+                logger.log("Account deletion successful.")
                 // Perform any additional tasks if the deletion is successful
                 SentrySDK.capture(message: "[UserAPI][DeleteAccount] Sucess")
                 KeychainService.shared.clearAll()
@@ -259,9 +340,9 @@ struct SettingsView: View {
             // Handle the failure case
         }
     }
-    
+
     func showSignOutAlert() {
-        
+
         let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
         let deleteAction = UIAlertAction(title: String(localized: "settingsView.alert.signOut.button"), style: .destructive) { _ in
             // Handle sign out action here
@@ -269,7 +350,7 @@ struct SettingsView: View {
         }
         AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
     }
-    
+
     func showDeleteAccountAlert() {
         let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
         let deleteAction = UIAlertAction(title: String(localized: "settingsView.alert.deleteAccount.button"), style: .destructive) { _ in

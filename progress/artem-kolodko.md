@@ -1,3 +1,5 @@
+2023-12-07 Thu: completed logs refactoring: added custom logger to ActionHandler, RelayAuth, AppleSignInManager, TextToSpeechConverter, and more classes. Added formatted timestamp to logs export. [PR#309](https://github.com/harmony-one/x/pull/319) is merged into main branch.
+
 2023-12-06 Wed: working on exporting logs: implemented custom logs system, added export, started refactoring current logs to a new logger. Updated ActionsView, SettingsView, SpeechRecognition classes, working on the rest app. PR [#309](https://github.com/harmony-one/x/pull/319).
 
 2023-12-05 Tue: [added](https://github.com/harmony-one/x/commit/bf0e2df0821493b9ffd543404846f8a67c350023) app version alert: if the app version is lower than the version from the App Store, the user will see a notification prompting to update the app.

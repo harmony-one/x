@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224BECD72B20AC9100C84602 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BECD62B20AC9100C84602 /* LogStore.swift */; };
 		22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A81F2B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
 		22A7A8202B0B703F0027679F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A7A81D2B0B703E0027679F /* SettingsView.swift */; };
@@ -242,6 +243,26 @@
 		E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50672ADFEFDB006F18A1 /* Dotrice-Bold.otf */; };
 		E47F1A9B2B07F94F00455617 /* Dotrice-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50652ADFEFDA006F18A1 /* Dotrice-Condensed.otf */; };
 		E47F1A9C2B07F94F00455617 /* Dotrice-Bold-Expanded.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9AD50682ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf */; };
+		E4D0D8D02B2240DC00F717A2 /* PlayPauseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */; };
+		E4D0D8D12B2240DC00F717A2 /* IntentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2332B1F6B1E00260BCA /* IntentManager.swift */; };
+		E4D0D8D22B2240DC00F717A2 /* SurpriseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */; };
+		E4D0D8D32B2240DC00F717A2 /* VoiceAIShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */; };
+		E4D0D8D42B2240DC00F717A2 /* NewSessionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */; };
+		E4D0D8D52B2240DC00F717A2 /* AppSettingsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */; };
+		E4D0D8D62B2240DD00F717A2 /* PlayPauseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */; };
+		E4D0D8D72B2240DD00F717A2 /* SurpriseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */; };
+		E4D0D8D82B2240DD00F717A2 /* VoiceAIShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */; };
+		E4D0D8D92B2240DD00F717A2 /* NewSessionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */; };
+		E4D0D8DA2B2240DD00F717A2 /* AppSettingsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */; };
+		E4D0D8DB2B2240DE00F717A2 /* PlayPauseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF92B1FA6DB00C9123A /* PlayPauseIntent.swift */; };
+		E4D0D8DC2B2240DE00F717A2 /* IntentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2332B1F6B1E00260BCA /* IntentManager.swift */; };
+		E4D0D8DD2B2240DE00F717A2 /* SurpriseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22D2B1E665200260BCA /* SurpriseIntent.swift */; };
+		E4D0D8DE2B2240DE00F717A2 /* VoiceAIShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F22F2B1E6FE400260BCA /* VoiceAIShortcuts.swift */; };
+		E4D0D8DF2B2240DE00F717A2 /* NewSessionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E207AF72B1FA5B000C9123A /* NewSessionIntent.swift */; };
+		E4D0D8E02B2240DE00F717A2 /* AppSettingsIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E95F2312B1F687200260BCA /* AppSettingsIntent.swift */; };
+		E4D0D8E12B22416F00F717A2 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BECD62B20AC9100C84602 /* LogStore.swift */; };
+		E4D0D8E22B22417000F717A2 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BECD62B20AC9100C84602 /* LogStore.swift */; };
+		E4D0D8E32B22417000F717A2 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BECD62B20AC9100C84602 /* LogStore.swift */; };
 		F610490A2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490B2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
 		F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61049092AF02D820087F745 /* OpenAIStreamService.swift */; };
@@ -295,6 +316,7 @@
 		F76D13D02B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F76D13D12B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F76D13D22B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
+		F770F0412B22EA0300BC06B4 /* LogsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770F0402B22EA0300BC06B4 /* LogsTests.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -342,6 +364,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		224BECD62B20AC9100C84602 /* LogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 		22A7A81D2B0B703E0027679F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		22A9883A2AF8FE0D00A32B1A /* SyncedProducts.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SyncedProducts.storekit; sourceTree = "<group>"; };
 		22CC4D732AF3AC0B0072EC39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -452,6 +475,7 @@
 		F76D13A12B128A880018F89B /* MockTextToSpeechConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextToSpeechConverter.swift; sourceTree = "<group>"; };
 		F76D13C32B18218C0018F89B /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelimitingPunctuations.swift; sourceTree = "<group>"; };
+		F770F0402B22EA0300BC06B4 /* LogsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsTests.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -541,6 +565,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		224BECD52B20AC7F00C84602 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				224BECD62B20AC9100C84602 /* LogStore.swift */,
+			);
+			path = Logs;
+			sourceTree = "<group>";
+		};
 		22CC4D722AF3AB350072EC39 /* IAP */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,6 +826,7 @@
 		CD0D13362ADA73B300031EDD /* x */ = {
 			isa = PBXGroup;
 			children = (
+				224BECD52B20AC7F00C84602 /* Logs */,
 				F76D13CD2B195C920018F89B /* Texts */,
 				6E95F22C2B1E65F300260BCA /* Intents */,
 				B91F05D22B0645200029A32D /* Settings.bundle */,
@@ -874,6 +907,7 @@
 				F6EEF28E2B1E735900174CED /* CustomInstructionsHandlerTests.swift */,
 				F712228C2B1EB885005A5602 /* TextsTests.swift */,
 				F76AE4972B213EE3002CA57E /* IntentsTests.swift */,
+				F770F0402B22EA0300BC06B4 /* LogsTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1214,16 +1248,21 @@
 				F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */,
 				F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */,
 				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
+				E4D0D8D22B2240DC00F717A2 /* SurpriseIntent.swift in Sources */,
 				B9A3AE272B18CC7900C5FC66 /* AppConfig.swift in Sources */,
+				E4D0D8D42B2240DC00F717A2 /* NewSessionIntent.swift in Sources */,
 				F67EDE2C2B07C2E400FDEA80 /* Persistence.swift in Sources */,
 				F67EDE2D2B07C2E400FDEA80 /* Store.swift in Sources */,
 				F67EDE2F2B07C2E400FDEA80 /* OpenAIUtils.swift in Sources */,
 				F67EDE302B07C2E400FDEA80 /* Theme.swift in Sources */,
 				F76D13C72B18218C0018F89B /* Languages.swift in Sources */,
 				B9A3AE232B18CC7900C5FC66 /* SettingsBundleHelper.swift in Sources */,
+				E4D0D8D32B2240DC00F717A2 /* VoiceAIShortcuts.swift in Sources */,
 				6E53AF432AF011CF0022A8F2 /* ActionHandler.swift in Sources */,
 				A46B5A7E2AE73CEB00C874ED /* String.swift in Sources */,
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
+				E4D0D8D02B2240DC00F717A2 /* PlayPauseIntent.swift in Sources */,
+				E4D0D8D12B2240DC00F717A2 /* IntentManager.swift in Sources */,
 				6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
@@ -1231,6 +1270,7 @@
 				B91F05BF2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				A46B5A7B2AE73CE300C874ED /* ActionsView.swift in Sources */,
 				A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */,
+				E4D0D8E22B22417000F717A2 /* LogStore.swift in Sources */,
 				B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */,
 				A46B5A7D2AE73CEB00C874ED /* Font.swift in Sources */,
 				A46B5A812AE73CEE00C874ED /* TextToSpeechConverter.swift in Sources */,
@@ -1243,6 +1283,7 @@
 				A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */,
 				A40CFCE62AF98BB700E02128 /* RandomFact.swift in Sources */,
 				A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */,
+				E4D0D8D52B2240DC00F717A2 /* AppSettingsIntent.swift in Sources */,
 				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
@@ -1308,6 +1349,7 @@
 				B91F05CF2B0613B10029A32D /* AppSettings.swift in Sources */,
 				6E6D53242AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
+				224BECD72B20AC9100C84602 /* LogStore.swift in Sources */,
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
@@ -1357,8 +1399,10 @@
 				F7731A4D2B06F7520000D3E9 /* OpenAITests.swift in Sources */,
 				CD0D134D2ADA73B400031EDD /* ActionHandlerTests.swift in Sources */,
 				A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */,
+				E4D0D8E12B22416F00F717A2 /* LogStore.swift in Sources */,
 				B9A3AE212B18CC7900C5FC66 /* SettingsBundleHelper.swift in Sources */,
 				B91F05CC2B05F7340029A32D /* KeychainService.swift in Sources */,
+				E4D0D8DA2B2240DD00F717A2 /* AppSettingsIntent.swift in Sources */,
 				B9C4A82D2AEE967700327529 /* VibrationManager.swift in Sources */,
 				B91F05D02B0613B10029A32D /* AppSettings.swift in Sources */,
 				6EC2F6352B068507002EFADD /* CreateUser.swift in Sources */,
@@ -1375,6 +1419,8 @@
 				B91F05C92B05F7220029A32D /* NetworkManager.swift in Sources */,
 				B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */,
 				F76D13A22B128A880018F89B /* MockTextToSpeechConverter.swift in Sources */,
+				F770F0412B22EA0300BC06B4 /* LogsTests.swift in Sources */,
+				E4D0D8D72B2240DD00F717A2 /* SurpriseIntent.swift in Sources */,
 				F754EA002B0D3D6F0021AE89 /* ActionsView.swift in Sources */,
 				B3BC2CB12B05F48600A58477 /* UserAPI.swift in Sources */,
 				F73ABDC72B0C437F0073AF33 /* AppSettingsTests.swift in Sources */,
@@ -1385,6 +1431,7 @@
 				F73ABDC12B0C25BF0073AF33 /* UserTests.swift in Sources */,
 				B3BC2CB32B05F4AF00A58477 /* NetworkManager.swift in Sources */,
 				F6D5F5502B150C730078907F /* GridButtonTests.swift in Sources */,
+				E4D0D8D92B2240DD00F717A2 /* NewSessionIntent.swift in Sources */,
 				B91F05C82B05F6CA0029A32D /* AppleSignInManager.swift in Sources */,
 				6EC2F6282B067E83002EFADD /* APIEnvironment.swift in Sources */,
 				6E53AF542AF012A40022A8F2 /* Text.swift in Sources */,
@@ -1393,6 +1440,7 @@
 				B9C4A8322AEE96B600327529 /* Usage.swift in Sources */,
 				F7F1150A2AF8173300BC191C /* VibrationManagerTests.swift in Sources */,
 				6EC2F6272B067E74002EFADD /* NetworkManager.swift in Sources */,
+				E4D0D8D82B2240DD00F717A2 /* VoiceAIShortcuts.swift in Sources */,
 				B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */,
 				F723CC1F2AFECE2000B2A23A /* ConverterTests.swift in Sources */,
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
@@ -1420,6 +1468,7 @@
 				B9C4A82C2AEE967200327529 /* AudioPlayer.swift in Sources */,
 				F6D5F5512B150C730078907F /* PressEffectButtonStyleTests.swift in Sources */,
 				B3BC2CB52B05F4B200A58477 /* APIEnvironment.swift in Sources */,
+				E4D0D8D62B2240DD00F717A2 /* PlayPauseIntent.swift in Sources */,
 				F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 				F6EEF28F2B1E735900174CED /* CustomInstructionsHandlerTests.swift in Sources */,
@@ -1432,6 +1481,7 @@
 			files = (
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
 				B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */,
+				E4D0D8E02B2240DE00F717A2 /* AppSettingsIntent.swift in Sources */,
 				F610490C2AF02D820087F745 /* OpenAIStreamService.swift in Sources */,
 				B3BC2CB22B05F48700A58477 /* UserAPI.swift in Sources */,
 				B3BC2CB62B05F4B200A58477 /* APIEnvironment.swift in Sources */,
@@ -1441,8 +1491,10 @@
 				6E6D53262AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF562AF012A50022A8F2 /* Font.swift in Sources */,
 				6E56C7B72B06787A00ED2296 /* Store.swift in Sources */,
+				E4D0D8DB2B2240DE00F717A2 /* PlayPauseIntent.swift in Sources */,
 				6E53AF422AF011B30022A8F2 /* ActionHandler.swift in Sources */,
 				6E53AF552AF012A50022A8F2 /* Color.swift in Sources */,
+				E4D0D8DF2B2240DE00F717A2 /* NewSessionIntent.swift in Sources */,
 				B9A3AE1A2B18CC7900C5FC66 /* TimerManager.swift in Sources */,
 				6EC2F6362B068508002EFADD /* CreateUser.swift in Sources */,
 				6E53AF5D2AF0130E0022A8F2 /* Message.swift in Sources */,
@@ -1464,7 +1516,9 @@
 				6E56C7BB2B0679BB00ED2296 /* NetworkManager.swift in Sources */,
 				B9A3AE222B18CC7900C5FC66 /* SettingsBundleHelper.swift in Sources */,
 				6E53AF482AF012470022A8F2 /* ActionsView.swift in Sources */,
+				E4D0D8DD2B2240DE00F717A2 /* SurpriseIntent.swift in Sources */,
 				6E53AF582AF012A50022A8F2 /* Text.swift in Sources */,
+				E4D0D8DE2B2240DE00F717A2 /* VoiceAIShortcuts.swift in Sources */,
 				A40CFCE52AF98BB700E02128 /* RandomFact.swift in Sources */,
 				6E53AF502AF012990022A8F2 /* Permission.swift in Sources */,
 				6E56C7BA2B0679A600ED2296 /* UserAPI.swift in Sources */,
@@ -1472,6 +1526,7 @@
 				6E53AF572AF012A50022A8F2 /* String.swift in Sources */,
 				B3BC2CB02B05F45B00A58477 /* KeychainService.swift in Sources */,
 				6E53AF492AF0125D0022A8F2 /* TextToSpeechConverter.swift in Sources */,
+				E4D0D8E32B22417000F717A2 /* LogStore.swift in Sources */,
 				6E56C7BC2B0679E100ED2296 /* APIEnvironment.swift in Sources */,
 				6E56C7B92B06789500ED2296 /* Theme.swift in Sources */,
 				6E56C7BE2B067A9600ED2296 /* OpenAIUtils.swift in Sources */,
@@ -1479,6 +1534,7 @@
 				6E53AF442AF011E50022A8F2 /* SpeechRecognition.swift in Sources */,
 				B9A3AE262B18CC7900C5FC66 /* AppConfig.swift in Sources */,
 				6E56C7B82B06787A00ED2296 /* Persistence.swift in Sources */,
+				E4D0D8DC2B2240DE00F717A2 /* IntentManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1522,7 +1578,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1542,7 +1598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1205.18;
+				MARKETING_VERSION = 1.1207.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1561,7 +1617,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
@@ -1580,7 +1636,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1205.18;
+				MARKETING_VERSION = 1.1207.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1802,7 +1858,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 74;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1828,7 +1884,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1205.18;
+				MARKETING_VERSION = 1.1207.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1848,7 +1904,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 72;
+				CURRENT_PROJECT_VERSION = 74;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1874,7 +1930,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1205.18;
+				MARKETING_VERSION = 1.1207.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
