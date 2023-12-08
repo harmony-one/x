@@ -179,7 +179,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
 
         self.timeLogger = timeLogger
-        self.timeLogger?.reset()
+        self.timeLogger?.finishAppSend()
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
@@ -207,7 +207,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             completion(nil, error)
             return
         }
-        timeLogger?.tryCheck()
+        timeLogger?.tryCheckAIReponse()
 //        self.logger.log("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        self.logger.log("OpenAI: chunks", chunks)

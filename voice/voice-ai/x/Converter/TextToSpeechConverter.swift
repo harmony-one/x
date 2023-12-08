@@ -32,13 +32,12 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        timeLogger?.ttsStop()
+        timeLogger?.finishTTSFirst()
     }
     
     // Function to convert text to speech with customizable pitch and volume parameters
     func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "", timeLogger: TimeLogger?) {
         self.timeLogger = timeLogger;
-        timeLogger?.ttsStart()
         
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)

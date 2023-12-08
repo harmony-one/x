@@ -321,6 +321,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             registerTTS()
             
+            timeLogger?.finishTTSInit()
+            
             if !isRepeatingCurrentSession {
                 textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: self.timeLogger)
             }
@@ -353,7 +355,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
-                    self.timeLogger?.sendLog()
+                    // self.timeLogger?.sendLog()
                     return
                 }
                 
@@ -376,6 +378,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     transaction.finish()
+                    self.timeLogger?.finishAIResponse()
                     self.timeLogger?.sendLog()
                     return
                 }
@@ -408,7 +411,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     currWord = res
                     guard res.last != nil else {
                         transaction.finish()
-                        self.timeLogger?.sendLog()
+                        // self.timeLogger?.sendLog()
                         return
                     }
                 } else {
@@ -598,7 +601,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     private func stopGPT() {
         pendingOpenAIStream?.cancelOpenAICall()
-        timeLogger?.sendLog()
         pendingOpenAIStream = nil
         audioPlayer.stopSound()
     }
@@ -646,7 +648,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-            let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+            self.timeLogger?.start()
             
             self.logger.log("[surprise]")
 
@@ -671,8 +673,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
 
             // Now make the query to fetch the fact.
-            let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
-            self.timeLogger?.logSTT(sttTime: endTime - startTime)
+            self.timeLogger?.finishSTTEnd()
             
             self.makeQuery(query, rateLimit: false)
         }
@@ -687,7 +688,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func sayMore() {
         logger.log("[sayMore]")
         self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        self.timeLogger?.start()
         
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
@@ -713,8 +714,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             
-            let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
-            self.timeLogger?.logSTT(sttTime: endTime - startTime)
+            self.timeLogger?.finishSTTEnd()
 
             // Make the query for more information on a background thread
             self.makeQuery(self.sayMoreText)
@@ -752,7 +752,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
         self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        let startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        self.timeLogger?.start()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.logger.log("[stopSpeak]")
@@ -770,8 +770,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 self.recognitionLock.signal()
                 
                 // Make the query on the background thread
-                let endTime = Int64(Date().timeIntervalSince1970 * 1000000)
-                self.timeLogger?.logSTT(sttTime: endTime - startTime)
+                self.timeLogger?.finishSTTEnd()
                 
                 self.makeQuery(message)
             } else {
