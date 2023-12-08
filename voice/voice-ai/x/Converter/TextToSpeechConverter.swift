@@ -106,8 +106,9 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     
     func showDownloadVoicePrompt() {
         // The prompt should guide the user on how to download a premium voice
-        let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
-        AlertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+            let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
+            AlertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
+        }
     }
-
 }
