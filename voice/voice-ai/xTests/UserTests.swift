@@ -1,5 +1,21 @@
 import XCTest
 import SwiftUI
+import OSLog
+
+@testable import Voice_AI
+class MockNetworkManager: NetworkManager {
+    private let session: URLSession
+
+    init() {
+        session = URLSession(configuration: .default)
+    }
+    
+    override func requestData<T>(from endpoint: String, method: HTTPMethod, parameters: [String: String]?, body: Data?, token: String?, customHeaders: [String: String]?, completion: @escaping (Result<NetworkResponse<T>, NetworkError>) -> Void) where T : Decodable {
+        // Simulate a successful response
+        let response = NetworkResponse<T>(statusCode: 200, data: () as! T)
+        completion(.success(response))
+    }
+}
 
 class CreateUserTests: XCTestCase {
 
@@ -149,6 +165,13 @@ class UserAPITests: XCTestCase {
         XCTAssertEqual(storedIsSubscriptionActive, false, "Should be inactive by default")
     }
     
+    func testRegister_EncodesCreateUserBody() {
+        let user = CreateUserBody(appleId: "1234567890", deviceId: "my-device-id")
+        let encodedData = try? JSONEncoder().encode(user)
+        XCTAssertNotNil(encodedData)
+//        XCTAssertEqual(encodedData, "{\"appleId\":\"1234567890\",\"deviceId\":\"my-device-id\"}")
+    }
+    
     func testPurchase() {
         // Given
         let api = UserAPI()
@@ -170,6 +193,73 @@ class UserAPITests: XCTestCase {
         XCTAssertNotEqual(deviceID, "Not available", "Device Info found")
         XCTAssertTrue(deviceID.count > 0)
     }
+    
+    
+    func test_register_user_with_valid_data() {
+        // Mock the necessary dependencies
+        let networkManagerMock = MockNetworkManager()
+        let keychainServiceMock = KeychainService.shared
+        let loggerMock = Logger(
+            subsystem: Bundle.main.bundleIdentifier!,
+            category: String(describing: "[UserTest]")
+        ) // Mock()
+        
+        // Create an instance of the code under test with the mocked dependencies
+        var userAPI = UserAPI(logger: loggerMock)
+        userAPI.networkManager =  networkManagerMock
+        userAPI.keychainService = keychainServiceMock
+        
+        // Set up the mock responses for the network manager
+        from;: <#Decoder#>, 
+        
+        // Call the method under test
+        userAPI.register(appleId: "testAppleId")
+        
+        // Assert that the necessary methods were called
+        XCTAssertTrue(networkManagerMock.requestDataCalled)
+        XCTAssertTrue(keychainServiceMock.storeUserCalled)
+        XCTAssertTrue(loggerMock.logCalled)
+    }
+    
+    func testRegisterSuccess() {
+        // Create an instance of UserAPI with mock dependencies
+        var userAPI = UserAPI()
+//        userAPI.networkManager = MockNetworkManager()
+//        userAPI.keychainService = MockKeychainService()
+//        userAPI.sentrySDK = MockSentrySDK()
+
+        // Call the register method with a mock appleId
+        userAPI.register(appleId: "mockAppleId")
+
+        // Add assertions to verify the expected behavior
+    }
+
+        func testRegisterFailure() {
+            // Create an instance of UserAPI with mock dependencies
+            var userAPI = UserAPI()
+//            userAPI.networkManager = MockNetworkManager()
+//            userAPI.keychainService = MockKeychainService()
+//            userAPI.sentrySDK = MockSentrySDK()
+
+            // Inject a mock that simulates failure during network request
+//            userAPI.networkManager.shouldFailRequest = true
+
+            // Call the register method with a mock appleId
+            userAPI.register(appleId: "mockAppleId")
+
+            // Add assertions to verify the expected behavior
+        }
+    
+//    func testRegister_MakesPOSTRequest() {
+//        let user = CreateUserBody(appleId: "1234567890", deviceId: "my-device-id")
+//        let encoder = JSONEncoder()
+//        let data = try? encoder.encode(user)
+//        let request = NetworkRequest(url: APIEnvironment.createUser, method: .post, body: data)
+//        XCTAssertEqual(request.httpMethod, "POST")
+//        XCTAssertEqual(request.url, APIEnvironment.createUser)
+//        XCTAssertEqual(request.body, data)
+//    }
+    
     
 }
 
