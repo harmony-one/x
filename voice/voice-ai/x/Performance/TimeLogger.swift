@@ -1,6 +1,6 @@
 import Foundation
-import Sentry
 import OSLog
+import Sentry
 
 class TimeLogger {
     var logger = Logger(
@@ -17,35 +17,35 @@ class TimeLogger {
     private var logged = false
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
-    
+
     init(vendor: String, endpoint: String, once: Bool = true) {
         self.vendor = vendor
         self.endpoint = endpoint
         self.once = once
-        startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        startTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
-    
+
     func reset() {
-        startTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        startTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
         firstCheckpointTime = 0
         finalCheckpointTime = 0
     }
-    
+
     func tryCheck() {
         if firstCheckpointTime != 0 {
             return
         }
         check()
     }
-    
+
     func check() {
-        firstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        firstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
-    
+
     func stop() {
-        finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1000000)
+        finalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
-    
+
     func log(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
         if once, logged {
             return
@@ -75,7 +75,7 @@ class TimeLogger {
             error: error
         )
         if printDebug {
-            self.logger.log("[TimeLogger] \(String(describing: logDetails))")
+            logger.log("[TimeLogger] \(String(describing: logDetails))")
         }
         Task {
             await RelayAuth.shared.record(logDetails)
