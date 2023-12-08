@@ -179,6 +179,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
 
         self.timeLogger = timeLogger
+        self.timeLogger?.reset()
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
