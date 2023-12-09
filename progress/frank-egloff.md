@@ -1,3 +1,5 @@
+2023-12-08 Fri: Fixed AppleTests, NetworkManagerTests, and UserTest [unit tests](https://github.com/harmony-one/x/pull/335) after KeychainService class refactoring, also update CreateUser struc adding memberwise initializer initializer. Added [unit tests](https://github.com/harmony-one/x/pull/339) for the ActionsView struct and UserAPI class. 
+
 2023-12-07 Thu: Worked on unit tests for the Voice AI project. Improved unit tests of [AppleSignInManager class](https://github.com/harmony-one/x/pull/330). 
 
 2023-12-06 Wed: Added Custom Instructions, Shortcode Intents and speech recognition texts to [string catalogs](https://github.com/harmony-one/x/pull/318). Worked on UserAPI [unit tests](https://github.com/harmony-one/x/pull/324). Added Custom Modes [trigger logic](https://github.com/harmony-one/x/pull/325) for Voice AI Settings. Also, worked on HarmonyOneBot issues with text-to-voice and translation commands.     
