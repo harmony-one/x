@@ -1,9 +1,11 @@
+// swiftformat:disable redundantInternal
+
 import AVFoundation
-import Foundation
 import Combine
+import Foundation
+import OSLog
 import Sentry
 import Speech
-import OSLog
 
 protocol SpeechRecognitionProtocol {
     func reset()
@@ -82,6 +84,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     var isPausedPublisher: Published<Bool>.Publisher {
         $_isPaused
     }
+
     @Published private var _isPlaying = false
     var isPlayingPublisher: Published<Bool>.Publisher {
         $_isPlaying
@@ -99,6 +102,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let answerLimitText: String
     private let vibration = VibrationManager.shared
     @Published var isThinking: Bool = false
+
     // MARK: - Initialization and Setup
     
     override init() {
@@ -243,7 +247,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 print("No speech was detected. Please speak again.")
                 logger.log("No speech was detected. Please speak again.")
 
-                if !self.isThinking {
+                if !isThinking {
                     vibration.stopVibration()
                 }
 
@@ -309,8 +313,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         cancelRetry()
         
         let transaction = SentrySDK.startTransaction(
-          name: "Request OpenAI", // give it a name
-          operation: "openai.request" // and a name for the operation
+            name: "Request OpenAI", // give it a name
+            operation: "openai.request" // and a name for the operation
         )
         
         completeResponse = [String]()
@@ -327,7 +331,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             timeLogger?.finishTTSInit()
             
             if !isRepeatingCurrentSession {
-                textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: self.timeLogger)
+                textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
             }
             completeResponse.append(response)
             logger.log("[Flush Response] \(response)")
@@ -428,7 +432,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // for custom instruction changes
             conversation.insert(contentsOf: OpenAIStreamService.setConversationContext(), at: 0)
             
-            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit, timeLogger: self.timeLogger)
+            pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit, timeLogger: timeLogger)
         }
         
         func handleError(_ error: Error, retryCount: Int) {
@@ -440,7 +444,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             isRequestingOpenAI = false
             let nsError = error as NSError
             if nsError.code == -999 {
-
                 logger.log("OpenAI Cancelled")
                 VibrationManager.shared.stopVibration()
 
@@ -455,26 +458,25 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.", timeLogger: nil)
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
             } else if retryCount > 0 {
-                
                 audioPlayer.playSound(false)
                 
                 let attempt = maxRetry - retryCount + 1
                 // cap the delay at 64 seconds
                 let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
                 logger.log("OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
-                self.retryWorkItem = DispatchWorkItem {
+                retryWorkItem = DispatchWorkItem {
                     buf.removeAll()
                     currWord = ""
                     initialFlush = false
                     handleQuery(retryCount: retryCount - 1)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: self.retryWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: retryWorkItem!)
             } else {
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
                 logger.log("OpenAI error: \(nsError). No more retries.")
                 buf.removeAll()
                 registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: self.networkErrorText, timeLogger: nil)
+                textToSpeechConverter.convertTextToSpeech(text: networkErrorText, timeLogger: nil)
             }
         }
         handleQuery(retryCount: maxRetry)
@@ -482,7 +484,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func cancelRetry() {
         logger.log("[cancelRetry]")
-        self.retryWorkItem?.cancel()
+        retryWorkItem?.cancel()
     }
     
     func pauseCapturing(cancel: Bool? = false) {
@@ -500,12 +502,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             logger.log("[cancelCalled]")
             recognitionTaskCanceled = true
         }
-        self.recognitionTask?.finish()
-        self.recognitionTask?.cancel()
-        self.recognitionTask = nil
-        self.recognitionRequest?.endAudio()
-        self.audioEngine.inputNode.removeTap(onBus: 0)
-        self.audioEngine.stop()
+        recognitionTask?.finish()
+        recognitionTask?.cancel()
+        recognitionTask = nil
+        recognitionRequest?.endAudio()
+        audioEngine.inputNode.removeTap(onBus: 0)
+        audioEngine.stop()
         logger.log("stop")
     }
     
@@ -670,7 +672,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             var query: String
             if let randomTitle = ArticleManager.getRandomArticleTitle() {
                 query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
-            // Failure to return a title will result in a summary of the Wikipedia page for cat.
+                // Failure to return a title will result in a summary of the Wikipedia page for cat.
             } else {
                 query = "Sumamarize cat from Wikipedia"
             }
@@ -690,8 +692,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func sayMore() {
         logger.log("[sayMore]")
-        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        self.timeLogger?.start()
+        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        timeLogger?.start()
         
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
@@ -754,8 +756,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
-        self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        self.timeLogger?.start()
+        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+        timeLogger?.start()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.logger.log("[stopSpeak]")
@@ -795,8 +797,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func repeateActiveSession(startPoint: Int? = 0) {
-        if self.isRepeatingCurrentSession {
-            let text = self.completeResponse.joined()
+        if isRepeatingCurrentSession {
+            let text = completeResponse.joined()
             var activeTextToRepeat = ""
             
             if text.count >= (startPoint ?? 0) {
@@ -804,7 +806,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 activeTextToRepeat = String(text[index...])
                 
                 if !activeTextToRepeat.isEmpty {
-                    self.textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat, timeLogger: nil)
+                    textToSpeechConverter.convertTextToSpeech(text: activeTextToRepeat, timeLogger: nil)
                 }
             }
             
