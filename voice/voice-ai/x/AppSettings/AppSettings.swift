@@ -118,7 +118,7 @@ class AppSettings: ObservableObject {
         address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
 
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
-        print("modetouse: \(modeToUse)")
+
         switch modeToUse {
         case "mode_quick_facts":
             customInstructions = String(localized: "customInstruction.quickFacts")
