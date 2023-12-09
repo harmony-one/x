@@ -38,7 +38,7 @@ class AppSettingsTests: XCTestCase {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.quickFacts"))
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func testLoadSettingsInteractiveTutor() {
@@ -48,7 +48,7 @@ class AppSettingsTests: XCTestCase {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.interactiveTutor"))
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func testLoadSettingsDefault() {
@@ -58,7 +58,7 @@ class AppSettingsTests: XCTestCase {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.default"))
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func testUpdateUserDefaultsIfNeeded() {

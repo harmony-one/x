@@ -34,9 +34,7 @@ class KeychainServiceTests: XCTestCase {
     }
     
     func testStoreUser() {
-        let user = User(id: "12345", balance: 100, createdAt: "2023-01-01", updatedAt: "2023-02-01", expirationDate: "2023-03-01")
-//        let isSuscriptionActive:Bool = true
-        let appVersion = "16.0"
+        let user = User(id: "12345", balance: 100, createdAt: "2023-01-01", updatedAt: "2023-02-01", expirationDate: "2023-03-01", isSubscriptionActive: true, appVersion: "16.0", address: "testAddress")
 
         keychainService.storeUser(user: user)
 
@@ -45,7 +43,9 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertEqual(keychainService.retrieveCreatedAt(), user.createdAt)
         XCTAssertEqual(keychainService.retrieveUpdatedAt(), user.updatedAt)
         XCTAssertEqual(keychainService.retrieveExpirationDate(), user.expirationDate)
-        XCTAssertEqual(keychainService.retrieveAppVersion(), appVersion)
+        XCTAssertEqual(keychainService.retrieveIsSubscriptionActive(), user.isSubscriptionActive)
+        XCTAssertEqual(keychainService.retrieveAppVersion(), user.appVersion)
+        XCTAssertEqual(keychainService.retrieveAddress(), user.address)
     }
     
     func testIsAppleIdAvailable() {
@@ -68,13 +68,18 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertNil(keychainService.retrieveEmail())
     }
     
-//    func testDelete() {
-//        let key = "userID"
-//        let value = "testValue"
-//        keychainService.clearAll()
-//        keychainService.storeUser(id: key, balance: value, createdAt: nil, updatedAt: nil, expirationDate: nil, isSubscriptionActive:  false, appVersion: nil)
-// 
-//        keychainService.delete(key: key)
-//        XCTAssertNil(keychainService.retrieveUserid())
-//        }
+    func testRetrievePrivateKey() {
+        let isAvailable = keychainService.retrievePrivateKey()
+        
+        XCTAssertNotNil(isAvailable)
+    }
+    
+    func testDelete() {
+        let appleId = "testAppleId"
+        keychainService.storeUserCredentials(appleId: appleId, fullName: nil, email: nil)
+    
+        keychainService.delete(key: "appleId")
+       
+        XCTAssertNil(keychainService.retrieveAppleID())
+    }
 }

@@ -98,6 +98,10 @@ class KeychainService {
         return keychain.get("appVersion")
     }
     
+    func retrieveAddress() -> String? {
+        return keychain.get("address")
+    }
+    
     func retrievePrivateKey() -> String? {
         return keychain.get("privateKey")
     }
