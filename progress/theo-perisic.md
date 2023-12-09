@@ -1,3 +1,5 @@
+2023-12-08 Fri: v1.1208.18 (Updated transcript logs) Mapped full perceived latency benchmarks using [Aaron’s docs](https://github.com/harmony-one/x/blob/main/doc/benchmarking.md), synced with Yuriy for implementation.
+
 2023-12-07 Thu: v1.1207.18 (TimeLogger improvements) Detailed potential focus split for 2024 project roadmap.
 
 2023-12-06 Wed: v1.1206.18 (10MB limit for sharing transcription, “Pause/Play” font alignment and icons update). Updated quickfacts custom instruction [#322](https://github.com/harmony-one/x/pull/322). Reviewed Sudoswap amm nft platform. [Tweeted](https://x.com/harmonyprotocol/status/1732482500482789880?s=20) weekly protocol updates. 
