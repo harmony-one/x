@@ -318,6 +318,7 @@
 		F76D13D12B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F76D13D22B195EB00018F89B /* DelimitingPunctuations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */; };
 		F770F0412B22EA0300BC06B4 /* LogsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770F0402B22EA0300BC06B4 /* LogsTests.swift */; };
+		F770F0432B23A3F200BC06B4 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F770F0422B23A3F200BC06B4 /* PerformanceTests.swift */; };
 		F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */; };
 		F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A462B06F73E0000D3E9 /* IAPTests.swift */; };
 		F7731A492B06F7420000D3E9 /* AppleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7731A482B06F7420000D3E9 /* AppleTests.swift */; };
@@ -477,6 +478,7 @@
 		F76D13C32B18218C0018F89B /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		F76D13CE2B195EB00018F89B /* DelimitingPunctuations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelimitingPunctuations.swift; sourceTree = "<group>"; };
 		F770F0402B22EA0300BC06B4 /* LogsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsTests.swift; sourceTree = "<group>"; };
+		F770F0422B23A3F200BC06B4 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		F7731A442B06F73A0000D3E9 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		F7731A462B06F73E0000D3E9 /* IAPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTests.swift; sourceTree = "<group>"; };
 		F7731A482B06F7420000D3E9 /* AppleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleTests.swift; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 				F712228C2B1EB885005A5602 /* TextsTests.swift */,
 				F76AE4972B213EE3002CA57E /* IntentsTests.swift */,
 				F770F0402B22EA0300BC06B4 /* LogsTests.swift */,
+				F770F0422B23A3F200BC06B4 /* PerformanceTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1456,6 +1459,7 @@
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
 				B3BC2CAD2B05F44C00A58477 /* AppleSignInManager.swift in Sources */,
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
+				F770F0432B23A3F200BC06B4 /* PerformanceTests.swift in Sources */,
 				B93580FB2B1DCCDD00CC31E2 /* MixpanelManager.swift in Sources */,
 				F7731A4B2B06F7480000D3E9 /* MockPermission.swift in Sources */,
 				B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */,
