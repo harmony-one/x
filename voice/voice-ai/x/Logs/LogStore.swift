@@ -10,6 +10,7 @@ import Foundation
     @Published private(set) var entries: [String] = []
 
     func export() {
+        print("[LogStore][export] Exporting Logs")
         let dateFormatStyle = Date.FormatStyle()
             .year(.defaultDigits)
             .month(.twoDigits)
@@ -27,6 +28,7 @@ import Foundation
                 .compactMap { $0 as? OSLogEntryLog }
                 .filter { $0.subsystem == Bundle.main.bundleIdentifier! }
                 .map { "[\($0.date.formatted(dateFormatStyle))] \($0.composedMessage)" }
+                .reversed()
         } catch {
             logger.warning("\(error.localizedDescription, privacy: .public)")
         }

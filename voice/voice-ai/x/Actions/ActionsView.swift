@@ -12,6 +12,9 @@ protocol ActionsViewProtocol {
     func openPurchaseDialog()
     func showInAppPurchasesIfNotLoggedIn()
     func vibration()
+    func getLastButtonPressed() -> ActionType?
+    func isButtonDisabled (action: ActionType) -> Bool
+    func setLastButtonPressed (action: ActionType, event: EventType?)
 }
 
 struct ActionsView: ActionsViewProtocol, View {

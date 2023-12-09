@@ -1,9 +1,11 @@
 import XCTest
 import StoreKit
 import SwiftUI
+import KeychainSwift
 @testable import Voice_AI
 
 class PersistenceTests: XCTestCase {
+    private let keychain = KeychainSwift()
     override func tearDown() {
         UserDefaults.standard.removeObject(forKey: Persistence.creditsCountKey)
         UserDefaults.standard.removeObject(forKey: Persistence.booster3DayPurchaseTimeKey)
@@ -38,27 +40,12 @@ class PersistenceTests: XCTestCase {
         XCTAssertEqual(purchaseTime.timeIntervalSince(expectedTime), 0, accuracy: 0.1)
     }
     
+    func testGetBoosterPurchaseTimeNotNil() {
+        keychain.set("2023-12-31T23:59:59.999Z", forKey: "expirationDate")
+        XCTAssertNotNil(Persistence.getBoosterPurchaseTime())
+    }
     
-//    func testGetEpochWithValidDateString() {
-//        let dateString = "2023-11-17T12:34:56.789Z"
-//        let epochTime = Persistence.getEpoch(dateString: dateString)
-//        XCTAssertNotNil(epochTime)
-//        XCTAssertEqual(epochTime, 1700224496.789)
-//    }
-//
-//    func testGetEpochWithInvalidDateString() {
-//        let invalidDateString = "invalidDateString"
-//        let epochTime = Persistence.getEpoch(dateString: invalidDateString)
-//
-//        XCTAssertNil(epochTime)
-//    }
-//    
-//    func testGetEpochWithNilDateString() {
-//        let nilDateString: String? = nil
-//        let epochTime = Persistence.getEpoch(dateString: nilDateString)
-//
-//        XCTAssertNil(epochTime)
-//    }
+
 
 }
 

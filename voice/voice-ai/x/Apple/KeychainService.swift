@@ -16,28 +16,36 @@ class KeychainService {
         }
     }
     
-    func storeUser(id: String?, balance: String?, createdAt: String?, updatedAt: String?, expirationDate: String?, isSubscriptionActive: Bool?, appVersion: String?) {
-        if let id = id {
+    func storeUser(user: User) {
+        
+        if let id = user.id {
             keychain.set(id, forKey: "userID")
         }
-        if let balance = balance {
-            keychain.set(balance, forKey: "balance")
+        
+        if let balance = user.balance {
+            keychain.set(String(balance), forKey: "balance")
         }
-        if let createdAt = createdAt {
+        
+        if let createdAt = user.createdAt {
             keychain.set(createdAt, forKey: "createdAt")
         }
-        if let updatedAt = updatedAt {
+        if let updatedAt = user.updatedAt {
             keychain.set(updatedAt, forKey: "updatedAt")
         }
-        if let expirationDate = expirationDate {
+        if let expirationDate = user.expirationDate {
             keychain.set(expirationDate, forKey: "expirationDate")
             AppSettings.shared.premiumUseExpires = AppSettings.shared.convertDateStringToLocalFormat(inputDateString: expirationDate, inputFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") ?? expirationDate
         }
-        if let isSubscriptionActive = isSubscriptionActive {
+        if let isSubscriptionActive = user.isSubscriptionActive {
             keychain.set(String(isSubscriptionActive), forKey: "isSubscriptionActive")
         }
-        if let appVersion = appVersion {
+        if let appVersion = user.appVersion {
             keychain.set(appVersion, forKey: "appVersion")
+        }
+        
+        if let address = user.address {
+            keychain.set(address, forKey: "address")
+            AppSettings.shared.address = address
         }
     }
         
@@ -89,6 +97,14 @@ class KeychainService {
     func retrieveAppVersion() -> String? {
         return keychain.get("appVersion")
     }
+    
+    func retrieveAddress() -> String? {
+        return keychain.get("address")
+    }
+    
+    func retrievePrivateKey() -> String? {
+        return keychain.get("privateKey")
+    }
 
     func deleteUserCredentials() {
         keychain.delete("appleId")
@@ -102,5 +118,7 @@ class KeychainService {
     
     func clearAll() {
         keychain.clear()
+        AppSettings.shared.address = "N/A"
+        AppSettings.shared.premiumUseExpires = ""
     }
 }

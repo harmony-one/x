@@ -1,4 +1,5 @@
 import AVFoundation
+import UIKit
 import Foundation
 import OSLog
 
@@ -51,11 +52,11 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         }
         
         if let voice = AVSpeechSynthesisVoice(language: selectedLanguage) {
-            if let language = selectedLanguage {
-                self.logger.log("[selectedLanguage] \(language)")
-            } else {
-                self.logger.log("[selectedLanguage] nil")
-            }
+//            if let language = selectedLanguage {
+//                self.logger.log("[selectedLanguage] \(language)")
+//            } else {
+//                self.logger.log("[selectedLanguage] nil")
+//            }
             utterance.voice = voice
         } else {
             // this is used just for the unit tests
@@ -69,6 +70,8 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         
         // Set the volume of the speech utterance
         utterance.volume = volume
+        
+        self.logger.log("[TTS] \(text)\n")
         
         // Speak the provided utterance using the AVSpeechSynthesizer
         synthesizer.speak(utterance)
@@ -99,6 +102,31 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         // Check if the synthesizer is currently speaking and continue speaking
         if synthesizer.isSpeaking {
             synthesizer.continueSpeaking()
+        }
+    }
+    
+    func isPremiumOrEnhancedVoice(voiceIdentifier: String) -> Bool {
+        let lowercasedIdentifier = voiceIdentifier.lowercased()
+        return lowercasedIdentifier.contains("premium")
+    }
+        
+    func checkAndPromptForPremiumVoice() {
+        let currentVoice = AVSpeechSynthesisVoice(language: getLanguageCode())
+        guard let currentVoiceIdentifier = currentVoice?.identifier else {
+            return
+        }
+        print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
+
+        if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
+            showDownloadVoicePrompt()
+        }
+    }
+    
+    func showDownloadVoicePrompt() {
+        // The prompt should guide the user on how to download a premium voice
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+            let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
+            AlertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
         }
     }
 }

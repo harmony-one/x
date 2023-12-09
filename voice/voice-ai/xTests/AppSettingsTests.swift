@@ -7,7 +7,7 @@ class AppSettingsTests: XCTestCase {
        
    override func setUp() {
        super.setUp()
-//       appSettings = AppSettings()
+       appSettings = AppSettings()
    }
 
    override func tearDown() {
@@ -17,7 +17,6 @@ class AppSettingsTests: XCTestCase {
    }
     
     func testShowSettings() {
-        let appSettings = AppSettings()
         appSettings.showSettings(isOpened: true)
         XCTAssertTrue(appSettings.isOpened)
     
@@ -26,38 +25,43 @@ class AppSettingsTests: XCTestCase {
     }
     
     func testShowActionSheet() {
-        let appSettings = AppSettings()
         appSettings.showActionSheet(type: .settings, deviceType: .pad)
         XCTAssertTrue(appSettings.isPopoverPresented)
         appSettings.showActionSheet(type: .settings, deviceType: .phone)
         XCTAssertTrue(appSettings.isOpened)
     }
     
-//    func testLoadSettingsQuickFacts() {
-//        UserDefaults.standard.set("mode_quick_facts", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
-//        let appSettings = AppSettings()
-//        appSettings.premiumUseExpires = "quickFacts"
-//        XCTAssertEqual(appSettings.customInstructions, String(localized: "customInstruction.quickFacts"))
-//    }
-//    
-//    func testLoadSettingsInteractiveTutor() {
-//        UserDefaults.standard.set("mode_interactive_tutor", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
-//        print("[testinteractive]: \(UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode))")
-//        let appSettings = AppSettings()
-//        appSettings.premiumUseExpires = "tutor"
-//        XCTAssertEqual(appSettings.customInstructions, String(localized: "customInstruction.interactiveTutor"))
-//    }
+    func testLoadSettingsQuickFacts() {
+        UserDefaults.standard.set("mode_quick_facts", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.quickFacts"))
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func testLoadSettingsInteractiveTutor() {
+        UserDefaults.standard.set("mode_interactive_tutor", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.interactiveTutor"))
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
     
     func testLoadSettingsDefault() {
         UserDefaults.standard.set("custom_mode", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
-        print("[testCustom]: \(UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode))")
-        let appSettings = AppSettings()
-        appSettings.premiumUseExpires = "default"
-        XCTAssertEqual(appSettings.customInstructions, String(localized: "customInstruction.default"))
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.default"))
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func testUpdateUserDefaultsIfNeeded() {
-        let appSettings = AppSettings()
         UserDefaults.standard.set("premiumBefore", forKey: "EXPIRE_AT")
         print("[testDefault]: \(UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode))")
         appSettings.premiumUseExpires = "premiumAfter"

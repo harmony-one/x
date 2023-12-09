@@ -1,3 +1,5 @@
+2023-12-08 Fri: v1.1208.18 (Updated transcript logs) Mapped full perceived latency benchmarks using [Aaron’s docs](https://github.com/harmony-one/x/blob/main/doc/benchmarking.md), synced with Yuriy for implementation.
+
 2023-12-07 Thu: v1.1207.18 (TimeLogger improvements) Detailed potential focus split for 2024 project roadmap.
 
 2023-12-06 Wed: v1.1206.18 (10MB limit for sharing transcription, “Pause/Play” font alignment and icons update). Updated quickfacts custom instruction [#322](https://github.com/harmony-one/x/pull/322). Reviewed Sudoswap amm nft platform. [Tweeted](https://x.com/harmonyprotocol/status/1732482500482789880?s=20) weekly protocol updates. 
@@ -117,3 +119,9 @@
 2023-10-13 Fri: Started testing [custom instructions tuning](https://harmonyone.notion.site/Custom-Instructions-Tuning-2513b72b8524415eb8ec23f13f7bb8dc?pvs=4) for GPT-4 voice on ChatGPT mobile app.
 
 2023-10-12 Thu: Completed [Initial Comparison for Voice Apps](https://harmonyone.notion.site/AI-Voice2Voice-App-Comparison-0da03ff1a7154802bfbb1e3230e96bb4?pvs=4) (Device: Iphone 12 Pro)
+
+---
+
+
+https://www.linkedin.com/in/theoperisic/
+https://twitter.com/theoperisic

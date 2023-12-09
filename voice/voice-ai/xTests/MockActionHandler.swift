@@ -1,11 +1,33 @@
 import Foundation
-
+import SwiftUI
 
 class MockActionsView: ActionsViewProtocol {
     var showOpenSetting: Bool = false
     var showPurchaseDialog: Bool = false
     var showInAppPurchases: Bool = false
     var isVibrating: Bool = false
+    var isSpeakButtonPressed: Bool = false
+    var buttonsPortrait: [ButtonData] = []
+    var lastButtonPressed: ActionType?
+    
+    init(actionHandler: ActionHandlerProtocol? = nil) {
+        let buttonReset = ButtonData(label: "New Session", image: "new session", action: .reset, testId: "button-newSession")
+        let buttonTapSpeak = ButtonData(label: "Tap to Speak", pressedLabel: "Tap to SEND", image: "square", action: .speak, testId: "button-tapToSpeak")
+        let buttonSurprise = ButtonData(label: "Surprise ME!", image: "surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSpeak = ButtonData(label: "Press & Hold", image: "press & hold", action: .speak, testId: "button-press&hold")
+        let buttonMore = ButtonData(label: "More Actions", image: "repeat last", action: .openSettings, testId: "button-more")
+        let buttonPlay = ButtonData(label: "Pause / Play", image: "pause play", pressedImage: "play", action: .play, testId: "button-playPause")
+        
+        buttonsPortrait = [
+            buttonReset,
+            buttonTapSpeak,
+            buttonSurprise,
+            buttonSpeak,
+            /*buttonRepeat*/
+            buttonMore,
+            buttonPlay
+        ]
+    }
     
     func openSettingsApp() {
         self.showOpenSetting = true
@@ -21,6 +43,24 @@ class MockActionsView: ActionsViewProtocol {
     
     func vibration() {
         self.isVibrating = true
+    }
+    
+    func setLastButtonPressed (action: ActionType, event: EventType?) {
+        if event == .onStart {
+            self.lastButtonPressed = action
+        }
+        
+        if event == .onEnd {
+            self.lastButtonPressed = nil
+        }
+    }
+    
+    func isButtonDisabled (action: ActionType) -> Bool {
+        return (self.lastButtonPressed != nil) && self.lastButtonPressed != action
+    }
+    
+    func getLastButtonPressed() -> ActionType? {
+        return self.lastButtonPressed
     }
 }
 
