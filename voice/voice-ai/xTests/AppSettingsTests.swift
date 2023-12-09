@@ -33,23 +33,32 @@ class AppSettingsTests: XCTestCase {
     
     func testLoadSettingsQuickFacts() {
         UserDefaults.standard.set("mode_quick_facts", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.quickFacts"))
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
     }
     
     func testLoadSettingsInteractiveTutor() {
         UserDefaults.standard.set("mode_interactive_tutor", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.interactiveTutor"))
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
     }
     
     func testLoadSettingsDefault() {
         UserDefaults.standard.set("custom_mode", forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
+        let expectation = XCTestExpectation(description: "Wait for loadSettings() to finish")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             XCTAssertEqual(self.appSettings.customInstructions, String(localized: "customInstruction.default"))
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0) // Adjust the timeout as needed
     }
     
     func testUpdateUserDefaultsIfNeeded() {
