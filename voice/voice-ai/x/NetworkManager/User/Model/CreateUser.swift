@@ -38,4 +38,26 @@ struct User: Codable {
         address = try values.decodeIfPresent(String.self, forKey: .address)
 
     }
+    
+    init(id: String? = nil,
+         deviceId: String? = nil,
+         appleId: String? = nil,
+         balance: Int? = nil,
+         createdAt: String? = nil,
+         updatedAt: String? = nil,
+         expirationDate: String? = nil,
+         isSubscriptionActive: Bool? = nil,
+         appVersion: String? = nil,
+         address: String? = nil) {
+       self.id = id
+       self.deviceId = deviceId
+       self.appleId = appleId
+       self.balance = balance
+       self.createdAt = createdAt
+       self.updatedAt = updatedAt
+       self.expirationDate = expirationDate
+       self.isSubscriptionActive = isSubscriptionActive
+       self.appVersion = appVersion
+       self.address = address
+    }
 }
