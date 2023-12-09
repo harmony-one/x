@@ -112,14 +112,13 @@ class AppSettings: ObservableObject {
     private func loadSettings() {
         let localDate = convertDateStringToLocalFormat(inputDateString: "2023-12-14 22:15:00") ?? ""
         let modeToUse = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomMode)
-        print("[modetouse]: \(modeToUse)")
         
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
         address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
 
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
-    
+
         switch modeToUse {
         case "mode_quick_facts":
             customInstructions = String(localized: "customInstruction.quickFacts")
