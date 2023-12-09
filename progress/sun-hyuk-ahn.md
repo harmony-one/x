@@ -1,4 +1,4 @@
-2023-12-08 Fri: Updated transcript logic handling. There is a known bug in Testflight and Production where "private" information is transcribed as "<private>", need to enable the information.
+2023-12-08 Fri: Updated transcript logic handling. There is a known bug in Testflight and Production where some data is transcribed as "private", need to enable the information.
 
 2023-12-07 Thu: Updated speech recognition logic handling to prevent "No Speech Recongition" error (as well as minor "errors") from being reported. Refactored TimeLogger logic measuringa app performance.
 
