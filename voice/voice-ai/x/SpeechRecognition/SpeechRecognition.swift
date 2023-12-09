@@ -326,7 +326,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: response)
             }
             completeResponse.append(response)
-            logger.log("flush response: \(response)")
+            logger.log("[Flush Response] \(response)")
             DispatchQueue.main.async {
                 self.isThinking = false
             }
@@ -334,7 +334,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-        logger.log("query: \(text)")
+        logger.log("[Query] \(text)")
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
@@ -371,14 +371,14 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     flushBuf()
                     self.isRequestingOpenAI = false
                     self.logger.log("OpenAI Response Complete")
-                    self.logger.log("Complete Response text \(self.completeResponse.joined())")
+                    self.logger.log("[Complete Response] \(self.completeResponse.joined())")
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     transaction.finish()
                     return
                 }
-                self.logger.log("OpenAI Response received: \(res)")
+//                self.logger.log("OpenAI Response received: \(res)")
                 // Append received streams to currWord instead of buf directly
                 if res.first == " " {
                     buf.append(currWord)
@@ -387,9 +387,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
                             if let lastChar = currWord.last {
-                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
                             } else {
-                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] nil")
                             }
                             flushBuf()
                             initialFlush = true
@@ -397,9 +397,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
                             if let lastChar = currWord.last {
-                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
                             } else {
-                                self.logger.log("[buf] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] nil")
                             }
                             flushBuf()
                         }
