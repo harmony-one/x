@@ -236,6 +236,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     
         installTapAndStartEngine(inputNode: inputNode)
+        timeLogger?.setSttRec()
     }
     
     private func handleRecognitionError(_ error: Error?) {
@@ -725,6 +726,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func speak() {
+        timeLogger?.setAppRec()
         DispatchQueue.main.async {
             self.isThinking = false
         }
