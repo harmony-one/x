@@ -7,6 +7,7 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
   let {
     vendor,
     endpoint,
+    model,
     requestTokens,
     responseTokens,
     requestNumMessages,
@@ -29,8 +30,8 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     totalResponseTime
 
   } = req.body
-  if (!vendor || !endpoint) {
-    return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor })
+  if (!vendor || !endpoint || !model) {
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor, model })
   }
 
   totalResponseTime = totalResponseTime ?? '0'
@@ -73,6 +74,7 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     deviceTokenHash: req.deviceTokenHash ?? 'N/A',
     vendor,
     endpoint,
+    model,
     requestTokens,
     responseTokens,
     requestNumMessages,

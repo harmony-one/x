@@ -21,6 +21,7 @@ export interface TokenUsageLogData {
 export interface ClientUsageLogData {
   vendor: string
   endpoint: string
+  model: string
   relayMode: string
   deviceTokenHash: string
   requestTokens: number

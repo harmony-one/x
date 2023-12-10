@@ -16,6 +16,7 @@ class TimeLogger {
     private let once: Bool
     private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
     
+    private var model: String = ""
     private var requestNumMessages: Int32 = 0
     private var requestNumUserMessages: Int32 = 0
     private var requestTokens: Int32 = 0
@@ -50,6 +51,10 @@ class TimeLogger {
     // microseconds
     private func now() -> Int64 {
         return Int64(Date().timeIntervalSince1970 * 1_000_000)
+    }
+    
+    func setModel(model: String) {
+        self.model = model
     }
 
     func setAppRec() {
@@ -179,6 +184,7 @@ class TimeLogger {
         let logDetails = ClientUsageLog(
             vendor: vendor,
             endpoint: endpoint,
+            model: model,
             requestTokens: requestTokens,
             responseTokens: responseTokens,
             requestNumMessages: requestNumMessages,
@@ -204,7 +210,7 @@ class TimeLogger {
         
         let del: Int64 = 1000
         
-        logger.log("[TimeLogger][Benchmarks]: \(String(sstFinalizationTime / del)) + \(String(requestPreparationTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsPreparationTime / del)) + \(String(firstUtteranceTime / del)) = \(String(totalClickToSpeechTime / del)) ms")
+        logger.log("[TimeLogger][Benchmarks]: sttPreparationTime = \(sttPreparationTime / del) ms | totalClickToSpeechTime = \(String(sttFinalizationTime / del)) + \(String(requestPreparationTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsPreparationTime / del)) + \(String(firstUtteranceTime / del)) = \(String(totalClickToSpeechTime / del)) ms")
         
         Task {
             await RelayAuth.shared.record(logDetails)

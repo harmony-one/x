@@ -10,6 +10,9 @@
       "endpoint": {
         "type": "keyword"
       },
+      "model": {
+        "type": "keyword"
+      },
       "relayMode": {
         "type": "keyword"
       },

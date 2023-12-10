@@ -148,6 +148,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             "temperature": temperature,
             "stream": true
         ]
+        
+        timeLogger?.setModel(model: model)
 
         requestNumMessages = Int32(conversation.count)
         requestNumUserMessages = Int32(conversation.filter { $0.role == "user" }.count)

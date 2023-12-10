@@ -8,6 +8,7 @@ import SwiftyJSON
 struct ClientUsageLog: Codable {
     let vendor: String
     let endpoint: String
+    let model: String
     let requestTokens: Int32
     let responseTokens: Int32
     let requestNumMessages: Int32
