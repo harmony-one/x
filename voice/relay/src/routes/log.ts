@@ -17,7 +17,8 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     completed,
     error,
 
-    sstFinalizationTime,
+    sttPreparationTime,
+    sttFinalizationTime,
     requestPreparationTime,
     firstResponseTime,
     ttsPreparationTime,
@@ -39,14 +40,22 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     return res.status(HttpStatusCode.BadRequest).json({ error: 'bad response times', endpoint, vendor })
   }
 
-  sstFinalizationTime = sstFinalizationTime ?? '0'
+  sttPreparationTime = sttPreparationTime ?? '0'
+  sttFinalizationTime = sttFinalizationTime ?? '0'
   requestPreparationTime = requestPreparationTime ?? '0'
   ttsPreparationTime = ttsPreparationTime ?? '0'
   firstUtteranceTime = firstUtteranceTime ?? '0'
   totalTtsTime = totalTtsTime ?? '0'
   totalClickToSpeechTime = totalClickToSpeechTime ?? '0'
 
-  if (!isBigInt(sstFinalizationTime) || !isBigInt(requestPreparationTime) || !isBigInt(ttsPreparationTime) || !isBigInt(firstUtteranceTime) || !isBigInt(totalClickToSpeechTime) || !isBigInt(totalTtsTime)) {
+  if (
+    !isBigInt(sttPreparationTime) ||
+      !isBigInt(sttFinalizationTime) ||
+      !isBigInt(requestPreparationTime) ||
+      !isBigInt(ttsPreparationTime) ||
+      !isBigInt(firstUtteranceTime) ||
+      !isBigInt(totalClickToSpeechTime) ||
+      !isBigInt(totalTtsTime)) {
     return res.status(HttpStatusCode.BadRequest).json({ error: 'bad client component times', endpoint, vendor })
   }
 
@@ -75,7 +84,8 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     completed,
     error,
 
-    sstFinalizationTime,
+    sttPreparationTime,
+    sttFinalizationTime,
     requestPreparationTime,
     firstResponseTime,
     ttsPreparationTime,

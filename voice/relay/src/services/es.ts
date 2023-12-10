@@ -34,7 +34,8 @@ export interface ClientUsageLogData {
   completed: boolean
   error: string
 
-  sstFinalizationTime: string // from bigint
+  sttPreparationTime: string // from bigint
+  sttFinalizationTime: string // from bigint
   requestPreparationTime: string // from bigint
   firstResponseTime: string // from bigint
   ttsPreparationTime: string // from bigint

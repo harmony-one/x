@@ -46,7 +46,10 @@
         "type": "text",
         "fielddata": true
       },
-      "sstFinalizationTime": {
+      "sttPreparationTime": {
+        "type": "long"
+      },
+      "sttFinalizationTime": {
         "type": "long"
       },
       "requestPreparationTime": {
