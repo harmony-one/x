@@ -27,6 +27,8 @@ class TimeLogger {
     private var error: String = ""
 
     // Checkpoints:
+    private var appRecTimestamp: Int64 = 0
+    private var sttRecTimestamp: Int64 = 0
     private var appRecEndTimestamp: Int64 = 0
     
     private var sttEndTimestamp: Int64 = 0 // STT-END step completed
@@ -50,6 +52,20 @@ class TimeLogger {
         return Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
 
+    func setAppRec() {
+        if appRecTimestamp != 0 {
+            return
+        }
+        appRecTimestamp = now()
+    }
+    
+    func setSttRec() {
+        if sttRecTimestamp != 0 {
+            return
+        }
+        sttRecTimestamp = now()
+    }
+    
     func setAppRecEnd() {
         if appRecEndTimestamp != 0 {
             return
@@ -138,19 +154,20 @@ class TimeLogger {
         
         logSent = true
         
-        let t = now()
+        let currentTime = now()
         
         if ttsInitTimestamp == 0 {
-            ttsInitTimestamp = t
+            ttsInitTimestamp = currentTime
         }
         if appPlayFirstTimestamp == 0 {
-            appPlayFirstTimestamp = t
+            appPlayFirstTimestamp = currentTime
         }
         if appPlayEndTimestamp == 0 {
-            appPlayEndTimestamp = t
+            appPlayEndTimestamp = currentTime
         }
         
-        let sstFinalizationTime = sttEndTimestamp - appRecEndTimestamp
+        let sttPreparationTime = sttRecTimestamp - appRecTimestamp
+        let sttFinalizationTime = sttEndTimestamp - appRecEndTimestamp
         let requestPreparationTime = appSendTimestamp - sttEndTimestamp
         let firstResponseTime = appResFirstTimestamp - appSendTimestamp
         let ttsPreparationTime = ttsInitTimestamp - appResFirstTimestamp
@@ -171,7 +188,8 @@ class TimeLogger {
             cancelled: cancelled,
             completed: completed,
             error: error,
-            sstFinalizationTime: sstFinalizationTime,
+            sttPreparationTime: sttPreparationTime,
+            sttFinalizationTime: sttFinalizationTime,
             requestPreparationTime: requestPreparationTime,
             firstResponseTime: firstResponseTime,
             ttsPreparationTime: ttsPreparationTime,

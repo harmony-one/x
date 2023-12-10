@@ -284,7 +284,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
-        audioEngine.mainMixerNode
         do {
             audioEngine.prepare()
             try audioEngine.start()
@@ -363,7 +362,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             let nsError = error as NSError
             if nsError.code == -999 {
                 logger.log("OpenAI Cancelled")
-                self.timeLogger?.sendLog()
+                timeLogger?.sendLog()
                 VibrationManager.shared.stopVibration()
                 // Commented for now since we were receiving arbitrary -999 that was causing beeping.
 //                audioPlayer.playSound(false)
@@ -374,7 +373,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 registerTTS()
                 textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.", timeLogger: nil)
                 SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
-                self.timeLogger?.sendLog()
+                timeLogger?.sendLog()
             } else if retryCount > 0 {
                 audioPlayer.playSound(false)
                 let attempt = maxRetry - retryCount + 1
@@ -394,10 +393,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 buf.removeAll()
                 registerTTS()
                 textToSpeechConverter.convertTextToSpeech(text: networkErrorText, timeLogger: nil)
-                self.timeLogger?.sendLog()
+                timeLogger?.sendLog()
             }
         }
-        
         
         func handleQuery(retryCount: Int) {
             let startDate = Date()

@@ -19,7 +19,8 @@ struct ClientUsageLog: Codable {
     let error: String
 
     // measures
-    let sstFinalizationTime: Int64 // [APP-REC-END, STT-END]
+    let sttPreparationTime: Int64 // [APP-REC, STT-REC]
+    let sttFinalizationTime: Int64 // [APP-REC-END, STT-END]
     let requestPreparationTime: Int64 // [STT-END, APP-SEND]
     let firstResponseTime: Int64 // [APP-SEND, APP-RES-1]
     let ttsPreparationTime: Int64 // [APP-RES-1, TTS-INIT]
