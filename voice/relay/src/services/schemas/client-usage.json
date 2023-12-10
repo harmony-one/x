@@ -36,12 +36,6 @@
         "type": "text",
         "fielddata": true
       },
-      "firstResponseTime": {
-        "type": "long"
-      },
-      "totalResponseTime": {
-        "type": "long"
-      },
       "cancelled": {
         "type": "boolean"
       },
@@ -52,19 +46,28 @@
         "type": "text",
         "fielddata": true
       },
-      "sttEndTime": {
+      "sstFinalizationTime": {
         "type": "long"
       },
-      "appSendTime": {
+      "requestPreparationTime": {
         "type": "long"
       },
-      "ttsInitTime": {
+      "firstResponseTime": {
         "type": "long"
       },
-      "ttsFirstTime": {
+      "ttsPreparationTime": {
         "type": "long"
       },
-      "clickToSpeechTotalTime": {
+      "firstUtteranceTime": {
+        "type": "long"
+      },
+      "totalTtsTime": {
+        "type": "long"
+      },
+      "totalClickToSpeechTime": {
+        "type": "long"
+      },
+      "totalResponseTime": {
         "type": "long"
       }
     }

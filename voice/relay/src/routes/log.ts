@@ -9,39 +9,46 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     endpoint,
     requestTokens,
     responseTokens,
-    totalResponseTime,
-    firstResponseTime,
     requestNumMessages,
     requestNumUserMessages,
     requestMessage,
     responseMessage,
     cancelled,
     completed,
-    sttEndTime,
-    appSendTime,
-    ttsInitTime,
-    ttsFirstTime,
-    clickToSpeechTotalTime,
-    error
+    error,
+
+    sstFinalizationTime,
+    requestPreparationTime,
+    firstResponseTime,
+    ttsPreparationTime,
+    firstUtteranceTime,
+
+    totalTtsTime,
+    totalClickToSpeechTime,
+    totalResponseTime
+
   } = req.body
   if (!vendor || !endpoint) {
     return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor })
   }
+
   totalResponseTime = totalResponseTime ?? '0'
   firstResponseTime = firstResponseTime ?? '0'
+
   if (!isBigInt(totalResponseTime) || !isBigInt(firstResponseTime)) {
-    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad times', endpoint, vendor })
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad response times', endpoint, vendor })
   }
 
-  if (!isBigInt(sttEndTime) || !isBigInt(appSendTime) || !isBigInt(ttsInitTime) || !isBigInt(ttsFirstTime) || !isBigInt(clickToSpeechTotalTime)) {
-    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad stt times', endpoint, vendor })
-  }
+  sstFinalizationTime = sstFinalizationTime ?? '0'
+  requestPreparationTime = requestPreparationTime ?? '0'
+  ttsPreparationTime = ttsPreparationTime ?? '0'
+  firstUtteranceTime = firstUtteranceTime ?? '0'
+  totalTtsTime = totalTtsTime ?? '0'
+  totalClickToSpeechTime = totalClickToSpeechTime ?? '0'
 
-  sttEndTime = sttEndTime ?? '0'
-  appSendTime = appSendTime ?? '0'
-  ttsInitTime = ttsInitTime ?? '0'
-  ttsFirstTime = ttsFirstTime ?? '0'
-  clickToSpeechTotalTime = clickToSpeechTotalTime ?? '0'
+  if (!isBigInt(sstFinalizationTime) || !isBigInt(requestPreparationTime) || !isBigInt(ttsPreparationTime) || !isBigInt(firstUtteranceTime) || !isBigInt(totalClickToSpeechTime) || !isBigInt(totalTtsTime)) {
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad client component times', endpoint, vendor })
+  }
 
   requestTokens = Number(requestTokens ?? '0')
   responseTokens = Number(responseTokens ?? '0')
@@ -59,8 +66,6 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     endpoint,
     requestTokens,
     responseTokens,
-    totalResponseTime,
-    firstResponseTime,
     requestNumMessages,
     requestNumUserMessages,
     requestMessage,
@@ -68,12 +73,18 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     cancelled,
     relayMode,
     completed,
-    sttEndTime,
-    appSendTime,
-    ttsInitTime,
-    ttsFirstTime,
-    clickToSpeechTotalTime,
-    error
+    error,
+
+    sstFinalizationTime,
+    requestPreparationTime,
+    firstResponseTime,
+    ttsPreparationTime,
+    firstUtteranceTime,
+
+    totalTtsTime,
+    totalClickToSpeechTime,
+    totalResponseTime
+
   })
   res.json({ success: true })
 }

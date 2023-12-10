@@ -29,16 +29,21 @@ export interface ClientUsageLogData {
   requestNumUserMessages: number
   requestMessage?: string
   responseMessage?: string
-  totalResponseTime: string // from bigint
-  firstResponseTime: string // from bigint
-  sttEndTime: string // from bigint
-  appSendTime: string // from bigint
-  ttsInitTime: string // from bigint
-  ttsFirstTime: string // from bigint
-  clickToSpeechTotalTime: string // from bigint
+
   cancelled: boolean
   completed: boolean
   error: string
+
+  sstFinalizationTime: string // from bigint
+  requestPreparationTime: string // from bigint
+  firstResponseTime: string // from bigint
+  ttsPreparationTime: string // from bigint
+  firstUtteranceTime: string // from bigint
+
+  totalTtsTime: string // from bigint
+  totalClickToSpeechTime: string // from bigint
+  totalResponseTime: string // from bigint
+
 }
 
 export const ES = {
