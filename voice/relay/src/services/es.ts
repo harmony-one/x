@@ -21,6 +21,7 @@ export interface TokenUsageLogData {
 export interface ClientUsageLogData {
   vendor: string
   endpoint: string
+  model: string
   relayMode: string
   deviceTokenHash: string
   requestTokens: number
@@ -29,11 +30,22 @@ export interface ClientUsageLogData {
   requestNumUserMessages: number
   requestMessage?: string
   responseMessage?: string
-  totalResponseTime: string // from bigint
-  firstResponseTime: string // from bigint
+
   cancelled: boolean
   completed: boolean
   error: string
+
+  sttPreparationTime: string // from bigint
+  sttFinalizationTime: string // from bigint
+  requestPreparationTime: string // from bigint
+  firstResponseTime: string // from bigint
+  ttsPreparationTime: string // from bigint
+  firstUtteranceTime: string // from bigint
+
+  totalTtsTime: string // from bigint
+  totalClickToSpeechTime: string // from bigint
+  totalResponseTime: string // from bigint
+
 }
 
 export const ES = {

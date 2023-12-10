@@ -5,18 +5,19 @@ import OSLog
 
 protocol TextToSpeechConverterProtocol {
     var isSpeaking: Bool { get }
-    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?)
+    func convertTextToSpeech(text: String, pitch: Float, volume: Float, language: String?, timeLogger: TimeLogger?)
     func stopSpeech()
     func pauseSpeech()
     func continueSpeech()
 }
 
 // TextToSpeechConverter class responsible for converting text to speech
-class TextToSpeechConverter: TextToSpeechConverterProtocol {
+class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "TextToSpeechConverter")
     )
+    var timeLogger: TimeLogger?
     // AVSpeechSynthesizer instance to handle speech synthesis
     var synthesizer = AVSpeechSynthesizer()
     let languageCode = getLanguageCode()
@@ -26,8 +27,27 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
     
     private(set) var isDefaultVoiceUsed = false
     
+    override init() {
+        super.init()
+        synthesizer.delegate = self
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        timeLogger?.setTTSFirst()
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        timeLogger?.setTTSEnd()
+        timeLogger?.sendLog()
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        timeLogger?.setTTSEnd()
+        timeLogger?.sendLog()
+    }
+    
     // Function to convert text to speech with customizable pitch and volume parameters
-    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "") {
+    func convertTextToSpeech(text: String, pitch: Float = 1.0, volume: Float = 1.0, language: String? = "", timeLogger: TimeLogger?) {
+        self.timeLogger = timeLogger
+        
         // Create an AVSpeechUtterance with the provided text
         let utterance = AVSpeechUtterance(string: text)
         
@@ -118,3 +138,5 @@ class TextToSpeechConverter: TextToSpeechConverterProtocol {
         }
     }
 }
+
+extension TextToSpeechConverter: AVSpeechSynthesizerDelegate {}

@@ -10,7 +10,7 @@
       "internalID" : "6472299092",
       "localizations" : [
         {
-          "description" : "Get 3 Days GPT4 Premium Usage",
+          "description" : "$5 for Unlimited ChatGPT4 Use for 3 Days",
           "displayName" : "Voice AI Premium",
           "locale" : "en_US"
         }
@@ -54,7 +54,7 @@
     "_applicationInternalID" : "6470936896",
     "_developerTeamID" : "5WAH566W3B",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 721798722.86450005,
+    "_lastSynchronizedDate" : 723864897.69335604,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [

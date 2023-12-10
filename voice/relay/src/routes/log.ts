@@ -7,25 +7,57 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
   let {
     vendor,
     endpoint,
+    model,
     requestTokens,
     responseTokens,
-    totalResponseTime,
-    firstResponseTime,
     requestNumMessages,
     requestNumUserMessages,
     requestMessage,
     responseMessage,
     cancelled,
     completed,
-    error
+    error,
+
+    sttPreparationTime,
+    sttFinalizationTime,
+    requestPreparationTime,
+    firstResponseTime,
+    ttsPreparationTime,
+    firstUtteranceTime,
+
+    totalTtsTime,
+    totalClickToSpeechTime,
+    totalResponseTime
+
   } = req.body
-  if (!vendor || !endpoint) {
-    return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor })
+  if (!vendor || !endpoint || !model) {
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'missing mandatory fields', endpoint, vendor, model })
   }
+
   totalResponseTime = totalResponseTime ?? '0'
   firstResponseTime = firstResponseTime ?? '0'
+
   if (!isBigInt(totalResponseTime) || !isBigInt(firstResponseTime)) {
-    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad times', endpoint, vendor })
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad response times', endpoint, vendor })
+  }
+
+  sttPreparationTime = sttPreparationTime ?? '0'
+  sttFinalizationTime = sttFinalizationTime ?? '0'
+  requestPreparationTime = requestPreparationTime ?? '0'
+  ttsPreparationTime = ttsPreparationTime ?? '0'
+  firstUtteranceTime = firstUtteranceTime ?? '0'
+  totalTtsTime = totalTtsTime ?? '0'
+  totalClickToSpeechTime = totalClickToSpeechTime ?? '0'
+
+  if (
+    !isBigInt(sttPreparationTime) ||
+      !isBigInt(sttFinalizationTime) ||
+      !isBigInt(requestPreparationTime) ||
+      !isBigInt(ttsPreparationTime) ||
+      !isBigInt(firstUtteranceTime) ||
+      !isBigInt(totalClickToSpeechTime) ||
+      !isBigInt(totalTtsTime)) {
+    return res.status(HttpStatusCode.BadRequest).json({ error: 'bad client component times', endpoint, vendor })
   }
 
   requestTokens = Number(requestTokens ?? '0')
@@ -42,10 +74,9 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     deviceTokenHash: req.deviceTokenHash ?? 'N/A',
     vendor,
     endpoint,
+    model,
     requestTokens,
     responseTokens,
-    totalResponseTime,
-    firstResponseTime,
     requestNumMessages,
     requestNumUserMessages,
     requestMessage,
@@ -53,7 +84,19 @@ export async function log (req: Request, res: Response, relayMode: string): Prom
     cancelled,
     relayMode,
     completed,
-    error
+    error,
+
+    sttPreparationTime,
+    sttFinalizationTime,
+    requestPreparationTime,
+    firstResponseTime,
+    ttsPreparationTime,
+    firstUtteranceTime,
+
+    totalTtsTime,
+    totalClickToSpeechTime,
+    totalResponseTime
+
   })
   res.json({ success: true })
 }
