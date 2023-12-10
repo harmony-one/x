@@ -726,6 +726,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
 
     func speak() {
+        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
         timeLogger?.setAppRec()
         DispatchQueue.main.async {
             self.isThinking = false
@@ -756,9 +757,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
-        timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
         timeLogger?.setAppRecEnd()
-        
         DispatchQueue.global(qos: .userInitiated).async {
             self.logger.log("[stopSpeak]")
             
