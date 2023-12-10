@@ -328,7 +328,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             
             registerTTS()
             
-            timeLogger?.finishTTSInit()
+            timeLogger?.setTTSInit()
             
             if !isRepeatingCurrentSession {
                 textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
@@ -352,6 +352,52 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // Initial Flush to reduce perceived latency
         var initialFlush = false
         var currWord = ""
+
+        func handleError(_ error: Error, retryCount: Int) {
+            DispatchQueue.main.async {
+                self.isThinking = false
+            }
+            vibration.stopVibration()
+
+            isRequestingOpenAI = false
+            let nsError = error as NSError
+            if nsError.code == -999 {
+                logger.log("OpenAI Cancelled")
+                self.timeLogger?.sendLog()
+                VibrationManager.shared.stopVibration()
+                // Commented for now since we were receiving arbitrary -999 that was causing beeping.
+//                audioPlayer.playSound(false)
+            } else if nsError.code == -3 {
+                logger.log("OpenAI Rate Limited")
+                audioPlayer.playSound(false)
+                buf.removeAll()
+                registerTTS()
+                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.", timeLogger: nil)
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
+                self.timeLogger?.sendLog()
+            } else if retryCount > 0 {
+                audioPlayer.playSound(false)
+                let attempt = maxRetry - retryCount + 1
+                // cap the delay at 64 seconds
+                let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
+                logger.log("OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
+                retryWorkItem = DispatchWorkItem {
+                    buf.removeAll()
+                    currWord = ""
+                    initialFlush = false
+                    handleQuery(retryCount: retryCount - 1)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: retryWorkItem!)
+            } else {
+                SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
+                logger.log("OpenAI error: \(nsError). No more retries.")
+                buf.removeAll()
+                registerTTS()
+                textToSpeechConverter.convertTextToSpeech(text: networkErrorText, timeLogger: nil)
+                self.timeLogger?.sendLog()
+            }
+        }
+        
         
         func handleQuery(retryCount: Int) {
             let startDate = Date()
@@ -362,7 +408,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 guard err == nil else {
                     handleError(err!, retryCount: retryCount)
                     transaction.finish()
-                    // self.timeLogger?.sendLog()
                     return
                 }
                 
@@ -385,11 +430,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
                     transaction.finish()
-                    self.timeLogger?.finishAIResponse()
-                    self.timeLogger?.sendLog()
+                    self.timeLogger?.setAppResEnd()
                     return
                 }
 //                self.logger.log("OpenAI Response received: \(res)")
+                
                 // Append received streams to currWord instead of buf directly
                 if res.first == " " {
                     buf.append(currWord)
@@ -418,7 +463,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     currWord = res
                     guard res.last != nil else {
                         transaction.finish()
-                        // self.timeLogger?.sendLog()
                         return
                     }
                 } else {
@@ -435,50 +479,6 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             pendingOpenAIStream?.query(conversation: limitedConversation, rateLimit: rateLimit, timeLogger: timeLogger)
         }
         
-        func handleError(_ error: Error, retryCount: Int) {
-            DispatchQueue.main.async {
-                self.isThinking = false
-            }
-            vibration.stopVibration()
-
-            isRequestingOpenAI = false
-            let nsError = error as NSError
-            if nsError.code == -999 {
-                logger.log("OpenAI Cancelled")
-                VibrationManager.shared.stopVibration()
-
-                // Commented for now since we were receiving arbitrary -999 that was causing beeping.
-//                audioPlayer.playSound(false)
-                
-            } else if nsError.code == -3 {
-                logger.log("OpenAI Rate Limited")
-                audioPlayer.playSound(false)
-                buf.removeAll()
-                registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: "I can only answer 100 questions per minute at this time.", timeLogger: nil)
-                SentrySDK.capture(message: "[SpeechRecognition] OpenAI Rate Limited")
-            } else if retryCount > 0 {
-                audioPlayer.playSound(false)
-                
-                let attempt = maxRetry - retryCount + 1
-                // cap the delay at 64 seconds
-                let delay = min(pow(2.0, Double(attempt)), 64) // exponential backoff (2s, 4s, 8s, ...)
-                logger.log("OpenAI error: \(error). Retrying attempt \(attempt) in \(delay) seconds...")
-                retryWorkItem = DispatchWorkItem {
-                    buf.removeAll()
-                    currWord = ""
-                    initialFlush = false
-                    handleQuery(retryCount: retryCount - 1)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: retryWorkItem!)
-            } else {
-                SentrySDK.capture(message: "[SpeechRecognition] OpenAI error: \(nsError). No more retries.")
-                logger.log("OpenAI error: \(nsError). No more retries.")
-                buf.removeAll()
-                registerTTS()
-                textToSpeechConverter.convertTextToSpeech(text: networkErrorText, timeLogger: nil)
-            }
-        }
         handleQuery(retryCount: maxRetry)
     }
     
@@ -653,7 +653,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func surprise() {
         DispatchQueue.global(qos: .userInitiated).async {
             self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-            self.timeLogger?.start()
+            self.timeLogger?.setAppRecEnd()
             
             self.logger.log("[surprise]")
 
@@ -678,7 +678,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             }
 
             // Now make the query to fetch the fact.
-            self.timeLogger?.finishSTTEnd()
+            self.timeLogger?.setSTTEnd()
             
             self.makeQuery(query, rateLimit: false)
         }
@@ -693,7 +693,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func sayMore() {
         logger.log("[sayMore]")
         timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        timeLogger?.start()
+        timeLogger?.setAppRecEnd()
         
         // Stop any ongoing speech or OpenAI interactions
         DispatchQueue.global(qos: .userInitiated).async {
@@ -719,7 +719,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 return
             }
             
-            self.timeLogger?.finishSTTEnd()
+            self.timeLogger?.setSTTEnd()
 
             // Make the query for more information on a background thread
             self.makeQuery(self.sayMoreText)
@@ -757,7 +757,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     // Refactored 'stopSpeak' function to finalize speech recognition
     func stopSpeak(cancel: Bool? = false) {
         timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
-        timeLogger?.start()
+        timeLogger?.setAppRecEnd()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.logger.log("[stopSpeak]")
@@ -775,7 +775,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 self.recognitionLock.signal()
                 
                 // Make the query on the background thread
-                self.timeLogger?.finishSTTEnd()
+                self.timeLogger?.setSTTEnd()
                 
                 self.makeQuery(message)
             } else {

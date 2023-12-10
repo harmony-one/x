@@ -27,87 +27,96 @@ class TimeLogger {
     private var error: String = ""
 
     // Checkpoints:
-    private var startTime: Int64 = 0
+    private var appRecEndTimestamp: Int64 = 0
     
-    private var sttEndCheckpointTime: Int64 = 0 // STT-END step completed
-    private var appSendCheckpointTime: Int64 = 0 // APP-SEND step completed
+    private var sttEndTimestamp: Int64 = 0 // STT-END step completed
+    private var appSendTimestamp: Int64 = 0 // APP-SEND step completed
     
-    private var aiFirsCheckpointTime: Int64 = 0 // APP-RES-1 step completed
-    private var aiFinalCheckpointTime: Int64 = 0 // APP-RES-END step completed
+    private var appResFirstTimestamp: Int64 = 0 // APP-RES-1 step completed
+    private var appResEndTimestamp: Int64 = 0 // APP-RES-END step completed
     
-    private var ttsInitCheckpointTime: Int64 = 0 // TTS-INIT step completed
-    private var ttsFirstCheckpointTime: Int64 = 0 // TTS-STEP-1 step completed
+    private var ttsInitTimestamp: Int64 = 0 // TTS-INIT step completed
+    private var appPlayFirstTimestamp: Int64 = 0 // TTS-STEP-1 step completed
+    private var appPlayEndTimestamp: Int64 = 0 // TTS-END step completed
     
     init(vendor: String, endpoint: String, once: Bool = true) {
         self.vendor = vendor
         self.endpoint = endpoint
         self.once = once
     }
-
-    func start() {
-        if self.startTime != 0 {
-            return
-        }
-        
-        startTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
     
-    func finishSTTEnd() {
-        if self.sttEndCheckpointTime != 0 {
-            return
-        }
-        
-        sttEndCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
-    
-    func finishAppSend() {
-        if self.appSendCheckpointTime != 0 {
-            return
-        }
-        
-        appSendCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
-    
-    func finishTTSInit() {
-        if self.ttsInitCheckpointTime != 0 {
-            return
-        }
-        
-        ttsInitCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
-    
-    func finishTTSFirst() {
-        if self.ttsFirstCheckpointTime != 0 {
-            return
-        }
-        
-        ttsFirstCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+    // microseconds
+    private func now() -> Int64 {
+        return Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
 
-    func tryCheckAIReponse() {
-        if aiFirsCheckpointTime != 0 {
+    func setAppRecEnd() {
+        if appRecEndTimestamp != 0 {
             return
         }
-        checkAIResponse()
-    }
-
-    func checkAIResponse() {
-        aiFirsCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
-    }
-
-    func finishAIResponse() {
-        aiFinalCheckpointTime = Int64(Date().timeIntervalSince1970 * 1_000_000)
+        appRecEndTimestamp = now()
     }
     
-    func log(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
+    func setSTTEnd() {
+        if sttEndTimestamp != 0 {
+            return
+        }
+        
+        sttEndTimestamp = now()
+    }
+    
+    func setAppSend() {
+        if appSendTimestamp != 0 {
+            return
+        }
+        
+        appSendTimestamp = now()
+    }
+    
+    func setTTSInit() {
+        if ttsInitTimestamp != 0 {
+            return
+        }
+        ttsInitTimestamp = now()
+    }
+    
+    func setTTSFirst() {
+        if appPlayFirstTimestamp != 0 {
+            return
+        }
+        appPlayFirstTimestamp = now()
+    }
+    
+    func setTTSEnd() {
+        appPlayEndTimestamp = now()
+        if appPlayFirstTimestamp == 0 {
+            appPlayFirstTimestamp = appPlayEndTimestamp
+        }
+    }
+
+    func setAppResFirst() {
+        if appResFirstTimestamp != 0 {
+            return
+        }
+        appResFirstTimestamp = now()
+    }
+
+    func setAppResEnd() {
+        appResEndTimestamp = now()
+        if appResFirstTimestamp == 0 {
+            appResFirstTimestamp = appResEndTimestamp
+        }
+    }
+    
+    func setInferenceStats(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
         if once, logged {
             return
         }
-        if aiFinalCheckpointTime == 0 {
-            finishAIResponse()
+        if appResEndTimestamp == 0 {
+            setAppResEnd()
         }
-        if aiFirsCheckpointTime == 0 {
-            aiFirsCheckpointTime = aiFinalCheckpointTime
+        if appResFirstTimestamp == 0 {
+            appResFirstTimestamp = appResEndTimestamp
         }
         logged = true
         
@@ -129,13 +138,26 @@ class TimeLogger {
         
         logSent = true
         
-        let sttEndTime = sttEndCheckpointTime - startTime
-        let appSendTime = appSendCheckpointTime - sttEndCheckpointTime
-        let firstResponseTime = aiFirsCheckpointTime - appSendCheckpointTime
-        let ttsInitTime = ttsInitCheckpointTime - aiFirsCheckpointTime
-        let ttsFirstTime = ttsFirstCheckpointTime - ttsInitCheckpointTime
-        let clickToSpeechTotalTime = ttsFirstCheckpointTime - startTime
-        let totalResponseTime = aiFinalCheckpointTime - appSendCheckpointTime
+        let t = now()
+        
+        if ttsInitTimestamp == 0 {
+            ttsInitTimestamp = t
+        }
+        if appPlayFirstTimestamp == 0 {
+            appPlayFirstTimestamp = t
+        }
+        if appPlayEndTimestamp == 0 {
+            appPlayEndTimestamp = t
+        }
+        
+        let sstFinalizationTime = sttEndTimestamp - appRecEndTimestamp
+        let requestPreparationTime = appSendTimestamp - sttEndTimestamp
+        let firstResponseTime = appResFirstTimestamp - appSendTimestamp
+        let ttsPreparationTime = ttsInitTimestamp - appResFirstTimestamp
+        let firstUtteranceTime = appPlayFirstTimestamp - ttsInitTimestamp
+        let totalTtsTime = appPlayEndTimestamp - ttsInitTimestamp
+        let totalClickToSpeechTime = appPlayFirstTimestamp - appRecEndTimestamp
+        let totalResponseTime = appResEndTimestamp - appSendTimestamp
         
         let logDetails = ClientUsageLog(
             vendor: vendor,
@@ -149,12 +171,12 @@ class TimeLogger {
             cancelled: cancelled,
             completed: completed,
             error: error,
-            sttEndTime: sttEndTime,
-            appSendTime: appSendTime,
+            sstFinalizationTime: sstFinalizationTime,
+            requestPreparationTime: requestPreparationTime,
             firstResponseTime: firstResponseTime,
-            ttsInitTime: ttsInitTime,
-            ttsFirstTime: ttsFirstTime,
-            clickToSpeechTotalTime: clickToSpeechTotalTime,
+            ttsPreparationTime: ttsPreparationTime,
+            firstUtteranceTime: firstUtteranceTime,
+            totalClickToSpeechTime: totalClickToSpeechTime,
             totalResponseTime: totalResponseTime
         )
         if printDebug {
@@ -163,7 +185,7 @@ class TimeLogger {
         
         let del: Int64 = 1000
         
-        logger.log("[Benchmarks]: \(String(sttEndTime / del)) + \(String(appSendTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsInitTime / del)) + \(String(ttsFirstTime / del)) = \(String(clickToSpeechTotalTime / del)) ms")
+        logger.log("[TimeLogger][Benchmarks]: \(String(sstFinalizationTime / del)) + \(String(requestPreparationTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsPreparationTime / del)) + \(String(firstUtteranceTime / del)) = \(String(totalClickToSpeechTime / del)) ms")
         
         Task {
             await RelayAuth.shared.record(logDetails)

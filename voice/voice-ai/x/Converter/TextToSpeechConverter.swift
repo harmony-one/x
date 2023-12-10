@@ -33,7 +33,13 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        timeLogger?.finishTTSFirst()
+        timeLogger?.setTTSFirst()
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        timeLogger?.setTTSEnd()
+    }
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        timeLogger?.setTTSEnd()
     }
     
     // Function to convert text to speech with customizable pitch and volume parameters

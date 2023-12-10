@@ -19,13 +19,13 @@ struct ClientUsageLog: Codable {
     let error: String
     
     // measures
-    let sttEndTime: Int64 // STT-END step time
-    let appSendTime: Int64 // APP-SEND step time
-    let firstResponseTime: Int64 // APP-RES-1 step time
-    let ttsInitTime: Int64 // TTS-INIT step time
-    let ttsFirstTime: Int64 // TTS-STEP-1 step tome
-    let clickToSpeechTotalTime: Int64 // total time from click to voice
-    let totalResponseTime: Int64 // total ai request time
+    let sstFinalizationTime: Int64 // [APP-REC-END, STT-END]
+    let requestPreparationTime: Int64 // [STT-END, APP-SEND]
+    let firstResponseTime: Int64 // [APP-SEND, APP-RES-1]
+    let ttsPreparationTime: Int64 // [APP-RES-1, TTS-INIT]
+    let firstUtteranceTime: Int64 // [TTS-INIT, TTS-STEP-1]
+    let totalClickToSpeechTime: Int64 // [APP-REC-END, TTS-STEP-1]
+    let totalResponseTime: Int64 // [APP-SEND, APP-RES-END]
 }
 
 

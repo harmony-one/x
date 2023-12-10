@@ -179,7 +179,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         }
 
         self.timeLogger = timeLogger
-        self.timeLogger?.finishAppSend()
+        self.timeLogger?.setAppSend()
 
         // Initiate the data task for the request using networkService
         if let networkService = networkService {
@@ -207,14 +207,14 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             completion(nil, error)
             return
         }
-        timeLogger?.tryCheckAIReponse()
+        timeLogger?.setAppResFirst()
 //        self.logger.log("[OpenAI] raw response:", str)
         let chunks = str.components(separatedBy: "\n\n").filter { chunk in chunk.hasPrefix("data:") }
 //        self.logger.log("OpenAI: chunks", chunks)
         for chunk in chunks {
             let dataBody = chunk.suffix(chunk.count - 5).trimmingCharacters(in: .whitespacesAndNewlines)
             if dataBody == "[DONE]" {
-                timeLogger?.log(
+                timeLogger?.setInferenceStats(
                     requestNumMessages: requestNumMessages,
                     requestNumUserMessages: requestNumUserMessages,
                     requestTokens: requestTokens,
@@ -240,7 +240,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     func urlSession(_: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if error != nil {
-            timeLogger?.log(
+            timeLogger?.setInferenceStats(
                 requestNumMessages: requestNumMessages,
                 requestNumUserMessages: requestNumUserMessages,
                 requestTokens: requestTokens,
@@ -276,7 +276,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
     func cancelOpenAICall() {
         task?.cancel()
-        timeLogger?.log(
+        timeLogger?.setInferenceStats(
             requestNumMessages: requestNumMessages,
             requestNumUserMessages: requestNumUserMessages,
             requestTokens: requestTokens,
