@@ -23,8 +23,9 @@ struct ClientUsageLog: Codable {
     let requestPreparationTime: Int64 // [STT-END, APP-SEND]
     let firstResponseTime: Int64 // [APP-SEND, APP-RES-1]
     let ttsPreparationTime: Int64 // [APP-RES-1, TTS-INIT]
-    let firstUtteranceTime: Int64 // [TTS-INIT, TTS-STEP-1]
-    let totalClickToSpeechTime: Int64 // [APP-REC-END, TTS-STEP-1]
+    let firstUtteranceTime: Int64 // [TTS-INIT, APP-PLAY-1]
+    let totalTtsTime: Int64 // [TTS-INIT, APP-PLAY-END]
+    let totalClickToSpeechTime: Int64 // [APP-REC-END, APP-PLAY-1]
     let totalResponseTime: Int64 // [APP-SEND, APP-RES-END]
 }
 

@@ -176,6 +176,7 @@ class TimeLogger {
             firstResponseTime: firstResponseTime,
             ttsPreparationTime: ttsPreparationTime,
             firstUtteranceTime: firstUtteranceTime,
+            totalTtsTime: totalTtsTime,
             totalClickToSpeechTime: totalClickToSpeechTime,
             totalResponseTime: totalResponseTime
         )
