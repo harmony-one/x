@@ -10,7 +10,7 @@ Logs errors and groups similar errors into issues. Anytime the app experiences u
 Reports app usage, downloads, and engagement analytics for all versions of the build. Separates stats by version (and user for TestFlight builds). App crashes are reported in App Store Connect because once the app has crashed, it can't emit an error to Sentry.
 
 ### Mixpanel
-Tracks user interactions with the app to provide insights into user behavior and engagement. Mixpanel helps in understanding how users interact with different features and the overall usability of the app.
+Tracks user interactions with the app to provide insights into user behavior and engagement (ie. which buttons are being pressed). Mixpanel helps in understanding how users interact with different features and the overall usability of the app.
 
 
 # Metrics Scripts
