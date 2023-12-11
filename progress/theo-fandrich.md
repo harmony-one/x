@@ -3,7 +3,7 @@
 
 ---
 
-2023-12-08 Fri: Deployed version v1.1208.9 which includes the full integration of the Referral Account to backend database per user id. Will submit v1.1208.18 to app store for approval.
+2023-12-08 Fri: Deployed version v1.1208.9 which includes the full integration of the Referral Account to backend database per Apple id. Will submit v1.1208.18 to app store for approval.
 
 2023-12-07 Thu: Submitted version v1.1207.9 to the app store which included a new Referral Account in system settings to support potential future integration with web3 payment channels. Also included enhanced transcript which will be debugged by friday.
 
