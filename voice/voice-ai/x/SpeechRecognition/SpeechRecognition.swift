@@ -11,6 +11,7 @@ protocol SpeechRecognitionProtocol {
     func reset()
     func reset(feedback: Bool?)
     func surprise()
+    func trivia()
     func isPaused() -> Bool
     func continueSpeech()
     func pause(feedback: Bool?)
@@ -674,6 +675,45 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 // Failure to return a title will result in a summary of the Wikipedia page for cat.
             } else {
                 query = "Sumamarize cat from Wikipedia"
+            }
+
+            // Now make the query to fetch the fact.
+            self.timeLogger?.setSTTEnd()
+            
+            self.makeQuery(query, rateLimit: false)
+        }
+
+        // Any UI updates need to be performed on the main thread.
+        DispatchQueue.main.async {
+            // Reset the paused state to allow the new fact to be spoken out loud.
+            self._isPaused = false
+        }
+    }
+    
+    func trivia() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
+            self.timeLogger?.setAppRecEnd()
+            
+            self.logger.log("[trivia]")
+
+            // Stop any ongoing interactions and speech.
+            self.stopGPT()
+            // hotfix: todo: Waiting for a gpt request cancellation
+            // app tries to send a new request to OpenAI before the previous one is canceled
+            self.isRequestingOpenAI = false
+            // hotfix-end
+            self.textToSpeechConverter.stopSpeech()
+
+            // Since we are about to initiate a new fact retrieval, pause any capturing.
+            self.pauseCapturing()
+
+            // Fetch a random title for the fact. This function should be synchronous and return immediately.
+            var query: String
+            if let randomTrivia = TriviaManager.getRandomTriviaTopic() {
+                query = "You are now a trivia host. You ask me trivia questions and provide fun facts about the answers like a game show host. Be as concise as possible. Do not give multiple choices. Do not use emojis. Do not introduct the game; just jump into the question. If the question's answer is a range and I am in the range, congratulate me and explain the range. If I am wrong, re-affirm me and tell me the correct answer along with a fun fact about the answer or question. If I am correct, congratulate me and give me a fun fact about the answer or question. Please ask me a trivia questions about \(randomTrivia) that an average person might know the answer to in \(self.languageCode) language. Ensure that the question is not too easy but also not too hard."
+            } else {
+                query = "Approximately how many average sized cats could you fit in the average American elevator?"
             }
 
             // Now make the query to fetch the fact.

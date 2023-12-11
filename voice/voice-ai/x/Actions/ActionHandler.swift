@@ -15,6 +15,7 @@ enum ActionType {
     case stopSpeak
     case userGuide
     case openSettings
+    case trivia
 }
 
 struct ButtonData: Identifiable {
@@ -131,6 +132,11 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
                 return
             }
             speechRecognition.surprise()
+        case .trivia:
+            if SpeechRecognition.shared.isTimerDidFired {
+                return
+            }
+            speechRecognition.trivia()
         case .play:
             if speechRecognition.isPaused() {
                 speechRecognition.continueSpeech()

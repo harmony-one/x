@@ -39,7 +39,7 @@ struct ActionsView: ActionsViewProtocol, View {
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
     @State private var speakButtonDebounceTimer: Timer?
-    
+
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
     
@@ -474,7 +474,7 @@ struct ActionsView: ActionsViewProtocol, View {
                 }
                 self.vibration()
                 MixpanelManager.shared.trackEvent(name: "Surprise Me", properties: nil)
-
+                
                 if self.isSurpriseButtonPressed {
                     self.isSurpriseButtonPressed = false
                     Task {
@@ -488,6 +488,11 @@ struct ActionsView: ActionsViewProtocol, View {
                     }
                 }
             }
+            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
+                Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
+                    actionHandler.handle(actionType: ActionType.tapStopSpeak)
+                }
+            })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
             // .onStart: { self.lastActionPressed = .surprise }
@@ -508,7 +513,7 @@ struct ActionsView: ActionsViewProtocol, View {
             self.createDefaultButton(button: button, actionHandler: actionHandler)
         }
     }
-
+    
     func openSettingsApp() {
         MixpanelManager.shared.trackEvent(name: "More Actions", properties: nil)
         self.appSettings.showActionSheet(type: .settings)
@@ -517,9 +522,16 @@ struct ActionsView: ActionsViewProtocol, View {
 //            UIApplication.shared.open(url)
 //        }
     }
-
+    
     func handleOtherActions(actionType: ActionType) async {
         actionHandler.handle(actionType: actionType)
+    }
+    
+    func handleLongPress(actionType: ActionType) {
+        MixpanelManager.shared.trackEvent(name: "Trivia", properties: nil)
+        Task {
+            await handleOtherActions(actionType: actionType)
+        }
     }
 
     func checkUserAuthentication() {
