@@ -1,3 +1,5 @@
+------
+
 2023-12-10 Sun: Read Casey's paper. Studied new team initiatives from Friday team sync. Drafted [Twitter content](https://www.notion.so/harmonyone/Twitter-8fe7ec9cfc904ecba0245ec8407ec5f8) from Casey's article to review with Casey.
 
 2023-12-9 Sat: Shared protocol update on [Twitter](https://x.com/harmonyprotocol/status/1733649198338449603?s=20), generated AI assets on Dalle, uploaded [here](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4).
