@@ -498,6 +498,7 @@ struct ActionsView: ActionsViewProtocol, View {
                     self.vibration()
                     // Reset the flag after a small delay
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.lastButtonPressed = nil
                         self.isLongPress = false
                     }
                 })

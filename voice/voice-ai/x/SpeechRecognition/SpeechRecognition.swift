@@ -708,7 +708,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Since we are about to initiate a new fact retrieval, pause any capturing.
             self.pauseCapturing()
 
-            // Fetch a random title for the fact. This function should be synchronous and return immediately.
+            // Fetch a random trivia topic for the question. This function should be synchronous and return immediately.
             var query: String
             if let randomTrivia = TriviaManager.getRandomTriviaTopic() {
                 query = String(localized: "customInstruction.trivia \(randomTrivia) \(self.languageCode)")
