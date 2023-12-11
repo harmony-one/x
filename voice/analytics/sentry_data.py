@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 import requests
-from datetime import datetime, timedelta
 
 # Load environment variables
 load_dotenv()
@@ -18,9 +17,6 @@ headers = {
 
 def get_prod_error_count(organization_slug, project_slug):
     """Get production error count from Sentry."""
-    now = datetime.utcnow()
-    start_time = now - timedelta(days=1)
-    start_time_str = start_time.strftime('%Y-%m-%dT%H:%M:%S')
     query = '!event.type:transaction !message:"handleRecognitionError: " timestamp:-24h'
     endpoint = f"{sentry_api_base_url}/projects/{organization_slug}/{project_slug}/issues/"
     params = {
