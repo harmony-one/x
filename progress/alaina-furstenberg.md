@@ -4,7 +4,7 @@
 
 2023-12-9 Sat: Shared protocol update on [Twitter](https://x.com/harmonyprotocol/status/1733649198338449603?s=20), generated AI assets on Dalle, uploaded [here](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4).
 
-2023-12-8 Fri: PTO
+2023-12-8 Fri: Paid time off.
 
 2023-12-7 Thu: Re-edited team video demos, to include captions and full face video to make them more interesting. Uploaded all videos onto a [Twitter thread](https://x.com/harmonyprotocol/status/1732863028373467527?s=20). Uploaded [Sun's Youtube short](https://www.youtube.com/shorts/xaTrYrnKcB8). Synced with Frank on VoiceAI data, and synced with Julia on using command line to pull the data. Uploaded [protocol sync video](https://youtu.be/xLKpmzKrHrg?si=BBSMEE9H4Cv0C6S2).
 
