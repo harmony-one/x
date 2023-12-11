@@ -27,6 +27,11 @@ final class ActionHandlerTests: XCTestCase {
         XCTAssertTrue(mockSpeechRecognition.resetCalled, "reset() should be called after .reset action")
     }
 
+    func testHandleTrivia() {
+        actionHandler.handle(actionType: .trivia)
+        mockSpeechRecognition.trivia()
+        XCTAssertTrue(mockSpeechRecognition.isTriviaCalled, "trivia() should be called after .trivia action")
+    }
     
 //    func testHandleReset() {
 //        actionHandler.handle(actionType: .reset)
