@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>USER_NAME</string>
 			<key>DefaultValue</key>
-			<string>X</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>
