@@ -1,3 +1,10 @@
+
+---
+
+2023-12-10 Sun: [Created](https://github.com/harmony-one/x/commit/6941361763852c94919c1f3e3517b8140b69fd49) framework for analytics docs. [Added](https://github.com/harmony-one/x/commit/355f7e742277ecc748774113274bde54afa92518) trivia as long press on Surprise Me button.
+
+2023-12-09 Sat: Time moved to Sunday.
+
 2023-12-08 Fri: Pulled Voice 2 metrics for usage and total sessions. Researched Google Gemini API, confirmed API availability on Dec 13. Filmed text based RPG demo video (need to edit over the weekend). Demoed Whisper trivia to Theo F.
 
 2023-12-07 Thu: Debugging tests suite not running. [Created](https://github.com/harmony-one/x/commit/eb6758a48f1f8047e3bb4b5a420419ba78207949) collection script for data from Elasticsearch and Sentry. [Fixed](https://github.com/harmony-one/x/commit/475032959171946201ae9abf3e7d69f6914a292d) the error counter and verified against Sentry dashboard. Assisted Alaina in setting up and running collection scripts. [Created](https://github.com/harmony-one/x/commit/cdeeb88b8863b31018b0a8189f4e5db02f51e689) basic beginner guide readme for collection scripts. 
