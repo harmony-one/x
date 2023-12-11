@@ -46,7 +46,7 @@ struct UserAPI {
                 if response.statusCode == 400 {
                     self.logger.log("User already created")
                     self.getUserBy(appleId: appleId)
-                    completion?(.success(true))
+                    completion?(.failure(NSError(domain: "User already created", code: -4)))
                     return
                 }
 
