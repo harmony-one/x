@@ -1,4 +1,4 @@
-2024-01-03 - 2024-01-05 Fri: Paid time off.
+2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
 
 ---
