@@ -3,7 +3,8 @@ import XCTest
 
 class TextToSpeechConverterTests: XCTestCase {
     var textToSpeechConverter: TextToSpeechConverter!
-
+    private var timeLogger: TimeLogger?
+    
     override func setUp() {
         super.setUp()
         textToSpeechConverter = TextToSpeechConverter()
@@ -25,7 +26,7 @@ class TextToSpeechConverterTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Speech synthesis")
 
-        textToSpeechConverter.convertTextToSpeech(text: text, pitch: pitch, volume: volume)
+        textToSpeechConverter.convertTextToSpeech(text: text, pitch: pitch, volume: volume, timeLogger: timeLogger)
 
         let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             if self.textToSpeechConverter.synthesizer.isSpeaking {
@@ -46,7 +47,7 @@ class TextToSpeechConverterTests: XCTestCase {
         let text = "Hello, world!"
         let supportedLanguage = "fr-FR"
 
-        textToSpeechConverter.convertTextToSpeech(text: text, language: supportedLanguage)
+        textToSpeechConverter.convertTextToSpeech(text: text, language: supportedLanguage, timeLogger: timeLogger)
         
         XCTAssertEqual(mockSynthesizer.selectedVoiceLanguage, supportedLanguage)
         XCTAssertFalse(textToSpeechConverter.isDefaultVoiceUsed)
@@ -56,7 +57,7 @@ class TextToSpeechConverterTests: XCTestCase {
         let textToSpeechConverter = TextToSpeechConverter()
         let unsupportedLanguage = "xx-XX"
 
-        textToSpeechConverter.convertTextToSpeech(text: "Test speech", pitch: 1.0, volume: 1.0, language: unsupportedLanguage)
+        textToSpeechConverter.convertTextToSpeech(text: "Test speech", pitch: 1.0, volume: 1.0, language: unsupportedLanguage, timeLogger: timeLogger)
 
         XCTAssertTrue(textToSpeechConverter.isDefaultVoiceUsed)
     }

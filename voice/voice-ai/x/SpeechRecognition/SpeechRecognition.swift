@@ -711,7 +711,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
             var query: String
             if let randomTrivia = TriviaManager.getRandomTriviaTopic() {
-                query = "You are now a trivia host. You ask me trivia questions and provide fun facts about the answers like a game show host. Be as concise as possible. Do not give multiple choices. Do not use emojis. Do not introduct the game; just jump into the question. If the question's answer is a range and I am in the range, congratulate me and explain the range. If I am wrong, re-affirm me and tell me the correct answer along with a fun fact about the answer or question. If I am correct, congratulate me and give me a fun fact about the answer or question. Please ask me a trivia questions about \(randomTrivia) that an average person might know the answer to in \(self.languageCode) language. Ensure that the question is not too easy but also not too hard."
+                query = String(localized: "customInstruction.trivia \(randomTrivia) \(self.languageCode)")
             } else {
                 query = "Approximately how many average sized cats could you fit in the average American elevator?"
             }

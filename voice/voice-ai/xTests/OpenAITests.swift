@@ -10,7 +10,8 @@ import XCTest
  */
 class OpenAIServiceTests: XCTestCase {
     var openAIStreamService: OpenAIStreamService!
-
+    private var timeLogger: TimeLogger?
+    
     func testQuery() {
         var testConversation: [Message] = []
         testConversation.append(contentsOf: OpenAIStreamService.setConversationContext())
@@ -53,7 +54,7 @@ data:
         let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
         openAIStreamService.setNetworkService(urlSession: urlSession)
 
-        openAIStreamService.query(conversation: testConversation)
+        openAIStreamService.query(conversation: testConversation, timeLogger: timeLogger)
         wait(for: [expectation], timeout: 5)
     }
     
@@ -100,7 +101,7 @@ data:
         let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
         openAIStreamService.setNetworkService(urlSession: urlSession)
 
-        openAIStreamService.query(conversation: testConversation)
+        openAIStreamService.query(conversation: testConversation, timeLogger: timeLogger)
         openAIStreamService.cancelOpenAICall()
         wait(for: [expectation], timeout: 5)
     }
@@ -151,7 +152,7 @@ data:
         let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
         openAIStreamService.setNetworkService(urlSession: urlSession)
 
-        openAIStreamService.query(conversation: testConversation)
+        openAIStreamService.query(conversation: testConversation, timeLogger: timeLogger)
         wait(for: [expectation, doneExpectection], timeout: 5)
     }
 
@@ -202,7 +203,7 @@ data:
         OpenAIStreamService.QueryLimitPerMinute = 0;
         OpenAIStreamService.queryTimes.append(Int64(NSDate().timeIntervalSince1970 * 1000))
 
-        service.query(conversation: testConversation)
+        service.query(conversation: testConversation, timeLogger: timeLogger)
         wait(for: [expectation], timeout: 5)
     }
     
@@ -249,7 +250,7 @@ data:
         let urlSession = URLSession.init(configuration: configuration, delegate: openAIStreamService, delegateQueue: nil)
         openAIStreamService.setNetworkService(urlSession: urlSession)
 
-        openAIStreamService.query(conversation: testConversation, rateLimit: false)
+        openAIStreamService.query(conversation: testConversation, rateLimit: false, timeLogger: timeLogger)
         wait(for: [expectation], timeout: 5)
     }
 
