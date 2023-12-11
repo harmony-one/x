@@ -35,7 +35,7 @@ struct ActionsView: ActionsViewProtocol, View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
-    c
+    
     @State private var isLongPress = false
 
     // need it to sync speak button animation with pause button
@@ -495,8 +495,9 @@ struct ActionsView: ActionsViewProtocol, View {
             .simultaneousGesture(LongPressGesture().onEnded { _ in
                     self.isLongPress = true
                     self.handleLongPress(actionType: .trivia)
+                    self.vibration()
                     // Reset the flag after a small delay
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.isLongPress = false
                     }
                 })
@@ -571,7 +572,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
     
     func showInAppPurchasesIfNotLoggedIn() {
-        if KeychainService.shared.isAppleIdAvailable() == false || 
+        if KeychainService.shared.isAppleIdAvailable() == false ||
             KeychainService.shared.retrieveIsSubscriptionActive() {
             openPurchaseDialog()
         }
