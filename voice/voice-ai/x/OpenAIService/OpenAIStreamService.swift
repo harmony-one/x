@@ -273,7 +273,6 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         if let error = error as NSError? {
             completion(nil, error)
-            audioPlayer.playSound(false)
             NSLog("[OpenAI]: received error: %@ / %d", error.domain, error.code)
         } else {
             NSLog("[OpenAI] task complete")
