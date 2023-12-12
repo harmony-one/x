@@ -270,10 +270,14 @@ class RelayAuthTests: XCTestCase {
         }
     }
     
+//    func testGetRelaySettingInvalidBaseUrl() {
+//        
+//    }
+    
     func testGetChallengeInvalidBaseUrl() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: nil, test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: nil)
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -287,7 +291,7 @@ class RelayAuthTests: XCTestCase {
     func testGetChallengeInvalidRelayUrl() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: "テスト", test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: "テスト")
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -301,7 +305,7 @@ class RelayAuthTests: XCTestCase {
     func testGetChallengeFailChallenge() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: "test", test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: "test")
             XCTAssertNil(result)
             expectation.fulfill()
         }

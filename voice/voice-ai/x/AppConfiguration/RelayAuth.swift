@@ -117,6 +117,14 @@ class RelayAuth {
     func getToken() -> String? {
         return token
     }
+    
+    func getBaseUrl(_ customBaseUrl: String? = "") -> String? {
+        if customBaseUrl == "" {
+            return Self.baseUrl
+        } else {
+            return customBaseUrl
+        }
+    }
 
     func enableAutoRefreshToken(timeInterval: TimeInterval? = 20 * 60) {
         guard autoRefreshTokenTimer == nil else {
@@ -146,7 +154,8 @@ class RelayAuth {
     }
 
     func getRelaySetting() async -> RelaySetting? {
-        guard let baseUrl = Self.baseUrl else {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
+        guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
         }
@@ -169,9 +178,8 @@ class RelayAuth {
         }
     }
 
-    func getChallenge(baseUrl: String? = nil, test: Bool = false) async -> String? {
-        let finalBaseUrl = test ? baseUrl : Self.baseUrl
-        print("finalbaseurl: \(finalBaseUrl)")
+    func getChallenge(customBaseUrl: String? = "") async -> String? {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
         guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
