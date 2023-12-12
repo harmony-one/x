@@ -257,6 +257,28 @@
         }
       }
     },
+    "settingsView.alert.premiumVoices.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download and select “Settings → Accessibility → Spoken Content → Voices → English → Ava → Ava (Premium)” instead of the default “Samatha”."
+          }
+        }
+      }
+    },
+    "settingsView.alert.premiumVoices.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Voices"
+          }
+        }
+      }
+    },
     "settingsView.alert.signOut.button" : {
       "localizations" : {
         "en" : {
@@ -297,6 +319,16 @@
         }
       }
     },
+    "settingsView.mainMenu.premiumVoices" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Voices"
+          }
+        }
+      }
+    },
     "settingsView.mainMenu.PurchasePremium" : {
       "localizations" : {
         "en" : {
@@ -323,6 +355,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share transcript"
+          }
+        }
+      }
+    },
+    "settingsView.mainMenu.telegramGroup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telegram group"
           }
         }
       }
