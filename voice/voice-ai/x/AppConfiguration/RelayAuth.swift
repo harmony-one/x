@@ -118,11 +118,11 @@ class RelayAuth {
         return token
     }
 
-    func enableAutoRefreshToken() {
+    func enableAutoRefreshToken(timeInterval: TimeInterval? = 20 * 60) {
         guard autoRefreshTokenTimer == nil else {
             return
         }
-        autoRefreshTokenTimer = Timer.scheduledTimer(withTimeInterval: 60 * 20, repeats: true) { _ in
+        autoRefreshTokenTimer = Timer.scheduledTimer(withTimeInterval: timeInterval!, repeats: true) { _ in
             Task {
                 await self.autoRetryRefreshToken()
             }

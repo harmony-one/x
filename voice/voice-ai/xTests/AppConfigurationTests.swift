@@ -202,6 +202,44 @@ class RelayAuthTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+    
+    func testGetToken() {
+        let expectation = expectation(description: "Refresh completion")
+        Task {
+            do {
+                await self.relayAuth.refresh()
+                XCTAssertNotNil(self.relayAuth.getToken())
+                expectation.fulfill()
+            } catch {
+                XCTFail("Error: \(error.localizedDescription)")
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func testEnableAutoRefreshToken() {
+        let expectation = expectation(description: "Auto-refresh completion")
+        relayAuth.enableAutoRefreshToken(timeInterval: 3)
+        print("Waiting for the expectation to be fulfilled...")
+        XCTWaiter().wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testTryInitializeKeyIdNil() {
+        UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
+        let expectation = expectation(description: "Initialize keyId")
+        Task {
+            await relayAuth.tryInitializeKeyId()
+            XCTAssertNotNil(UserDefaults.standard.string(forKey: "AppAttestKeyId"))
+            
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
 
 }
 
