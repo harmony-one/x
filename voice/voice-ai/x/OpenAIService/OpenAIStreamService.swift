@@ -156,7 +156,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         requestMessage = conversation.filter { $0.role != "system" }.map { "\($0.role ?? "N/A"): \($0.content ?? "")" }.joined(separator: "\n")
         requestTokens = Int32(conversation.map { ($0.content ?? "").components(separatedBy: CharacterSet(charactersIn: " ,.!;?'\"$%")).count }.reduce(0, +))
 
-        self.logger.log("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
+        self.logger.log("[OpenAI] Model used: \(model, privacy: .public); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
         self.logger.log("[OpenAI] sent \(body, privacy: .public)")
         // Validate the URL

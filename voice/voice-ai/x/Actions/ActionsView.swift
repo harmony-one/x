@@ -157,9 +157,9 @@ struct ActionsView: ActionsViewProtocol, View {
                         var appVersionFromKeyChain = KeychainService.shared.retrieveAppVersion()
                         if let appVersionFromBundle = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
                             if let keyChainVersion = appVersionFromKeyChain {
-                                self.logger.log("App version from bundle: \(appVersionFromBundle), app version from key chain: \(keyChainVersion)")
+                                self.logger.log("App version from bundle: \(appVersionFromBundle, privacy: .public), app version from key chain: \(keyChainVersion, privacy: .public)")
                             } else {
-                                self.logger.log("App version from bundle: \(appVersionFromBundle), app version from key chain: nil")
+                                self.logger.log("App version from bundle: \(appVersionFromBundle, privacy: .public), app version from key chain: nil")
                             }
                             if appVersionFromBundle != appVersionFromKeyChain {
                                 guard let serverAPIKey = AppConfig.shared.getServerAPIKey() else {
@@ -172,12 +172,12 @@ struct ActionsView: ActionsViewProtocol, View {
                     }
                     try? appSettings.isUpdateAvailable { (updateAvailable, version, error) in
                         if let error = error {
-                            self.logger.log("[isUpdateAvailable]: error \(error)")
+                            self.logger.log("[isUpdateAvailable]: error \(error, privacy: .public)")
                         } else if let updateAvailable = updateAvailable {
                             if let version = version {
-                                self.logger.log("[isUpdateAvailable]: \(updateAvailable), version from AppStore: \(version)")
+                                self.logger.log("[isUpdateAvailable]: \(updateAvailable, privacy: .public), version from AppStore: \(version, privacy: .public)")
                             } else {
-                                self.logger.log("[isUpdateAvailable]: \(updateAvailable)")
+                                self.logger.log("[isUpdateAvailable]: \(updateAvailable, privacy: .public)")
                             }
                             if updateAvailable {
                                 self.showNewAppVersionAlert = true

@@ -210,7 +210,7 @@ class TimeLogger {
         
         let del: Int64 = 1000
         
-        logger.log("[TimeLogger][Benchmarks]: sttPreparationTime = \(sttPreparationTime / del) ms | totalClickToSpeechTime = \(String(sttFinalizationTime / del)) + \(String(requestPreparationTime / del)) + \(String(firstResponseTime / del)) + \(String(ttsPreparationTime / del)) + \(String(firstUtteranceTime / del)) = \(String(totalClickToSpeechTime / del)) ms")
+        logger.log("[TimeLogger][Benchmarks]: sttPreparationTime = \(sttPreparationTime / del, privacy: .public) ms | totalClickToSpeechTime = \(String(sttFinalizationTime / del), privacy: .public) + \(String(requestPreparationTime / del), privacy: .public) + \(String(firstResponseTime / del), privacy: .public) + \(String(ttsPreparationTime / del), privacy: .public) + \(String(firstUtteranceTime / del), privacy: .public) = \(String(totalClickToSpeechTime / del), privacy: .public) ms")
         
         Task {
             await RelayAuth.shared.record(logDetails)

@@ -336,7 +336,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                 textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
             }
             completeResponse.append(response)
-            logger.log("[Flush Response] \(response)")
+            logger.log("[Flush Response] \(response, privacy: .public)")
             DispatchQueue.main.async {
                 self.isThinking = false
             }
@@ -444,9 +444,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     if !initialFlush {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.initialCapacity {
                             if let lastChar = currWord.last {
-                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[Buffer] \(buf, privacy: .public), [currword] \(currWord), [currWordLast] \(lastChar, privacy: .public)")
                             } else {
-                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[Buffer] \(buf, privacy: .public), [currword] \(currWord, privacy: .public), [currWordLast] nil")
                             }
                             flushBuf()
                             initialFlush = true
@@ -454,9 +454,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     } else {
                         if self.speechDelimitingPunctuations.contains(currWord.last!) || buf.count == self.bufferCapacity {
                             if let lastChar = currWord.last {
-                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] \(lastChar)")
+                                self.logger.log("[Buffer] \(buf, privacy: .public), [currword] \(currWord), [currWordLast] \(lastChar, privacy: .public)")
                             } else {
-                                self.logger.log("[Buffer] \(buf), [currword] \(currWord), [currWordLast] nil")
+                                self.logger.log("[Buffer] \(buf, privacy: .public), [currword] \(currWord, privacy: .public), [currWordLast] nil")
                             }
                             flushBuf()
                         }

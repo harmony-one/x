@@ -28,9 +28,9 @@ class Store: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
-            self.logger.log("[Store] \(self.productIDs)")
+            self.logger.log("[Store] \(self.productIDs, privacy: .public)")
             products = try await Product.products(for: productIDs)
-            self.logger.log("[Store] Products: \(self.products)")
+            self.logger.log("[Store] Products: \(self.products, privacy: .public)")
         } catch {
             self.logger.log("requestProducts error: \(error)")
             products = []

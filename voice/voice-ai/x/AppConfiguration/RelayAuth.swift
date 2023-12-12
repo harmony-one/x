@@ -285,7 +285,7 @@ class RelayAuth {
             let token = try await exchangeAttestationForToken(attestation: attestation, challenge: challenge)
             // throw NSError(domain:"testing", code: -6)
             self.token = token
-            logger.log("[RelayAuth] received token \(token ?? "N/A")")
+            logger.log("[RelayAuth] received token \(token ?? "N/A", privacy: .public)")
             return token
         } catch {
             let error = error as NSError

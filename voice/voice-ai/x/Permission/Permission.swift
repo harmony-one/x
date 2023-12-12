@@ -93,20 +93,20 @@ class Permission {
         switch authStatus {
         case .authorized:
             self.speechRecognitionPermissionStatus = "authorized"
-            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus, privacy: .public)")
         case .denied:
             self.speechRecognitionPermissionStatus = "denied"
-            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus, privacy: .public)")
             SentrySDK.capture(message: "User denied speech recognition permission")
             self.showAlertForSettings("Speech Recognition")
             
         case .notDetermined:
             self.speechRecognitionPermissionStatus = "not determined"
-            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus, privacy: .public)")
             SentrySDK.capture(message: "Speech recognition not determined")
         case .restricted:
             self.speechRecognitionPermissionStatus = "restricted"
-            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus)")
+            self.logger.log("Speech recognition permission: \(self.speechRecognitionPermissionStatus, privacy: .public)")
             SentrySDK.capture(message: "Speech recognition restricted")
         @unknown default:
             SentrySDK.capture(message: "Fatal error: New case for speech recognition authorization is available")
