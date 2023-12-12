@@ -1,3 +1,12 @@
+2023-12-11 Mon: Added tests for RelayAuth [https://github.com/harmony-one/x/pull/348] (40% -> 67%). These tests are complex to write since the original code includes a lot of logError throws, timer functions, and case handling using AppConfig values. Will further work on refactoring the original code to isolate them. Assisted Julia in resolving .trivia bugs.
+---
+
+2023-12-10 Sun: Continued investigating the ActionsView issues, and some of the bugs that may be side affects of dispatch queue, clogging the main thread.
+
+2023-12-09 Sat: Continued investigating how to conduct unit tests regarding OSLog.
+
+2023-12-08 Fri: Added tests for KeychainService (100%) [https://github.com/harmony-one/x/pull/340], Persistence (100%) [https://github.com/harmony-one/x/pull/341], and AppSettings (93%) [https://github.com/harmony-one/x/pull/337]. [Resolved threading issues](https://github.com/harmony-one/x/commit/8b81c998e7f21cd18e304f49ed78732e867f689f) again which kept blocking the entire test from running (it was due to calling main thread on dispatch queue numerous times).
+
 2023-12-07 Thu: Added tests and refactored code for LogStore (94%) and AppSettings (92%). Cleaned code for ConverterTests. Investigating how to provide coverage for code that dispatches notification (OSLog, warnings, NSNotification) - they seem better if covered in integration testing but finding a work around to bring their unit test coverage to 100%.
 
 2023-12-06 Wed: Solved threading error from SpeechRecognition.swift which was causing entire tests to fail. Cleaned code that wasn't being used. Updated tests for SettingsView, and all the Intents tests to 100% (SurpriseIntent, AppSettingsIntent, NewSessionIntent, PlayPauseIntent, IntentManager, VoiceAIShortcuts). Helping fix the unit tests for ActionsView, which require UI testing (still investigating issue).
