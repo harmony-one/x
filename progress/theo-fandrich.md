@@ -1,5 +1,8 @@
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
+---
+
+2023-12-11 Mon: Conducted thorough prodcut testing and added 7 new issues (more to come). Released v01.12.11.18 in the evening, there are arbitrary bugs that keep appearing that we hold to solve in the next 48 hours (Pause/Play not lit, recycled requests, mic engine initialization). 
 
 ---
 
