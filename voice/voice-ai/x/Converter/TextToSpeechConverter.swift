@@ -29,7 +29,6 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     
     override init() {
         super.init()
-        synthesizer.delegate = self
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {

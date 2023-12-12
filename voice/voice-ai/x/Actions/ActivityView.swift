@@ -9,11 +9,15 @@ struct ShareLink: Identifiable {
 struct ActivityView: UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]?
+    @Binding var isSharing: Bool
 
-    func makeUIViewController(context _: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
+    func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        controller.completionWithItemsHandler = { _, _, _, _ in
+            self.isSharing = false  // Hide activity indicator when sharing is done
+        }
         return controller
     }
 
-    func updateUIViewController(_: UIActivityViewController, context _: UIViewControllerRepresentableContext<ActivityView>) {}
+    func updateUIViewController(_: UIActivityViewController, context: Context) {}
 }
