@@ -180,6 +180,10 @@
 		B945137B2B2854B80046B699 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94513782B2854B80046B699 /* ActivityIndicatorView.swift */; };
 		B945137C2B2854B80046B699 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94513782B2854B80046B699 /* ActivityIndicatorView.swift */; };
 		B945137E2B28B02A0046B699 /* ProgressViewComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B945137D2B28B02A0046B699 /* ProgressViewComponentTests.swift */; };
+		B94513812B28B93E0046B699 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B94513802B28B93E0046B699 /* Launch Screen.storyboard */; };
+		B94513822B28B93E0046B699 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B94513802B28B93E0046B699 /* Launch Screen.storyboard */; };
+		B94513832B28B93E0046B699 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B94513802B28B93E0046B699 /* Launch Screen.storyboard */; };
+		B94513842B28B93E0046B699 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B94513802B28B93E0046B699 /* Launch Screen.storyboard */; };
 		B95B4D7E2AE2D16100DFE2EB /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
@@ -428,6 +432,7 @@
 		B93580F92B1DCCDD00CC31E2 /* MixpanelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixpanelManager.swift; sourceTree = "<group>"; };
 		B94513782B2854B80046B699 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		B945137D2B28B02A0046B699 /* ProgressViewComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewComponentTests.swift; sourceTree = "<group>"; };
+		B94513802B28B93E0046B699 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkTests.swift; sourceTree = "<group>"; };
@@ -872,6 +877,7 @@
 				B9B3319F2AFB801D00F6A9C9 /* ReviewRequest */,
 				B9AD50522ADFE8A0006F18A1 /* SpeechRecognition */,
 				B346DF722AF55EEB0023FC87 /* ThemeManager */,
+				B94513802B28B93E0046B699 /* Launch Screen.storyboard */,
 			);
 			path = x;
 			sourceTree = "<group>";
@@ -1191,6 +1197,7 @@
 				F67EDE352B07C60200FDEA80 /* (null) in Resources */,
 				E47F1A9A2B07F94F00455617 /* Dotrice-Bold.otf in Resources */,
 				A46B5A542AE73B9D00C874ED /* Preview Assets.xcassets in Resources */,
+				B94513842B28B93E0046B699 /* Launch Screen.storyboard in Resources */,
 				B3BA26752B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 				B91F05D52B0645200029A32D /* Settings.bundle in Resources */,
 				A4680D9F2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
@@ -1229,6 +1236,7 @@
 				22CC4D762AF3AC300072EC39 /* Products.storekit in Resources */,
 				B9AD506A2ADFEFDB006F18A1 /* Dotrice-Condensed.otf in Resources */,
 				B9AD50692ADFEFDB006F18A1 /* Dotrice-Regular.otf in Resources */,
+				B94513812B28B93E0046B699 /* Launch Screen.storyboard in Resources */,
 				CD0D136B2ADB28CE00031EDD /* logo.png in Resources */,
 				B3E8D1522B201E450041B82B /* Localizable.xcstrings in Resources */,
 				A4680D9E2AE9C8A600F5F8ED /* beep.mp3 in Resources */,
@@ -1241,6 +1249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B94513822B28B93E0046B699 /* Launch Screen.storyboard in Resources */,
 				B3E8D1532B201E450041B82B /* Localizable.xcstrings in Resources */,
 				B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
 			);
@@ -1252,6 +1261,7 @@
 			files = (
 				B33EE43F2B0DA1A8007D0052 /* Settings.bundle in Resources */,
 				B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */,
+				B94513832B28B93E0046B699 /* Launch Screen.storyboard in Resources */,
 				B3E8D1542B201E450041B82B /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1906,6 +1916,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1952,6 +1963,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
