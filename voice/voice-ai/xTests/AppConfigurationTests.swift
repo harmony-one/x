@@ -240,6 +240,8 @@ class RelayAuthTests: XCTestCase {
             }
         }
     }
+    
+    // getDeviceToken Tests
     func testGetDeviceTokenRegenFalse() {
         let expectation = expectation(description: "getDeviceToken")
         Task {
@@ -270,10 +272,78 @@ class RelayAuthTests: XCTestCase {
         }
     }
     
-//    func testGetRelaySettingInvalidBaseUrl() {
-//        
-//    }
+    func testGetDeviceTokenError() {
+        let expectation = expectation(description: "getDeviceToken")
+        Task {
+            let result = await relayAuth.getDeviceToken(simulateError: true)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
     
+    // getRelaySetting Tests
+    func testGetRelaySettingInvalidBaseUrl() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: nil)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingInvalidRelayUrl() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: "テスト")
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingFailRelaySetting() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: "test")
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingValidRelaySetting() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting()
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // getChallenge Tests
     func testGetChallengeInvalidBaseUrl() {
         let expectation = expectation(description: "getChallenge")
         Task {

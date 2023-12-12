@@ -125,6 +125,14 @@ class RelayAuth {
             return customBaseUrl
         }
     }
+    
+    func generateDeviceToken(simulateError: Bool = false) async throws -> Data {
+        if simulateError {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth getDeviceToken error simulated"])
+        } else {
+            return try await DCDevice.current.generateToken()
+        }
+    }
 
     func enableAutoRefreshToken(timeInterval: TimeInterval? = 20 * 60) {
         guard autoRefreshTokenTimer == nil else {
@@ -153,7 +161,7 @@ class RelayAuth {
         }
     }
 
-    func getRelaySetting() async -> RelaySetting? {
+    func getRelaySetting(customBaseUrl: String? = "") async -> RelaySetting? {
         let finalBaseUrl = getBaseUrl(customBaseUrl)
         guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
@@ -336,13 +344,13 @@ class RelayAuth {
         }
     }
 
-    func getDeviceToken(_ regen: Bool = false) async -> String? {
+    func getDeviceToken(_ regen: Bool = false, simulateError: Bool = false) async -> String? {
         if deviceToken != nil, !regen {
             return deviceToken
         }
         do {
-            let deviceToken = try await DCDevice.current.generateToken()
-            self.deviceToken = deviceToken.base64EncodedString()
+            let deviceTokenData = try await generateDeviceToken(simulateError: simulateError)
+            self.deviceToken = deviceTokenData.base64EncodedString()
             return self.deviceToken
         } catch {
             logError("Error generating device token", -9)
