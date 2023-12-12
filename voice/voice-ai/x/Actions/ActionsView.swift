@@ -128,7 +128,12 @@ struct ActionsView: ActionsViewProtocol, View {
         let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
+            if appSettings.isSharing {
+                ProgressViewComponent(isShowing: $appSettings.isSharing)
+            } else {
                 baseView(colums: colums, buttons: buttons)
+            }
+
         }.background(Color(hex: 0x1E1E1E).animation(.none))
             .onAppear(
                 perform: {
@@ -302,7 +307,7 @@ struct ActionsView: ActionsViewProtocol, View {
             let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
             let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
 
-            ActivityView(activityItems: [shareLink.title, shareLink.url])
+            ActivityView(activityItems: [shareLink.title, shareLink.url], isSharing: $appSettings.isSharing)
         }
     }
 

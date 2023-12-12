@@ -14,6 +14,7 @@ enum VersionError: Error {
 class AppSettings: ObservableObject {
     @Published var isOpened: Bool = false
     @Published var isPopoverPresented = false
+    @Published var isSharing = false
     @Published var appStoreUrl = "https://apps.apple.com/ca/app/voice-ai-super-intelligence/id6470936896"
 
     static let shared = AppSettings()

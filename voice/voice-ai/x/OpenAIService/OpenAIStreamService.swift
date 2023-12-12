@@ -42,6 +42,8 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
 
+    private let audioPlayer = AudioPlayer()
+
     convenience init(completion: @escaping (String?, Error?) -> Void, temperature: Double = 0.7) {
         self.init(networkService: nil, completion: completion, temperature: temperature)
     }
@@ -73,6 +75,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
         guard let apiKey = AppConfig.shared.getOpenAIKey() else {
             completion(nil, NSError(domain: "No Key", code: -2))
             SentrySDK.capture(message: "OpenAI API key is nil")
+            audioPlayer.playSound(false)
             return
         }
 

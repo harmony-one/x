@@ -4,7 +4,6 @@ import Sentry
 import OSLog
 import Darwin.sys.sysctl
 
-
 struct SettingsView: View {
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -44,18 +43,17 @@ struct SettingsView: View {
             }
         }
 
-
         .sheet(isPresented: $showShareSheet, onDismiss: { showShareSheet = false }) {
             let url = URL(string: appSettings.appStoreUrl)!
             let shareLink = ShareLink(title: self.shareTitle, url: url)
-            ActivityView(activityItems: [shareLink.title, shareLink.url])
+            ActivityView(activityItems: [shareLink.title, shareLink.url], isSharing: $appSettings.isSharing)
         }
         .sheet(isPresented: $isSaveTranscript, onDismiss: { isSaveTranscript = false }) {
             let jsonString = convertMessagesToTranscript(messages: SpeechRecognition.shared.conversation)
-            ActivityView(activityItems: [jsonString])
+            ActivityView(activityItems: [jsonString], isSharing: $appSettings.isSharing)
         }
         .sheet(isPresented: $isShareLogs, onDismiss: { isShareLogs = false }) {
-            ActivityView(activityItems: [logStore.entries.joined(separator: "\n")])
+            ActivityView(activityItems: [logStore.entries.joined(separator: "\n")], isSharing: $appSettings.isSharing)
         }
     }
 
@@ -240,8 +238,13 @@ struct SettingsView: View {
     }
 
     func shareLogs() {
-        logStore.export()
-        isShareLogs = true
+        DispatchQueue.main.async {
+            appSettings.isSharing = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            isShareLogs = true
+            logStore.export()
+        }
     }
 
     func convertMessagesToTranscript(messages: [Message]) -> String {
