@@ -1,3 +1,5 @@
+2023-12-11 Mon: Created more [VoiceAI assets](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6) on DALLE and Runway, post-sync, determined the course of action is to create 'harmonaut' art to promote voiceAI. Ideated video concept for astronaut in space, [outlined here](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4#53cbf3de210f4e198d1ca846beb7c78d). Promoted [Swap metric on Twitter](https://x.com/harmonyprotocol/status/1734365409300906277?s=20).
+
 ------
 
 2023-12-10 Sun: Read Casey's paper. Studied new team initiatives from Friday team sync. Drafted [Twitter content](https://www.notion.so/harmonyone/Twitter-8fe7ec9cfc904ecba0245ec8407ec5f8) from Casey's article to review with Casey.
