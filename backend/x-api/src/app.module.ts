@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {typeormConfig} from "./config/typeorm";
+import { TwitterModule } from './twitter/twitter.module';
 import appConfig from './config';
 
 @Module({
@@ -18,6 +19,7 @@ import appConfig from './config';
       useFactory: (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
+    TwitterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
