@@ -523,8 +523,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func registerTTS() {
-        if textToSpeechConverter.synthesizer.delegate == nil {
-            textToSpeechConverter.synthesizer.delegate = self
+        if self.textToSpeechConverter.synthesizer.delegate == nil {
+            self.textToSpeechConverter.synthesizer.delegate = self
         }
     }
     
