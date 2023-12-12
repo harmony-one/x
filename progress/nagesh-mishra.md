@@ -1,3 +1,10 @@
+
+2023-12-12 Mon: Added loading icon for a period when a shared transcript is loading and tested error handling for speech recognition with appropriate haptic feedback. PR: https://github.com/harmony-one/x/pull/343.
+
+2023-12-12 Mon: Aligning error handling for speech recognition with appropriate haptic feedback, testing is in progress.
+
+---
+
 2023-12-08 Fri: Update the "referral account" to include Artem's endpoint PR: https://github.com/harmony-one/x/pull/332. Complete the enhancement of the premium voice detection feature PR: https://github.com/harmony-one/x/pull/331.
 
 2023-12-07 Thu: Modified the "Press & Hold" feature to provide haptic feedback only upon finger release and added a vibration every second during the wait for a response.
