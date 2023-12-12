@@ -421,8 +421,7 @@ struct ActionsView: ActionsViewProtocol, View {
             .disabled(self.isButtonDisabled(action: button.action))
 
         } else if button.action == .play {
-            let isPressed = speechRecognition.isPaused()
-            let isActive = speechRecognition.isPlaying()
+            let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: speechRecognition.isThinking ? true : isActive, isPressed: isPressed, isThinking: speechRecognition.isThinking) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
