@@ -169,8 +169,10 @@ class RelayAuth {
         }
     }
 
-    func getChallenge() async -> String? {
-        guard let baseUrl = Self.baseUrl else {
+    func getChallenge(baseUrl: String? = nil, test: Bool = false) async -> String? {
+        let finalBaseUrl = test ? baseUrl : Self.baseUrl
+        print("finalbaseurl: \(finalBaseUrl)")
+        guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
         }
