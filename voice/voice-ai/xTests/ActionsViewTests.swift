@@ -57,10 +57,13 @@ class ActionsViewTests: XCTestCase {
     }
     
     func testChangeThemeSheet() {
+        let isSharing = Binding(get: { false }, set: { newValue in
+           // self.isSharing = newValue
+        })
         let url = URL(string: "https://apps.apple.com/us/app/voice-ai-talk-with-gpt4/id6470936896")!
         let shareLink = ShareLink(title: "Check out this Voice AI app! x.country/app", url: url)
 
-        let activityView = ActivityView(activityItems: [shareLink.title, shareLink.url])
+        let activityView = ActivityView(activityItems: [shareLink.title, shareLink.url], isSharing: isSharing)
         XCTAssertNotNil(activityView)
     }
     
