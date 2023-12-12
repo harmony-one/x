@@ -44,6 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         category: String(describing: "SpeechRecognition")
     )
     private let audioEngine = AVAudioEngine()
+    private let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
         let locale = Locale(identifier: preferredLocale)
@@ -671,7 +672,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
             var query: String
             if let randomTitle = ArticleManager.getRandomArticleTitle() {
-                query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
+                query = "Summarize \(randomTitle) from Wikipedia in \(self.preferredLocale) language."
                 // Failure to return a title will result in a summary of the Wikipedia page for cat.
             } else {
                 query = "Sumamarize cat from Wikipedia"
@@ -711,7 +712,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Fetch a random trivia topic for the question. This function should be synchronous and return immediately.
             var query: String
             if let randomTrivia = TriviaManager.getRandomTriviaTopic() {
-                query = String(localized: "customInstruction.trivia \(randomTrivia) \(self.languageCode)")
+                query = String(localized: "customInstruction.trivia \(randomTrivia) \(self.preferredLocale)")
             } else {
                 query = "Approximately how many average sized cats could you fit in the average American elevator?"
             }
