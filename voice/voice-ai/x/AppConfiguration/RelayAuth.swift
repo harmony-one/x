@@ -118,11 +118,11 @@ class RelayAuth {
         return token
     }
 
-    func enableAutoRefreshToken() {
+    func enableAutoRefreshToken(timeInterval: TimeInterval? = 20 * 60) {
         guard autoRefreshTokenTimer == nil else {
             return
         }
-        autoRefreshTokenTimer = Timer.scheduledTimer(withTimeInterval: 60 * 20, repeats: true) { _ in
+        autoRefreshTokenTimer = Timer.scheduledTimer(withTimeInterval: timeInterval!, repeats: true) { _ in
             Task {
                 await self.autoRetryRefreshToken()
             }
@@ -169,8 +169,10 @@ class RelayAuth {
         }
     }
 
-    func getChallenge() async -> String? {
-        guard let baseUrl = Self.baseUrl else {
+    func getChallenge(baseUrl: String? = nil, test: Bool = false) async -> String? {
+        let finalBaseUrl = test ? baseUrl : Self.baseUrl
+        print("finalbaseurl: \(finalBaseUrl)")
+        guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
         }
