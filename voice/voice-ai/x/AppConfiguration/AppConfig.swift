@@ -207,7 +207,7 @@ class AppConfig {
             
             let res = try JSON(data: data)
             guard let status = res["status"].bool else {
-                self.logger.log("[AppConfig][checkWhiteList] status false \(res)")
+                self.logger.log("[AppConfig][checkWhiteList] status false \(res, privacy: .public)")
                 return false
             }
             return status

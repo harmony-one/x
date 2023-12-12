@@ -1,3 +1,7 @@
+2023-12-11 Mon: I am continuing to work on the UserAPI component tests. I have [added component tests for the methods deleteUserAccount, updateUser, purchase, and register](https://github.com/harmony-one/x/pull/334) and code coverage for UserAPI has increased to 97.3%.
+
+---
+
 2023-12-08 Fri: I have [added the ability to implement test mocks](https://github.com/harmony-one/x/pull/334) for the NetworkManagerProtocol and added a test for the UserAPI.getuser method.
 
 2023-12-07 Thu: I am working on component testing and investigating how to increase code coverage, and [updated the tests](https://github.com/harmony-one/x/pull/328) for the following components: GridButton, NetworkManager, VibrationManager, and OpenAIService.

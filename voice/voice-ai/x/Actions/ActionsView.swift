@@ -35,6 +35,8 @@ struct ActionsView: ActionsViewProtocol, View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var isRecording = false
     @State private var isRecordingContinued = false
+    
+    @State private var isLongPress = false
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
@@ -468,31 +470,38 @@ struct ActionsView: ActionsViewProtocol, View {
             .disabled(self.isButtonDisabled(action: button.action))
         } else if button.action == .surprise {
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: isActive, isButtonEnabled: isSurpriseButtonPressed) {event in
-                self.setLastButtonPressed(action: button.action, event: event)
-                if event != nil {
-                    return
-                }
-                self.vibration()
-                MixpanelManager.shared.trackEvent(name: "Surprise Me", properties: nil)
-                
-                if self.isSurpriseButtonPressed {
-                    self.isSurpriseButtonPressed = false
-                    Task {
-                        await handleOtherActions(actionType: button.action)
-                        do {
-                            try await Task.sleep(nanoseconds: 1 * 500_000_000)
-                        } catch {
-                            self.logger.log("Sleep failed")
+                if !self.isLongPress {
+                    self.setLastButtonPressed(action: button.action, event: event)
+                    if event != nil {
+                        return
+                    }
+                    self.vibration()
+                    MixpanelManager.shared.trackEvent(name: "Surprise Me", properties: nil)
+                    
+                    if self.isSurpriseButtonPressed {
+                        self.isSurpriseButtonPressed = false
+                        Task {
+                            await handleOtherActions(actionType: button.action)
+                            do {
+                                try await Task.sleep(nanoseconds: 1 * 500_000_000)
+                            } catch {
+                                self.logger.log("Sleep failed")
+                            }
+                            self.isSurpriseButtonPressed = true
                         }
-                        self.isSurpriseButtonPressed = true
                     }
                 }
             }
-            .simultaneousGesture(LongPressGesture(maximumDistance: max(buttonFrame.width, buttonFrame.height)).onEnded { _ in
-                Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false) { _ in
-                    actionHandler.handle(actionType: ActionType.tapStopSpeak)
-                }
-            })
+            .simultaneousGesture(LongPressGesture().onEnded { _ in
+                    self.isLongPress = true
+                    self.handleLongPress(actionType: .trivia)
+                    self.vibration()
+                    // Reset the flag after a small delay
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.lastButtonPressed = nil
+                        self.isLongPress = false
+                    }
+                })
             .accessibilityIdentifier(button.testId)
             .disabled(self.isButtonDisabled(action: button.action))
             // .onStart: { self.lastActionPressed = .surprise }
@@ -564,7 +573,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
     
     func showInAppPurchasesIfNotLoggedIn() {
-        if KeychainService.shared.isAppleIdAvailable() == false || 
+        if KeychainService.shared.isAppleIdAvailable() == false ||
             KeychainService.shared.retrieveIsSubscriptionActive() {
             openPurchaseDialog()
         }

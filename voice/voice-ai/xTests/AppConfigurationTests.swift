@@ -202,6 +202,129 @@ class RelayAuthTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+    
+    func testGetToken() {
+        let expectation = expectation(description: "Refresh completion")
+        Task {
+            do {
+                await self.relayAuth.refresh()
+                XCTAssertNotNil(self.relayAuth.getToken())
+                expectation.fulfill()
+            } catch {
+                XCTFail("Error: \(error.localizedDescription)")
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 5.0, handler: nil)
+    }
+    
+    func testEnableAutoRefreshToken() {
+        let expectation = expectation(description: "Auto-refresh completion")
+        relayAuth.enableAutoRefreshToken(timeInterval: 3)
+        print("Waiting for the expectation to be fulfilled...")
+        XCTWaiter().wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testTryInitializeKeyIdNil() {
+        UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
+        let expectation = expectation(description: "Initialize keyId")
+        Task {
+            await relayAuth.tryInitializeKeyId()
+            XCTAssertNotNil(UserDefaults.standard.string(forKey: "AppAttestKeyId"))
+            
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    func testGetDeviceTokenRegenFalse() {
+        let expectation = expectation(description: "getDeviceToken")
+        Task {
+            // call twice to make sure deviceToken != nil
+            await relayAuth.getDeviceToken()
+            let result = await relayAuth.getDeviceToken()
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetDeviceTokenRegenTrue() {
+        let expectation = expectation(description: "getDeviceToken")
+        Task {
+            let result = await relayAuth.getDeviceToken(true)
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetChallengeInvalidBaseUrl() {
+        let expectation = expectation(description: "getChallenge")
+        Task {
+            let result = await relayAuth.getChallenge(baseUrl: nil, test: true)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetChallengeInvalidRelayUrl() {
+        let expectation = expectation(description: "getChallenge")
+        Task {
+            let result = await relayAuth.getChallenge(baseUrl: "テスト", test: true)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetChallengeFailChallenge() {
+        let expectation = expectation(description: "getChallenge")
+        Task {
+            let result = await relayAuth.getChallenge(baseUrl: "test", test: true)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetChallengeValidChallenge() {
+        let expectation = expectation(description: "getChallenge")
+        Task {
+            let result = await relayAuth.getChallenge()
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
 
 }
 

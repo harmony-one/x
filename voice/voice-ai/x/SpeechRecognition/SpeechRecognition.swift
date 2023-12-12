@@ -44,6 +44,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         category: String(describing: "SpeechRecognition")
     )
     private let audioEngine = AVAudioEngine()
+    private let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
     private let speechRecognizer: SFSpeechRecognizer? = {
         let preferredLocale = Locale.preferredLanguages.first ?? "en-US"
         let locale = Locale(identifier: preferredLocale)
@@ -344,7 +345,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-        logger.log("[Query] \(text)")
+        logger.log("[Query] \(text, privacy: .public)")
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
@@ -426,7 +427,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     flushBuf()
                     self.isRequestingOpenAI = false
                     self.logger.log("OpenAI Response Complete")
-                    self.logger.log("[Complete Response] \(self.completeResponse.joined())")
+                    self.logger.log("[Complete Response] \(self.completeResponse.joined(), privacy: .public)")
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }
@@ -671,7 +672,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Fetch a random title for the fact. This function should be synchronous and return immediately.
             var query: String
             if let randomTitle = ArticleManager.getRandomArticleTitle() {
-                query = "Summarize \(randomTitle) from Wikipedia in \(self.languageCode)"
+                query = "Summarize \(randomTitle) from Wikipedia in \(self.preferredLocale) language."
                 // Failure to return a title will result in a summary of the Wikipedia page for cat.
             } else {
                 query = "Sumamarize cat from Wikipedia"
@@ -708,10 +709,10 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Since we are about to initiate a new fact retrieval, pause any capturing.
             self.pauseCapturing()
 
-            // Fetch a random title for the fact. This function should be synchronous and return immediately.
+            // Fetch a random trivia topic for the question. This function should be synchronous and return immediately.
             var query: String
             if let randomTrivia = TriviaManager.getRandomTriviaTopic() {
-                query = "You are now a trivia host. You ask me trivia questions and provide fun facts about the answers like a game show host. Be as concise as possible. Do not give multiple choices. Do not use emojis. Do not introduct the game; just jump into the question. If the question's answer is a range and I am in the range, congratulate me and explain the range. If I am wrong, re-affirm me and tell me the correct answer along with a fun fact about the answer or question. If I am correct, congratulate me and give me a fun fact about the answer or question. Please ask me a trivia questions about \(randomTrivia) that an average person might know the answer to in \(self.languageCode) language. Ensure that the question is not too easy but also not too hard."
+                query = String(localized: "customInstruction.trivia \(randomTrivia) \(self.preferredLocale)")
             } else {
                 query = "Approximately how many average sized cats could you fit in the average American elevator?"
             }

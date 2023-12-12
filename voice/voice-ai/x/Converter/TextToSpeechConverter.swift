@@ -79,7 +79,7 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         // Set the volume of the speech utterance
         utterance.volume = volume
         
-        self.logger.log("[TTS] \(text)\n")
+        self.logger.log("[TTS] \(text, privacy: .public)\n")
         
         // Speak the provided utterance using the AVSpeechSynthesizer
         synthesizer.speak(utterance)
