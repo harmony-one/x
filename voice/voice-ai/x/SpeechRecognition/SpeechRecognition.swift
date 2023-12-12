@@ -344,7 +344,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             buf.removeAll()
         }
         
-        logger.log("[Query] \(text)")
+        logger.log("[Query] \(text, privacy: .public)")
         conversation.append(Message(role: "user", content: text))
         requestInitiatedTimestamp = getCurrentTimestamp()
         
@@ -426,7 +426,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
                     flushBuf()
                     self.isRequestingOpenAI = false
                     self.logger.log("OpenAI Response Complete")
-                    self.logger.log("[Complete Response] \(self.completeResponse.joined())")
+                    self.logger.log("[Complete Response] \(self.completeResponse.joined(), privacy: .public)")
                     if !self.completeResponse.isEmpty {
                         self.conversation.append(Message(role: "assistant", content: self.completeResponse.joined()))
                     }

@@ -158,7 +158,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
 
         self.logger.log("[OpenAI] Model used: \(model); Minutes elaspsed: \(miutesElasped); isBoosterInEffect: \(isBoosterInEffect)")
 
-        self.logger.log("[OpenAI] sent \(body)")
+        self.logger.log("[OpenAI] sent \(body, privacy: .public)")
         // Validate the URL
         guard let url = URL(string: "\(baseUrl)/chat/completions") else {
             let error = NSError(domain: "Invalid API URL", code: -1, userInfo: nil)
