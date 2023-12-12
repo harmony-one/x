@@ -1,4 +1,5 @@
 2023-12-11 Mon: Added tests for RelayAuth [https://github.com/harmony-one/x/pull/348] (40% -> 67%). These tests are complex to write since the original code includes a lot of logError throws, timer functions, and case handling using AppConfig values. Will further work on refactoring the original code to isolate them. Assisted Julia in resolving .trivia bugs.
+
 ---
 
 2023-12-10 Sun: Continued investigating the ActionsView issues, and some of the bugs that may be side affects of dispatch queue, clogging the main thread.
