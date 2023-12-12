@@ -40,7 +40,6 @@ struct ActionsView: ActionsViewProtocol, View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-    @State private var speakButtonDebounceTimer: Timer?
 
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
@@ -384,19 +383,14 @@ struct ActionsView: ActionsViewProtocol, View {
                     .onChanged { _ in
                         self.setLastButtonPressed(action: button.action, event: .onStart)
                         
-                        self.speakButtonDebounceTimer?.invalidate()
-                        
                         if self.isSpeakButtonPressed == false {
-                            self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
-                                actionHandler.handle(actionType: ActionType.speak)
-                            }
+                            actionHandler.handle(actionType: ActionType.speak)
                         }
                         self.isSpeakButtonPressed = true
                     }
                     .onEnded { _ in
                         self.setLastButtonPressed(action: button.action, event: .onEnd)
                         
-                        self.speakButtonDebounceTimer?.invalidate()
                         self.isSpeakButtonPressed = false
                         
                         if actionHandler.isPressAndHoldActive {
