@@ -1,3 +1,5 @@
+2023-12-12 Tue: synced with Sun and Yuriy about new [twitter-api](https://github.com/harmony-one/x/pull/342/files) project; [started](https://github.com/harmony-one/x/tree/main/backend/x-api) working on backend app, implemented basic features :project structure, configuration, database, Swagger API.
+
 2023-12-11 Mon: researched Aaron's [docs](https://github.com/harmony-one/x/pull/342/files) on X (twitter) API, prepared for the call with Sun. [Added](https://github.com/harmony-one/x-payments-backend/commit/0957b6373d7052d2f11c16769703889e8b1fa28f) new endpoint `GET /users` to X app backend.
 
 ---
