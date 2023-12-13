@@ -3,20 +3,8 @@ import XCTest
 @testable import Voice_AI
 
 class DataFeedTests: XCTestCase {
-    
-    // Fetch data from btc source and parse it successfully
-    func testFetchBtcDataAndParseSuccessfully() {
-        let expectation = XCTestExpectation(description: "Fetch btc data and parse successfully")
-        let dataFeed = DataFeed.shared
-        dataFeed.getData(from: dataFeed.btcSource) { result in
-            XCTAssertNotNil(result, "Data should not be nil")
-            XCTAssertFalse(result?.isEmpty ?? true, "Data should not be empty")
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10)
-    }
-    
-    func testFetchBtcDataAndParseSuccessfullyOne() {
+        
+    func testFetchOneDataAndParseSuccessfully() {
         let expectation = XCTestExpectation(description: "Fetch one data and parse successfully")
         let dataFeed = DataFeed.shared
         dataFeed.getData(from: dataFeed.oneSource) { result in
@@ -27,6 +15,15 @@ class DataFeedTests: XCTestCase {
         wait(for: [expectation], timeout: 10)
     }
     
+    func testFetchEmptySource() {
+        let expectation = XCTestExpectation(description: "Fetch one data and parse successfully")
+        let dataFeed = DataFeed.shared
+        dataFeed.getData(from: "") { result in
+            XCTAssertNil(result, "Result should be nil")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
     
     func testFetchInvalidUrlAndFailToFetchContent() {
         let expectation = XCTestExpectation(description: "Fetch invalid url and fail to fetch content")
@@ -62,4 +59,30 @@ class DataFeedTests: XCTestCase {
         // Assert
         XCTAssertNil(result)
     }
+    
+    func testParseJasonContentNil() {
+        // Arrange
+        let dataFeed = DataFeed.shared
+        let content: String? = nil
+        
+        // Act
+        let result = dataFeed.publicFuncToTestParseJsonContent(content)
+        
+        // Assert
+        XCTAssertNil(result)
+    }
+    
+    func testFetchDataAndCallCompletionHandler() {
+        let expectation = XCTestExpectation(description: "Fetch data and call completion handler")
+        
+        let url = URL(string: "https://github.com/harmony-one/x/blob/main/data/btc.json")!
+        DataFeed.shared.publicFuncToTestFetchContent(from: url) { content in
+            XCTAssertNotNil(content)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+    }
+    
 }

@@ -85,7 +85,10 @@ class DataFeed {
 }
 
 extension DataFeed {
-    public func publicFuncToTestParseJsonContent(_ content: String) -> [String]? {
+    public func publicFuncToTestParseJsonContent(_ content: String?) -> [String]? {
+        guard let content = content else {
+            return nil
+        }
         return self.parseJsonContent(content)
     }
     
