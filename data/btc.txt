@@ -1,6 +1,0 @@
-{
-  "content":[
-    "Monday’s trading session saw crypto futures traders lose over $500 million in liquidations positions as steep volatility impacted highly leveraged longs and shorts, with some majors dropping as much as 12%.",
-    "Bitcoin (BTC) whipsawed from $43,000 to as low as $40,300, data shows, leading drops across major tokens such as Chainlink (LINK), Cardano’s ADA and Solana’s SOL, which dropped over 8% before slightly recovering.",
-    "Generally riskier bets shiba inu (SHIB) and dogecoin (DOGE), two dog-themed meme tokens, fared slightly better with a 5% drop. Meanwhile, BNB Chain’s BNB, Avalanche’s AVAX, and Celestia’s TIA showed strength with gains of as much as 20% – unaffected by weakness in bitcoin."
-}
