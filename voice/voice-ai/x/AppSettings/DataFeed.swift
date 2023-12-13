@@ -4,7 +4,11 @@ class DataFeed {
     
     static let shared = DataFeed()
 
-    var oneSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
+    // TODO: Fetch data from all sources
+    
+    var btcSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
+//    var ethSource
+//    var oneSource
     
     func getData(from urlString: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: urlString) else {
