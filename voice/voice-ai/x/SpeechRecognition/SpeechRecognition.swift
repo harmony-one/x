@@ -262,7 +262,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             recognitionTaskCanceled = nil
             // General cleanup process
             let inputNode = audioEngine.inputNode
-            recognitionRequest?.endAudio()
+           // recognitionRequest?.endAudio()
             inputNode.removeTap(onBus: 0)
             recognitionRequest = nil
             recognitionTask = nil
@@ -505,9 +505,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         recognitionTask?.finish()
         recognitionTask = nil
-        recognitionRequest?.endAudio()
+       // recognitionRequest?.endAudio()
         audioEngine.inputNode.removeTap(onBus: 0)
-        audioEngine.stop()
+       // audioEngine.stop()
         logger.log("stop")
     }
     
@@ -613,7 +613,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private func cleanupRecognition() {
         recognitionTask?.cancel()
         recognitionTask = nil
-        recognitionRequest?.endAudio()
+       // recognitionRequest?.endAudio()
         audioEngine.inputNode.removeTap(onBus: 0)
     }
     
