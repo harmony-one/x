@@ -5,9 +5,10 @@ class SettingsBundleHelper {
         static let CustomInstruction = "custom_instruction_preference"
         static let Username = "USER_NAME"
         static let CustomMode = "custom_mode"
+        static let UserProfile = "USER_PROFILE"
     }
     
-    // TODO: Not beig used -- I believe this is work in progress?
+    // TODO: Not being used -- I believe this is work in progress?
 //     class func checkAndExecuteSettings() {
 //         var content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
 //         if content == nil {
@@ -31,6 +32,14 @@ class SettingsBundleHelper {
          }
          UserDefaults.standard.set(defaultCustomInstruction, forKey: "custom_instruction_preference")
      }
+    
+    class func setUserProfile(profile: String) {
+        UserDefaults.standard.set(profile, forKey: SettingsBundleKeys.UserProfile)
+    }
+    
+    class func resetUserProfile() {
+        UserDefaults.standard.set("", forKey: SettingsBundleKeys.UserProfile)
+    }
     
     class func hasPremiumMode() -> Bool {
          if let whiteLabelList = AppConfig.shared.getWhiteLabelListString(),
