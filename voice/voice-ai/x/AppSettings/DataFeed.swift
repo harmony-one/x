@@ -4,30 +4,30 @@ class DataFeed {
     
     static let shared = DataFeed()
 
-    // TODO: Fetch data from all sources
-    var btcSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
-    // var ethSource =
-    var oneSource = "https://github.com/harmony-one/x/blob/main/data/one.json"
+    var sources = [
+        "https://github.com/harmony-one/x/blob/main/data/btc.json",
+        "https://github.com/harmony-one/x/blob/main/data/one.json"
+    ]
     
-    func getData(from urlString: String, completion: @escaping (String?) -> Void) {
-        guard let url = URL(string: urlString) else {
-            completion(nil)
-            return
+    func getData(completion: @escaping (String?) -> Void) {
+        var aggregatedContent = ""
+        let group = DispatchGroup()
+
+        for urlString in sources {
+            guard let url = URL(string: urlString) else { continue }
+
+            group.enter()
+            fetchContent(from: url) { content in
+                if let content = content, let parsedContentArray = self.parseJsonContent(content) {
+                    // Append the content
+                    aggregatedContent += parsedContentArray.joined(separator: " ") + " "
+                }
+                group.leave()
+            }
         }
 
-        fetchContent(from: url) { content in
-            guard let content = content else {
-                completion(nil)
-                return
-            }
-
-            if let parsedContentArray = self.parseJsonContent(content) {
-                let joinedContent = parsedContentArray.joined(separator: " ")
-                print(joinedContent)
-                completion(joinedContent)
-            } else {
-                completion(nil)
-            }
+        group.notify(queue: .main) {
+            completion(aggregatedContent.isEmpty ? nil : aggregatedContent)
         }
     }
     
@@ -67,7 +67,6 @@ class DataFeed {
             let rawLines = response.payload.blob.rawLines
 
             let jsonString = rawLines.joined()
-
             if let data = jsonString.data(using: .utf8) {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 if let dictionary = json as? [String: Any],
@@ -81,15 +80,5 @@ class DataFeed {
             print("JSON parsing error: \(error)")
             return nil
         }
-    }
-}
-
-extension DataFeed {
-    public func publicFuncToTestParseJsonContent(_ content: String) -> [String]? {
-        return self.parseJsonContent(content)
-    }
-    
-    public func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
-        self.fetchContent(from: url, completion: completion)
     }
 }

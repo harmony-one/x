@@ -137,7 +137,7 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("settingsView.mainMenu.talkToME")) {
-                DataFeed.shared.getData(from: DataFeed.shared.btcSource) {data in
+                DataFeed.shared.getData {data in
                     if let data = data {
                         SettingsBundleHelper.setUserProfile(profile: data)
                     } else {
