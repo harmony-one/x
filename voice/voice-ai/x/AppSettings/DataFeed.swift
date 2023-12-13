@@ -2,11 +2,11 @@ import Foundation
 
 class DataFeed {
     static let shared = DataFeed()
-
     var sources = [
         "https://github.com/harmony-one/x/blob/main/data/btc.json",
         "https://github.com/harmony-one/x/blob/main/data/one.json"
     ]
+
 
     func getData(completion: @escaping (String?) -> Void) {
         var aggregatedContent = ""
@@ -83,11 +83,14 @@ class DataFeed {
 }
 
 extension DataFeed {
-    public func publicFuncToTestParseJsonContent(_ content: String) -> [String]? {
-        return parseJsonContent(content)
+    func publicFuncToTestParseJsonContent(_ content: String?) -> [String]? {
+        guard let content = content else {
+            return nil
+        }
+        return self.parseJsonContent(content)
     }
-
-    public func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
-        fetchContent(from: url, completion: completion)
+    
+    func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
+        self.fetchContent(from: url, completion: completion)
     }
 }
