@@ -94,6 +94,15 @@ struct SettingsView: View {
             Button("settingsView.mainMenu.customInstructions") {
                 openSystemSettings()
             }.font(.title2)
+            Button("settingsView.mainMenu.telegramGroup") {
+                telegramGroup()
+            }.font(.title2)
+            Button("settingsView.mainMenu.premiumVoices") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    premiumVoices()
+                }
+            }.font(.title2)
             Button("settingsView.mainMenu.PurchasePremium") {
                 appSettings.type = .purchaseOptions
                 appSettings.isPopoverPresented = true
@@ -132,6 +141,8 @@ struct SettingsView: View {
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
+            .default(Text("settingsView.mainMenu.telegramGroup")) { telegramGroup() },
+            .default(Text("settingsView.mainMenu.premiumVoices")) { premiumVoices() },
             .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
@@ -171,6 +182,13 @@ struct SettingsView: View {
 
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: escapedShareString)
+        UIApplication.shared.open(url!)
+    }
+    
+    func telegramGroup() {
+        let shareString = "https://x.country/telegram"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
@@ -215,6 +233,13 @@ struct SettingsView: View {
             UIApplication.shared.open(url)
         }
         logger.log("Settings: system settings clicked")
+    }
+    
+    func premiumVoices() {
+        MixpanelManager.shared.trackEvent(name: "Premium Voices", properties: nil)
+        let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
+        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.premiumVoices.title"), message: String(localized: "settingsView.alert.premiumVoices.message"), actions: [cancel])
+        logger.log("Settings: Premium Voices clicked")
     }
 
     func getUserName() -> String {

@@ -40,7 +40,6 @@ struct ActionsView: ActionsViewProtocol, View {
 
     // need it to sync speak button animation with pause button
     @State private var isSpeakButtonPressed = false
-    @State private var speakButtonDebounceTimer: Timer?
 
     @State private var isTapToSpeakActive = false
     @State private var tapToSpeakDebounceTimer: Timer?
@@ -312,6 +311,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
 
     func vibration() {
+        self.logger.log("[Vibration Triggered]")
         if ActionsView.generator == nil {
             ActionsView.generator = UIImpactFeedbackGenerator(style: .medium)
         }
@@ -384,19 +384,14 @@ struct ActionsView: ActionsViewProtocol, View {
                     .onChanged { _ in
                         self.setLastButtonPressed(action: button.action, event: .onStart)
                         
-                        self.speakButtonDebounceTimer?.invalidate()
-                        
                         if self.isSpeakButtonPressed == false {
-                            self.speakButtonDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
-                                actionHandler.handle(actionType: ActionType.speak)
-                            }
+                            actionHandler.handle(actionType: ActionType.speak)
                         }
                         self.isSpeakButtonPressed = true
                     }
                     .onEnded { _ in
                         self.setLastButtonPressed(action: button.action, event: .onEnd)
                         
-                        self.speakButtonDebounceTimer?.invalidate()
                         self.isSpeakButtonPressed = false
                         
                         if actionHandler.isPressAndHoldActive {
@@ -427,8 +422,7 @@ struct ActionsView: ActionsViewProtocol, View {
             .disabled(self.isButtonDisabled(action: button.action))
 
         } else if button.action == .play {
-            let isPressed = speechRecognition.isPaused()
-            let isActive = speechRecognition.isPlaying()
+            let isPressed: Bool = isActive && speechRecognition.isPaused()
             
             GridButton(currentTheme: currentTheme, button: button, foregroundColor: .black, active: speechRecognition.isThinking ? true : isActive, isPressed: isPressed, isThinking: speechRecognition.isThinking) {event in
                 self.setLastButtonPressed(action: button.action, event: event)
