@@ -17,5 +17,60 @@ class ActivityViewTests: XCTestCase {
         XCTAssertNotNil(activityView, "ActivityView should be initialized")
         XCTAssertEqual(activityView.activityItems as? [String], testItems, "Activity items did not match")
     }
-
+    
+    func testActivityItemsIsEmpty() {
+        // Arrange
+        let activityItems: [Any] = []
+        let applicationActivities: [UIActivity]? = []
+        let isSharing = Binding(get: { false }, set: { newValue in
+           // self.isSharing = newValue
+        })
+        
+        // Act
+        let viewController = ActivityView(activityItems: activityItems, applicationActivities: applicationActivities, isSharing: isSharing)
+        
+        // Assert
+        XCTAssertTrue(viewController.activityItems.isEmpty)
+    }
+    
+    func testIsSharingIsTtrue() {
+        // Arrange
+        let activityItems: [Any] = []
+        let applicationActivities: [UIActivity]? = []
+        let isSharing = Binding(get: { true }, set: { newValue in
+           // self.isSharing = newValue
+        })
+        
+        // Act
+        let viewController = ActivityView(activityItems: activityItems, applicationActivities: applicationActivities, isSharing: isSharing)
+        
+        // Assert
+        XCTAssertTrue(viewController.isSharing)
+    }
+    
+    func testShareLinkUniqueId() {
+        // Arrange
+        let title = "Test Title"
+        let url = URL(string: "https://www.example.com")!
+        
+        // Act
+        let shareLink = ShareLink(title: title, url: url)
+        
+        // Assert
+        XCTAssertNotNil(shareLink.id)
+    }
+    
+    func testShareLinkTitleAndUrl() {
+        // Arrange
+        let title = "Test Title"
+        let url = URL(string: "https://www.example.com")!
+        
+        // Act
+        let shareLink = ShareLink(title: title, url: url)
+        
+        // Assert
+        XCTAssertEqual(shareLink.title, title)
+        XCTAssertEqual(shareLink.url, url)
+    }
+    
 }
