@@ -188,7 +188,7 @@ struct SettingsView: View {
     }
     
     func telegramGroup() {
-        let shareString = "https://x.country/telegram"
+        let shareString = "https://t.me/+mDLTmw-TUV44YmMx"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
         UIApplication.shared.open(url!)
