@@ -220,9 +220,17 @@ class RelayAuthTests: XCTestCase {
     
     func testEnableAutoRefreshToken() {
         let expectation = expectation(description: "Auto-refresh completion")
-        relayAuth.enableAutoRefreshToken(timeInterval: 3)
-        print("Waiting for the expectation to be fulfilled...")
-        XCTWaiter().wait(for: [expectation], timeout: 10.0)
+        relayAuth.enableAutoRefreshToken(timeInterval: 1)
+        
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 4)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
     }
     
     func testTryInitializeKeyIdNil() {
