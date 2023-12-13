@@ -8,7 +8,7 @@ class DataFeed {
     var btcSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
     // var ethSource =
     var oneSource = "https://github.com/harmony-one/x/blob/main/data/one.json"
-    
+
     func getData(from urlString: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(nil)
@@ -85,14 +85,14 @@ class DataFeed {
 }
 
 extension DataFeed {
-    public func publicFuncToTestParseJsonContent(_ content: String?) -> [String]? {
+    func publicFuncToTestParseJsonContent(_ content: String?) -> [String]? {
         guard let content = content else {
             return nil
         }
         return self.parseJsonContent(content)
     }
     
-    public func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
+    func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
         self.fetchContent(from: url, completion: completion)
     }
 }
