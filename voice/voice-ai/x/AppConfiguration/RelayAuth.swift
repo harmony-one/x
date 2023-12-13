@@ -314,8 +314,9 @@ class RelayAuth {
         }
     }
 
-    func exchangeAttestationForToken(attestation: String, challenge: String) async throws -> String? {
-        guard let baseUrl = Self.baseUrl else {
+    func exchangeAttestationForToken(attestation: String, challenge: String, customBaseUrl: String? = "", simulateErrorStatusCode: Int? = nil) async throws -> String? {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
+        guard let baseUrl = finalBaseUrl else {
             throw logError("Invalid base URL", -4)
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -332,10 +333,11 @@ class RelayAuth {
 //            self.logger.log("[RelayAuth][exchangeAttestationForToken] sending \(body)")
         let (data, response) = try await session.data(for: req)
         let httpResponse = response as? HTTPURLResponse
-        if httpResponse?.statusCode == 410 {
+        let httpResponseStatusCode = simulateErrorStatusCode ?? httpResponse?.statusCode
+        if httpResponseStatusCode == 410 {
             throw logError("new attestation and new key required", -10)
         }
-        if httpResponse?.statusCode == 200 {
+        if httpResponseStatusCode == 200 {
             let res = JSON(data)
             let token = res["token"].string
             return token

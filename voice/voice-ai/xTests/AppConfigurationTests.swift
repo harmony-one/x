@@ -294,6 +294,11 @@ class RelayAuthTests: XCTestCase {
         }
     }
     
+    // exchangeAttestationForToken tests
+    func testExchangeAttestationForTokenInvalidBaseUrl() {
+        relayAuth.exchangeAttestationForToken(attestation: <#T##String#>, challenge: <#T##String#>)
+    }
+    
     // getRelaySetting Tests
     func testGetRelaySettingInvalidBaseUrl() {
         let expectation = expectation(description: "getRelaySetting")
