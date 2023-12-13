@@ -19,6 +19,7 @@ struct SettingsView: View {
 
 
     private var shareTitle = "hey @voiceaiapp "
+    private var talkToMe = "Talk to ME!"
 
     private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
 
@@ -137,6 +138,15 @@ struct SettingsView: View {
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
+            .default(Text(talkToMe)) {
+                DataFeed.shared.getData(from: DataFeed.shared.oneSource) {data in
+                    if let data = data {
+                        SettingsBundleHelper.setUserProfile(profile: data)
+                    } else {
+                        print("Failed to fetch or parse data.")
+                    }
+                }
+            },
             .default(Text("settingsView.mainMenu.shareTranscript")) { shareLogs() },
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
