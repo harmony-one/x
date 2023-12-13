@@ -5,7 +5,6 @@ class DataFeed {
     static let shared = DataFeed()
 
     // TODO: Fetch data from all sources
-    
     var btcSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
     // var ethSource =
     var oneSource = "https://github.com/harmony-one/x/blob/main/data/one.json"
@@ -82,5 +81,15 @@ class DataFeed {
             print("JSON parsing error: \(error)")
             return nil
         }
+    }
+}
+
+extension DataFeed {
+    public func publicFuncToTestParseJsonContent(_ content: String) -> [String]? {
+        return self.parseJsonContent(content)
+    }
+    
+    public func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
+        self.fetchContent(from: url, completion: completion)
     }
 }
