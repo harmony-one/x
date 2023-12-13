@@ -7,8 +7,8 @@ class DataFeed {
     // TODO: Fetch data from all sources
     
     var btcSource = "https://github.com/harmony-one/x/blob/main/data/btc.json"
-//    var ethSource
-//    var oneSource
+    // var ethSource =
+    var oneSource = "https://github.com/harmony-one/x/blob/main/data/one.json"
     
     func getData(from urlString: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: urlString) else {
