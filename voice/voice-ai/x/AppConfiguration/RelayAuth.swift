@@ -54,8 +54,8 @@ class RelayAuth {
     private var autoRefreshTokenTimer: Timer?
     private var nextAvailableCallTime: Int64 = 0
 
-    private func initializeKeyId() async throws {
-        keyId = try await DCAppAttestService.shared.generateKey()
+    private func initializeKeyId(simulateError: Bool = false) async throws {
+        keyId = try await generateKeyId(simulateError: simulateError)
         UserDefaults.standard.setValue(keyId, forKey: Self.keyIdPath)
         UserDefaults.standard.removeObject(forKey: Self.attestationPath)
         UserDefaults.standard.removeObject(forKey: Self.attestationChallengePath)
@@ -128,9 +128,17 @@ class RelayAuth {
     
     func generateDeviceToken(simulateError: Bool = false) async throws -> Data {
         if simulateError {
-            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth getDeviceToken error simulated"])
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth generateDeviceToken error simulated"])
         } else {
             return try await DCDevice.current.generateToken()
+        }
+    }
+    
+    func generateKeyId(simulateError: Bool = false) async throws -> String {
+        if simulateError {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth generateKeyId error simulated"])
+        } else {
+            return try await DCAppAttestService.shared.generateKey()
         }
     }
 
@@ -150,11 +158,11 @@ class RelayAuth {
         autoRefreshTokenTimer = nil
     }
 
-    func tryInitializeKeyId() async {
+    func tryInitializeKeyId(simulateError: Bool = false) async {
         keyId = UserDefaults.standard.string(forKey: Self.keyIdPath)
         if keyId == nil {
             do {
-                try await initializeKeyId()
+                try await initializeKeyId(simulateError: simulateError)
             } catch {
                 logError(error, "Cannot get key id")
             }

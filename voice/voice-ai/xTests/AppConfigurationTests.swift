@@ -233,6 +233,7 @@ class RelayAuthTests: XCTestCase {
         }
     }
     
+    // tryInitializeKeyId tests
     func testTryInitializeKeyIdNil() {
         UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
         let expectation = expectation(description: "Initialize keyId")
@@ -240,6 +241,20 @@ class RelayAuthTests: XCTestCase {
             await relayAuth.tryInitializeKeyId()
             XCTAssertNotNil(UserDefaults.standard.string(forKey: "AppAttestKeyId"))
             
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testTryInitializeKeyIdError() {
+        UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
+        let expectation = expectation(description: "tryInitializeKeyId")
+        Task {
+            await relayAuth.tryInitializeKeyId(simulateError: true)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 5.0) { error in
@@ -295,9 +310,9 @@ class RelayAuthTests: XCTestCase {
     }
     
     // exchangeAttestationForToken tests
-    func testExchangeAttestationForTokenInvalidBaseUrl() {
-        relayAuth.exchangeAttestationForToken(attestation: <#T##String#>, challenge: <#T##String#>)
-    }
+//    func testExchangeAttestationForTokenInvalidBaseUrl() {
+//        relayAuth.exchangeAttestationForToken(attestation: <#T##String#>, challenge: <#T##String#>)
+//    }
     
     // getRelaySetting Tests
     func testGetRelaySettingInvalidBaseUrl() {
