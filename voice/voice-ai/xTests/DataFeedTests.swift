@@ -4,10 +4,10 @@ import XCTest
 
 class DataFeedTests: XCTestCase {
         
-    func testFetchOneDataAndParseSuccessfully() {
-        let expectation = XCTestExpectation(description: "Fetch one data and parse successfully")
+    func testFetchDataSourcesAndParseSuccessfully() {
+        let expectation = XCTestExpectation(description: "Fetch one data sources and parse successfully")
         let dataFeed = DataFeed.shared
-        dataFeed.getData(from: dataFeed.oneSource) { result in
+        dataFeed.getData() { result in
             XCTAssertNotNil(result, "Data should not be nil")
             XCTAssertFalse(result?.isEmpty ?? true, "Data should not be empty")
             expectation.fulfill()
@@ -16,9 +16,10 @@ class DataFeedTests: XCTestCase {
     }
     
     func testFetchEmptySource() {
-        let expectation = XCTestExpectation(description: "Fetch one data and parse successfully")
+        let expectation = XCTestExpectation(description: "Fetch empty source with nil result")
         let dataFeed = DataFeed.shared
-        dataFeed.getData(from: "") { result in
+        dataFeed.sources = [""]
+        dataFeed.getData() { result in
             XCTAssertNil(result, "Result should be nil")
             expectation.fulfill()
         }
@@ -27,8 +28,9 @@ class DataFeedTests: XCTestCase {
     
     func testFetchInvalidUrlAndFailToFetchContent() {
         let expectation = XCTestExpectation(description: "Fetch invalid url and fail to fetch content")
-        
-        DataFeed.shared.getData(from: "https://invalidurl.com") { result in
+        let dataFeed = DataFeed.shared
+        dataFeed.sources = ["https://invalidurl.com"]
+        dataFeed.getData() { result in
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -38,9 +40,9 @@ class DataFeedTests: XCTestCase {
     
     func testFetchNonUtf8Content() {
         let expectation = XCTestExpectation(description: "Fetch invalid url and fail to fetch content")
-        var nonUtf8 = "https://github.com/harmony-one/x/blob/main/data/unitTests_nonUtf8conent.json"
-        
-        DataFeed.shared.getData(from: nonUtf8) { result in
+        let dataFeed = DataFeed.shared
+        dataFeed.sources = ["https://github.com/harmony-one/x/blob/main/data/unitTests_nonUtf8conent.json"]
+        DataFeed.shared.getData() { result in
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -75,7 +77,7 @@ class DataFeedTests: XCTestCase {
     func testFetchDataAndCallCompletionHandler() {
         let expectation = XCTestExpectation(description: "Fetch data and call completion handler")
         
-        let url = URL(string: DataFeed.shared.btcSource)!
+        let url = URL(string: DataFeed.shared.sources[0])!
         DataFeed.shared.publicFuncToTestFetchContent(from: url) { content in
             XCTAssertNotNil(content)
             
@@ -89,7 +91,9 @@ class DataFeedTests: XCTestCase {
     func testGetData_EmptyResponse() {
         // Test that getData returns nil when the response is empty
         let expectation = XCTestExpectation(description: "completion called with nil")
-        DataFeed.shared.getData(from: "https://example.com/empty", completion: { (data) in
+        let dataFeed = DataFeed.shared
+        dataFeed.sources = ["https://example.com/empty"]
+        dataFeed.getData(completion: { (data) in
             XCTAssertNil(data)
             expectation.fulfill()
         })
@@ -99,7 +103,9 @@ class DataFeedTests: XCTestCase {
     func testGetData_ErrorResponse() {
         // Test that getData returns nil when the response is an error
         let expectation = XCTestExpectation(description: "completion called with error")
-        DataFeed.shared.getData(from: "https://example.com/error", completion: { (data) in
+        let dataFeed = DataFeed.shared
+        dataFeed.sources = ["https://example.com/empty"]
+        dataFeed.getData(completion: { (data) in
             XCTAssertNil(data)
             expectation.fulfill()
         })
