@@ -3,7 +3,16 @@ import XCTest
 @testable import Voice_AI
 
 class DataFeedTests: XCTestCase {
-        
+
+    var urlSession: URLSession!
+
+    override func setUp() {
+        super.setUp()
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        urlSession = URLSession.init(configuration: configuration)
+    }
+
     func testFetchDataSourcesAndParseSuccessfully() {
         let expectation = XCTestExpectation(description: "Fetch one data sources and parse successfully")
         let dataFeed = DataFeed.shared
@@ -34,10 +43,10 @@ class DataFeedTests: XCTestCase {
             XCTAssertNil(result)
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: 5)
     }
-    
+
     func testFetchNonUtf8Content() {
         let expectation = XCTestExpectation(description: "Fetch invalid url and fail to fetch content")
         let dataFeed = DataFeed.shared
@@ -61,7 +70,7 @@ class DataFeedTests: XCTestCase {
         // Then
         XCTAssertNil(result, "Result should be nil")
     }
-        
+
     func testParseJasonContentNil() {
         // Arrange
         let dataFeed = DataFeed.shared
@@ -73,20 +82,20 @@ class DataFeedTests: XCTestCase {
         // Assert
         XCTAssertNil(result)
     }
-    
+
     func testFetchDataAndCallCompletionHandler() {
         let expectation = XCTestExpectation(description: "Fetch data and call completion handler")
-        
+
         let url = URL(string: DataFeed.shared.sources[0])!
         DataFeed.shared.publicFuncToTestFetchContent(from: url) { content in
             XCTAssertNotNil(content)
-            
+
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: 10.0)
     }
- 
+
 
     func testGetData_EmptyResponse() {
         // Test that getData returns nil when the response is empty
@@ -111,7 +120,7 @@ class DataFeedTests: XCTestCase {
         })
         wait(for: [expectation], timeout: 1)
     }
-    
+
     func testParseJsonContent_ValidJson_ReturnsDictionary() {
          let content = "{\"key\": \"value\"}"
          guard let jsonData = content.data(using: .utf8) else {

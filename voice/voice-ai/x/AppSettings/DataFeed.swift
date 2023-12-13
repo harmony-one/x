@@ -7,6 +7,10 @@ class DataFeed {
         "https://github.com/harmony-one/x/blob/main/data/one.json"
     ]
 
+    let urlSession: URLSession
+        init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
 
     func getData(completion: @escaping (String?) -> Void) {
         var aggregatedContent = ""
@@ -31,7 +35,7 @@ class DataFeed {
     }
 
     private func fetchContent(from url: URL, completion: @escaping (String?) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = self.urlSession.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(nil)
                 return
@@ -89,7 +93,7 @@ extension DataFeed {
         }
         return self.parseJsonContent(content)
     }
-    
+
     func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
         self.fetchContent(from: url, completion: completion)
     }
