@@ -75,12 +75,6 @@ struct SettingsView: View {
         VStack(spacing: 32) {
             Text("settingsView.view.title").font(.title)
             Divider()
-            Button("settingsView.mainMenu.shareTranscript") {
-                self.appSettings.isPopoverPresented = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    saveTranscript()
-                }
-            }.font(.title2)
             //                Button("Custom instructions") { /* Add logic for custom instructions */ }
             Button("settingsView.mainMenu.TweetFeedback") {
                 tweet()
@@ -93,15 +87,6 @@ struct SettingsView: View {
             }.font(.title2)
             Button("settingsView.mainMenu.customInstructions") {
                 openSystemSettings()
-            }.font(.title2)
-            Button("settingsView.mainMenu.telegramGroup") {
-                telegramGroup()
-            }.font(.title2)
-            Button("settingsView.mainMenu.premiumVoices") {
-                self.appSettings.isPopoverPresented = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    premiumVoices()
-                }
             }.font(.title2)
             Button("settingsView.mainMenu.PurchasePremium") {
                 appSettings.type = .purchaseOptions
@@ -119,6 +104,21 @@ struct SettingsView: View {
             Text("settingsView.purchaseMenu.title").font(.headline)
             Divider()
             Button("settingsView.purchaseMenu.pay5viaApple") { showPurchaseDialog() }
+            Button("settingsView.mainMenu.shareTranscript") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    saveTranscript()
+                }
+            }
+            Button("settingsView.mainMenu.telegramGroup") {
+                telegramGroup()
+            }
+            Button("settingsView.mainMenu.premiumVoices") {
+                self.appSettings.isPopoverPresented = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    premiumVoices()
+                }
+            }
             //                Button("Restore Purchase") { /* Add logic for restoring purchase */ }
             Button("settingsView.purchaseMenu.signInAccount") { performSignIn() }
             Button("settingsView.purchaseMenu.deleteAccount") {
@@ -137,12 +137,9 @@ struct SettingsView: View {
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("settingsView.mainMenu.shareTranscript")) { shareLogs() },
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
-            .default(Text("settingsView.mainMenu.telegramGroup")) { telegramGroup() },
-            .default(Text("settingsView.mainMenu.premiumVoices")) { premiumVoices() },
             .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
                 appSettings.isOpened = false // Close the current sheet first
@@ -163,6 +160,9 @@ struct SettingsView: View {
         return ActionSheet(title: Text("settingsView.purchaseMenu.title"), buttons: [
             .default(Text("settingsView.purchaseMenu.pay5viaApple")) { showPurchaseDialog() },
             //            .default(Text("Restore purchase")) { /* Add logic for restoring purchase */ },
+            .default(Text("settingsView.mainMenu.shareTranscript")) { shareLogs() },
+            .default(Text("settingsView.mainMenu.telegramGroup")) { telegramGroup() },
+            .default(Text("settingsView.mainMenu.premiumVoices")) { premiumVoices() },
             .default(Text(getUserName())) {
                 if KeychainService.shared.isAppleIdAvailable() {
                     appSettings.isOpened = false // Close the current sheet first
