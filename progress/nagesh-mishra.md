@@ -1,7 +1,9 @@
 
-2023-12-12 Mon: Added loading icon for a period when a shared transcript is loading and tested error handling for speech recognition with appropriate haptic feedback. PR: https://github.com/harmony-one/x/pull/343.
+2023-12-13 Wed: Reorganized menu display, and updated intro image. PR: https://github.com/harmony-one/x/pull/372. 
 
-2023-12-12 Mon: Aligning error handling for speech recognition with appropriate haptic feedback, testing is in progress.
+2023-12-12 Tue: Added loading icon for a period when a shared transcript is loading and tested error handling for speech recognition with appropriate haptic feedback. PR: https://github.com/harmony-one/x/pull/343.
+
+2023-12-11 Mon: Aligning error handling for speech recognition with appropriate haptic feedback, testing is in progress.
 
 ---
 
