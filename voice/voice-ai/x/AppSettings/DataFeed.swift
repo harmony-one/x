@@ -1,14 +1,13 @@
 import Foundation
 
 class DataFeed {
-    
     static let shared = DataFeed()
 
     var sources = [
         "https://github.com/harmony-one/x/blob/main/data/btc.json",
         "https://github.com/harmony-one/x/blob/main/data/one.json"
     ]
-    
+
     func getData(completion: @escaping (String?) -> Void) {
         var aggregatedContent = ""
         let group = DispatchGroup()
@@ -30,9 +29,9 @@ class DataFeed {
             completion(aggregatedContent.isEmpty ? nil : aggregatedContent)
         }
     }
-    
+
     private func fetchContent(from url: URL, completion: @escaping (String?) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(nil)
                 return
@@ -80,5 +79,15 @@ class DataFeed {
             print("JSON parsing error: \(error)")
             return nil
         }
+    }
+}
+
+extension DataFeed {
+    public func publicFuncToTestParseJsonContent(_ content: String) -> [String]? {
+        return parseJsonContent(content)
+    }
+
+    public func publicFuncToTestFetchContent(from url: URL, completion: @escaping (String?) -> Void) {
+        fetchContent(from: url, completion: completion)
     }
 }
