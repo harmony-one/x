@@ -311,6 +311,7 @@ struct ActionsView: ActionsViewProtocol, View {
     }
 
     func vibration() {
+        self.logger.log("[Vibration Triggered]")
         if ActionsView.generator == nil {
             ActionsView.generator = UIImpactFeedbackGenerator(style: .medium)
         }
