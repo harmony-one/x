@@ -71,9 +71,7 @@ export class TwitterService {
     this.logger.log(`ListId ${listId}: inserting ${tweetsData.meta.result_count} tweets`)
 
     await this.dataSource.manager.delete(ListTweetEntity, {
-      where: {
-        listId
-      },
+      listId
     });
 
     for(let listTweet of tweetsData.data) {
@@ -88,9 +86,9 @@ export class TwitterService {
   // https://twitter.com/i/lists/suggested
   private async fetchTwitterList(listId: string) {
     const bearerToken = this.configService.get('twitter.bearerToken')
-    const { data } = await axios.get<ListTweetsResponse>(`https://api.twitter.com/2/lists/:${listId}/tweets`, {
+    const { data } = await axios.get<ListTweetsResponse>(`https://api.twitter.com/2/lists/${listId}/tweets`, {
       headers: {
-        'Authorization': `Bearer ${bearerToken}`
+        'Authorization': `Bearer ${bearerToken}`,
       }
     })
     return data
