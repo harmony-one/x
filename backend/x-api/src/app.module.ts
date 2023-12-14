@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {typeormConfig} from "./config/typeorm";
+import { ScheduleModule } from '@nestjs/schedule';
 import { TwitterModule } from './twitter/twitter.module';
 import appConfig from './config';
 
@@ -19,6 +20,7 @@ import appConfig from './config';
       useFactory: (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
+    ScheduleModule.forRoot(),
     TwitterModule,
   ],
   controllers: [AppController],
