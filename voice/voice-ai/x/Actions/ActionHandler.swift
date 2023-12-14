@@ -109,6 +109,7 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
         lastRecordingStateChangeTime = 0
         speechRecognition.reset()
         speechRecognition.cancelRetry()
+        SettingsBundleHelper.resetUserProfile()
     }
 
     func syncTapToSpeakState(_ actionType: ActionType) {

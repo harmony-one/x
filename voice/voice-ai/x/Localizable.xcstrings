@@ -359,6 +359,16 @@
         }
       }
     },
+    "settingsView.mainMenu.talkToME" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Talk to ME!"
+          }
+        }
+      }
+    },
     "settingsView.mainMenu.telegramGroup" : {
       "extractionState" : "manual",
       "localizations" : {

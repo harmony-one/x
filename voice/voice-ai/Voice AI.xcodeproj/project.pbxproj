@@ -106,6 +106,10 @@
 		A46B5A862AE73CFD00C874ED /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505F2ADFE9B7006F18A1 /* OpenAIResponse.swift */; };
 		A46B5A872AE73CFD00C874ED /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505D2ADFE9B7006F18A1 /* Usage.swift */; };
 		A46B5A882AE73CFD00C874ED /* Choices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AD505C2ADFE9B7006F18A1 /* Choices.swift */; };
+		A49780202B2934CD006BEF60 /* DataFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A497801F2B2934CD006BEF60 /* DataFeed.swift */; };
+		A49780212B2934CD006BEF60 /* DataFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A497801F2B2934CD006BEF60 /* DataFeed.swift */; };
+		A49780222B2934CD006BEF60 /* DataFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A497801F2B2934CD006BEF60 /* DataFeed.swift */; };
+		A49780232B2934CD006BEF60 /* DataFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A497801F2B2934CD006BEF60 /* DataFeed.swift */; };
 		A4C5E8632AF6BF8E00B273E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D7D2AF3C1C10072EC39 /* Store.swift */; };
 		A4C5E8642AF6BF9100B273E4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4D792AF3AD900072EC39 /* Persistence.swift */; };
 		AC66DF302B2706E100DDC802 /* RandomTrivia.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC66DF2F2B2706E100DDC802 /* RandomTrivia.swift */; };
@@ -122,6 +126,7 @@
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
+		B36D4C502B29654900915F27 /* DataFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D4C4F2B29654900915F27 /* DataFeedTests.swift */; };
 		B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
@@ -407,9 +412,11 @@
 		A46B5A632AE73B9D00C874ED /* sunUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sunUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46B5A672AE73B9D00C874ED /* sunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITests.swift; sourceTree = "<group>"; };
 		A46B5A692AE73B9D00C874ED /* sunUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sunUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A497801F2B2934CD006BEF60 /* DataFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFeed.swift; sourceTree = "<group>"; };
 		AC66DF2F2B2706E100DDC802 /* RandomTrivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTrivia.swift; sourceTree = "<group>"; };
 		B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests.swift; sourceTree = "<group>"; };
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B36D4C4F2B29654900915F27 /* DataFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFeedTests.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
@@ -701,6 +708,7 @@
 				B91F05CE2B0613B10029A32D /* AppSettings.swift */,
 				22A7A81D2B0B703E0027679F /* SettingsView.swift */,
 				B9ADFF422B221F4D00C2144E /* AlertManager.swift */,
+				A497801F2B2934CD006BEF60 /* DataFeed.swift */,
 			);
 			path = AppSettings;
 			sourceTree = "<group>";
@@ -932,6 +940,7 @@
 				F770F0402B22EA0300BC06B4 /* LogsTests.swift */,
 				F770F0422B23A3F200BC06B4 /* PerformanceTests.swift */,
 				B945137D2B28B02A0046B699 /* ProgressViewComponentTests.swift */,
+				B36D4C4F2B29654900915F27 /* DataFeedTests.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1293,6 +1302,7 @@
 				B91F05C62B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				E4D0D8D02B2240DC00F717A2 /* PlayPauseIntent.swift in Sources */,
 				E4D0D8D12B2240DC00F717A2 /* IntentManager.swift in Sources */,
+				A49780232B2934CD006BEF60 /* DataFeed.swift in Sources */,
 				6E6D53272AFC2DB2001BF3A8 /* ActivityView.swift in Sources */,
 				6E53AF462AF011E80022A8F2 /* SpeechRecognition.swift in Sources */,
 				A46B5A802AE73CEB00C874ED /* Text.swift in Sources */,
@@ -1369,6 +1379,7 @@
 				6E95F2302B1E6FE400260BCA /* VoiceAIShortcuts.swift in Sources */,
 				B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */,
 				B93580FA2B1DCCDD00CC31E2 /* MixpanelManager.swift in Sources */,
+				A49780202B2934CD006BEF60 /* DataFeed.swift in Sources */,
 				B91F05BE2B04BFEB0029A32D /* UserAPI.swift in Sources */,
 				6E1CF29A2AEC421B00A1CBB0 /* GridButton.swift in Sources */,
 				B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */,
@@ -1485,6 +1496,7 @@
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				F7F115082AF8173300BC191C /* AudioPlayerTests.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
+				A49780212B2934CD006BEF60 /* DataFeed.swift in Sources */,
 				B9C4A8302AEE96B100327529 /* Message.swift in Sources */,
 				F7731A452B06F73A0000D3E9 /* NetworkManagerTests.swift in Sources */,
 				B31CDCE52AFC565800AB39EE /* Theme.swift in Sources */,
@@ -1510,6 +1522,7 @@
 				F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 				F6EEF28F2B1E735900174CED /* CustomInstructionsHandlerTests.swift in Sources */,
+				B36D4C502B29654900915F27 /* DataFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1573,6 +1586,7 @@
 				F76D13C62B18218C0018F89B /* Languages.swift in Sources */,
 				6E53AF442AF011E50022A8F2 /* SpeechRecognition.swift in Sources */,
 				B9A3AE262B18CC7900C5FC66 /* AppConfig.swift in Sources */,
+				A49780222B2934CD006BEF60 /* DataFeed.swift in Sources */,
 				6E56C7B82B06787A00ED2296 /* Persistence.swift in Sources */,
 				E4D0D8DC2B2240DE00F717A2 /* IntentManager.swift in Sources */,
 			);
@@ -1618,7 +1632,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1638,7 +1652,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1208.9;
+				MARKETING_VERSION = 1.1212.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1657,7 +1671,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
@@ -1676,7 +1690,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1208.9;
+				MARKETING_VERSION = 1.1212.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1898,7 +1912,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 78;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1925,7 +1939,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1208.9;
+				MARKETING_VERSION = 1.1212.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1945,7 +1959,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 78;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1972,7 +1986,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1208.9;
+				MARKETING_VERSION = 1.1212.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
