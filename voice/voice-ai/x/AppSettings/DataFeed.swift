@@ -1,7 +1,7 @@
 import Foundation
 
 class DataFeed {
-    static let shared = DataFeed()
+    
     var sources = [
         "https://github.com/harmony-one/x/blob/main/data/btc.json",
         "https://github.com/harmony-one/x/blob/main/data/one.json"
