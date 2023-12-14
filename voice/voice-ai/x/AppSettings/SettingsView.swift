@@ -138,7 +138,7 @@ struct SettingsView: View {
             }),
             .default(Text("settingsView.mainMenu.talkToME")) {
                 logger.log("[Data Feed] Populating User Field with fetched data.")
-                DataFeed.shared.getData {data in
+                DataFeed().getData {data in
                     if let data = data {
                         SettingsBundleHelper.setUserProfile(profile: data)
                         logger.log("[Data Feed] Fetched Data: \(data)")
