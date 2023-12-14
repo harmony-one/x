@@ -1,4 +1,4 @@
-2023-12-13 Wed: Opened PR to [whitelist](https://github.com/harmony-one/swap-token-list/pull/2) lUSDC and [for](https://github.com/harmony-one/swap-token-list/pull/3) lUSDT. Tested opening a ONE/lUSDC pool on swap. Waiting for Ethereum to Linea bridge to open larger pool on swap. [Created](https://github.com/harmony-one/x/issues/382)/investigated issue #382.
+2023-12-13 Wed: Opened PR to [whitelist](https://github.com/harmony-one/swap-token-list/pull/2) lUSDC and [for](https://github.com/harmony-one/swap-token-list/pull/3) lUSDT. Tested opening a ONE/lUSDC pool on swap. Waiting for Ethereum to Linea bridge to open larger pool on swap. [Created](https://github.com/harmony-one/x/issues/382)/[investigated](https://github.com/harmony-one/x/commit/51436e3107e0b7faafe1c814965968c0bedf40e3) issue #382 on pausePlayBug branch.
 
 2023-12-12 Tue: [Optimized](https://github.com/harmony-one/x/pull/363) microphone latency by removing debouncer on press & hold button. Pushed [fix](https://github.com/harmony-one/x/issues/364) for issue #364 to synchronously handle Press & Hold interrupting playback. Added haptics logging to transcript to attempt to diagnose issue #345.
 
