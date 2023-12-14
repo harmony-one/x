@@ -137,9 +137,11 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("settingsView.mainMenu.talkToME")) {
-                DataFeed.shared.getData(from: DataFeed.shared.btcSource) {data in
+                logger.log("[Data Feed] Populating User Field with fetched data.")
+                DataFeed.shared.getData {data in
                     if let data = data {
                         SettingsBundleHelper.setUserProfile(profile: data)
+                        logger.log("[Data Feed] Fetched Data: \(data)")
                     } else {
                         print("Failed to fetch or parse data.")
                     }
