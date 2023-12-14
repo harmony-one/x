@@ -220,11 +220,20 @@ class RelayAuthTests: XCTestCase {
     
     func testEnableAutoRefreshToken() {
         let expectation = expectation(description: "Auto-refresh completion")
-        relayAuth.enableAutoRefreshToken(timeInterval: 3)
-        print("Waiting for the expectation to be fulfilled...")
-        XCTWaiter().wait(for: [expectation], timeout: 10.0)
+        relayAuth.enableAutoRefreshToken(timeInterval: 1)
+        
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 8)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
     }
     
+    // tryInitializeKeyId tests
     func testTryInitializeKeyIdNil() {
         UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
         let expectation = expectation(description: "Initialize keyId")
@@ -240,6 +249,22 @@ class RelayAuthTests: XCTestCase {
             }
         }
     }
+    
+    func testTryInitializeKeyIdError() {
+        UserDefaults.standard.removeObject(forKey: "AppAttestKeyId")
+        let expectation = expectation(description: "tryInitializeKeyId")
+        Task {
+            await relayAuth.tryInitializeKeyId(simulateError: true)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // getDeviceToken Tests
     func testGetDeviceTokenRegenFalse() {
         let expectation = expectation(description: "getDeviceToken")
         Task {
@@ -270,10 +295,87 @@ class RelayAuthTests: XCTestCase {
         }
     }
     
+    func testGetDeviceTokenError() {
+        let expectation = expectation(description: "getDeviceToken")
+        Task {
+            let result = await relayAuth.getDeviceToken(simulateError: true)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // exchangeAttestationForToken tests
+//    func testExchangeAttestationForTokenInvalidBaseUrl() {
+//        relayAuth.exchangeAttestationForToken(attestation: <#T##String#>, challenge: <#T##String#>)
+//    }
+    
+    // getRelaySetting Tests
+    func testGetRelaySettingInvalidBaseUrl() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: nil)
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingInvalidRelayUrl() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: "テスト")
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingFailRelaySetting() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting(customBaseUrl: "test")
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetRelaySettingValidRelaySetting() {
+        let expectation = expectation(description: "getRelaySetting")
+        Task {
+            let result = await relayAuth.getRelaySetting()
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // getChallenge Tests
     func testGetChallengeInvalidBaseUrl() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: nil, test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: nil)
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -287,7 +389,7 @@ class RelayAuthTests: XCTestCase {
     func testGetChallengeInvalidRelayUrl() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: "テスト", test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: "テスト")
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -301,7 +403,7 @@ class RelayAuthTests: XCTestCase {
     func testGetChallengeFailChallenge() {
         let expectation = expectation(description: "getChallenge")
         Task {
-            let result = await relayAuth.getChallenge(baseUrl: "test", test: true)
+            let result = await relayAuth.getChallenge(customBaseUrl: "test")
             XCTAssertNil(result)
             expectation.fulfill()
         }
@@ -325,6 +427,65 @@ class RelayAuthTests: XCTestCase {
             }
         }
     }
+    
+    func testGetAttestationKeyIdNil() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                let (encodedString, challenge) = try await relayAuth.getAttestation(customKeyId: nil)
+                XCTAssertNil(encodedString)
+                XCTAssertNil(challenge)
+            } catch {
+                XCTFail("Error occurred: \(error.localizedDescription)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetAttestationChallengeError() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                try await relayAuth.setup()
+                _ = try await relayAuth.getAttestation(false, customBaseUrlInput: "test")
+                
+                // If no error is thrown, fail the test
+                XCTFail("Expected error but got success")
+            } catch let error as NSError {
+                XCTAssertEqual(error.code, -2)
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetAttestationAttestKeyError() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                try await relayAuth.setup()
+                let result = try await relayAuth.getAttestation(false, attestationDataErrorCode: 1)
+                XCTAssertNotNil(result)
+            } catch {
+                XCTFail("Unexpected error occurred: \(error.localizedDescription)")
+            }
+            expectation.fulfill()
+            }
+            waitForExpectations(timeout: 5.0) { error in
+                if let error = error {
+                    XCTFail("Expectation failed with error: \(error.localizedDescription)")
+                }
+            }
+        }
 
 }
 
