@@ -455,16 +455,6 @@ struct ActionsView: ActionsViewProtocol, View {
                 Task {
                     MixpanelManager.shared.trackEvent(name: "New Session", properties: nil)
                     await handleOtherActions(actionType: button.action)
-                    self.resetClickCounter += 1
-                    if self.resetClickCounter >= self.maxResetClicks {
-                        self.resetClickCounter = 0
-                        let number = Int.random(in: 0 ..< 4)
-                        if number == 1 {
-                           ReviewRequester.shared.tryPromptForReview(forced: true)
-//                            showInAppPurchasesIfNotLoggedIn()
-
-                        }
-                    }
                 }
             }
             .accessibilityIdentifier(button.testId)
