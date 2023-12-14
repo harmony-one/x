@@ -2,30 +2,29 @@ import Foundation
 
 class DataFeed {
     static let shared = DataFeed()
-    var sources = [
-        "https://github.com/harmony-one/x/blob/main/data/btc.json",
-        "https://github.com/harmony-one/x/blob/main/data/one.json"
+    
+    var newsMap = [
+        "BTC": "https://github.com/harmony-one/x/blob/main/data/btc.txt",
+        "ONE": "https://github.com/harmony-one/x/blob/main/data/one.txt",
+        "APPL": "https://github.com/harmony-one/x/blob/main/data/appl.txt",
+        "SOCCER": "https://github.com/harmony-one/x/blob/main/data/soccer.txt"
     ]
 
-
-    func getData(completion: @escaping (String?) -> Void) {
-        var aggregatedContent = ""
-        let group = DispatchGroup()
-
-        for urlString in sources {
-            guard let url = URL(string: urlString) else { continue }
-
-            group.enter()
-            fetchContent(from: url) { content in
-                if let content = content, let parsedContentArray = self.parseJsonContent(content) {
-                    // Append the content
-                    aggregatedContent += parsedContentArray.joined(separator: " ") + " "
-                }
-                group.leave()
-            }
+    // If "followNews" is not part of the newsMap, the preexisting value will remain
+    func getData(followNews: String, completion: @escaping (String?) -> Void) {
+        guard let urlString = newsMap[followNews.uppercased()],
+              let url = URL(string: urlString) else {
+            completion(nil)
+            return
         }
 
-        group.notify(queue: .main) {
+        fetchContent(from: url) { content in
+            guard let content = content, let parsedContentArray = self.parseJsonContent(content) else {
+                completion(nil)
+                return
+            }
+
+            let aggregatedContent = parsedContentArray.joined(separator: " ")
             completion(aggregatedContent.isEmpty ? nil : aggregatedContent)
         }
     }
@@ -45,41 +44,30 @@ class DataFeed {
     }
 
     private func parseJsonContent(_ content: String) -> [String]? {
-        struct Response: Codable {
-            let payload: Payload
-        }
-
-        struct Payload: Codable {
-            let blob: Blob
-        }
-
-        struct Blob: Codable {
-            let rawLines: [String]
-        }
-
-        guard let jsonData = content.data(using: .utf8) else {
-            return nil
-        }
-
-        do {
-            let response = try JSONDecoder().decode(Response.self, from: jsonData)
-            let rawLines = response.payload.blob.rawLines
-
-            let jsonString = rawLines.joined()
-            if let data = jsonString.data(using: .utf8) {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                if let dictionary = json as? [String: Any],
-                   let contentArray = dictionary["content"] as? [String] {
-                    return contentArray
-                }
+            struct Response: Codable {
+                let payload: Payload
             }
 
-            return nil
-        } catch {
-            print("JSON parsing error: \(error)")
-            return nil
+            struct Payload: Codable {
+                let blob: Blob
+            }
+
+            struct Blob: Codable {
+                let rawLines: [String]
+            }
+
+            guard let jsonData = content.data(using: .utf8) else {
+                return nil
+            }
+
+            do {
+                let response = try JSONDecoder().decode(Response.self, from: jsonData)
+                return response.payload.blob.rawLines
+            } catch {
+                print("JSON parsing error: \(error)")
+                return nil
+            }
         }
-    }
 }
 
 extension DataFeed {

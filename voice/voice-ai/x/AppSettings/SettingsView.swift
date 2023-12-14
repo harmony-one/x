@@ -137,11 +137,17 @@ struct SettingsView: View {
                 appSettings.showSettings(isOpened: false)
             }),
             .default(Text("settingsView.mainMenu.talkToME")) {
-                logger.log("[Data Feed] Populating User Field with fetched data.")
-                DataFeed.shared.getData {data in
+                let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+                    $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+                } ?? SettingsBundleHelper.DefaultFollowNews
+
+                logger.log("[Data Feed] Populating User Field with \(followNews).")
+                DataFeed.shared.getData(followNews: followNews) {data in
                     if let data = data {
                         SettingsBundleHelper.setUserProfile(profile: data)
                         logger.log("[Data Feed] Fetched Data: \(data)")
+                        // TODO: Synthesize data
+                        
                     } else {
                         print("Failed to fetch or parse data.")
                     }
