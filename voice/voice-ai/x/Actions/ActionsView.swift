@@ -282,6 +282,7 @@ struct ActionsView: ActionsViewProtocol, View {
         
         if event == .onEnd {
             self.lastButtonPressed = nil
+            self.isSpeakButtonPressed = false
         }
     }
 

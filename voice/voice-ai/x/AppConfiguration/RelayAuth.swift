@@ -54,8 +54,8 @@ class RelayAuth {
     private var autoRefreshTokenTimer: Timer?
     private var nextAvailableCallTime: Int64 = 0
 
-    private func initializeKeyId() async throws {
-        keyId = try await DCAppAttestService.shared.generateKey()
+    private func initializeKeyId(simulateError: Bool = false) async throws {
+        keyId = try await generateKeyId(simulateError: simulateError)
         UserDefaults.standard.setValue(keyId, forKey: Self.keyIdPath)
         UserDefaults.standard.removeObject(forKey: Self.attestationPath)
         UserDefaults.standard.removeObject(forKey: Self.attestationChallengePath)
@@ -113,9 +113,21 @@ class RelayAuth {
         enableAutoRefreshToken()
         return token
     }
-
-    func getToken() -> String? {
-        return token
+    
+    func generateDeviceToken(simulateError: Bool = false) async throws -> Data {
+        if simulateError {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth generateDeviceToken error simulated"])
+        } else {
+            return try await DCDevice.current.generateToken()
+        }
+    }
+    
+    func generateKeyId(simulateError: Bool = false) async throws -> String {
+        if simulateError {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth generateKeyId error simulated"])
+        } else {
+            return try await DCAppAttestService.shared.generateKey()
+        }
     }
 
     func enableAutoRefreshToken(timeInterval: TimeInterval? = 20 * 60) {
@@ -134,19 +146,48 @@ class RelayAuth {
         autoRefreshTokenTimer = nil
     }
 
-    func tryInitializeKeyId() async {
+    func tryInitializeKeyId(simulateError: Bool = false) async {
         keyId = UserDefaults.standard.string(forKey: Self.keyIdPath)
         if keyId == nil {
             do {
-                try await initializeKeyId()
+                try await initializeKeyId(simulateError: simulateError)
             } catch {
                 logError(error, "Cannot get key id")
             }
         }
     }
-
-    func getRelaySetting() async -> RelaySetting? {
-        guard let baseUrl = Self.baseUrl else {
+    
+    func getToken() -> String? {
+        return token
+    }
+    
+    func getBaseUrl(_ customBaseUrl: String? = "") -> String? {
+        if customBaseUrl == "" {
+            return Self.baseUrl
+        } else {
+            return customBaseUrl
+        }
+    }
+    
+    func getKeyId(_ customKeyId: String? = "") -> String? {
+        if customKeyId == "" {
+            return keyId
+        } else {
+            return customKeyId
+        }
+    }
+    
+    func getAttestationData(attestationDataErrorCode: Int? = nil, keyId: String, clientDataHash: Data) async throws -> Data {
+        if let errorCode = attestationDataErrorCode {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth getAttestationData error simulated"])
+        } else {
+            return try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: clientDataHash)
+        }
+    }
+    
+    func getRelaySetting(customBaseUrl: String? = "") async -> RelaySetting? {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
+        guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
         }
@@ -169,9 +210,8 @@ class RelayAuth {
         }
     }
 
-    func getChallenge(baseUrl: String? = nil, test: Bool = false) async -> String? {
-        let finalBaseUrl = test ? baseUrl : Self.baseUrl
-        print("finalbaseurl: \(finalBaseUrl)")
+    func getChallenge(customBaseUrl: String? = "") async -> String? {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
         guard let baseUrl = finalBaseUrl else {
             logError("Invalid base URL", -4)
             return nil
@@ -194,8 +234,12 @@ class RelayAuth {
         }
     }
 
-    func getAttestation(_ tryUseCached: Bool = true) async throws -> (String?, String?) {
-        guard let keyId = keyId else {
+    func getAttestation(_ tryUseCached: Bool = true,
+                        customKeyId: String? = "",
+                        customBaseUrlInput: String? = "",
+                        attestationDataErrorCode: Int? = nil) async throws -> (String?, String?) {
+        let finalKeyId = getKeyId(customKeyId)
+        guard let keyId = finalKeyId else {
             logError("No key id set", -5)
             return (nil, nil)
         }
@@ -206,26 +250,27 @@ class RelayAuth {
             storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
             if attestation != nil, storedChallenge != nil {
                 return (attestation, storedChallenge)
-            }
-        }
+            }}
 
         // try await initializeKeyId()
-        let challenge = await getChallenge()
+        let challenge = await getChallenge(customBaseUrl: customBaseUrlInput)
+        print("[logchallenge], \(challenge)")
         guard let challenge = challenge else {
             throw logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
         var attestationData: Data?
         do {
-            attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+            attestationData = try await getAttestationData(attestationDataErrorCode: attestationDataErrorCode, keyId: keyId, clientDataHash: hash)
         } catch {
             guard let error = error as? DCError else {
                 throw error
             }
             logError(error, "[getAttestation] attestKey error")
-            if error.code == DCError.Code.invalidKey || error.code == DCError.Code.serverUnavailable || error.code == DCError.Code.unknownSystemFailure {
+            let errorCode = attestationDataErrorCode ?? error.code.rawValue
+            if errorCode == DCError.Code.invalidKey.rawValue || errorCode == DCError.Code.serverUnavailable.rawValue || errorCode == DCError.Code.unknownSystemFailure.rawValue {
                 try await initializeKeyId()
-                attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+                attestationData = try await getAttestationData(keyId: keyId, clientDataHash: hash)
             }
         }
         let encodedString = attestationData?.base64EncodedString()
@@ -298,8 +343,9 @@ class RelayAuth {
         }
     }
 
-    func exchangeAttestationForToken(attestation: String, challenge: String) async throws -> String? {
-        guard let baseUrl = Self.baseUrl else {
+    func exchangeAttestationForToken(attestation: String, challenge: String, customBaseUrl: String? = "", simulateErrorStatusCode: Int? = nil) async throws -> String? {
+        let finalBaseUrl = getBaseUrl(customBaseUrl)
+        guard let baseUrl = finalBaseUrl else {
             throw logError("Invalid base URL", -4)
         }
         let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -316,10 +362,11 @@ class RelayAuth {
 //            self.logger.log("[RelayAuth][exchangeAttestationForToken] sending \(body)")
         let (data, response) = try await session.data(for: req)
         let httpResponse = response as? HTTPURLResponse
-        if httpResponse?.statusCode == 410 {
+        let httpResponseStatusCode = simulateErrorStatusCode ?? httpResponse?.statusCode
+        if httpResponseStatusCode == 410 {
             throw logError("new attestation and new key required", -10)
         }
-        if httpResponse?.statusCode == 200 {
+        if httpResponseStatusCode == 200 {
             let res = JSON(data)
             let token = res["token"].string
             return token
@@ -328,13 +375,13 @@ class RelayAuth {
         }
     }
 
-    func getDeviceToken(_ regen: Bool = false) async -> String? {
+    func getDeviceToken(_ regen: Bool = false, simulateError: Bool = false) async -> String? {
         if deviceToken != nil, !regen {
             return deviceToken
         }
         do {
-            let deviceToken = try await DCDevice.current.generateToken()
-            self.deviceToken = deviceToken.base64EncodedString()
+            let deviceTokenData = try await generateDeviceToken(simulateError: simulateError)
+            self.deviceToken = deviceTokenData.base64EncodedString()
             return self.deviceToken
         } catch {
             logError("Error generating device token", -9)

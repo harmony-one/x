@@ -2,7 +2,11 @@
 
 ---
 
-2023-12-11 Mon: Conducted thorough prodcut testing and added 7 new issues (more to come). Released v01.12.11.18 in the evening, there are arbitrary bugs that keep appearing that we hold to solve in the next 48 hours (Pause/Play not lit, recycled requests, mic engine initialization). 
+2023-12-13 Wed: Tested full Linea Bridge and shared surplus lUSD with team on the Harmony network. Released v1.1213.9 which included a reorganization of the actionsheet, a new user profile implementation (twitter draft), and improvment to haptic feedback handling.
+
+2023-12-12 Tue: Added 6 new issues regarding bug fixes and new initiatives including on-device models, bard api, mistral api, among others. Released v1.1212.9 which included bug a bug fix for the Pause/Play button, a loading screen for enhanced transcript and a new intro graphic for the app. 
+
+2023-12-11 Mon: Conducted thorough prodcut testing and added 7 new issues (more to come). Released v1.1211.18 in the evening, there are arbitrary bugs that keep appearing that we hold to solve in the next 48 hours (Pause/Play not lit, recycled requests, mic engine initialization). 
 
 ---
 

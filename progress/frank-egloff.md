@@ -1,3 +1,6 @@
+2023-12-13 Wed: Worked on unit tests for [DataFeed](https://github.com/harmony-one/x/pull/374) and reached 99% coverage. Had to redo the unit test due to Data Feed refactoring, getting back to 99% coverage. Worked on the ActivityView unit test and had issues creating a MockContext to test the makeUIViewController function. 
+
+
 2023-12-12 Tue: Added unit tests for [DataFeed](https://github.com/harmony-one/x/pull/370), [TriviaManager](https://github.com/harmony-one/x/pull/355) and ActivityView. Fixed [isSharing](https://github.com/harmony-one/x/pull/361) issues on unit tests build after refactoring.  
 
 2023-12-11 Mon: Fixed build issues on [unit tests](https://github.com/harmony-one/x/pull/344) after OpenAI refactoring. Updated TextToSpeechConverterTests and OpenAIServiceTests unit tests. Also, added trivia ActionType unit tests. Added trivia context to string Catalog. Had issues with AppleSignInManagerTests, but I am still working on it.

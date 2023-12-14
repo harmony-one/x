@@ -915,7 +915,9 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if (self?._isPlaying) != nil {
                 self?.logger.log("[synthesizeFinish]")
-                self?._isPlaying = false
+                DispatchQueue.main.async {
+                    self?._isPlaying = false
+                }
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
@@ -937,7 +939,9 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if self?._isPlaying == false {
                 self?.logger.log("[synthesizeStart]")
-                self?._isPlaying = true
+                DispatchQueue.main.async {
+                    self?._isPlaying = true
+                }
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: isPlayingWorkItem!)
