@@ -15,3 +15,9 @@ class LanguagesTests: XCTestCase {
         XCTAssertEqual(getLanguageCode(preferredLanguage: "enj"), "en", "Expected 'en' as the language code for preferred language 'en'")
     }
 }
+
+class RandomTriviaTests: XCTestCase {
+    func testGetRandomTriviaTopic() {
+        XCTAssertNotNil(TriviaManager.getRandomTriviaTopic())
+    }
+}
