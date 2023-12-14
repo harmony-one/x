@@ -1,3 +1,7 @@
+2023-12-13 Wed: Created 'Harmonaut' community art using Photoshop/Midjourney & shared via [Twitter](https://x.com/des1gnsoup/status/1735101572479422728?s=20) to the community. Created Linea x Timeless artwork & shared on [Twitter](https://x.com/harmonyprotocol/status/1735074959691764148?s=20). Created more generations on Midjourney for future use, planned Youtube Shorts demo to be filmed tomorrow showcasing "Trivia" feature, and tested bridge ONE > Linea.
+
+2023-12-12 Tue: Created vintage astronaut comics on Midjourney & began drafting copy to couple with the comics for VoiceAI promotion, shared the first comic on [Twitter](https://x.com/harmonyprotocol/status/1734750110167552478?s=20).
+
 2023-12-11 Mon: Created more [VoiceAI assets](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6) on DALLE and Runway, post-sync, determined the course of action is to create 'harmonaut' art to promote voiceAI. Ideated video concept for astronaut in space, [outlined here](https://www.notion.so/harmonyone/Voice-AI-DALLE-assets-393b0e9504024554b7b5eb7a65d7fdc6?pvs=4#53cbf3de210f4e198d1ca846beb7c78d). Promoted [Swap metric on Twitter](https://x.com/harmonyprotocol/status/1734365409300906277?s=20).
 
 ------
