@@ -113,18 +113,6 @@ class RelayAuth {
         enableAutoRefreshToken()
         return token
     }
-
-    func getToken() -> String? {
-        return token
-    }
-    
-    func getBaseUrl(_ customBaseUrl: String? = "") -> String? {
-        if customBaseUrl == "" {
-            return Self.baseUrl
-        } else {
-            return customBaseUrl
-        }
-    }
     
     func generateDeviceToken(simulateError: Bool = false) async throws -> Data {
         if simulateError {
@@ -168,7 +156,35 @@ class RelayAuth {
             }
         }
     }
-
+    
+    func getToken() -> String? {
+        return token
+    }
+    
+    func getBaseUrl(_ customBaseUrl: String? = "") -> String? {
+        if customBaseUrl == "" {
+            return Self.baseUrl
+        } else {
+            return customBaseUrl
+        }
+    }
+    
+    func getKeyId(_ customKeyId: String? = "") -> String? {
+        if customKeyId == "" {
+            return keyId
+        } else {
+            return customKeyId
+        }
+    }
+    
+    func getAttestationData(attestationDataErrorCode: Int? = nil, keyId: String, clientDataHash: Data) async throws -> Data {
+        if let errorCode = attestationDataErrorCode {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth getAttestationData error simulated"])
+        } else {
+            return try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: clientDataHash)
+        }
+    }
+    
     func getRelaySetting(customBaseUrl: String? = "") async -> RelaySetting? {
         let finalBaseUrl = getBaseUrl(customBaseUrl)
         guard let baseUrl = finalBaseUrl else {
@@ -218,8 +234,12 @@ class RelayAuth {
         }
     }
 
-    func getAttestation(_ tryUseCached: Bool = true) async throws -> (String?, String?) {
-        guard let keyId = keyId else {
+    func getAttestation(_ tryUseCached: Bool = true,
+                        customKeyId: String? = "",
+                        customBaseUrlInput: String? = "",
+                        attestationDataErrorCode: Int? = nil) async throws -> (String?, String?) {
+        let finalKeyId = getKeyId(customKeyId)
+        guard let keyId = finalKeyId else {
             logError("No key id set", -5)
             return (nil, nil)
         }
@@ -230,26 +250,27 @@ class RelayAuth {
             storedChallenge = UserDefaults.standard.string(forKey: Self.attestationChallengePath)
             if attestation != nil, storedChallenge != nil {
                 return (attestation, storedChallenge)
-            }
-        }
+            }}
 
         // try await initializeKeyId()
-        let challenge = await getChallenge()
+        let challenge = await getChallenge(customBaseUrl: customBaseUrlInput)
+        print("[logchallenge], \(challenge)")
         guard let challenge = challenge else {
             throw logError("Unable to get challenge from server", -2)
         }
         let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
         var attestationData: Data?
         do {
-            attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+            attestationData = try await getAttestationData(attestationDataErrorCode: attestationDataErrorCode, keyId: keyId, clientDataHash: hash)
         } catch {
             guard let error = error as? DCError else {
                 throw error
             }
             logError(error, "[getAttestation] attestKey error")
-            if error.code == DCError.Code.invalidKey || error.code == DCError.Code.serverUnavailable || error.code == DCError.Code.unknownSystemFailure {
+            let errorCode = attestationDataErrorCode ?? error.code.rawValue
+            if errorCode == DCError.Code.invalidKey.rawValue || errorCode == DCError.Code.serverUnavailable.rawValue || errorCode == DCError.Code.unknownSystemFailure.rawValue {
                 try await initializeKeyId()
-                attestationData = try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: hash)
+                attestationData = try await getAttestationData(keyId: keyId, clientDataHash: hash)
             }
         }
         let encodedString = attestationData?.base64EncodedString()

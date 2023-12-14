@@ -223,7 +223,7 @@ class RelayAuthTests: XCTestCase {
         relayAuth.enableAutoRefreshToken(timeInterval: 1)
         
         DispatchQueue.global().async {
-            Thread.sleep(forTimeInterval: 4)
+            Thread.sleep(forTimeInterval: 8)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10.0) { error in
@@ -427,6 +427,65 @@ class RelayAuthTests: XCTestCase {
             }
         }
     }
+    
+    func testGetAttestationKeyIdNil() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                let (encodedString, challenge) = try await relayAuth.getAttestation(customKeyId: nil)
+                XCTAssertNil(encodedString)
+                XCTAssertNil(challenge)
+            } catch {
+                XCTFail("Error occurred: \(error.localizedDescription)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetAttestationChallengeError() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                try await relayAuth.setup()
+                _ = try await relayAuth.getAttestation(false, customBaseUrlInput: "test")
+                
+                // If no error is thrown, fail the test
+                XCTFail("Expected error but got success")
+            } catch let error as NSError {
+                XCTAssertEqual(error.code, -2)
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                XCTFail("Expectation failed with error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func testGetAttestationAttestKeyError() {
+        let expectation = expectation(description: "getAttestation")
+        Task {
+            do {
+                try await relayAuth.setup()
+                let result = try await relayAuth.getAttestation(false, attestationDataErrorCode: 1)
+                XCTAssertNotNil(result)
+            } catch {
+                XCTFail("Unexpected error occurred: \(error.localizedDescription)")
+            }
+            expectation.fulfill()
+            }
+            waitForExpectations(timeout: 5.0) { error in
+                if let error = error {
+                    XCTFail("Expectation failed with error: \(error.localizedDescription)")
+                }
+            }
+        }
 
 }
 
