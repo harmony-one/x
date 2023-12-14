@@ -1,3 +1,7 @@
+2023-12-13 Wed: Further worked on RelayAuth tests (76.3%) [https://github.com/harmony-one/x/pull/371]. Was pretty complex to add additional tests for error handling. So far depending on dependency injection but will have to look into better ways as the refactored code may look a little awkward.
+
+2023-12-12 Tue: Added RelayAuth tests [https://github.com/harmony-one/x/pull/371] (30% increase). Did a lot of refactoring for the original code, isolated some complex parts into simpler functions since some functions threw NSerrors without returning anything and it would be difficult for replicating this error durign testing.
+
 2023-12-11 Mon: Added tests for RelayAuth [https://github.com/harmony-one/x/pull/348] (40% -> 67%). These tests are complex to write since the original code includes a lot of logError throws, timer functions, and case handling using AppConfig values. Will further work on refactoring the original code to isolate them. Assisted Julia in resolving .trivia bugs.
 
 ---
