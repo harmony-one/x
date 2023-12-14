@@ -1,3 +1,4 @@
+2023-12-14 Thu: Resolved bug where "Press & Hold" disappears and fixed settings bug. PR: https://github.com/harmony-one/x/pull/383.
 
 2023-12-13 Wed: Reorganized menu display, and updated intro image. PR: https://github.com/harmony-one/x/pull/372. 
 
