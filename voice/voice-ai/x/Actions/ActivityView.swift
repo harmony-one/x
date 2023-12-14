@@ -6,7 +6,15 @@ struct ShareLink: Identifiable {
     let url: URL
 }
 
-struct ActivityView: UIViewControllerRepresentable {
+protocol ActivityViewProtocol: UIViewControllerRepresentable { //
+    var activityItems: [Any] { get }
+    var applicationActivities: [UIActivity]? { get }
+
+    func makeUIViewController(context: Context) -> UIActivityViewController
+    
+}
+
+struct ActivityView: ActivityViewProtocol, UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]?
     @Binding var isSharing: Bool
