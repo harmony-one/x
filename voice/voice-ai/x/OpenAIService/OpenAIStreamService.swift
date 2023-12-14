@@ -261,7 +261,7 @@ class OpenAIStreamService: NSObject, URLSessionDataDelegate {
             let statusCode = response.statusCode
             if statusCode == 401 {
                 AppConfig.shared.renewRelayAuth()
-                completion("Sorry, my connection got disrupted. Please try again.", nil)
+                completion("", nil)
                 completion("[DONE]", nil)
                 return
             }
