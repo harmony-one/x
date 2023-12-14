@@ -324,7 +324,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Premium Voices"
+            "value" : "Premium voices"
           }
         }
       }
@@ -405,7 +405,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete Account"
+            "value" : "Delete account"
           }
         }
       }
