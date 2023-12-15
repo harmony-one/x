@@ -906,8 +906,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         // hotfix-end
         self.textToSpeechConverter.stopSpeech()
 
-//        // Since we are about to initiate a new fact retrieval, pause any capturing.
-//        self.pauseCapturing()
+        // Since we are about to initiate a new fact retrieval, pause any capturing.
+        // self.pauseCapturing()
+        
+        self._isPaused = false
+        self._isPlaying = false
         
         registerTTS()
         
