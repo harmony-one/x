@@ -4,7 +4,6 @@ import Combine
 import XCTest
 
 class MockSpeechRecognition: SpeechRecognitionProtocol {
-    
     var isTriviaCalled: Bool = false
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
