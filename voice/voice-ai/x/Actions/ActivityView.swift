@@ -14,7 +14,9 @@ struct ActivityView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
         controller.completionWithItemsHandler = { _, _, _, _ in
-            self.isSharing = false  // Hide activity indicator when sharing is done
+            DispatchQueue.main.async {
+                self.isSharing = false  // Hide activity indicator when sharing is done
+            }
         }
         return controller
     }
