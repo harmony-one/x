@@ -67,28 +67,43 @@ class AppConfigTests: XCTestCase {
             "API_KEY": openAIKey
         ] as [String : Any]
         let  appConfig = AppConfig(dic: bundleDic)
-//        appConfig.publicFuncToTestLoadConfiguration(dic: bundleDic)
         XCTAssertEqual(appConfig.getOpenAIKey(), openAIKey)
     }
     
-//    func test_invalid_encoded_encrypted_key() {
-//        class MockData: Data {
-//            var mockBase64EncodedResult: Data?
-//            
-//            override class func base64Encoded(data: Data, options: Data.Base64EncodingOptions = []) -> Data {
-//                return mockBase64EncodedResult ?? super.base64Encoded(data: data, options: options)
-//            }
-//        }
-//        
-//        let appConfig = AppConfig.shared
-//        
-//        // Mock the Data(base64Encoded:) method to return nil
-//        let mockData = MockData()
-//        mockData.mockBase64EncodedResult = nil
-//        
-//        XCTAssertThrowsError(try appConfig.decrypt(base64EncodedEncryptedKey: "invalid_key"))
-//    }
+    func testConfigurationFileRelay() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        XCTAssertEqual(appConfig.getRelayMode(), "test")
+    }
     
+    func testRequestOpenAIKey() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "Invalid relay url"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+    }
+        
+    func testDecrypted() {
+
+        let bundleDic  = [
+            "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
+            "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
+        ] as [String : Any]
+
+        let testAppConfig = AppConfig(dic: bundleDic)
+        let base64EncodedEncryptedKey = "test key"
+        do {
+            let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+            
+            // Assert
+            XCTAssertNotNil(testAppConfig.getOpenAIKey())
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
 }
 
 class TimerManagerTests: XCTestCase {

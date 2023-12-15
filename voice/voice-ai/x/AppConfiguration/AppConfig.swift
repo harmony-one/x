@@ -305,3 +305,13 @@ class AppConfig {
         return mixpanelToken
     }
 }
+
+extension AppConfig {
+    func decryptTest(base64EncodedEncryptedKey: String) throws -> String {
+        return try self.decrypt(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+    }
+    
+    func requestOpenAIKeyTest() async {
+        await self.requestOpenAIKey()
+    }
+}
