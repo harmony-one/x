@@ -58,7 +58,7 @@ class DataFeedTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testParseJasonContentEmptyString33() {
+    func testFetchNonUtf8ContentInvalid() {
         // Given
         let content = "{\"payload\": {\"blob\": {}}"
         
