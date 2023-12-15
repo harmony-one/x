@@ -1,3 +1,5 @@
+2023-12-15 Fri: I am working on integrating [Gemini Pro](https://cloud.google.com/vertex-ai/docs/generative-ai/start/quickstarts/quickstart-multimodal). I have [created draft client and component tests](https://github.com/harmony-one/x/pull/392).
+
 2023-12-14 Thu: I worked on the [DataFeed tests]((https://github.com/harmony-one/x/pull/380)) and start working on integration Vertex AI API.
 
 2023-12-13 Wed: I [added tests for the DataFeed](https://github.com/harmony-one/x/pull/380), resulting in a code coverage of 93.2%. Also, I researched how to get rid of code coupling and which pattern is better to apply.
