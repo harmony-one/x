@@ -1,3 +1,5 @@
+2023-12-15 Fri: Worked on unit tests for [DataFeed class](https://github.com/harmony-one/x/pull/394/) after new refactoring, reaching 98,9% coverage. Also, worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/396) reaching 89.4% coverage. 
+
 2023-12-14 Thu: Worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/388). For unit testing, refactored init and loadConfiguration functions and added an extension to help access private methods, waiting on review after AppConfig refactoring. Finally, started working on updating the DataFeed unit tests after the latest DataFeed refactoring.  
 
 2023-12-13 Wed: Worked on unit tests for [DataFeed](https://github.com/harmony-one/x/pull/374) and reached 99% coverage. Had to redo the unit test due to Data Feed refactoring, getting back to 99% coverage. Worked on the ActivityView unit test and had issues creating a MockContext to test the makeUIViewController function. 
