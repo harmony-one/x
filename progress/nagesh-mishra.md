@@ -1,3 +1,5 @@
+2023-12-15 Fri: Add a "Mirror" toggle in settings to switch column sides PR: https://github.com/harmony-one/x/pull/389. For "Share transcript", remove the loading spinner and optimize load time PR: https://github.com/harmony-one/x/pull/390. Reviewed PR: https://github.com/harmony-one/x/pull/388.
+
 2023-12-14 Thu: Resolved bug where "Press & Hold" disappears and fixed settings bug. PR: https://github.com/harmony-one/x/pull/383.
 
 2023-12-13 Wed: Reorganized menu display, and updated intro image. PR: https://github.com/harmony-one/x/pull/372. 
