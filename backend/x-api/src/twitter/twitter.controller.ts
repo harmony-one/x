@@ -1,15 +1,31 @@
-import {Controller, Get, Query} from '@nestjs/common';
-import {ApiTags} from "@nestjs/swagger";
+import {Controller, Get, NotFoundException, Param, Query, UsePipes, ValidationPipe} from '@nestjs/common';
+import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {TwitterService} from "./twitter.service";
-import {GetListTweetsDto} from "./dto/list.dto";
 
 @ApiTags('twitter')
 @Controller('twitter')
 export class TwitterController {
   constructor(private readonly twitterService: TwitterService) {}
 
-  @Get('/list')
-  getListTweets(@Query() dto: GetListTweetsDto) {
-    return this.twitterService.getListTweets(dto)
+  @Get('/lists')
+  getLists() {
+    return this.twitterService.twitterLists
+  }
+
+  @Get('/list/:name')
+  @ApiParam({
+    name: 'name',
+    required: true,
+    description: 'Twitter list name',
+    schema: { oneOf: [{ type: 'string' }] },
+  })
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async getListByName(@Param() params: { name: string }) {
+    const { name } = params
+    const list = this.twitterService.getListByName(name)
+    if(list) {
+      return await this.twitterService.getListTweets(list.id)
+    }
+    throw new NotFoundException(`List with name "${name}" not found`)
   }
 }
