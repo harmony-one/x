@@ -1,7 +1,7 @@
 ## Table of Content
 [Overview](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#overview) \
-[Beginner Guide](https://github.com/harmony-one/x/edit/main/voice/analytics/README.md#beginner-guide) \
-[Log Interpreter](https://github.com/harmony-one/x/edit/main/voice/analytics/README.md#log-interpreter) 
+[Beginner Guide](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#beginner-guide) \
+[Log Interpreter](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#log-interpreter) 
 
 ## Overview
 all_stats currently pulls the following from the last 24 hours
