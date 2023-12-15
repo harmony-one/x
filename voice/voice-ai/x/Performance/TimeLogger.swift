@@ -53,6 +53,67 @@ class TimeLogger {
         return Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
+    // getter methods
+    func getModel() -> String {
+        return model
+    }
+    func getAppRec() -> Int64 {
+        return appRecTimestamp
+    }
+    
+    func getSttRec() -> Int64 {
+        return sttRecTimestamp
+    }
+    
+    func getAppRecEnd() -> Int64 {
+        return appRecEndTimestamp
+    }
+    
+    func getSTTEnd() -> Int64 {
+        return sttEndTimestamp
+    }
+    
+    func getAppSend() -> Int64 {
+        return appSendTimestamp
+    }
+    
+    func getTTSInit() -> Int64 {
+        return ttsInitTimestamp
+    }
+    
+    func getTTSFirst() -> Int64 {
+        return appPlayFirstTimestamp
+    }
+    
+    func getTTSEnd() -> Int64 {
+        return appPlayEndTimestamp
+    }
+    
+    func getAppResFirst() -> Int64 {
+        return appResFirstTimestamp
+    }
+    
+    func getAppResEnd() -> Int64 {
+        return appResEndTimestamp
+    }
+    
+    func getInferenceStats() -> [String: Any?] {
+        var values: [String: Any?] = [:]
+        
+        values["requestNumMessages"] = requestNumMessages
+        values["requestNumUserMessages"] = requestNumUserMessages
+        values["requestTokens"] = requestTokens
+        values["responseTokens"] = responseTokens
+        values["requestMessage"] = requestMessage
+        values["responseMessage"] = responseMessage
+        values["cancelled"] = cancelled
+        values["completed"] = completed
+        values["error"] = error
+        
+        return values
+    }
+    
+    // set methods
     func setModel(model: String) {
         self.model = model
     }
@@ -90,7 +151,6 @@ class TimeLogger {
         if appSendTimestamp != 0 {
             return
         }
-        
         appSendTimestamp = now()
     }
     

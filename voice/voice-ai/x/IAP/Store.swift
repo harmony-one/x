@@ -26,10 +26,19 @@ class Store: ObservableObject {
     }
 
     @MainActor
-    func requestProducts() async {
+    func getProducts(simulateError: Bool = false) async throws -> [Product] {
+        if simulateError {
+            throw NSError(domain: "Store", code: 1, userInfo: [NSLocalizedDescriptionKey: "getProducts simulated error"])
+        } else {
+            return try await Product.products(for: productIDs)
+        }
+    }
+    
+    @MainActor
+    func requestProducts(simulateError: Bool = false) async {
         do {
             self.logger.log("[Store] \(self.productIDs, privacy: .public)")
-            products = try await Product.products(for: productIDs)
+            products = try await getProducts(simulateError: simulateError)
             self.logger.log("[Store] Products: \(self.products, privacy: .public)")
         } catch {
             self.logger.log("requestProducts error: \(error)")
