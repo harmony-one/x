@@ -1,6 +1,9 @@
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
 ---
+2023-12-14 Fri: v1.1214.9 has been approved by the appstore, this included the first iteration of talk to me. I further product tested this functionality which is in v1.1215.9 and has been submitted to the app store as well. I have also been researching about ICP, an innovative blockchain that has architected the next wave of cloud. It is the only protocol where you can host a full stack web application on a blockchain. You don't need oracles or bridges in their ecosystem either.
+
+2023-12-14 Thu: Aggregated topics for data/, worked and tested Talk to Me functionality and released v1.1214.9 to testflight and appstore.
 
 2023-12-13 Wed: Tested full Linea Bridge and shared surplus lUSD with team on the Harmony network. Released v1.1213.9 which included a reorganization of the actionsheet, a new user profile implementation (twitter draft), and improvment to haptic feedback handling.
 
