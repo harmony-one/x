@@ -16,6 +16,7 @@ enum ActionType {
     case userGuide
     case openSettings
     case trivia
+    case talkToMe
 }
 
 struct ButtonData: Identifiable {
@@ -167,7 +168,10 @@ class ActionHandler: ActionHandlerProtocol, ObservableObject {
             } else {
                 self.logger.log("Cannot open URL: \(url!)")
             }
+        case .talkToMe:
+            speechRecognition.talkToMe()
         }
+        
     }
 
     func startRecording() {
