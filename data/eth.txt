@@ -1,0 +1,78 @@
+JPMorgan says ether will likely outperform bitcoin next year
+Ether will likely outperform bitcoin and other cryptocurrencies in 2024, according to JPMorgan analysts.
+That prediction comes on the back of Ethereum’s EIP-4844 upgrade next year.
+
+JPMorgan expects ether to outperform bitcoin and other cryptocurrencies in 2024, although the bank remains generally "cautious" about crypto markets in the coming year.
+
+"We believe that next year Ethereum  ETH +3.08%
+ will re-assert itself and recapture market share within the crypto ecosystem," JPMorgan analysts led by Nikolaos Panigirtzoglou wrote in a note on Wednesday. "The main catalyst is the EIP-4844 upgrade or Protodanksharding, which is expected to take place during the first half of 2024. We believe that this upgrade will likely prove a bigger step towards improving Ethereum network activity, thus helping Ethereum to outperform."
+
+Protodanksharding is an initial step toward the full implementation of Danksharding, a more efficient form of sharding for Ethereum. Unlike the originally planned sharding technique, Danksharding avoids the complex process of splitting Ethereum into multiple shard chains. Instead, it introduces data blobs, temporary data packets attached to blocks, capable of holding more data than blocks but not permanently stored or accessed by the Ethereum virtual machine.
+
+The upgrade is particularly beneficial for Layer 2 networks like Arbitrum and Optimism, JPMorgan analysts reiterated, as it provides an additional temporary data space to increase network throughput and reduce transaction fees for Layer 2 networks on Ethereum. In essence, data blobs enhance the efficiency of Layer 2 networks without altering the Ethereum block size.
+
+Bitcoin halving priced in 
+JPMorgan analysts say factors that are seen to be bullish for bitcoin next year, including the possible approval of spot  ETFs and upcoming halving, are already priced in. 
+
+The analysts mentioned that after the 2020 halving, the ratio of bitcoin's market price to production cost decreased and said a similar move after the 2024 halving would be reasonable.
+
+"And given the current ratio of the bitcoin price to production cost is around x2.0 at the moment, this would imply that the 2024 bitcoin halving event is largely in the price," the analysts concluded.
+
+DeFi's 'biggest disappointment'
+The "biggest disappointment" of decentralized finance continues to be its inability to encroach into the traditional financial system, which is necessary for the crypto ecosystem to transition from crypto native to real world applications, according to JPMorgan analysts.
+
+"The biggest applications of blockchain to traditional finance, i.e. overnight repo transactions via smart contracts in blockchain platforms hosted by companies such as Broadridge and JPMorgan, take place outside public blockchains," the analysts said. In addition, tokenization is evolving "rather slowly," and it remains at a "largely experimental stage hindered by fragmentation, lack of cooperation and interoperability between platforms, delays in the introduction of central bank digital currencies by the Fed and the ECB and lack of regulations," they added.
+
+Crypto VC funding outlook
+While venture capital funding in the crypto space in the fourth quarter of this year has improved compared to a rather subdued rest of the year, the improvement appears "rather tentative" to JPMorgan analysts.
+
+"That said, to the extent this improvement continues into the first quarter of 2024 that would represent a significant development that would herald in our opinion the end of the crypto winter," the analysts said.
+Ethereum co-founder Vitalik Buterin introduced a new concept for the blockchain platform called an “enshrined Zero-Knowledge Ethereum Virtual Machine (ZK-EVM) in a Dec. 13 blog post.
+
+The proposal’s main goal is to substantially improve the efficiency and security of Ethereum’s Layer-2 protocols, including optimistic and ZK rollups.
+
+Addressing challenges in Layer-2 protocols
+Buterin’s proposal arises from a need to streamline the current Layer-2 solutions on Ethereum. These protocols, vital for Ethereum’s scalability, depend heavily on EVM verification, which currently involves relying on a large, potentially vulnerable codebase.
+
+Additionally, ZK-EVMs, designed to mimic the Layer-1 EVM, face the challenge of keeping up with changes in the main Ethereum protocol, leading to redundant efforts and increased risk of security flaws.
+
+The solution proposed by Buterin involves embedding a ZK-EVM directly within the Ethereum network. This internal ZK-EVM would undertake the task of verifying Layer-1 Ethereum blocks, thereby offering a more efficient and secure approach.
+
+As Ethereum advances, particularly with the development of light clients using ZK-SNARKs, the concept of a native ZK-EVM becomes increasingly practical and appealing.
+
+Core aspects of the proposed ZK-EVM
+Buterin envisions the ZK-EVM to focus mainly on verifying Ethereum blocks by processing inputs like a pre-state root, a block, and a post-state root.
+
+This would ensure the integrity of the post-state root as a true outcome of block execution. The proposal also aligns with Ethereum’s multi-client philosophy, supporting the use of diverse proving systems and emphasizing the importance of data availability and auditability.
+
+Implementing a ZK-EVM, as described by Buterin, presents several design challenges and trade-offs. Essential properties include:
+
+Compatibility and Adaptability: The system should be flexible enough to support various proving systems, reflecting Ethereum’s commitment to a multi-client environment.
+Ensuring Data Availability: Vital for enabling verification by different clients.
+Emphasizing Auditability and Upgradeability: Allowing for easy inspection and quick resolutions to any issues without requiring hard forks.
+Supporting Innovations in ‘Almost-EVMs’: Permitting Layer-2 solutions to extend and innovate upon standard EVM functionalities.
+A crucial part of Buterin’s discussion revolves around choosing between an open multi-client system, where proofs are verified externally, and a closed system with predetermined proof systems. Buterin advocates for an available system for its flexibility and compatibility with Ethereum’s foundational principles despite its higher complexity.
+
+Buterin emphasizes that speed is critical for ZK-EVM implementations. With technological advancements in parallelization and hardware acceleration, the goal is to reduce proof generation time, allowing for near-instantaneous processing.
+
+Ethereum's Buterin Floats Prospect of Taking Some Layer-2 Functions Back on Main Chain
+Vitalik Buterin, a member of the Ethereum Foundation's executive board, once pushed "layer-2" networks as a way to provide faster and cheaper transactions. Now he's got ideas for "enshrining" some of those functions on the main chain.
+
+Ethereum co-founder Vitalik Buterin, who argued three years ago for pushing more of the blockchain's computational load onto affiliated networks known as "layer-2 networks" or "rollups," has just outlined a plan to take some of the functions back onto the main chain.
+His idea for an "enshrined zkEVM" could prove disruptive, since prominent layer-2 projects, including "ZK-rollups" from Polygon, Matter Labs and Scroll, have invested heavily in fulfilling the earlier roadmap. The new networks are already up and running, and the project leaders have been working to recruit developers and already attracted billions of dollars in user deposits.
+
+The acronym "zkEVM" is a mash-up of "zk," which stands for "zero knowledge," a type of cryptography that is seen as the leading technology for powering future generations of blockchains; and "EVM," which stands for Ethereum Virtual Machine, the programming environment that most Ethereum applications run on.
+
+The new rollup networks from Polygon, Matter Labs and Scroll each have some version of a zkEVM baked into their systems. The networks work by bundling up transactions from users – to lessen the load on Ethereum and speed things up for end-users. They pass the bundled transactions back down to the "layer 1" Ethereum network with a cryptographic guarantee, called a zero-knowledge proof, that they have been recorded correctly.
+In his latest blog post, posted on the Ethereum Foundation's website, Buterin wrote that so-called "light clients" – a skimpier and less data-intensive way to read and verify data on a blockchain, as opposed to hardware-heavy full nodes – will get "more and more powerful" over the next few years. Ethereum's light clients will "pretty soon get to the point" where they can use zero-knowledge cryptography to fully verify transactions executed on the layer-1 chain.
+"At that point, the Ethereum network will effectively have a built-in zkEVM," Buterin wrote. "So the question arises: Why not make that zkEVM natively available for rollups too?"
+What's left for layer-2 blockchains?
+Buterin's comments come as ether (ETH), the native cryptocurrency of the Ethereum blockchain, has lagged behind tokens from rival blockchains as digital-asset markets rallied this year. Ether has climbed by 84%, while Solana's SOL has jumped more than eight-fold in price and Avalanche's AVAX has tripled. Bitcoin, the biggest cryptocurrency, has gained 153%.
+
+According to Buterin, who has for years pushed Ethereum down a "rollup-centric" roadmap, there would still be a role for the layer-2 networks under his new plan.
+"The EVM verification functionality, which layer-2 teams currently implement by themselves, would be handled by the protocol, but layer 2 projects would still be responsible for many important functions," he wrote.
+It gets pretty technical, but those would include "fast pre-confirmations," "MEV mitigation strategies," "extensions to the EVM" and "user and developer-facing conveniences," according to Buterin.
+
+"Layer 2 teams do a lot of work attracting users and projects to their ecosystems and making them feel welcome," Buterin wrote. "They are compensated for this by capturing MEV and congestion fees inside their networks. This relationship would continue."
+
+

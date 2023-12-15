@@ -1,0 +1,174 @@
+Bitcoin's Bull Run Has Plenty of Steam Left, These Indicators Suggest
+Key indicators tracking Bitcoin's blockchain activity, miner flows, and the 200-day moving average suggest bitcoin is far from being overvalued and could continue to rally in 2024.
+By Omkar Godbole
+
+Cognitive biases like anchoring may see investors anticipate a BTC price slide in the wake of this year’s 150% rally.
+Indicators like Puell Multiple, MVRV Z-Score, and Mayer Multiple suggest bitcoin is far from being overvalued and could continue to rally in 2024.
+Bitcoin (BTC), the leading cryptocurrency by market value, has surged over 150% this year, beating traditional assets like the S&P 500, gold, and the U.S. dollar by a huge margin.
+That may have some investors, particularly those who haven’t seen the previous crypto bull runs and are “anchored” to the brutal bear market of 2022, intuitively view the cryptocurrency as being overvalued and anticipate a price slide in the coming months. Anchoring is a cognitive bias that causes investors to rely overly on recent or initial data while making future judgments.
+Traditional finance investors who want exposure to bitcoin could fall victim to the anchoring bias and intuitively wait for cheaper entry prices. That’s because, in conventional markets, assets rarely double in value in less than a year. Besides, investors, in general, are vulnerable to loss aversion, a cognitive behavior of booking out of winning trades early and holding on to loss-making bets for longer.
+Believing in the aforementioned cognitive biases, however, could prove costly as three indicators – tracking activity on the Bitcoin blockchain, miner flows, and the 200-day moving average – suggest the cryptocurrency has plenty of upside left.
+Let’s discuss these indicators in detail.
+Puell Multiple
+The Puell Multiple measures the U.S. dollar value of the daily bitcoin issued relative to the 365-day moving average of the dollar value of the issuance. The issuance here refers to the current supply, i.e., minted or new coins released to the network. Since the last halving in early 2020, miners have minted roughly 900 tokens per day.
+Elevated readings indicate that the present profitability of miners is high compared to the yearly average, and hence, they could liquidate their holdings at a faster pace, adding to bearish pressures in the market. Low readings suggest otherwise.
+In the past, readings above four have coincided with market peaks, with values reaching as high as 10 in early bull cycles. Meanwhile, multiples of less than 0.5 have hinted at market bottoms.
+As of the time of writing, the Puell Multiple stood at 1.53, well short of the red zone above four, according to data tracked by Glassnode.
+The indicator could slide back into the accumulation zone (below 0.5) early next year after bitcoin’s mining reward halving. The inbuilt code will cut the per-block issuance of bitcoin to 3.25 BTC from 6.5 BTC.
+
+“Because the quantity of BTC issued in the subsidy literally gets cut in half, the only way for this metric to recoup so quickly is for the price of BTC to rapidly increase,” analysts at Blockware Intelligence said in the latest edition of the weekly newsletter.
+“The next halving is estimated for March 2024. That’s not too far away at all,” analysts added.
+MVRV Z-score
+The Z-score of bitcoin's market value-to-realized value (MVRV) ratio shows how many standard deviations the assets' market capitalization differs from its realized or fair value.
+The market capitalization is obtained by multiplying the total number of tokens in circulation by the going market price. The realized value is a variation of the market cap, which can be calculated by dividing the value of all bitcoins at the price they were last moved on-chain by the number of coins in circulation. The metric excludes coins lost from circulation and is said to reflect the fair value of the network.
+At press time, the Z-score stood at 1.6, indicating that the cryptocurrency is far from being overvalued and may continue to rally next year, as anticipated by several analysts.
+Historically, Z-scores above eight have signaled overvaluation and signaled bull market tops, while negative values have signaled discounted prices and bear market bottoms.
+Mayer Multiple
+The Mayer Multiple, developed by bitcoin investor and podcast host Trace Mayer, measures the difference between bitcoin's going market price and the 200-day simple moving average (SMA).
+The indicator helps identify overbought and oversold conditions by comparing the present market price with its 200-day moving average. The assumption is that the market will revert to its mean or the 200-day SMA after extended bullish/bearish trends push the multiple above 2.4/below 0.5.
+
+As of the time of writing, the Mayer Multiple was 1.404, meaning bitcoin’s price at $42,937 was 1.4 times its 200-day SMA at $30,563.
+In other words, bitcoin has plenty of room to rally before we can say it’s overbought relative to its 200-day SMA. The 200-day SMA is one of the most widely tracked gauges of long-term trends. As per technical analysis, an asset is said to be in a bull market once its value drops above the 200-day SMA and vice versa.
+
+‘No excuse’ not to long crypto: Arthur Hayes repeats $1M BTC price bet
+Bitcoin and altcoins are a sure-fire bet ahead of a “great pivot” by the Fed on interest rates in 2024, Hayes believes.
+
+ and altcoins are a no-brainer bet in the current macro climate, Arthur Hayes says.
+
+In a post on X (Twitter) on Dec. 14, the former CEO of exchange BitMEX said that investors have “no excuse” to short crypto.
+
+$1-million Bitcoin still in play in 2024 “great pivot”
+Going long crypto is the key to success as markets bet on the United States Federal Reserve lowering interest rates next year, Hayes argues.
+
+On Dec. 13, at the latest meeting of the Federal Open Market Committee (FOMC), Fed policymakers voted to continue a freeze on interest rate hikes.
+
+While broadly expected, a subsequent speech and press conference with Chair Jerome Powell sparked talk of impending rate cuts — an event known as a “pivot” in policy.
+
+“While we believe that our policy rate is likely at or near its peak for this tightening cycle, the economy has surprised forecasters in many ways since the pandemic, and ongoing progress toward our 2 percent inflation objective is not assured,” Powell said.
+
+With that, market consensus over what might happen at the next FOMC meeting in January began to diverge. Per data from CME Group’s FedWatch Tool, the odds of a cut coming early in 2024 stood at 18.6% at the time of writing.
+
+Fed decision day was followed by mainstream media attention focusing on the increasing optimism that U.S. monetary policy would begin to unwind after an unprecedented rate-tightening cycle.
+
+Reposting one such story, Hayes was in no two minds about what the knock-on effect for liquidity-sensitive crypto would be.
+
+“At this point, there is no excuse not to be long crypto,” part of his post stated.
+
+“How many more times must they tell you that the fiat in your pocket is a filthy piece of trash.”
+Hayes further reiterated a longstanding $1-million BTC price prediction as a result of macro tides eroding the value of national currencies.
+
+BTC price dips $1,500 on Ledger security woes
+BTC/USD traded at around $42,500 at the time of writing, per data from Cointelegraph Markets Pro and TradingView, after flash volatility at the day’s Wall Street open.
+
+This took away gains seen overnight, these constituting a rebound from a 7.5% dip earlier in the week — Bitcoin’s biggest single-day downtick of 2023 so far.
+
+The move accompanied news of a security compromise affecting decentralized applications, or DApps, using the connector feature of the Ledger hardware wallet.
+
+“Somebody just had a lot of fun liquidating BTC longs before price inevitably ends up back in the same place,” trader, analyst and podcast host Scott Melker reacted.
+
+According to the latest figures from statistics resource CoinGlass, total BTC long liquidations for Dec. 14 remained modest at just over $20 million — a fraction of the Dec. 11 tally of $126 million.
+
+Bitcoin ETF applicants will have to ‘bend the knee’ on cash redemption model
+The SEC is pushing Bitcoin ETF issuers down the cash create route for creation and redemptions, but BlackRock has other ideas.
+
+
+ exchange-traded fund (ETF) issuers iron out details of their filings with the United States Securities and Exchange Commission (SEC), the regulator appears steadfast in demanding a “cash” redemption model instead of an alternative model proposed by other issuers such as BlackRock.
+
+On Dec. 14, finance lawyer Scott Johnsson said that ETF applicants Invesco and Galaxy became the latest to bend the knee to using a cash creation and redemption model for their ETF.
+
+“The trust expects that creation and redemption transactions will take place initially in cash,” read their updated S-1 filing with the SEC.
+
+The federal regulator has seemingly been pushing for a cash redemption model for spot Bitcoin ETFs, but some applicants, including BlackRock, have proposed using an “in-kind” model.
+
+What’s the difference?
+An ETF can create and redeem shares in two ways: cash creation or redemption and in-kind creation or redemption. A cash creation model is one where the authorized participant deposits cash in the ETF equivalent to the net asset value of the creation units to be created. The fund then uses this cash to purchase the underlying asset, such as Bitcoin.
+
+For in-kind creations, the participant deposits a basket of securities matching the composition and weighting of the ETF’s portfolio. This allows the fund to issue creation units to the investor without immediately selling the securities for cash.
+
+This model is seen as more efficient for ETFs, as it avoids bid/ask spreads and broker commissions from selling the basket to raise cash for issuing shares. However, cash creation provides more flexibility for fund participants.
+
+Explaining the difference to an X (formerly Twitter) user, Seyffart said the cash model leads to: “Slightly wider spreads. Potential tax inefficiencies. It will be better than anything currently available on tradfi rails.”
+
+Bending the knee
+Bloomberg senior ETF analyst Eric Balchunas said the latest filing was a “Pretty big clue that SEC is dug in on only letting cash create ETFs out in first run,” adding that he has also heard this through “back channels.”
+
+He added that many were waiting to see if BlackRock could sway the regulator on in-kind creation; however, Seyffart added:
+
+“I think everyone is gonna have to bend the knee to cash creates and redeems.”
+In late November, BlackRock met with the SEC to discuss ETF share creation and redemption mechanisms. It presented a revised or hybrid in-kind model design favoring that method over cash creations.
+
+Seyffart also noted that Bitwise has been set for cash-only creates/redeems since Dec. 4, “though for months they had in-kind or cash in their documents before this.”
+
+Related: BlackRock revises spot Bitcoin ETF to enable easier access for banks
+
+On Dec. 13, the SEC delayed its decision on whether to approve or disapprove a spot Ether ETF for Invesco and Galaxy Digital.
+
+Moreover, representatives from several asset managers, including BlackRock, Grayscale and Fidelity, have met with the SEC in recent weeks to iron out the final details for their spot BTC products before what analysts expect will be a batch approval in early January.
+
+Bitcoin 
+BTC
+
+tickers down
+$43,087
+
+ and crypto may soon see another mass wave of adoption by United States-based firms after a new accounting rule change that lets companies more accurately reflect the value of their crypto holdings. 
+
+Cory Klippsten, the CEO of Bitcoin-only exchange Swan Bitcoin, told Cointelegraph that Bitcoin-holding companies like MicroStrategy and Tesla, which both had to report impairment on their holdings, “can now more accurately reflect their Bitcoin investments’ true value.”
+
+“This change is crucial for a broad range of companies, not just those primarily focused on Bitcoin, encouraging more mainstream corporate adoption.”
+The new Financial Accounting Standards Board (FASB) rules released on Dec. 13 that come into effect in December 2024 see the estimated market value of crypto held by companies represented accurately on companies’ accounting books by allowing them to record when they’re holding assets at a gain.
+
+Previously, crypto held by companies was subject to impairment only when the value of crypto decreased on the books, which could not be increased until sold, even if its value increased while being held.
+
+Klippsten added that companies could now use Bitcoin as a “strategic financial asset,” as they would be able to report on their value gains and losses, a feature that could help drive adoption.
+
+Matrixport research head and Crypto Titans author Markus Thielen told Cointelegraph that the rule change “underscores the palpable corporate demand” for incorporating crypto into a firm’s accounting.
+
+Related: BlackRock revises spot Bitcoin ETF to enable easier access for banks
+
+“Digital assets are increasingly becoming a crucial component of financial statements,” said Thielen, adding that companies will now have more confidence when valuing their crypto holdings.
+
+“This signals a resounding confirmation that digital assets have firmly established themselves in the financial landscape.”
+Others were also excited by the rule change. David Marcus, co-creator of Facebook’s binned stablecoin project Diem, posted to X (formerly Twitter) on Dec. 13, saying the new rules are “actually a big deal,” which remove “a large obstacle standing in the way of corporations holding Bitcoin on their balance sheet.”
+
+In a Sept. 6 note following the FASB’s approval of the rules, Berenberg Capital’s senior equity research analyst Mark Palmer said crypto-holding companies could “eliminate the poor optics that have been created by impairment losses under the rules that the FASB has had in place.”
+
+Native Bitcoin Staking on Ethereum and Solana Could Soon Be a Reality
+Crypto startup Babylon says it's developed a way to stake Bitcoin on any proof-of-stake blockchain. Here's how it works.
+
+There are a few essential truths that govern accepted thinking about blockchain networks. One such truth is that, without compromises like wrapped tokens and blockchain bridges, proof-of-stake networks like Ethereum and proof-of-work networks like Bitcoin are tantamount to water and oil: They just don’t mix. 
+
+Now, a new startup led by a Stanford professor and a former Dolby engineer is attempting to disprove that. Babylon, a project that seeks to allow users to stake Bitcoin (BTC) to validate nodes on a variety of proof-of-stake networks including Ethereum, Solana, and Polygon, is already well on its way to achieving its improbable-sounding goal.
+
+The company just raised an $18 million funding round co-led by Polychain Capital and Hack VC, with participation from funds including Framework Ventures, Polygon Ventures, OKX Ventures, and Castle Island Ventures. It is also in ongoing conversations with multiple blockchain networks about integrating its services, including Polygon, a Polygon Labs spokesperson confirmed to Decrypt. 
+
+How could it be possible, even theoretically, for someone to stake BTC—actual BTC, not a wrapped token that utilizes a blockchain bridge—on a proof-of-stake network? Proof-of-stake networks like Ethereum utilize smart contracts to govern the staking process, which rewards users who deposit a certain amount of ETH with rewards accrued over time.
+
+In return, these ETH deposits are used to validate transactions on the Ethereum network. The entire staking process represents an intricate web of if/then conditions executed automatically by a smart contract.  
+
+Smart contracts, however, are not natively supported on the Bitcoin blockchain—but Babylon says it’s found a workaround. 
+
+The solution relies in part on Bitcoin’s “time lock” mechanism, which allows users to deposit a certain amount of BTC for a certain period, then withdraw it after that period without depending on a third party. But Babylon also had to find a way to get around the pesky smart contract problem. 
+
+“The biggest challenge for staking is that the stake is a collateral,” David Tse, an engineering professor at Stanford who co-founded Babylon, told Decrypt. “In other words, I have to be able to slash the Bitcoin when the validator on the proof-of-stake chain is doing something bad.”
+Typically, a smart contract would either release collateralized funds to a staker if all conditions were met, or burn (or slash) those funds if they hadn’t been. Tse says his team has been able to replicate that process on the Bitcoin network without smart contracts.   
+
+“We came up with a way to use the existing Bitcoin scripting language to effect the slashing,” Tse said. “That is the main innovation of the project.”
+
+If Tse and his team have in fact gotten this right—he says they still have a bit of final tweaking to do on the technology—then the potential upside is enormous.
+
+Proof-of-stake blockchains of all sorts could tap into the $838 billion worth of incredibly secure Bitcoin already in circulation to validate their transactions. That innovation would be an all-but-certain path to deflation for any proof-of-stake network, that would no longer have to issue so many new tokens in order to incentivize validation.
+
+“The Cosmos hub is paying about 10%—inflating the token 10%—to pay for Cosmos’ security,” Tse said, giving an example. “By bringing in Bitcoin, it can potentially lower the cost of security quite a bit, because Bitcoin is a much larger supply of capital.”
+
+Babylon won’t be able to provide its technology to any given proof-of-stake blockchain ecosystem until that blockchain’s governance gives consent. So, at the moment, the company’s vision is still theoretical.
+
+But Babylon is, as mentioned above, currently in serious conversations with major proof-of-stake blockchains like Polygon—and also has already received the blessing of industry leaders including Polygon co-founder Sandeep Nailwal. 
+
+“Babylon's vision aligns with our commitment to fostering decentralized ecosystems by offering diverse options for communities to seamlessly choose from,” Nailwal said in a statement. “We are enthusiastic about the positive impact this collaboration will bring to the wider blockchain community.”
+
+If (or when) proof-of-stake networks like Polygon begin adopting Babylon’s novel technology, they may create new parameters for what it means to stake BTC on their chain as opposed to the network’s native token.
+
+Ethereum, for example, may not require the minimum amount of BTC needed to stake on the network to equal 32 ETH, the system’s current requirement. It might also elect to offer a lower rewards return rate for BTC stakers.
+
+Even if proof-of-stake networks that eventually work with Babylon opt to make such choices, though, the demand for receiving any sort of passive, guaranteed return on Bitcoin will likely be immensely attractive to BTC holders around the world.

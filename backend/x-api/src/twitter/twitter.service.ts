@@ -22,6 +22,24 @@ export interface ListTweetsResponse {
 @Injectable()
 export class TwitterService {
   logger = new Logger(TwitterService.name)
+
+  twitterLists = [{
+    name: 'harmony_h',
+    id: '1735634638217875938'
+  }, {
+    name: 'harmony_s',
+    id: '1735634855352832089'
+  }, {
+    name: 'harmony_x',
+    id: '1735636432515903874'
+  }, {
+    name: 'harmony_one',
+    id: '1735636547297333288'
+  }, {
+    name: 'harmony_ai',
+    id: '1735637676743647429'
+  }]
+
   constructor(
     private dataSource: DataSource,
     private readonly configService: ConfigService,
@@ -45,18 +63,12 @@ export class TwitterService {
     const job = this.schedulerRegistry.getCronJob('update_twitter_lists');
     job.stop();
 
-    // https://twitter.com/i/lists/1597593475389984769
-    const lists = [{
-      name: 'Crypto',
-      id: '1597593475389984769'
-    }]
+    this.logger.log(`Run scheduled tweeter list update: ${this.twitterLists.length} lists`)
 
-    this.logger.log(`Run scheduled tweeter list update: ${lists.length} lists`)
-
-    for(let list of lists) {
+    for(let list of this.twitterLists) {
       try {
         await this.updateListTweets(list.id)
-        this.logger.log(`Successfully updated tweeter list ${list.id} ${list.name}`)
+        this.logger.log(`Successfully updated list ${list.id} ${list.name}`)
       } catch (e) {
         this.logger.error(`Cannot update twitter list data: ${list.id} ${list.name}: ${(e as Error).message}`)
       }
@@ -94,10 +106,14 @@ export class TwitterService {
     return data
   }
 
-  public async getListTweets(dto: GetListTweetsDto) {
+  public getListByName(name: string) {
+    return this.twitterLists.find(list => list.name === name.toLowerCase())
+  }
+
+  public async getListTweets(listId: string) {
     return await this.dataSource.manager.find(ListTweetEntity, {
       where: {
-        listId: dto.listId
+        listId
       },
       take: 100,
       order: {

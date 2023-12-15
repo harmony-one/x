@@ -43,6 +43,7 @@ class AppSettings: ObservableObject {
             updateUserDefaultsIfNeeded(forKey: "ADDRESS_KEY", newValue: address)
         }
     }
+    
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
     }
@@ -72,7 +73,7 @@ class AppSettings: ObservableObject {
 
         // Register default values after initialization
         registerDefaultValues()
-        
+                
         // Listen to UserDefaults changes
         NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
             .sink { [weak self] _ in

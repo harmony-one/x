@@ -6,6 +6,7 @@ class SettingsBundleHelper {
         static let Username = "USER_NAME"
         static let CustomMode = "custom_mode"
         static let UserProfile = "USER_PROFILE"
+        static let FollowNews = "FOLLOW_NEWS"
     }
     
     // TODO: Not being used -- I believe this is work in progress?
@@ -16,6 +17,8 @@ class SettingsBundleHelper {
 //             content = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.CustomInstruction)
 //         }
 //     }
+    
+    static var DefaultFollowNews = "APPL"
 
      class func setDefaultValues(customMode: String? = nil) {
          var defaultCustomInstruction = String(localized: "customInstruction.default")
@@ -39,6 +42,14 @@ class SettingsBundleHelper {
     
     class func resetUserProfile() {
         UserDefaults.standard.set("", forKey: SettingsBundleKeys.UserProfile)
+    }
+    
+    class func resetFollowNews() {
+        UserDefaults.standard.set("", forKey: SettingsBundleKeys.FollowNews)
+    }
+    
+    class func getFollowNews() -> String? {
+        return UserDefaults.standard.string(forKey: SettingsBundleKeys.FollowNews)
     }
     
     class func hasPremiumMode() -> Bool {

@@ -73,6 +73,18 @@
 			<string>User Profile</string>
 			<key>Key</key>
 			<string>USER_PROFILE</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Follow News</string>
+			<key>Key</key>
+			<string>FOLLOW_NEWS</string>
+			<key>DefaultValue</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Type</key>

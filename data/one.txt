@@ -1,0 +1,582 @@
+Harmony is an open and fast blockchain. Our mainnet runs Ethereum applications with 2-second transaction finality and 100 times lower fees. AI developers can use onchain tokens for micro-payments, smart contracts for market pricing, and zero-knowledge proofs for data privacy.
+Harmony’s mission is to scale trust and create a radically fair economy. Our platform is decentralized, scalable and secure to settle any transactions without trusted parties.
+ 
+ 
+Try our voice AI iOS app or Telegram AI bot? Use ONE tokens for ChatGPT4, Stable Diffusion for your small social groups.
+
+Hummingbot open source market making
+➡️ Explore our DeFi yields & NFT collections
+🤝 Blockchain Protocol: Scaling & Security
+Harmony’s vision is to create cooperation for global communities, and scale their digital economies.
+1. Secure, Random State Sharding
+Harmony has transcended the blockchain trilemma by bringing the best research to production. Sharding is proven to scale blockchains without compromising security and decentralization.
+We divide not only our network nodes but also the blockchain states into shards, scaling linearly in all three aspects of machines, transactions and storage.‍ To prevent single shard attacks, we must have a sufficiently large number of nodes per shard and cryptographic randomness to re-shard regularly. Each shard has 250 nodes for strong security guarantee against Byzantine behaviors. We use Verifiable Delay Function (VDF) for unbiasable and unpredictable shard membership.
+2. Effective PoS & Token Economics
+Harmony has designed a novel Proof-of-Stake (PoS) mechanism for network security and economics. Our Effective Proof-of-Stake (EPoS) reduces centralization and distributes rewards fairly to thousands of validators. Our staking mechanism supports delegation and reward compounding. 
+To support 100% uptime but fully open participation, EPoS slashes validators who double-sign and it penalizes elected but unavailable nodes.Harmony Economics Model caps the annual issuance at 441 million tokens (about 3% rate in long term). Our model gives validators a simple and predictable return. All transaction fees are burnt to offset the issuance, naturally leading to zero inflation when our network usage becomes high.
+3. Fast Consensus, Instant Finality
+Harmony has innovated on the battle-tested Practical Byzantine Fault Tolerance (PBFT) for fast consensus of block transactions. Our Fast BFT (FBFT) leads to low transaction fees and 1-block-time finality in Harmony Mainnet.‍ 
+We use Boneh–Lynn–Shacham (BLS) constant-sized signatures to commit blocks in a single round of consensus messages. We achieve 2-second block time with view changes in production against adversarial or unavailable leaders.‍ Harmony Mainnet was launched in June 2019. Our network has produced 41M blocks with 772k transactions in publicly traded, native ONE tokens.
+ 
+4. Keyless Smart Wallets
+Resilient. Funds are recoverable through time locks and multiple safety nets. No single point of failure such as thefts, cracks, loss, censorship or coercions is catastrophic.
+Sufficient. All steps are well defined without delegating to hardware devices or seed phrases in safety boxes. Users do not need any passwords or rely on biometrics.
+Composable. One-time or low-entropy passwords are useful for small funds. Multiple authentications can independently boost protection thresholds against brute-force.
+Self-Sovereign. No third parties, government documents, designated guardians, backup servers or hardware enclaves are necessary. Users have full custody and self control.
+➡️ Join our governance discussion & zero-knowledge proof course
+🌳 Ecosystem Partners: Open Development
+A blockchain, as a marketplace full of incentives, allows anyone to create tokens, secure transactions between parties, and accrue values from serving utility.
+
+➡️ Reach us at Discord or open voting
+🌊 Creative Campaigns: The ONEs Who Build
+They believe in radical social change. ONE where trust is not needed to participate. ONE where everyone can sing in harmony. And we will be the ONEs to build it.
+➡️ Tell us your story or design
+🧗‍♀️ 2024 Roadmap: Sustainable & AI Economy
+We are a Day-1 startup. Generative AI and blockchains are becoming the foundation of the global economy, yet their adoption is at only 1%. That means that you as a pioneer and developer are shaping the future with 10X impact. Harmony is a community-driven project, a network with hundreds of applications, and a team wearing crazy ambitions on their sleeves. Because the invincible summer awaits!
+
+Harmony's Q3 Engineering Report
+
+As we approach the close of the third quarter of 2023, we must reflect upon the strides, milestones, and challenges encountered by the Harmony engineering team. This Q3 report offers an in-depth analysis of our engineering undertakings, emphasizing our relentless pursuit of innovation, optimization, and steadfastness in serving our growing community.
+
+Over the past few months, we’ve prioritized diverse initiatives, tackling foundational and frontier developments in the blockchain space. From enhancing state synchronization to pioneering new consensus mechanisms, our endeavors echo our commitment to fostering a more secure, efficient, and inclusive decentralized platform.
+
+In the subsequent pages are detailed breakdowns of our current initiatives, completed tasks, software releases, and pending pull requests. Each section provides insights into our tasks’ objectives, motivations, and current status, enabling stakeholders to grasp the breadth and depth of our technological evolution.
+
+As you navigate this report, we invite you to celebrate our achievements, understand our forward trajectory, and partake in our vision for a more harmonized digital future.
+
+Current Tasks and Initiatives:
+Harmony Engineering Task ( HET )
+
+HET-84: Revert to 0x Prefix (In Development)
+Objective: This task focuses on reverting address prefixes to the conventional ‘0x’. It aims to address compatibility issues and improve integration with external platforms and tools.
+
+Technical Approach: The development involves modifying the address generation and validation mechanisms to seamlessly transition back to ‘0x’ prefixes without impacting existing functionalities.
+
+HET-10: Account Abstraction (In Development)
+Objective: Account Abstraction is a strategic initiative to provide users with more flexible transaction formats and greater control over their accounts.
+
+Technical Approach: The team is abstracting the account layer to support various transactions and smart contracts, facilitating more dynamic and programmable account management.
+
+HET-83: Stale Delegation Close PR (In Development)
+Objective: This task is designed to close and eliminate stale or inactive delegations to enhance system performance and resource allocation.
+
+Technical Approach: Development involves identifying inactive delegations, creating a protocol for closure, and implementing this through a Pull Request (PR).
+
+HET-5: State Sync (In Development)
+Objective: The State Sync initiative aims to improve the speed and efficiency of state synchronization across the Harmony network.
+
+Technical Approach: Engineers are enhancing algorithms and protocols that handle state synchronization across nodes, reducing latency and improving overall network performance.
+
+HET-8: Leader Rotation (Ready for Review)
+Objective: Leader Rotation is a security measure to prevent single-point failures and enhance the network’s resistance to malicious attacks.
+
+Technical Approach: The task involves developing and implementing algorithms that efficiently rotate leader nodes without disrupting network consensus and stability.
+
+HET-7: State Pruning (In Development)
+Objective: This task seeks to optimize the storage usage of the Harmony network by pruning obsolete state data without compromising historical data integrity.
+
+Technical Approach: Implementing efficient data structures and algorithms to identify and remove redundant state data, improving storage efficiency and system performance.
+
+HET-12: Validator Slashing (In Development)
+Objective: Validator Slashing is a mechanism to penalize malicious or non-performing validators, enhancing network security and stability.
+
+Technical Approach: Development of protocols and algorithms to monitor validator performance, identify malicious activities, and execute slashing procedures as necessary.
+
+HET-3: Wallet Migration (Backlog)
+Objective: Wallet Migration facilitates users to seamlessly transition their assets and data across wallet versions or platforms without data loss.
+
+Technical Approach: The task involves creating robust migration scripts, establishing secure data transfer protocols, and developing intuitive user interfaces to guide users through migration.
+
+HET-9: Light Clients (Backlog)
+Objective: This initiative focuses on developing light clients to enable low-resource devices to interact with the Harmony network efficiently.
+
+Technical Approach: Implementing light clients involves optimizing data synchronization and transaction verification processes for devices with limited computational resources, ensuring broad accessibility.
+
+HET-11: BLS Key Upgrade (Backlog)
+Objective: The task aims to enhance security by upgrading the BLS (Boneh-Lynn-Shacham) cryptographic keys utilized within the network.
+
+Technical Approach: Implementing updated algorithms and cryptographic libraries to support advanced BLS key functionalities while ensuring compatibility and security.
+
+HET-21: Secret Leader Rotation (Backlog)
+Objective: This feature enhances security by periodically changing the network’s leader node secretly and unpredictably.
+
+Technical Approach: Development of a secure, randomized algorithm to select leader nodes while maintaining consensus integrity and network stability.
+
+HET-15: Whitepaper v3 (Backlog)
+Objective: Drafting an updated whitepaper to reflect Harmony’s current technology, vision, and plans.
+
+Technical Approach: Engaging with various departments to compile, review, and articulate the necessary technical, strategic, and operational information into a coherent and comprehensive document.
+
+HET-6: Cross-Shard Transactions (Backlog)
+Objective: Efficiently facilitating transactions across different shards to enhance the network’s scalability and user experience.
+
+Technical Approach: Developing and optimizing protocols and algorithms that support secure and speedy cross-shard transactions, ensuring a seamless user experience.
+
+HET-20: < 1 Second Finality (In Development)
+Objective: Achieving sub-second transaction finality to provide users with swift transaction confirmation times.
+
+Technical Approach: Optimizing consensus algorithms and network protocols to reduce transaction validation and propagation times significantly.
+
+HET-78: Empty Blocks Validation Change (In Development)
+Objective: This task addresses the issue of empty block validations to improve network efficiency.
+
+Technical Approach: Modifying block validation algorithms to efficiently handle and validate empty blocks, optimizing network resources and performance.
+
+HET-79: State Expiry (Backlog)
+Objective: The State Expiry task is designated for improving the efficiency of the blockchain by systematically expiring and removing obsolete states from the system.
+
+Technical Approach: This will be realized by implementing a mechanism to timestamp states and systematically check and remove those that have surpassed their predefined lifespan, ensuring the system remains streamlined and efficient.
+
+HET-85: validateState/validateBody Refactor (Backlog)
+Objective: This task aims to refactor and optimize the validateState and validateBody functions for improved readability, maintenance, and performance.
+
+Technical Approach: The refactoring process will involve breaking down complex functions into simpler, manageable pieces, optimizing each function, and ensuring that each piece functions as expected when integrated.
+
+HET-86: Broadcast Only Block Header (Backlog)
+Objective: To reduce the amount of data transmitted during block broadcasting, the task involves sending only block headers instead of full block content.
+
+Technical Approach: By modifying the block broadcasting protocol to send headers only, recipients can request full blocks as needed, optimizing network bandwidth and reducing latency.
+
+HET-87: Set Block Gas to 30m (Pending Deployment)
+Objective: This task aims to adjust the block gas limit to 30 million to facilitate more transactions per block.
+
+Technical Approach: This change involves altering the gas limit parameter in the relevant configuration files and ensuring the network’s stable operation with the adjusted gas limit.
+
+HET-93: EIP-7008 (ZK AI Gen Content) (Backlog)
+Objective: The EIP-7008 task aims to implement ZK-AI-generated content support, driving the integration of AI and blockchain technologies.
+
+Technical Approach: This encompasses developing and integrating the necessary protocols, algorithms, and interfaces to support, validate, and propagate AI-generated content on the blockchain efficiently and securely.
+
+https://eips.ethereum.org/EIPS/eip-7007
+
+The tasks mentioned above present a snapshot of Harmony’s ongoing efforts to enhance and expand its blockchain capabilities, improve network efficiency, and foster the adoption and integration of emerging technologies. Each task represents a stepping stone towards realizing a secure, scalable, and versatile blockchain platform that meets the diverse needs of its growing user base and adapts to the fast-evolving digital landscape.
+
+Completed Initiatives:
+HET-4: Transaction Fee DAO
+Objective: This task aimed to decentralize the management of transaction fees through a DAO structure, allowing for a more democratic and transparent fee structure.
+
+Completion Summary: Successfully implemented DAO structure for transaction fee management, enabling community-based decision-making on fee structures.
+
+HET-82: Recovery Audit
+Objective: This task focused on conducting a thorough audit of the recovery mechanisms within the system.
+
+Completion Summary: A comprehensive audit was conducted, identifying potential risks and areas for improvement. Necessary improvements and adjustments were successfully made based on audit findings.
+
+HET-13: View Change
+Objective: Implementing a refined mechanism within the list of validators to optimize the process in cases where multiple consecutive keys are assigned to a single validator. This change aims to prevent system downtime if a validator with multiple keys becomes unavailable, enhancing network resilience and performance during asynchronous events.
+
+Completion Summary: The development team addressed a critical issue where multiple consecutive keys could be assigned to a single validator within the validators’ list. In scenarios where these keys are grouped and the associated validator becomes unavailable, the system was previously prone to significant downtime as it sequentially checked each key linked to the unavailable validator.
+
+HET-25: Update RawDB and StateDB
+Objective: The task aimed to update and optimize the RawDB and StateDB components for improved performance and efficiency.
+
+Completion Summary: RawDB and StateDB were successfully updated and optimized, improving data handling and retrieval performance.
+
+HET-26: Add Snapshot Functionality
+Objective: The task aimed to implement snapshot functionality to facilitate faster and more efficient data retrieval and management.
+
+Completion Summary: Snapshot functionality was successfully added, tested, and deployed, improving data management and retrieval efficiency across the network.
+
+HET-27: Snapshot Integration
+Objective: This task focused on seamlessly integrating the newly developed snapshot functionality into the existing system.
+
+Completion Summary: Snapshot functionality was successfully integrated, with thorough testing confirming its seamless operation with existing components.
+
+HET-28: Pruner Package
+Objective: Introduce a Pruner package that assists in removing unnecessary data and enhancing system performance.
+
+Completion Summary: The Pruner package was successfully developed, tested, and integrated. It effectively removes irrelevant data, ensuring efficient storage usage and system performance.
+
+HET-30: Research and Strategy
+Objective: This task entailed broad research and strategic planning to navigate future technological and market challenges effectively.
+
+Completion Summary: In-depth research and a comprehensive strategy were developed, providing a roadmap for upcoming initiatives and responses to industry trends.
+
+HET-44: Github Cleanup
+Objective: Organize and clean up the GitHub repository to enhance navigability and ease of use for developers.
+
+Completion Summary: GitHub repository was efficiently organized and cleaned, improving user experience for developers and contributors.
+
+HET-39: Client Side: Receive Peers
+Objective: Implementing client-side functionality for peer reception to enhance network communication.
+
+Completion Summary: Client-side peer reception functionality was successfully developed and integrated, improving network communication efficiency.
+
+HET-41: Storage for Peers
+Objective: Develop and optimize storage solutions for peer data to enhance network reliability and performance.
+
+Completion Summary: Optimized storage solutions for peer data were successfully implemented, contributing to a more reliable and performant network.
+
+HET-45: Issue Cleanup
+Objective: Efficiently address and resolve outstanding issues in the system to enhance overall performance and reliability.
+
+Completion Summary: All identified issues were systematically addressed and resolved, improving system performance and reliability.
+
+HET-46: Branch Cleanup
+Objective: Organizing and cleaning up various branches within the project to improve workflow efficiency.
+
+Completion Summary: Branches were efficiently organized and cleaned, streamlining the workflow and improving project management efficiency.
+
+HET-47: Pull Request Cleanup
+Objective: Streamline and organize pull requests for efficient tracking and handling.
+
+Completion Summary: Pull requests were organized and streamlined, enhancing the efficiency of tracking and handling contributions to the project.
+
+HET-49: View Change Explorer Metric
+Objective: Integrate metrics within the View Change Explorer for enhanced monitoring and management.
+
+Completion Summary: Metrics were successfully integrated into the View Change Explorer, facilitating improved monitoring and management of view changes within the network.
+
+HET-52: Create Policy in Engineering Guide
+Objective: Development and documentation of a comprehensive policy within the Engineering Guide to standardize practices and procedures.
+
+Completion Summary: The Engineering Guide created and documented a detailed policy, providing clear guidelines and standards for engineering practices and procedures.
+
+HET-43: Gas Price Oracle Redesign
+Objective: This task aimed to redesign the Gas Price Oracle for enhanced efficiency and functionality.
+
+Completion Summary: The Gas Price Oracle was successfully redesigned, improving efficiency and functionality and significantly enhancing transaction pricing mechanisms.
+
+HET-54: Stage Sync Issue Resolution
+Objective: Address and resolve the issue where nodes fail to synchronize during the stage sync process.
+
+Completion Summary: The synchronization issue was identified and resolved, ensuring smoother and more reliable stage sync processes.
+
+HET-38: Duplicate Peers Exchange Resolution
+Objective: Resolve the issue related to the duplication of peer exchanges to improve network communication.
+
+Completion Summary: The duplication issue in peer exchanges was successfully identified and resolved, leading to enhanced and reliable peer-to-peer communications.
+
+HET-61: Possibility to Block Peers
+Objective: Implement functionality that allows for blocking peers when necessary.
+
+Completion Summary: The feature was successfully implemented, enabling block peers to enhance network security and management capabilities.
+
+HET-73: Coded Hard Fork Date
+Objective: Introduce coded hard fork dates to facilitate smoother transitions and updates.
+
+Completion Summary: Coded hard fork dates were successfully introduced and implemented, allowing for smoother and more predictable transition phases during updates.
+
+HET-57: Weekly Engineering Reports
+Objective: Establish a routine of generating weekly engineering reports to track better and understand ongoing tasks and projects.
+
+Completion Summary: Creating weekly engineering reports has been successfully established, improving the visibility and tracking of engineering tasks and initiatives.
+
+HET-58: Weekly Engineering Standup Video
+Objective: Implement a practice of weekly engineering standup videos for enhanced communication and collaboration among the team.
+
+Completion Summary: Weekly standup videos were successfully introduced, fostering better communication, collaboration, and understanding among engineering team members.
+
+HET-76: Adding Multisig Signers
+Objective: HET-76 aimed to integrate additional Multisignature (Multisig) signers into the system to improve transaction security and authorization.
+
+Completion Summary: This task was accomplished. More Multisig signers were added to the system, enhancing the network’s security protocol for transaction authorizations and validations.
+
+HET-81: Synchronization — Reduced Valid Transaction
+Objective: Task HET-81 focused on optimizing the synchronization process to effectively filter and reduce the number of valid transactions.
+
+Completion Summary: A refined synchronization mechanism was developed and implemented successfully, reducing the load and efficiently validating transactions during synchronization.
+
+HET-19: Refactor / Code Cleanup
+Objective: This task was initiated to streamline the codebase through a comprehensive refactoring and cleanup process.
+
+Completion Summary: The codebase was meticulously refactored and cleaned, leading to improved readability, maintainability, and performance of the system’s code architecture.
+
+The finished tasks during Q3 collectively contributed to improving the robustness, efficiency, and functionality of the Harmony system. Each task, whether focused on developing new features, refining existing processes, or enhancing the codebase, was crucial in advancing the project’s technical objectives and goals for the quarter. Completing these tasks also sets the stage for more advanced and complex initiatives in the following quarters as the system continues to evolve and adapt to the emerging needs and challenges in the blockchain and cryptocurrency landscape.
+
+Detailed Release Notes:
+Mainnet Release 2023.2.7 — August 12, 2023
+Consensus Catchup Issue Fix (#4474)
+
+Contributor: @GheisMohammadi
+
+Details: Resolved an issue affecting consensus mechanisms by implementing a fix that enhances the catch-up process. This ensures the consensus process runs seamlessly even when some nodes lag.
+
+Disabling Go Test Verbose Flag (#4482)
+
+Contributor: @diego1q2w
+
+Details: The verbose flag for Go testing was turned off to streamline test logs and facilitate a more straightforward test results analysis without overwhelming developers with excessive information.
+
+Updating Deprecated Go-libp2p Packages (#4483)
+
+Contributor: @GheisMohammadi
+
+Details: Deprecated packages within the Go-libp2p library were updated to their latest versions, ensuring that the project utilizes secure and up-to-date dependencies.
+
+Addition of Mergify Rules for Build (#4486)
+
+Contributor: @sophoah
+
+Details: Implemented Mergify rules to automate the merging process, promoting more efficient and accurate codebase updates and management.
+
+Staged Stream Sync Improvement (#4467)
+
+Contributor: @GheisMohammadi
+
+Details: Enhanced the staged stream synchronization process to rectify issues related to nodes getting stuck in the DevNet environment, providing a more reliable sync process.
+
+In-Memory Rotation Meta (#4459)
+
+Contributor: @Frozen
+
+Details: Optimized the system by keeping rotation metadata in memory, reducing the need for frequent disk accesses and speeding up relevant operations.
+
+Mainnet Release 2023.2.6 — August 8, 2023
+Protocol Changes: Validator Code Size Correction (#4475)
+
+Details: Adjusted the validator code size returned by the statedb to correct synchronization issues linked to inaccurate size reporting, improving sync reliability.
+
+Operational and Build Changes:
+
+It addressed an issue with an Invalid DHT that prevented the starting of localnet (#4472).
+
+Docker was upgraded to the latest versions in the Travis build environment, encompassing updates #4478, #4480, and #4481.
+
+Mainnet Release 2023.2.5 — July 25, 2023
+This release primarily focused on introducing new changes related to the synchronization process, enhancing the performance and reliability of node syncing across the network (#4452).
+
+Mainnet Release 2023.2.4 — July 3, 2023
+HIP28 and Validator Code Fix Scheduling (#4456)
+
+Contributor: @MaxMustermann2
+
+Details: Scheduled the implementation of HIP28 and associated validator code fixes, providing a structured timeline for these crucial updates.
+
+Harmony Dockerfile Go 1.19 Upgrade (#4460)
+
+Contributor: @sophoah
+
+Details: The Dockerfile for Harmony was updated to use Go version 1.19, ensuring compatibility with the latest Go language features and optimizations.
+
+Mainnet Release 2023.2.4 — July 3, 2023 (Continued)
+Script Restoration for Build Tools (#4457)
+
+Contributor: @MaxMustermann2
+
+Details: Restored and updated install_build_tools.sh script to ensure a smooth and error-free build process for developers.
+
+HIP28-v2b Implementation
+
+Details: Introduced HIP28-v2b, directing 50% of fees into a community multisig wallet, fostering a more community-centric economic model.
+
+Validator Address Interaction (#4381)
+
+Details: Implemented functionality allowing validator addresses to interact seamlessly with smart contracts, expanding the versatility and utility of validator addresses within the ecosystem.
+
+Mainnet Release 2023.2.2 — July 3, 2023
+Typed Cache & Node Cleanup (#4409)
+
+Details: Enhanced system efficiency by introducing typed caching mechanisms and performing extensive node cleanup, optimizing node performance and resource utilization.
+
+HIP28-v2 Fee Collection Implementation (#4410)
+
+Details: Successfully implemented fee collection per HIP28-v2 specifications, creating a structured mechanism for fee accrual within the network.
+
+Removal of time.Sleep from Tests (#4412)
+
+Details: Optimized testing procedures by removing time.Sleep functions from tests, reducing test durations and improving the efficiency of the testing process.
+
+Main & Dev Branch Synchronization (#4415)
+
+Details: Synchronized the main and development branches to ensure consistency and accuracy in the codebase across different development environments.
+
+Validator Code Fix and Hard Fork Scheduling (#4413, #4416)
+
+Details: Scheduled and executed crucial hard forks and validator code fixes, enhancing network stability and performance while addressing identified issues.
+
+Pending PRs Detailed Analysis:
+Below is a detailed analysis of the pending Pull Requests (PRs):
+
+1. Mechanism for Peers Blocking — #4455:
+Overview: This PR implements a mechanism that allows blocking peers at the network level. This feature is crucial for maintaining network security, as it proactively empowers node operators to stop malicious or non-compliant peers.
+
+Technical Detail: It likely involves changes at the networking layer, perhaps modifications to the peer-to-peer protocol or introducing a new blacklist or filtering mechanism.
+
+2. Initial Version of Fast Sync — #4465:
+Overview: The initial version of Fast Sync is introduced through this PR. Fast Sync is a vital feature that enables quicker synchronization of nodes with the network, enhancing the system’s responsiveness and user experience.
+
+Technical Detail: This might involve optimizations to the current synchronization protocol, allowing for skipping specific validations or the parallel downloading and processing of blocks.
+
+3. Adjustive Block Period — #4491:
+Overview: A mechanism for dynamically adjusting the block period is proposed in this PR. The adaptive block period feature allows the network to respond efficiently to varying load and transaction volumes, maintaining optimal performance.
+
+Technical Detail: Likely incorporates algorithms or rulesets that modulate the time between blocks in response to network activity, involving adjusting the difficulty or introducing new consensus rules.
+
+4. Improvements of Streamsync to Deploy on Mainnet — #4493:
+Overview: This PR introduces improvements and optimizations to the Streamsync protocol, aiming for deployment on the mainnet. These enhancements ensure stable and efficient data streaming across the network.
+
+Technical Detail: It likely involves optimizations to data streaming protocols, ensuring efficient and reliable data transfer, minimizing latency, and handling network inconsistencies and failures gracefully.
+
+5. Release Candidate v2023.3.0 — Emissions Split (HIP30):
+Overview: This release candidate introduces the Emissions Split feature described in HIP30. This feature represents a significant update to the network’s economics, redistributing emission rewards to support the ecosystem better.
+
+Technical Detail: The exact mechanism of the emissions split is not detailed, but it likely involves modifications to the reward distribution logic in the consensus protocol, redirecting a portion of the block rewards to specific addresses or smart contracts.
+
+6. HIP-30 Next Release — #4500:
+Overview: This PR likely outlines the planned features, improvements, and fixes for the next release under HIP-30. It acts as a roadmap, guiding developers and informing the community of upcoming changes.
+
+Technical Detail: Details might be sparse at this stage, but expect it to be a collection of various improvements and features designed to enhance the network’s functionality, security, and performance.
+
+7. HIP-30 Shard Reduction Process — #4503:
+Overview: This PR introduces a shard reduction process under HIP-30, a significant structural change aiming to optimize network resources and performance.
+
+Technical Detail: The shard reduction likely involves a reconfiguration of the network topology, merging or disabling specific shards, and redistributing the load and the stored data.
+
+8. Prune Stale Staking Data Hard Fork + Onwards Pt. 2 — #4505:
+Overview: This work-in-progress PR prunes stale staking data through a planned hard fork. Pruning is essential for optimizing resource usage and improving the performance and stability of the staking mechanism.
+
+Technical Detail: The PR likely introduces new rules or mechanisms for identifying and removing stale or irrelevant staking data, implementing a form of garbage collection or data lifecycle management for staking records.
+
+9. HIP30: Localnet Account Migration Fix — #4508:
+Overview: This PR addresses and fixes issues related to account migration on localnet under the HIP30 protocol changes, ensuring a smooth transition and maintaining account integrity and funds security during the process.
+
+Technical Detail: The PR likely implements fixes and improvements to the account migration process, addressing identified issues and bugs and introducing new safeguards, validation checks, or mechanisms for handling exceptional cases or conflicts during migration.
+
+The development team and the community should review, test, and validate each PR carefully to ensure its functionality, security, and compatibility with the existing protocol before being merged and deployed to the mainnet.
+
+Pending Release Detailed Analysis:
+The upcoming release, represented by a collection of pull requests, contains several improvements and bug fixes critical for system operation, user experience, and protocol compliance. Below are detailed analyses for each of the components of the pending release:
+
+1. Fixed Debug Run for Mac — #4484:
+Overview: This component focuses on resolving debugging issues experienced on macOS systems, providing developers using macOS with a smoother and more efficient debugging experience.
+
+Technical Detail: The specific debugging issues are not outlined, but they might involve compatibility fixes, enhancements to the debugging toolset, or the resolution of system-specific bugs that impede the debugging process on macOS.
+
+2. Next Validator in View Change — #4492:
+Overview: This improvement pertains to the consensus mechanism’s transition or ‘view change’ process, where the validator set for the following consensus round is determined.
+
+Technical Detail: It likely refines the process for selecting the next validator set during a view change, potentially improving the fairness, randomness, or efficiency of the selection mechanism.
+
+3. HIP-30 Boilerplate — #4495:
+Overview: This PR provides the foundational or ‘boilerplate’ code necessary for implementing the HIP-30 protocol changes, serving as a base for further development and refinement of the protocol.
+
+Technical Detail: The boilerplate code may establish basic data structures, functions, and interfaces necessary for HIP-30 without implementing the entire logic or rules of the protocol.
+
+4. HIP-30: Minimum Validator Commission of 7% — #4496:
+Overview: Introducing a mandatory minimum commission rate for validators, set at 7%. This change aims to ensure fair compensation for validators while maintaining a balanced, incentive-compatible economic model.
+
+Technical Detail: Modifying the staking or reward distribution logic to enforce the minimum commission rate, likely with checks or constraints added to the staking contract or protocol rules.
+
+5. Emission Split (HIP-30) — #4497:
+Overview: Implements the emission split feature of HIP-30, redistributing block rewards to different stakeholders or funds to support the ecosystem better.
+
+Technical Detail: Changes to the reward distribution logic in the consensus protocol, redirecting a portion of the block rewards to specified addresses or contracts.
+
+6. Fix for Index — #4504:
+Overview: This component addresses an unspecified issue with indexing, improving the system’s data retrieval and storage mechanisms’ accuracy and efficiency.
+
+Technical Detail: Without specific details, this likely involves bug fixes or improvements to the data indexing logic or data structures used in the protocol, enhancing their performance, reliability, or accuracy.
+
+7. Small Improvements — #4477:
+Overview: A set of minor improvements and optimizations to enhance the protocol’s overall efficiency and stability without introducing significant changes or features.
+
+Technical Detail: This is likely a collection of minor tweaks, bug fixes, and code cleanups that improve the codebase’s quality and maintainability without altering its fundamental behavior.
+
+8. Block Gas 30m — #4501:
+Overview: The maximum gas limit per block is adjusted to 30 million, which affects the number of transactions that can be included in a single block, potentially enhancing the network’s throughput.
+
+Technical Detail: Adjustments to the protocol’s block gas limit parameter affect transaction processing and validation logic.
+
+Review and Testing Required:
+Before deployment, each release component should be meticulously reviewed to ensure it meets quality standards and does not introduce new issues or conflicts with existing features. Proper documentation and user communication are crucial for adopting and transitioning to the latest release.
+
+Conclusion: Harmony Q3 Engineering Report
+The third quarter of 2023 for Harmony presented a vigorous period of development and refinement, signifying a pivotal chapter in the protocol’s technological evolution. The engineering team was steadfastly committed to enhancing the network’s robustness, efficiency, and scalability while safeguarding its security integrity and decentralization ethos.
+
+Development Landscape:
+A suite of imperative initiatives were pursued, including ongoing tasks, completed endeavors, releases, and pending contributions. The symbiotic relationship between these components provided a framework for a systematic and incremental upgrade to the Harmony protocol.
+
+Ongoing Initiatives Analysis:
+A multitude of tasks under development were diligently progressed, with nuanced attention given to each initiative’s unique technical demands and implications:
+
+The reversal of address prefixes to ‘0x’ (HET-84) is underway, revisiting Ethereum-compatible addressing schemes while ensuring a smooth transition and interoperability.
+
+Work on account abstraction (HET-10) reflects a shift towards a more flexible and user-friendly account model, broadening smart contract capabilities and simplifying user experiences.
+
+Progress on stale delegation handling, state syncing optimization, leader rotation refinement, and state pruning (HET-83, HET-5, HET-8, HET-7) represents an amalgamation of efforts to streamline the protocol’s operational efficiency and resilience.
+
+Initiatives like Validator Slashing (HET-12) reinforce the network’s security mechanisms, fortifying its defense against malicious actors and ensuring a fair and stable staking environment.
+
+Completed Initiatives Insights:
+The concluded tasks encapsulate a spectrum of enhancements:
+
+The Transaction Fee DAO (HET-4) and Recovery Audit (HET-82) exemplify proactive measures to optimize the economic model and security framework.
+
+Functionalities like Snapshot Integration (HET-27) and Peer Storage (HET-41) manifest as vital infrastructure upgrades, facilitating faster network synchronization and efficient peer management.
+
+The meticulous Github and Issue Cleanups (HET-44, HET-45) streamline the development workflow and epitomize the team’s commitment to maintaining a clean and efficient codebase.
+
+Release Chronicles:
+Each mainnet release in this quarter showcased a curated selection of improvements, bug fixes, and feature introductions:
+
+Release 2023.2.7 marked significant strides with consensus catchup issues resolution and staged stream synchronization improvement, addressing critical network operation facets.
+
+Releases from 2023.2.6 to 2023.2.2 encapsulated many protocol, operation, and build changes, each incrementally contributing to the network’s stability, efficiency, and functionality.
+
+Pending Contributions Synopsis:
+The pipeline of pending pull requests and releases embodies the future trajectory of Harmony’s development:
+
+With components like Fast Sync Initial Version (#4465) and Adjustive Block Period (#4491), the network is poised to leap in synchronization speed and adaptive operation.
+
+HIP-30-related contributions (#4500, #4503, #4505) delineate the upcoming changes and improvements, marking a progressive step towards more effective and responsive protocol governance.
+
+Vision for Q4 2023: Utilization and Optimization
+Introduction
+As Harmony enters Q4 2023, the vision is crystallized around two pivotal themes: Utilization and Optimization. The quarter is anticipated to be a period where the foundational and innovative work done in the previous quarters will be leveraged and fine-tuned to offer unparalleled value and performance to the Harmony network and its users.
+
+Key Initiatives:
+While completing ongoing initiatives remains crucial, Q4 will introduce various strategic tasks to elevate Harmony’s performance, usability, and adoption in the DeFi space.
+
+HIP-31: Seasonal Engagement Update for Voting System
+Overview
+HIP-31 is a seminal proposal aimed at redefining the dynamics of the Harmony voting system to foster greater community engagement and representative governance. This initiative seeks to establish an activity threshold for validators, ensuring that the governance process reflects the views of active and engaged community members.
+
+Key Features
+6-Month Activity Threshold: Validators must participate in governance votes within a 6-month window to be eligible for stake weight consideration. This mechanism ensures that active validators significantly influence the network’s trajectory.
+
+Ineligible Voting Handling: Validators not meeting the activity threshold can still vote, reactivating their eligibility instantly. This inclusive approach ensures that no validator is permanently sidelined, promoting a dynamic and responsive governance ecosystem.
+
+Other Strategic Initiatives:
+External Validators: Engaging external entities as validators to increase network decentralization and security.
+
+Faster Syncing: Implementing mechanisms to accelerate the syncing process further, reducing the time and resources required for nodes to join and participate in the network.
+
+Account Abstraction with Bundlers: Introducing an abstraction layer with bundlers to simplify user interactions with smart contracts and facilitate more complex transaction types.
+
+Compound Finance Integration: Facilitating seamless interactions with Compound Finance to unlock additional liquidity and lending/borrowing options for Harmony users.
+
+DeFi Tool Suite: Developing and releasing tools designed to simplify and enhance the creation, deployment, and interaction with decentralized finance (DeFi) protocols on Harmony.
+
+AI Supporting Infrastructure: Building infrastructure that supports and integrates AI technologies, driving innovation and functionality in the Harmony ecosystem.
+
+Secret Leader Rotations: Implementing mechanisms for secure and undisclosed leader rotations, enhancing network security and resistance to malicious actors.
+
+Validator Fellows Program: Launching a program to support and engage new validators, fostering a vibrant and committed validator community.
+
+Conclusion & Forward Path
+With a vision firmly set on utilization and optimization, Q4 2023 is poised to be a transformative period for Harmony. The introduction of HIP-31, alongside other strategic initiatives, underscores the commitment to evolving and refining the network in response to community needs and the broader blockchain ecosystem. Each initiative, meticulously planned and executed, will make Harmony a more robust, user-friendly, and innovative blockchain platform.
+
+The journey through Q4 will be characterized by relentless development, community engagement, and the continuous pursuit of excellence and innovation. Harmony is not just anticipating the future; it is actively crafting it, with each line of code, each proposal, and each community interaction bringing the network closer to realizing its vision of an open, decentralized, and effective blockchain for all.
+
+Final Thoughts:
+Q3 encapsulates a period of relentless development, meticulous refinement, and proactive problem-solving. Each task, whether ongoing, completed, or pending, represents a cog in the intricate machinery of Harmony’s protocol. The convergence of these diverse initiatives underpins the network’s continual evolution towards a more secure, scalable, and user-centric decentralized platform.
+
+The dedicated efforts during this quarter fortify the protocol’s foundation for subsequent developments and innovations. As Harmony strides into Q4, the groundwork laid in the preceding months provides a resilient and adaptive infrastructure ready to navigate the dynamic landscape of blockchain technology and decentralized applications.
+
+This comprehensive report underscores the collective endeavor and commitment imbued in each line of code and every initiative undertaken. Through its sustained and focused engineering efforts, Harmony is witnessing and actively sculpting its trajectory toward becoming a leader in the web3 space, embodying efficiency, innovation, and integrity. The odyssey continues!
+
+In August 2023, ONE Bot was introduced on Telegram as a unified platform for accessing a wide array of AI models, agents, characters, and services. This tool provides users with functionalities such as private interactions with ChatGPT4, custom Stable Diffusion models, voice memo capabilities in Telegram groups, translation services, and pdf summarization, among others. Designed primarily for use within small social groups, ONE Bot aims to offer AI benefits that are practical and unobtrusive. While it is omnipresent within the platform, its design ensures it doesn't become a distraction, aiming to enhance both productivity and entertainment value for users. Instead of a fixed $20 monthly subscription, ONE Bot operates on a Pay-per-Use model, allowing users to be charged only for the specific services they utilize.
+
+
+From Web3 to Web∞: The Comprehensive Vision of ONE Bot🤖
+The vision of ONE Bot is deeply rooted in the transformative nature of Web3 and the evolving dynamics of online social interactions. Web3 offers a future where individuals can be anonymous in public forums, yet accrue a reputation that's solidified over time based on their actions and contributions. It's a space where anyone can join without seeking permission, but there are consequences for actions that breach community norms. Within this context, we are transitioning to a world of Web∞, characterized by the proliferation of AI bots and a myriad of small, specialized social groups that can include friends, coworkers, or customers. The era of being restricted to a few major centralized platforms with countless connections is fading. Instead, there's a growing emphasis on how these small groups manage the costs associated with AI bots and how they collaboratively generate value, fostering a rich community culture and shared wealth. ONE Bot epitomizes this shift. It can seamlessly integrate into any chat group, regardless of its purpose or the members' interests. The fluid nature of group membership in this context hints at a new paradigm where being part of a group suggests a stake in its assets, and engagement metrics, like emoji reactions, hint at governance models akin to multi-signatures.
+
+Harmony is more than just a system for transactions. It's designed to make online interactions more human-centered. Think of how a small team works best in a company. Just like Amazon believes that smaller groups are more effective, Harmony emphasizes the importance of close-knit online communities. The idea is simple: smaller groups communicate better and make decisions more effectively. So, with ONE Bot, the goal is to keep things clear and straightforward. It's about more than just numbers; it's about understanding and working together. We should always look beyond typical divisions, like political parties or countries, and focus on genuine collaboration and understanding.
+
+Revolutionizing Daily Interactions with AI on Telegram 🦾
+Telegram, with its open-source nature and an impressive base of 800 million active users, presents an ideal platform for the evolution of AI interaction through ONE Bot. This platform isn't just about sheer user numbers; its seamless synchronization across devices and systems, coupled with features like emoji reactions, link previews, and speedy media uploads, offers a user experience that is both efficient and delightful. These features, combined with in-window animations, amplify the engagement level for group chats. The introduction of ONE Bot by Harmony on Telegram encapsulates the potential of this synergy. Whether users wish to engage in an "Ask Me Anything" session with OpenAI ChatGPT-4 or create vivid imagery with Stable Diffusion XL, the commands are intuitive and user-friendly. With simple prompts like "/", ".", or ">", users can seamlessly navigate a myriad of AI functions. Beyond this, ONE Bot offers an expansive range of capabilities, from summarizing voice messages and generating artistic QR codes to facilitating wallet connections and token transactions. This aligns with the vision of making AI accessible and useful for varied aspects of users' lives, be it work or leisure. By integrating streaming payments with a choice of crypto wallet, as well as offering payment options via Stripe and Apple Pay, ONE Bot paves the way for a vibrant marketplace. This caters to model creators, bot tuners, and brand developers. In essence, ONE Bot on Telegram is not just an AI tool; it's a comprehensive ecosystem that transforms the way we perceive and interact with AI.
+
+Ready to dive into the future of AI interactions? Start your journey with ONE Bot today! Visit https://t.me/harmony1bot to get started.
+
+For a seamless experience, refer to the user guide provided below.

@@ -1,3 +1,7 @@
+## Table of Content
+[Overview](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#overview) \
+[Beginner Guide](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#beginner-guide) \
+[Log Interpreter](https://github.com/harmony-one/x/blob/main/voice/analytics/README.md#log-interpreter) 
 
 ## Overview
 all_stats currently pulls the following from the last 24 hours
@@ -16,7 +20,7 @@ App error stats from Sentry
 
 word_clou_generator.py generates a word cloud of most commonly used words in user queries from the last 24 hours. It omits commonly used non-meaningful words. This gives a quick overview of usage type. 
 
-## Beginner guide
+## Beginner Guide
 To install necessary libraries
 ```
 pip install -r requirements.txt
@@ -43,3 +47,9 @@ python3 all_stats.py
 ```
 
 To run `word_cloud_generator.py` as is, the font pack `arial-unicode-ms.ttf` must be in the same directory as well to handle non-latin character languages. You can find a download [here](https://www.download-free-fonts.com/details/88978/arial-unicode-ms)
+
+## Log Interpreter
+Run the following command from inside the analytics directory to get a parsed version of the log file titled `parsed_transcript.txt`.
+```
+python3 log_interpreter.py \path\to\transcript\text-44E9-BF84-7B-0.txt
+```

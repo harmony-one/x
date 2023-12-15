@@ -1,0 +1,198 @@
+
+Apple's iOS 17 was released on Sept. 18, shortly after the company held its "Wonderlust" event, where the tech giant announced the new iPhone 15 lineup, the Apple Watch Series 9 and the Apple Watch Ultra 2. We put together this cheat sheet to help you learn about and use the new features in iOS 17 and to help you keep track of the subsequent iOS 17 updates.
+Whether you bought one of the new iPhone 15 models or are holding on to a 5-year-old iPhone XS, you can download iOS 17 now. Apple released the operating system on Monday, Sept. 18 after introducing it at the company's Worldwide Developers Conference in June. 
+
+Read more: Hidden iOS 17 Settings and Features On Your iPhone
+
+I started beta testing versions of iOS 17 in July on a newer iPhone 14 Pro and an older iPhone XR to see how the latest OS will affect most people with compatible devices. The OS brings a lot of new and useful features to your iPhone, especially in Messages, which might make you wonder why those functions weren't there in the first place. Some apps, like Shortcuts, are less daunting than they were in previous iOS versions. 
+
+Screen of different iOS 17 updates
+Apple announced iOS 17 at WWDC in June.
+iOS 17 picks up visually where iOS 16 left off. Contact Posters in iOS 17 brings visuals to contacts similar to those iOS 16 brought to the lock screen. But I found Contact Posters more fun than useful. The largest visual change is StandBy mode, which turns your iPhone into a mini hub filled with widgets, photos and customizable clocks.
+
+iOS 17 will work on iPhone XS and newer models. But while the new software makes experiences seamless and less burdensome on older and newer iPhones alike, some features really shine on newer models, like the iPhone 14 Pro. That doesn't mean you should avoid iOS 17 if you have an older iPhone -- you'll still experience about 90% of iOS 17's benefits. StandBy mode, for example, worked on my XR, but with the display's sleep timer turned off, I had to lock my screen in order for it to work. Once in StandBy mode, the display goes to sleep a short time later.
+
+Now, let's get into some of my favorite iOS 17 features.
+
+StandBy mode is a standout
+When Apple announced StandBy mode at WWDC, I was skeptical. My wife and I don't have a smart display, like the Amazon Echo Show, or any other kind of supplementary hub in our home, and we've been just fine -- and yes, if you come by later, I'll probably be yelling about the weather. But StandBy mode is my favorite new iPhone feature in years, and it's not even close. 
+
+
+Sure, you could say StandBy mode makes your iPhone into an expensive bedside clock, but if you just use it as a clock, you're missing out on so much functionality. Interactive widgets on my screen made it easy to check the weather, read the latest headlines and much more. I could also change music playing through connected smart speakers without fishing my iPhone out of my pocket. 
+
+Notifications also showed up on my screen, and I could easily preview them without unlocking my iPhone. So when I got a notification from an app like Ring, I could quickly check if it's the mail person delivering a package or just a car driving down the road. And with Live Activities and StandBy mode combined, I could follow the score of an MLB game while I watched an NFL game on TV.
+
+StandBy mode even started to improve my relationship with my iPhone. Before iOS 17, if I got up from my desk to grab a snack or go to the bathroom, I'd make sure my iPhone was in my pocket -- and if it wasn't I'd immediately go into detective mode to find it and put it back where it belongs, my right front pocket. 
+
+Since I started using StandBy mode, I regularly leave my iPhone behind on its charging stand while I make another cup of coffee or grab the mail. When I notice it's not in my pocket, I might shrug and think, "It's on the charging stand. I'll grab it later," and those instances are getting more frequent. And I've welcomed this change. Disconnecting from our devices could have major health benefits, like reduced anxiety and depression, so whether Apple intended it to or not, StandBy mode could help improve your mental health. I certainly feel more relaxed.
+
+The iPhone on a MagSafe charger in StandBy mode
+When the iPhone is on a MagSafe charger and in a horizontal position, StandBy mode kicks in.
+But StandBy mode has room to improve. Currently there are a limited number of widgets that can be used with StandBy mode, and email widgets, like Mail, are sorely missing. Being able to quickly check your email, or any social media app, from StandBy mode would elevate the usefulness of this feature. I'm not seeing more widgets in the iOS 17 release candidate, but a Mail widget still might be included in the final version. If it's not, Apple should include it in an update soon.
+
+StandBy mode also works best on iPhones with always-on displays, like the iPhone 14 Pro. It will work on other iOS 17 compatible iPhones, like the iPhone XR, but only until your screen goes to sleep.
+
+Messages upgrades beyond autocorrect
+Yes, autocorrect will now learn from your messages so it won't correct you all the "ducking" time. Is this cool? Yeah. Am I immature? Also, yes. The cursing in my texts now flows without interruption or confusion. But more so, autocorrect has improved overall to better understand what you mean. It's also not as eager to correct things like acronyms or slang.
+
+The keyboard in Messages with the message sometimes autocorrect gets it wrong, and that's ok in the text field
+I could revert this correction, but autocorrect is right here.
+Messages also gets a host of other new features that make staying in contact with others easy and effortless, including an autocorrect undo function. "But wait, didn't you just say autocorrect will better understand what I mean and not correct me all the time?" Yes, dear reader, glad to see you're paying attention, but autocorrect still gets it wrong sometimes -- same here, autocorrect. When it does make a correction, Messages will underline the corrected word. If you tap the word, you'll be given the option to undo the correction, reverting it back to what you originally typed. 
+
+Another upgrade is a catch-up arrow in group chats. I go to sleep relatively early -- around 8:30 p.m. -- and sometimes, when I wake up, a group chat with my family or friends has 30 new messages. Instead of scrolling up to find the start of the messages, there's a new arrow that will take me to the first message in the conversation that I haven't read. This has saved me a lot of confusion about why my friend group can't meet up. However, this feature was present in early beta versions but not later versions. The catch-up arrow is expected to arrive in iOS 17 later this year.
+
+The app bar has been replaced with a drawer. Next to your message field, there's a plus sign button that you use to pull up iMessage apps like your Camera, Memoji and others. You can rearrange these, too, so apps that you use more, like the #images app, can be easily accessible. This is a small but helpful change. Before iOS 17, sometimes the app bar would disappear on me, and I'd have to swipe my screen up or down to bring it back. Now all the apps are in the same easy-to-find place.
+
+Create and send your own Live Stickers
+Digital stickers of a dog in iOS 17
+I mean, how could you not share that face?
+With iOS 16, Apple introduced the ability to lift a photo's subject from the background, giving you (mostly) clean-looking cutout pictures. With iOS 17, Apple lets you use these cutouts to create your own stickers, called Live Stickers. You can add different effects to your stickers, like a white outline or a holographic filter, to make your stickers standout. And you can make animated stickers from Live photos. 
+
+As a proud pup parent, I make and send more stickers of my dog than I'd like to admit. But I'll gladly share a small sample of the stickers of Cinnamon Toast Crunch -- yes, that's her name. Are these stickers useful? Not really, but I'm having fun with them.
+
+Read more: How to Create Your Own Live Stickers
+
+iOS 17 can automatically delete verification code messages
+Two-factor verification messages are a great way to improve security when logging into an account or service. You know what really annoys me about them though? All the random messages and emails that clutter my inboxes. But that's no longer a problem.
+
+With iOS 17, your Messages and Mail app can automatically delete two-factor verification codes once the code has been used to autofill its intended field. I love keeping all my inboxes clean and tidy, and this new feature is like a virtual Roomba that gets rid of those unnecessary messages as soon as they are used.
+
+Shortcuts improvements
+Some of the new Shortcuts shown on the Shortcuts homepage
+These are some of the possible Shortcuts you see when you open the app.
+Confession time: I never used Shortcuts on my iPhone before. Setting them up confused and frustrated me. The Shortcuts homepage intimidated me too, so I convinced myself that Shortcuts weren't worth it. But thanks to iOS 17, I changed my attitude and have already integrated a few into my everyday life. 
+
+For starters, Apple changed the Shortcuts homepage to show a handful of premade ones, like creating a new note in Notes, that you can easily add to your homepage with a long press. The new layout isn't as daunting, and should make it easier for others to see what Shortcuts can do.
+
+The camera level is a game-changer
+When I take photos or record videos for social media, I worry that they're not going to look straight. Before iOS 17, I'd try to line the grip up with a straight line in frame, but if I was out in nature I'd just try my best. 
+
+The level in the Camera app is yellow when the photo is straight
+The camera level is a small new feature, but I love it.
+In iOS 17, the Camera app has an onscreen level so you can straighten your videos and pictures. The level comes across the center of your screen as a thin white line but it turns yellow when it's level. It's helped me take straight photos, and I also used it to double-check whether a picture frame on my wall was level when hanging it. 
+
+Grocery lists in Reminders 
+I love grocery shopping. I like walking the aisles, finding my items and seeing all the people and what they've picked up. But what I don't like is forgetting an item on one side of the store after I've walked all the way across and picked up everything else I need. 
+
+Luckily, Reminders has a new feature that lets you create a grocery list separated into sections with headers like Produce, Breads & Cereals and Household items. The app automatically creates these sections as you add items and sorts them into the appropriate categories. The app even recognizes certain brand names, like Dr Pepper and Ritz, and sorts them appropriately, too. 
+
+iOS 17 features not available at launch
+The biggest iOS 17 feature that's not included at launch that I'm excited about is the Journal app. Apple announced the app at WWDC in June, saying it would be able to give you suggestions about what to journal about, keep your entries private and more. However, Apple said the Journal app would launch later this year. 
+
+iOS 17 journal app
+An early look at the Journal app from WWDC.
+Apple
+Collaborative Playlists in Apple Music collaborations aren't available with iOS 17 yet either. This feature is said to let people invite friends and family to edit playlists or react to certain tracks on the playlist. There's no word on when this feature will be available yet.
+
+Apple had also announced that AirDrop will be able to finish a file transfer when devices move out of range of each other on iOS 17. However, we're still waiting for word on when this will be available.
+
+The final word on iOS 17
+The latest iOS version brings a lot of functional improvements to your iPhone, even if you don't have the newest model. Not all the changes are big and flashy, like StandBy mode, but most feel meaningful.
+
+A few words of caution for when the new operating system arrives: Before you update your iPhone to iOS 17, you should back up your iPhone as a precaution. And while it might be tempting to download iOS 17 as soon as possible, you might want to wait a day or two to see if other people are having problems with their iPhones, and so that your device downloads the update faster. 
+
+For more Apple news, check out the iOS 17 cheat sheet and reviews for the iPhone 15, 15 Plus, 15 Pro and 15 Pro Max.
+
+
+
+Alongside the release of the iPhone 15 series and Apple Watch 9, September's Apple event brought us the release of iOS 17, the latest version of the iPhone's operating system. This latest version of iOS contains pretty major updates to existing apps like Messages, Maps and Siri, while also adding new features like StandBy Mode and NameDrop.
+
+Read more: 7 Hidden Features of iOS 17 That You Shouldn't Miss
+
+iOS 17 has been out for several weeks, but even if you didn't update right after it hit your phone, it's not too late to give it a try. However, before you jump right into updating, there are a few things you should know. Read on to learn everything you should do before installing iOS 17 on your iPhone.
+
+As long as you own an iPhone XS or later, you should be able to download iOS 17. Below is a full list of every iPhone compatible with Apple's new software update. And if your current phone isn't on the list, here are some more recent iPhone models to consider purchasing.
+
+iOS 17's Best New Features: StandBy Mode, Custom Message Stickers
+Apple's iOS 17 is now available to download, and it brings major quality-of-life improvements to your iPhone.
+
+
+Apple's iOS 17 is now available to download, bringing a wealth of new features for anyone with a compatible iPhone. The new software update arrives a week after Apple revealed its new iPhone 15 line, but iOS 17 is available for most iPhone models that have been released since 2018.
+
+iOS 17 was first revealed in June during Apple's annual Worldwide Developers Conference. iOS 17 brings changes to how you call, text and glance at information with updates to FaceTime, Messages and the phone app. There's a new StandBy mode, which turns your iPhone's lock screen into a mini hub similar to the Amazon Echo Show.
+
+Last year's software update, iOS 16, introduced the ability to edit or "unsend" messages you send via iMessage; Apple Pay Later; a major overhaul to the lock screen; revamped notifications; and Live Activities. These additions didn't all come out at once and were actually scattered over the course of smaller iOS software updates throughout the year.
+
+We can expect the same for iOS 17, but many of its best features are now available after making the update.
+
+Contact Posters
+Three iPhones, each showing a different Contact Poster
+Contact Posters aim to make your contact cards more compelling.
+Apple
+
+Last year we got customizable lock screens in iOS 16. This year, iOS 17 has a similar change for your iPhone's contact cards, to make them look more eye-catching. Contact Posters are beautiful treatments for contact photos and emoji paired with slick-looking fonts that show up when you get calls and for other services on your phone where you communicate and share.
+
+You can customize your Contact Poster similar to how you personalize your lock screen. Pick a photo, font and color and that's it.
+
+AirDrop gets easier to use
+Name Drop lets you share your Contact Poster with another iPhone simply by bringing them close together.
+iOS 17 brings an overhaul to AirDrop. You just need to bring your iPhone close to someone else's to share a Contact Poster, photos, videos or kick off a shared activity using Share Play. Of course, being Apple, there's a word for sharing your Contact Poster with someone new: NameDrop. What's nice, is that you can choose what contact info is shared. NameDrop works between iPhones or with an Apple Watch, too. It reminds me of "bumping" a contact in the early days of the iPhone.
+
+Standby turns your iPhone into an Amazon Echo Show
+An iPhone with its Standby screen active
+When the iPhone is on a MagSafe charger and in a horizontal position, StandBy mode kicks in.
+John Kim
+One of the biggest additions in iOS 17 is for when your iPhone isn't in your hand. When your iPhone is on its side while MagSafe charging, you get a new full screen experience with glanceable information. The feature is called Standby and mimics what many smart home devices can do, such as the Amazon Echo Show.
+
+The new screen shows the time, photos, widgets and Live Activities; nearly all of which can be personalized. It's a bit of a cross between the iPhone 14 Pro's always-on display and nightstand mode on the Apple Watch.
+
+Now Playing: WWDC 2023: Here Are All the Major iOS 17 Features
+06:31
+When you swipe to the side on the Standby screen, you can look at your favorite photos or moments. iOS 17 will also automatically shuffle images to find the one that takes the best advantage of the screen.
+
+Standby can also show glanceable widgets. For example, you can see the weather, your Apple Home smart controls or your favorite third-party widget. With support for live activities, you can also see the score of sporting events or the status of a food delivery. 
+
+One of the more curious features is that Standby can remember your preferred view "setup" for each place you charge via MagSafe.
+
+The new Journal app
+The icon for the new Journal app in iOS 17
+Apple
+iOS 17 brings a new Apple app called Journal that creates personalized suggestions to inspire writing. These suggestions are curated from information on your iPhone, like photos, location, music and workouts.
+
+Journal gives you the option to select a moment, like "morning visit, Ocean Beach," and start writing. You can also schedule notifications to remind you to write and get new prompts. You can flag important moments so that you can reflect on them later.
+
+Live Voicemail
+And iPhone with a Live Voicemail transcription
+Live Voicemail lets you preview a transcription in real time as a voicemail is being recorded.
+Another new talent iOS 17 has involves your voicemail. When someone calls you and leaves a message, you'll see a live transcription in real time as they speak. The new service is called Live Voicemail and it kind of feels like the days of answering machines, when my dad would screen a call. For Live Voicemail, you'll see the voicemail right on your screen so you can decide whether to step out and take the call. The feature is powered by your iPhone's neural engine in order to preserve your privacy. Live Voicemail seems identical to Call Screen on Google Pixel phones which isn't a bad thing.
+
+FaceTime messages
+iOS 17 will let you record a video message in FaceTime. It's a heavily requested feature that will ensure you can document and share important moments, even if someone misses your call.
+
+Messages Check In
+iOS 17 comes with a new location-sharing tool called Check In.
+Apple is expanding and simplifying its location sharing via Messages. The new feature, called Check In, is for letting a loved one know you made it to your destination safely. Whether you're walking home after dark or going for an early morning run, you can start a Check In with a family member or friend and as soon as you arrive home, it will automatically let your friend know. But if something unexpected happens, it can recognize that you're not near your destination and check in with you. If you don't respond, Check In can automatically share your current location, the route you took, your iPhone's battery level and cell service status; all of which is end-to-end encrypted.
+
+Messages get a handful of fixes and additions
+A message thread showing an audio recording and its transcription
+The Messages app will get transcriptions for audio messages in iOS 17.
+Apple
+The tried-and-true Messages app gets a handful of updates, including a visual overhaul of your iMessage apps which will no longer live above your keyboard and instead be accessible via a plus sign on the bottom left.
+
+Searching through your Messages becomes a lot easier on iOS 17 with the addition of filters. When you start a search in the Messages app, you will be able to add terms to narrow the results.
+
+Another welcome addition is transcription for audio messages. If you're someone who has friends or family members who send you audio messages, you'll be able to read a transcription of the recording right in the Messages app.
+
+There's also a new "catch up arrow" in Messages. It sits in the top right of your conversation and lets you jump to the first message you haven't read. This could be a killer feature for managing group chats. Apple also made inline replies faster. In iOS 17, you'll be able to just swipe to reply on any message bubble.
+
+Apple fixes 'ducking' autocorrect
+Autocorrect will become more intelligent and can fix more grammatical mistakes. Reverting words back to what you typed is easier. And apparently, autocorrect will learn and let you use curse words. Duck, yeah!
+
+An iPhone with the Stickers drawer in Messages open
+Messages adds a bunch of Sticker features.
+Apple
+iMessage stickers get a new drawer to bring all the stickers you've used into one place. And now emoji are stickers. You can peel and stick an emoji sticker to a message bubble, rotate and resize it. Last year in iOS 16, Apple introduced the ability to lift a subject from the background of a photo as part of Visual Lookup. With iOS 17, you can turn a photo's subject into a sticker in Messages. 
+
+The Stickers drawer also has a Live Stickers tab that lets you create a Sticker animation (aka a GIF) from a Live Photo. Stickers can be accessed system wide in things like Tapback, Markup and third-party apps; basically anywhere you can access emoji.
+
+Watch this: Apple Reveals iOS 17
+16:43
+But wait, there are more iOS 17 features
+As is typical with WWDC, there are a lot more additions and improvements to iOS 17 than Apple showed during the keynote. Some notable highlights include:
+
+Triggering Siri by just saying, "Siri" instead of "Hey, Siri"
+Download offline maps in the Maps app
+New profiles for Safari and your passwords
+Auto retrieval of one-time verification codes from the Mail app
+Interactive widgets (which was featured in-depth during the iPadOS portion)
+iOS 17 is now available to download from the Settings app on any compatible iPhone, including the iPhone XS, XR and newer, along with the 2020 iPhone SE.
