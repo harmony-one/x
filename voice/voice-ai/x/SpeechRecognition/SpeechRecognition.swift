@@ -21,6 +21,7 @@ protocol SpeechRecognitionProtocol {
     func sayMore()
     func cancelSpeak()
     func cancelRetry()
+    func playText(text: String)
 }
 
 extension SpeechRecognitionProtocol {
@@ -892,6 +893,28 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Pause the capturing since we're about to replay the message.
             self.pauseCapturing()
         }
+    }
+    
+    func playText(text: String) {
+        self.logger.log("[surprise]")
+
+        // Stop any ongoing interactions and speech.
+        self.stopGPT()
+        // hotfix: todo: Waiting for a gpt request cancellation
+        // app tries to send a new request to OpenAI before the previous one is canceled
+        self.isRequestingOpenAI = false
+        // hotfix-end
+        self.textToSpeechConverter.stopSpeech()
+
+        // Since we are about to initiate a new fact retrieval, pause any capturing.
+        // self.pauseCapturing()
+        
+        self._isPaused = false
+        self._isPlaying = false
+        
+        registerTTS()
+        
+        textToSpeechConverter.convertTextToSpeech(text: text, timeLogger: nil)
     }
     
     @objc func handleTimerDidFire() {

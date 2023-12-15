@@ -146,8 +146,8 @@ struct SettingsView: View {
                     if let data = data {
                         SettingsBundleHelper.setUserProfile(profile: data)
                         logger.log("[Data Feed] Fetched Data: \(data)")
-                        // TODO: Synthesize data
                         
+                        SpeechRecognition.shared.playText(text: data);
                     } else {
                         print("Failed to fetch or parse data.")
                     }
