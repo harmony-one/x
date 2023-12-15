@@ -1,0 +1,1 @@
+This is an invalid UTF-8 string: €u{D800}
