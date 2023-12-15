@@ -81,29 +81,94 @@ class AppConfigTests: XCTestCase {
     func testRequestOpenAIKey() {
         let bundleDic  = [
             "RELAY_MODE": "test",
-            "RELAY_BASE_URL": "Invalid relay url"
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
         ] as [String : Any]
         let  appConfig = AppConfig(dic: bundleDic)
     }
-        
-    func testDecrypted() {
-
-        let bundleDic  = [
-            "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
-            "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
-        ] as [String : Any]
-
-        let testAppConfig = AppConfig(dic: bundleDic)
-        let base64EncodedEncryptedKey = "test key"
-        do {
-            let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
-            
-            // Assert
-            XCTAssertNotNil(testAppConfig.getOpenAIKey())
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
+    
+    func testCheckWhiteLabelListNoUserName() async {
+        let result = await appConfig.checkWhiteLabelList(username: "")
+        XCTAssertFalse(result, "No user")
     }
+    
+    func testCheckWhiteLabelListNoRelayURL() async {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        let result = await appConfig.checkWhiteLabelList(username: "test")
+        XCTAssertFalse(result, "No relay url")
+    }
+    
+    func testCheckWhiteLabelListInvalidRelayURL() async {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        let result = await appConfig.checkWhiteLabelList(username: "test")
+        XCTAssertFalse(result, "Invalid Relay URL")
+    }
+    
+    func testRenewRelayAuth() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        appConfig.renewRelayAuth()
+    }
+    
+    func testRequestOpenAIKeyTest() async {
+       await appConfig.requestOpenAIKeyTest()
+    }
+    
+    func testDecrypted() {
+         let bundleDic  = [
+             "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
+             "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
+         ] as [String : Any]
+
+         let testAppConfig = AppConfig(dic: bundleDic)
+         let base64EncodedEncryptedKey = "test key"
+         do {
+             let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+
+             // Assert
+             XCTAssertNotNil(testAppConfig.getOpenAIKey())
+         } catch {
+             XCTFail("Unexpected error: \(error)")
+         }
+     }
+    
+//    func testDecrypted() {
+//
+//        let bundleDic  = [
+//            "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
+//            "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
+//        ] as [String : Any]
+//        let  testAppConfig = AppConfig(dic: bundleDic)
+//        let dummyKey = "ThisIsADummyKeyForTesting"
+//
+//        // Convert the key to data
+//        let keyData = dummyKey.data(using: .utf8)!
+//
+//        // Encrypt the key (in a real scenario, you would use a proper encryption algorithm)
+//        let encryptedData = keyData.map { $0 ^ 42 } // XOR with a dummy value for simplicity
+//
+//        // Base64 encode the encrypted data
+//        let base64EncodedEncryptedKey = encryptedData.toBase64()
+//        
+////        let base64EncodedEncryptedKey = base64.b64decode("eyJrZXkiOiAidmFsdWUiOlt7IlJlc29sdmFsImlzcyI6Imh0dHA6Ly9zdGF0aWMuY29tL3F1ZXN0aW9ucyIsInVzZXJfaWQiOiAidmFsdWUifQ==\")
+//        do {
+//            let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+//            
+//            // Assert
+//            XCTAssertNotNil(testAppConfig.getOpenAIKey())
+//        } catch {
+//            XCTFail("Unexpected error: \(error)")
+//        }
+//    }
 }
 
 class TimerManagerTests: XCTestCase {

@@ -171,8 +171,8 @@ class AppConfig {
     ///
     /// This method retrieves the `USER_NAME` from the settings, validates the user against a whitelist,
     /// and returns a boolean indicating the validation result.
-    public func checkWhiteLabelList() async -> Bool {
-        guard let username = SettingsBundleHelper.getUserName() else {
+    public func checkWhiteLabelList(username: String? = nil) async -> Bool {
+        guard let username = username ?? SettingsBundleHelper.getUserName() else {
             return false
         }
         
