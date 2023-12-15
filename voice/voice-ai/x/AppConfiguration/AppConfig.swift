@@ -30,6 +30,7 @@ class AppConfig {
     private var paymentMode: String?
     var themeName: String?
     private var mixpanelToken: String?
+    private var geminiApiKey: String?
     
     init() {
         loadConfiguration()
@@ -146,6 +147,7 @@ class AppConfig {
             serverAPIKey = dictionary["SERVER_API_KEY"] as? String
             paymentMode = (dictionary["PAYMENT_MODE"] as? String) ?? "sandbox"
             mixpanelToken = (dictionary["MIXPANEL_TOKEN"] as? String)
+            geminiApiKey = (dictionary["GEMINI_API_KEY"] as? String)
 
             // Convert the string values to Int
             if let eventsString = dictionary["MINIMUM_SIGNIFICANT_EVENTS"] as? String,
@@ -303,5 +305,9 @@ class AppConfig {
     
     func getMixpanelToken() -> String? {
         return mixpanelToken
+    }
+    
+    func getGeminiApiKey() -> String? {
+        return geminiApiKey
     }
 }
