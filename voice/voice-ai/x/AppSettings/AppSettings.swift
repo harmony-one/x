@@ -44,6 +44,13 @@ class AppSettings: ObservableObject {
         }
     }
     
+    
+    @Published var isMirror: Bool {
+        didSet {
+            updateUserDefaultsIfNeeded(forKey: "MIRROR_KEY", newValue: isMirror)
+        }
+    }
+    
     func showSettings(isOpened: Bool) {
         self.isOpened = isOpened
     }
@@ -70,6 +77,7 @@ class AppSettings: ObservableObject {
         customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? "N/A"
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "N/A"
         address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+        isMirror = UserDefaults.standard.bool(forKey: "MIRROR_KEY")
 
         // Register default values after initialization
         registerDefaultValues()
@@ -119,6 +127,8 @@ class AppSettings: ObservableObject {
         premiumUseExpires = UserDefaults.standard.string(forKey: "EXPIRE_AT") ?? localDate
         userName = UserDefaults.standard.string(forKey: "USER_NAME") ?? "User"
         address = UserDefaults.standard.string(forKey: "ADDRESS_KEY") ?? "N/A"
+        isMirror = UserDefaults.standard.bool(forKey: "MIRROR_KEY")
+
 
 //        customInstructions = UserDefaults.standard.string(forKey: "custom_instruction_preference") ?? String(localized: "customInstruction.default")
 
@@ -134,6 +144,12 @@ class AppSettings: ObservableObject {
     
     private func updateUserDefaultsIfNeeded(forKey key: String, newValue: String) {
         if UserDefaults.standard.string(forKey: key) != newValue {
+            UserDefaults.standard.set(newValue, forKey: key)
+        }
+    }
+    
+    private func updateUserDefaultsIfNeeded(forKey key: String, newValue: Bool) {
+        if UserDefaults.standard.bool(forKey: key) != newValue {
             UserDefaults.standard.set(newValue, forKey: key)
         }
     }
