@@ -3,7 +3,8 @@ import Combine
 @testable import Voice_AI
 import XCTest
 
-class MockSpeechRecognition: SpeechRecognitionProtocol {    
+class MockSpeechRecognition: SpeechRecognitionProtocol {
+    
     var isTriviaCalled: Bool = false
     var isPausedCalled: Bool = false
     var resetCalled: Bool = false
@@ -85,9 +86,7 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
         }
     }
     
-    func cancelRetry() {
-        
-    }
+    func cancelRetry() {}
     
     func stopSpeak(cancel: Bool?) {}
     
@@ -96,4 +95,6 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     func trivia() {
         isTriviaCalled = true
     }
+    
+    func playText(text: String) {}
 }

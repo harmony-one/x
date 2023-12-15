@@ -96,8 +96,28 @@ class TimeLoggerTests: XCTestCase {
     func testSetInferenceStats() {
         timeLogger.setInferenceStats()
         let values = timeLogger.getInferenceStats()
+        XCTAssertTrue(timeLogger.getLogged())
         XCTAssertNotEqual(timeLogger.getAppResFirst(), 0)
         XCTAssertNotEqual(timeLogger.getAppResEnd(), 0)
         XCTAssertTrue(!values.contains(where: { $0.value == nil }))
+    }
+    
+    func testSetInferenceStatsLoggedTrue() {
+        //perhaps adding a "called variable" in the return statement would be better?
+        XCTAssertFalse(timeLogger.getLogged())
+        timeLogger.setInferenceStats(test: true)
+        XCTAssertNotNil(timeLogger.getAppResFirst())
+        XCTAssertTrue(timeLogger.getLogged())
+        timeLogger.setInferenceStats()
+    }
+    
+    func testSendLog() {
+        XCTAssertFalse(timeLogger.getLogSend())
+        timeLogger.sendLog()
+        XCTAssertNotEqual(timeLogger.getTTSInit(), 0)
+        XCTAssertNotEqual(timeLogger.getTTSFirst(), 0)
+        XCTAssertNotEqual(timeLogger.getTTSEnd(), 0)
+        timeLogger.sendLog()
+        XCTAssertTrue(timeLogger.getLogSend())
     }
 }
