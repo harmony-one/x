@@ -22,6 +22,7 @@ protocol SpeechRecognitionProtocol {
     func cancelSpeak()
     func cancelRetry()
     func playText(text: String)
+    func talkToMe()
 }
 
 extension SpeechRecognitionProtocol {
@@ -895,8 +896,26 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
     }
     
+    func talkToMe() {
+        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+        } ?? SettingsBundleHelper.DefaultFollowNews
+
+        logger.log("[Data Feed] Populating User Field with \(followNews).")
+        DataFeed.shared.getData(followNews: followNews) {data in
+            if let data = data {
+                SettingsBundleHelper.setUserProfile(profile: data)
+                self.logger.log("[Data Feed] Fetched Data: \(data)")
+                
+                SpeechRecognition.shared.playText(text: data);
+            } else {
+                print("Failed to fetch or parse data.")
+            }
+        }
+    }
+    
     func playText(text: String) {
-        self.logger.log("[surprise]")
+        self.logger.log("[Play Text]")
 
         // Stop any ongoing interactions and speech.
         self.stopGPT()

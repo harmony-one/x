@@ -74,7 +74,7 @@ struct ActionsView: ActionsViewProtocol, View {
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: String(localized: "actionView.button.reset"), image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
         let buttonTapSpeak = ButtonData(label: String(localized: "actionView.button.tapSpeak"), pressedLabel: String(localized: "actionView.button.tapSpeak.send"), image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
-        let buttonSurprise = ButtonData(label: String(localized: "actionView.button.surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSurprise = ButtonData(label: String(localized: "actionView.button.talkToMe"), image: "\(themePrefix) - surprise me", action: .talkToMe, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: String(localized: "actionView.button.speak.hold"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: String(localized: "actionView.button.more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
         let buttonPlay = ButtonData(label: String(localized: "actionView.button.play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause", thinking: "\(themePrefix) - thinking")
