@@ -84,18 +84,6 @@ class StoreTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
     }
-    
-//    func testPurchase() {
-//        let expectation = XCTestExpectation(description: "Purchase")
-//
-//        Task {
-//            let result: () = await store.purchase(store.products[0])
-//            XCTAssertNotNil(result)
-//            expectation.fulfill()
-//        }
-//
-//        wait(for: [expectation], timeout: 10.0)
-//    }
 }
 
 //class ActivityIndicatorViewTests: XCTestCase {

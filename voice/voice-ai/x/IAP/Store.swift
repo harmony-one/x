@@ -38,7 +38,6 @@ class Store: ObservableObject {
     func requestProducts(simulateError: Bool = false) async {
         do {
             self.logger.log("[Store] \(self.productIDs, privacy: .public)")
-            print("simulateError: \(simulateError)")
             products = try await getProducts(simulateError: simulateError)
             self.logger.log("[Store] Products: \(self.products, privacy: .public)")
         } catch {
