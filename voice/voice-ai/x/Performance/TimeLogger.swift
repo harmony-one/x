@@ -97,6 +97,14 @@ class TimeLogger {
         return appResEndTimestamp
     }
     
+    func getLogged() -> Bool {
+        return logged
+    }
+    
+    func getLogSend() -> Bool {
+        return logSent
+    }
+    
     func getInferenceStats() -> [String: Any?] {
         var values: [String: Any?] = [:]
         
@@ -182,21 +190,23 @@ class TimeLogger {
         appResFirstTimestamp = now()
     }
 
-    func setAppResEnd() {
+    func setAppResEnd(test: Bool = false) {
         appResEndTimestamp = now()
-        if appResFirstTimestamp == 0 {
+        if appResFirstTimestamp == 0, !test {
             appResFirstTimestamp = appResEndTimestamp
         }
     }
     
-    func setInferenceStats(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
+    func setInferenceStats(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "", test: Bool = false) {
         if once, logged {
             return
         }
         if appResEndTimestamp == 0 {
-            setAppResEnd()
+            setAppResEnd(test: test)
         }
+        print("appRes: \(appResFirstTimestamp)")
         if appResFirstTimestamp == 0 {
+            print("called")
             appResFirstTimestamp = appResEndTimestamp
         }
         logged = true
