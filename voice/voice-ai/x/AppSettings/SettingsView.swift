@@ -279,15 +279,15 @@ struct SettingsView: View {
     }
 
     func shareLogs() {
-        DispatchQueue.main.async {
-            appSettings.isSharing = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            isShareLogs = true
-            logStore.export()
+        logStore.exportInBackground {
+            DispatchQueue.main.async {
+                // These state updates are now explicitly done on the main thread
+                isShareLogs = true
+                appSettings.isSharing = true
+            }
         }
     }
-
+    
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
 
