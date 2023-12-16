@@ -53,9 +53,12 @@ def write_to_outfile(log_file, out_filename):
     file_text.reverse()
 
     with open(out_filename, 'w') as outfile:
+        outfile.write("===== METRICS =====\n")
         outfile.write("Average Latency: " + str(total_latencies/num_latencies) + " secs\n")
         outfile.write("Total User Requests: " + str(total_requests) + "\n")
-        outfile.write("Total VoiceAI Responses: " + str(total_responses) + "\n\n")
+        outfile.write("Total VoiceAI Responses: " + str(total_responses) + "\n")
+        outfile.write("Session Length: ")
+        outfile.write("\n===== TRANSCRIPT =====\n")
 
         outfile.writelines(line + '\n\n' for line in file_text)
 
