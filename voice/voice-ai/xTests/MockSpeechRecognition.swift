@@ -96,4 +96,6 @@ class MockSpeechRecognition: SpeechRecognitionProtocol {
     }
     
     func playText(text: String) {}
+    
+    func talkToMe() {}
 }
