@@ -18,8 +18,16 @@ struct SettingsView: View {
     @State private var isShareLogs = false
 
     private var shareTitle = "hey @voiceaiapp "
-
     private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
+    
+    let alertManager = AlertManager(viewControllerProvider: {
+        // Find the active window scene and return its key window's root view controller
+        return UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .first(where: { $0.isKeyWindow })?.rootViewController
+    })
 
     var body: some View {
         ZStack {
@@ -255,7 +263,7 @@ struct SettingsView: View {
     func premiumVoices() {
         MixpanelManager.shared.trackEvent(name: "Premium Voices", properties: nil)
         let cancel = UIAlertAction(title: String(localized: "button.cancel"), style: .cancel)
-        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.premiumVoices.title"), message: String(localized: "settingsView.alert.premiumVoices.message"), actions: [cancel])
+        alertManager.showAlertForSettings(title: String(localized: "settingsView.alert.premiumVoices.title"), message: String(localized: "settingsView.alert.premiumVoices.message"), actions: [cancel])
         logger.log("Settings: Premium Voices clicked")
     }
 
@@ -273,7 +281,7 @@ struct SettingsView: View {
         MixpanelManager.shared.trackEvent(name: "Save Transcript", properties: nil)
         if SpeechRecognition.shared.conversation.isEmpty {
             let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
-            AlertManager.showAlertForSettings(title: "", message: String(localized: "settingsView.alert.noTranscriptAvailable.message"), actions: [okAction])
+            alertManager.showAlertForSettings(title: "", message: String(localized: "settingsView.alert.noTranscriptAvailable.message"), actions: [okAction])
             return
         }
         isSaveTranscript = true
@@ -393,7 +401,7 @@ struct SettingsView: View {
             // Handle sign out action here
             KeychainService.shared.clearAll()
         }
-        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
+        alertManager.showAlertForSettings(title: String(localized: "settingsView.alert.signOut.title"), message: String(localized: "settingsView.alert.signOut.message"), actions: [cancel, deleteAction])
     }
 
     func showDeleteAccountAlert() {
@@ -402,6 +410,6 @@ struct SettingsView: View {
             // Handle the deletion here
             deleteUserAccount()
         }
-        AlertManager.showAlertForSettings(title: String(localized: "settingsView.alert.deleteAccount.title"), message: String(localized: "settingsView.alert.deleteAccount.message"), actions: [cancel, deleteAction])
+        alertManager.showAlertForSettings(title: String(localized: "settingsView.alert.deleteAccount.title"), message: String(localized: "settingsView.alert.deleteAccount.message"), actions: [cancel, deleteAction])
     }
 }
