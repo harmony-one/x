@@ -1,22 +1,13 @@
 import {
-  AfterInsert,
-  AfterLoad,
-  AfterUpdate,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export enum UserStatus {
-  active = 'active',
-  deleted = 'deleted',
-}
-
-@Entity({ name: 'list_tweets' })
+@Entity({ name: 'tweets' })
 export class ListTweetEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')

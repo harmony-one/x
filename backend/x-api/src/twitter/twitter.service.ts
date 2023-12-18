@@ -1,12 +1,12 @@
 import {Injectable, Logger} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import axios from 'axios'
-import {GetListTweetsDto} from "./dto/list.dto";
-import {Cron, CronExpression, SchedulerRegistry} from "@nestjs/schedule";
+import {UpdateTwitterListDto} from "./dto/list.dto";
+import {CronExpression, SchedulerRegistry} from "@nestjs/schedule";
 import { CronJob } from 'cron';
-import {DataSource} from "typeorm";
-import {ListTweetEntity} from "../entities";
-import { TwitterListsService } from 'src/twitter-lists/twitter-lists.service';
+import {DataSource, Repository} from "typeorm";
+import {ListTweetEntity, TwitterListsEntity} from "../entities";
+import {InjectRepository} from "@nestjs/typeorm";
 
 export interface ListTweetsResponseItem {
   id: string
@@ -24,42 +24,47 @@ export interface ListTweetsResponse {
 export class TwitterService {
   logger = new Logger(TwitterService.name)
 
-  // twitterLists = [{
-  //   name: 'harmony_h',
-  //   id: '1735634638217875938'
-  // }, {
-  //   name: 'harmony_s',
-  //   id: '1735634855352832089'
-  // }, {
-  //   name: 'harmony_x',
-  //   id: '1735636432515903874'
-  // }, {
-  //   name: 'harmony_one',
-  //   id: '1735636547297333288'
-  // }, {
-  //   name: 'harmony_ai',
-  //   id: '1735637676743647429'
-  // }]
-
-  getTwitterLists = async () => {
-    return await this.twitterListsService.getTwitterLists();
-  }
+  defaultLists = [{
+    name: 'harmony_h',
+    listId: '1735634638217875938'
+  }, {
+    name: 'harmony_s',
+    listId: '1735634855352832089'
+  }, {
+    name: 'harmony_x',
+    listId: '1735636432515903874'
+  }, {
+    name: 'harmony_one',
+    listId: '1735636547297333288'
+  }, {
+    name: 'harmony_ai',
+    listId: '1735637676743647429'
+  }]
 
   constructor(
     private dataSource: DataSource,
     private readonly configService: ConfigService,
     private schedulerRegistry: SchedulerRegistry,
-    private readonly twitterListsService: TwitterListsService,
+    @InjectRepository(TwitterListsEntity)
+    private twitterListsRep: Repository<TwitterListsEntity>,
   ) {
     this.bootstrap()
   }
 
-  private bootstrap() {
-    const refetchTweetsJob = new CronJob(CronExpression.EVERY_30_MINUTES, () => {
-      this.refetchTweetLists()
-    });
-    this.schedulerRegistry.addCronJob('update_twitter_lists', refetchTweetsJob)
-    this.refetchTweetLists()
+  private async bootstrap() {
+    // for(let twitterList of this.defaultLists) {
+    //   const { listId, name } = twitterList
+    //   const existedList = await this.getTwitterList({ listId })
+    //   if(!existedList) {
+    //     await this.createTwitterList(twitterList)
+    //     this.logger.log(`Created default twitter list ${name} ${listId}`)
+    //   }
+    // }
+    // const refetchTweetsJob = new CronJob(CronExpression.EVERY_30_MINUTES, () => {
+    //   this.refetchTweetLists()
+    // });
+    // this.schedulerRegistry.addCronJob('update_twitter_lists', refetchTweetsJob)
+    // this.refetchTweetLists()
   }
 
   // @Cron(CronExpression.EVERY_30_MINUTES, {
@@ -75,10 +80,10 @@ export class TwitterService {
 
     for(let list of twitterLists) {
       try {
-        await this.updateListTweets(list.id)
-        this.logger.log(`Successfully updated list ${list.id} ${list.name}`)
+        await this.updateListTweets(list.listId)
+        this.logger.log(`Successfully updated list ${list.listId} ${list.name}`)
       } catch (e) {
-        this.logger.error(`Cannot update twitter list data: ${list.id} ${list.name}: ${(e as Error).message}`)
+        this.logger.error(`Cannot update twitter list data: ${list.listId} ${list.name}: ${(e as Error).message}`)
       }
     }
 
@@ -94,11 +99,11 @@ export class TwitterService {
       listId
     });
 
-    for(let listTweet of tweetsData.data) {
+    for(let tweet of tweetsData.data) {
       await this.dataSource.manager.insert(ListTweetEntity, {
         listId,
-        tweetId: listTweet.id,
-        text: listTweet.text
+        tweetId: tweet.id,
+        text: tweet.text
       });
     }
   }
@@ -115,7 +120,15 @@ export class TwitterService {
   }
 
   public getListByName(name: string) {
-    return this.twitterListsService.getTwitterList({ name })
+    return this.getTwitterList({ name })
+  }
+
+  async getTwitterList(params?: { listId?: string, name?: string }) {
+    return await this.twitterListsRep.findOneBy(params);
+  }
+
+  async getTwitterLists() {
+    return await this.twitterListsRep.find();
   }
 
   public async getListTweets(listId: string) {
@@ -128,5 +141,20 @@ export class TwitterService {
         createdAt: 'desc',
       },
     })
+  }
+
+  async createTwitterList(params: { listId: string, name: string }) {
+    return await this.twitterListsRep.save(params);
+  }
+
+  async updateTwitterList(listId: string, params: UpdateTwitterListDto) {
+    const twitterList = await this.twitterListsRep.findOneBy({ listId });
+    return await this.twitterListsRep.update(twitterList, params);
+  }
+
+  async deleteTwitterList(listId: string) {
+    return await this.twitterListsRep.delete({
+      listId
+    });
   }
 }
