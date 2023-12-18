@@ -22,7 +22,7 @@ export class TwitterController {
   @UsePipes(new ValidationPipe({ transform: true }))
   async getListByName(@Param() params: { name: string }) {
     const { name } = params
-    const list = this.twitterService.getListByName(name)
+    const list = await this.twitterService.getListByName(name)
     if(list) {
       return await this.twitterService.getListTweets(list.id)
     }
