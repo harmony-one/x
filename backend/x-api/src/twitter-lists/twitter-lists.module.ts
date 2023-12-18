@@ -8,5 +8,6 @@ import { TwitterListsEntity } from 'src/entities';
     TypeOrmModule.forFeature([TwitterListsEntity]),
   ],
   providers: [TwitterListsService],
+  exports: [TwitterListsService]
 })
 export class TwitterListsModule {}
