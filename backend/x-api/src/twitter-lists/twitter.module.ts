@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TwitterListsService } from './twitter-lists.service';
-import { TwitterListsController } from './twitter-lists.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TwitterListsEntity } from 'src/entities';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([TwitterListsEntity]),
+  ],
   providers: [TwitterListsService],
-  controllers: [TwitterListsController]
 })
 export class TwitterListsModule {}

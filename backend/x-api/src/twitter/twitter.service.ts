@@ -6,6 +6,7 @@ import {Cron, CronExpression, SchedulerRegistry} from "@nestjs/schedule";
 import { CronJob } from 'cron';
 import {DataSource} from "typeorm";
 import {ListTweetEntity} from "../entities";
+import { TwitterListsService } from 'src/twitter-lists/twitter-lists.service';
 
 export interface ListTweetsResponseItem {
   id: string
@@ -23,27 +24,32 @@ export interface ListTweetsResponse {
 export class TwitterService {
   logger = new Logger(TwitterService.name)
 
-  twitterLists = [{
-    name: 'harmony_h',
-    id: '1735634638217875938'
-  }, {
-    name: 'harmony_s',
-    id: '1735634855352832089'
-  }, {
-    name: 'harmony_x',
-    id: '1735636432515903874'
-  }, {
-    name: 'harmony_one',
-    id: '1735636547297333288'
-  }, {
-    name: 'harmony_ai',
-    id: '1735637676743647429'
-  }]
+  // twitterLists = [{
+  //   name: 'harmony_h',
+  //   id: '1735634638217875938'
+  // }, {
+  //   name: 'harmony_s',
+  //   id: '1735634855352832089'
+  // }, {
+  //   name: 'harmony_x',
+  //   id: '1735636432515903874'
+  // }, {
+  //   name: 'harmony_one',
+  //   id: '1735636547297333288'
+  // }, {
+  //   name: 'harmony_ai',
+  //   id: '1735637676743647429'
+  // }]
+
+  getTwitterLists = async () => {
+    return await this.twitterListsService.getTwitterLists();
+  }
 
   constructor(
     private dataSource: DataSource,
     private readonly configService: ConfigService,
-    private schedulerRegistry: SchedulerRegistry
+    private schedulerRegistry: SchedulerRegistry,
+    private readonly twitterListsService: TwitterListsService,
   ) {
     this.bootstrap()
   }
@@ -63,9 +69,11 @@ export class TwitterService {
     const job = this.schedulerRegistry.getCronJob('update_twitter_lists');
     job.stop();
 
-    this.logger.log(`Run scheduled tweeter list update: ${this.twitterLists.length} lists`)
+    const twitterLists = await this.getTwitterLists();
 
-    for(let list of this.twitterLists) {
+    this.logger.log(`Run scheduled tweeter list update: ${twitterLists.length} lists`)
+
+    for(let list of twitterLists) {
       try {
         await this.updateListTweets(list.id)
         this.logger.log(`Successfully updated list ${list.id} ${list.name}`)
@@ -107,7 +115,7 @@ export class TwitterService {
   }
 
   public getListByName(name: string) {
-    return this.twitterLists.find(list => list.name === name.toLowerCase())
+    return this.twitterListsService.getTwitterList({ name })
   }
 
   public async getListTweets(listId: string) {

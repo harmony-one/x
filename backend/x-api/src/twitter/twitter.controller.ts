@@ -9,7 +9,7 @@ export class TwitterController {
 
   @Get('/lists')
   getLists() {
-    return this.twitterService.twitterLists
+    return this.twitterService.getTwitterLists();
   }
 
   @Get('/list/:name')
