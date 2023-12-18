@@ -1,4 +1,8 @@
-2023-12-15: Filmed and uploaded 'Talk to ME' [Youtube short](https://youtube.com/shorts/eCohbwTk4_g?si=AEndiibOxQkwZgWH) showcasing soccer, will be uploading Theo's tomorrow. Updated harmony.one, shared to tgi. Shared protocol news with the community, discussing upcoming hard fork. Conducted design research for new Lend logo.
+2023-12-17 Sun: Created [figma file](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=sWKeadxCotXJU9w9-1) evaulating other designs of crypto bridging platforms. Collected VoiceAI data
+
+2023-12-16 Sat: Edited Theo's YT short, uploaded [here]().
+
+2023-12-15 Fri: Filmed and uploaded 'Talk to ME' [Youtube short](https://youtube.com/shorts/eCohbwTk4_g?si=AEndiibOxQkwZgWH) showcasing soccer, will be uploading Theo's tomorrow. Updated harmony.one, shared to tgi. Shared protocol news with the community, discussing upcoming hard fork. Conducted design research for new Lend logo.
 
 2023-12-14 Thu: Created [trivia promotion art](https://x.com/harmonyprotocol/status/1735460912524669144?s=20) using Midjourney and Photoshop beta. Selected and uploaded recent soccer news to promote on "Talk to ME!". Filmed VoiceAI Trivia demo & began editing. Promoted Swap on twitter in community discussion.
 
