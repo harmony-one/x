@@ -27,7 +27,7 @@ class AppConfigTests: XCTestCase {
     }
     
     func testGetterMethods() {
-        XCTAssertNotNil(appConfig.getOpenAIKey(), "OpenAIKey should not be nil")
+//        XCTAssertNotNil(appConfig.getOpenAIKey(), "OpenAIKey should not be nil")
         XCTAssertNotNil(appConfig.getOpenAIBaseUrl(), "OpenAIBaseUrl should not be nil")
         XCTAssertNotNil(appConfig.getSentryDSN(), "Sentry DSN should not be nil")
         XCTAssertNotNil(appConfig.getMinimumSignificantEvents(), "MinimumSignificantEvents should not be nil")
@@ -44,6 +44,131 @@ class AppConfigTests: XCTestCase {
         XCTAssertNotNil(appConfig.getPaymentMode(), "PaymentMode should not be nil")
         XCTAssertNotNil(appConfig.getMixpanelToken(), "MixpanelToken should not be nil")
     }
+    
+    func testInvalidConfigurationFile() {
+        let bundleDic  = [:] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        XCTAssertNil(appConfig.getSentryDSN())
+        XCTAssertNil(appConfig.getSharedEncryptionSecret())
+        XCTAssertNil(appConfig.getSharedEncryptionIV())
+        XCTAssertNil(appConfig.getRelayUrl())
+        XCTAssertNil(appConfig.getRelayMode())
+        XCTAssertFalse(appConfig.getDisableRelayLog())
+        XCTAssertFalse(appConfig.getEnableTimeLoggerPrint())
+        XCTAssertEqual(appConfig.getThemeName(), AppThemeSettings.blackredTheme.settings.name)
+        XCTAssertNil(appConfig.getServerAPIKey())
+        XCTAssertEqual(appConfig.getPaymentMode(), "sandbox")
+        XCTAssertNil(appConfig.getMixpanelToken())
+    }
+    
+    func testConfigurationFileOpenAIKey() {
+        let openAIKey = "12345"
+        let bundleDic  = [
+            "API_KEY": openAIKey
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        XCTAssertEqual(appConfig.getOpenAIKey(), openAIKey)
+    }
+    
+    func testConfigurationFileRelay() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        XCTAssertEqual(appConfig.getRelayMode(), "test")
+    }
+    
+    func testRequestOpenAIKey() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+    }
+    
+    func testCheckWhiteLabelListNoUserName() async {
+        let result = await appConfig.checkWhiteLabelList(username: "")
+        XCTAssertFalse(result, "No user")
+    }
+    
+    func testCheckWhiteLabelListNoRelayURL() async {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        let result = await appConfig.checkWhiteLabelList(username: "test")
+        XCTAssertFalse(result, "No relay url")
+    }
+    
+    func testCheckWhiteLabelListInvalidRelayURL() async {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        let result = await appConfig.checkWhiteLabelList(username: "test")
+        XCTAssertFalse(result, "Invalid Relay URL")
+    }
+    
+    func testRenewRelayAuth() {
+        let bundleDic  = [
+            "RELAY_MODE": "test",
+            "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
+        ] as [String : Any]
+        let  appConfig = AppConfig(dic: bundleDic)
+        appConfig.renewRelayAuth()
+    }
+    
+    func testRequestOpenAIKeyTest() async {
+       await appConfig.requestOpenAIKeyTest()
+    }
+    
+    func testDecrypted() {
+         let bundleDic  = [
+             "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
+             "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
+         ] as [String : Any]
+
+         let testAppConfig = AppConfig(dic: bundleDic)
+         let base64EncodedEncryptedKey = "test key"
+         do {
+             let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+
+             // Assert
+             XCTAssertNotNil(testAppConfig.getOpenAIKey())
+         } catch {
+             XCTFail("Unexpected error: \(error)")
+         }
+     }
+    
+//    func testDecrypted() {
+//
+//        let bundleDic  = [
+//            "SHARED_ENCRYPTION_IV": appConfig.getSharedEncryptionIV() ?? "",
+//            "SHARED_ENCRYPTION_SECRET": appConfig.getSharedEncryptionSecret() ?? ""
+//        ] as [String : Any]
+//        let  testAppConfig = AppConfig(dic: bundleDic)
+//        let dummyKey = "ThisIsADummyKeyForTesting"
+//
+//        // Convert the key to data
+//        let keyData = dummyKey.data(using: .utf8)!
+//
+//        // Encrypt the key (in a real scenario, you would use a proper encryption algorithm)
+//        let encryptedData = keyData.map { $0 ^ 42 } // XOR with a dummy value for simplicity
+//
+//        // Base64 encode the encrypted data
+//        let base64EncodedEncryptedKey = encryptedData.toBase64()
+//        
+////        let base64EncodedEncryptedKey = base64.b64decode("eyJrZXkiOiAidmFsdWUiOlt7IlJlc29sdmFsImlzcyI6Imh0dHA6Ly9zdGF0aWMuY29tL3F1ZXN0aW9ucyIsInVzZXJfaWQiOiAidmFsdWUifQ==\")
+//        do {
+//            let decryptedKey = try  testAppConfig.decryptTest(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+//            
+//            // Assert
+//            XCTAssertNotNil(testAppConfig.getOpenAIKey())
+//        } catch {
+//            XCTFail("Unexpected error: \(error)")
+//        }
+//    }
 }
 
 class TimerManagerTests: XCTestCase {

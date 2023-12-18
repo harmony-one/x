@@ -22,63 +22,49 @@ struct ActionsView: ActionsViewProtocol, View {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "[ActionsView]")
     )
-    @StateObject var actionHandler: ActionHandler
     
     let config = AppConfig.shared
-    @State var currentTheme: Theme = .init()
-
-    // var dismissAction: () -> Void
+    let oneValue = "2111.01 ONE "
+    var buttonsPortrait: [ButtonData] = []
+    var buttonsLandscape: [ButtonData] = []
+    var mirrorButtons: [ButtonData] = []
+    let maxResetClicks = 20
     let buttonSize: CGFloat = 100
     let imageTextSpacing: CGFloat = 30
+    
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.scenePhase) private var scenePhase
-    @State private var isRecording = false
-    @State private var isRecordingContinued = false
-    
-    @State private var isLongPress = false
-
-    // need it to sync speak button animation with pause button
-    @State private var isSpeakButtonPressed = false
-
-    @State private var isTapToSpeakActive = false
-    @State private var tapToSpeakDebounceTimer: Timer?
-    
-    @State private var lastButtonPressed: ActionType?
-
-    @State var isSurpriseButtonPressed = true
-    @State private var orientation = UIDevice.current.orientation
-    
     @EnvironmentObject var store: Store
     @EnvironmentObject var appSettings: AppSettings
-    @State private var skipPressedTimer: Timer?
+    @ObservedObject var speechRecognition = SpeechRecognition.shared
+    @StateObject var actionHandler: ActionHandler
 
+    @State private var isRecording = false
+    @State private var isRecordingContinued = false
+    @State var currentTheme: Theme = .init()
+    @State private var isLongPress = false
+    // need it to sync speak button animation with pause button
+    @State private var isSpeakButtonPressed = false
+    @State private var isTapToSpeakActive = false
+    @State private var tapToSpeakDebounceTimer: Timer?
+    @State private var lastButtonPressed: ActionType?
+    @State var isSurpriseButtonPressed = true
+    @State private var orientation = UIDevice.current.orientation
+    @State private var skipPressedTimer: Timer?
     @State private var buttonFrame: CGRect = .zero
     @State private var tapCount: Int = 0
-
     @State private var showShareSheet: Bool = false
     @State private var showShareAlert: Bool = false
     @State private var showNewAppVersionAlert: Bool = false
     @State private var newAppVersion: String?
-
-    static var generator: UIImpactFeedbackGenerator?
-
-    static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
-
-    @ObservedObject var speechRecognition = SpeechRecognition.shared
-
-    let oneValue = "2111.01 ONE "
-
-    var buttonsPortrait: [ButtonData] = []
-    var buttonsLandscape: [ButtonData] = []
-
     @State private var storage = Set<AnyCancellable>()
-
     @State private var keyWindow: UIWindow?
-
-    let maxResetClicks = 20
     @State private var resetClickCounter = 0
 
+    static var generator: UIImpactFeedbackGenerator?
+    static let DelayBeforeShowingAlert: TimeInterval = 600 // seconds
+    
     init(actionHandler: ActionHandlerProtocol? = nil) {
         _actionHandler = StateObject(wrappedValue: actionHandler as? ActionHandler ?? ActionHandler())
 
@@ -88,7 +74,7 @@ struct ActionsView: ActionsViewProtocol, View {
         let themePrefix = currentTheme.name
         let buttonReset = ButtonData(label: String(localized: "actionView.button.reset"), image: "\(themePrefix) - new session", action: .reset, testId: "button-newSession")
         let buttonTapSpeak = ButtonData(label: String(localized: "actionView.button.tapSpeak"), pressedLabel: String(localized: "actionView.button.tapSpeak.send"), image: "\(themePrefix) - square", action: .speak, testId: "button-tapToSpeak")
-        let buttonSurprise = ButtonData(label: String(localized: "actionView.button.surprise"), image: "\(themePrefix) - surprise me", action: .surprise, testId: "button-surpriseMe")
+        let buttonSurprise = ButtonData(label: String(localized: "actionView.button.talkToMe"), image: "\(themePrefix) - surprise me", action: .talkToMe, testId: "button-surpriseMe")
         let buttonSpeak = ButtonData(label: String(localized: "actionView.button.speak.hold"), image: "\(themePrefix) - press & hold", action: .speak, testId: "button-press&hold")
         let buttonMore = ButtonData(label: String(localized: "actionView.button.more"), image: "\(themePrefix) - more action", action: .openSettings, testId: "button-more")
         let buttonPlay = ButtonData(label: String(localized: "actionView.button.play"), image: "\(themePrefix) - pause play", pressedImage: "\(themePrefix) - play", action: .play, testId: "button-playPause", thinking: "\(themePrefix) - thinking")
@@ -101,6 +87,15 @@ struct ActionsView: ActionsViewProtocol, View {
             /*buttonRepeat*/
             buttonMore,
             buttonPlay
+        ]
+        
+        mirrorButtons = [
+            buttonTapSpeak,
+            buttonReset,
+            buttonSpeak,
+            buttonSurprise,
+            buttonPlay,
+            buttonMore
         ]
 
         // v1
@@ -124,7 +119,7 @@ struct ActionsView: ActionsViewProtocol, View {
     
     var body: some View {
         let isLandscape = verticalSizeClass == .compact ? true : false
-        let buttons = isLandscape ? buttonsLandscape : buttonsPortrait
+        let buttons = isLandscape ? buttonsLandscape : appSettings.isMirror ? mirrorButtons : buttonsPortrait
         let colums = isLandscape ? 3 : 2
         Group {
             if appSettings.isSharing {

@@ -136,23 +136,24 @@ struct SettingsView: View {
             .cancel({
                 appSettings.showSettings(isOpened: false)
             }),
-            .default(Text("settingsView.mainMenu.talkToME")) {
-                let followNews = SettingsBundleHelper.getFollowNews().flatMap {
-                    $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
-                } ?? SettingsBundleHelper.DefaultFollowNews
-
-                logger.log("[Data Feed] Populating User Field with \(followNews).")
-                DataFeed.shared.getData(followNews: followNews) {data in
-                    if let data = data {
-                        SettingsBundleHelper.setUserProfile(profile: data)
-                        logger.log("[Data Feed] Fetched Data: \(data)")
-                        // TODO: Synthesize data
-                        
-                    } else {
-                        print("Failed to fetch or parse data.")
-                    }
-                }
-            },
+            // Moved to main board "Suprise ME!" -> "Talk to ME!"
+//            .default(Text("settingsView.mainMenu.talkToME")) {
+//                let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+//                    $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+//                } ?? SettingsBundleHelper.DefaultFollowNews
+//
+//                logger.log("[Data Feed] Populating User Field with \(followNews).")
+//                DataFeed.shared.getData(followNews: followNews) {data in
+//                    if let data = data {
+//                        SettingsBundleHelper.setUserProfile(profile: data)
+//                        logger.log("[Data Feed] Fetched Data: \(data)")
+//                        
+//                        SpeechRecognition.shared.playText(text: data);
+//                    } else {
+//                        print("Failed to fetch or parse data.")
+//                    }
+//                }
+//            },
             .default(Text("settingsView.mainMenu.customInstructions")) { openSystemSettings() },
             .default(Text("settingsView.mainMenu.shareAppLink")) { self.showShareSheet = true },
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
@@ -279,15 +280,15 @@ struct SettingsView: View {
     }
 
     func shareLogs() {
-        DispatchQueue.main.async {
-            appSettings.isSharing = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            isShareLogs = true
-            logStore.export()
+        logStore.exportInBackground {
+            DispatchQueue.main.async {
+                // These state updates are now explicitly done on the main thread
+                isShareLogs = true
+                appSettings.isSharing = true
+            }
         }
     }
-
+    
     func convertMessagesToTranscript(messages: [Message]) -> String {
         var transcript = ""
 

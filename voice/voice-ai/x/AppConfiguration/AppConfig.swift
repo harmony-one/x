@@ -31,8 +31,8 @@ class AppConfig {
     var themeName: String?
     private var mixpanelToken: String?
     
-    init() {
-        loadConfiguration()
+    init(dic: [String: Any]? = nil) {
+        loadConfiguration(dic: dic)
         
         if openaiKey != nil, openaiKey != "" {
             // if a local key is assigned (for debugging), do not request from server
@@ -117,8 +117,8 @@ class AppConfig {
         task.resume()
     }
     
-    private func loadConfiguration() {
-        guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else {
+    private func loadConfiguration(dic: [String: Any]? = nil) {
+        guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else { // Bundle.main.path
             fatalError("Unable to locate plist file")
         }
         
@@ -126,7 +126,7 @@ class AppConfig {
         
         do {
             let data = try Data(contentsOf: fileURL)
-            guard let dictionary = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
+            guard let dictionary = try dic ?? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
                 fatalError("Unable to convert plist into dictionary")
             }
             
@@ -171,8 +171,8 @@ class AppConfig {
     ///
     /// This method retrieves the `USER_NAME` from the settings, validates the user against a whitelist,
     /// and returns a boolean indicating the validation result.
-    public func checkWhiteLabelList() async -> Bool {
-        guard let username = SettingsBundleHelper.getUserName() else {
+    public func checkWhiteLabelList(username: String? = nil) async -> Bool {
+        guard let username = username ?? SettingsBundleHelper.getUserName() else {
             return false
         }
         
@@ -303,5 +303,15 @@ class AppConfig {
     
     func getMixpanelToken() -> String? {
         return mixpanelToken
+    }
+}
+
+extension AppConfig {
+    func decryptTest(base64EncodedEncryptedKey: String) throws -> String {
+        return try self.decrypt(base64EncodedEncryptedKey: base64EncodedEncryptedKey)
+    }
+    
+    func requestOpenAIKeyTest() async {
+        await self.requestOpenAIKey()
     }
 }

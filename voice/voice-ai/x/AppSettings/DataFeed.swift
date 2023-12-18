@@ -4,10 +4,15 @@ class DataFeed {
     static let shared = DataFeed()
     
     var newsMap = [
-        "BTC": "https://github.com/harmony-one/x/blob/main/data/btc.txt",
-        "ONE": "https://github.com/harmony-one/x/blob/main/data/one.txt",
+        // Industry
         "APPL": "https://github.com/harmony-one/x/blob/main/data/appl.txt",
-        "SOCCER": "https://github.com/harmony-one/x/blob/main/data/soccer.txt"
+        "BTC": "https://github.com/harmony-one/x/blob/main/data/btc.txt",
+        "ETH": "https://github.com/harmony-one/x/blob/main/data/eth.txt",
+        "ONE": "https://github.com/harmony-one/x/blob/main/data/one.txt",
+        
+        // Hobby
+        "SOCCER": "https://github.com/harmony-one/x/blob/main/data/soccer.txt",
+        "MUSIC": "https://github.com/harmony-one/x/blob/main/data/music.txt"
     ]
 
     // If "followNews" is not part of the newsMap, the preexisting value will remain

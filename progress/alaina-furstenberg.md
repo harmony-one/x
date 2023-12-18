@@ -1,3 +1,5 @@
+2023-12-15: Filmed and uploaded 'Talk to ME' [Youtube short](https://youtube.com/shorts/eCohbwTk4_g?si=AEndiibOxQkwZgWH) showcasing soccer, will be uploading Theo's tomorrow. Updated harmony.one, shared to tgi. Shared protocol news with the community, discussing upcoming hard fork. Conducted design research for new Lend logo.
+
 2023-12-14 Thu: Created [trivia promotion art](https://x.com/harmonyprotocol/status/1735460912524669144?s=20) using Midjourney and Photoshop beta. Selected and uploaded recent soccer news to promote on "Talk to ME!". Filmed VoiceAI Trivia demo & began editing. Promoted Swap on twitter in community discussion.
 
 2023-12-13 Wed: Created 'Harmonaut' community art using Photoshop/Midjourney & shared via [Twitter](https://x.com/des1gnsoup/status/1735101572479422728?s=20) to the community. Created Linea x Timeless artwork & shared on [Twitter](https://x.com/harmonyprotocol/status/1735074959691764148?s=20). Created more generations on Midjourney for future use, planned Youtube Shorts demo to be filmed tomorrow showcasing "Trivia" feature, and tested bridge ONE > Linea.

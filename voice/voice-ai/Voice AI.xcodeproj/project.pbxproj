@@ -126,6 +126,7 @@
 		B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */; };
 		B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */; };
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
+		B36D4C4D2B292A8600915F27 /* TriviaManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D4C4C2B292A8600915F27 /* TriviaManagerTests.swift */; };
 		B36D4C502B29654900915F27 /* DataFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D4C4F2B29654900915F27 /* DataFeedTests.swift */; };
 		B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
@@ -416,6 +417,7 @@
 		AC66DF2F2B2706E100DDC802 /* RandomTrivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTrivia.swift; sourceTree = "<group>"; };
 		B31C42F22B0AB227005B4AA9 /* ActionsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewTests.swift; sourceTree = "<group>"; };
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B36D4C4C2B292A8600915F27 /* TriviaManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaManagerTests.swift; sourceTree = "<group>"; };
 		B36D4C4F2B29654900915F27 /* DataFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFeedTests.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
@@ -937,6 +939,7 @@
 				F6EEF28E2B1E735900174CED /* CustomInstructionsHandlerTests.swift */,
 				F712228C2B1EB885005A5602 /* TextsTests.swift */,
 				F76AE4972B213EE3002CA57E /* IntentsTests.swift */,
+				B36D4C4C2B292A8600915F27 /* TriviaManagerTests.swift */,
 				F770F0402B22EA0300BC06B4 /* LogsTests.swift */,
 				F770F0422B23A3F200BC06B4 /* PerformanceTests.swift */,
 				B945137D2B28B02A0046B699 /* ProgressViewComponentTests.swift */,
@@ -1504,6 +1507,7 @@
 				B9C4A82A2AEE95C900327529 /* SpeechRecognition.swift in Sources */,
 				F770F0432B23A3F200BC06B4 /* PerformanceTests.swift in Sources */,
 				B93580FB2B1DCCDD00CC31E2 /* MixpanelManager.swift in Sources */,
+				B36D4C4D2B292A8600915F27 /* TriviaManagerTests.swift in Sources */,
 				F7731A4B2B06F7480000D3E9 /* MockPermission.swift in Sources */,
 				B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */,
 				F7C16FE82AFC576000D11529 /* ThemeManager.swift in Sources */,
@@ -1632,7 +1636,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1652,7 +1656,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1214.9;
+				MARKETING_VERSION = 1.1215.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1671,7 +1675,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"sun/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_PREVIEWS = YES;
@@ -1690,7 +1694,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1214.9;
+				MARKETING_VERSION = 1.1215.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x.test;
 				PRODUCT_NAME = "Voice 2";
 				SDKROOT = iphoneos;
@@ -1912,7 +1916,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1939,7 +1943,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1214.9;
+				MARKETING_VERSION = 1.1215.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1959,7 +1963,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = x/x.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_ASSET_PATHS = "\"x/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WAH566W3B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1986,7 +1990,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.1214.9;
+				MARKETING_VERSION = 1.1215.9;
 				PRODUCT_BUNDLE_IDENTIFIER = country.x;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

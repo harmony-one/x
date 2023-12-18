@@ -5,10 +5,9 @@ struct ProgressViewComponent: View {
 
     var body: some View {
         if isShowing {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle())
+            // An empty view with a semi-transparent background
+            Color(hex: 0x1E1E1E).opacity(0.5)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(hex: 0x1E1E1E).opacity(0.5))
                 .edgesIgnoringSafeArea(.all)
         }
     }

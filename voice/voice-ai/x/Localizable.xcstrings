@@ -71,11 +71,23 @@
       }
     },
     "actionView.button.surprise" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Surprise ME!"
+          }
+        }
+      }
+    },
+    "actionView.button.talkToMe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Talk to ME!"
           }
         }
       }
@@ -202,6 +214,9 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
     },
     "New Session" : {
 
@@ -360,6 +375,7 @@
       }
     },
     "settingsView.mainMenu.talkToME" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

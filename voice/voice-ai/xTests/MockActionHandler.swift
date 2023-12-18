@@ -90,6 +90,7 @@ class MockActionHandler: ActionHandlerProtocol {
     var isSurprised = false
     var showOpenSettings = false
     var isTrivia = false
+    var isTalkToMe = false
 
     func handle(actionType: ActionType) {
         handleCalled = true
@@ -121,6 +122,8 @@ class MockActionHandler: ActionHandlerProtocol {
             showOpenSettings = true
         case .trivia:
             isTrivia = true
+        case .talkToMe:
+            isTalkToMe = true
         }
     }
     

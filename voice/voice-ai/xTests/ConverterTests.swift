@@ -1,5 +1,6 @@
 import XCTest
 @testable import Voice_AI
+import AVFoundation
 
 class TextToSpeechConverterTests: XCTestCase {
     var textToSpeechConverter: TextToSpeechConverter!
@@ -8,11 +9,35 @@ class TextToSpeechConverterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         textToSpeechConverter = TextToSpeechConverter()
+        
     }
 
     override func tearDown() {
         textToSpeechConverter = nil
         super.tearDown()
+    }
+    
+    func testSpeechSynthesizerDidStart() {
+        let synthesizer = AVSpeechSynthesizer()
+        let utterance = AVSpeechUtterance()
+        textToSpeechConverter.speechSynthesizer(synthesizer, didStart: utterance)
+        XCTAssertNotEqual(textToSpeechConverter.timeLogger?.getTTSFirst(), 0)
+    }
+    
+    func testSpeechSynthesizerDidFinish() {
+        let synthesizer = AVSpeechSynthesizer()
+        let utterance = AVSpeechUtterance()
+        textToSpeechConverter.speechSynthesizer(synthesizer, didFinish: utterance)
+        XCTAssertNotEqual(textToSpeechConverter.timeLogger?.getTTSFirst(), 0)
+        XCTAssertNotEqual(textToSpeechConverter.timeLogger?.getTTSEnd(), 0)
+    }
+    
+    func testSpeechSynthesizerDidCancel() {
+        let synthesizer = AVSpeechSynthesizer()
+        let utterance = AVSpeechUtterance()
+        textToSpeechConverter.speechSynthesizer(synthesizer, didCancel: utterance)
+        XCTAssertNotEqual(textToSpeechConverter.timeLogger?.getTTSFirst(), 0)
+        XCTAssertNotEqual(textToSpeechConverter.timeLogger?.getTTSEnd(), 0)
     }
 
     func testIsSpeakingInitiallyFalse() {

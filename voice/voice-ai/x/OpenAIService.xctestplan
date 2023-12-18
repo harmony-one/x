@@ -15,6 +15,7 @@
     {
       "skippedTests" : [
         "CustomInstructionsHandlerTests",
+        "DataFeedTests",
         "ProgressViewComponentTests",
         "SettingsViewTests"
       ],

@@ -6,7 +6,15 @@ struct ShareLink: Identifiable {
     let url: URL
 }
 
-struct ActivityView: UIViewControllerRepresentable {
+protocol ActivityViewProtocol: UIViewControllerRepresentable { //
+    var activityItems: [Any] { get }
+    var applicationActivities: [UIActivity]? { get }
+
+    func makeUIViewController(context: Context) -> UIActivityViewController
+    
+}
+
+struct ActivityView: ActivityViewProtocol, UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]?
     @Binding var isSharing: Bool
@@ -14,7 +22,9 @@ struct ActivityView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
         controller.completionWithItemsHandler = { _, _, _, _ in
-            self.isSharing = false  // Hide activity indicator when sharing is done
+            DispatchQueue.main.async {
+                self.isSharing = false  // Hide activity indicator when sharing is done
+            }
         }
         return controller
     }

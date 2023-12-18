@@ -1,3 +1,5 @@
+2023-12-15 Fri: [implemented](https://github.com/harmony-one/x/commit/9d9206930f30b369aea65809a1e54a2893dbf684) endpoints getListByName and getLists in x-api backend service, configured twitter Lists as described [here](https://github.com/harmony-one/x/blob/main/doc/follows). Tweets from the lists are updated every 30 minutes and can be used to provide additional context to ChatGPT. [Deployed](https://x-api-backend.fly.dev/api#/) x-api backend.
+
 2023-12-14 Thu: [added](https://github.com/harmony-one/x/commit/81289e0fb5fed1131d8a7802306452dcd26a4270) database table to store a list of tweets for each topic, implemented a cron job to update this list in our database every 30 minutes. Tested with real Twitter API.
 
 2023-12-13 Wed: [added](https://github.com/harmony-one/x/commit/67cdd4a7845e5a2476f2a4c24b0c5244b605de6d) basic implementation of twitter list endpoint in x-api backend; working on database schema. 

@@ -53,6 +53,75 @@ class TimeLogger {
         return Int64(Date().timeIntervalSince1970 * 1_000_000)
     }
     
+    // getter methods
+    func getModel() -> String {
+        return model
+    }
+    func getAppRec() -> Int64 {
+        return appRecTimestamp
+    }
+    
+    func getSttRec() -> Int64 {
+        return sttRecTimestamp
+    }
+    
+    func getAppRecEnd() -> Int64 {
+        return appRecEndTimestamp
+    }
+    
+    func getSTTEnd() -> Int64 {
+        return sttEndTimestamp
+    }
+    
+    func getAppSend() -> Int64 {
+        return appSendTimestamp
+    }
+    
+    func getTTSInit() -> Int64 {
+        return ttsInitTimestamp
+    }
+    
+    func getTTSFirst() -> Int64 {
+        return appPlayFirstTimestamp
+    }
+    
+    func getTTSEnd() -> Int64 {
+        return appPlayEndTimestamp
+    }
+    
+    func getAppResFirst() -> Int64 {
+        return appResFirstTimestamp
+    }
+    
+    func getAppResEnd() -> Int64 {
+        return appResEndTimestamp
+    }
+    
+    func getLogged() -> Bool {
+        return logged
+    }
+    
+    func getLogSend() -> Bool {
+        return logSent
+    }
+    
+    func getInferenceStats() -> [String: Any?] {
+        var values: [String: Any?] = [:]
+        
+        values["requestNumMessages"] = requestNumMessages
+        values["requestNumUserMessages"] = requestNumUserMessages
+        values["requestTokens"] = requestTokens
+        values["responseTokens"] = responseTokens
+        values["requestMessage"] = requestMessage
+        values["responseMessage"] = responseMessage
+        values["cancelled"] = cancelled
+        values["completed"] = completed
+        values["error"] = error
+        
+        return values
+    }
+    
+    // set methods
     func setModel(model: String) {
         self.model = model
     }
@@ -90,7 +159,6 @@ class TimeLogger {
         if appSendTimestamp != 0 {
             return
         }
-        
         appSendTimestamp = now()
     }
     
@@ -122,21 +190,23 @@ class TimeLogger {
         appResFirstTimestamp = now()
     }
 
-    func setAppResEnd() {
+    func setAppResEnd(test: Bool = false) {
         appResEndTimestamp = now()
-        if appResFirstTimestamp == 0 {
+        if appResFirstTimestamp == 0, !test {
             appResFirstTimestamp = appResEndTimestamp
         }
     }
     
-    func setInferenceStats(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "") {
+    func setInferenceStats(requestNumMessages: Int32 = 0, requestNumUserMessages: Int32 = 0, requestTokens: Int32 = 0, responseTokens: Int32 = 0, requestMessage: String = "", responseMessage: String = "", cancelled: Bool = false, completed: Bool = true, error: String = "", test: Bool = false) {
         if once, logged {
             return
         }
         if appResEndTimestamp == 0 {
-            setAppResEnd()
+            setAppResEnd(test: test)
         }
+        print("appRes: \(appResFirstTimestamp)")
         if appResFirstTimestamp == 0 {
+            print("called")
             appResFirstTimestamp = appResEndTimestamp
         }
         logged = true

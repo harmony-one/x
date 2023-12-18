@@ -21,6 +21,8 @@ protocol SpeechRecognitionProtocol {
     func sayMore()
     func cancelSpeak()
     func cancelRetry()
+    func playText(text: String)
+    func talkToMe()
 }
 
 extension SpeechRecognitionProtocol {
@@ -892,6 +894,46 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             // Pause the capturing since we're about to replay the message.
             self.pauseCapturing()
         }
+    }
+    
+    func talkToMe() {
+        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+        } ?? SettingsBundleHelper.DefaultFollowNews
+
+        logger.log("[Data Feed] Populating User Field with \(followNews).")
+        DataFeed.shared.getData(followNews: followNews) {data in
+            if let data = data {
+                SettingsBundleHelper.setUserProfile(profile: data)
+                self.logger.log("[Data Feed] Fetched Data: \(data)")
+                
+                SpeechRecognition.shared.playText(text: data);
+            } else {
+                print("Failed to fetch or parse data.")
+            }
+        }
+    }
+    
+    func playText(text: String) {
+        self.logger.log("[Play Text]")
+
+        // Stop any ongoing interactions and speech.
+        self.stopGPT()
+        // hotfix: todo: Waiting for a gpt request cancellation
+        // app tries to send a new request to OpenAI before the previous one is canceled
+        self.isRequestingOpenAI = false
+        // hotfix-end
+        self.textToSpeechConverter.stopSpeech()
+
+        // Since we are about to initiate a new fact retrieval, pause any capturing.
+        // self.pauseCapturing()
+        
+        self._isPaused = false
+        self._isPlaying = false
+        
+        registerTTS()
+        
+        textToSpeechConverter.convertTextToSpeech(text: text, timeLogger: nil)
     }
     
     @objc func handleTimerDidFire() {
