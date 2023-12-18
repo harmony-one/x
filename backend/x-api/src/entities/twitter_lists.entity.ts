@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsString } from 'class-validator';
@@ -18,6 +19,7 @@ export class TwitterListsEntity {
   @Column({
     type: 'varchar',
     default: '',
+    unique: true
   })
   listId: string;
 

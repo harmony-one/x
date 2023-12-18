@@ -18,18 +18,53 @@ export class TwitterListsController {
     return this.twitterListsService.createTwitterList(twitterListDto);
   }
 
+  @Get('/:listId')
+  @ApiParam({
+    name: 'listId',
+    required: true,
+    description: 'Twitter List id',
+    schema: { oneOf: [{ type: 'string' }] },
+  })
+  getTwitterList(@Param('listId') listId) {
+    return this.twitterListsService.getTwitterList({ listId });
+  }
+
   @Delete('/:listId')
-  deleteTwitterList(@Param('listId') listId) {
-    return this.twitterListsService.deleteTwitterList(listId);
+  @ApiParam({
+    name: 'listId',
+    required: true,
+    description: 'Twitter List id',
+    schema: { oneOf: [{ type: 'string' }] },
+  })
+  async deleteTwitterList(@Param('listId') listId) {
+    await this.twitterListsService.deleteTwitterList(listId);
+
+    return true
   }
 
   @Post('/:listId/enable')
-  enableTwitterList(@Param('listId') listId) {
-    return this.twitterListsService.enableTwitterList(listId);
+  @ApiParam({
+    name: 'listId',
+    required: true,
+    description: 'Twitter List id',
+    schema: { oneOf: [{ type: 'string' }] },
+  })
+  async enableTwitterList(@Param('listId') listId) {
+    await this.twitterListsService.enableTwitterList(listId);
+
+    return this.twitterListsService.getTwitterList({ listId });
   }
 
   @Post('/:listId/disable')
-  disableTwitterList(@Param('listId') listId) {
-    return this.twitterListsService.disableTwitterList(listId);
+  @ApiParam({
+    name: 'listId',
+    required: true,
+    description: 'Twitter List id',
+    schema: { oneOf: [{ type: 'string' }] },
+  })
+  async disableTwitterList(@Param('listId') listId) {
+    await this.twitterListsService.disableTwitterList(listId);
+
+    return this.twitterListsService.getTwitterList({ listId });
   }
 }
