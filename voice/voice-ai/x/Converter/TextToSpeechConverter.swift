@@ -26,6 +26,15 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     }
     
     private(set) var isDefaultVoiceUsed = false
+    let alertManager = AlertManager(viewControllerProvider: {
+        // Find the active window scene and return its key window's root view controller
+        return UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .first(where: { $0.isKeyWindow })?.rootViewController
+    })
+
     
     override init() {
         super.init()
@@ -133,7 +142,7 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         // The prompt should guide the user on how to download a premium voice
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
             let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
-            AlertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
+            self.alertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
         }
     }
 }
