@@ -1,3 +1,5 @@
+-----
+
 2023-12-17 Sun: Created [figma file](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=sWKeadxCotXJU9w9-1) evaulating other designs of crypto bridging platforms. Collected VoiceAI data
 
 2023-12-16 Sat: Edited Theo's YT short, uploaded [here]().
