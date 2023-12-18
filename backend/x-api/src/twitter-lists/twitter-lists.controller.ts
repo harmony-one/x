@@ -1,4 +1,4 @@
-import {Controller, Get, Post, NotFoundException, Param, Query, UsePipes, ValidationPipe, Body} from '@nestjs/common';
+import {Controller, Get, Post, NotFoundException, Param, Query, UsePipes, ValidationPipe, Body, Delete} from '@nestjs/common';
 import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {TwitterListsService} from "./twitter-lists.service";
 import { TwitterListsCreateDto } from './dto/stream-lists.create.dto';
@@ -16,6 +16,11 @@ export class TwitterListsController {
   @Post('/')
   createTwitterList(@Body() twitterListDto: TwitterListsCreateDto) {
     return this.twitterListsService.createTwitterList(twitterListDto);
+  }
+
+  @Delete('/:listId')
+  deleteTwitterList(@Param('listId') listId) {
+    return this.twitterListsService.deleteTwitterList(listId);
   }
 
   @Post('/:listId/enable')
