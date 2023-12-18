@@ -1,11 +1,42 @@
-//import Foundation
-//import XCTest
-//@testable import Voice_AI
-//
-//class LogStoreTests: XCTestCase {
-//    @MainActor func testExport() {
-//        let logStore = LogStore()
-//        let logExport = logStore.performExport()
-//        XCTAssertNotNil(logExport)
-//    }
-//}
+import Foundation
+import XCTest
+@testable import Voice_AI
+
+class LogStoreTests: XCTestCase {
+    var logStore: LogStore!
+
+    @MainActor override func setUp() {
+        super.setUp()
+        logStore = LogStore()
+    }
+
+    override func tearDown() {
+        logStore = nil
+        super.tearDown()
+    }
+    
+    func testPerformExport() async {
+        do {
+            let entries = try await logStore.performExport()
+            XCTAssertNotNil(entries)
+        } catch {
+            XCTFail("Error: \(error)")
+        }
+    }
+    @MainActor func testExportInBackground() {
+        let expectation = XCTestExpectation(description: "Background export completed")
+        logStore.exportInBackground {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
+        XCTAssertNotNil(logStore.entries)
+    }
+    
+    @MainActor func testExportInBackgroundThrowError() {
+        let expectation = XCTestExpectation(description: "Background export completed")
+        logStore.exportInBackground(simulateError: true) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
+    }
+}

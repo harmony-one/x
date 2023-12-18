@@ -12,7 +12,10 @@ final class LogStore: ObservableObject {
     )
 
     // Mark this function as asynchronous
-    func performExport() async throws -> [String] {
+    func performExport(simulateError: Bool = false) async throws -> [String] {
+        if simulateError {
+            throw NSError(domain: "LogStore", code: 1, userInfo: [NSLocalizedDescriptionKey: "LogStore performExport error simulated"])
+        }
         let dateFormatStyle = Date.FormatStyle()
             .year(.defaultDigits)
             .month(.twoDigits)
@@ -41,10 +44,10 @@ final class LogStore: ObservableObject {
             .reversed()
     }
 
-    func exportInBackground(completion: @escaping () -> Void) {
+    func exportInBackground(completion: @escaping () -> Void, simulateError: Bool = false) {
         Task {
             do {
-                let fetchedEntries = try await performExport()
+                let fetchedEntries = try await performExport(simulateError: simulateError)
                 DispatchQueue.main.async {
                     self.entries = Array(fetchedEntries)
                     completion()
