@@ -23,13 +23,20 @@ class LogStoreTests: XCTestCase {
             XCTFail("Error: \(error)")
         }
     }
-    
-    func testExportInBackground() {
+    @MainActor func testExportInBackground() {
         let expectation = XCTestExpectation(description: "Background export completed")
         logStore.exportInBackground {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 5.0)
         XCTAssertNotNil(logStore.entries)
+    }
+    
+    @MainActor func testExportInBackgroundThrowError() {
+        let expectation = XCTestExpectation(description: "Background export completed")
+        logStore.exportInBackground(simulateError: true) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
     }
 }
