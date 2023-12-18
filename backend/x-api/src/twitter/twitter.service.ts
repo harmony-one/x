@@ -60,11 +60,11 @@ export class TwitterService {
     //     this.logger.log(`Created default twitter list ${name} ${listId}`)
     //   }
     // }
-    // const refetchTweetsJob = new CronJob(CronExpression.EVERY_30_MINUTES, () => {
-    //   this.refetchTweetLists()
-    // });
-    // this.schedulerRegistry.addCronJob('update_twitter_lists', refetchTweetsJob)
-    // this.refetchTweetLists()
+    const refetchTweetsJob = new CronJob(CronExpression.EVERY_30_MINUTES, () => {
+      this.refetchTweetLists()
+    });
+    this.schedulerRegistry.addCronJob('update_twitter_lists', refetchTweetsJob)
+    this.refetchTweetLists()
   }
 
   // @Cron(CronExpression.EVERY_30_MINUTES, {
