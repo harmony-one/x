@@ -36,7 +36,31 @@ struct RelaySetting: Codable {
     let openaiBaseUrl: String?
 }
 
-class RelayAuth {
+protocol RelayAuthProtocol {
+    
+    var logger: Logger { get }
+    func setup() async -> String?
+    func refresh() async -> String?
+    func generateKeyId(simulateError: Bool) async throws -> String
+    func enableAutoRefreshToken(timeInterval: TimeInterval?)
+    func disableAutoRefreshToken()
+    func tryInitializeKeyId(simulateError: Bool) async throws
+    func getToken() -> String?
+    func getBaseUrl(_ customBaseUrl: String?) -> String?
+    func getKeyId(_ customKeyId: String?) -> String?
+    func getAttestationData(attestationDataErrorCode: Int?, keyId: String, clientDataHash: Data) async throws -> Data
+    func getRelaySetting(customBaseUrl: String?) async -> RelaySetting?
+    func getChallenge(customBaseUrl: String?) async -> String?
+    func getAttestation(_ tryUseCached: Bool,
+                        customKeyId: String?,
+                        customBaseUrlInput: String?,
+                        attestationDataErrorCode: Int?) async throws -> (String?, String?)
+    func log(_ message: String)
+    func getDeviceToken(_ regen: Bool, simulateError: Bool) async -> String?
+}
+
+class RelayAuth: RelayAuthProtocol {
+    
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "RelayAuth")

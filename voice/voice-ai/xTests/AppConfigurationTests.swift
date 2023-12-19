@@ -1,6 +1,119 @@
 import XCTest
 import Combine
+import OSLog
+import DeviceCheck
 @testable import Voice_AI
+
+class MockRelayAuth: RelayAuthProtocol {
+    func refresh() async -> String? {
+        return nil
+    }
+    
+    func enableAutoRefreshToken(timeInterval: TimeInterval?) {
+        print("enableAutoRefreshToken")
+    }
+    
+    func disableAutoRefreshToken() {
+        print("disableAutoRefreshToken")
+    }
+    
+    func tryInitializeKeyId(simulateError: Bool) async throws { }
+    
+    func getToken() -> String? {
+        return nil
+    }
+    
+    func getBaseUrl(_ customBaseUrl: String?) -> String? {
+        return nil
+    }
+    
+    func getKeyId(_ customKeyId: String?) -> String? {
+        return nil
+    }
+    
+    func getAttestationData(attestationDataErrorCode: Int?, keyId: String, clientDataHash: Data) async throws -> Data {
+        if let errorCode = attestationDataErrorCode {
+            throw NSError(domain: "RelayAuth", code: 1, userInfo: [NSLocalizedDescriptionKey: "RelayAuth getAttestationData error simulated"])
+        } else {
+            return try await DCAppAttestService.shared.attestKey(keyId, clientDataHash: clientDataHash)
+        }
+    }
+    
+    func getRelaySetting(customBaseUrl: String?) async -> RelaySetting? {
+        return nil
+    }
+    
+    func getChallenge(customBaseUrl: String?) async -> String? {
+        return nil
+    }
+    
+    func getAttestation(_ tryUseCached: Bool, customKeyId: String?, customBaseUrlInput: String?, attestationDataErrorCode: Int?) async throws -> (String?, String?) {
+        return (nil, nil)
+    }
+    
+    func log(_ message: String) {
+        print("log")
+    }
+    
+    func setup() async -> String? {
+        return ""
+    }
+    
+    func getDeviceToken(_ regen: Bool = false, simulateError: Bool = false) async -> String? {
+        return nil
+    }
+    
+    func generateKeyId(simulateError: Bool) async throws -> String {
+        return "key"
+    }
+    
+    var logger: Logger {
+        // Return a mock logger
+        return Logger(subsystem: "MockRelayAuth", category: "MockRelayAuth")
+    }
+    var setupCalled = false
+    var autoRetryRefreshTokenCalled = false
+    
+// Implement the required methods of the RelayAuth protocol
+  
+    var deviceToken: String? {
+        // Return a mock device token
+        return "mock-device-token"
+    }
+
+  var keyId: String? {
+      // Return a mock key ID
+      return "mock-key-id"
+  }
+
+  var token: String? {
+      // Return a mock token
+      return "mock-token"
+  }
+
+//  var autoRefreshTokenTimer: Timer? {
+//      // Return a mock timer
+//      return Timer.init(timeInterval: 10, repeats: false) { timer in
+//          // Call the autoRetryRefreshToken method to simulate a token refresh
+//          self.autoRetryRefreshToken()
+//      }
+//  }
+
+  var nextAvailableCallTime: Int64 {
+      // Return a mock next available call time
+      return 1000
+  }
+
+  func delayedRetry(on queue: DispatchQueue, retry: Int = 0, closure: @escaping () -> Void) {
+      // Implement the delayedRetry method to simulate a delay
+      queue.asyncAfter(deadline: .now() + .milliseconds(100), execute: closure)
+  }
+
+  func autoRetryRefreshToken() async -> String? {
+      // Implement the autoRetryRefreshToken method to return a mock token
+      return "mock-token"
+  }
+}
 
 class AppConfigTests: XCTestCase {
     
@@ -24,6 +137,14 @@ class AppConfigTests: XCTestCase {
     override func tearDown() {
         appConfig = nil
         super.tearDown()
+    }
+    
+    func testInitRelayModeServer() {
+        let bundleDic  = [
+            "RELAY_MODE": "server",
+        ] as [String : Any]
+        let mockRelay = MockRelayAuth()
+        let appConfig = AppConfig(dic: bundleDic, relay: mockRelay)
     }
     
     func testGetterMethods() {
@@ -84,6 +205,12 @@ class AppConfigTests: XCTestCase {
             "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
         ] as [String : Any]
         let  appConfig = AppConfig(dic: bundleDic)
+    }
+    
+    func testRequestOpenAIKeyGetDeviceToken() async {
+        let mockRelay = MockRelayAuth()
+        let appConfig = AppConfig(relay: mockRelay)
+        await appConfig.requestOpenAIKeyTest()
     }
     
     func testCheckWhiteLabelListNoUserName() async {
