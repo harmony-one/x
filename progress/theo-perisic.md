@@ -1,4 +1,4 @@
-2023-12-18 Mon:
+2023-12-18 Mon: Experimenting with inscriptions on Harmony. Created an [image inscription](https://explorer.harmony.one/tx/0xba7fa5573ad86a69fb980c228d7297c361e3b99b5f56a6ec8ae328aa0f299d89) using metamask and text based json as well. Completed [general analysis](https://harmonyone.notion.site/Inscriptions-f16f5cb08c054cc688ace7673698a4a1?pvs=4) of non-bitcoin inscription projects.
 
 ---
 
