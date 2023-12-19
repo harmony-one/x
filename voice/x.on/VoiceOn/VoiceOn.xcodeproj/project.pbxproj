@@ -169,6 +169,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B97E04A82B31BB3D000C9FCA /* PBXTargetDependency */,
 			);
 			name = VoiceOn;
 			productName = VoiceOn;
@@ -243,6 +244,9 @@
 				Base,
 			);
 			mainGroup = B97E045F2B316BD6000C9FCA;
+			packageReferences = (
+				B97E04A62B31BB12000C9FCA /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = B97E04692B316BD6000C9FCA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -323,6 +327,10 @@
 			isa = PBXTargetDependency;
 			target = B97E04672B316BD6000C9FCA /* VoiceOn */;
 			targetProxy = B97E04832B316BD8000C9FCA /* PBXContainerItemProxy */;
+		};
+		B97E04A82B31BB3D000C9FCA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = B97E04A72B31BB3D000C9FCA /* SwiftLintPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -626,6 +634,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B97E04A62B31BB12000C9FCA /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B97E04A72B31BB3D000C9FCA /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B97E04A62B31BB12000C9FCA /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B97E04602B316BD6000C9FCA /* Project object */;
 }

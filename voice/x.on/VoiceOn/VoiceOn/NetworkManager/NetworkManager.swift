@@ -45,7 +45,6 @@ extension NetworkManagerProtocol {
     }
 }
 
-
 class NetworkManager: NetworkManagerProtocol {
     static let shared = NetworkManager()
     private let session: URLSession
