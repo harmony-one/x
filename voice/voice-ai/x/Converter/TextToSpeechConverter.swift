@@ -127,22 +127,15 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     }
     
     func checkAndPromptForPremiumVoice(voiceIdentifier: String? = nil) {
-        let currentVoice = AVSpeechSynthesisVoice(language: getLanguageCode())
-        let currentVoiceIdentifier: String?
-        if let voiceIdentifier = voiceIdentifier {
-            currentVoiceIdentifier = voiceIdentifier
-        } else {
-            currentVoiceIdentifier = currentVoice?.identifier
-        }
-        if let currentVoiceIdentifier = currentVoiceIdentifier {
-            print("currentVoice: \(currentVoiceIdentifier)")
-            print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
-
-            if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
-                showDownloadVoicePrompt()
-            }
-        } else {
+        guard let currentVoiceIdentifier = voiceIdentifier ?? AVSpeechSynthesisVoice(language: getLanguageCode())?.identifier else {
             return
+        }
+
+        print("currentVoice: \(currentVoiceIdentifier)")
+        print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
+
+        if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
+            showDownloadVoicePrompt()
         }
     }
     
