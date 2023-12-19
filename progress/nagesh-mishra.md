@@ -1,6 +1,6 @@
 2023-12-19 Tue: Project setup, launch screen integration, network manager added, audio management functionality, feature for Saving Recorded Audio, functionality to display a list of saved recordings.
 
-2023-12-19 Mon: AlertManager unit test 100%.
+2023-12-18 Mon: AlertManager unit test 100%.
 
 ---
 
