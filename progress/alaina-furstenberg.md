@@ -1,3 +1,5 @@
+2023-12-18 Mon: Researched top bridging platforms, using bridge aggregator. Found inspiration from Hop.exchange for it's brand similarity and simplicity. Also found inspiration from Stargate for it's design & color simplicity. Tested Harmony bridge & began drafting revisions of information layout. All can be seen in this [figma file](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=OwVErw2fvA5EmdY5-1). 
+
 -----
 
 2023-12-17 Sun: Created [figma file](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=sWKeadxCotXJU9w9-1) evaulating other designs of crypto bridging platforms. Collected VoiceAI data
