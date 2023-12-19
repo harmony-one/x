@@ -18,7 +18,9 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate, AVAudio
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
-            try recordingSession?.setCategory(.playAndRecord, mode: .default)
+            try recordingSession?.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowAirPlay])
+            try recordingSession?.setActive(true, options: .notifyOthersOnDeactivation)
+            try recordingSession?.setMode(.spokenAudio)
             try recordingSession?.setActive(true)
             recordingSession?.requestRecordPermission() { [unowned self] allowed in
                 DispatchQueue.main.async {
@@ -67,6 +69,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate, AVAudio
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: recording.fileURL)
             audioPlayer?.delegate = self
+            audioPlayer?.volume = 1.0  // Set maximum volume
             audioPlayer?.play()
         } catch {
             // Playback failed

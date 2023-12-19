@@ -12,21 +12,27 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            // List of Recordings
-            List {
-                ForEach(audioManager.recordings, id: \.fileURL) { recording in
-                    HStack {
-                        Text(recording.fileURL.lastPathComponent)
-                        Spacer()
-                        Text(recording.createdAt, style: .date)
-                    }
-                    .onTapGesture {
+            List(audioManager.recordings, id: \.fileURL) { recording in
+                HStack {
+                    Text(recording.fileURL.lastPathComponent)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+
+                    Spacer()
+
+                    Button(action: {
                         audioManager.playRecording(recording)
+                    }) {
+                        Image(systemName: "play.circle")
+                            .imageScale(.large)
+                            .foregroundColor(.blue)
                     }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
             }
 
-            // Record Button
+            Spacer()
+
             Button(action: {
                 if audioManager.isRecording {
                     audioManager.stopRecording()
@@ -52,7 +58,6 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
-
 
 #Preview {
     ContentView()
