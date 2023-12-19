@@ -1,3 +1,13 @@
+2023-12-18 Mon: Increased unit test coverages for LogStore (100%) [https://github.com/harmony-one/x/pull/401], TextToSpeechConverter (98%) [https://github.com/harmony-one/x/pull/402], and SettingsBundleHelper (100%) [https://github.com/harmony-one/x/pull/403].
+
+---
+
+2023-12-17 Sun: Further readings on COQ.
+
+2023-12-16 Sat: Readings on COQ proofs.
+
+2023-12-15 Fri: Increased unit test coverages for TimeLogger (99%) [https://github.com/harmony-one/x/pull/393], and TextToSpeechConverter (79%). Updated MockActionHandler & MockSpeechRecognition protocols.
+
 2023-12-14 Thu: Created tests and refactored original code for [RandomTrivia](https://github.com/harmony-one/x/commit/66de2e031e78c9d7c80b4accd6768ba9ccc7e03d) (100%) TimeLogger (0->52%) and Store (52->69%) [https://github.com/harmony-one/x/pull/385]. Writing tests for store was also complex, will look into ways to how to refactor these codes.
 
 2023-12-13 Wed: Further worked on RelayAuth tests (76.3%) [https://github.com/harmony-one/x/pull/371]. Was pretty complex to add additional tests for error handling. So far depending on dependency injection but will have to look into better ways as the refactored code may look a little awkward.
