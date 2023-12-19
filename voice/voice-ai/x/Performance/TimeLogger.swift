@@ -14,7 +14,7 @@ class TimeLogger {
     private var logged = false
     private var logSent = false
     private let once: Bool
-    private let printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
+    private var printDebug = AppConfig.shared.getEnableTimeLoggerPrint()
     
     private var model: String = ""
     private var requestNumMessages: Int32 = 0
@@ -122,6 +122,10 @@ class TimeLogger {
     }
     
     // set methods
+    func setPrintDebug(printBool: Bool) {
+        printDebug = printBool
+    }
+    
     func setModel(model: String) {
         self.model = model
     }

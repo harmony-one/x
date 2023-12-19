@@ -120,4 +120,14 @@ class TimeLoggerTests: XCTestCase {
         timeLogger.sendLog()
         XCTAssertTrue(timeLogger.getLogSend())
     }
+    
+    func testSendLogPrintDebugTrue() {
+        timeLogger.setPrintDebug(printBool: true)
+        timeLogger.sendLog()
+        XCTAssertNotEqual(timeLogger.getTTSInit(), 0)
+        XCTAssertNotEqual(timeLogger.getTTSFirst(), 0)
+        XCTAssertNotEqual(timeLogger.getTTSEnd(), 0)
+        timeLogger.sendLog()
+        XCTAssertTrue(timeLogger.getLogSend())
+    }
 }
