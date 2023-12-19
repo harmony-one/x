@@ -311,8 +311,4 @@ extension AppConfig {
     func requestOpenAIKeyTest() async {
         await self.requestOpenAIKey()
     }
-    
-    func setMockRelayTest(relay: RelayAuthProtocol) {
-        self.relay =  relay as! RelayAuth
-    }
 }

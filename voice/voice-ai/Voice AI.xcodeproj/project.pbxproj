@@ -128,6 +128,7 @@
 		B36367572AFC6A04000409FC /* MockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F1150D2AF825F700BC191C /* MockGenerator.swift */; };
 		B36D4C4D2B292A8600915F27 /* TriviaManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D4C4C2B292A8600915F27 /* TriviaManagerTests.swift */; };
 		B36D4C502B29654900915F27 /* DataFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D4C4F2B29654900915F27 /* DataFeedTests.swift */; };
+		B37D36B02B31558500CD1754 /* MockRelayAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37D36AF2B31558500CD1754 /* MockRelayAuth.swift */; };
 		B3BA26722B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26732B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
 		B3BA26742B0D4BA900FF3B81 /* AssetsShared.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */; };
@@ -420,6 +421,7 @@
 		B346DF772AF562020023FC87 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B36D4C4C2B292A8600915F27 /* TriviaManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaManagerTests.swift; sourceTree = "<group>"; };
 		B36D4C4F2B29654900915F27 /* DataFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFeedTests.swift; sourceTree = "<group>"; };
+		B37D36AF2B31558500CD1754 /* MockRelayAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelayAuth.swift; sourceTree = "<group>"; };
 		B3B3BA792AFB40A300D8F8C6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3BA26712B0D4BA900FF3B81 /* AssetsShared.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AssetsShared.xcassets; sourceTree = "<group>"; };
 		B3C083B12AF1948D0069232C /* OpenAIService.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenAIService.xctestplan; path = x/OpenAIService.xctestplan; sourceTree = SOURCE_ROOT; };
@@ -947,6 +949,7 @@
 				B945137D2B28B02A0046B699 /* ProgressViewComponentTests.swift */,
 				B36D4C4F2B29654900915F27 /* DataFeedTests.swift */,
 				B975D2F22B301C9100F5ABF3 /* AlertManagerTests.swift */,
+				B37D36AF2B31558500CD1754 /* MockRelayAuth.swift */,
 			);
 			path = xTests;
 			sourceTree = "<group>";
@@ -1500,6 +1503,7 @@
 				A40CFCE42AF98BB700E02128 /* RandomFact.swift in Sources */,
 				F76AE4962B21333E002CA57E /* IntentManager.swift in Sources */,
 				CDC137142B11B129003386E9 /* TimeLogger.swift in Sources */,
+				B37D36B02B31558500CD1754 /* MockRelayAuth.swift in Sources */,
 				B9C4A8312AEE96B300327529 /* OpenAIResponse.swift in Sources */,
 				F7F115082AF8173300BC191C /* AudioPlayerTests.swift in Sources */,
 				B9C4A8332AEE96CA00327529 /* Permission.swift in Sources */,
