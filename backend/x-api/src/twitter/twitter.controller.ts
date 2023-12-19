@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {TwitterService} from "./twitter.service";
-import {TwitterListsCreateDto, UpdateTwitterListDto} from "./dto/list.dto";
+import {GetTwitterListsDto, TwitterListsCreateDto, UpdateTwitterListDto} from "./dto/list.dto";
 
 @ApiTags('twitter')
 @Controller('twitter')
@@ -39,8 +39,8 @@ export class TwitterController {
   }
 
   @Get('/lists')
-  getLists() {
-    return this.twitterService.getTwitterLists();
+  getLists(@Query() dto: GetTwitterListsDto) {
+    return this.twitterService.getTwitterLists(dto);
   }
 
   @Post('/list')
@@ -71,9 +71,11 @@ export class TwitterController {
     schema: { oneOf: [{ type: 'string' }] },
   })
   async deleteTwitterList(@Param('listId') listId) {
-    await this.twitterService.deleteTwitterList(listId);
-
-    return true
+    const list = await this.twitterService.getTwitterList({ listId })
+    if(!list) {
+      throw new NotFoundException(`List with id ${listId} not found`)
+    }
+    return await this.twitterService.deleteTwitterList(listId);
   }
 
   @Post('/:listId/update')
@@ -87,6 +89,10 @@ export class TwitterController {
     @Param('listId') listId: string,
     @Query() dto: UpdateTwitterListDto
   ) {
+    const list = await this.twitterService.getTwitterList({ listId })
+    if(!list) {
+      throw new NotFoundException(`List with id ${listId} not found`)
+    }
     await this.twitterService.updateTwitterList(listId, dto);
 
     return this.twitterService.getTwitterList({ listId });

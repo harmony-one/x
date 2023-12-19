@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {IsBoolean, IsNotEmpty, IsString} from 'class-validator';
+import {IsBoolean, IsNotEmpty, IsOptional, IsString} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class TwitterListsCreateDto {
@@ -24,4 +24,11 @@ export class UpdateTwitterListDto {
   @ApiProperty()
   @IsBoolean()
   isActive: boolean;
+}
+
+export class GetTwitterListsDto {
+  @ApiProperty({ required: false, type: Boolean })
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
 }

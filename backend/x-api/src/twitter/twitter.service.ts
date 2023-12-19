@@ -1,7 +1,7 @@
 import {Injectable, Logger} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import axios from 'axios'
-import {UpdateTwitterListDto} from "./dto/list.dto";
+import {GetTwitterListsDto, UpdateTwitterListDto} from "./dto/list.dto";
 import {CronExpression, SchedulerRegistry} from "@nestjs/schedule";
 import { CronJob } from 'cron';
 import {DataSource, Repository} from "typeorm";
@@ -74,7 +74,9 @@ export class TwitterService {
     const job = this.schedulerRegistry.getCronJob('update_twitter_lists');
     job.stop();
 
-    const twitterLists = await this.getTwitterLists();
+    const twitterLists = await this.getTwitterLists({
+      isActive: true
+    });
 
     this.logger.log(`Run scheduled tweeter list update: ${twitterLists.length} lists`)
 
@@ -127,8 +129,12 @@ export class TwitterService {
     return await this.twitterListsRep.findOneBy(params);
   }
 
-  async getTwitterLists() {
-    return await this.twitterListsRep.find();
+  async getTwitterLists(dto?: GetTwitterListsDto) {
+    const query = this.twitterListsRep.createQueryBuilder()
+    if(dto) {
+      query.where(dto)
+    }
+    return await query.getMany()
   }
 
   public async getListTweets(listId: string) {
@@ -148,8 +154,9 @@ export class TwitterService {
   }
 
   async updateTwitterList(listId: string, params: UpdateTwitterListDto) {
-    const twitterList = await this.twitterListsRep.findOneBy({ listId });
-    return await this.twitterListsRep.update(twitterList, params);
+    return await this.twitterListsRep.update({
+      listId
+    }, params);
   }
 
   async deleteTwitterList(listId: string) {
