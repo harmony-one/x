@@ -290,6 +290,29 @@ class SettingsBundleHelperTests: XCTestCase {
          """)
     }
     
+    func testSetUserProfile() {
+        SettingsBundleHelper.setUserProfile(profile: "test")
+        let userProfile = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.UserProfile)
+        XCTAssertEqual(userProfile, "test")
+    }
+    
+    func testResetUserProfile() {
+        SettingsBundleHelper.resetUserProfile()
+        let userProfile = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.UserProfile)
+        XCTAssertEqual(userProfile, "")
+    }
+    
+    func testResetFollowNews() {
+        SettingsBundleHelper.resetFollowNews()
+        let followNews = UserDefaults.standard.string(forKey: SettingsBundleHelper.SettingsBundleKeys.FollowNews)
+        XCTAssertEqual(followNews, "")
+    }
+    
+    func testgetFollowNews() {
+        let getNews = SettingsBundleHelper.getFollowNews()
+        XCTAssertNotNil(getNews)
+    }
+    
     func testHasPremiumMode() {
         UserDefaults.standard.set("stse", forKey: SettingsBundleHelper.SettingsBundleKeys.Username)
         
