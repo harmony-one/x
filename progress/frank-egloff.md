@@ -1,4 +1,7 @@
-2023-12-15 Fri: Worked on unit tests for [DataFeed class](https://github.com/harmony-one/x/pull/394/) after new refactoring, reaching 98,9% coverage. Also, worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/396) reaching 89.4% coverage. 
+2023-12-18 Mon: Worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/404), reaching 89.2% coverage. Had to create the RelayAuth protocol to enable RelayAuth dependency injection for unit tests.
+
+----
+2023-12-15 Fri: Worked on unit tests for [DataFeed class](https://github.com/harmony-one/x/pull/394/) after new refactoring, reaching 98,9% coverage. Also, worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/396) reaching 84.9% coverage. 
 
 2023-12-14 Thu: Worked on [AppConfig unit tests](https://github.com/harmony-one/x/pull/388). For unit testing, refactored init and loadConfiguration functions and added an extension to help access private methods, waiting on review after AppConfig refactoring. Finally, started working on updating the DataFeed unit tests after the latest DataFeed refactoring.  
 
