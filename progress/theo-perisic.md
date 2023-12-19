@@ -1,3 +1,19 @@
+2023-12-18 Mon:
+
+---
+
+2023-12-17 Sun: Catching up on messages and team updates, will continue on Monday. Reached out to metamask contact for metamask portfolio listing.
+
+2023-12-16 Sat: Showcased Voice AI app for group of 10, insights: I downloaded most recent version of the app and without internal context I found it to be very confusing to navigate and showcase to people. The app has also taken a turn to becoming overcomplicated. Current structure is a generalized application of openai’s gpt 4 that allows a single app to satisfy many different use cases, an alternative approach may be to highly specialize the app for a single use case.
+
+2023-12-11 Mon - 2023-12-15 Fri: Paid time off
+
+---
+
+2023-12-10 Sun: General Harmony overview and communications with the community.
+
+2023-12-09 Sat: App testing, insight: noticed I most frequently use the app for a quick inquiry about a fact or interesting information that is lacking in a moment or a conversation. Using the additional feature of “Surprise Me!” far less. 
+
 2023-12-08 Fri: v1.1208.18 (Updated transcript logs) Mapped full perceived latency benchmarks using [Aaron’s docs](https://github.com/harmony-one/x/blob/main/doc/benchmarking.md), synced with Yuriy for implementation.
 
 2023-12-07 Thu: v1.1207.18 (TimeLogger improvements) Detailed potential focus split for 2024 project roadmap.
