@@ -24,6 +24,7 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     var isSpeaking: Bool {
         return synthesizer.isSpeaking
     }
+    var showDownloadVoicePromptCalled: Bool = false
     
     private(set) var isDefaultVoiceUsed = false
     let alertManager = AlertManager(viewControllerProvider: {
@@ -35,7 +36,6 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
             .first(where: { $0.isKeyWindow })?.rootViewController
     })
 
-    
     override init() {
         super.init()
     }
@@ -125,16 +125,24 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         let lowercasedIdentifier = voiceIdentifier.lowercased()
         return lowercasedIdentifier.contains("premium")
     }
-        
-    func checkAndPromptForPremiumVoice() {
+    
+    func checkAndPromptForPremiumVoice(voiceIdentifier: String? = nil) {
         let currentVoice = AVSpeechSynthesisVoice(language: getLanguageCode())
-        guard let currentVoiceIdentifier = currentVoice?.identifier else {
-            return
+        let currentVoiceIdentifier: String?
+        if let voiceIdentifier = voiceIdentifier {
+            currentVoiceIdentifier = voiceIdentifier
+        } else {
+            currentVoiceIdentifier = currentVoice?.identifier
         }
-        print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
+        if let currentVoiceIdentifier = currentVoiceIdentifier {
+            print("currentVoice: \(currentVoiceIdentifier)")
+            print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
 
-        if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
-            showDownloadVoicePrompt()
+            if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
+                showDownloadVoicePrompt()
+            }
+        } else {
+            return
         }
     }
     
@@ -144,6 +152,7 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
             let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
             self.alertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
         }
+        showDownloadVoicePromptCalled = true
     }
 }
 
