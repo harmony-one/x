@@ -1,6 +1,6 @@
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
-2023-12-19 Tue: v1.1218.9 was approved by the App Store.
+2023-12-19 Tue: v1.1218.9 was approved by the App Store. Our prototype app should be ready for early viewing by 12/22/2023 which include minimum recording and chatting functionality.
 
 2023-12-18 Mon: Submitted v1.1218.9 was submitted to the App Store. I researched inscriptions on various chains (Celestia, Near, etc). Seperately, I coordinated efforts for a new voice app prototype. 
 
