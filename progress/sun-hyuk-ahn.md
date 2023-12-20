@@ -1,3 +1,11 @@
+2023-12-20 Wed: Deployed mint.i.country.
+
+2023-12-19 Tue: Started development for minting tools and indexer required for the inscription tokens.
+
+2023-12-18 Mon: Research into inscription tokens.
+
+---
+
 2023-12-15 Fri: Replaced random facts with the talk to me logic. Set token limits for the context. Currently, looking at a bug that stops the synthesis for Talk to Me (hand over to Yuriy).
 
 2023-12-14 Thu: [Completed](https://github.com/harmony-one/x/commit/8002e4631c372d5f9520fcc386b1079deb5159c2) the updated implementation for the hardcoded news feed, which is fully merged and working with the following sources (soccer, appl, btc, eth, one). Started working on the backend implementation to fetch data from sources based on this [doc](https://github.com/harmony-one/x/blob/main/doc/follows) (hand over to Artem).
