@@ -12,7 +12,7 @@ class AppConfig {
     )
     // Shared singleton instance
     static let shared = AppConfig()
-    private var relay: RelayAuth = .shared
+    private var relay: RelayAuthProtocol = RelayAuth() // .shared
     private var relayBaseUrl: String?
     private var relayMode: String?
     private var disableRelayLog: Bool?
@@ -31,7 +31,7 @@ class AppConfig {
     var themeName: String?
     private var mixpanelToken: String?
     
-    init(dic: [String: Any]? = nil) {
+    init(dic: [String: Any]? = nil, relay: RelayAuthProtocol? = nil) {
         loadConfiguration(dic: dic)
         
         if openaiKey != nil, openaiKey != "" {
@@ -39,8 +39,9 @@ class AppConfig {
             return
         }
         Task {
+            self.relay = relay ?? RelayAuth()
             if self.relayMode == nil || self.relayMode == "server" {
-                var setting = await self.relay.getRelaySetting()
+                var setting = await self.relay.getRelaySetting(customBaseUrl: "")
                 if setting == nil {
                     setting = RelaySetting(mode: "soft", openaiBaseUrl: "https://api.openai.com/v1")
                 } else {
@@ -87,7 +88,7 @@ class AppConfig {
             SentrySDK.capture(message: "Invalid Relay URL")
             return
         }
-        guard let token = await relay.getDeviceToken() else {
+        guard let token = await relay.getDeviceToken(false, simulateError: false) else {
             return
         }
         var request = URLRequest(url: url)
@@ -121,17 +122,13 @@ class AppConfig {
         guard let path = Bundle.main.path(forResource: "AppConfig", ofType: "plist") else { // Bundle.main.path
             fatalError("Unable to locate plist file")
         }
-        
         let fileURL = URL(fileURLWithPath: path)
-        
         do {
             let data = try Data(contentsOf: fileURL)
             guard let dictionary = try dic ?? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
                 fatalError("Unable to convert plist into dictionary")
             }
-            
             sentryDSN = dictionary["SENTRY_DSN"] as? String
-            
             sharedEncryptionSecret = dictionary["SHARED_ENCRYPTION_SECRET"] as? String
             sharedEncryptionIV = dictionary["SHARED_ENCRYPTION_IV"] as? String
             relayBaseUrl = dictionary["RELAY_BASE_URL"] as? String

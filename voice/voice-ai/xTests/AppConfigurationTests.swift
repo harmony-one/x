@@ -1,5 +1,6 @@
 import XCTest
 import Combine
+import OSLog
 @testable import Voice_AI
 
 class AppConfigTests: XCTestCase {
@@ -24,6 +25,14 @@ class AppConfigTests: XCTestCase {
     override func tearDown() {
         appConfig = nil
         super.tearDown()
+    }
+    
+    func testInitRelayModeServer() {
+        let bundleDic  = [
+            "RELAY_MODE": "server",
+        ] as [String : Any]
+        let mockRelay = MockRelayAuth()
+        let appConfig = AppConfig(dic: bundleDic, relay: mockRelay)
     }
     
     func testGetterMethods() {
@@ -84,6 +93,12 @@ class AppConfigTests: XCTestCase {
             "RELAY_BASE_URL": "http://Invalid relay url ////// ()()()()"
         ] as [String : Any]
         let  appConfig = AppConfig(dic: bundleDic)
+    }
+    
+    func testRequestOpenAIKeyGetDeviceToken() async {
+        let mockRelay = MockRelayAuth()
+        let appConfig = AppConfig(relay: mockRelay)
+        await appConfig.requestOpenAIKeyTest()
     }
     
     func testCheckWhiteLabelListNoUserName() async {
