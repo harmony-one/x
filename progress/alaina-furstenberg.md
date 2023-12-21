@@ -1,3 +1,7 @@
+2023-12-21 Thu: Tweeting out q4 devops report, per Soph's feedback.
+
+2023-12-20 Wed: Half day paid time off. Continued iterating [bridge.harmony.one](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=T2HHRfwEZVXx3bWX-1) adding new screens for token selection, deposit amount, and destination address. Synced with Soph to tweet out a q4 devops updated based off the q3 roadmap.
+
 2023-12-19 Tue: Continued designing bridge.harmony.one, mocks can be seen [here](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=T2HHRfwEZVXx3bWX-1). Sticking to monocolor, simple copy, to start. Will considering future addition of a 'statement' piece/image behind the interface. But for now, sticking to as-simple-as-possible streamlined user experience.
 
 2023-12-18 Mon: Researched top bridging platforms, using bridge aggregator. Found inspiration from Hop.exchange for it's brand similarity and simplicity. Also found inspiration from Stargate for it's design & color simplicity. Tested Harmony bridge & began drafting revisions of information layout. All can be seen in this [figma file](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=OwVErw2fvA5EmdY5-1). Shared [tweet](https://x.com/harmonyprotocol/status/1736911651797131512?s=20) showcasing Talk to ME!
