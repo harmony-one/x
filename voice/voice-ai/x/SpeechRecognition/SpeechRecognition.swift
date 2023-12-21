@@ -110,7 +110,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var isTalktome = false
     private var currentText: String = ""
     private var currentIndex: Int = 0
-    private var totalSkippedWords: Int = 0
+    private var totalWordsToSkip: Int = 0
+    private var startTime: Date?
     
     // MARK: - Initialization and Setup
     
@@ -943,31 +944,58 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         
         textToSpeechConverter.convertTextToSpeech(text: text, timeLogger: nil)
     }
-    
-    private func speak(from index: Int) {
-        let words = currentText.components(separatedBy: .whitespacesAndNewlines)
-        let remainingText = words.dropFirst(index).joined(separator: " ")
+   
+    private func startSpeech() {
+        let remainingWords = getRemainingWords()
+        let remainingText = remainingWords.joined(separator: " ")
         self.playText(text: remainingText)
+        startTime = Date() // Start timing
     }
     
     func skipWords(count: Int) {
         if self.isTalktome {
-            let words = currentText.components(separatedBy: .whitespacesAndNewlines)
-            totalSkippedWords += count
-            currentIndex = min(words.count, totalSkippedWords)
-            textToSpeechConverter.stopSpeech()
-            speak(from: currentIndex)
+            if textToSpeechConverter.synthesizer.isSpeaking {
+                // Calculate and adjust the totalWordsToSkip
+                let wordsSpoken = estimateWordsSpoken()
+                currentIndex += wordsSpoken
+                totalWordsToSkip = count
+                textToSpeechConverter.stopSpeech()
+            } else {
+                totalWordsToSkip = count
+                applySkip()
+            }
+        } else {
+            print("It is not Talk to ME!")
         }
     }
     
     func resetSkip() {
         logger.log("[resetSkip]")
         self.currentIndex = 0
-        self.totalSkippedWords = 0
+        self.totalWordsToSkip = 0
         self.isTalktome = false
         self.currentText = ""
+        self.startTime = nil
     }
     
+    private func applySkip() {
+        currentIndex += totalWordsToSkip
+        totalWordsToSkip = 0
+        startSpeech()
+    }
+    
+    private func getRemainingWords() -> [String] {
+        let words = currentText.components(separatedBy: .whitespacesAndNewlines)
+        return Array(words.dropFirst(currentIndex))
+    }
+    
+    private func estimateWordsSpoken() -> Int {
+        guard let startTime = startTime else { return 0 }
+        let elapsed = Date().timeIntervalSince(startTime)
+        let wordsPerSecond = 150 / 60.0 // Adjust this based on your speech rate
+        return Int(elapsed * wordsPerSecond)
+    }
+
     @objc func handleTimerDidFire() {
         // Handle the timer firing
         logger.log("The timer in TimerManager has fired.")
@@ -985,6 +1013,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
 extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        
+        if totalWordsToSkip > 0 {
+            applySkip()
+        }
+        
         isPlayingWorkItem?.cancel()
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if (self?._isPlaying) != nil {
