@@ -3,7 +3,7 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
+  Get, Logger,
   NotFoundException,
   Param,
   Post,
@@ -14,10 +14,12 @@ import {
 import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {TwitterService} from "./twitter.service";
 import {GetTwitterListsDto, TwitterListsCreateDto, UpdateTwitterListDto} from "./dto/list.dto";
+import {SkipThrottle} from "@nestjs/throttler";
 
 @ApiTags('twitter')
 @Controller('twitter')
 export class TwitterController {
+  logger = new Logger(TwitterController.name)
   constructor(private readonly twitterService: TwitterService) {}
 
   @Get('/list/:name')
@@ -45,13 +47,23 @@ export class TwitterController {
 
   @Post('/list')
   async createTwitterList(@Body() dto: TwitterListsCreateDto) {
-    const existedList = await this.twitterService.getTwitterList({ listId: dto.listId })
+    const { listId } = dto
+
+    const existedList = await this.twitterService.getTwitterList({ listId })
     if(existedList) {
-      throw new BadRequestException(`List ${dto.listId} already exists`)
+      throw new BadRequestException(`List ${listId} already exists`)
     }
-    return this.twitterService.createTwitterList(dto);
+
+    await this.twitterService.createTwitterList(dto);
+
+    this.twitterService.updateListTweets(listId).catch(e => {
+      this.logger.error(`Update twitter list error: ${e.message}`)
+    })
+
+    return this.twitterService.getTwitterList({ listId })
   }
 
+  @SkipThrottle()
   @Get('/:listId')
   @ApiParam({
     name: 'listId',

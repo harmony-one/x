@@ -92,7 +92,7 @@ export class TwitterService {
     job.start()
   }
 
-  private async updateListTweets(listId: string) {
+  public async updateListTweets(listId: string) {
     const tweetsData = await this.fetchTwitterList(listId)
 
     this.logger.log(`ListId ${listId}: inserting ${tweetsData.meta.result_count} tweets`)
