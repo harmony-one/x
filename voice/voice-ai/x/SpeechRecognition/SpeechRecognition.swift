@@ -106,7 +106,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private let answerLimitText: String
     private let vibration = VibrationManager.shared
     @Published var isThinking: Bool = false
-
+    
+    private var isTalktome = false
+    private var currentText: String = ""
+    private var currentIndex: Int = 0
+    private var totalSkippedWords: Int = 0
+    
     // MARK: - Initialization and Setup
     
     override init() {
@@ -511,6 +516,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         logger.log("stop")
+        resetSkip()
     }
     
     func resumeCapturing() {
@@ -897,6 +903,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func talkToMe() {
+       resetSkip()
         let followNews = SettingsBundleHelper.getFollowNews().flatMap {
             $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
         } ?? SettingsBundleHelper.DefaultFollowNews
@@ -906,8 +913,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             if let data = data {
                 SettingsBundleHelper.setUserProfile(profile: data)
                 self.logger.log("[Data Feed] Fetched Data: \(data)")
-                
-                SpeechRecognition.shared.playText(text: data);
+                self.isTalktome = true
+                self.currentText = data
+                SpeechRecognition.shared.playText(text: data)
             } else {
                 print("Failed to fetch or parse data.")
             }
@@ -934,6 +942,30 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         registerTTS()
         
         textToSpeechConverter.convertTextToSpeech(text: text, timeLogger: nil)
+    }
+    
+    private func speak(from index: Int) {
+        let words = currentText.components(separatedBy: .whitespacesAndNewlines)
+        let remainingText = words.dropFirst(index).joined(separator: " ")
+        self.playText(text: remainingText)
+    }
+    
+    func skipWords(count: Int) {
+        if self.isTalktome {
+            let words = currentText.components(separatedBy: .whitespacesAndNewlines)
+            totalSkippedWords += count
+            currentIndex = min(words.count, totalSkippedWords)
+            textToSpeechConverter.stopSpeech()
+            speak(from: currentIndex)
+        }
+    }
+    
+    func resetSkip() {
+        logger.log("[resetSkip]")
+        self.currentIndex = 0
+        self.totalSkippedWords = 0
+        self.isTalktome = false
+        self.currentText = ""
     }
     
     @objc func handleTimerDidFire() {
