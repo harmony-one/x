@@ -1,4 +1,4 @@
-2023-12-21 Thu: Tweeting out q4 devops report, per Soph's feedback.
+2023-12-21 Thu: Tweeting out [q4 devops update](https://x.com/harmonyprotocol/status/1737908378607976866?s=20), per Soph's feedback. Quote tweeting about ordinals. Testing midjourney v6 & continued iterating bridge.harmony.one.
 
 2023-12-20 Wed: Half day paid time off. Continued iterating [bridge.harmony.one](https://www.figma.com/file/qDg2rk0BivJwe98nM0l1gN/Bridge.harmony.one?type=design&node-id=0%3A1&mode=design&t=T2HHRfwEZVXx3bWX-1) adding new screens for token selection, deposit amount, and destination address. Synced with Soph to tweet out a q4 devops updated based off the q3 roadmap.
 
