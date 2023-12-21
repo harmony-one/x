@@ -1,3 +1,5 @@
+2023-12-20 Wed: Twitter API service: [update](https://github.com/harmony-one/x/commit/55a9ed1aabe8249fd3110f7613a746b5ea9009ce) new Twitter list on create; added default rate limiter. Check current state of X app unit tests.
+
 2023-12-19 Tue: [updated](https://github.com/harmony-one/x/commit/aba84ba598be94706bddec0ed9f8ef50f49ddd24) x-api backend: added params to GET /list, improved delete and update twitter list endpoints. [Added](https://github.com/harmony-one/explorer-v2-frontend/pull/285) total undelegated info to Staked dropdown in Harmony Explorer (from Aaron).
 
 2023-12-18 Mon: [reviewed](https://github.com/harmony-one/x/pull/399) Twitter lists PR from Yuriy. [Refactored](https://github.com/harmony-one/x/commit/cce850cf8681b38c508323c361ebab97726aa81a) Twitter lists: removed separate module and controller, improved /update endpoint. [Added](https://github.com/harmony-one/explorer-v2-frontend/commit/1924e42975d8218b298635705f2808ac16754b8f) undelegation info to Staking tab in Explorer client (request from Aaron).
