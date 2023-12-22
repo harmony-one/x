@@ -84,6 +84,24 @@ class StoreTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
     }
+    
+    func testGetProducts() {
+        Task {
+            var products = try await store.getProducts()
+            XCTAssertTrue(!products.isEmpty)
+        }
+    }
+
+    func test() {
+        let expectation = XCTestExpectation(description: "Request Products")
+
+        Task {
+            try await store.requestProducts(simulateError: true)
+            XCTAssertTrue(store.products.isEmpty, "products array should be empty")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10.0)
+    }
 }
 
 //class ActivityIndicatorViewTests: XCTestCase {
