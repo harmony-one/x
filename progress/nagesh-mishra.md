@@ -1,3 +1,9 @@
+2023-12-22 Fri: Implemented new version of Twitter APIs, manually added new Twitter list updated Twitter list name, or set it in "active" or "inactive" status and Delete.
+
+2023-12-21 Thu: Completed and tested "Skip 30 Seconds" feature to an action sheet, PR: https://github.com/harmony-one/x/pull/410.
+
+2023-12-20 Wed: Task to add a "Skip 30 Seconds" feature to an action sheet, work in progress.
+
 2023-12-19 Tue: Project setup, launch screen integration, network manager added, audio management functionality, feature for Saving Recorded Audio, functionality to display a list of saved recordings.
 
 2023-12-18 Mon: AlertManager unit test 100%.
