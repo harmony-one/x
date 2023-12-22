@@ -1,3 +1,5 @@
+2023-12-21 Thu: Sergey and Yuriy help fix local deployment issues of [layer zero bridge](https://github.com/harmony-one/layerzero-bridge.frontend/pull/22). Added [add document endpoint](https://github.com/harmony-one/harmony-llm-api/pull/11) on the llms backend for the VoiceOn prototype. Found a local on-device vector database for [Swift Apps](https://github.com/Dripfarm/SVDB) to be tested for the VoiceOn prototype. Worked on [alias/aliases command](https://github.com/harmony-one/HarmonyOneBot/pull/344) for HarmonyOneBot. 
+
 2023-12-20 Wed: Working on fixing issues with the configuration of the local development environment for layer zero bridge look and feel updates. Configured local development environment for VoiceOn prototype.
 
 2023-12-19 Tue: Started working on [VoiceOn prototype](https://github.com/harmony-one/x/tree/main/voice/x.on), exploring Chromadb embeddings for voice transcript. Also started working on the [bridge styling](https://bridge.harmony.one/erc20) update. Supported 1.country with a domain registration issue.
