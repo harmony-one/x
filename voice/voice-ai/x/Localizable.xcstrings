@@ -112,6 +112,9 @@
         }
       }
     },
+    "Add new twitter list" : {
+
+    },
     "button.cancel" : {
       "localizations" : {
         "en" : {
@@ -174,6 +177,9 @@
           }
         }
       }
+    },
+    "Delete twitter list" : {
+
     },
     "intent.newSession.title" : {
       "localizations" : {
@@ -561,6 +567,9 @@
 
     },
     "System Settings" : {
+
+    },
+    "Update twitter list" : {
 
     }
   },

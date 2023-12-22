@@ -195,6 +195,11 @@
 		B975D2F32B301C9100F5ABF3 /* AlertManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B975D2F22B301C9100F5ABF3 /* AlertManagerTests.swift */; };
 		B97B719D2AE8DA72000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
 		B97B719F2AE93EB2000BB4C9 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */; };
+		B97E04AE2B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
+		B97E04AF2B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
+		B97E04B02B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
+		B97E04B12B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
+		B97E04B42B3582F0000C9FCA /* TwitterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B32B3582F0000C9FCA /* TwitterModel.swift */; };
 		B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */; };
 		B9A3ADF02B15CD3500C5FC66 /* ActivityViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */; };
 		B9A3AE182B18CC7900C5FC66 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */; };
@@ -448,6 +453,8 @@
 		B95B4D7D2AE2D16100DFE2EB /* ActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		B975D2F22B301C9100F5ABF3 /* AlertManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManagerTests.swift; sourceTree = "<group>"; };
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
+		B97E04AD2B358175000C9FCA /* TwitterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
+		B97E04B32B3582F0000C9FCA /* TwitterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterModel.swift; sourceTree = "<group>"; };
 		B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkTests.swift; sourceTree = "<group>"; };
 		B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewTests.swift; sourceTree = "<group>"; };
 		B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
@@ -683,6 +690,7 @@
 		B91F05B82B04BA060029A32D /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
+				B97E04AC2B358145000C9FCA /* Twitter */,
 				B91F05B92B04BA250029A32D /* NetworkManager.swift */,
 				B91F05C42B04C99B0029A32D /* APIEnvironment.swift */,
 				B91F05BC2B04BFBC0029A32D /* User */,
@@ -764,6 +772,23 @@
 				6E6D53232AFC2DB2001BF3A8 /* ActivityView.swift */,
 			);
 			path = Actions;
+			sourceTree = "<group>";
+		};
+		B97E04AC2B358145000C9FCA /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				B97E04B22B3582C4000C9FCA /* Model */,
+				B97E04AD2B358175000C9FCA /* TwitterAPI.swift */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
+		B97E04B22B3582C4000C9FCA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B97E04B32B3582F0000C9FCA /* TwitterModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B9A3AE0E2B18CC7900C5FC66 /* AppConfiguration */ = {
@@ -1343,6 +1368,7 @@
 				A46B5A832AE73CF500C874ED /* Permission.swift in Sources */,
 				B91F05C32B04C0D50029A32D /* CreateUser.swift in Sources */,
 				B91F05D12B0613B10029A32D /* AppSettings.swift in Sources */,
+				B97E04B12B358175000C9FCA /* TwitterAPI.swift in Sources */,
 				B9A3AE1B2B18CC7900C5FC66 /* TimerManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1407,6 +1433,7 @@
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				AC66DF302B2706E100DDC802 /* RandomTrivia.swift in Sources */,
+				B97E04B42B3582F0000C9FCA /* TwitterModel.swift in Sources */,
 				22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */,
 				6E207AF82B1FA5B000C9123A /* NewSessionIntent.swift in Sources */,
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
@@ -1420,6 +1447,7 @@
 				CD0D13382ADA73B300031EDD /* xApp.swift in Sources */,
 				6E8D0BDE2AFE759E00556927 /* OpenAIUtils.swift in Sources */,
 				B9C4A8282AEE867A00327529 /* ActionHandler.swift in Sources */,
+				B97E04AE2B358175000C9FCA /* TwitterAPI.swift in Sources */,
 				B9AD50622ADFE9B7006F18A1 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1534,6 +1562,7 @@
 				F7731A472B06F73E0000D3E9 /* IAPTests.swift in Sources */,
 				6E53AF512AF012A40022A8F2 /* Color.swift in Sources */,
 				F6EEF28F2B1E735900174CED /* CustomInstructionsHandlerTests.swift in Sources */,
+				B97E04AF2B358175000C9FCA /* TwitterAPI.swift in Sources */,
 				B36D4C502B29654900915F27 /* DataFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1576,6 +1605,7 @@
 				CDC137152B11B129003386E9 /* TimeLogger.swift in Sources */,
 				6E53AF5E2AF0130E0022A8F2 /* Usage.swift in Sources */,
 				6E53AF5C2AF0130E0022A8F2 /* Choices.swift in Sources */,
+				B97E04B02B358175000C9FCA /* TwitterAPI.swift in Sources */,
 				6E56C7BD2B067A8F00ED2296 /* KeychainService.swift in Sources */,
 				6E56C7BB2B0679BB00ED2296 /* NetworkManager.swift in Sources */,
 				B9A3AE222B18CC7900C5FC66 /* SettingsBundleHelper.swift in Sources */,

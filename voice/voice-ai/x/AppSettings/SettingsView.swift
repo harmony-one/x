@@ -167,7 +167,6 @@ struct SettingsView: View {
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
             .default(Text("settingsView.mainMenu.Skip")) {
                 SpeechRecognition.shared.skipWords(count: 100)
-
             },
             .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
@@ -175,7 +174,10 @@ struct SettingsView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     appSettings.isOpened = true // Then open the new sheet
                 }
-            }
+            },
+            .default(Text("Add new twitter list")) { addNewTwitterList() },
+            .default(Text("Update twitter list")) { updateTwitterList() },
+            .default(Text("Delete twitter list")) { deleteTwitterList() }
         ])
     }
 
@@ -207,6 +209,20 @@ struct SettingsView: View {
             },
             .cancel()
         ])
+    }
+    
+    func addNewTwitterList() {
+        TwitterAPI().addTwitterList(listId: "Nagesh", name: "Nagesh")
+    }
+    
+    func updateTwitterList() {
+        TwitterAPI().updateTwitterList(listId: "Nagesh", isActive: false)
+    }
+    
+    func deleteTwitterList() {
+        TwitterAPI().deleteTwitter(listId: "Nagesh") { status in
+            
+        }
     }
 
     func tweet() {
