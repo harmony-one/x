@@ -44,7 +44,6 @@ class AppSettings: ObservableObject {
         }
     }
     
-    
     @Published var isMirror: Bool {
         didSet {
             updateUserDefaultsIfNeeded(forKey: "MIRROR_KEY", newValue: isMirror)

@@ -374,6 +374,17 @@
         }
       }
     },
+    "settingsView.mainMenu.Skip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip 30 seconds"
+          }
+        }
+      }
+    },
     "settingsView.mainMenu.talkToME" : {
       "extractionState" : "stale",
       "localizations" : {
