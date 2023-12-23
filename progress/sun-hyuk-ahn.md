@@ -1,3 +1,7 @@
+2023-12-29 Fri: Write from scratch a minimal bridge to/from arbitrium in 500 lines on command line.
+
+---
+
 2023-12-20 Wed: Deployed mint.i.country.
 
 2023-12-19 Tue: Started development for minting tools and indexer required for the inscription tokens.
