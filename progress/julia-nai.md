@@ -1,4 +1,4 @@
-2023-12-29 Fri: The next step for s/wallet is to initiate and approve transactions of our gnosis safe (via its rpc) from command line. Follow Aaron’s 1wallet code which has the exact functionality for multisig and staking.
+2023-12-29 Fri: Initiate and approve transactions of our gnosis safe (via its rpc) from command line. Follow Aaron’s 1wallet code which has the exact functionality for multisig and staking.
 
 ---
 
