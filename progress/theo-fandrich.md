@@ -1,5 +1,11 @@
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
+---
+
+2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. 
+
+---
+
 2023-12-22 Fri: Setup an account on warpcast, sifted through different channels. Mostly read what Vitalik was sharing. Also explored some of the other open-source clients enabled by farcaster. Tested the dynamic twitter integration for "Talk to ME!", this still needs some work and should be ready by Tue 12/26. 
 
 2023-12-21 Thu: Tested and merged the skip forward 30 seconds function for Voice AI with Nagesh. Conducted research on Celestia, Avalanche, and Near's inscription technology.
