@@ -2,6 +2,8 @@
 
 ---
 
+2023-12-22 Fri: [added](https://github.com/harmony-one/x/commit/122b33cddb97914f1b383a90209b229fd9ead688) in-memory cache to x-api backend endpoints
+
 2023-12-21 Thu: [Added](https://github.com/harmony-one/x/pull/411) progressView tests, researched new [inscription](https://github.com/harmony-one/1country-inscription) project, discussed  inscription indexer architecture with Yuriy.
 
 2023-12-20 Wed: Twitter API service: [update](https://github.com/harmony-one/x/commit/55a9ed1aabe8249fd3110f7613a746b5ea9009ce) new Twitter list on create; added default rate limiter. Check current state of X app unit tests.
