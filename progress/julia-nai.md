@@ -1,3 +1,7 @@
+2023-12-29 Fri: Initiate and approve transactions of our gnosis safe (via its rpc) from command line. Follow Aaron’s 1wallet code which has the exact functionality for multisig and staking.
+
+---
+
 2023-12-15 Fri: Continued to heavily test text-based RPG with app. Tested Talk to ME! [Adjusted](https://github.com/harmony-one/x/pull/398) output for log parser. 
 
 2023-12-14 Thu: [Created](https://github.com/harmony-one/x/pull/387) parsing script for VoiceAI transcripts to generate a text file with user readable conversation transcript and some session analytics. Continuously tested playing text-based RPG with app. 
