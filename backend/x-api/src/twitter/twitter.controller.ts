@@ -7,7 +7,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  Query,
+  Query, UseInterceptors,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
@@ -15,6 +15,9 @@ import {ApiParam, ApiTags} from "@nestjs/swagger";
 import {TwitterService} from "./twitter.service";
 import {GetTwitterListsDto, TwitterListsCreateDto, UpdateTwitterListDto} from "./dto/list.dto";
 import {SkipThrottle} from "@nestjs/throttler";
+import {CacheInterceptor} from "@nestjs/cache-manager";
+import {CacheTTL} from "@nestjs/common/cache";
+
 
 @ApiTags('twitter')
 @Controller('twitter')
@@ -40,6 +43,8 @@ export class TwitterController {
     throw new NotFoundException(`List with name "${name}" not found`)
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(2)
   @Get('/lists')
   getLists(@Query() dto: GetTwitterListsDto) {
     return this.twitterService.getTwitterLists(dto);
@@ -64,6 +69,8 @@ export class TwitterController {
   }
 
   @SkipThrottle()
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(2)
   @Get('/:listId')
   @ApiParam({
     name: 'listId',
