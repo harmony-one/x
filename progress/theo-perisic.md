@@ -1,3 +1,7 @@
+On-going: One tweet + two replies per day, 365/7 all the time.
+
+---
+
 2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. 
 
 ---
