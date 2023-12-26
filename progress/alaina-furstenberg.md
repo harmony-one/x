@@ -6,6 +6,10 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2023-12-29 Fri: Paid time off.
 
+2023-12-26 Tue: Searched for downtown Los Altos office spaces, found 2 locations, spoke with local realtor & scheduled tour for Jan 9th 11AM.
+
+2023-12-25 Mon: Christmas Holiday
+
 ---
 2023-12-24 Sun: 
 
