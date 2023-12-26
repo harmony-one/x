@@ -2,7 +2,7 @@
 
 ---
 
-2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. 
+2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. Build out new Voice prototype and complete "Talk to ME!" feature with twitter integration.
 
 ---
 
