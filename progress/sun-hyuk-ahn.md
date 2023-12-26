@@ -1,3 +1,7 @@
+2023-12-29 Fri: Paid time off.
+
+---
+
 2023-12-29 Fri: Write from scratch a minimal bridge to/from arbitrium in 500 lines on command line.
 
 ---
