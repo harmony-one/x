@@ -1,3 +1,7 @@
+On-going: One tweet + two replies per day, 365/7 all the time.
+
+---
+
 2023-12-22 Fri: Updating harmony.one with community tweets, sharing [thread](https://x.com/harmonyprotocol/status/1738353763721806048?s=20) of each tweet on Twitter. Updated ONE Bot blog with shortcut commands, synced with Frank to update the copy for /alias. Began reading delphi digital, learning about the growing competition and complexities in the Layer 2 blockchain space, the slow progress, rising risks, and the shift towards new technologies that might change how Ethereum fits into the bigger picture.
 
 2023-12-21 Thu: Tweeting out [q4 devops update](https://x.com/harmonyprotocol/status/1737908378607976866?s=20), per Soph's feedback. Quote tweeting about ordinals. Testing midjourney v6 & continued iterating bridge.harmony.one.
