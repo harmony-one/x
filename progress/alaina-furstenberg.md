@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-04 - 2024-01-05 : Paid time off.
+
 ---
 
 2023-12-29 Fri: Paid time off.
