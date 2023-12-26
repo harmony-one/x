@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-2023-12-29 Fri: Build out new Voice prototype and complete "Talk to ME!" feature with twitter integration.
+2023-12-29 Fri: Paid time off.
 
 ---
 
