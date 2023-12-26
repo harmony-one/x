@@ -1,6 +1,7 @@
 2023-12-25 Mon - 2024-01-05 Fri: Paid time off.
 
 ---
+2023-12-22 Fri: Added speech recognition (speech-to-text) to [voiceOn prototype](https://github.com/harmony-one/x/pull/412), and worked on [llms endpoint](https://github.com/harmony-one/harmony-llm-api/pull/11). Deployed to HarmontOneBot dev /alias /aliases command implementation.  
 
 2023-12-21 Thu: Sergey and Yuriy help fix local deployment issues of [layer zero bridge](https://github.com/harmony-one/layerzero-bridge.frontend/pull/22). Added [add document endpoint](https://github.com/harmony-one/harmony-llm-api/pull/11) on the llms backend for the VoiceOn prototype. Found a local on-device vector database for [Swift Apps](https://github.com/Dripfarm/SVDB) to be tested for the VoiceOn prototype. Worked on [alias/aliases command](https://github.com/harmony-one/HarmonyOneBot/pull/344) for HarmonyOneBot. 
 
