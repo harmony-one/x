@@ -1,3 +1,7 @@
+2023-12-25 Mon - 2024-01-05 Fri: Paid time off.
+
+---
+
 2023-12-19 Mon: I am continuing to work on integration [Gemini Pro](https://github.com/harmony-one/x/pull/392).
 
 ---
