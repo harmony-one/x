@@ -2,9 +2,23 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. 
+2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source.
+
+2023-12-26 Tue: Spoke with Eugene from marscolony about nft marketplace following nftkey's dissolution. Completed review of Avalanche specific inscriptions "avascriptions" compared to the greater space. Still not seeing much in the inscription ultility department but more may come later. Today, 3.4m transactions came solely from an inscription token called "ShenLong" with a 1 mint token limit per transaction. Wary of connecting directly to avascriptions.com but minting directly should be much safer by design of inscriptions (no smart contract signatores needed).
+
+2023-12-25 Mon: Christmas
 
 ---
+
+2023-12-24 Sun: Researched different Ordinals projects, joined a free mint for [bitblocks](https://twitter.com/billyrestey) from twitter user "billy". DeFi wave for bitcoin that may follow the memes and brc-20 craze will be interesting to watch. Phantom and other dapps/wallets as well as exchanges like [OKX](https://www.okx.com/web3/hot/inscription) are preparring themselves well for an increase in bitcoin adoption.
+
+2023-12-23 Sat: Joined Ethereum, Polygon, Degen, AI, and Arbitrum channels on warpcast. Ethereum has the largest community out of all of them by quite some margin (16k members, closest is AI with ~4k). INsight for today: Quility UI/UX posts explaining the need for simplicity in the web3 space, more is not always better. 
+
+2023-12-22 Fri: Joined warpcast. Read through inscription posts as well. Warpcast community still wondering about the utility for inscriptions outside of bitcoin. Room for more inscription use cases on evm chains, must be more than memetic oriented for sustained adoption.
+
+2023-12-21 Thu: Posted instcriptions guide on [X](https://x.com/theoperisic/status/1737359794963677462?s=20). Completed NFT [analysis between Moonbirdgs and PudgeyPenguins](https://harmonyone.notion.site/Pudgy-Penguins-vs-MoonBirds-1c8f2ec1bcf5436e83cbf9b4526e56e0?pvs=4), interesting proof of concept that shows "community > product" in web3 business models.
+
+2023-12-20 Wed: Looked over Casey's announcement forum post. Spent today at investors lunch with Stephen. Interesting insights in gamefi coming soon and early alpha on first playstation web3 game. Intersection of crypto and AI still a valuable opportunity. 
 
 2023-12-19 Tue: Continued work with Inscriptions. Completed [image inscriptions guide](https://harmonyone.notion.site/Harmony-Inscription-Process-e3e43a20835c4a3b88cb5d8f22f9b784?pvs=4). Successful inscription using CLI on Sun’s build, waiting for pull request merge for main build.
 
