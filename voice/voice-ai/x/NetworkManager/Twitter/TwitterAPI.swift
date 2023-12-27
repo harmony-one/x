@@ -17,6 +17,8 @@ struct TwitterUpdateListBody: Codable {
 enum TwitterAPIEnvironment {
     static let baseURL = "https://x-api-backend.fly.dev/"
     static let list = "twitter/list"
+    static let lists = "twitter/lists?isActive=true"
+
     
     static func updateList(listId: String) -> String {
         return "twitter/\(listId)/update"
@@ -28,6 +30,10 @@ enum TwitterAPIEnvironment {
     
     static func getListByListID(listId: String) -> String {
         return "twitter/\(listId)"
+    }
+    
+    static func getListBy(name: String) -> String {
+        return "twitter/list/\(name)"
     }
 }
 
@@ -58,18 +64,11 @@ struct TwitterAPI {
                     completion?(.failure(NSError(domain: "List already created", code: -4)))
                     return
                 }
-
-                // Handle successful response
-                guard let userID = response.data.id else {
-                    SentrySDK.capture(message: "[TwitterAPI][AddTwiterList] list not created")
-                    completion?(.failure(NSError(domain: "list not created", code: -2)))
-                    return
-                }
                 
                 self.logger.log("Success")
                 SentrySDK.capture(message: "[TwitterAPI][AddTwiterList] Success")
                 completion?(.success(true))
-
+                
             case let .failure(error):
                 // Handle error
                 self.logger.log("Error: \(error)")
@@ -81,10 +80,6 @@ struct TwitterAPI {
     
     func updateTwitterList(listId: String, isActive: Bool, completion: ((Result<Bool, Error>) -> Void)? = nil) {
         let commentData = TwitterUpdateListBody(listId: listId, isActive: isActive)
-        guard let bodyData = try? JSONEncoder().encode(commentData) else {
-            SentrySDK.capture(message: "[TwitterAPI][UpdateTwiterList] failed to encode data")
-            return
-        }
         self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.updateList(listId: listId), method: .post, parameters: ["listId": listId, "isActive": isActive.description ]) { (result: Result<NetworkResponse<TwitterModel>, NetworkError>) in
             switch result {
             case let .success(response):
@@ -93,18 +88,11 @@ struct TwitterAPI {
                     completion?(.failure(NSError(domain: "List already created", code: -4)))
                     return
                 }
-
-                // Handle successful response
-                guard let userID = response.data.id else {
-                    SentrySDK.capture(message: "[TwitterAPI][UpdateTwiterList] list not created")
-                    completion?(.failure(NSError(domain: "list not created", code: -2)))
-                    return
-                }
                 
                 self.logger.log("Success")
                 SentrySDK.capture(message: "[TwitterAPI][UpdateTwiterList] Success")
                 completion?(.success(true))
-
+                
             case let .failure(error):
                 // Handle error
                 self.logger.log("Error: \(error)")
@@ -113,11 +101,11 @@ struct TwitterAPI {
             }
         }
     }
-
-
+    
+    
     func deleteTwitter(listId: String, completion: @escaping (Bool) -> Void) {
         self.logger.log("[TwitterAPI][DeleteTwitter] Deleting \(APIEnvironment.getUser())")
-        self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.deleteList(listId: listId), method: .delete) { (result: Result<NetworkResponse<User>, NetworkError>) in
+        self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.deleteList(listId: listId), method: .delete) { (result: Result<NetworkResponse<TwitterModel>, NetworkError>) in
             switch result {
             case let .success(response):
                 // Handle successful response
@@ -134,6 +122,36 @@ struct TwitterAPI {
                 SentrySDK.capture(message: "[TwitterAPI][DeleteTwitter] Error: \(error)")
                 // Call completion with false since the process failed
                 completion(false)
+            }
+        }
+    }
+    
+    func getTwitterList(completion: ((Result<NetworkResponse<[TwitterModel]>, NetworkError>) -> Void)? = nil) {
+        self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.lists, method: .get) { (result: Result<NetworkResponse<[TwitterModel]>, NetworkError>) in
+            switch result {
+            case let .success(response):
+                self.logger.log("[TwitterAPI][GetTwitterList] Status Code: \(response.statusCode)")
+                // Handle successful response
+                SentrySDK.capture(message: "[TwitterAPI][GetTwitterList] Success")
+                completion?(.success(response))
+            case let .failure(error):
+                self.logger.log("[TwitterAPI][GetTwitterList] Error: \(error)")
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    func getTwitterListBy(name: String, completion: ((Result<NetworkResponse<[TwitterModel]>, NetworkError>) -> Void)? = nil) {
+        self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.getListBy(name: name), method: .get) { (result: Result<NetworkResponse<[TwitterModel]>, NetworkError>) in
+            switch result {
+            case let .success(response):
+                self.logger.log("[TwitterAPI][GetTwitterList] Status Code: \(response.statusCode)")
+                // Handle successful response
+                SentrySDK.capture(message: "[TwitterAPI][GetTwitterList] Success")
+                completion?(.success(response))
+            case let .failure(error):
+                self.logger.log("[TwitterAPI][GetTwitterList] Error: \(error)")
+                completion?(.failure(error))
             }
         }
     }

@@ -112,7 +112,13 @@
         }
       }
     },
-    "Add new twitter list" : {
+    "Add" : {
+
+    },
+    "Add List" : {
+
+    },
+    "Add New List" : {
 
     },
     "button.cancel" : {
@@ -136,6 +142,9 @@
       }
     },
     "Cancel" : {
+
+    },
+    "Created at: %@" : {
 
     },
     "customInstruction.default" : {
@@ -178,7 +187,10 @@
         }
       }
     },
-    "Delete twitter list" : {
+    "Edit" : {
+
+    },
+    "Edit List" : {
 
     },
     "intent.newSession.title" : {
@@ -221,8 +233,17 @@
         }
       }
     },
+    "Is Active" : {
+
+    },
     "Key" : {
       "extractionState" : "manual"
+    },
+    "List Details" : {
+
+    },
+    "List Name" : {
+
     },
     "New Session" : {
 
@@ -569,7 +590,13 @@
     "System Settings" : {
 
     },
-    "Update twitter list" : {
+    "Twitter list" : {
+
+    },
+    "Twitter Lists" : {
+
+    },
+    "Update List" : {
 
     }
   },

@@ -200,6 +200,10 @@
 		B97E04B02B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
 		B97E04B12B358175000C9FCA /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04AD2B358175000C9FCA /* TwitterAPI.swift */; };
 		B97E04B42B3582F0000C9FCA /* TwitterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B32B3582F0000C9FCA /* TwitterModel.swift */; };
+		B97E04B62B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
+		B97E04B72B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
+		B97E04B82B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
+		B97E04B92B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
 		B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */; };
 		B9A3ADF02B15CD3500C5FC66 /* ActivityViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */; };
 		B9A3AE182B18CC7900C5FC66 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */; };
@@ -236,6 +240,7 @@
 		B9B331A12AFB803500F6A9C9 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */; };
 		B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
+		B9BB0FE02B3C69FC00E663F6 /* TwitterUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FDF2B3C69FC00E663F6 /* TwitterUI.swift */; };
 		B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */; };
 		B9C4A8282AEE867A00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
 		B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -455,6 +460,7 @@
 		B97B719C2AE8DA72000BB4C9 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B97E04AD2B358175000C9FCA /* TwitterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		B97E04B32B3582F0000C9FCA /* TwitterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterModel.swift; sourceTree = "<group>"; };
+		B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
 		B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkTests.swift; sourceTree = "<group>"; };
 		B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewTests.swift; sourceTree = "<group>"; };
 		B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
@@ -477,6 +483,7 @@
 		B9B331A02AFB803500F6A9C9 /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		B9B331A22AFB849000F6A9C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		B9BB0FDF2B3C69FC00E663F6 /* TwitterUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUI.swift; sourceTree = "<group>"; };
 		B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSpeechRecognition.swift; sourceTree = "<group>"; };
 		B9C4A8262AEE861C00327529 /* ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* Voice AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -779,6 +786,8 @@
 			children = (
 				B97E04B22B3582C4000C9FCA /* Model */,
 				B97E04AD2B358175000C9FCA /* TwitterAPI.swift */,
+				B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */,
+				B9BB0FDF2B3C69FC00E663F6 /* TwitterUI.swift */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -1320,6 +1329,7 @@
 				F67EDE322B07C30B00FDEA80 /* OpenAIStreamService.swift in Sources */,
 				F67EDE2A2B07C2E400FDEA80 /* ReviewRequester.swift in Sources */,
 				F67EDE2B2B07C2E400FDEA80 /* ThemeManager.swift in Sources */,
+				B97E04B92B3C14BC000C9FCA /* TwitterManager.swift in Sources */,
 				E4D0D8D22B2240DC00F717A2 /* SurpriseIntent.swift in Sources */,
 				B9A3AE272B18CC7900C5FC66 /* AppConfig.swift in Sources */,
 				E4D0D8D42B2240DC00F717A2 /* NewSessionIntent.swift in Sources */,
@@ -1399,6 +1409,7 @@
 				6E95F2322B1F687200260BCA /* AppSettingsIntent.swift in Sources */,
 				B9AD50632ADFE9B7006F18A1 /* OpenAIResponse.swift in Sources */,
 				6E95F2342B1F6B1E00260BCA /* IntentManager.swift in Sources */,
+				B97E04B62B3C14BC000C9FCA /* TwitterManager.swift in Sources */,
 				B9ADFF432B221F4D00C2144E /* AlertManager.swift in Sources */,
 				F76D13C42B18218C0018F89B /* Languages.swift in Sources */,
 				B9A3AE242B18CC7900C5FC66 /* AppConfig.swift in Sources */,
@@ -1435,6 +1446,7 @@
 				AC66DF302B2706E100DDC802 /* RandomTrivia.swift in Sources */,
 				B97E04B42B3582F0000C9FCA /* TwitterModel.swift in Sources */,
 				22A7A81E2B0B703F0027679F /* SettingsView.swift in Sources */,
+				B9BB0FE02B3C69FC00E663F6 /* TwitterUI.swift in Sources */,
 				6E207AF82B1FA5B000C9123A /* NewSessionIntent.swift in Sources */,
 				B91F05C52B04C99B0029A32D /* APIEnvironment.swift in Sources */,
 				B9A3AE202B18CC7900C5FC66 /* SettingsBundleHelper.swift in Sources */,
@@ -1476,6 +1488,7 @@
 				F76D13D02B195EB00018F89B /* DelimitingPunctuations.swift in Sources */,
 				F7F115052AF8173300BC191C /* SpeechRecognitionTests.swift in Sources */,
 				B359C0F52B0C8410007A0CB0 /* ActionsView.swift in Sources */,
+				B97E04B72B3C14BC000C9FCA /* TwitterManager.swift in Sources */,
 				6E53AF532AF012A40022A8F2 /* String.swift in Sources */,
 				B359C0F32B0C83D7007A0CB0 /* ActionsViewTests.swift in Sources */,
 				B91681282AFBA3A80006E463 /* ReviewRequester.swift in Sources */,
@@ -1571,6 +1584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B97E04B82B3C14BC000C9FCA /* TwitterManager.swift in Sources */,
 				6E53AF4B2AF012750022A8F2 /* GridButton.swift in Sources */,
 				B3BC2CAE2B05F45100A58477 /* AppleSignInManager.swift in Sources */,
 				E4D0D8E02B2240DE00F717A2 /* AppSettingsIntent.swift in Sources */,

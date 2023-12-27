@@ -5,6 +5,7 @@ struct TwitterModel: Codable {
     let id: String?
     let isActive: Bool?
     let createdAt: String?
+    let text: String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -13,6 +14,7 @@ struct TwitterModel: Codable {
         case id
         case isActive
         case createdAt
+        case text
     }
 
     init(from decoder: Decoder) throws {
@@ -22,6 +24,8 @@ struct TwitterModel: Codable {
         id = try values.decodeIfPresent(String.self, forKey: .id)
         isActive = try values.decodeIfPresent(Bool.self, forKey: .isActive)
         createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt)
+        text = try values.decodeIfPresent(String.self, forKey: .text)
+
     }
 
 }
