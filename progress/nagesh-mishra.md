@@ -1,3 +1,11 @@
+2023-12-28 Thu: Added a favorite feature on Twitter that communicates with Talk to Me.
+
+2023-12-27 Web: Add a feature to display Twitter lists. Implement functionality for adding new items to lists. Add a feature for item deletion from lists. Enhance the system by updating status type handling.
+
+2023-12-26 Tue: Twitter API's testing and UI for update API.
+
+---
+
 2023-12-22 Fri: Implemented new version of Twitter APIs, manually added new Twitter list updated Twitter list name, or set it in "active" or "inactive" status and Delete.
 
 2023-12-21 Thu: Completed and tested "Skip 30 Seconds" feature to an action sheet, PR: https://github.com/harmony-one/x/pull/410.
