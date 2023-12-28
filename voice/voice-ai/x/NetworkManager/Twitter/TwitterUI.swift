@@ -104,7 +104,6 @@ struct TwitterDetailView: View {
 
     private func saveListText() {
         let combinedText = viewModel.nameDetails.compactMap { $0.text }.joined(separator: "\n")
-        print("combinedText", combinedText)
         UserDefaults.standard.set(combinedText, forKey: "combinedText_\(listName)")
     }
 
