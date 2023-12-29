@@ -13,13 +13,11 @@ struct TwitterUpdateListBody: Codable {
     var isActive: Bool
 }
 
-
 enum TwitterAPIEnvironment {
     static let baseURL = "https://x-api-backend.fly.dev/"
     static let list = "twitter/list"
     static let lists = "twitter/lists?isActive=true"
 
-    
     static func updateList(listId: String) -> String {
         return "twitter/\(listId)/update"
     }
@@ -79,7 +77,6 @@ struct TwitterAPI {
     }
     
     func updateTwitterList(listId: String, isActive: Bool, completion: ((Result<Bool, Error>) -> Void)? = nil) {
-        let commentData = TwitterUpdateListBody(listId: listId, isActive: isActive)
         self.networkManager.requestData(apiType: .twitter, from: TwitterAPIEnvironment.updateList(listId: listId), method: .post, parameters: ["listId": listId, "isActive": isActive.description ]) { (result: Result<NetworkResponse<TwitterModel>, NetworkError>) in
             switch result {
             case let .success(response):
@@ -101,7 +98,6 @@ struct TwitterAPI {
             }
         }
     }
-    
     
     func deleteTwitter(listId: String, completion: @escaping (Bool) -> Void) {
         self.logger.log("[TwitterAPI][DeleteTwitter] Deleting \(APIEnvironment.getUser())")
@@ -156,4 +152,3 @@ struct TwitterAPI {
         }
     }
 }
-
