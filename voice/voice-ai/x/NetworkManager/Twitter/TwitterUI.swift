@@ -54,27 +54,14 @@ struct TwitterListView: View {
 struct TwitterDetailView: View {
     var listName: String
     @ObservedObject var viewModel: TwitterManager
-    @State private var isFavorite: Bool
 
     init(listName: String, viewModel: TwitterManager) {
         self.listName = listName
         self.viewModel = viewModel
-        // Retrieve the favorite status and load the combined text
-        self._isFavorite = State(initialValue: UserDefaults.standard.bool(forKey: "favorite_\(listName)"))
     }
 
     var body: some View {
         VStack {
-            HStack {
-                Button(action: toggleFavorite) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
-                        .foregroundColor(isFavorite ? .yellow : .gray)
-                }
-                Text("Make it favorite for talk to me")
-                    .foregroundColor(.gray)
-                    .font(.caption)
-            }
-            
             List(viewModel.nameDetails, id: \.id) { list in
                 VStack(alignment: .leading) {
                     Text(list.text ?? "Unknown")
@@ -90,27 +77,6 @@ struct TwitterDetailView: View {
             viewModel.getListByName(name: listName)
         }
     }
-
-    private func toggleFavorite() {
-        isFavorite.toggle()
-        UserDefaults.standard.set(isFavorite, forKey: "favorite_\(listName)")
-
-        if isFavorite {
-            saveListText()
-        } else {
-            removeSavedListText()
-        }
-    }
-
-    private func saveListText() {
-        let combinedText = viewModel.nameDetails.compactMap { $0.text }.joined(separator: "\n")
-        UserDefaults.standard.set(combinedText, forKey: "combinedText_\(listName)")
-    }
-
-    private func removeSavedListText() {
-        UserDefaults.standard.removeObject(forKey: "combinedText_\(listName)")
-    }
-
 }
 
 struct EditTwitterListView: View {

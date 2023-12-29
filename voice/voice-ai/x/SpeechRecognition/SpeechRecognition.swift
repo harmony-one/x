@@ -113,6 +113,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var totalWordsToSkip: Int = 0
     private var startTime: Date?
     
+    let twitterManager = TwitterManager()
+    
     // MARK: - Initialization and Setup
     
     override init() {
@@ -922,8 +924,11 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 //                print("Failed to fetch or parse data.")
 //            }
 //        }
-        let allFavoritesCombined = concatenateFavoriteValues()
-        SpeechRecognition.shared.playText(text: allFavoritesCombined.isEmpty ? "Add Twitter favorite list from more actions" : allFavoritesCombined)
+        
+        twitterManager.getAllTwitterListDetails { result in
+            print("All Twitter list details:\n\(result)")
+            SpeechRecognition.shared.playText(text: result.isEmpty ? "There is some issue" : result)
+        }
     }
     
     func concatenateFavoriteValues() -> String {
