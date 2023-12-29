@@ -37,8 +37,8 @@ force_try: # warn against using 'try!'
   severity: warning
 
 function_parameter_count: # limit the number of parameters in a function
-  warning: 5
-  error: 7
+  warning: 8
+  error: 9
 
 nesting: # limit nesting of types within types
   type_level: 3

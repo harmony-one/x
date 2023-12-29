@@ -112,6 +112,15 @@
         }
       }
     },
+    "Add" : {
+
+    },
+    "Add List" : {
+
+    },
+    "Add New List" : {
+
+    },
     "button.cancel" : {
       "localizations" : {
         "en" : {
@@ -133,6 +142,9 @@
       }
     },
     "Cancel" : {
+
+    },
+    "Created at: %@" : {
 
     },
     "customInstruction.default" : {
@@ -175,6 +187,12 @@
         }
       }
     },
+    "Edit" : {
+
+    },
+    "Edit List" : {
+
+    },
     "intent.newSession.title" : {
       "localizations" : {
         "en" : {
@@ -215,8 +233,20 @@
         }
       }
     },
+    "Is Active" : {
+
+    },
     "Key" : {
       "extractionState" : "manual"
+    },
+    "List Details" : {
+
+    },
+    "List Name" : {
+
+    },
+    "Make it favorite for talk to me" : {
+
     },
     "New Session" : {
 
@@ -561,6 +591,15 @@
 
     },
     "System Settings" : {
+
+    },
+    "Twitter list" : {
+
+    },
+    "Twitter Lists" : {
+
+    },
+    "Update List" : {
 
     }
   },

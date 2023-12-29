@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var userName: String?
     @State private var isSaveTranscript = false
     @State private var isShareLogs = false
+    @State private var showTwitterListView = false
 
     private var shareTitle = "hey @voiceaiapp "
     private var maxByteSize = 10 * 1024 * 1024 // 10MB in bytes
@@ -61,6 +62,9 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $isShareLogs, onDismiss: { isShareLogs = false }) {
             ActivityView(activityItems: [logStore.entries.joined(separator: "\n")], isSharing: $appSettings.isSharing)
+        }
+        .sheet(isPresented: $showTwitterListView) {
+                TwitterListView()
         }
     }
 
@@ -167,7 +171,6 @@ struct SettingsView: View {
             .default(Text("settingsView.mainMenu.TweetFeedback")) { tweet() },
             .default(Text("settingsView.mainMenu.Skip")) {
                 SpeechRecognition.shared.skipWords(count: 100)
-
             },
             .default(Text("settingsView.mainMenu.PurchasePremium")) {
                 appSettings.type = .purchaseOptions
@@ -175,7 +178,8 @@ struct SettingsView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     appSettings.isOpened = true // Then open the new sheet
                 }
-            }
+            },
+            .default(Text("Twitter list")) { addNewTwitterList() }
         ])
     }
 
@@ -208,7 +212,13 @@ struct SettingsView: View {
             .cancel()
         ])
     }
-
+    
+    func addNewTwitterList() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            showTwitterListView = true
+        }
+    }
+    
     func tweet() {
         let shareString = "https://x.com/intent/tweet?text=\(self.shareTitle)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!

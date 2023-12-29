@@ -539,6 +539,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func reset(feedback: Bool? = true) {
         logger.log("[reset]")
+        resetFavoriteKeys()
         DispatchQueue.main.async {
             self.isThinking = false
         }
@@ -905,24 +906,47 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func talkToMe() {
        resetSkip()
-        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
-            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
-        } ?? SettingsBundleHelper.DefaultFollowNews
-
-        logger.log("[Data Feed] Populating User Field with \(followNews).")
-        DataFeed.shared.getData(followNews: followNews) {data in
-            if let data = data {
-                SettingsBundleHelper.setUserProfile(profile: data)
-                self.logger.log("[Data Feed] Fetched Data: \(data)")
-                self.isTalktome = true
-                self.currentText = data
-                SpeechRecognition.shared.playText(text: data)
-            } else {
-                print("Failed to fetch or parse data.")
-            }
-        }
+//        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+//            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+//        } ?? SettingsBundleHelper.DefaultFollowNews
+//
+//        logger.log("[Data Feed] Populating User Field with \(followNews).")
+//        DataFeed.shared.getData(followNews: followNews) {data in
+//            if let data = data {
+//                SettingsBundleHelper.setUserProfile(profile: data)
+//                self.logger.log("[Data Feed] Fetched Data: \(data)")
+//                self.isTalktome = true
+//                self.currentText = data
+//                SpeechRecognition.shared.playText(text: data)
+//            } else {
+//                print("Failed to fetch or parse data.")
+//            }
+//        }
+        let allFavoritesCombined = concatenateFavoriteValues()
+        SpeechRecognition.shared.playText(text: allFavoritesCombined.isEmpty ? "Add Twitter favorite list from more actions" : allFavoritesCombined)
     }
     
+    func concatenateFavoriteValues() -> String {
+        let userDefaults = UserDefaults.standard
+        let keys = userDefaults.dictionaryRepresentation().keys
+        let favoriteKeys = keys.filter { $0.hasPrefix("combinedText_") }
+        let favoriteValues = favoriteKeys.compactMap { key -> String? in
+            userDefaults.string(forKey: key)
+        }
+        let combinedString = favoriteValues.joined(separator: "\n")
+        return combinedString
+    }
+    
+    func resetFavoriteKeys() {
+        let userDefaults = UserDefaults.standard
+        let keys = userDefaults.dictionaryRepresentation().keys
+        let favoriteKeys = keys.filter { $0.hasPrefix("combinedText_") }
+
+        for key in favoriteKeys {
+            userDefaults.removeObject(forKey: key)
+        }
+    }
+
     func playText(text: String) {
         self.logger.log("[Play Text]")
 
