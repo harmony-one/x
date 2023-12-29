@@ -4,11 +4,11 @@
 
 2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. Build out new Voice prototype and complete "Talk to ME!" feature with twitter integration.
 
-2024-12-24 Thu: Tested and merged Talk To ME! update, will prepare a build Friday morning for app store deployment.
+2024-12-28 Thu: Tested and merged Talk To ME! update, will prepare a build Friday morning for app store deployment.
 
-2023-12-24 Wed: Further read annual reports from Messari and Delphi.
+2023-12-27 Wed: Further read annual reports from Messari and Delphi.
 
-2023-12-23 Tue: Further read annual reports from Messari and Delphi. Tested "Talk to ME!" integration for voice AI app, still needs further integation but should be complete by Wednesday.
+2023-12-26 Tue: Further read annual reports from Messari and Delphi. Tested "Talk to ME!" integration for voice AI app, still needs further integation but should be complete by Wednesday.
 
 ---
 
