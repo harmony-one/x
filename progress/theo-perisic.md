@@ -2,7 +2,11 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source.
+2023-12-29 Fri: Joined telegram groups and conducted market research for [MultiBit](https://multibit.exchange/) and [Ordizk](https://ordizk.io/) for BRC-20 to EVM bridges, will test over the weekend.
+
+2023-12-28 Thu: Completed initial [Harmony Dapp Overview](https://harmonyone.notion.site/Harmony-Dapp-Overview-fc7a6a82e65540278d3e2951e0262398?pvs=4), drafting tweet to share with community. Used phantom wallet to test and research top wallets, will move to open source to see if anything is comparable.
+
+2023-12-27 Wed: Started initial [Harmony Dapp Overview](https://harmonyone.notion.site/Harmony-Dapp-Overview-fc7a6a82e65540278d3e2951e0262398?pvs=4), will continue to add more tomorrow. 
 
 2023-12-26 Tue: Spoke with Eugene from marscolony about nft marketplace following nftkey's dissolution. Completed review of Avalanche specific inscriptions "avascriptions" compared to the greater space. Still not seeing much in the inscription ultility department but more may come later. Today, 3.4m transactions came solely from an inscription token called "ShenLong" with a 1 mint token limit per transaction. Wary of connecting directly to avascriptions.com but minting directly should be much safer by design of inscriptions (no smart contract signatores needed).
 
@@ -12,7 +16,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2023-12-24 Sun: Researched different Ordinals projects, joined a free mint for [bitblocks](https://twitter.com/billyrestey) from twitter user "billy". DeFi wave for bitcoin that may follow the memes and brc-20 craze will be interesting to watch. Phantom and other dapps/wallets as well as exchanges like [OKX](https://www.okx.com/web3/hot/inscription) are preparring themselves well for an increase in bitcoin adoption.
 
-2023-12-23 Sat: Joined Ethereum, Polygon, Degen, AI, and Arbitrum channels on warpcast. Ethereum has the largest community out of all of them by quite some margin (16k members, closest is AI with ~4k). INsight for today: Quility UI/UX posts explaining the need for simplicity in the web3 space, more is not always better. 
+2023-12-23 Sat: Joined Ethereum, Polygon, Degen, AI, and Arbitrum channels on warpcast. Ethereum has the largest community out of all of them by quite some margin (16k members, closest is AI with ~4k). Insight for today: Quility UI/UX posts explaining the need for simplicity in the web3 space, more is not always better. 
 
 2023-12-22 Fri: Joined warpcast. Read through inscription posts as well. Warpcast community still wondering about the utility for inscriptions outside of bitcoin. Room for more inscription use cases on evm chains, must be more than memetic oriented for sustained adoption.
 
