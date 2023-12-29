@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-2023-12-29 Fri: Joined telegram groups and conducted market research for [MultiBit](https://multibit.exchange/) and [Ordizk](https://ordizk.io/) for BRC-20 to EVM bridges, will test over the weekend.
+2023-12-29 Fri: Joined telegram groups and conducted market research for [MultiBit](https://multibit.exchange/) and [Ordizk](https://ordizk.io/) for BRC-20 to EVM bridges, will test over the weekend. Initial thoughts: both look promising in what they say they can deliver but their telegram groups, lack of public repos, and lack of technical information is worrisome.
 
 2023-12-28 Thu: Completed initial [Harmony Dapp Overview](https://harmonyone.notion.site/Harmony-Dapp-Overview-fc7a6a82e65540278d3e2951e0262398?pvs=4), drafting tweet to share with community. Used phantom wallet to test and research top wallets, will move to open source to see if anything is comparable.
 
