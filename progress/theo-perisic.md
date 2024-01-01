@@ -2,6 +2,10 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2023-12-31 Sun: Tested Uniswap X. Key insights: Best suited for high liquidity swaps. Most swaps under $10k do not benefit from the gas-free transactions. Uniswap X routing favors trading pairs with significant volume and liquidity. Maximum Extractable Value [(MEV) protection](https://coinmarketcap.com/academy/glossary/front-running) through their [Dutch Limit Order Reactor](https://harmonyone.notion.site/Uniswap-X-2ebfe67b5ccc4c44a7b704f1376c457e?pvs=4), combined with "[fillers](https://docs.uniswap.org/contracts/uniswapx/guides/createfiller)" covering the gas fee, makes Uniswap X optimal for general, high-liquidity swapping and less effective for MEV traders.
+
+2023-12-30 Sat: Tested Multibit bridge, bridged $MUBI (ERC-20) very clean UI/UX and smooth transfer. Unknown technicals and poses a risk. Also, 0.03 ETH service fee is quite high.
+
 2023-12-29 Fri: Joined telegram groups and conducted market research for [MultiBit](https://multibit.exchange/) and [Ordizk](https://ordizk.io/) for BRC-20 to EVM bridges, will test over the weekend. Initial thoughts: both look promising in what they say they can deliver but their telegram groups, lack of public repos, and lack of technical information is worrisome.
 
 2023-12-28 Thu: Completed initial [Harmony Dapp Overview](https://harmonyone.notion.site/Harmony-Dapp-Overview-fc7a6a82e65540278d3e2951e0262398?pvs=4), drafting tweet to share with community. Used phantom wallet to test and research top wallets, will move to open source to see if anything is comparable.
