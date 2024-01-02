@@ -1,10 +1,22 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-01-04 - 2024-01-05 : Paid time off.
+2024-01-04 Thu - 2024-01-05 Fri: Paid time off.
+
+2024-01-02 Tue:
+
+2024-01-01 Mon: New Years Day
 
 ---
 
+2023-12-31 Sun: Synced with Theo P on the status of the lend launch, in preparation for launch we'll be updating the logo, design inspiration can be found [here](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/Lend-Icons?type=design&node-id=0%3A1&mode=design&t=pMV3GRktXDhnLmXT-1)
+
+2023-12-30 Sat: Generated images in ONE Bot community, wrote thread and uploaded prompts to [twitter](https://x.com/harmonyprotocol/status/1741181666356600922?s=20)
+
 2023-12-29 Fri: Paid time off.
+
+2023-12-28 Thu: Synced with Amanda, discussed her experienced using VoiceAI daily. Updated main website in preparation for time off on Friday. Shared top tweets via tgi channel.
+
+2023-12-27 Wed: Created animation and shared 2023 Swap recount on [Twitter](https://x.com/harmonyprotocol/status/1740199768834605364?s=20). Continued bridge design adding harmony blue as the call to action color. 
 
 2023-12-26 Tue: Searched for downtown Los Altos office spaces, found 2 locations, spoke with local realtor & scheduled tour for Jan 9th 11AM. Created Midjourney art for holiday [tweet](https://x.com/harmonyprotocol/status/1739788485224264003?s=20). Shared ordinals thread
 
