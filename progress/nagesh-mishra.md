@@ -1,3 +1,7 @@
+--- 
+
+2023-12-29 Fri: Removed favourite. Loop twitter tweets to talk to me.
+
 2023-12-28 Thu: Added a favorite feature on Twitter that communicates with Talk to Me.
 
 2023-12-27 Web: Add a feature to display Twitter lists. Implement functionality for adding new items to lists. Add a feature for item deletion from lists. Enhance the system by updating status type handling.
