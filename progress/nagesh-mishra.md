@@ -1,3 +1,8 @@
+
+2024-01-03 Web: Completed Open AI’s whisper integration for Press & Hold and Tap to speak.
+
+2024-01-02 Tue: Started Open AI’s whisper integration in the voice AI app.
+
 --- 
 
 2023-12-29 Fri: Removed favourite. Loop twitter tweets to talk to me.
