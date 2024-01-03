@@ -241,6 +241,10 @@
 		B9B331A32AFB849000F6A9C9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B331A22AFB849000F6A9C9 /* StoreKit.framework */; };
 		B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */; };
 		B9BB0FE02B3C69FC00E663F6 /* TwitterUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FDF2B3C69FC00E663F6 /* TwitterUI.swift */; };
+		B9BB0FE22B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */; };
+		B9BB0FE32B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */; };
+		B9BB0FE42B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */; };
+		B9BB0FE52B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */; };
 		B9C4A81F2AEE594900327529 /* MockSpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */; };
 		B9C4A8282AEE867A00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
 		B9C4A8292AEE867E00327529 /* ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C4A8262AEE861C00327529 /* ActionHandler.swift */; };
@@ -484,6 +488,7 @@
 		B9B331A22AFB849000F6A9C9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		B9BA337D2AE683EF00D7756D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		B9BB0FDF2B3C69FC00E663F6 /* TwitterUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUI.swift; sourceTree = "<group>"; };
+		B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAITextToSpeech.swift; sourceTree = "<group>"; };
 		B9C4A81E2AEE594900327529 /* MockSpeechRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSpeechRecognition.swift; sourceTree = "<group>"; };
 		B9C4A8262AEE861C00327529 /* ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHandler.swift; sourceTree = "<group>"; };
 		CD0D13342ADA73B300031EDD /* Voice AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -823,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				B9AD50532ADFE8A0006F18A1 /* SpeechRecognition.swift */,
+				B9BB0FE12B459FB100E663F6 /* OpenAITextToSpeech.swift */,
 			);
 			path = SpeechRecognition;
 			sourceTree = "<group>";
@@ -1372,6 +1378,7 @@
 				CDC137162B11B129003386E9 /* TimeLogger.swift in Sources */,
 				B91F05B12B049F720029A32D /* AppleSignInManager.swift in Sources */,
 				E4D0D8E42B2384F800F717A2 /* AlertManager.swift in Sources */,
+				B9BB0FE52B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */,
 				B91F05B72B04B3E00029A32D /* KeychainService.swift in Sources */,
 				B91F05BB2B04BA250029A32D /* NetworkManager.swift in Sources */,
 				A46B5A7C2AE73CE600C874ED /* AudioPlayer.swift in Sources */,
@@ -1441,6 +1448,7 @@
 				B9AD50542ADFE8A0006F18A1 /* SpeechRecognition.swift in Sources */,
 				224BECD72B20AC9100C84602 /* LogStore.swift in Sources */,
 				B91F05C22B04C0D50029A32D /* CreateUser.swift in Sources */,
+				B9BB0FE22B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */,
 				B9AD50612ADFE9B7006F18A1 /* Usage.swift in Sources */,
 				B9BA337E2AE683EF00D7756D /* AudioPlayer.swift in Sources */,
 				AC66DF302B2706E100DDC802 /* RandomTrivia.swift in Sources */,
@@ -1469,6 +1477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F614BECA2B18E0FB00C71E32 /* AppleSignInManagerTests.swift in Sources */,
+				B9BB0FE32B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */,
 				B3D0A3442AF29B1B00E8B0DA /* MockNetworkService.swift in Sources */,
 				B919B7BF2AF3C3F7006335D1 /* AudioEngineAndSessionTests.swift in Sources */,
 				6EC2F6292B067E91002EFADD /* KeychainService.swift in Sources */,
@@ -1607,6 +1616,7 @@
 				B3BC2CB42B05F4AF00A58477 /* NetworkManager.swift in Sources */,
 				B9A3AE1E2B18CC7900C5FC66 /* RelayAuth.swift in Sources */,
 				6E53AF4A2AF0126E0022A8F2 /* VibrationManager.swift in Sources */,
+				B9BB0FE42B459FB100E663F6 /* OpenAITextToSpeech.swift in Sources */,
 				F65054FF2B05269200FFEA07 /* xUIDebounceTests.swift in Sources */,
 				6E56C7C02B067AF100ED2296 /* AppleSignInManager.swift in Sources */,
 				6E53AF472AF0121E0022A8F2 /* AudioPlayer.swift in Sources */,

@@ -344,7 +344,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             timeLogger?.setTTSInit()
             
             if !isRepeatingCurrentSession {
-                textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
+                
+              //  textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
+                self.textToSpeech(text: response)
             }
             completeResponse.append(response)
             logger.log("[Flush Response] \(response, privacy: .public)")
@@ -491,6 +493,18 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
         }
         
         handleQuery(retryCount: maxRetry)
+    }
+    
+    func textToSpeech(text: String) {
+        OpenAITextToSpeech().fetchAudioData(text: text) { [weak self] result in
+            switch result {
+            case .success(let data):
+                print("Audio data fetched successfully")
+                self?.audioPlayer.playSoundTTS(fromData: data)
+            case .failure(let error):
+                print("Error fetching audio data: \(error)")
+            }
+        }
     }
     
     func cancelRetry() {

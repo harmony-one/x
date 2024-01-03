@@ -64,6 +64,19 @@ class AudioPlayer: NSObject {
             SentrySDK.capture(message: "Error playing sound: \(error.localizedDescription)")
         }
     }
+    
+    func playSoundTTS(fromData data: Data) {
+            do {
+                audioPlayer = try AVAudioPlayer(data: data)
+                audioPlayer?.prepareToPlay()
+                audioPlayer?.numberOfLoops = 0 // No looping
+                audioPlayer?.play()
+            } catch {
+                self.logger.log("Error playing sound from data: \(error.localizedDescription)")
+                SentrySDK.capture(message: "Error playing sound from data: \(error.localizedDescription)")
+            }
+        }
+
 
     func stopSound() {
         audioPlayer?.stop()
