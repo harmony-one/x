@@ -2,6 +2,10 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-02 Tue: Added Knights & Peasants to dapp overview. Handed-off [CreateX deploy](https://github.com/pcaversaccio/createx) issue to Casey. Continued research on Anoma, key insight: heavy burden on author of intents. Anoma and other "intent-centric" projects depend on either quality intents, or the quality of the handling of those intents. Most immediate valuable use case: [Multi-Party Bartering](https://members.delphidigital.io/reports/wtf-is-anoma-part-1-wtf-are-intents#intents-arent-just-limit-orders-e458). 
+
+2024-01-01 Mon: Reviewed Galaxii and updated dapp overview. More testing of uniswap x, centralization risk with more than 70% of fill orders coming from Wintermute or Tokka Labs.
+
 2023-12-31 Sun: Tested Uniswap X. Key insights: Best suited for high liquidity swaps. Most swaps under $10k do not benefit from the gas-free transactions. Uniswap X routing favors trading pairs with significant volume and liquidity. Maximum Extractable Value [(MEV) protection](https://coinmarketcap.com/academy/glossary/front-running) through their [Dutch Limit Order Reactor](https://harmonyone.notion.site/Uniswap-X-2ebfe67b5ccc4c44a7b704f1376c457e?pvs=4), combined with "[fillers](https://docs.uniswap.org/contracts/uniswapx/guides/createfiller)" covering the gas fee, makes Uniswap X optimal for general, high-liquidity swapping and less effective for MEV traders.
 
 2023-12-30 Sat: Tested Multibit bridge, bridged $MUBI (ERC-20) very clean UI/UX and smooth transfer. Unknown technicals and poses a risk. Also, 0.03 ETH service fee is quite high.
