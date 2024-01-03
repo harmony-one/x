@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2024-01-04 Thu - 2024-01-05 Fri: Paid time off.
 
-2024-01-02 Tue: Discovering healthy meal prep devliery services, contacting chefs. Midjourney to design new years harmonaut image. Tweeted [2024 roadmap thread](https://x.com/harmonyprotocol/status/1742318315757068541?s=20) with the artwork 
+2024-01-02 Tue: Midjourney to design new years harmonaut image. Tweeted [2024 roadmap thread](https://x.com/harmonyprotocol/status/1742318315757068541?s=20) with the artwork. Begin ideated lend marketing materials, synced with Theo P about dev timeline for lend launch.
 
 2024-01-01 Mon: New Years Day
 
