@@ -1,5 +1,9 @@
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
+2024-01-02 Tue: Tested whisper integration for Voice AI which should be completed by Wednesday morning. Continued to read reports and test products such as Uniswap X and Chainflip.
+
+2024-01-01 Mon: Read annual reports from Messari and Delphi.
+
 ---
 
 2023-12-29 Fri: Conduct market research on top wallets / bridges / auctions with: fully re-deployable open source. Build out new Voice prototype and complete "Talk to ME!" feature with twitter integration.
