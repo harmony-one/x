@@ -2,6 +2,8 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-03 Wed: Reached out for Dune listing on [data request form](https://feedback.dune.com/data-request/p/add-support-for-harmony-protocol), discord, and support email. AAG admins figuring out bridge tvl inquiry. Waiting on gnosis contact for official listing. Continued Dapp overview updates and project outreach.
+
 2024-01-02 Tue: Added Knights & Peasants to dapp overview. Handed-off [CreateX deploy](https://github.com/pcaversaccio/createx) issue to Casey. Continued research on Anoma, key insight: heavy burden on author of intents. Anoma and other "intent-centric" projects depend on either quality intents, or the quality of the handling of those intents. Most immediate valuable use case: [Multi-Party Bartering](https://members.delphidigital.io/reports/wtf-is-anoma-part-1-wtf-are-intents#intents-arent-just-limit-orders-e458). 
 
 2024-01-01 Mon: Reviewed Galaxii and updated dapp overview. More testing of uniswap x, centralization risk with more than 70% of fill orders coming from Wintermute or Tokka Labs.
