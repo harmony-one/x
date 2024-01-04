@@ -1,3 +1,4 @@
+2024-01-04 Thu: Whisper integration for Talk to me is in progress. 
 
 2024-01-03 Web: Completed Open AI’s whisper integration for Press & Hold and Tap to speak.
 
