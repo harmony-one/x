@@ -29,24 +29,26 @@ class AVAudioSessionWrapper: AVAudioSessionProtocol {
     }
 }
 
-class AudioPlayer: NSObject {
+class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     var logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: "AVAudioSessionWrapper")
     )
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?
-
+    var completion: (() -> Void)?
+    
+    
     func playSound(_ isLoop: Bool = true, _ resource: String = "beep") {
         playSoundWithSettings(isLoop, resource)
     }
-
+    
     func playSoundWithSettings(_ loop: Bool = true, _ resource: String = "beep") {
         guard let soundURL = Bundle.main.url(forResource: resource, withExtension: "mp3") else {
             self.logger.log("Sound file not found")
-
+            
             SentrySDK.capture(message: "Sound file not found")
-
+            
             return
         }
         do {
@@ -54,7 +56,7 @@ class AudioPlayer: NSObject {
             audioPlayer?.prepareToPlay()
             audioPlayer?.numberOfLoops = 0 // Play once, as the loop will be handled by the Timer
             audioPlayer?.play()
-
+            
             // Schedule a Timer to play the sound every 2 seconds
             if loop {
                 timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(playSoundWithDelay), userInfo: nil, repeats: true)
@@ -65,28 +67,35 @@ class AudioPlayer: NSObject {
         }
     }
     
-    func playSoundTTS(fromData data: Data) {
+    func playSoundTTS(fromData data: Data, completion: @escaping () -> Void) {
             do {
                 audioPlayer = try AVAudioPlayer(data: data)
+                audioPlayer?.delegate = self
                 audioPlayer?.prepareToPlay()
-                audioPlayer?.numberOfLoops = 0 // No looping
+                audioPlayer?.numberOfLoops = 0
                 audioPlayer?.play()
+                self.completion = completion
             } catch {
-                self.logger.log("Error playing sound from data: \(error.localizedDescription)")
+                logger.log("Error playing sound from data: \(error.localizedDescription)")
                 SentrySDK.capture(message: "Error playing sound from data: \(error.localizedDescription)")
+                completion() // Ensure to call completion even in case of an error
             }
         }
 
-
+    
     func stopSound() {
         audioPlayer?.stop()
         timer?.invalidate() // Stop the timer when stopping the sound
     }
-
+    
     @objc func playSoundWithDelay() {
         if audioPlayer?.isPlaying == false {
             audioPlayer?.currentTime = 0
             audioPlayer?.play()
         }
+    }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        completion?()
+        completion = nil
     }
 }
