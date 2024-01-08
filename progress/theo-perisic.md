@@ -2,6 +2,14 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-07 Sun: Added metablox to Dapp Overview. Deep dive for Thorchain and Chainflip. Insight: Still early for chainflip, but JIT AMM (Just-in-time automated market maker) currently has the edge on the technical side for capital efficiency. Thorchain currently has millions more in liquidity and volume, chainflip is only just starting having released [pre-release swaps](https://x.com/Chainflip/status/1736796878807683141?s=20) 2 weeks ago ($1k USD single swap limit). Heavy fee hit on BTC, best for larger swaps.
+
+2024-01-06 Sat: Updated dapp overview, curated list of active validators, sync with knights&peasants for giveaway. Reviewed delphi digital "year in review" reports.
+
+2024-01-05 Fri: Synced with Casey for recovery and lend. Coordinated with custodians for [Round 15](https://x.com/recoveryonefdn/status/1743515190463791354?s=20).
+
+2024-01-04 Thu: Granted access to gnosis group, awaiting response for official integration update. No respponse from Dune, current best option is [data request](https://feedback.dune.com/data-request/p/add-support-for-harmony-protocol).
+
 2024-01-03 Wed: Reached out for Dune listing on [data request form](https://feedback.dune.com/data-request/p/add-support-for-harmony-protocol), discord, and support email. AAG admins figuring out bridge tvl inquiry. Waiting on gnosis contact for official listing. Continued Dapp overview updates and project outreach.
 
 2024-01-02 Tue: Added Knights & Peasants to dapp overview. Handed-off [CreateX deploy](https://github.com/pcaversaccio/createx) issue to Casey. Continued research on Anoma, key insight: heavy burden on author of intents. Anoma and other "intent-centric" projects depend on either quality intents, or the quality of the handling of those intents. Most immediate valuable use case: [Multi-Party Bartering](https://members.delphidigital.io/reports/wtf-is-anoma-part-1-wtf-are-intents#intents-arent-just-limit-orders-e458). 
