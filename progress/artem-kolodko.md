@@ -1,4 +1,4 @@
-2024-01-08 Mon: reviewed [moe](https://github.com/harmony-one/s/tree/main/moe) repository code, sent review with couple of notes to Sun. Started researching [moe](https://harmony.one/moe) to serve eth.country for Arbitrium’s $ETH <> Harmony’s $ONE.
+2024-01-08 Mon: reviewed [moe](https://github.com/harmony-one/s/tree/main/moe) repository code, sent review with couple of notes to Sun. Started researching [moe](https://harmony.one/moe).
 
 ---
 
