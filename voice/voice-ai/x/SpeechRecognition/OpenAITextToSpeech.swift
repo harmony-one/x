@@ -2,7 +2,10 @@
 import Foundation
 import Sentry
 
-class OpenAITextToSpeech: NSObject {    
+class OpenAITextToSpeech: NSObject {
+    
+    var currentDataTask: URLSessionDataTask?
+    
     func fetchAudioData(text: String, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let url = URL(string: "https://api.openai.com/v1/audio/speech") else {
             completion(.failure(NSError(domain: "OpenAITextToSpeechError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
@@ -32,12 +35,11 @@ class OpenAITextToSpeech: NSObject {
             return
         }
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        currentDataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 completion(.failure(error ?? NSError(domain: "OpenAITextToSpeechError", code: 0, userInfo: nil)))
                 return
             }
-            
             if let httpResponse = response as? HTTPURLResponse,
                httpResponse.statusCode == 200,
                httpResponse.mimeType == "audio/mpeg" {
@@ -45,9 +47,14 @@ class OpenAITextToSpeech: NSObject {
             } else {
                 self.handleError(nil, message: "Received non-audio response or error from API")
             }
-        }.resume()
+        }
+        currentDataTask?.resume()
     }
     
+    func cancelAudioDataFetch() {
+        currentDataTask?.cancel()
+        currentDataTask = nil
+    }
     private func handleError(_ error: Error?, message: String) {
         // Implement user-friendly error handling
         print(message, error as Any)

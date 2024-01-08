@@ -204,6 +204,8 @@
 		B97E04B72B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
 		B97E04B82B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
 		B97E04B92B3C14BC000C9FCA /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */; };
+		B98288E92B4C132C00AA43C4 /* Hey.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B98288E82B4C132C00AA43C4 /* Hey.mp3 */; };
+		B98288EA2B4C132C00AA43C4 /* Hey.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B98288E82B4C132C00AA43C4 /* Hey.mp3 */; };
 		B9A3ADEE2B15CCCF00C5FC66 /* ShareLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */; };
 		B9A3ADF02B15CD3500C5FC66 /* ActivityViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */; };
 		B9A3AE182B18CC7900C5FC66 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */; };
@@ -465,6 +467,7 @@
 		B97E04AD2B358175000C9FCA /* TwitterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		B97E04B32B3582F0000C9FCA /* TwitterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterModel.swift; sourceTree = "<group>"; };
 		B97E04B52B3C14BC000C9FCA /* TwitterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
+		B98288E82B4C132C00AA43C4 /* Hey.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Hey.mp3; sourceTree = "<group>"; };
 		B9A3ADED2B15CCCE00C5FC66 /* ShareLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkTests.swift; sourceTree = "<group>"; };
 		B9A3ADEF2B15CD3500C5FC66 /* ActivityViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewTests.swift; sourceTree = "<group>"; };
 		B9A3AE102B18CC7900C5FC66 /* TimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
@@ -742,6 +745,7 @@
 		B930AACE2ADD4BAF009F9F8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B98288E82B4C132C00AA43C4 /* Hey.mp3 */,
 				A4680D9D2AE9C8A600F5F8ED /* beep.mp3 */,
 				B930AACF2ADD4BAF009F9F8C /* Font */,
 			);
@@ -1244,6 +1248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A44CFFB12B0D7200003D6822 /* AppConfig.plist in Resources */,
+				B98288EA2B4C132C00AA43C4 /* Hey.mp3 in Resources */,
 				B3E8D1552B201E450041B82B /* Localizable.xcstrings in Resources */,
 				E47F1A992B07F94F00455617 /* Dotrice-Regular.otf in Resources */,
 				F67EDE382B07C67400FDEA80 /* logo.png in Resources */,
@@ -1286,6 +1291,7 @@
 			files = (
 				CD0D13422ADA73B400031EDD /* Preview Assets.xcassets in Resources */,
 				22A9883B2AF8FE0D00A32B1A /* SyncedProducts.storekit in Resources */,
+				B98288E92B4C132C00AA43C4 /* Hey.mp3 in Resources */,
 				A44CFFB02B0D7200003D6822 /* AppConfig.plist in Resources */,
 				CD0D133E2ADA73B400031EDD /* Assets.xcassets in Resources */,
 				B9AD506D2ADFEFDB006F18A1 /* Dotrice-Bold-Expanded.otf in Resources */,

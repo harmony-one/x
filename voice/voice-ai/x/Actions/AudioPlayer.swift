@@ -38,7 +38,6 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     var timer: Timer?
     var completion: (() -> Void)?
     
-    
     func playSound(_ isLoop: Bool = true, _ resource: String = "beep") {
         playSoundWithSettings(isLoop, resource)
     }
@@ -82,7 +81,6 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
             }
         }
 
-    
     func stopSound() {
         audioPlayer?.stop()
         timer?.invalidate() // Stop the timer when stopping the sound
