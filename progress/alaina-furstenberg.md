@@ -1,6 +1,12 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-07 Sun: Galaxii promotion tweet
+
+2024-01-06 Sat: 
+
 2024-01-04 Thu - 2024-01-05 Fri: Paid time off.
+
+2024-01-03 Wed: Selected harmony one tweets in preparation for day off. Continued [Lend Logo iteration](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/Lend-Icons?type=design&node-id=0%3A1&mode=design&t=pMV3GRktXDhnLmXT-1) within Midjourney. Synced with Frank on launch of /dalle on ONE Bot. Stablecoin [thread](https://x.com/harmonyprotocol/status/1742797462325354807?s=20).
 
 2024-01-02 Tue: Midjourney to design new years harmonaut image. Tweeted [2024 roadmap thread](https://x.com/harmonyprotocol/status/1742318315757068541?s=20) with the artwork. Began ideating lend marketing materials, AI graphics + Gifs, synced with Theo P about dev timeline for lend launch.
 
