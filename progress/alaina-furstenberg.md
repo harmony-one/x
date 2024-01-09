@@ -1,10 +1,10 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-01-07 Sun: Galaxii promotion tweet
+2024-01-08 Mon: [Filmed/Edited Uploaded ONE Bot Demo](https://youtube.com/shorts/O749YfUizEE?si=nJdmGBs2XjTJcrq7). Tweets replies about [HER Space](https://x.com/harmonyprotocol/status/1744458569398030444?s=20) & [Fortune Validator](https://x.com/harmonyprotocol/status/1744430891819221492?s=20). Tested Dalle3 integration on 0bot, ready to launch tmrw. Planned social media content for 2 weeks out with [a calendar](https://www.notion.so/harmonyone/Social-Media-Planner-c3da68c04cae482496f03b9a0c9c1378). Synced with Theo P on Q1 marketing expectations/tasks.
 
-2024-01-06 Sat: 
+2024-01-07 Sun: Galaxii promotion tweet. Operations work.
 
-2024-01-04 Thu - 2024-01-05 Fri: Paid time off.
+2024-01-04 Thu - 2024-01-06 Sat: Paid time off.
 
 2024-01-03 Wed: Selected harmony one tweets in preparation for day off. Continued [Lend Logo iteration](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/Lend-Icons?type=design&node-id=0%3A1&mode=design&t=pMV3GRktXDhnLmXT-1) within Midjourney. Synced with Frank on launch of /dalle on ONE Bot. Stablecoin [thread](https://x.com/harmonyprotocol/status/1742797462325354807?s=20).
 
