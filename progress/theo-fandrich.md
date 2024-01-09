@@ -1,3 +1,7 @@
+2024-01-08 Mon: Worked on testing Voice AI's whisper integration and 1bot's Dalle 3 integration.
+
+---
+
 2024-01-03 Wed - 2024-01-05 Fri: Paid time off.
 
 2024-01-02 Tue: Tested whisper integration for Voice AI which should be completed by Wednesday morning. Continued to read reports and test products such as Uniswap X and Chainflip.
