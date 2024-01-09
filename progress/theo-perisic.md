@@ -2,6 +2,8 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-08 Mon: Roadmapping and interview session with Stephen. Participated in HER space #13.
+
 2024-01-07 Sun: Added metablox to Dapp Overview. Deep dive for Thorchain and Chainflip. Insight: Still early for chainflip, but JIT AMM (Just-in-time automated market maker) currently has the edge on the technical side for capital efficiency. Thorchain currently has millions more in liquidity and volume, chainflip is only just starting having released [pre-release swaps](https://x.com/Chainflip/status/1736796878807683141?s=20) 2 weeks ago ($1k USD single swap limit). Heavy fee hit on BTC, best for larger swaps.
 
 2024-01-06 Sat: Updated dapp overview, curated list of active validators, sync with knights&peasants for giveaway. Reviewed delphi digital "year in review" reports.
