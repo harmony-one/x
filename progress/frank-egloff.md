@@ -1,3 +1,6 @@
+2024-01-08 Mon: Integrated [Dalle-3](https://github.com/harmony-one/HarmonyOneBot/pull/345) to Harmony1Bot with session image generation queue and message status.
+
+---
 2023-12-25 Mon - 2024-01-05 Fri: Paid time off.
 
 ---
