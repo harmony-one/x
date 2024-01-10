@@ -1,3 +1,5 @@
+2024-01-09 Tue: Helped on Sun's usdc.country bridge with testing and sending base currencies. Set up firebase and worked with Nagesh on setting up safe ios wallet app.
+
 2024-01-08 Mon: Worked on testing Voice AI's whisper integration and 1bot's Dalle 3 integration.
 
 ---
