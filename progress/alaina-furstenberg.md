@@ -4,7 +4,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2024-01-10 Wed:
 
-2024-01-09 Tue: Filmed/edited uploaded a [/dalle demo](https://youtube.com/shorts/L6_gYg2YJdA?si=awuKxY9PYDNelQ-e) and [2024 Roadmap video](https://youtu.be/KklRiqp5kfs?si=vHjQG229O_9LqDV_) to Youtube. Shared /dalle launch via [Twitter](https://x.com/harmonyprotocol/status/1744797662568968278?s=20) and TGI groups. Synced with Guarda on a crossover [tweet](https://x.com/harmonyprotocol/status/1744802063731818715?s=20). Synced with Theo P on the design of b.country & tested Chainflip.
+2024-01-09 Tue: Filmed/edited uploaded a [/dalle demo](https://youtube.com/shorts/L6_gYg2YJdA?si=awuKxY9PYDNelQ-e) and [2024 Roadmap video](https://youtu.be/KklRiqp5kfs?si=vHjQG229O_9LqDV_) to Youtube. Shared /dalle launch via [Twitter](https://x.com/harmonyprotocol/status/1744797662568968278?s=20) and TGI groups. Synced with Guarda on a crossover [tweet](https://x.com/harmonyprotocol/status/1744802063731818715?s=20). Began designing b.country with template with Theo P in HTML & tested Chainflip.
 
 2024-01-08 Mon: [Filmed/Edited Uploaded ONE Bot Demo](https://youtube.com/shorts/O749YfUizEE?si=nJdmGBs2XjTJcrq7). Tweets replies about [HER Space](https://x.com/harmonyprotocol/status/1744458569398030444?s=20) & [Fortune Validator](https://x.com/harmonyprotocol/status/1744430891819221492?s=20). Tested Dalle3 integration on 0bot, ready to launch tmrw. Synced with engineers to correct /images on 1bot. Planned social media content for 2 weeks out with [a calendar](https://www.notion.so/harmonyone/Social-Media-Planner-c3da68c04cae482496f03b9a0c9c1378). Synced with Theo P on Q1 marketing expectations/tasks.
 
