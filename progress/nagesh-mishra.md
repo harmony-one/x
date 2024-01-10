@@ -1,3 +1,12 @@
+
+2024-01-09 Tue: Ehance whisper waiting time is in progress.
+
+2024-01-08 Mon: Added MP3 greeting message functionality and cancel method for OpenAITextToSpeech. Removed the download message for premium voice. Updated the UI for the pause/play feature.
+
+--- 
+
+2024-01-05 Thu: Whisper integration for Talk to me with queue.
+
 2024-01-04 Thu: Whisper integration for Talk to me is in progress. 
 
 2024-01-03 Web: Completed Open AI’s whisper integration for Press & Hold and Tap to speak.
