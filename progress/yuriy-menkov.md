@@ -1,3 +1,11 @@
+2024-01-10 Wed: Worked on moe project iprovements and migration to to nestjs engine. Inspecting reason and statistics of bridge errors.
+
+2024-01-09 Tue: Looked into inscription implementation and indexer design
+
+2024-01-08 Mon: Fixed stable diffusion backend server issues (inspected server settings for automatic disk cleanup), reviewed moe repository code
+
+---
+
 2024-12-25 Mon - 2024-01-05 Fri: Paid time off.
 
 ---
