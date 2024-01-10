@@ -2,6 +2,8 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-09 Tue: Ran Tuesday Dev call, sync for prioritization, native USDC (Base) and ONE (Harmony) swap or “flip” as it contains no smart contract signing or bridging will be the first release. Completed a draft of 2024 announcement and site copy for USDC/ONE flip. Coded template for 1bot landing page, helped Alaina with walkthrough guide.
+
 2024-01-08 Mon: Roadmapping and interview session with Stephen. Participated in HER space #13.
 
 2024-01-07 Sun: Added metablox to Dapp Overview. Deep dive for Thorchain and Chainflip. Insight: Still early for chainflip, but JIT AMM (Just-in-time automated market maker) currently has the edge on the technical side for capital efficiency. Thorchain currently has millions more in liquidity and volume, chainflip is only just starting having released [pre-release swaps](https://x.com/Chainflip/status/1736796878807683141?s=20) 2 weeks ago ($1k USD single swap limit). Heavy fee hit on BTC, best for larger swaps.
