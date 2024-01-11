@@ -1,3 +1,7 @@
+2024-01-10 Wed: Added and updated weekly and total KPIs to the [stats report](https://github.com/harmony-one/HarmonyOneBot/pull/346), working on adding new users report. Worked on adding images command to dalle-3.
+
+2024-01-09 Tue: Added prefixes and commands to the [dalle-3 logic](https://github.com/harmony-one/HarmonyOneBot/pull/345) and updated the SD image logic. Checked the inconsistencies reported on the bot stats report.
+
 2024-01-08 Mon: Integrated [Dalle-3](https://github.com/harmony-one/HarmonyOneBot/pull/345) to Harmony1Bot with session image generation queue and message status.
 
 ---
