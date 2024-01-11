@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2024-01-11 Thu - 2024-01-16 Tue: Paid time off
 
-2024-01-10 Wed:
+2024-01-10 Wed: Created /dalle [short](https://youtube.com/shorts/9IyWf7AesNc?si=1NzGBDRxJO3wSV6z) for community generations & shared to [Twitter](https://x.com/harmonyprotocol/status/1745198293817458951?s=20). Paused b.country figma designs. [Midjourney ONE BTC generations](https://www.notion.so/harmonyone/AI-23f393640e964816b29e70382c574e7d). Operations work.
 
 2024-01-09 Tue: Filmed/edited uploaded a [/dalle demo](https://youtube.com/shorts/L6_gYg2YJdA?si=awuKxY9PYDNelQ-e) and [2024 Roadmap video](https://youtu.be/KklRiqp5kfs?si=vHjQG229O_9LqDV_) to Youtube. Shared /dalle launch via [Twitter](https://x.com/harmonyprotocol/status/1744797662568968278?s=20) and TGI groups. Synced with Guarda on a crossover [tweet](https://x.com/harmonyprotocol/status/1744802063731818715?s=20). Began designing b.country with template with Theo P in HTML & tested Chainflip.
 
