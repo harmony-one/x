@@ -1,3 +1,6 @@
+2024-01-11 Thu: Created development, staging, and production bundle IDs for the Safe project and updated the repository after making these changes. Currently examining the project's codebase.
+
+2024-01-10 Web: Set up safe-iOS project and pushed changes.
 
 2024-01-09 Tue: Ehance whisper waiting time is in progress.
 
