@@ -2,6 +2,10 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-01-11 Thu: Completed Roadmap 2024, ready for substack release. 
+
+2024-01-10 Wed: Completed successful OneBitFlip proof-of-concept with Julia. Inscribed x.1 and 1.country. Reached out to potential Flip custodians. iOS Safe Multisig development underway.
+
 2024-01-09 Tue: Ran Tuesday Dev call, sync for prioritization, native USDC (Base) and ONE (Harmony) swap or “flip” as it contains no smart contract signing or bridging will be the first release. Completed a draft of 2024 announcement and site copy for USDC/ONE flip. Coded template for 1bot landing page, helped Alaina with walkthrough guide.
 
 2024-01-08 Mon: Roadmapping and interview session with Stephen. Participated in HER space #13.
