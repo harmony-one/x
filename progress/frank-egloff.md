@@ -1,3 +1,7 @@
+2024-01-12 Fri: Started working on Vision integration. Fixed [i prefix](https://github.com/harmony-one/HarmonyOneBot/pull/347) bug. 
+
+2024-01-11 Thu: Updated [allstats and stats reports](https://github.com/harmony-one/HarmonyOneBot/pull/346) including one-time users. Added [/i command](https://github.com/harmony-one/HarmonyOneBot/pull/345) to dalle-3.
+
 2024-01-10 Wed: Added and updated weekly and total KPIs to the [stats report](https://github.com/harmony-one/HarmonyOneBot/pull/346), working on adding new users report. Worked on adding images command to dalle-3.
 
 2024-01-09 Tue: Added prefixes and commands to the [dalle-3 logic](https://github.com/harmony-one/HarmonyOneBot/pull/345) and updated the SD image logic. Checked the inconsistencies reported on the bot stats report.
