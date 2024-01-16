@@ -1,3 +1,7 @@
+2024-01-15 Mon: Worked on [deleting prefixes with familiar words](https://github.com/harmony-one/HarmonyOneBot/pull/349) to increase user experience; the removed words were 'am', 'be', 'ny', 'ha', 'no' from Translate bot.  [Deployed Vision on Harmony1Bot](https://github.com/harmony-one/HarmonyOneBot/pull/348) as a chatCompletion, not as a part of a conversation, due to a different JSON scheme for the content key. On Tuesday, will work on including in the bot conversation the vision's prompt and completion. Also, will add chunk prompting (stream) and /vision command where the user can send an image URL with a prompt.
+
+---
+
 2024-01-12 Fri: Started working on Vision integration. Fixed [i prefix](https://github.com/harmony-one/HarmonyOneBot/pull/347) bug. 
 
 2024-01-11 Thu: Updated [allstats and stats reports](https://github.com/harmony-one/HarmonyOneBot/pull/346) including one-time users. Added [/i command](https://github.com/harmony-one/HarmonyOneBot/pull/345) to dalle-3.
