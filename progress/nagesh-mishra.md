@@ -1,3 +1,12 @@
+
+2024-01-16 Tue: Upgraded Safe Client Gateway Services, corrected gasPrice rpc to latest, and eliminated the demo account link.
+
+2024-01-15 Mon: Holiday
+
+--- 
+
+2024-01-12 Fri: Currently examining the project's codebase.
+
 2024-01-11 Thu: Created development, staging, and production bundle IDs for the Safe project and updated the repository after making these changes. Currently examining the project's codebase.
 
 2024-01-10 Web: Set up safe-iOS project and pushed changes.
