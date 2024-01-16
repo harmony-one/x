@@ -1,10 +1,15 @@
 2024-01-15 Mon: [added](https://github.com/harmony-one/s/pull/11/commits/5be853b5260ac34ccbff38a0bbbff0949ce0fc0d) executed status to completed transactons. Started working on limits by user address by hour.
+
 ---
 
 2024-01-12 Fri: working on transfer amount limiter. Added new DB table to store pending transactions. Completed first version of transfer limiter, started testing.
+
 2024-01-11 Thu: sick day-off
+
 2024-01-10 Wed: sick day-off
+
 2024-01-09 Tue: synced with devs about new moe project, started working on rate limiter
+
 2024-01-08 Mon: reviewed [moe](https://github.com/harmony-one/s/tree/main/moe) repository code, sent review with couple of notes to Sun. Researching [moe](https://harmony.one/moe).
 
 ---
