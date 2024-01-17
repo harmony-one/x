@@ -1,3 +1,13 @@
+2024-01-16 Tue: Worked on resolving a bridge issue related to upgrading the default proof type to 2 (from mpt to FP). Continue research and migration of the ethscriptions-indexer into Harmony.
+
+2024-01-15 Mon: Researched [facet-vm](https://github.com/0xFacet/facet-vm) and [ethscriptions-indexer](https://github.com/0xFacet/ethscriptions-indexer) repos to explore the possibility of migrating ready-made ethscriptions solutions to Harmony.
+
+---
+
+2024-01-12 Fri: Deployed indexer and hrc20 inscriptions [demo](https://hmy-inscription.web.app/). Researched [github.com/okx](https://github.com/okx) to added harmony chain support.
+
+2024-01-11 Thu: [Worked](https://github.com/harmony-one/inscription.demo/pull/1) on frontend demo for OneScription and inscription indexer.
+
 2024-01-10 Wed: Worked on moe project iprovements and migration to to nestjs engine. Inspecting reason and statistics of bridge errors.
 
 2024-01-09 Tue: Looked into inscription implementation and indexer design
