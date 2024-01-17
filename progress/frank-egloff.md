@@ -1,3 +1,5 @@
+2024-01-16 Tue: Added streaming completion to [vision logic](https://github.com/harmony-one/HarmonyOneBot/pull/348). Also, added /vision command that allows the user to inquire about multiple image URLs. Didn't add vision prompts/completions to the bot conversation because it uses different models, and the content key of the body parameter has a different scheme. 
+
 2024-01-15 Mon: Worked on [deleting prefixes with familiar words](https://github.com/harmony-one/HarmonyOneBot/pull/349) to increase user experience; the removed words were 'am', 'be', 'ny', 'ha', 'no' from Translate bot.  [Deployed Vision on Harmony1Bot](https://github.com/harmony-one/HarmonyOneBot/pull/348) as a chatCompletion, not as a part of a conversation, due to a different JSON scheme for the content key. On Tuesday, will work on including in the bot conversation the vision's prompt and completion. Also, will add chunk prompting (stream) and /vision command where the user can send an image URL with a prompt.
 
 ---
