@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-17 Wed: Designed graphics for substack + twitter. Wrote [thread](https://www.notion.so/harmonyone/Substack-Thread-49562e16f98945928154ca0aa690221d?pvs=4) for blog post.
+
 2024-01-11 Thu - 2024-01-16 Tue: Paid time off
 
 2024-01-10 Wed: Created /dalle [short](https://youtube.com/shorts/9IyWf7AesNc?si=1NzGBDRxJO3wSV6z) for community generations & shared to [Twitter](https://x.com/harmonyprotocol/status/1745198293817458951?s=20). Paused b.country figma designs. [Midjourney ONE BTC generations](https://www.notion.so/harmonyone/AI-23f393640e964816b29e70382c574e7d). Operations work.
