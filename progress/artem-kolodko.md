@@ -1,3 +1,9 @@
+2024-01-18 Thu: [Added](https://github.com/harmony-one/inscription.indexer/pull/1/files) database entities in inscription indexer, configured indexer state table and saving inscriptions into Postgres database.
+
+2024-01-17 Wed: Learning inscription [indexer](https://github.com/harmony-one/inscription.indexer) codebase, started working on storing inscriptions in database.
+
+2024-01-16 Tue: Completed address limiter, created [PR #11](https://github.com/harmony-one/s/pull/11).
+
 2024-01-15 Mon: [added](https://github.com/harmony-one/s/pull/11/commits/5be853b5260ac34ccbff38a0bbbff0949ce0fc0d) executed status to completed transactons. Started working on limits by user address by hour.
 
 ---
