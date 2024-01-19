@@ -1,8 +1,10 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-19 Fri: Video editing, thumbnail generation, uploaded to Youtube. tested Zi's Timeless X chrome extension. Updated harmony.one with community tweets & shared /progress thread via X.
+
 2024-01-18 Thu: Tested /vision, need to refine responses before launch to be more succinct. Prepared podcast studio, edited film and audio, designed thumbnail... to be uploaded tomorrow.
 
-2024-01-17 Wed: Designed graphics for substack + twitter. Wrote [thread](https://www.notion.so/harmonyone/Substack-Thread-49562e16f98945928154ca0aa690221d?pvs=4) for blog post.
+2024-01-17 Wed: /Vision testing + launch plan. Designed graphics for substack + twitter. Wrote [thread](https://www.notion.so/harmonyone/Substack-Thread-49562e16f98945928154ca0aa690221d?pvs=4) for blog post.
 
 2024-01-11 Thu - 2024-01-16 Tue: Paid time off
 
