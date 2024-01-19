@@ -1,3 +1,19 @@
+2024-01-19 Fri:
+
+2024-01-18 Thu: Tested fully deployed safe clone that supports Harmony mainnet. Fixing issues regarding payments not being able to be sent.
+
+2024-01-17 Wed: Researched inscription related products for near, optimism.
+
+2024-01-16 Tue: Researched configuration issues with our [safe clone](https://github.com/harmony-one/safe) and identified api architecture that was being used.
+
+2024-01-15 Mon: MLK, spent time researching celestia modular architecture.
+
+---
+
+2024-01-12 Fri:
+
+2024-01-11 Thu: Tested keplr wallet and multisig set up, sent various transactions.
+
 2024-01-10 Wed: Worked on further exploring all resources available to aide with ios multisig app. Researched various multisig apps for other chains (i.e. cosmos, btc, near etc.)
 
 2024-01-09 Tue: Helped on Sun's usdc.country bridge with testing and sending base currencies. Set up firebase and worked with Nagesh on setting up safe ios wallet app.
