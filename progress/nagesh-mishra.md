@@ -1,4 +1,10 @@
 
+2024-01-19 Fri: I am currently setting up the MetaMask code for iOS locally and have successfully executed the iOS SDK code. Next, I am focusing on getting the React Native code up and running, and all changes have been pushed.
+
+2024-01-18 Thu: Removal of the Test network and the 'hmy' prefix from addresses in the receive function, the exclusion of a chain prefix in the QR code display, enhanced visibility with added color to the Harmony feature, accessible Privacy Policy and Terms and Conditions, and the elimination of the 'Learn More' option in the queues section.
+
+2024-01-17 Web: Exploring the Keplr Wallet code and setting it up to run locally.
+
 2024-01-16 Tue: Upgraded Safe Client Gateway Services, corrected gasPrice rpc to latest, and eliminated the demo account link.
 
 2024-01-15 Mon: Holiday
