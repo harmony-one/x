@@ -1,6 +1,24 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+--- 
+
+2024-01-19 Fri: Early morning on-call assisting with mint. Ecosystem lottery implementation discussions. Further inscription plans and personnel allocation for 2024 roadmap tasks.
+
+2024-01-18 Thu: Prototyped pool-based flip architecture for optimized liquidity and decentralization with Julia.  
+
+2024-01-17 Wed: Technical calls with partners. Speaker for [twitter space with Gateway X](https://x.com/GatewayX_one/status/1747825674524704880?s=20).
+
+2024-01-16 Tue: Launch plan and coordination with internal team and external partners. Continued development for [inscription tools](https://hmy-inscription.web.app/) and eventually [i.country](https://i.country).
+
+2024-01-15 Mon: Federal Holiday
+
 ---
+
+2024-01-14 Sun: EthDenver content for applications.
+
+2024-01-13 Sat: Flip custodians allocation and discussions.
+
+2024-01-12 Fri: Released 2024 roadmap and twitter threads.
 
 2024-01-11 Thu: Completed Roadmap 2024, ready for substack release. 
 
