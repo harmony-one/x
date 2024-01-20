@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 --- 
 
-2024-01-19 Fri: Early morning on-call assisting with mint. Ecosystem lottery implementation discussions. Further inscription plans and personnel allocation for 2024 roadmap tasks.
+2024-01-19 Fri: Early morning on-call assisting with mint. SQL analytics for onescription. Ecosystem lottery implementation discussions. Further inscription plans and personnel allocation for 2024 roadmap tasks.
 
 2024-01-18 Thu: Prototyped pool-based flip architecture for optimized liquidity and decentralization with Julia.  
 
