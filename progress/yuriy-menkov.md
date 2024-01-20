@@ -1,3 +1,9 @@
+2024-01-19 Fri: Worked on inscription for .country commands. Auctions through gas fee (we get information about the latest domain inscriptions from the indexer and then use it as a minimum gas for the next domain inscription). Still in progress.
+
+2024-01-18 Thu: Reviewed XRCFactory contract from [gwx.one](https://gwx.one). Reviewed Artem's [updates](https://github.com/harmony-one/inscription.indexer/pull/1) for [Indexer](https://inscription-indexer.fly.dev/api). Starting frontend integration with new api.
+
+2024-01-17 Wed: Demo and transfer of the [Indexer](https://github.com/harmony-one/inscription.indexer) codebase to Artem for further development of .country inscriptions. Started XRCFactory contract review. 
+
 2024-01-16 Tue: Worked on resolving a bridge issue related to upgrading the default proof type to 2 (from mpt to FP). Continue research and migration of the ethscriptions-indexer into Harmony.
 
 2024-01-15 Mon: Researched [facet-vm](https://github.com/0xFacet/facet-vm) and [ethscriptions-indexer](https://github.com/0xFacet/ethscriptions-indexer) repos to explore the possibility of migrating ready-made ethscriptions solutions to Harmony.
