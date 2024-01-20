@@ -1,6 +1,6 @@
 2024-01-19 Fri:
 
-2024-01-18 Thu: Tested fully deployed safe clone that supports Harmony mainnet. Fixing issues regarding payments not being able to be sent.
+2024-01-18 Thu: Tested fully deployed safe clone that supports Harmony mainnet. Fixing issues regarding payments not being able to be sent. Worked on swapping various addresses and test full end to end functionality for usdc.country & usdt.country.
 
 2024-01-17 Wed: Researched inscription related products for near, optimism.
 
