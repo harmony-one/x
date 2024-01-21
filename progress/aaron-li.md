@@ -1,10 +1,36 @@
+2024-1-20 Sun (1.5h): Implement and deploy system services for email alias services. Auto renew certificate on regular schedule. End-to-end testing printer use cases, with SMTP and email alias forwarding
+
+2024-1-20 Sat (6.5h): Refine and finalize batch multi-certificate renewal scripts. Verify reserved and blocked domains. Quick review of ICANN rule. Debug and test premium domains. Sync all domain-related repositories. Review prediction market products, legal research on applicable laws and enforcement actions. Experiment with SMTP services for email alias services. Upgrade email alias services to latest common stack (ether v6, node 20). Debug various type and compile issues arising from hardhat, typechain, and typescript. Debug and implement workaround for missing Harmony protocol RPC implementation on eth_gasEstimate
+
+2024-1-19 Fri (6h): Review and analysis on inscription contract code: mint, buy, sell, withdraw, supply and balance control, and other internal logic. Review new Telegram embedded wallet proposal, analyze prior art, evaluate options to extend SMS Wallet and other design options. Debug and fix issues related to unable to manage domains using dot-country domain manager. Premium and reserved domain management. Implement batch multi-certificate renewal script
+
+2024-1-18 Thu (5h): Deploy certificate auto-renew automations on key dot-country and ai-bot services. Debug dot-country Substack embedder URL link hostname issues, analyze new scripts and page load mechanism from Substack. Experiment with a variety of DOM and Javascript listeners. Deploy temporary fix. Quick review of inscription contract code on security, integrity, and deployment issues. Review latest Multisig configuration and code change log
+
+2024-1-17 Wed (4h): Analysis and in-depth review on amicus brief by DeFi Education Fund in SEC v. Coinbase, review hearing transcript and updates of the case, discuss legal authority on asset ownership in custodial service, distinguishing factors of ministerial v. managerial service providers, and how they apply to bridge and swap services
+
+2024-1-16 Tue (5.5h): Debug and discuss Multisig iOS RPC call issues. Review code and UI update progress. In-depth legal research and analysis on Underwood v. Coinbase, effect and importance of user agreement, asset title transfer, asset custody, control, transaction and order fulfilment mechanism, fees, and choice of assets on the platform. Review related cases such as Anderson v. Binance.
+
+2024-1-15 Mon (4.5h): Legal research on Uniswap terms of service, legal structures, and litigations. In-depth legal research and analysis on federal district court opinion and case files on Risley et al. v. Uniswap, cited case laws, statutes, alleged facts, and applicaibility to bridge / swap products
+
+---
+
+2024-1-14 Sun (5.5h): Analyze reusable components in SMS Wallet mini-wallet for minimal social wallet and modifications required for inscription use cases. Research and analysis on lottery, contest, sweepstake statute and case laws, and applications in on-chain transactions and inscriptions. Research on calldata limitations and block size historical changes. Quick review and discussions on Safe iOS code and configurations.
+
+2024-1-13 Sat (2h): Research on inscription technical development history, use cases, adoption, and minimal social wallet integration and design. Research and discussion on recovery supply issues and bugs in explorer backend for computing supplies
+
+2024-1-12 Fri (2h): Implementing CNAME record setup for root subdomain in dot-country domains, testing and deployment end-to-end. Domain renewal and management. Review and research on inscription data carrying and retrieval capacity.
+
 2024-1-11 Thu (2.5h): Review #393 (comment over defining test behavior using class variable instead), #394, #395, #396, #397, #398, #399 (concern over access control), #400, #401, #402, #403, #404, #405, #406 (comment on sampling rate), #407, #410, #411, #412, #414, #415 (note on TTS response streaming, and model name confusions), #392 (draft). Burner launch and resolving cache issues.
 
 2024-1-10 Wed (4.5h): Review #318, #319 (concern on confusion over exporting transcript / log), #320, #321 (concern over dropping support for other languages), #322, #323, #324, #325, #327, #328, #330, #331, #332 (comment on private key could derive address), #333, #334, #335, #336, #337, #338, #339, #340, #341, #343, #344, #348, #353, #354, #355, #361, #363, #368, #369, #370 (comment on JSON parsing complexity), #371 (comment on function signature modification solely for testing), #372, #373, #379, #381, #383, #385, #386, #380 (concern on conflicts and PR being left open), #387, #388, #389, #390, #391
 
 2024-1-9 Tue (2h): Recovery live stats, analytics and charts with WONE support. v7 client portal. New contract and revised parameters for large rounds. Technical Q&A. Domain management and renewal reversal
 
+---
+
 2023-12-11 Mon (5h): Draft and publish design and architecture document for personalized response and Twitter integration 
+
+---
 
 2023-12-10 Sun (4h): Research on Twitter API access, authentication, OAuth flow, pricing, rate limit, usage caps, restrictions, and differentiation on app and user access. Experiment on Lists and search, and related APIs
 
