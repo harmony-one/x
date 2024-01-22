@@ -1,6 +1,6 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-01-21 Sun: Created /vision demo uploaded to YT Short & shared via [Twitter](https://x.com/harmonyprotocol/status/1749306162795991109?s=20)
+2024-01-21 Sun: Created /vision demo uploaded to [YT Short](https://youtube.com/shorts/n0kSH9n7KPk?si=hAQjjT-7jJkarP7R) & shared via [Twitter](https://x.com/harmonyprotocol/status/1749306162795991109?s=20)
 
 2024-01-20 Sat:
 
