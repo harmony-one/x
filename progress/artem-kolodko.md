@@ -1,4 +1,4 @@
-2024-01-19 Fri: completed integration of inscriptions indexer with Postgres storage, tested sync on Harmony mainnet. Added API endpoints to get inscriptions, created [PR](https://github.com/harmony-one/inscription.indexer/pull/1) to review.
+2024-01-19 Fri: completed integration of inscriptions indexer with Postgres storage, tested sync on Harmony mainnet. Added GET /inscriptions endpoint to get parsed data, created [PR](https://github.com/harmony-one/inscription.indexer/pull/1) to review.
 
 2024-01-18 Thu: [Added](https://github.com/harmony-one/inscription.indexer/pull/1/files) database entities in inscription indexer, configured indexer state table and saving inscriptions into Postgres database.
 
