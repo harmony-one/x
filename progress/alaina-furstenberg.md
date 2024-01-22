@@ -1,5 +1,9 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-21 Sun: Created /vision demo uploaded to YT Short & shared via [Twitter](https://x.com/harmonyprotocol/status/1749306162795991109?s=20)
+
+2024-01-20 Sat:
+
 2024-01-19 Fri: Video editing, thumbnail generation, uploaded to Youtube. tested Zi's Timeless X chrome extension. Updated harmony.one with community tweets & shared /progress thread via X.
 
 2024-01-18 Thu: Tested /vision, need to refine responses before launch to be more succinct. Prepared podcast studio, edited film and audio, designed thumbnail... to be uploaded tomorrow.
