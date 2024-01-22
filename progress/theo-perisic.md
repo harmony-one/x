@@ -2,6 +2,10 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 --- 
 
+2024-01-21 Sun: Simplifying Minimal Quest Lottery for Yuriy and Artem.
+
+2024-01-20 Sat: Research and testing for solana inscriptions. Insights: strong nft community from solana is what is carrying inscriptions, some token generations as well but nothing yet in terms of strong utility. Main tool, [LiberPlex](https://www.libreplex.io/) lacking in quality, UI/UX. Main volume from Tensor and MagicEden. 
+
 2024-01-19 Fri: Early morning on-call assisting with mint. SQL analytics for onescription mint. Ecosystem lottery implementation discussions. Further inscription plans and personnel allocation for 2024 roadmap tasks.
 
 2024-01-18 Thu: Prototyped pool-based flip architecture for optimized liquidity and decentralization with Julia.  
