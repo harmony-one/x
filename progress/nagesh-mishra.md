@@ -1,4 +1,10 @@
 
+2024-01-23 Tue: Created new development bundle IDs for the Telegram iOS project, updated the repository with these changes, and uploaded a X safe project to TestFlight.
+
+2024-01-22 Mon: Configured the Telegram iOS project and committed the changes.
+
+---
+
 2024-01-19 Fri: I am currently setting up the MetaMask code for iOS locally and have successfully executed the iOS SDK code. Next, I am focusing on getting the React Native code up and running, and all changes have been pushed.
 
 2024-01-18 Thu: Removal of the Test network and the 'hmy' prefix from addresses in the receive function, the exclusion of a chain prefix in the QR code display, enhanced visibility with added color to the Harmony feature, accessible Privacy Policy and Terms and Conditions, and the elimination of the 'Learn More' option in the queues section.
