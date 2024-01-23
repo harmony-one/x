@@ -1,3 +1,8 @@
+2024-01-22 Mon: Fixed [payment issues](https://github.com/harmony-one/HarmonyOneBot/pull/350) with dalle and Chat GPT commands. The app was storing the token and price usage for the conversation but was not using the token usage information to calculate the input token price. The new DALLE 3 implementation requires the price to be handled as cents.
+
+----
+2024-01-19 Fri: Worked on fixing whitelist issues and payment issues. Fixed [whitelist issues](https://github.com/harmony-one/HarmonyOneBot/pull/350) with private chats and the updated whitelist environment variable. Checked the implementation of whisper on Harmony1Bot. 
+
 2024-01-18 Thu: Fixed new command prefix error when the new prompt was empty. Refactored command handling on openAi, llms, and 1Country. Added [vision completion context](https://github.com/harmony-one/HarmonyOneBot/pull/350) to provide complete responses within a 100-word limit
 
 2024-01-17 Wed: Fixed prompts with a [code snippets](https://github.com/harmony-one/HarmonyOneBot/pull/350) that were handled as URLs and produced an error messages. Fixed an error with vision calls on group chat by requiring vision command on images reply.
