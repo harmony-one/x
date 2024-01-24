@@ -1,3 +1,9 @@
+2024-01-23 Tue: [Added]([2024-01-22 Mon:](https://github.com/harmony-one/inscription.indexer/commit/9fd1b329451201e5815132e9934a87242d65b8cb)) new fields to inscriptions indexer database schema, implemented flexible filers support in GET /inscriptions endpoint. Helped Yuriy with examples of renting 1country domains with one-country-sdk to use it in lottery.
+
+2024-01-22 Mon: made a couple of minor updates, [configured](https://github.com/harmony-one/inscription.indexer/commit/17d5d9bdef3c7555054bde19d6fb8631dafd1f66) and deployed inscriptions indexer on fly.io. Drafted architecture for inscriptions lottery with Yuriy.
+
+---
+
 2024-01-19 Fri: completed integration of inscriptions indexer with Postgres storage, tested sync on Harmony mainnet. Added GET /inscriptions endpoint to get parsed data, created [PR](https://github.com/harmony-one/inscription.indexer/pull/1) to review.
 
 2024-01-18 Thu: [Added](https://github.com/harmony-one/inscription.indexer/pull/1/files) database entities in inscription indexer, configured indexer state table and saving inscriptions into Postgres database.
