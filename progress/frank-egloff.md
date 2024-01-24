@@ -1,3 +1,5 @@
+2024-01-23 Tue: Updated the payment logic for pdf/URL web crawling services. Added [voice-command](https://github.com/harmony-one/HarmonyOneBot/pull/351) functionality for chat GPT and vision features. With voice command, the user sends a voice note starting with the command ('ask' for chat GPT, 'vision' for vision) with the prompt, and the bot generates the completion. For Vision, the voice note has to be a reply to an image. 
+
 2024-01-22 Mon: Fixed [payment issues](https://github.com/harmony-one/HarmonyOneBot/pull/350) with dalle and Chat GPT commands. The app was storing the token and price usage for the conversation but was not using the token usage information to calculate the input token price. The new DALLE 3 implementation requires the price to be handled as cents.
 
 ----
