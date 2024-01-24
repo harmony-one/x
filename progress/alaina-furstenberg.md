@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-23 Tue: Re-designed inscription graphic. Tweet on [Inscription Lottery](https://x.com/harmonyprotocol/status/1749976587343483129?s=20). Synced with Amanda on ETH logistics.
+
 2024-01-22 Mon: Uploaded [Youtube Video], shared via twitter. ETH Denver planning. Graphic for inscription lottery.
 
 2024-01-21 Sun: Created /vision demo uploaded to [YT Short](https://youtube.com/shorts/n0kSH9n7KPk?si=hAQjjT-7jJkarP7R) & shared via [Twitter](https://x.com/harmonyprotocol/status/1749306162795991109?s=20)
