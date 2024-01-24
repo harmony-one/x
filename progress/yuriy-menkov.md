@@ -1,3 +1,9 @@
+2024-01-23 Tue: [Finished](https://github.com/harmony-one/inscription.demo/pull/3) the demo version for the [lottery main page](https://hmy-inscription.web.app/) (transaction sending, indexer, winner display). [Added](https://github.com/harmony-one/inscription.indexer/pull/2/files) logic to the backend for monitoring and determining the winner, tweet link validations.
+
+2024-01-22 Mon: Dive in the logic of operation of the inscription lottery. Started working on the [main page](https://hmy-inscription.web.app/) for lottery.
+
+___
+
 2024-01-19 Fri: [Worked](https://github.com/harmony-one/inscription.demo/pull/2) on inscription for .country commands. Auctions through gas fee (we get information about the latest domain inscriptions from the indexer and then use it as a minimum gas for the next domain inscription). Still in progress.
 
 2024-01-18 Thu: Reviewed XRCFactory contract from [gwx.one](https://gwx.one). Reviewed Artem's [updates](https://github.com/harmony-one/inscription.indexer/pull/1) for [Indexer](https://inscription-indexer.fly.dev/api). Starting frontend integration with new api.
