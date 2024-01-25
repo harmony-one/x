@@ -1,3 +1,5 @@
+2024-01-25 Thu: synced with Yuriy for the latest lottery updates, [updated](https://github.com/harmony-one/inscription.indexer/pull/5) inscriptions indexer, moved hardcoded variables to config, improve typings.
+
 2024-01-24 Wed: implemented full process of registering 1.country domain for inscriptions lottery, created [PR #3](https://github.com/harmony-one/inscription.indexer/pull/3/files) in inscriptions indexer.
 
 2024-01-23 Tue: [Added](https://github.com/harmony-one/inscription.indexer/commit/9fd1b329451201e5815132e9934a87242d65b8cb) new fields to inscriptions indexer database schema, implemented flexible filers support in GET /inscriptions endpoint. Helped Yuriy with examples of renting 1country domains with one-country-sdk to use it in lottery.
