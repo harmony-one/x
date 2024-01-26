@@ -1,3 +1,7 @@
+2024-01-25 Thu: Added payment logic for whisper on voice-command services. [Improved user experience](https://github.com/harmony-one/HarmonyOneBot/pull/351) by adding voice command reuse to avoid the user repeating the command on each interaction. Updated the conversation queue to store the output format (voice, text) and msgId (to replace the progress message with the completion).   
+
+2024-01-24 Wed: Added the [image (dalle) and talk command](https://github.com/harmony-one/HarmonyOneBot/pull/351) to the voice-command bot. For dalle, the user has to send a voice note starting with the command image and then the prompt. When a user sends a voice note with the command talk, the AI completion returns as a voice note.
+
 2024-01-23 Tue: Updated the payment logic for pdf/URL web crawling services. Added [voice-command](https://github.com/harmony-one/HarmonyOneBot/pull/351) functionality for chat GPT and vision features. With voice command, the user sends a voice note starting with the command ('ask' for chat GPT, 'vision' for vision) with the prompt, and the bot generates the completion. For Vision, the voice note has to be a reply to an image. 
 
 2024-01-22 Mon: Fixed [payment issues](https://github.com/harmony-one/HarmonyOneBot/pull/350) with dalle and Chat GPT commands. The app was storing the token and price usage for the conversation but was not using the token usage information to calculate the input token price. The new DALLE 3 implementation requires the price to be handled as cents.
