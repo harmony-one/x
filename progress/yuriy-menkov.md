@@ -1,3 +1,5 @@
+2024-01-26 Fri: [Added](https://github.com/harmony-one/inscription.indexer/pull/7) filter for inscriptions, domains monitoring service and provide an endpoint which .country frontend can query to host content. Updated inscriptions indexer instance.
+
 2024-01-25 Thu: [Added](https://github.com/harmony-one/inscription.indexer/pull/6) stats api to get statistic by lottery inscriptions, unique wallets, txs by wallet. Extended logic for calculation winner: diff by 3 symbol if find several winners. [Updated](https://github.com/harmony-one/inscription.demo/commits/main) frontend part.
 
 2024-01-24 Wed: Inscription lottery launch support. [Added](https://github.com/harmony-one/inscription.indexer/pull/4) api to get tweet link by 2 letter domains, correct lottery time interval, fixed bugs. Did several ui [fixes](https://github.com/harmony-one/inscription.demo/pull/7). Deployed main page to [production](https://q.country/) url.
