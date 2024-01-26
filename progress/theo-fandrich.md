@@ -1,4 +1,16 @@
-2024-01-19 Fri:
+2024-01-26 Fri: Helped Alaina organize candidate interviews, continued to research and ramp up on products within evm ecosystem.
+
+2024-01-25 Thu: Continued to test and resarch evm compatible products such as Chainlink's evm interoperability protocol CCIP and a evm compatible wallet called Mask Wallet.
+
+2024-01-24 Wed: Found automatic Metamask app switch for Gnosis safe, hope to implement this when signing multisignature wallets by Wed. 1/31
+
+2024-01-23 Tue: Built out master spreadsheet for all ecosystem projects and cloneable evm projects on other chains. 
+
+2024-01-22 Mon: Worked on demoing Gnosis Safe clone, telegram clone, and 1bot. 
+
+---
+
+2024-01-19 Fri: Explored ecosystem projects and evm projects to clone. 
 
 2024-01-18 Thu: Tested fully deployed safe clone that supports Harmony mainnet. Fixing issues regarding payments not being able to be sent. Worked on swapping various addresses and test full end to end functionality for usdc.country & usdt.country.
 
