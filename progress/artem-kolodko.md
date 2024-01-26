@@ -1,3 +1,5 @@
+2024-01-26 Fri: [added](https://github.com/harmony-one/inscription.indexer/pull/8/files) restricted domains list to inscriptions indexer; implemented access control for 1 letter domains. Updated inscriptions indexer instance. Working on embed notion and substack urls support in 1.country client.
+
 2024-01-25 Thu: synced with Yuriy for the latest lottery updates, [updated](https://github.com/harmony-one/inscription.indexer/pull/5) inscriptions indexer, moved hardcoded variables to config, improve typings. Skipped second half of the day because of some food poisoning, recovering.
 
 2024-01-24 Wed: implemented full process of registering 1.country domain for inscriptions lottery, created [PR #3](https://github.com/harmony-one/inscription.indexer/pull/3/files) in inscriptions indexer.
