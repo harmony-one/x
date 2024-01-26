@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-25 Thu: Inscription lottery winner announcement graphic + [tweet](https://x.com/harmonyprotocol/status/1750634728942915948?s=20). [Core Protocol Sync](https://youtu.be/8bjPB8zwz1w?si=L4tSeFhK3fqpQZsG) thumbnail + upload. Booked all ETH Denver plans, signed up team for 3 side events. Called Frank and demoed ONE Bot voice, YT short and tweet demo to be shared tomorrow.
+
 2024-01-24 Wed: Inscription lottery [twitter campaign](https://x.com/harmonyprotocol/status/1750344417129726315?s=20). /vision + voice testing on ONE Bot. ETH coordination + office operations.
 
 2024-01-23 Tue: Re-designed inscription graphic. Tweet on [Inscription Lottery](https://x.com/harmonyprotocol/status/1749976587343483129?s=20). Synced with Amanda on ETH logistics.
