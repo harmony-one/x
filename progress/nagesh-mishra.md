@@ -1,5 +1,10 @@
+2024-01-26 Fri: Republic Day Holiday.
 
-2024-01-23 Tue: Created new development bundle IDs for the Telegram iOS project, updated the repository with these changes, and uploaded a X safe project to TestFlight.
+2024-01-25 Thu: Removed bottom bar formatted the code and uploaded the X-Safe build to TestLfight 
+
+2024-01-24 Web: Removed the onboarding screen, the 'My Safe' account option from settings, and the network selection screen from the app. Also, deleted the 'How it Works' screen and the transaction screen. Subsequently, the updated version of the X Safe app was uploaded to the TestFlight build for testing.
+
+2024-01-23 Tue: Created new development bundle IDs for the Telegram iOS project, updated the repository with these changes, and uploaded a X-safe project to TestFlight.
 
 2024-01-22 Mon: Configured the Telegram iOS project and committed the changes.
 
