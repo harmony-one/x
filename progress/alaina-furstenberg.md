@@ -1,5 +1,17 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-01-31 Wed:
+
+2024-01-30 Tue:
+
+2024-01-29 Mon:
+
+----
+
+2024-01-28 Sun:
+
+2024-01-27 Sat:
+
 2024-01-26 Fri: Harmony.one update. [Tweet](https://x.com/harmonyprotocol/status/1751047232508612642?s=20) sharing community highlights. ETH event reservations. Coordination of Senior Engineer interview. /vision voice testing with Theo P. Updated thumbnails of Core Protocol syncs on Youtube channel to improve our click rate and visual appeal.
 
 2024-01-25 Thu: Inscription lottery winner announcement graphic + [tweet](https://x.com/harmonyprotocol/status/1750634728942915948?s=20). [Core Protocol Sync](https://youtu.be/8bjPB8zwz1w?si=L4tSeFhK3fqpQZsG) thumbnail + upload. Booked all ETH Denver plans, signed up team for 3 side events. Called Frank and demoed ONE Bot voice, YT short and tweet demo to be shared tomorrow.
