@@ -1,4 +1,10 @@
-2024-1-20 Sun (1.5h): Implement and deploy system services for email alias services. Auto renew certificate on regular schedule. End-to-end testing printer use cases, with SMTP and email alias forwarding
+2024-1-28 Sun (4h): Docs for batch certificate renewal, management, access control, and modification guide. Refactor scripts for multi-purpose. Setup certificate management instances and access. Docs for manual certificate renewal for external domain. Renew certificates for key domains
+
+2024-1-23 Tue (2h): Review minimal social wallet POC and history. Review paper trading bot. Review partial evaluation implementations in blockchain and smart contracts, and analyze options.
+
+2024-1-22 Mon (2h): Legal research and analysis on Clark v. CFTC appellate opinion, injunction, history and applicability of CFTC no-action letters and enforcement practice. Legal analysis on prediction market risks and issues on developing, deploying, operating a platform, and importance of decentralization. 
+
+2024-1-21 Sun (8h): Implement and deploy system services for email alias services. Auto renew certificate on regular schedule. End-to-end testing printer use cases, with SMTP and email alias forwarding. Research on prediction markets. Research on the history and various legal opinions regarding Polymarket and its terms of service. In-depth analysis of CFTC v. Polymarket. Research and analysis on Thales prediction market design, contracts, AMM, UMA oracle, and demo prediction market contract. Evaluate alternatives.
 
 2024-1-20 Sat (6.5h): Refine and finalize batch multi-certificate renewal scripts. Verify reserved and blocked domains. Quick review of ICANN rule. Debug and test premium domains. Sync all domain-related repositories. Review prediction market products, legal research on applicable laws and enforcement actions. Experiment with SMTP services for email alias services. Upgrade email alias services to latest common stack (ether v6, node 20). Debug various type and compile issues arising from hardhat, typechain, and typescript. Debug and implement workaround for missing Harmony protocol RPC implementation on eth_gasEstimate
 
