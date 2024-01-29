@@ -1,3 +1,11 @@
+*2024-01-31 Wed: 1.country embed substack
+
+*2024-01-30 Tue: inscriptions indexer: new features and support
+
+*2024-01-29 Mon: ONE bot credits refill [update](https://github.com/harmony-one/HarmonyOneBot/pull/352): 1 ONE should remain in the wallet to cover gas, the rest goes to multisig. Start 1.country: inscription domains data, embed notion.
+
+---
+
 2024-01-26 Fri: [added](https://github.com/harmony-one/inscription.indexer/pull/8/files) restricted domains list in inscriptions indexer; implemented access control for 1 letter domains. Updated inscriptions indexer instance. Working on embed notion and substack urls support in 1.country client.
 
 2024-01-25 Thu: synced with Yuriy for the latest lottery updates, [updated](https://github.com/harmony-one/inscription.indexer/pull/5) inscriptions indexer, moved hardcoded variables to config, improve typings. Skipped second half of the day because of some food poisoning, recovering.
