@@ -1,16 +1,16 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-01-31 Wed:
+*2024-01-31 Wed: Inscription lottery winner announcement graphic + [tweet]. Designing graphics for Thursday inscription lottery, sharing details via Twitter. Swap stats update. Mars colony testing.
 
-2024-01-30 Tue:
+*2024-01-30 Tue: Inscription lottery Twitter campaign. Knights and Peasants & Galaxii testing. Filming + editing ONE Bot Demos. Sharing pre-created Youtube short.
 
-2024-01-29 Mon:
+*2024-01-29 Mon: Designing graphics for inscription lottery, sharing details via Twitter [thread](https://x.com/harmonyprotocol/status/1752059158587936919?s=20). Testing Storylines to create 10 Youtube shorts from pre-existing video content. ETH Denver event coordination + attendee tracking. Magnific + Midjourney --tile testing, results [here](https://www.notion.so/harmonyone/Midjourney-Magnific-Testing-3b12150200394dcabae0ef7d25bff9bb?pvs=4). 
 
 ----
 
-2024-01-28 Sun:
+2024-01-28 Sun: Ecosytem highlights [thread.](https://x.com/harmonyprotocol/status/1751808396528115713?s=20)
 
-2024-01-27 Sat:
+2024-01-27 Sat: Review of Ecosystem mastersheet.
 
 2024-01-26 Fri: Harmony.one update. [Tweet](https://x.com/harmonyprotocol/status/1751047232508612642?s=20) sharing community highlights. ETH event reservations. Coordination of Senior Engineer interview. /vision voice testing with Theo P. Updated thumbnails of Core Protocol syncs on Youtube channel to improve our click rate and visual appeal.
 
