@@ -1,8 +1,8 @@
-2024-01-31 Wed: Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+2024-01-31 Wed: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
 
-2024-01-30 Tue: Expand research into  Avalanche & Aribtrum gaming. How does ImmutableX compare? Organize edits for testflight telegram ios clone.
+2024-01-30 Tue: *Expand research into Avalanche & Aribtrum gaming. How does ImmutableX compare? Organize edits for testflight telegram ios clone.
 
-2024-01-29 Mon: Research Solana defi: drift, marginfi, kamino, marinade. Continue to work clean up Safe iOS clone and configure automatic metamask signing for multisig transactions.
+2024-01-29 Mon: *Research Solana defi: drift, marginfi, kamino, marinade. Continue to work clean up Safe iOS clone and configure automatic metamask signing for multisig transactions.
 
 ---
 
