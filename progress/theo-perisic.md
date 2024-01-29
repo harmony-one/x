@@ -2,6 +2,17 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 --- 
 
+2024-01-28 Sun: Continued review of TheArena and [tippin.me](https://tippin.me/) a platform that allows anyone to tip and receive tips in Bitcoin on twitter posts for potential sofi on Harmony. Coordination for Tuesday and Thursday lotteries with ONES and Knights&Peasants.
+
+2024-01-27 Sat: Added documentation for Flip group.
+
+2024-01-26 Fri: Completed product requirement document for lottery inscriptions via telegram with 1bot interactions. Reviewed Social Finance applications: TheArena, Tomo, Alpha, and DeSoc.
+
+2024-01-25 Thu: Completion of first Quest, completed sql query for stats. Inscriptions: 957, Wallets: 35, Entries: (Highest = 470, Winning = 104).
+
+2024-01-24 Wed: Launch of first Quest: [Inscription Lottery](https://q.country), monitoring launch and guiding users through process. Started group for Flip.
+
+2024-01-23 Tue: Testing for Inscription Lottery, added [copy for the launch](https://github.com/harmony-one/inscription.demo/commit/6db76eab71f4c7a86d6cf767e669e8415fc5739e).
 
 2024-01-22 Mon: Finalized product requirements document for Minimal Quest Lottery for Yuriy and Artem set to launch Wednesday. 1000 ONE + 100 HOG prize. [Flip thread](https://x.com/theoperisic/status/1749632934154313951?s=20).
 
