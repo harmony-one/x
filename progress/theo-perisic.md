@@ -1,5 +1,13 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+---
+
+*2024-01-31 Wed: Finish telegram 1bot lottery entries. Announce Knights&Peasants lottery.
+
+*2024-01-30 Tue: Conclude Solana vs. Bitcoin path. Launch second quest.
+
+*2024-01-29 Mon: Prepare for this week's inscription lotteries, finish coordination with first partner lottery with Onescription team and Knights&Peasants. Research better path, solana native defi solutions vs. bitcoin multi-chain adoption.
+
 --- 
 
 2024-01-28 Sun: Continued review of TheArena and [tippin.me](https://tippin.me/) a platform that allows anyone to tip and receive tips in Bitcoin on twitter posts for potential sofi on Harmony. Coordination for Tuesday and Thursday lotteries with ONES and Knights&Peasants.
