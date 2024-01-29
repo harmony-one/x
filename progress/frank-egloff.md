@@ -1,3 +1,5 @@
+2024-01-26 Fri: Cleaned the [prompt-generated text](https://github.com/harmony-one/HarmonyOneBot/pull/351/commits/949701af242848e65990691eef4b73499df433c8) on voice command and updated voice command duration up to 30 seconds. Added a [share button](https://github.com/harmony-one/HarmonyOneBot/pull/353) to Dalle's generated images for inscription logic. 
+
 2024-01-25 Thu: Added payment logic for whisper on voice-command services. [Improved user experience](https://github.com/harmony-one/HarmonyOneBot/pull/351) by adding voice command reuse to avoid the user repeating the command on each interaction. Updated the conversation queue to store the output format (voice, text) and msgId (to replace the progress message with the completion).   
 
 2024-01-24 Wed: Added the [image (dalle) and talk command](https://github.com/harmony-one/HarmonyOneBot/pull/351) to the voice-command bot. For dalle, the user has to send a voice note starting with the command image and then the prompt. When a user sends a voice note with the command talk, the AI completion returns as a voice note.
