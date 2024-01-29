@@ -1,3 +1,7 @@
+2024-01-29 Mon: Resolved issues related to the submodule paths in your Telegram fork, updated app icons, and app name. Pushed all the changes. 
+
+---  
+
 2024-01-26 Fri: Republic Day Holiday.
 
 2024-01-25 Thu: Removed the bottom navigation bar, reformatted the code, and then uploaded the revised X-Safe application build to TestFlight for testing.
