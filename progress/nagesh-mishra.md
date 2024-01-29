@@ -1,4 +1,4 @@
-2024-01-29 Mon: Resolved issues related to the submodule paths in your Telegram fork, updated app icons, and app name. Pushed all the changes. 
+2024-01-29 Mon: Resolved issues related to the submodule paths in the iOS Telegram fork, updated app icons, and app name. Pushed all the changes. 
 
 ---  
 
