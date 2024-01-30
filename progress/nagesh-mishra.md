@@ -1,3 +1,5 @@
+2024-01-30 Tue: Removed the passcode screen and user image from the nav bar, added clipboard functionality for addresses, removed the 'add new' button, corrected the harmony icon display, and set the target exclusively to production.
+
 2024-01-29 Mon: Resolved issues related to the submodule paths in the iOS Telegram fork, updated app icons, and app name. Pushed all the changes. 
 
 ---  
