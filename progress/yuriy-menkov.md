@@ -1,6 +1,6 @@
 *2024-01-31 Wed: Сomplete telegram bot image lottery feature.
 
-*2024-01-30 Tue: Supporting subdomain and redirect paths from indexer so that they can be used by the client side (endpoint for .country, to get content from inscriptions). Expand the database table and add search for new fields, optimisations.
+*2024-01-30 Tue: [Added](https://github.com/harmony-one/inscription.indexer/pull/10) support for subdomain and redirect paths from indexer so that they can be used by the client side (endpoint for .country, to get content from inscriptions). Expand the database table and add search for new fields, optimisations.
 
 *2024-01-29 Mon: Сompleted set up for lottery 2.0. [Updated](https://github.com/harmony-one/inscription.demo/pull/9) frontend part. Reviewed backend PR's. 
 
