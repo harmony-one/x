@@ -1,3 +1,5 @@
+2024-01-31 Wed: Ensuring automatic retrieval of the Harmony address upon user access to the Harmony safe, followed by uploading this functionality to TestFlight, has been completed.
+
 2024-01-30 Tue: Removed the passcode screen and user image from the nav bar, added clipboard functionality for addresses, removed the 'add new' button, corrected the harmony icon display, and set the target exclusively to production.
 
 2024-01-29 Mon: Resolved issues related to the submodule paths in the iOS Telegram fork, updated app icons, and app name. Pushed all the changes. 
@@ -8,7 +10,7 @@
 
 2024-01-25 Thu: Removed the bottom navigation bar, reformatted the code, and then uploaded the revised X-Safe application build to TestFlight for testing.
 
-2024-01-24 Web: Removed the onboarding screen, the 'My Safe' account option from settings, and the network selection screen from the app. Also, deleted the 'How it Works' screen and the transaction screen. Subsequently, the updated version of the X Safe app was uploaded to the TestFlight build for testing.
+2024-01-24 Wed: Removed the onboarding screen, the 'My Safe' account option from settings, and the network selection screen from the app. Also, deleted the 'How it Works' screen and the transaction screen. Subsequently, the updated version of the X Safe app was uploaded to the TestFlight build for testing.
 
 2024-01-23 Tue: Created new development bundle IDs for the Telegram iOS project, updated the repository with these changes, and uploaded a X-safe project to TestFlight.
 
@@ -20,7 +22,7 @@
 
 2024-01-18 Thu: Removal of the Test network and the 'hmy' prefix from addresses in the receive function, the exclusion of a chain prefix in the QR code display, enhanced visibility with added color to the Harmony feature, accessible Privacy Policy and Terms and Conditions, and the elimination of the 'Learn More' option in the queues section.
 
-2024-01-17 Web: Exploring the Keplr Wallet code and setting it up to run locally.
+2024-01-17 Wed: Exploring the Keplr Wallet code and setting it up to run locally.
 
 2024-01-16 Tue: Upgraded Safe Client Gateway Services, corrected gasPrice rpc to latest, and eliminated the demo account link.
 
@@ -32,7 +34,7 @@
 
 2024-01-11 Thu: Created development, staging, and production bundle IDs for the Safe project and updated the repository after making these changes. Currently examining the project's codebase.
 
-2024-01-10 Web: Set up safe-iOS project and pushed changes.
+2024-01-10 Wed: Set up safe-iOS project and pushed changes.
 
 2024-01-09 Tue: Ehance whisper waiting time is in progress.
 
@@ -44,7 +46,7 @@
 
 2024-01-04 Thu: Whisper integration for Talk to me is in progress. 
 
-2024-01-03 Web: Completed Open AI’s whisper integration for Press & Hold and Tap to speak.
+2024-01-03 Wed: Completed Open AI’s whisper integration for Press & Hold and Tap to speak.
 
 2024-01-02 Tue: Started Open AI’s whisper integration in the voice AI app.
 
@@ -54,7 +56,7 @@
 
 2023-12-28 Thu: Added a favorite feature on Twitter that communicates with Talk to Me.
 
-2023-12-27 Web: Add a feature to display Twitter lists. Implement functionality for adding new items to lists. Add a feature for item deletion from lists. Enhance the system by updating status type handling.
+2023-12-27 Wed: Add a feature to display Twitter lists. Implement functionality for adding new items to lists. Add a feature for item deletion from lists. Enhance the system by updating status type handling.
 
 2023-12-26 Tue: Twitter API's testing and UI for update API.
 
