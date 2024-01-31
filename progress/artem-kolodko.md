@@ -2,7 +2,7 @@
 
 2024-01-30 Tue: reviewed [PR 353](https://github.com/harmony-one/HarmonyOneBot/pull/353) from Frank in with inscriptions support in 1bot. [Added](https://github.com/harmony-one/1-country.frontend/commit/01ad406bde1f7e053d102d35e2dbd264fd93110b) embed Notion page for inscription domains. Researched embed Substack, found issues on embedded service (it works only with contracts) asked Aaron to help with embedder.
 
-*2024-01-29 Mon: ONE bot credits refill [update](https://github.com/harmony-one/HarmonyOneBot/pull/352): 1 ONE should remain in the wallet to cover gas, the rest goes to multisig. Start 1.country: inscription domains data, embed notion.
+2024-01-29 Mon: ONE bot credits refill [update](https://github.com/harmony-one/HarmonyOneBot/pull/352): 1 ONE should remain in the wallet to cover gas, the rest goes to multisig. Start 1.country: inscription domains data, embed notion.
 
 ---
 
