@@ -1,8 +1,8 @@
 *2024-01-31 Wed: Planning on checking other APIs to integrate with Harmony1Bot
 
-*2024-01-30 Tue: Planning on working and testing inscription image sharing on Harmony1Bot.  
+2024-01-30 Tue: Finished [inscription logic](https://github.com/harmony-one/HarmonyOneBot/pull/353) and progess messaging handling for image and prompt inscription on Harmony1Bot. Also, worked on 1.country with the [Telegram's inscription integration](https://github.com/harmony-one/1-country.frontend/pull/216).
 
-*2024-01-29 Mon: Planning on working on inscription image sharing on Harmony1Bot and voice-command improvements.  
+2024-01-29 Mon: Worked on integrating [Inscription logic on Harmony1Bot](https://github.com/harmony-one/HarmonyOneBot/pull/353). Created the share button and 0-cost transaction with call data and added initial logic. 
 
 ----
 2024-01-26 Fri: Cleaned the [prompt-generated text](https://github.com/harmony-one/HarmonyOneBot/pull/351/commits/949701af242848e65990691eef4b73499df433c8) on voice command and updated voice command duration up to 30 seconds. Added a [share button](https://github.com/harmony-one/HarmonyOneBot/pull/353) to Dalle's generated images for inscription logic. 
