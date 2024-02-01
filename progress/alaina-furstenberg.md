@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-02-01 Thu: Inscription lottery launch with Knights & Peasants, designed graphic and launched to Twitter. Created/edited demos for 3 ways to enter with ONE Bot. Ordered ETH Denver stickers. Created content with Storylines, working to improve video quality. SUI event.
+
 *2024-01-31 Wed: Inscription lottery winner announcement graphic + [tweet]. Designing graphics for Thursday inscription lottery, sharing details via Twitter. Swap stats update. Mars colony testing.
 
 *2024-01-30 Tue: Inscription lottery Twitter campaign. Knights and Peasants & Galaxii testing. Filming + editing ONE Bot Demos. Sharing pre-created Youtube short.
