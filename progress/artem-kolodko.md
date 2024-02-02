@@ -1,3 +1,5 @@
+2024-02-01 Thu: [fixed](https://github.com/harmony-one/HarmonyOneBot/pull/353/commits/cfd9d7537305f5950e1a15c88556d70fae0e3f1f) bug in 1bot with holding 1 ONE in user hot wallet. Researched Aaron's [1country-embedder](https://github.com/harmony-one/dot-country-embedder) service, started working on supporting Substack links from request url. This is required to add Substack embed page to 1.country domains inscriptions.
+
 2024-01-31 Wed: took day-off to prepare docs for upcoming portugues immigration office visit next day, notified Sun about that.
 
 2024-01-30 Tue: reviewed [PR 353](https://github.com/harmony-one/HarmonyOneBot/pull/353) from Frank in with inscriptions support in 1bot. [Added](https://github.com/harmony-one/1-country.frontend/commit/01ad406bde1f7e053d102d35e2dbd264fd93110b) embed Notion page for inscription domains. Researched embed Substack, found issues on embedded service (it works only with contracts) asked Aaron to help with embedder.
