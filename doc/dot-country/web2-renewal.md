@@ -1,20 +1,20 @@
 ## Renew domains at the registrar
 
-The web .country domains are separated into three groups:
+The web2 .country domains are separated into three groups:
 
-(1) Domains registered prior to September 27, 2023, when the standard registration price is raised to $2000
-(2) Premium domains as defined by the registry in multiple tiers, which often include popular keywords, such as `money.country`
-(3) Non-premium domains registered on or after September 27, 2023
+1) Domains registered prior to September 27, 2023, when the standard registration price is raised to $2000
+2) Premium domains as defined by the registry in multiple tiers, which often include popular keywords, such as `money.country`
+3) Non-premium domains registered on or after September 27, 2023
 
-Premium domains must be renewed by registry (not registrar) operations, hence cannot be done by automated scripts at our side (dot-country servers or admin scripts). All such renewal requests need to be sent manually to the registry contact.
+Premium domains must be renewed by registry operations instead of at the registrar. Therefore, renewing premium domains cannot be done by automated scripts at our side (dot-country servers or admin scripts as described in this document). All such renewal requests need to be sent manually to the contact at the registry.
 
-Because of the TLD-wide registration price adjustment on September 27, 2023, all domains in group (1) are also classified as "premium" for the purpose of pricing at the registrar via automated operations (such as via APIs).
+There was a TLD-wide registration and renewal price adjustment on September 27, 2023. As a result, all domains in group (1) are also classified as "premium" for the purpose of pricing at the registrar via automated operations (such as via APIs).
 
-Therefore, only domains in group (3) can be renewed via scripts and APIs. However, here we provide some scripts to enumerate the domains in group (1) and (2), to make composing the manual renewal requests easier.
+Therefore, only domains in group (3) can be renewed via scripts and APIs. To assist with drafting renewal requests for registry operations, we prepared some scripts here to enumerate the domains in group (1) and (2).
 
 ### Renewal via API
 
-This can be done using the usual ens-registrar-relay server (`https://1ns-registrar-relayer.hiddenstate.xyz`)
+This can be done at the usual ens-registrar-relay server (`https://1ns-registrar-relayer.hiddenstate.xyz`), or at any other forked server with the correct credentials.
 
 ```
 POST /renew
@@ -23,16 +23,16 @@ POST /renew
 }
 ```
 
-The API will require the domain's expiration date on-chain is later than the web2 expiration date on the registrar. This restriction ensures someone indeed owns the domain on-chain, and has already paid the price on-chain to cover the cost of operations on the domain in the registrar.
+The API requires the domain's expiration date on-chain is no earlier than the web2 expiration date on the registrar. This restriction ensures someone indeed owns the domain on-chain, and has already paid the price on-chain to cover the cost of operations on the domain in the registrar.
 
-If the domain is a web2 premium domain, or is owned by someone else in web2, the call would fail. Otherwise, the domain would be renewed at the registrar for another year from its expiration date. The operation will be logged in the datastore. The old expiration time would be returned in the response along with some other information in JSON:
+If the domain is a web2 premium domain, or is owned by someone else in web2, the call would fail. Otherwise, the domain would be renewed at the registrar for another 1 year from its expiration date. The operation will be logged in the datastore. The old expiration time would be returned in the response along with some other information in JSON:
 
 - **success**: boolean
 - **domainCreationTime**: number, unix time in milliseconds, when the domain was registered
 - **domainExpiryTime**: number,  unix time in milliseconds, when the domain was set to expire prior to the renewal
 - **duration**: number, how many years the domain is renewed
 - **responseText**: string, additional response from the registrar, if any
-- **traceId**: string, an id for registrar operation, useful for debugging or filing support ticket if something goes wrong 
+- **traceId**: string, an id for registrar operation, useful for debugging or filing support ticket if something goes wrong
 
 ### Renewal via scripts
 
