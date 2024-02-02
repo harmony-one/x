@@ -1,4 +1,8 @@
-*2024-01-31 Wed: Сomplete telegram bot image lottery feature.
+2024-01-02 Fri: Updated lottery statistic [api](https://inscription-indexer.fly.dev/api#/app/AppController_getLotteryStats): added statistic by telegram username. Worked on indexer api optimisations, to add universal support for all inscription types.
+
+2024-01-01 Thu: Updated [frontend](https://github.com/harmony-one/inscription.demo/pull/10) and [backend](https://github.com/harmony-one/inscription.indexer/pull/11) parts for telegram lottery. Extended lottery service: The algorithm for determining the winner has been changed (added 6 winners support). Updated filters by which lottery transactions are indexed.
+
+*2024-01-31 Wed: Сomplete telegram bot image lottery feature. Added telegram inscriptions support to indexer. Extended indexer [api](https://inscription-indexer.fly.dev/api#/app/AppController_getMetaByDomain) to load and return telegram images by imageId from inscription.
 
 *2024-01-30 Tue: [Added](https://github.com/harmony-one/inscription.indexer/pull/10) support for subdomain and redirect paths from indexer so that they can be used by the client side (endpoint for .country, to get content from inscriptions). Expand the database table and add search for new fields, optimisations.
 
