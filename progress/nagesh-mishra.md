@@ -1,3 +1,7 @@
+2024-02-02 Fri: Eliminate the start screen, resize the MetaMask logo to be smaller and incorporate eyes, encase the MetaMask logo in a simple border to enhance its button appearance, ensure the "Add Owner Key" prompt does not appear initially, and deploy these updates to TestFlight.
+
+2024-02-01 Thu: Update tasks to remove the "Read-only" label, hide Send/Receive in Read-only mode, display the full address centered, add a "Connect Metamask" button from "Add key", limit assets display to the first with selection option and remove Harmony, and center the pop-out button for improved accessibility.
+
 2024-01-31 Wed: Ensuring automatic retrieval of the Harmony address upon user access to the Harmony safe, followed by uploading this functionality to TestFlight, has been completed.
 
 2024-01-30 Tue: Removed the passcode screen and user image from the nav bar, added clipboard functionality for addresses, removed the 'add new' button, corrected the harmony icon display, and set the target exclusively to production.
