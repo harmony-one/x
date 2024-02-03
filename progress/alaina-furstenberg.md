@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-02-02 Fri: Inscription lottery winners coordination and [announcement](https://x.com/harmonyprotocol/status/1753505945186181153?s=20). Harmony.one community update. [Mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=QjHU0RDjQGjV01IF-1) for profiles.
+
 2024-02-01 Thu: Inscription lottery launch with Knights & Peasants, designed graphic and launched to [Twitter](https://x.com/harmonyprotocol/status/1753131368052302233?s=20). Created/edited demos for 3 ways to enter with ONE Bot. Ordered ETH Denver stickers. Created content with Storylines, working to improve video quality. SUI event.
 
 *2024-01-31 Wed: Inscription lottery winner announcement graphic + [tweet]. Designing graphics for Thursday inscription lottery, sharing details via Twitter. Swap stats update. Mars colony testing.
