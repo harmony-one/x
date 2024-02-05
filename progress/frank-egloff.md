@@ -1,3 +1,5 @@
+2024-02-02 Fri: Added censorship check to dalle text and voice command and included content_policy_violation for [openAI](https://github.com/harmony-one/HarmonyOneBot/pull/353) errors. Also, added refund handling on openAIs and voiceCommand bots. Finally, disabled the inscription lottery.
+
 2024-02-01 Thu: Updated Inscription payload to include user info (username, walletAddress); also added logic to delete the [share button](https://github.com/harmony-one/HarmonyOneBot/pull/353) after a successful Inscription. Updated [dot country](https://github.com/harmony-one/1-country.frontend/pull/216) to work with new inscription payload to hide Telegram's bot token. 
 
 2024-01-31 Wed: Finished 1.country rendering of Telegram/Image subscription on [dot country](https://github.com/harmony-one/1-country.frontend/pull/216). Update [Inscription call data](https://github.com/harmony-one/HarmonyOneBot/pull/353) and fix prefix issues with Dalle and Stable Diffusion.
