@@ -1,6 +1,6 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-02-05 Mon: Profile [mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=QjHU0RDjQGjV01IF-1), Swap milestone animation & [tweet](https://x.com/harmonyprotocol/status/1754659145985466489?s=20). Warpcast frame testing, chess + base quest. Syncing with Frank on correcting ONE Bot lottery submission, removing the 'not enough credits' notification.
+2024-02-05 Mon: Profile [mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=QjHU0RDjQGjV01IF-1), Swap milestone animation & [tweet](https://x.com/harmonyprotocol/status/1754659145985466489?s=20). Warpcast frame testing, chess + base quest. Syncing with Frank on correcting ONE Bot lottery submission, removing the 'not enough credits' notification. One bot demos for the community.
 
 ----
 2024-02-04 Sun: Runway video generations & motion brush tutorials, shown [here](https://www.notion.so/harmonyone/Runway-ml-0c81cf320d5947b6b21991b659871089) 
