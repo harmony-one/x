@@ -1,3 +1,8 @@
+
+2024-02-05 Mon: Working on the Voice-on app and implementing location services to retrieve the address. This address is then displayed when saving audio recordings. Additionally, we made changes to the app and deployed them to the TestFlight 
+
+---
+
 2024-02-02 Fri: Eliminate the start screen, resize the MetaMask logo to be smaller and incorporate eyes, encase the MetaMask logo in a simple border to enhance its button appearance, ensure the "Add Owner Key" prompt does not appear initially, and deploy these updates to TestFlight.
 
 2024-02-01 Thu: Update tasks to remove the "Read-only" label, hide Send/Receive in Read-only mode, display the full address centered, add a "Connect Metamask" button from "Add key", limit assets display to the first with selection option and remove Harmony, and center the pop-out button for improved accessibility.
