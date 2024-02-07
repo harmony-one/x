@@ -1,3 +1,7 @@
+2024-02-07 Wed: [implemented](https://github.com/harmony-one/human-protocol/commit/769a0771c6f8ad0988aa4a63cf9d638b958ed486) topics list, feed (Global and Harmony), completed basic integration with API, [deployed](https://client-ehl.pages.dev/) demo client on Cloudflare.
+
+2024-02-06 Tue: working on Human Protocol client: initialized [client app](https://github.com/harmony-one/human-protocol/tree/main/client), working on topics list page
+
 2024-02-05 Mon: researched ETH Denver [project](https://www.x.country/human-protocol-social-shard-1-00e81d36535a4f2981a18012854b2c1e), synced with Sun and Yuriy. Started working on client app, [deployed](https://denver-app.pages.dev/) it on Cloudflare to test, testing Geolocation API in browser.
 
 ---
