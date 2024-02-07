@@ -1,4 +1,8 @@
 
+2024-02-07 Wed: I integrated a React Native map view with static pins and committed the updates to a 1 repository.
+
+2024-02-06 Tue: I've been diving into Farcaster, reviewing its documentation, and came across an unofficial SDK for Flutter at https://pub.dev/packages/farcaster_sdk. I successfully compiled the code locally.
+
 2024-02-05 Mon: Working on the Voice-on app and implementing location services to retrieve the address. This address is then displayed when saving audio recordings. Additionally, we made changes to the app and deployed them to the TestFlight 
 
 ---
