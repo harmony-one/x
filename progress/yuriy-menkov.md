@@ -1,3 +1,9 @@
+2024-02-06 Tue: [Added](https://github.com/harmony-one/human-protocol/commit/c915544727f13678c4927f0929877b21ce66fdfc) Cloudflare KV worker. Configured and [deployed](https://kv-dev-message.humanprotocol.workers.dev/messages) to harmony account. Currently, the service worker supports adding messages (in any format), receiving messages by key, and a list of keys and messages.
+
+2024-02-05 Mon: Synced with Sun and Jenya. Researched ElastiCache: get/set data (location, media etc), and metrics. Researched ETH Denver [project](https://www.x.country/human-protocol-social-shard-1-00e81d36535a4f2981a18012854b2c1e). Started working on service worker.
+
+___
+
 2024-01-02 Fri: Updated lottery statistic [api](https://inscription-indexer.fly.dev/api#/app/AppController_getLotteryStats): added statistic by telegram username. Worked on indexer api optimisations, to add universal support for all inscription types.
 
 2024-01-01 Thu: Updated [frontend](https://github.com/harmony-one/inscription.demo/pull/10) and [backend](https://github.com/harmony-one/inscription.indexer/pull/11) parts for telegram lottery. Extended lottery service: The algorithm for determining the winner has been changed (added 6 winners support). Updated filters by which lottery transactions are indexed.
