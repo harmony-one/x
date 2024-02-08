@@ -1,4 +1,6 @@
 
+2024-02-08 Tue: Initiated a new React Native project, incorporating mapview and additional modifications within the 'socialmap' folder, alongside implementing an audio recording feature. These changes have been deployed to TestFlight.
+
 2024-02-07 Wed: I integrated a React Native map view with static pins and committed the updates to a 1 repository.
 
 2024-02-06 Tue: I've been diving into Farcaster, reviewing its documentation, and came across an unofficial SDK for Flutter at https://pub.dev/packages/farcaster_sdk. I successfully compiled the code locally.
