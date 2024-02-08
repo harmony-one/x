@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-02-07 Wed: Driving quest 4 lottery coordination with Galaxii team. Promotional graphics for the lottery tomorrow, syncing with engineers to prepare ONE Bot for entries. Lend launch promotional graphic [first iteration](https://www.notion.so/harmonyone/lend-launch-graphics-500346d4e9f04863b4066da6579c6138). Runway.ml course videos to learn to utilize motion brush. 5 vegan restaurants for denver for [map](https://github.com/harmony-one/1/blob/main/af/map.json)
+
 2024-02-06 Tue: Asset collection + [mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=Oxbp39MhnEW6oiLK-1) for human protocol. Sync with Frank on fixing ONE Bot inscription lottery issues, solution is to rewrite copy for the "Not enough credits" to more clearly communicate inscriptions are being rejected due to lack of gas funds, not ONE Bot credits. Warpcast frame testing. Uploaded ONE Bot [Youtube Short](https://youtube.com/shorts/ayhH28XbOqE?si=Nq88gk0MS_TWyczG).
 
 2024-02-05 Mon: Profile [mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=QjHU0RDjQGjV01IF-1), Swap milestone animation & [tweet](https://x.com/harmonyprotocol/status/1754659145985466489?s=20). Warpcast frame testing, chess + base quest. Syncing with Frank on correcting ONE Bot lottery submission, removing the 'not enough credits' notification. One bot demos for the community.
