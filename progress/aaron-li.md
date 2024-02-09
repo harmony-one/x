@@ -1,10 +1,20 @@
-2024-2-01 Thu (1h): Domain renewal documentation and script usage
+2024-2-09 Thu (3h): Configure, deploy and end-to-end testing for VPN with network congestion simulation. Create one-click VPN installation profiles for macOS and iOS. Manual Cisco VPN setup instructions. Fix DNS, certificate, and subdomain embedding issues with lend.country and docs.lend.country (reassigning nameserver, re-generate certificates, fix infinite redirect loop by Cloudflare, fix missing ownership on blockchain by manual registrations, manual configuration of DNS and notion embeddings, bifurcate subdomains and reassign nameserver to Cloudflare)
+
+2024-2-08 Thu (6h): Review progress and discussion on Lottery and Human Protocol implementation. Research on Telegram group-wallet design based on Human Protocol / Minimal Social Wallet. Debugging and fixing L2TP IPSec VPN server and ppp issues caused by non-standard GCP cloud linux kernels. Research and experiment on options and tools for network emulation in GCP (Cloud Armor), docker (pumba), and vanilla Linux tools (netem).
+
+2024-2-07 Wed (5h): Resaerch and discuss Godaddy and ENS integration and examples. Review ENS DNSSEC implementation and OffchainDNSResolver. Discuss general ways to support new preview crawler. Review Cloudflare Page hosting and discussions on DNS requirement and nameserver migration and limitation. Initial review of Cloudflare API. Review Cloudflare worker and KV store documentations. Discuss choice of key-value database for fastest response. Review Cloudflare API documentation on batch domain activation. Review Cloudflare token architecture and access control, and configure limited scope tokens accordingly. Review OffchainDNSResolver contract and ENS-GoDaddy gasless domain registration architecture. Discuss downsides anad flaws. Migration of special 2-letter domains to Cloudflare. Fix social preview issues of embedded web services for farcaster, analyzed and expanded user agent matching list. Initial IPSec / IKEv2 VPN deployment, Debian isntance setup, Docker configuration. Initial testing of VPN server via Debian host machine instead of container CoreOS.
+
+2024-2-02 Fri (1h): Research on plans and features in human protocol
+
+2024-2-01 Thu (2h): Domain renewal documentation and script usage. Refine domain renewal document. Review discussions and progress on new projects on lottery, Telegram bot, inscription, and dot-country changes
 
 2024-1-31 Wed (1h): Review inscription backend services and change requested for embedded web services in catering 2-letter domains. Discuss minimal implementation and fork. Quick review and discussion on client side changes of dot-country
 
 2024-1-29 Sun (5h): Domain web2 renewal API, registrar domain info and expiring domain list API integration. Script for batch domain renewal, review existing user and test domains, end-to-end debugging and testing. Discuss erroneous Namecheap renewal API response and incorrect account and pricing setup with registry. Implement lookup-only mode for renewal script. Manual domain renewals and management. Discussion on enable-subdomain errors and ens-registrar-relay routes, and existing main implementations (Notion, Substack) for embeeded web service.
 
 2024-1-28 Sun (4h): Docs for batch certificate renewal, management, access control, and modification guide. Refactor scripts for multi-purpose. Setup certificate management instances and access. Docs for manual certificate renewal for external domain. Renew certificates for key domains
+
+2024-1-25 Thu (0.5h): Discussion and documentation on certificate generation, renewal, management, and processes
 
 2024-1-23 Tue (2h): Review minimal social wallet POC and history. Review paper trading bot. Review partial evaluation implementations in blockchain and smart contracts, and analyze options.
 
@@ -16,7 +26,7 @@
 
 2024-1-19 Fri (6h): Review and analysis on inscription contract code: mint, buy, sell, withdraw, supply and balance control, and other internal logic. Review new Telegram embedded wallet proposal, analyze prior art, evaluate options to extend SMS Wallet and other design options. Debug and fix issues related to unable to manage domains using dot-country domain manager. Premium and reserved domain management. Implement batch multi-certificate renewal script
 
-2024-1-18 Thu (5h): Deploy certificate auto-renew automations on key dot-country and ai-bot services. Debug dot-country Substack embedder URL link hostname issues, analyze new scripts and page load mechanism from Substack. Experiment with a variety of DOM and Javascript listeners. Deploy temporary fix. Quick review of inscription contract code on security, integrity, and deployment issues. Review latest Multisig configuration and code change log
+2024-1-18 Thu (5.5h): Deploy certificate auto-renew automations on key dot-country and ai-bot services. Debug dot-country Substack embedder URL link hostname issues, analyze new scripts and page load mechanism from Substack. Experiment with a variety of DOM and Javascript listeners. Deploy temporary fix. Quick review of inscription contract code on security, integrity, and deployment issues. Review latest Multisig configuration and code change log. Discussion on technical and legal issues pertaining to raffle / lottery, prediction market, and similar mechanisms through NFT airdrops
 
 2024-1-17 Wed (4h): Analysis and in-depth review on amicus brief by DeFi Education Fund in SEC v. Coinbase, review hearing transcript and updates of the case, discuss legal authority on asset ownership in custodial service, distinguishing factors of ministerial v. managerial service providers, and how they apply to bridge and swap services
 
