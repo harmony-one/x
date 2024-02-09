@@ -1,3 +1,8 @@
+2024-02-06 Tue: Worked briefly on a Farcaster project. Reviewed the best way to implement a [Farcaster Hub](https://docs.farcaster.xyz/developers/) (like an Ethereum node), which is required to create apps on top of Farcaster and started working on a social map app on react-native.
+
+2024-02-05 Mon: Started briefly working on v.country, a website that records and transcribes voice memos using Openai's Whisper modal. Started working on a [Farcaster](https://docs.farcaster.xyz/) implementation. 
+
+----
 2024-02-02 Fri: Added censorship check to dalle text and voice command and included content_policy_violation for [openAI](https://github.com/harmony-one/HarmonyOneBot/pull/353) errors. Also, added refund handling on openAIs and voiceCommand bots. Finally, disabled the inscription lottery.
 
 2024-02-01 Thu: Updated Inscription payload to include user info (username, walletAddress); also added logic to delete the [share button](https://github.com/harmony-one/HarmonyOneBot/pull/353) after a successful Inscription. Updated [dot country](https://github.com/harmony-one/1-country.frontend/pull/216) to work with new inscription payload to hide Telegram's bot token. 
