@@ -1,3 +1,5 @@
+2024-01-09 Fri: Configured telegram [lottery](https://q.country). Updated lottery statistic. Worked on schema and flow for "message", "mention", and "interest". 
+
 2024-01-08 Thu: [Added](https://github.com/harmony-one/human-protocol/pull/5) firebase based api, for all current cases: adding user with topics, adding actions, auto increment topics counter. Configured firestore. Integrated with frontend part.
 
 2024-01-07 Wed: [Added](https://github.com/harmony-one/human-protocol/pull/1) api based on cloudflare KV service worker. Api support: adding user with topics, adding actions, auto increment topics counter. Integrated with frontend, testing, bug fixing. Added readme with api description. 
