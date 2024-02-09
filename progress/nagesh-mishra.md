@@ -1,4 +1,6 @@
 
+2024-02-09 Fri: Implemented a current location button with functionality, incorporated speech-to-text conversion using the "whisper-1" model, added a checkbox beside "Check-In" that fills upon selection, renamed "Voice Memo" to "Memo," added a microphone icon to its left, and pushed these changes to TestFlight.
+
 2024-02-08 Thu: Initiated a new React Native project, incorporating mapview and additional modifications within the 'socialmap' folder, alongside implementing an audio recording feature. These changes have been deployed to TestFlight.
 
 2024-02-07 Wed: I integrated a React Native map view with static pins and committed the updates to a 1 repository.
