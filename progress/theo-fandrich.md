@@ -7,7 +7,7 @@
 
 2024-02-08 Thu: 
 
-2024-02-07 Wed: Work on 
+2024-02-07 Wed: Researched farcaster Frames/Warpcast app for potential integration with ONE Map and inscriptions.
 
 2024-02-06 Tue: Work one Voice On product app for memo saving
 
