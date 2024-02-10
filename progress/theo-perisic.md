@@ -2,11 +2,29 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-*2024-01-31 Wed: Finish telegram 1bot lottery entries. Announce Knights&Peasants lottery.
+2024-02-08 Thu: Completed list of 32 logos to be featured on interests page. 
 
-*2024-01-30 Tue: Conclude Solana vs. Bitcoin path. Launch second quest.
+2024-02-07 Wed: Sync with Casey for Lend launch. Pushed front-end changes for interests demo, [logic](https://github.com/harmony-one/human-protocol/pull/2) and [assets](https://github.com/harmony-one/human-protocol/pull/3).
 
-*2024-01-29 Mon: Prepare for this week's inscription lotteries, finish coordination with first partner lottery with Onescription team and Knights&Peasants. Research better path, solana native defi solutions vs. bitcoin multi-chain adoption.
+2024-02-06 Tue: Approved PR for Envio gitbooks listing.
+
+2024-02-05 Mon: Coordinating with protofire and casey for lend launch, html GitHub control for .country.
+
+---
+
+2024-02-04 Sun: Preparation for HER 16 
+
+2024-02-03 Sat: Research on in-person event products, Cove, Whoa, Bizzabo, BizConnect, HiHello, Blinq. Insight: all revolve around current methods of connecting, I.e. business cards and profiles, burden of building the connection still on user.  ---
+
+2024-02-02 Fri: Lottery conclusion and hand-off. Product finalization shift to human-protocol for ethdenver. 
+
+2024-02-01 Thu: Launch of Knights&Peasants lottery. Insights: lottery brought new users to 1bot (source Discord), viable option to expose users to products across the Harmony Ecosystem.
+
+2024-01-31 Wed: Completion of OneScription lottery, sync with Knights&Peasants for lottery process
+
+2024-01-30 Tue: Launch of OneScription lottery. Sync with Frank, Yuriy, Artem for 1bot lottery.
+
+2024-01-29 Mon: Confirmation with OneScription for lottery and matching prize.
 
 --- 
 
