@@ -9,9 +9,9 @@
 
 2024-02-07 Wed: Work on 
 
-2024-02-06 Tue: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+2024-02-06 Tue: Work one Voice On product app for memo saving
 
-2024-02-05 Mon: Identify
+2024-02-05 Mon: Begin desiging telegram, look into wallet connect sdk for meta mask connectivity for safe clone.
 
 ---
 
