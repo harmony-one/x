@@ -1,3 +1,26 @@
+
+--
+
+2024-02-10 Sat: Work on fixing ONE Map app store submission.
+
+2024-02-09 Fri: Debug issues with ONE Map functionality, update frontend.
+
+2024-02-08 Thu: 
+
+2024-02-07 Wed: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
+2024-02-06 Tue: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
+2024-02-05 Mon: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
+--
+
+2024-02-03 Sat: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
+2024-02-02 Fri: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
+2024-02-01 Thu: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
+
 2024-01-31 Wed: *Identify key ecosystem projects to publicize, compile and present forkeable projects for harmony ecoystem.
 
 2024-01-30 Tue: *Expand research into Avalanche & Aribtrum gaming. How does ImmutableX compare? Organize edits for testflight telegram ios clone.
