@@ -1,3 +1,5 @@
+2024-02-09 Fri: worked on human protocol client, [added](https://github.com/harmony-one/human-protocol/commit/948f9a9031bd2c97c5c620af99d62f1604ad98cb) Github and Twitter Oauth, [added](https://github.com/harmony-one/human-protocol/commit/aef29f1ff5f5b3e456b802e51c683f76da695557) menu with user profile and LogOut button. [Deployed](https://human-protocol.pages.dev/) an update.
+
 2024-02-08 Thu: [deployed](https://human-protocol.pages.dev/welcome) human-protocol client in harmony Cloudflare account. Reviwed and merged [PR#2](https://github.com/harmony-one/human-protocol/pull/2) and [PR#3](https://github.com/harmony-one/human-protocol/pull/3) from Theo P. [Added](https://github.com/harmony-one/human-protocol/commit/ceb9db1a4e3dd66769f384aaf120890724a0288d) mobile view optimizations in Welcome page, updated styles.
 
 2024-02-07 Wed: [implemented](https://github.com/harmony-one/human-protocol/commit/769a0771c6f8ad0988aa4a63cf9d638b958ed486) topics list, feed (Global and Harmony), completed basic integration with API, [deployed](https://client-ehl.pages.dev/) demo client on Cloudflare.
