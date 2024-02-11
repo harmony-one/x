@@ -1,7 +1,7 @@
 
 ---
 
-2024-02-10 Sat: Work on fixing ONE Map app store submission.
+2024-02-10 Sat: Worked on fixing ONE Map app store submission.
 
 2024-02-09 Fri: Debug issues with ONE Map functionality, update frontend.
 
