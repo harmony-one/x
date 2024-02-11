@@ -5,7 +5,7 @@
 
 2024-02-09 Fri: Debug issues with ONE Map functionality, update frontend.
 
-2024-02-08 Thu: 
+2024-02-08 Thu: Fully shifted to ONE Map and prepared app store submission meta data.
 
 2024-02-07 Wed: Researched farcaster Frames/Warpcast app for potential integration with ONE Map and inscriptions.
 
