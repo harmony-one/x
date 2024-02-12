@@ -1,3 +1,9 @@
+2024-02-09 Fri: [Refacored SocialMap app](https://github.com/harmony-one/1/pull/7), added the src folder modularizing components, updated the markers interface and logic, and added the Posts component.
+
+2024-02-08 Thu: Finished the API call to the [whisper endpoint](https://github.com/harmony-one/1/pull/5). Fixed multi-voice memo recording issue and updated the code logic from expo to react-native CLI.
+
+2024-02-07 Wed: Worked on the whisper endpoint on [harmony-llm-api](https://github.com/harmony-one/harmony-llm-api/pull/12) backend and API call on the [SocialMap app](https://github.com/harmony-one/1/pull/3). Added [markers API](https://github.com/harmony-one/1/pull/2). 
+
 2024-02-06 Tue: Worked briefly on a Farcaster project. Reviewed the best way to implement a [Farcaster Hub](https://docs.farcaster.xyz/developers/) (like an Ethereum node), which is required to create apps on top of Farcaster and started working on a social map app on react-native.
 
 2024-02-05 Mon: Started briefly working on v.country, a website that records and transcribes voice memos using Openai's Whisper modal. Started working on a [Farcaster](https://docs.farcaster.xyz/) implementation. 
