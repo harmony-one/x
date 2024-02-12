@@ -1,3 +1,8 @@
+2024-02-13 Tue to 2024-02-19 Mon on planned leave.
+
+2024-02-12 Mon: Added an action sheet filled with data from pins. Selecting a pin now leads to the market location it represents, with an updated navigation icon. Also, revised the hardcoded address by omitting text following the first comma.
+
+-- 
 
 2024-02-09 Fri: Implemented a current location button with functionality, incorporated speech-to-text conversion using the "whisper-1" model, added a checkbox beside "Check-In" that fills upon selection, renamed "Voice Memo" to "Memo," added a microphone icon to its left, and pushed these changes to TestFlight.
 
