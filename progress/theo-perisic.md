@@ -2,6 +2,12 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-02-11 Sun: Added elements UI, and [pop-up implementation](https://github.com/harmony-one/human-protocol/pull/8). 
+
+2024-02-10 Sat: Updated Artem on new direction for human-protocol. Green for user self update, Blue for external user update. $ for links, # for interests. OAuth user interface same as interests page.
+
+2024-02-09 Fri: Coordinating launch of Lend, meeting with Protofire. Started implementing periodic elements UI for human-protocol.
+
 2024-02-08 Thu: Completed list of 32 logos to be featured on interests page. 
 
 2024-02-07 Wed: Sync with Casey for Lend launch. Pushed front-end changes for interests demo, [logic](https://github.com/harmony-one/human-protocol/pull/2) and [assets](https://github.com/harmony-one/human-protocol/pull/3).
@@ -14,7 +20,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2024-02-04 Sun: Preparation for HER 16 
 
-2024-02-03 Sat: Research on in-person event products, Cove, Whoa, Bizzabo, BizConnect, HiHello, Blinq. Insight: all revolve around current methods of connecting, I.e. business cards and profiles, burden of building the connection still on user.  ---
+2024-02-03 Sat: Research on in-person event products, Cove, Whoa, Bizzabo, BizConnect, HiHello, Blinq. Insight: all revolve around current methods of connecting, I.e. business cards and profiles, burden of building the connection still on user.
 
 2024-02-02 Fri: Lottery conclusion and hand-off. Product finalization shift to human-protocol for ethdenver. 
 
