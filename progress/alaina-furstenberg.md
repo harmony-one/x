@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-02-12 Mon: Creation of icon library, colored and outlined, for human protocol. 
+
 -----
 
 2024-02-11 Sun: 
