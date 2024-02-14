@@ -1,3 +1,7 @@
+2024-02-14 Wed: [added](https://github.com/harmony-one/human-protocol/commit/fb98d0870aa651ac9d188c42cd50eaa7190f7cef) hashtags instead of "periodic table" elements on welcome page, removed notification. [Added](https://github.com/harmony-one/human-protocol/pull/14) color icons on welcome page.
+
+2024-02-13 Tue: [reviewed](https://github.com/harmony-one/human-protocol/pull/12) PR with merging Julia's code to human-protocol, updated the website. Started working on new user profile page with user data and OAuth options.  
+
 2024-02-12 Mon: worked on human protocol client: [updated](https://github.com/harmony-one/human-protocol/pull/9) layout with periodic table-style interface, [refactored](https://github.com/harmony-one/human-protocol/pull/10) wallet generation
 
 ---
