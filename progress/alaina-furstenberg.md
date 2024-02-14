@@ -1,10 +1,12 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2024-02-12 Mon: Creation of icon library, colored and outlined, for human protocol. 
+2024-02-13 Tue: Completion of outline icon library and [human protocol first iteration mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=0dapV8fpytOJebu9-1f). Sync with Artem updating on the latest tasks. Writing and sharing a thread on the network outage from February 10th. 
+
+2024-02-12 Mon: Creation of [icon library](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=0dapV8fpytOJebu9-1), colored and outlined, for human protocol. 
 
 -----
 
-2024-02-11 Sun: 
+2024-02-11 Sun: User testing storylines, syncing with Shamir on my feedback. Insights: Video quality worsens from youtube upload. Very time intensive to upload an hour long video. Working with Shamir to resolve.
 
 2024-02-10 Sat: Sharing community update thread via X.
 
