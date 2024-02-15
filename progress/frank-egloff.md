@@ -1,3 +1,10 @@
+2024-02-14 Wed: Worked on user interface improvements for the [Human Protocol](https://github.com/harmony-one/human-protocol/pull/18) project. Updated the Welcome route component by adding and grouping topics, changing topic container look and feel, and isSelected logic. 
+
+2024-02-13 Tue: Worked on fixing the [Whisper demo](https://github.com/harmony-one/web-whisper.demo) to make it compatible with Chrome and Safari for mobile by updating codec handling for Safari and audio chunks logic. Here is a working [demo](https://webpage-whisper-demo.fly.dev/).  
+
+2024-02-12 Mon: Worked on the [Whisper demo](https://github.com/harmony-one/web-whisper.demo) on React. Finished the first version of the WebApp that records voice memos and uses Openai's Whisper model to transcribe the audio. Also, added a Web Speech API transcribe option.
+
+---
 2024-02-09 Fri: [Refacored SocialMap app](https://github.com/harmony-one/1/pull/7), added the src folder modularizing components, updated the markers interface and logic, and added the Posts component.
 
 2024-02-08 Thu: Finished the API call to the [whisper endpoint](https://github.com/harmony-one/1/pull/5). Fixed multi-voice memo recording issue and updated the code logic from expo to react-native CLI.
