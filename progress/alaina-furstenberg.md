@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2023-02-14 Wed: [Second iteration](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1) of human protocol mocks. Valentines day co-marketing with NowNodes and Recovery ONE via [Twitter](https://x.com/harmonyprotocol/status/1757836203305635897?s=20)
+
 2024-02-13 Tue: Completion of outline icon library and [human protocol first iteration mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=0dapV8fpytOJebu9-1f). Sync with Artem updating on the latest tasks. Writing and sharing a thread on the network outage from February 10th. 
 
 2024-02-12 Mon: Creation of [icon library](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=0dapV8fpytOJebu9-1), colored and outlined, for human protocol. 
