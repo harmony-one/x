@@ -1,3 +1,13 @@
+
+
+2024-02-14 Wed: [Reviwed](https://github.com/harmony-one/human-protocol/pull/13) auth0 interactioin PR. [Integrated](https://github.com/harmony-one/human-protocol/pull/16) auth0 provider to main page header. Added user's nickname (from auth0) display to main page. New messages are created with a link to the wallet address. Storing auth0 metadata in firebase (by wallet address key).
+
+2024-02-13 Tue: [Migrated](https://github.com/harmony-one/human-protocol/pull/12/commits/15f65efc2ab3d180021f0f86f568c21a3db8e6e3) more updates from remote-emitter. Fixed bugs. Started working on auth0 integration and storing oauth metadata in firebase.
+
+2024-02-12 Mon: [Merged](https://github.com/harmony-one/human-protocol/pull/12) Julia's remote-emitter to human-protocol client, migrated to typescript, refactoring.
+
+___
+
 2024-01-09 Fri: Configured telegram [lottery](https://q.country). Updated lottery statistic. Worked on schema and flow for "message", "mention", and "interest" for human-protocol client and firebase store.
 
 2024-01-08 Thu: [Added](https://github.com/harmony-one/human-protocol/pull/5) firebase based api, for all current cases: adding user with topics, adding actions, auto increment topics counter. Configured firestore. Integrated with frontend part.
