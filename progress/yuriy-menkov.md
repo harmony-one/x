@@ -1,4 +1,6 @@
+2024-02-16 Fri: [Added](https://github.com/harmony-one/h.country/pull/4) shortcuts for user page to load page by id, address or social links. Added shortcuts for tag page. Started tag page migration. [Improved](https://github.com/harmony-one/h.country/pull/7) adding links mechanism and url's parsing. Fixed bugs.
 
+2024-02-15 Thu: Tested and reviewed new auth0 [features](https://github.com/harmony-one/human-protocol/pull/21). Synchronized with Theo about migration to a new [project](https://github.com/harmony-one/h.country). Started transferring the logic for creating actions and selecting tags. 
 
 2024-02-14 Wed: [Reviwed](https://github.com/harmony-one/human-protocol/pull/13) auth0 interactioin PR. [Integrated](https://github.com/harmony-one/human-protocol/pull/16) auth0 provider to main page header. Added user's nickname (from auth0) display to main page. New messages are created with a link to the wallet address. Storing auth0 metadata in firebase (by wallet address key).
 
