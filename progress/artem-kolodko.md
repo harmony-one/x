@@ -1,5 +1,3 @@
----
-
 2024-02-16 Fri: worked on h.country client interface update: [added](https://github.com/harmony-one/h.country/pull/2) fixed menu, loading state, refactored duplicated code, moved Welcome page from human-protocol, updated fonts.
 
 2024-02-15 Thu: created new client h.country, added main page with mocked data based on design prototype from Theo, optimized for mobile devices, [pushed](https://github.com/harmony-one/h.country/tree/main/client) to the new repo, deployed on [https://h-country.pages.dev](https://h-country.pages.dev/).
