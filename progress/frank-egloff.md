@@ -1,3 +1,5 @@
+2024-02-16 Fri: Fixed [dark theme logos rendering](https://github.com/harmony-one/h.country/pull/12), and added meta tag logic. Added dark/light theme logic, but leave dark theme on by default. Fixed mobile full screen redering. 
+
 2024-02-15 Thu: Keep working on the [Human Protocol](https://github.com/harmony-one/human-protocol/pull/20) user interface, updating the welcome page look and feel. Refactored Topic's logo prefetch logic. Added the Nunito font and updated the Welcome and Messages route component's styling.
 
 2024-02-14 Wed: Worked on user interface improvements for the [Human Protocol](https://github.com/harmony-one/human-protocol/pull/18) project. Updated the Welcome route component by adding and grouping topics, changing topic container look and feel, and isSelected logic. 
