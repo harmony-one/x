@@ -1,3 +1,6 @@
+2024-02-19 Mon: Worked on [h.country](https://github.com/harmony-one/h.country/pull/22). Changed the number of topics to select from 4 to 3. Added logic that creates a Tag Action for each selected topic and a Tag Action from the user to himself. Updated slash and hash colors: blue for himself and yellow for others. Pending green for verified type. Updated HeaderList component to show a 3 x 3 grid of tags in order by frequency. 
+
+---
 2024-02-16 Fri: Fixed [dark theme logos rendering](https://github.com/harmony-one/h.country/pull/12), and added meta tag logic. Added dark/light theme logic, but leave dark theme on by default. Fixed mobile full screen redering. 
 
 2024-02-15 Thu: Keep working on the [Human Protocol](https://github.com/harmony-one/human-protocol/pull/20) user interface, updating the welcome page look and feel. Refactored Topic's logo prefetch logic. Added the Nunito font and updated the Welcome and Messages route component's styling.
