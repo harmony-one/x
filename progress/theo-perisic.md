@@ -2,6 +2,30 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
+2024-02-21 Wed: Sync with Yuriy, Artem, and Frank for tasks to implement location updates and most recent UI changes.
+
+2024-02-20 Tue: Completed EthDenver troubleshooting. 10:30 sync, coordinating front-end logic changes with team.
+
+2024-02-19 Mon: Harmony Ecosystem Roundup speaker. Continued Human-Protocol product development. (1hr) Insights for specific UI/UX. Needs: First Hash Page: add wording to tell user what to do, pre-fill links with placeholder names like Twitter and Telegram. We are missing a DRIVE TO ACTION as people use the application and reach the end of the flow they are left wondering “What next?” creating a funnel to a specific use or interaction within or outside of the app will be ideal.  
+
+---
+
+2024-02-18 Sun: Practiced 30-sec walkthrough of Human-Protocol and user flows with outside users. (5hr) Insights: Current flow is heavily dependent on someone looking over their shoulder, without it user is quickly lost. With help the user understands the flow, but when left alone to continue using it there is a drop-off. Resolution: SIMPLIFY. When explained to the user, the core features make sense, but when left alone it is clear the UI/UX needs changes to ease the user through the product.
+
+2024-02-17 Sat: [Brief product requirement document](https://harmonyone.notion.site/Stripped-Down-PRD-for-Human-Protocol-30e7a6aa2fdf4e12a7fd2432969087f7?pvs=4) to show stripped down core functionality of Human-Protocol. (1hr)
+
+2024-02-16 Fri: Detailed authentication, urls, and UI updates for remote team.
+
+2024-02-15 Thu: Hand-off to Artem and Yuriy, completed project outline for team sync following morning meetings. Completed mock for main page with user flow. 
+
+2024-02-14 Wed: Internal team meetings throughout the day.
+
+2024-02-13 Tue: Merge from Julia’s project with Human-Protocol. Color definitions listed as green for verified, blue for self-endorsement, and yellow for other users, giving us a dynamic social profile.
+
+2024-02-12 Mon: Draft for shard 0 consensus down announcement. Detailed Front-end tasks for Franks and Artem.
+
+---
+
 2024-02-11 Sun: Added elements UI, and [pop-up implementation](https://github.com/harmony-one/human-protocol/pull/8). 
 
 2024-02-10 Sat: Updated Artem on new direction for human-protocol. Green for user self update, Blue for external user update. $ for links, # for interests. OAuth user interface same as interests page.
