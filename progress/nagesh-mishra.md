@@ -1,3 +1,4 @@
+2024-02-21 Wed: Implemented a carousel view that displays information from markers and added a microphone icon on the map view. After recording, a pin will appear at the location, and the carousel's transcript will be updated. Integrated CodePush functionality, pending testing.
 
 2024-02-20 Tue: Implementing a feature for real-time app updates that circumvent the App Store, currently examining CodePush. Reverting changes to the app's original red pin icons and developing a user interface featuring a black box that displays an image, text, and location information.
 
