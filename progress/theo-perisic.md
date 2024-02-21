@@ -2,7 +2,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
 
-2024-02-21 Wed: Sync with Yuriy, Artem, and Frank for tasks to implement location updates and most recent UI changes.
+2024-02-21 Wed: Sync with Yuriy, Artem, and Frank for tasks to implement location updates and most recent UI changes. Harmony<>Covalent sync for EthDenver.
 
 2024-02-20 Tue: Completed EthDenver troubleshooting. 10:30 sync, coordinating front-end logic changes with team.
 
