@@ -1,3 +1,5 @@
+2024-02-21 Wed: [updated](https://github.com/harmony-one/h.country/pull/39) header list: changed main icons, updated layout. Fixed bug with missing date in user join action.
+
 2024-02-20 Tue: [added](https://github.com/harmony-one/h.country/pull/25) 3 shortcuts: /new, hashtags and hashtags with counter
 
 2024-02-19 Mon: [updated](https://github.com/harmony-one/h.country/pull/17) action feed: moved date to the right side, added relative date formatting. [Added](https://github.com/harmony-one/h.country/pull/18) filter by hashtag.
