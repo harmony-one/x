@@ -1,3 +1,5 @@
+2024-02-22 Thu: Removed settings and action sheet view; expanded the carousel to occupy the entire bottom view; introduced reverse geocoding for recording pins; re-enabled microphone functionality in event pop-up to enable adding transcripts to locations; added functionality to move the map to the corresponding location when scrolling through the carousel; and added a fixed transcript/photo modal at the bottom of the screen.
+
 2024-02-21 Wed: Implemented a carousel view that displays information from markers and added a microphone icon on the map view. After recording, a pin will appear at the location, and the carousel's transcript will be updated. Integrated CodePush functionality, pending testing.
 
 2024-02-20 Tue: Implementing a feature for real-time app updates that circumvent the App Store, currently examining CodePush. Reverting changes to the app's original red pin icons and developing a user interface featuring a black box that displays an image, text, and location information.
