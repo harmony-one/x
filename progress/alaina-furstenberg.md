@@ -1,5 +1,9 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2023-02-18 Wed: [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). [Tweeted](https://x.com/harmonyprotocol/status/1760465663037231281?s=20) of ETH Denver Luma event
+
+2023-02-17 Tue: h.country mocks
+
 2023-02-16 Mon: mocks, luma background, favicon [commit](https://github.com/harmony-one/h.country/commit/56c61618c25c05a8932f684efa79a9c8cf2ded20).
 
 2023-02-16 Sun: h.country logo + syncing with engineers on readme text
