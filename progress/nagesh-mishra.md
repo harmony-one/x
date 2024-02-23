@@ -1,3 +1,5 @@
+2024-02-23 Fri: Implemented moving the carousel to focus on newly added pins, introducing a blinking animation for the microphone, and modifying the address display in the transcript to only show up to the first comma. Additionally, the Check-In feature has been removed, and a button has been added for photo uploads and photos will now be displayed in the carousel at their current positions.
+
 2024-02-22 Thu: Removed settings and action sheet view; expanded the carousel to occupy the entire bottom view, introduced reverse geocoding for recording pins, re-enabled microphone functionality in event pop-up to enable adding transcripts to locations; added functionality to move the map to the corresponding location when scrolling through the carousel, and added a fixed transcript/photo modal at the bottom of the screen and deployed them to the TestFlight
 
 2024-02-21 Wed: Implemented a carousel view that displays information from markers and added a microphone icon on the map view. After recording, a pin will appear at the location, and the carousel's transcript will be updated. Integrated CodePush functionality, pending testing.
