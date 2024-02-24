@@ -1,3 +1,5 @@
+2024-02-23 Fri: [worked](https://github.com/harmony-one/h.country/pull/75) on h.country interface: fixed display names, fixed links in actions feed, new user goes to hash picker even if it’s from a profile link.  
+
 2024-02-22 Thu: [added](https://github.com/harmony-one/h.country/pull/57) referrer address to user create message (“0/abcd adds 0/4298”), added live counter to actions feed time (1s -> 2s -> 3s...), [implemented](https://github.com/harmony-one/h.country/pull/61) actions feed live update.
 
 2024-02-21 Wed: [updated](https://github.com/harmony-one/h.country/pull/39) header list: changed main icons, updated layout. Fixed bug with missing date in user join action.
