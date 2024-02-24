@@ -1,20 +1,24 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
-2023-02-18 Wed: [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). [Tweeted](https://x.com/harmonyprotocol/status/1760465663037231281?s=20) of ETH Denver Luma event
+2024-02-20 Fri: Touring of office spaces. [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). Community section update and [tweet](https://x.com/harmonyprotocol/status/1761189892359663708?s=20).
 
-2023-02-17 Tue: h.country mocks
+2024-02-19 Thu: [Icon research](https://www.canva.com/design/DAF8PZKlCAA/3XeYdApK_8B7XgV4E0_YUw/edit?utm_content=DAF8PZKlCAA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) for ONE social map. Mock continuation + testing of new storylines update. Insights: It will be a useful tool for creating youtube shorts from longform content. 
 
-2023-02-16 Mon: mocks, luma background, favicon [commit](https://github.com/harmony-one/h.country/commit/56c61618c25c05a8932f684efa79a9c8cf2ded20).
+2024-02-18 Wed: [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). [Tweeted](https://x.com/harmonyprotocol/status/1760465663037231281?s=20) of ETH Denver Luma event
 
-2023-02-16 Sun: h.country logo + syncing with engineers on readme text
+2024-02-17 Tue: h.country mocks
 
-2023-02-16 Sat: ETH Denver x TGI tracking on this [notion doc](https://www.notion.so/harmonyone/ETH-Denver-2024-8aae927559f24581b5dfac4551c4c7e2).
+2024-02-16 Mon: mocks, luma background, favicon [commit](https://github.com/harmony-one/h.country/commit/56c61618c25c05a8932f684efa79a9c8cf2ded20).
 
-2023-02-16 Fri: H.country mocks, community section update, map mocks.
+2024-02-16 Sun: h.country logo + syncing with engineers on readme text
 
-2023-02-15 Thu: [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). Iterated another version to include multiple images shown on a map location, since images are the most 'social' and interactive feature on social apps.
+2024-02-16 Sat: ETH Denver x TGI tracking on this [notion doc](https://www.notion.so/harmonyone/ETH-Denver-2024-8aae927559f24581b5dfac4551c4c7e2).
 
-2023-02-14 Wed: [Second iteration](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1) of human protocol mocks. Valentines day co-marketing with NowNodes and Recovery ONE via [Twitter](https://x.com/harmonyprotocol/status/1757836203305635897?s=20)
+2024-02-16 Fri: H.country mocks, community section update, map mocks.
+
+2024-02-15 Thu: [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). Iterated another version to include multiple images shown on a map location, since images are the most 'social' and interactive feature on social apps.
+
+2024-02-14 Wed: [Second iteration](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1) of human protocol mocks. Valentines day co-marketing with NowNodes and Recovery ONE via [Twitter](https://x.com/harmonyprotocol/status/1757836203305635897?s=20)
 
 2024-02-13 Tue: Completion of outline icon library and [human protocol first iteration mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/Untitled?type=design&node-id=0%3A1&mode=design&t=0dapV8fpytOJebu9-1f). Sync with Artem updating on the latest tasks. Writing and sharing a thread on the network outage from February 10th. 
 
