@@ -2,7 +2,7 @@
 
 ___
 
-2024-02-25 Sun: Worked on the following tasks on h.country: looked at possible options for optimizing queries in firebase db to speed up application load. Considered cache options (access data offline). [Reviwed](https://github.com/harmony-one/h.country/pull/90/files) user reactions feature. 
+2024-02-25 Sun: Worked on the following tasks on h.country: looked at possible options for optimizing queries in firebase db to speed up application load. Considered cache options (access data offline). [Reviewed](https://github.com/harmony-one/h.country/pull/90/files) user reactions feature. 
 
 2024-02-24 Sat: Worked on the following tasks on h.country [PR](https://github.com/harmony-one/h.country/pull/84): Added ability to set custom location on click to top right location button. Display check-in action in feeds table. Automatically update the current location if the new location is different.
 
