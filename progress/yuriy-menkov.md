@@ -1,3 +1,13 @@
+2024-02-26 Mon: Worked on the following tasks on [h.country](https://github.com/harmony-one/h.country/pull/92): Connected firestore local cache in multiple tab mode. Connected infinity scroll for the actions table with lazy loading of 100 elements. Optimizations speed up page loading from 8 sec to 1 sec.
+
+___
+
+2024-02-23 Sat: Worked on the following tasks on [h.country](https://github.com/harmony-one/h.country/pull/84): Added ability to set custom location on click to top right location button. Display check-in action in feeds table. Automatically update the current location if the new location is different.
+
+2024-02-23 Fri: Worked on the following tasks on h.country: [Added](https://github.com/harmony-one/h.country/pull/77) location pin button with new logic - opening google maps with preset location on clik. Removed m/ from slash section. [Added](https://github.com/harmony-one/h.country/pull/80) new logic: Click on a location, get taken to that filter page. Next to the location name, there is a pin symbol. Click on that to open the google maps link to that street.
+
+2024-02-22 Thu: Worked on the following tasks on h.country: [Updated](https://github.com/harmony-one/h.country/pull/56/files) display of user links (custom links and social links) in the links area and feeds table. [Added](https://github.com/harmony-one/h.country/pull/58) new logic: every time user refresh page, open a new tab, etc. -  trigger new action of type "check_in" and update the location at the top of the page. [Moved](https://github.com/harmony-one/h.country/pull/63) all fetch hooks to separate files. [Added](https://github.com/harmony-one/h.country/pull/64) top locations display.
+
 2024-02-21 Wed: [Added](https://github.com/harmony-one/h.country/pull/40) filter by location: includes all actions that were performed by users on this street, as well as marks of some users by others. Refactored filters mechanism api.
 
 2024-02-20 Tue: [Added](https://github.com/harmony-one/h.country/pull/27) latest user location display to header (top left). Updated latest location search mechanism. [Added](https://github.com/harmony-one/h.country/pull/32) logic to marked user (page owner) location when you click on a location (top left header); [Added](https://github.com/harmony-one/h.country/pull/34) display for "locates" actions in the actions list (0/f445 (location) 0/EC68); [Created](https://github.com/harmony-one/h.country/pull/33) Actions Context - to reload actions list from any components.
