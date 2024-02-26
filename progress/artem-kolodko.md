@@ -1,3 +1,7 @@
+2024-02-26 Mon: [fixed](https://github.com/harmony-one/h.country/pull/95) user page filters UI bug (wrong alignment), [improved](https://github.com/harmony-one/h.country/pull/91) styles to match figma prototypes
+
+---
+
 2024-02-25 Sun: [added](https://github.com/polymorpher/dot-country-embedder/pull/9/files) mint method call in dot-country-embedder, added empty metadata for tokens.
 
 2024-02-24 Sat: investigated bug with 3rd column in links header, [added](https://github.com/harmony-one/h.country/commit/60ca971a49c6886aebd848137a5a8c90d25fcd69) fix. Started working on mint feature for dot-contry-embedder service.
