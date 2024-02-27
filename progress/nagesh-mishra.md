@@ -1,3 +1,10 @@
+
+2024-02-27 Tue: Reintroduced cycling pins on the map with counts and temporarily concealed the functionality to add photos.
+
+2024-02-26 Mon: Modified the camera string in the plist file and deployed a new version to TestFlight.
+
+---
+
 2024-02-23 Fri: Implemented moving the carousel to focus on newly added pins, introducing a blinking animation for the microphone, and modifying the address display in the transcript to only show up to the first comma. Additionally, the Check-In feature has been removed, and a button has been added for photo uploads and photos will now be displayed in the carousel at their current positions.
 
 2024-02-22 Thu: Removed settings and action sheet view; expanded the carousel to occupy the entire bottom view, introduced reverse geocoding for recording pins, re-enabled microphone functionality in event pop-up to enable adding transcripts to locations; added functionality to move the map to the corresponding location when scrolling through the carousel, and added a fixed transcript/photo modal at the bottom of the screen and deployed them to the TestFlight
