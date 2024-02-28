@@ -1,3 +1,5 @@
+2024-02-27 Tue: [fixed](https://github.com/harmony-one/h.country/commit/b21b9876155647220e33ea96ad2315365c8fb99f) long hashtags in actions feed - show in one line 
+
 2024-02-26 Mon: [fixed](https://github.com/harmony-one/h.country/pull/95) user page filters UI bug (wrong alignment), [improved](https://github.com/harmony-one/h.country/pull/91) styles to match figma prototypes
 
 ---
