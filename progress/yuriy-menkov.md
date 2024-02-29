@@ -1,3 +1,9 @@
+2024-02-29 Thu: Worked on the following tasks on h.country: [Added](https://github.com/harmony-one/h.country/pull/103) support for multiple joint filters: address, tag and location. If filter selected and selecting “all” should show all actions with that filter, selecting the user should then toggle to all actions of that filter and that user (nothing if there are no actions) 
+
+2024-02-28 Wed: Worked on the following tasks on h.country: [Fixed](https://github.com/harmony-one/h.country/pull/100) lazy loading issue. Some UI fixes and source code refactorings.
+
+2024-02-27 Tue: Worked on the following tasks on h.country: [Fixed](https://github.com/harmony-one/h.country/pull/97) google maps links format - now the link also includes country, city and postcode. Removed from the list actions that include check-in without an address, also removed false positives for changing location. Minor style edits.
+
 2024-02-26 Mon: Worked on the following tasks on h.country ([PR](https://github.com/harmony-one/h.country/pull/92)): Connected firestore local cache in multiple tab mode. Connected infinity scroll for the actions table with lazy loading of 100 elements. Optimizations speed up page loading from 8 sec to 1 sec.
 
 ___
