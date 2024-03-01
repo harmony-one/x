@@ -1,3 +1,8 @@
+2024-03-01 Fri: Refactored Google API integration into a separate file and updated map positions to align with image scrolling and refactoring the code.
+
+2024-02-29 Thu: Implemented the app's new design and updated the Carousel Reference for images.
+
+2024-02-28 Web: Redesign of the app, with some updates currently underway.
 
 2024-02-27 Tue: Reintroduced cycling pins on the map with counts and temporarily concealed the functionality to add photos.
 
