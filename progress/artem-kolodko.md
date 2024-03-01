@@ -1,3 +1,5 @@
+2024-02-29 Thu: [completed](https://github.com/harmony-one/h.country/pull/102) client updates and refactoring, merged PR
+
 2024-02-28 Wed: [working](https://github.com/harmony-one/h.country/pull/102) on minor UI fixes and refactoring
 
 2024-02-27 Tue: [fixed](https://github.com/harmony-one/h.country/commit/b21b9876155647220e33ea96ad2315365c8fb99f) long hashtags in actions feed - show in one line 
