@@ -1,3 +1,5 @@
+2024-03-01 Fri: Started [researching](https://bitcoin-renaissance.com/) bitcoin light client [docs](https://docs.gobob.xyz/docs/build/bob-sdk/relay)
+
 2024-02-29 Thu: [completed](https://github.com/harmony-one/h.country/pull/102) client updates and refactoring, merged PR
 
 2024-02-28 Wed: [working](https://github.com/harmony-one/h.country/pull/102) on minor UI fixes and refactoring
