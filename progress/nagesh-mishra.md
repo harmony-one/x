@@ -1,4 +1,5 @@
 2024-03-04 Tue: Currently addressing a bug where the map does not relocate to the dropped pin.
+
 2024-03-04 Mon: Reviewed the pull request at https://github.com/harmony-one/1/pull/12 and incorporated the changes into the codebase. Performing testing. 
 
 --- 
