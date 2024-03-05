@@ -15,9 +15,9 @@ Q2 Actionables:
 
 **Social Media Engagement:** I commit to maintaining a regular presence on social media, ensuring at least one tweet per day and responding to at least two user queries or comments to keep our community engaged and supported.
 
-**Inscription Lotteries:** I will organize one partner inscription lottery each week to promote community participation, ecosystem partnerships, and Harmony product use.
+**Inscription Lotteries:** I will organize one partner inscription lottery each week to promote community participation, ecosystem partnerships, and Harmony product use, specifically collaborating with partners I spoke to at ETH Denver, like Transak.
 
-**Harmony.one Community Section Updates:** I will ensure the community section on the Harmony.one website is regularly updated with the latest information, including events, product updates, and educational materials.
+**Harmony.one Community Section Updates**: I will ensure the community section on the Harmony.one website is regularly updated with the latest information, including events, product updates, and educational materials.
 
 ----
 2024-02-20 Fri: Touring of office spaces. [ONE Social Map Mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=DJCdfWG3h5wTeARa-1) + [continuation of human protocol mocks](https://www.figma.com/file/44F0yN7vEUf6t3xgqi5Gnf/human-protocol%2C-mocks-%2B-icons?type=design&node-id=0%3A1&mode=design&t=AvvtSnz434gwRRkR-1). Community section update and [tweet](https://x.com/harmonyprotocol/status/1761189892359663708?s=20).
