@@ -1,3 +1,29 @@
+**1. Harmony Shard 1 Data Optimization:**
+
+Analyze how other blockchains make their data readily accessible, focusing on scalability and cost-reduction strategies. Our goal is to adapt these best practices to Harmony Shard 1, resulting in seamless data access and ultra-fast transactions, supercharging the development of powerful dApps on our platform. Zero knowledge proofs may also be implemented to ensure optimal security and privacy.
+
+**3. Social A(G)I for Better Human Connections:**
+
+A concept that makes sense with the Harmony ethos. Embrace the concept of "Social A(G)I" to guide Harmony's future development. This means understanding users' desire for genuine connection in Web2 or Web3 and integrating tools that facilitate meaningful interactions and community building. The goal is a user experience that enhances human connection rather than detracting from it.
+
+**4.  Babylon + Bitcoin:**
+
+Explore how Babylon can provide Harmony users holding Bitcoin the opportunity to earn Harmony yields while simultaneously bolstering our network security. Let's assess the technical feasibility between Bitcoin's hashrate and Harmony's consensus mechanisms for increased resilience. Staking on Harmony should also get an uprgade, auto-restaking, customized reward collection (i.e. rewards collected could be automated directly to liquidity in a Swap liquidity pool), efficient multi-delegration and undelegation, etc.
+
+**5. 'Build on Bitcoin' Expansion:** 
+
+Conceptualize ways to move beyond simple Bitcoin swaps and create a comprehensive Bitcoin platform on Harmony. Think Thorchain on steroids. We should aim for a robust suite of DeFi protocols or portfolio management services, positioning Harmony as a leader in Bitcoin innovation.
+
+**2. cookbook.dev post EthDenver Launch:**
+
+Partner with cookbook.dev to connect their AI-powered documentation platform to Harmony. Pilot this integration within their beta program to gather developer feedback and showcase the benefits to a wider audience. This will make building on Harmony easier, attracting more talent to our ecosystem.
+
+**6. Ecosystem Refinement and User Growth:**
+
+Gather focused feedback from users engaging with Harmony's existing projects to identify pain points and areas for improvement. Prioritize development based on data-driven insights to enhance user experience and satisfaction across the ecosystem. The ultimate goal is to make our existing projects irresistible to a wider audience. (.country, Voice AI, 1Bot, Human Protocol, Swap, Lend, Stacking Dashboard, Explorer, etc.)
+
+---
+
 On-going: One tweet + two replies per day, 365/7 all the time.
 
 ---
