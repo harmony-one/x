@@ -20,6 +20,10 @@
 
 ---
 
+2024-02-11 —— 2024-02-23: I focused on enhancing our main project, One Map, and addressing aspects of another project, h.country. I devoted significant time to product testing, bug tracking, and implementing crucial formatting updates for One Map. I helped set up API keys and manage dev accounts. We gained app store approval for ONE map and I continued to submit updates as we fixed and changed app interface. Development for hot reload for React Native as well as firebase integration is underway.
+
+Simultaneously, I delved into blockchain technologies, investigating Layer 1 solutions like Sui, Solana, Cardano, ICP, and Celestia. My research sharpened insights into throughput and latency challenge, while also exploring advancements like zero-knowledge proofs and Optimistic Rollups. Despite the high throughput of platforms like Solana and Sui, a unified product vision is absent. Only one project possessed a grounded vision of 'blockchain singularity,' with the R&D capabilities to execute.
+
 ---
 
 2024-02-10 Sat: Worked on fixing ONE Map app store submission.
