@@ -1,3 +1,4 @@
+2024-03-05 Wed: Looked into Interlay, a modular 
 
 2024-03-05 Tue: Worked through Build on Bitcoin (BOB) docs and deployed smart contract on their testnet. Within BOB discord, there is much vexation about the 7 day hold up due to the use of Optimism.
 
