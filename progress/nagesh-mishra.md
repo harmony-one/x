@@ -1,3 +1,5 @@
+2024-03-06 Wed: The speech-to-text function has been refactored, a share icon has been added with a function, the Memos view has been redesigned, the image carousel has been removed and drop caps for memo text, and the issue of "This voice memo could not be processed" has been fixed.
+
 2024-03-04 Tue: Currently addressing a bug where the map does not relocate to the dropped pin.
 
 2024-03-04 Mon: Reviewed the pull request at https://github.com/harmony-one/1/pull/12 and incorporated the changes into the codebase. Performing testing. 
