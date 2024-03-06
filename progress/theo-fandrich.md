@@ -1,3 +1,9 @@
+
+2024-03-05 Tue: Worked through Build on Bitcoin (BOB) docs and deployed smart contract on their testnet. Within BOB discord, there is much vexation about the 7 day hold up due to the use of Optimism.
+
+
+---
+
 1. **Blockchain Research and Integration:**
     - Conduct comprehensive research on AI and infrastructure-focused blockchains such as Near, Tao, Render, Fetch, and Akash. Identify unique mechanisms, innovative products, and groundbreaking ideas that can be adapted and built upon Harmony's platform. The objective is to leverage these insights to enhance Harmony's AI capabilities and infrastructure, particularly focusing on how these platforms facilitate AGI and social AI integration, ensuring Harmony remains at the forefront of blockchain technology and AI convergence.
 2. **Competitive Landscape Analysis in AGI and Social AI:**
@@ -10,6 +16,8 @@
     - Define and prioritize the next set of features for integration into the Farcaster Frames and premium .country domains, with a particular emphasis on enhancing user engagement and utility. This goal involves deep collaboration with users and stakeholders to identify features that drive social bonding, engagement, and utility. Explore innovative ways to use AI, social graphs, and blockchain technology to create more personalized, engaging, and valuable user experiences. The aim is to make Farcaster Frames and .country domains central to users' daily digital interactions, fostering a sense of community and belonging.
 6. **AI-Driven Social Engagement Innovations:**
     - Develop and prototype new AI-driven features and services that promote social engagement and interaction within Harmony's ecosystem. This could include personalized AI chatbots for community support, AI-curated content for user education and engagement, and machine learning algorithms to enhance the social graph's connectivity and relevance. The goal is to leverage AI not just as a technological tool but as a means to deepen human connections, foster social interactions, and create a more engaging and supportive community ecosystem.
+
+---
 
 ---
 
