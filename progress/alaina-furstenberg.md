@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-03-05 Tue: Synced on ONE social map feature updates, drafted [handoff](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b) outlining feature pushes and updated mocks in Figma. Met with Nagesh to discuss the feature changes and the larger idea of social AI on Harmony. Tweeted [human protocol thread](https://x.com/harmonyprotocol/status/1765445868621332737?s=20). 
+
 -----
 Q2 Actionables: 
 
