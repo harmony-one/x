@@ -1,3 +1,9 @@
+2024-03-07 Thu: Continue researching [libs](https://github.com/Sovereign-Labs/sovereign-sdk), and [docs](https://docs.celestia.org/developers/rollup-overview) to deploy a rollup using Celestia's SDK on Harmony Shard 1 (for AI, social, game data). 
+
+2024-03-06 Wed: Study of architecture [sovereign rollup](https://celestia.org/learn/sovereign-rollups/an-introduction/) to use it for Harmony Shard 1 (for AI, social, game data).  Researching Zero Gravity [0g.ai](https://0g.ai/) integration.
+
+2024-03-05 Tue: Deployed BOB (Build on Bitcoin) relayer [contracts](https://github.com/bob-collective/bob/tree/master/src/relay) on Harmony testnet and tried to launch BOB relayer service with testnet rpc.
+
 2024-03-04 Mon: Exploring the possibility of launching the BOB (Build on Bitcoin) [ecosystem](https://github.com/bob-collective/bob) on the Harmony side. Reviewing relayer [contracts](https://github.com/bob-collective/bob/tree/master/src/relay).
 
 ___
