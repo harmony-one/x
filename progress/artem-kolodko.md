@@ -1,3 +1,9 @@
+2024-03-07 Thu: continue researching Bitcoin L1 projects. Started researching [Peapods Finance](https://peapods.finance/).
+
+2024-03-06 Wed: Checked MAI finance docs. Token MAI is [depegged](https://coinmarketcap.com/currencies/mai/) since July 2023; it's a algorithmic stablecoin, which brings additional risks compared to traditional fiat-backed stablecoins.
+
+2024-03-05 Tue: Checked Baseline website and docs. Contract sources are not available right now (checked the website, github, discord), it's marked as "will be available soon". It can be related to the recent [protocol audit](https://docs.baseline.markets/assets/audit_trust_security.pdf). They have a concept of "non-liquidatable leverage" mentioned on the website; it's not very clear how it works, trying to dive deeper into the docs.
+
 2024-03-04 Mon: Researching [BOB](https://github.com/bob-collective/bob) contracts and docs.
 
 ---
