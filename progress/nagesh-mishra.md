@@ -1,3 +1,5 @@
+2024-03-08 Fri: Implemented a custom three-dot animation, addressed drop caps issues, and deployed the updates to TestFlight.
+
 2024-03-07 Thu: Added custom fonts. Removed the 'Share' button, 'My Location' button, and marker pop-ups to streamline UI Increased microphone button size for better user accessibility.Implemented feature to drop a marker at the current location and start audio recording upon 'Record' button click. Added functionality to copy text to the clipboard for user convenience. After transcription ends, an 'X' button now temporarily overlays the microphone button for 5 seconds.
 
 2024-03-06 Wed: The speech-to-text function has been refactored, a share icon has been added with a function, the Memos view has been redesigned, the image carousel has been removed and drop caps for memo text, and the issue of "This voice memo could not be processed" has been fixed.
