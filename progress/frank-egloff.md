@@ -1,3 +1,5 @@
+2024-03-07 Thu: Keep researching Peapods Finance. Here is a good [video](https://www.youtube.com/watch?v=fW87F-l30KI) explaining how the pods work. Also, here is the last [Audit report](https://reports.yaudit.dev/reports/01-2024-Peapods/), but their repo is private. 
+
 2024-03-06 Wed: Started researching Peapods Finance. They do not share the contracts; the only contract shown is their rewarded token, PEAS.
 
 2024-03-05 Tue: Checked Voice AI app functionality after malfunctions reports. Tested the app live and locally, checked the Sentry log where some issues were found, and discussed them with Aaron; they seem to be isolated issues. Will keep monitoring the app in the following days. Also, I worked on a [hotfix](https://github.com/harmony-one/h.country/pull/105) on h.country where a private key import was leaked, and the filter was showing full-text tags.  
