@@ -1,5 +1,7 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-03-07 Thu: ONE Map testing + syncing with Nagesh on corrections. Newest updates include improved spacing, voice memo functionality (Random languages had been appearing, there was no error message when no spoken words are detected), added '...' while loading with animation. Handoff notes documented [here](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b). Synced with Envio on co-marketing campaign set to span mon march 11 - fri march 15, began designing co-marketing graphics.
+
 2024-03-06 Wed: Tested ONE Map + documented bugs and feature updates in [this handoff](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b). Next steps were to promote the use of voice memos by deleting the second button and keeping it to one large button. 
 
 2024-03-05 Tue: Synced on ONE social map feature updates, drafted [handoff](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b) outlining feature pushes and updated [mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=3taO7nlbPbhZatlz-1) in Figma. Met with Nagesh to discuss the feature changes and the larger idea of social AI on Harmony. Tweeted [human protocol thread](https://x.com/harmonyprotocol/status/1765445868621332737?s=20). 
