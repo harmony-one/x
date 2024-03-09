@@ -1,3 +1,5 @@
+2024-03-08 Fri: Fixed an issue with the Social Map app that sent the [wrong file format](https://github.com/harmony-one/1/pull/13) to the harmony-llm-api for voice transcript.
+
 2024-03-07 Thu: Keep researching Peapods Finance. Here is a good [video](https://www.youtube.com/watch?v=fW87F-l30KI) explaining how the pods work. Also, here is the last [Audit report](https://reports.yaudit.dev/reports/01-2024-Peapods/), but their repo is private. 
 
 2024-03-06 Wed: Started researching Peapods Finance. They do not share the contracts; the only contract shown is their rewarded token, PEAS.
