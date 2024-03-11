@@ -1,10 +1,13 @@
-2024-03-05 Sat: 
 
-2024-03-05 Fri: Schedule a meeting with Tenacious defi for Monday morning. Began conversations with Bitlayer. Looking more closely into Bevm, merlin, and bsquared.
+2024-03-11 Mon: Discussed partnerships and ecosystem growth with Tenacious and MetaOne. Submitted build 15 of ONE Map to App store. Going to have call with Matt Ye of Lorenzo tomorrow to discuss potential bitcoin related integrations.
 
-2024-03-05 Thu: Tested Thorchain, continued research into Bitcoin L2s, more specifically Bitlayer.
+2024-03-09 Sat: 
 
-2024-03-05 Wed: Looked into Interlay, they are the developers of Build on Bitcoin. Their overcollateralization incentive structure. Reviewed what I missed at Bitcoin Renaissance and read up on covenants. Coordinating integrations with cede.store and mai.finance.
+2024-03-08 Fri: Schedule a meeting with Tenacious defi for Monday morning. Began conversations with Bitlayer. Looking more closely into Bevm, merlin, and bsquared.
+
+2024-03-07 Thu: Tested Thorchain, continued research into Bitcoin L2s, more specifically Bitlayer.
+
+2024-03-06 Wed: Looked into Interlay, they are the developers of Build on Bitcoin. Their overcollateralization incentive structure. Reviewed what I missed at Bitcoin Renaissance and read up on covenants. Coordinating integrations with cede.store and mai.finance.
 
 2024-03-05 Tue: Worked through Build on Bitcoin (BOB) docs and deployed smart contract on their testnet. Within BOB discord, there is much vexation about the 7 day hold up due to the use of Optimism.
 
