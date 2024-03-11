@@ -24,7 +24,6 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
     var isSpeaking: Bool {
         return synthesizer.isSpeaking
     }
-    var showDownloadVoicePromptCalled: Bool = false
     
     private(set) var isDefaultVoiceUsed = false
     let alertManager = AlertManager(viewControllerProvider: {
@@ -119,33 +118,6 @@ class TextToSpeechConverter: NSObject, TextToSpeechConverterProtocol {
         if synthesizer.isSpeaking {
             synthesizer.continueSpeaking()
         }
-    }
-    
-    func isPremiumOrEnhancedVoice(voiceIdentifier: String) -> Bool {
-        let lowercasedIdentifier = voiceIdentifier.lowercased()
-        return lowercasedIdentifier.contains("premium")
-    }
-    
-    func checkAndPromptForPremiumVoice(voiceIdentifier: String? = nil) {
-        guard let currentVoiceIdentifier = voiceIdentifier ?? AVSpeechSynthesisVoice(language: getLanguageCode())?.identifier else {
-            return
-        }
-
-        print("currentVoice: \(currentVoiceIdentifier)")
-        print("Is the voice premium? \(isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier))")
-
-        if !isPremiumOrEnhancedVoice(voiceIdentifier: currentVoiceIdentifier) {
-            showDownloadVoicePrompt()
-        }
-    }
-    
-    func showDownloadVoicePrompt() {
-        // The prompt should guide the user on how to download a premium voice
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            let okAction = UIAlertAction(title: String(localized: "button.ok"), style: .default)
-            self.alertManager.showAlertForSettings(title: "Enhance Your Experience", message: "Download a premium voice for a better experience. Go to Settings > Accessibility > Spoken Content > Voices to choose and download a premium voice.", actions: [okAction])
-        }
-        showDownloadVoicePromptCalled = true
     }
 }
 

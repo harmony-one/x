@@ -114,6 +114,9 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     private var startTime: Date?
     
     let twitterManager = TwitterManager()
+    private var queue: [String] = []
+    private var isAudioPlaying: Bool = false
+    private let openAITextToSpeech = OpenAITextToSpeech()
     
     // MARK: - Initialization and Setup
     
@@ -132,13 +135,12 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
 
     func setup() {
         checkPermissionsAndSetupAudio()
-        textToSpeechConverter.convertTextToSpeech(text: greetingText, timeLogger: nil)
+       // textToSpeechConverter.convertTextToSpeech(text: greetingText, timeLogger: nil)
+       // self.processText(greetingText)
+        self.greetingMessage()
         isCapturing = true
 //        startSpeechRecognition()
         setupTimer()
-        
-        // TODO: Place this method at right place
-        textToSpeechConverter.checkAndPromptForPremiumVoice()
     }
     
     private func setupTimer() {
@@ -344,7 +346,8 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             timeLogger?.setTTSInit()
             
             if !isRepeatingCurrentSession {
-                textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
+              //  textToSpeechConverter.convertTextToSpeech(text: response, timeLogger: timeLogger)
+                self.processText(response)
             }
             completeResponse.append(response)
             logger.log("[Flush Response] \(response, privacy: .public)")
@@ -541,7 +544,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     
     func reset(feedback: Bool? = true) {
         logger.log("[reset]")
-        resetFavoriteKeys()
+        resetQueue()
         DispatchQueue.main.async {
             self.isThinking = false
         }
@@ -573,12 +576,21 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             DispatchQueue.main.async {
                 if feedback == true {
                     // Play the greeting text
-                    self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText, timeLogger: nil)
+                 //   self.textToSpeechConverter.convertTextToSpeech(text: self.greetingText, timeLogger: nil)
+                    self.greetingMessage()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         ReviewRequester.shared.logSignificantEvent()
                     }
                 }
             }
+        }
+    }
+    
+    func greetingMessage() {
+        self.synthesizeStart()
+        self.audioPlayer.playSound(false, self.greetingText)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
+            self.synthesizeFinish()
         }
     }
 
@@ -780,6 +792,7 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     func speak() {
         timeLogger = TimeLogger(vendor: "openai", endpoint: "completion")
         timeLogger?.setAppRec()
+        resetQueue()
         DispatchQueue.main.async {
             self.isThinking = false
         }
@@ -907,49 +920,76 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
     }
     
     func talkToMe() {
-       resetSkip()
-//        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
-//            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
-//        } ?? SettingsBundleHelper.DefaultFollowNews
-//
-//        logger.log("[Data Feed] Populating User Field with \(followNews).")
-//        DataFeed.shared.getData(followNews: followNews) {data in
-//            if let data = data {
-//                SettingsBundleHelper.setUserProfile(profile: data)
-//                self.logger.log("[Data Feed] Fetched Data: \(data)")
-//                self.isTalktome = true
-//                self.currentText = data
-//                SpeechRecognition.shared.playText(text: data)
-//            } else {
-//                print("Failed to fetch or parse data.")
-//            }
-//        }
-        
-        twitterManager.getAllTwitterListDetails { result in
-            print("All Twitter list details:\n\(result)")
-            SpeechRecognition.shared.playText(text: result.isEmpty ? "There is some issue" : result)
+        resetSkip()
+        resetQueue()
+        //        let followNews = SettingsBundleHelper.getFollowNews().flatMap {
+        //            $0.isEmpty ? SettingsBundleHelper.DefaultFollowNews: $0
+        //        } ?? SettingsBundleHelper.DefaultFollowNews
+        //
+        //        logger.log("[Data Feed] Populating User Field with \(followNews).")
+        //        DataFeed.shared.getData(followNews: followNews) {data in
+        //            if let data = data {
+        //                SettingsBundleHelper.setUserProfile(profile: data)
+        //                self.logger.log("[Data Feed] Fetched Data: \(data)")
+        //                self.isTalktome = true
+        //                self.currentText = data
+        //                SpeechRecognition.shared.playText(text: data)
+        //            } else {
+        //                print("Failed to fetch or parse data.")
+        //            }
+        //        }
+        twitterManager.getAllTwitterListDetails {tweets in
+            print("All Twitter list count: \(tweets.count)")
+            self.startWithTweets(tweets)
         }
     }
     
-    func concatenateFavoriteValues() -> String {
-        let userDefaults = UserDefaults.standard
-        let keys = userDefaults.dictionaryRepresentation().keys
-        let favoriteKeys = keys.filter { $0.hasPrefix("combinedText_") }
-        let favoriteValues = favoriteKeys.compactMap { key -> String? in
-            userDefaults.string(forKey: key)
-        }
-        let combinedString = favoriteValues.joined(separator: "\n")
-        return combinedString
+    // Method to process a single string
+    func processText(_ text: String) {
+        enqueueText(text)
     }
     
-    func resetFavoriteKeys() {
-        let userDefaults = UserDefaults.standard
-        let keys = userDefaults.dictionaryRepresentation().keys
-        let favoriteKeys = keys.filter { $0.hasPrefix("combinedText_") }
-
-        for key in favoriteKeys {
-            userDefaults.removeObject(forKey: key)
+    func startWithTweets(_ tweets: [String]) {
+        resetQueue()
+        tweets.forEach { enqueueText($0) }
+    }
+    
+    private func enqueueText(_ text: String) {
+        if !text.isEmpty {
+            queue.append(text)
+            playNextItemIfPossible()
         }
+    }
+    
+    private func playNextItemIfPossible() {
+        guard !isAudioPlaying, !queue.isEmpty else { return }
+        isAudioPlaying = true
+       
+        let textToSpeak = queue.removeFirst()
+        openAITextToSpeech.fetchAudioData(text: textToSpeak) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.synthesizeStart()
+                self?.audioPlayer.playSoundTTS(fromData: data) {
+                    self?.isAudioPlaying = false
+                    self?.synthesizeFinish()
+                    self?.playNextItemIfPossible() // Continue with next item
+                }
+            case .failure(let error):
+                print("Error fetching audio data: \(error)")
+                self?.isAudioPlaying = false
+                self?.synthesizeFinish()
+                self?.playNextItemIfPossible() // Proceed to next item even in case of error
+            }
+        }
+    }
+    
+    private func resetQueue() {
+        audioPlayer.stopSound()
+        openAITextToSpeech.cancelAudioDataFetch()
+        queue.removeAll()
+        isAudioPlaying = false
+        synthesizeFinish()
     }
 
     func playText(text: String) {
@@ -1036,17 +1076,21 @@ class SpeechRecognition: NSObject, ObservableObject, SpeechRecognitionProtocol {
             self.textToSpeechConverter.convertTextToSpeech(text: self.limitReachedText, timeLogger: nil)
         }
     }
-}
-
-// Extension for AVSpeechSynthesizerDelegate
-
-extension SpeechRecognition: AVSpeechSynthesizerDelegate {
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
-        if totalWordsToSkip > 0 {
-            applySkip()
+    
+    func synthesizeStart() {
+        isPlayingWorkItem?.cancel()
+        isPlayingWorkItem = DispatchWorkItem { [weak self] in
+            if self?._isPlaying == false {
+                self?.logger.log("[synthesizeStart]")
+                DispatchQueue.main.async {
+                    self?._isPlaying = true
+                }
+            }
         }
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: isPlayingWorkItem!)
+    }
+    
+    func synthesizeFinish() {
         isPlayingWorkItem?.cancel()
         isPlayingWorkItem = DispatchWorkItem { [weak self] in
             if (self?._isPlaying) != nil {
@@ -1057,6 +1101,18 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: isPlayingWorkItem!)
+    }
+}
+
+// Extension for AVSpeechSynthesizerDelegate
+
+extension SpeechRecognition: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        
+        if totalWordsToSkip > 0 {
+            applySkip()
+        }
+        synthesizeFinish()
         
         // TODO: to be used later for automatically resuming capturing when agent is not speaking
         //        resumeListeningTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
@@ -1071,16 +1127,7 @@ extension SpeechRecognition: AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        isPlayingWorkItem?.cancel()
-        isPlayingWorkItem = DispatchWorkItem { [weak self] in
-            if self?._isPlaying == false {
-                self?.logger.log("[synthesizeStart]")
-                DispatchQueue.main.async {
-                    self?._isPlaying = true
-                }
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: isPlayingWorkItem!)
+        self.synthesizeStart()
         
         audioPlayer.stopSound()
         pauseCapturing()
