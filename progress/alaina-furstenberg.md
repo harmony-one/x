@@ -1,5 +1,14 @@
 On-going: One tweet + two replies per day, 365/7 all the time.
 
+2024-03-11 Mon: Envio partnership launch on [Twitter](https://x.com/harmonyprotocol/status/1767239477641228398?s=20) and [LinkedIn](https://www.linkedin.com/feed/update/urn:li:share:7173005739970424832/). Handoff notes to Nagesh updated [here](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b).
+
+-----
+2024-03-10 Sun: [Joskins partnership tweet](https://x.com/harmonyprotocol/status/1767004055597879541?s=20), updated One Voice Map information in app store connect.
+
+2024-03-09 Sat: Brief sync with Nagesh, updating on the next feature pushes for ios.  
+
+2024-03-08 Fri: ONE Map updates documented [here](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b?pvs=4#4dd7fcaca17b4898ba7a691ec73b922b). Synced with Envio team on Monday partnership announcement, designed [graphic](https://www.canva.com/design/DAF-9xxXhbw/bxyw2Ed10rahKKSKS6jHZA/edit?utm_content=DAF-9xxXhbw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) to be featured. Updated harmony community section, drafter partnership tweet with Joskins.
+
 2024-03-07 Thu: ONE Map testing + syncing with Nagesh on corrections. Newest updates include improved spacing, voice memo functionality (Random languages had been appearing, there was no error message when no spoken words are detected), added '...' while loading with animation. Handoff notes documented [here](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b). Synced with Envio on co-marketing campaign set to span mon march 11 - fri march 15, began designing co-marketing graphics.
 
 2024-03-06 Wed: Tested ONE Map + documented bugs and feature updates in [this handoff](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b). Next steps were to promote the use of voice memos by deleting the second button and keeping it to one large button. 
