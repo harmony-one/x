@@ -1,3 +1,5 @@
+2024-03-08 Fri: researching [Peapods finance](https://docs.peapods.finance/) docs and webapp. Contract sources are not avaialble, [found](https://etherscan.io/token/0x02f92800F57BCD74066F5709F1Daa1A4302Df875#code) only PEAS ERC20 contract.
+
 2024-03-07 Thu: continue researching Bitcoin L1 projects. Started researching [Peapods Finance](https://peapods.finance/).
 
 2024-03-06 Wed: Checked MAI finance docs. Token MAI is [depegged](https://coinmarketcap.com/currencies/mai/) since July 2023; it's a algorithmic stablecoin, which brings additional risks compared to traditional fiat-backed stablecoins.
