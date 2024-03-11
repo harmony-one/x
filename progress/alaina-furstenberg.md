@@ -15,8 +15,7 @@ On-going: One tweet + two replies per day, 365/7 all the time.
 
 2024-03-05 Tue: Synced on ONE social map feature updates, drafted [handoff](https://www.notion.so/harmonyone/m-country-feature-pushes-a4b86e96275c4dbc8ef1c308e6186b4b) outlining feature pushes and updated [mocks](https://www.figma.com/file/IFSuckaDc7LyTxbrYUtlBN/ONE(social)-map?type=design&node-id=0%3A1&mode=design&t=3taO7nlbPbhZatlz-1) in Figma. Met with Nagesh to discuss the feature changes and the larger idea of social AI on Harmony. Tweeted [human protocol thread](https://x.com/harmonyprotocol/status/1765445868621332737?s=20). 
 
------
-Q2 Actionables: 
+2024-03-04 Mon: Q2 Actionables
 
 **Voice AI Content:** I will produce and post video demos and YouTube Shorts to demonstrate our Voice AI's applications for specific user groups such as stock traders, students, and team leads.
 
