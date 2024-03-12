@@ -1,3 +1,6 @@
+2024-03-11 Mon: Updated the recharge message on Harmony1Bot due to some confusion regarding what token to send the funds. Also [SdImagesBot and QRCodeBot](https://github.com/harmony-one/HarmonyOneBot/pull/356) were disabled due to the shutdown of the Stable Diffusion servers. Finally, worked on enabling [live transcription](https://github.com/harmony-one/1/pull/14) on the Social Map app and configured a test account on the anthropic AI model. 
+
+----
 2024-03-08 Fri: Fixed an issue with the Social Map app that sent the [wrong file format](https://github.com/harmony-one/1/pull/13) to the harmony-llm-api for voice transcript.
 
 2024-03-07 Thu: Keep researching Peapods Finance. Here is a good [video](https://www.youtube.com/watch?v=fW87F-l30KI) explaining how the pods work. Also, here is the last [Audit report](https://reports.yaudit.dev/reports/01-2024-Peapods/), but their repo is private. 
