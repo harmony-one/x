@@ -1,3 +1,8 @@
+
+2024-03-11 Mon: Implemented delete functionality, fixed font spacing issue, and deployed the updates to TestFlight.
+
+---
+
 2024-03-08 Fri: Implemented a custom three-dot animation, addressed drop caps issues, and deployed the updates to TestFlight.
 
 2024-03-07 Thu: Added custom fonts. Removed the 'Share' button, 'My Location' button, and marker pop-ups to streamline UI Increased microphone button size for better user accessibility.Implemented feature to drop a marker at the current location and start audio recording upon 'Record' button click. Added functionality to copy text to the clipboard for user convenience. After transcription ends, an 'X' button now temporarily overlays the microphone button for 5 seconds.
