@@ -1,3 +1,6 @@
+2024-03-14 Thu: Upgrade the "Voice AI" app to integrate Whisper functionality, streamline its interface to a single button, and deploy the updates for testing on TestFlight
+
+2024-03-13 Wed: React Native does not directly support drop caps. Currently, I am implementing customizations to achieve this effect. Fixed font issues and audio file lacking voice content are submitted to the Whisper API, the response from the API may differ. Deployed the updates to TestFlight.
 
 2024-03-12 Tue: The launch screen text was updated to "One (Voice) Map," including a correction to capitalize the first letter. These updates were then deployed to TestFlight. Additionally, I'm exploring alternative hot reload solutions beyond CodePush.
 
