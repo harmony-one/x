@@ -60,12 +60,12 @@ class TwitterManager: ObservableObject {
         }
     }
     
-    func getAllTwitterListDetails(completion: @escaping (String) -> Void) {
+    func getAllTwitterListDetails(completion: @escaping ([String]) -> Void) {
         var details: [String] = []
         
         // Create a DispatchGroup
         let dispatchGroup = DispatchGroup()
-
+        
         for list in twitterLists {
             // Enter the DispatchGroup before starting each asynchronous task
             dispatchGroup.enter()
@@ -73,9 +73,9 @@ class TwitterManager: ObservableObject {
             TwitterAPI().getTwitterListBy(name: list.name ?? "") { result in
                 switch result {
                 case .success(let fetchedLists):
-                    let combinedText = fetchedLists.data.compactMap { $0.text }.joined(separator: "\n")
-                    details.append(combinedText)
-
+                    let texts = fetchedLists.data.compactMap { $0.text }
+                    details.append(contentsOf: texts)
+                    
                 case .failure(let error):
                     print("Error fetching lists: \(error)")
                     // Handle the error appropriately
@@ -85,14 +85,11 @@ class TwitterManager: ObservableObject {
                 dispatchGroup.leave()
             }
         }
-
+        
         // Notify when all asynchronous tasks are completed
         dispatchGroup.notify(queue: .main) {
-            // Combine all the details into a single string
-            let finalDetails = details.joined(separator: "\n")
-            
-            // Call the completion handler with the final string
-            completion(finalDetails)
+            // Call the completion handler with the final tweets array
+            completion(details)
         }
     }
 }
